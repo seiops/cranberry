@@ -9,7 +9,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 /*
 Polymer includes a shim for CSS Custom Properties that we can use for application theming.
-Below, you'll find the default palette for the Polymer Starter Kit Plus layout. Feel free to play
+Below, you'll find the default palette for the Cranberry layout. Feel free to play
 with changing the colors used or generate your own palette of colours at MaterialPalette.com.
 
 See https://www.polymer-project.org/1.0/docs/devguide/styling.html#xscope-styling-details
@@ -76,14 +76,14 @@ for further information on custom CSS properties.
   --light-theme-toggle-checked-bar-color: var(--accent-color);
   --light-theme-toggle-checked-button-color: var(--accent-color);
   --light-theme-toggle-checked-ink-color: var(--dark-accent-color);
-  
+
   --dark-theme-toggle-unchecked-bar-color: var(--paper-grey-400);
   --dark-theme-toggle-unchecked-button-color: var(--paper-grey-400);
   --dark-theme-toggle-unchecked-ink-color: var(--paper-grey-50);
   --dark-theme-toggle-checked-bar-color: var(--light-accent-color);
   --dark-theme-toggle-checked-button-color: var(--light-accent-color);
   --dark-theme-toggle-checked-ink-color: var(--light-accent-color);
-  
+
   --toggle-unchecked-bar-color: var(--$(themeMode)-theme-toggle-unchecked-bar-color);
   --toggle-unchecked-button-color: var(--$(themeMode)-theme-toggle-unchecked-button-color);
   --toggle-unchecked-ink-color: var(--$(themeMode)-theme-toggle-unchecked-ink-color);

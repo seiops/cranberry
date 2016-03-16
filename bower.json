@@ -1,5 +1,5 @@
 {
-  "name": "polymer-starter-kit-plus",
+  "name": "cranberry",
   "private": true,
   "dependencies": {
     "font-roboto": "StartPolymer/font-empty#1.1.0",

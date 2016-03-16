@@ -1,6 +1,6 @@
 module.exports = {
   baseUrl: '/',
-  baseCanonicalUrl: 'https://polymer-starter-kit-plus.appspot.com/',
+  baseCanonicalUrl: 'https://github.com/seiops/cranberry/',
   // Google Analytics Tracking ID
   googleAnalyticsTrackingId: 'UA-XXXX-Y'
 };

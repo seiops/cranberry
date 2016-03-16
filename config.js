@@ -9,7 +9,7 @@ try {
 
 module.exports = {
   // App name ID is used for iron-localstorage element and Service Worker cache ID
-  appNameId: 'polymer-starter-kit-plus',
+  appNameId: 'cranberry',
   // App theme is directory name in app/themes
   appTheme: 'default-theme',
   // App version from git is used for deploy task and frontend
@@ -44,49 +44,15 @@ module.exports = {
   // Deploy task
   deploy: {
     // Choose hosting
-    hosting: 'gae', // or firebase, gcs, ssh
+    hosting: 'ssh', // or firebase, gcs, ssh
     // Firebase
     // Firebase requires Firebase Command Line Tools to be installed and configured.
     // For info on tool: https://www.firebase.com/docs/hosting/command-line-tool.html
     firebase: {
       env: {
-        development: 'polymer-starter-kit-plus-dev', // subdomain
-        staging:     'polymer-starter-kit-plus-staging',
-        production:  'polymer-starter-kit-plus'
-      }
-    },
-    // Google App Engine
-    // GAE requires Google Cloud SDK to be installed and configured.
-    // For info on SDK: https://cloud.google.com/sdk/
-    gae: {
-      env: {
-        development: 'polymer-starter-kit-plus-dev', // project ID
-        staging:     'polymer-starter-kit-plus-staging',
-        production:  'polymer-starter-kit-plus'
-      },
-      // Promote the deployed version to receive all traffic.
-      // https://cloud.google.com/sdk/gcloud/reference/preview/app/deploy
-      promote: true
-    },
-    // Google Cloud Storage
-    // GCS requires Google Cloud SDK with gsutil to be installed and configured.
-    // For info on SDK: https://cloud.google.com/sdk/
-    gcs: {
-      acl: { // https://cloud.google.com/storage/docs/access-control
-        development: 'public-read',
-        staging:     'public-read',
-        production:  'public-read'
-      },
-      env: { // https://cloud.google.com/storage/docs/reference-uris
-        development: 'dev.example.com', // bucket
-        staging:     'staging.example.com',
-        production:  'www.example.com'
-      },
-      cacheTTL: {
-        development: '0',
-        staging:     '0',
-        production:  '315360000', // 10 years
-        productionNoCache: '300' // 5 min for files without revision hash
+        development: 'dev', // subdomain
+        staging:     'sta',
+        production:  'pro'
       }
     },
     // Any Linux hosting with SSH
@@ -111,7 +77,7 @@ module.exports = {
   pageSpeed: {
     key: '', // need uncomment in task
     nokey: true,
-    site: 'https://polymer-starter-kit-plus.firebaseapp.com',
+    site: 'https://github.com/seiops/cranberry',
     strategy: 'mobile' // or desktop
   },
   // Service Worker

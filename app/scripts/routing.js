@@ -20,7 +20,7 @@ let baseUrl = '/';
 if (window.location.port === '') {  // if production
   // Uncomment baseURL below and
   // set baseURL to '/your-pathname/' if running from folder in production
-  // baseUrl = '/polymer-starter-kit-plus/';
+  // baseUrl = '/cranberry/';
 
   // Removes end / from baseUrl which page.base requires for production
   page.base(baseUrl.replace(/\/$/, ''));
