@@ -3,9 +3,9 @@
 
 # TEAM
 
-Company:
-Developer:
-Site:
+Company: Standard-Examiner
+Developer: Adrian Barber, Michael Johnstone
+Site: standard.net
 From:
 
 # THANKS
@@ -14,7 +14,7 @@ Names:         Google, GitHub
 
 # SITE
 
-Boilerplate:   Polymer Starter Kit Plus
+Boilerplate:   Polymer
 Design:        Material Design
 Doctype:       HTML5
 Language:      English

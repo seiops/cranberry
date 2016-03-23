@@ -53,7 +53,7 @@ gulp.task('lint-js', ['ensureFiles'], function() {
       stream: true,
       once: true
     }));
-    
+
     //.pipe($.if(!browserSync.active, $.jshint.reporter('fail')));
 });
 
@@ -133,9 +133,7 @@ gulp.task('vulcanize', function() {
   return gulp.src('dist/elements/base-bundle.html')
     .pipe($.plumber())
     .pipe($.vulcanize({
-      stripComments: true,
-      inlineCss: true,
-      inlineScripts: true
+      stripComments: true
     }))
     // Split inline scripts from an HTML file for CSP compliance
     .pipe($.crisper())
@@ -170,8 +168,6 @@ gulp.task('vulcanize', function() {
 // id that ensure that multiple PSK projects don't share the same Cache Storage.
 // This task does not run by default, but if you are interested in using service worker caching
 // in your project, please enable it within the 'default' task.
-// See https://github.com/PolymerElements/polymer-starter-kit#enable-service-worker-support
-// for more context.
 gulp.task('cache-config', function(callback) {
   var dir = 'dist';
   var cacheConfig = {
@@ -313,7 +309,8 @@ gulp.task('views', require(task('views-nunjucks'))($, config, gulp));
 // Build Production Files, the Default Task
 gulp.task('default', ['clean'], function(cb) {
   runSequence(
-    ['copy', 'js', 'lint-js', 'lint', 'manifest', 'styles'],
+    // ['copy', 'js', 'lint-js', 'lint', 'manifest', 'styles'],
+    ['copy', 'js', 'lint-js', 'lint', 'styles'],
     ['fonts', 'html', 'images'],
     'vulcanize',
     'clean-dist',
