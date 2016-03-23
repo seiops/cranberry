@@ -133,9 +133,7 @@ gulp.task('vulcanize', function() {
   return gulp.src('dist/elements/base-bundle.html')
     .pipe($.plumber())
     .pipe($.vulcanize({
-      stripComments: true,
-      inlineCss: true,
-      inlineScripts: true
+      stripComments: true
     }))
     // Split inline scripts from an HTML file for CSP compliance
     .pipe($.crisper())
