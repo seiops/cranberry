@@ -38,13 +38,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     // (Optional) Use native Shadow DOM if it's available in the browser.
     // WARNING! This will mess up the page.js router which uses event delegation
     // and expects to receive events from anchor tags. These events get re-targeted
-    // by the Shadow DOM to point to <my-app>
+    // by the Shadow DOM to point to <cranberry-base>
     // window.Polymer = window.Polymer || {dom: 'shadow'};
 
     // When base-bundle.html with elements is loaded
     var onImportLoaded = function() {
       logger('Imports are loaded and elements have been registered!');
-      
+
       // Remove skeleton
       var skeleton = document.getElementById('skeleton');
       skeleton.remove();
