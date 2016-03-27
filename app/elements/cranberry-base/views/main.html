@@ -17,8 +17,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <div class="Main-headerTopBar top">
       <paper-icon-button id="paperToggle" class="Main-headerButton" icon="menu" paper-drawer-toggle></paper-icon-button>
       <span class="u-spacer"></span>
-      <!-- <paper-icon-button class="Main-headerButton" icon="search"></paper-icon-button> -->
-      <!-- <paper-icon-button class="Main-headerButton" icon="bell-outline"></paper-icon-button> -->
+      <paper-icon-button class="Main-headerButton" icon="search"></paper-icon-button>
+      <paper-icon-button class="Main-headerButton" icon="bell-outline"></paper-icon-button>
     </div>
 
     <!-- Header title -->
@@ -35,9 +35,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <!-- Main Content -->
   <iron-pages class="Main-content" attr-for-selected="data-route" selected="{{route}}">
     {% include "cranberry-base/views/pages/home.html" %}
-    <!-- {% include "cranberry-base/views/pages/users.html" %}
+    {% include "cranberry-base/views/pages/users.html" %}
     {% include "cranberry-base/views/pages/user-info.html" %}
     {% include "cranberry-base/views/pages/contact.html" %}
-    {% include "cranberry-base/views/pages/settings.html" %} -->
+    {% include "cranberry-base/views/pages/settings.html" %}
   </iron-pages>
 </paper-scroll-header-panel>
