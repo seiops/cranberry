@@ -27,6 +27,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
   };
 
+  app.logger = logger;
+
   // Conditionally load the webcomponents polyfill if needed by the browser.
   // This feature detect will need to change over time as browsers implement
   // different features.
@@ -43,7 +45,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     // When base-bundle.html with elements is loaded
     var onImportLoaded = function() {
-      logger('Imports are loaded and elements have been registered!');
+      logger('Imports loaded and elements registered.');
 
       // Remove skeleton
       var skeleton = document.getElementById('skeleton');
@@ -78,14 +80,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     script.onload = finishLazyLoading;
     document.head.appendChild(script);
   } else {
-    logger('Web Components are supported!');
+    logger('Web Component support detected.');
     finishLazyLoading();
   }
 
   // Listen for template bound event to know when bindings
   // have resolved and content has been stamped to the page
   app.addEventListener('dom-change', () => {
-    logger('Our app is ready to rock!');
+    logger('Cranberry content loaded.');
   });
 
   // See https://github.com/Polymer/polymer/issues/1381
