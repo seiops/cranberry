@@ -8,27 +8,34 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 
-/* global Polymer */
+/* Gigya Socialize JS library integration */
 
 class GigyaSocialize {
   beforeRegister() {
     this.is = 'gigya-socialize';
     this.properties = {
       items: {
-        type: Array,
+        type: Object,
         notify: true
       }
     };
   }
   ready() {
-    this.items = [
-      'Responsive Web App boilerplate',
-      'Iron Elements and Paper Elements',
-      'End-to-end Build Tooling (including Vulcanize)',
-      'Unit testing with Web Component Tester',
-      'Routing with Page.js',
-      'Offline support with the Platinum Service Worker Elements'
-    ];
+    var checkGigya = function () {
+      setTimeout(function () {
+        if (typeof gigya !== 'undefined') {
+          // Gigya callback goes here.
+          // Bind to login and logout evenets.
+          app.logger("Finished loading Gigya Socialize.");
+          console.dir(gigya.accounts);
+          return;
+
+        } else {
+          checkGigya();
+        }
+      }, 1000);
+    };
+    checkGigya();
   }
 }
 
