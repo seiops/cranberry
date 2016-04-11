@@ -34,24 +34,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
 
 <!-- Custom elements -->
-<link rel="import" href="../my-greeting/my-greeting.html">
-<link rel="import" href="../my-list/my-list.html">
+<link rel="import" href="../gigya-socialize/gigya-socialize.html">
 
-<dom-module id="my-app">
+<dom-module id="cranberry-base">
 
   <template>
     <style include="shared-styles">
       @import "theme.css";
     </style>
-    
+
     <iron-localstorage id="localStorage" name="{$ config.appNameId $}"
       value="{{storage}}"
       on-iron-localstorage-load-empty="initializeDefaultStorage">
     </iron-localstorage>
 
     <paper-drawer-panel id="paperDrawerPanel" responsive-width="599px" drawer-width="256px">
-      {% include "my-app/views/drawer.html" %}
-      {% include "my-app/views/main.html" %}
+      {% include "cranberry-base/views/drawer.html" %}
+      {% include "cranberry-base/views/main.html" %}
     </paper-drawer-panel>
 
     <paper-toast id="confirmToast" class="Toast" duration="10000">
@@ -61,6 +60,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <paper-toast id="infoToast" class="Toast" duration="8000"></paper-toast>
   </template>
 
-  <script src="my-app.js"></script>
+  <script src="cranberry-base.js"></script>
 
 </dom-module>

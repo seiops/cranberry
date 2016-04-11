@@ -83,8 +83,8 @@ page('*', scrollToTop, closeDrawer, (ctx, next) => {
 function setHomePage() {
   function setData() {
     app.route = 'home';
-    app.pageTitle = 'Polymer';
-    app.pageSubTitle = 'The future of the web today';
+    app.pageTitle = 'Home';
+    app.pageSubTitle = 'Default home page.';
     setFocus(app.route);
   }
 

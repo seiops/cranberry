@@ -10,9 +10,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 /* global Polymer */
 
-class MyApp {
+class cranberryBase {
   beforeRegister() {
-    this.is = 'my-app';
+    this.is = 'cranberry-base';
     this.properties = {
       /**
        * Signal to the outside world that this element
@@ -99,7 +99,7 @@ class MyApp {
     };
     let accentColorName = accentColors[color];
     let themeMode = 'light';
-    
+
     if (this.$.darkThemeToggle.checked) {
       themeMode = 'dark';
     }
@@ -108,9 +108,9 @@ class MyApp {
     this.customStyle['--light-accent-color'] = this.getComputedStyleValue(`--paper-${accentColorName}-a100`);
     this.customStyle['--dark-accent-color'] = this.getComputedStyleValue(`--paper-${accentColorName}-a400`);
     this.customStyle['--darker-accent-color'] = this.getComputedStyleValue(`--paper-${accentColorName}-a700`);
-    
+
     this.updateStyles();
-    
+
     this.customStyle['--toggle-checked-bar-color'] = this.getComputedStyleValue(`--${themeMode}-theme-toggle-checked-bar-color`);
     this.customStyle['--toggle-checked-button-color'] = this.getComputedStyleValue(`--${themeMode}-theme-toggle-checked-button-color`);
     this.customStyle['--toggle-checked-ink-color'] = this.getComputedStyleValue(`--${themeMode}-theme-toggle-checked-ink-color`);
@@ -144,4 +144,4 @@ class MyApp {
   }
 }
 
-Polymer(MyApp);
+Polymer(cranberryBase);

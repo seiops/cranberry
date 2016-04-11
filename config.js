@@ -69,6 +69,10 @@ module.exports = {
       user: 'root'
     }
   },
+  // Gigya
+  gigya: {
+    apiKey: '3_6UHHWrJ4LmAOWWdgqP0UWqk-2InoMn5NH8Lo1aOfcmFl6zAS4u_-IxvC3mbGAxch'
+  },
   // PageSpeed Insights
   // Please feel free to use the `nokey` option to try out PageSpeed
   // Insights as part of your build process. For more frequent use,
