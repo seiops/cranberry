@@ -9,7 +9,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-
+<link rel="import" href="../../bower_components/iron-form/iron-form.html">
+<link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../bower_components/iron-input/iron-input.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <dom-module id="gigya-socialize">
   <template>
     <style>
@@ -17,8 +24,53 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
     <script type="text/javascript" src="https://cdns.gigya.com/JS/gigya.js?apikey={$ config.gigya.apiKey $}"></script>
     <div id="Gigya-Container">
-      <a href="#" onclick="gigya.accounts.showScreenSet({screenSet:'cranberry-RegistrationLogin'});">Login</a>
-    </div>
+      <!-- <a href="#" onclick="gigya.accounts.showScreenSet({screenSet:'cranberry-RegistrationLogin'});">Login</a> -->
+    </div><byutv-jsonp
+        on-response="handleResponse"
+        debounce-duration="300" id="requestor"></byutv-jsonp>
+
+    <form is="iron-form" method="post" with-credentials="true" content-type="application/jsonp" action="http://sedevcore.libercus.net/gigya?request=login" id="form">
+      <paper-input name="loginID" label="Username"  required auto-validate error-message="You must provide a username." allowed-pattern="[A-zA-Z0-9]" auto-complete></paper-input>
+      <paper-input name="password" label="Password" type="password" required auto-validate error-message="You must provide a password."></paper-input>
+      <input type="hidden" name="client_id" value="{$ config.gigya.apiKey $}" />
+      <input type="hidden" name="response_type" value="token" />
+      <input type="hidden" name="x_provider" value="facebook" />
+      <input type="hidden" name="redirect_uri" value="http://www.standard.net" />
+      <paper-button onclick="_submit(event)">Submit</paper-button>
+      <paper-button onclick="_reset(event)">Reset</paper-button>
+      <div class="output"></div>
+    </form>
+    <script>
+
+      function _submit(event) {
+        console.dir();
+        requestor.url = "http://sedevcore.libercus.net/gigya"
+        var params = {};
+        params.request = "login";
+        params.loginID = form.loginID.value;
+        params.password = form.password.value;
+
+        requestor.params = params;
+
+        requestor.generateRequest();
+
+        console.log(requestor.params.loginID.toString());
+      }
+      function _reset(event) {
+        var form = Polymer.dom(event).localTarget.parentElement
+        form.reset();
+        form.querySelector('.output').innerHTML = '';
+      }
+      form.addEventListener('iron-form-submit', function(event) {
+        this.querySelector('.output').innerHTML = JSON.stringify(event.detail);
+      });
+      form.addEventListener('iron-form-response', function(event) {
+        this.querySelector('.output').innerHTML = JSON.stringify(event.detail);
+      });
+            form.addEventListener('iron-form-error', function(event) {
+        this.querySelector('.output').innerHTML = JSON.stringify(event.detail);
+      });
+    </script>
   </template>
   <script src="gigya-socialize.js"></script>
 

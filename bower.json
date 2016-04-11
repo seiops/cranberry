@@ -26,7 +26,9 @@
     "iron-form": "^1.0.16",
     "paper-spinner": "^1.1.1",
     "paper-checkbox": "^1.1.3",
-    "paper-button": "^1.0.11"
+    "paper-button": "^1.0.11",
+    "iron-ajax": "^1.2.0",
+    "byutv-jsonp": "^1.2.0"
   },
   "devDependencies": {
     "web-component-tester": "4.2.0"

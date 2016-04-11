@@ -11,6 +11,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 /* Gigya Socialize JS library integration */
 
 class GigyaSocialize {
+  handleResponse (data) {
+      console.dir(JSON.parse(data.detail.Result));
+    }
   beforeRegister() {
     this.is = 'gigya-socialize';
     this.properties = {

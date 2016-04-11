@@ -11,3 +11,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 :host {
   display: block;
 }
+
+paper-spinner {
+  width: 14px;
+  height: 14px;
+  margin-right: 20px;
+}
