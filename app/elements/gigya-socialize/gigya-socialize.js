@@ -12,8 +12,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 class GigyaSocialize {
   handleResponse (data) {
-      console.dir(JSON.parse(data.detail.Result));
+    var restResponse = JSON.parse(data.detail.Result);
+    console.dir(restResponse);
+
+    var responseMessage = '';
+
+    if (typeof restResponse !== undefined && restResponse.errorCode === 0) {
+      responseMessage = 'User: ' + restResponse.profile.nickname + '<br />UID: ' + restResponse.UID + '<br />Signature: ' + restResponse.UIDSignature + '<br />Provider: ' + restResponse.loginProvider;
+    } else {
+      responseMessage = restResponse.errorDetails;
     }
+
+
+    form.querySelector('.output').innerHTML = responseMessage;
+  }
   beforeRegister() {
     this.is = 'gigya-socialize';
     this.properties = {
