@@ -13,11 +13,29 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 class GigyaSocialize {
   handleResponse (data) {
     var restResponse = JSON.parse(data.detail.Result);
-    console.dir(restResponse);
 
+    console.dir(restResponse);
     var responseMessage = '';
 
     if (typeof restResponse !== undefined && restResponse.errorCode === 0) {
+
+      var params = {
+          provider:restResponse.loginProvider,
+          callback: this.onlogin(data),
+          UID: restResponse.UID,
+          UIDSignature: restResponse.UIDSignature,
+          signatureTimestamp: restResponse.signatureTimestamp
+      };
+
+      params.provider = restResponse.loginProvider;
+
+      gigya.socialize.getUserInfo(params);
+
+      console.log('socialized');
+
+      console.log('poop');
+      gigya.socialize.getUserInfo(callback: this.onlogin(data));
+
       responseMessage = 'User: ' + restResponse.profile.nickname + '<br />UID: ' + restResponse.UID + '<br />Signature: ' + restResponse.UIDSignature + '<br />Provider: ' + restResponse.loginProvider;
     } else {
       responseMessage = restResponse.errorDetails;
@@ -26,6 +44,23 @@ class GigyaSocialize {
 
     form.querySelector('.output').innerHTML = responseMessage;
   }
+  onlogin (meh) {
+    console.log('onlogin');
+    console.dir(JSON.parse(meh.detail.Result));
+  }
+  _submit(event) {
+        request.url = "http://sedevcore.libercus.net/gigya"
+
+        var params = {};
+
+        params.request = "login";
+        params.loginID = form.loginID.value;
+        params.password = form.password.value;
+
+        request.params = params;
+
+        request.generateRequest();
+      }
   beforeRegister() {
     this.is = 'gigya-socialize';
     this.properties = {
