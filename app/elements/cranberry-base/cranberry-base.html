@@ -18,6 +18,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/iron-localstorage/iron-localstorage.html">
 <link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 
 <!-- Paper elements -->
 <link rel="import" href="../../bower_components/paper-drawer-panel/paper-drawer-panel.html">
@@ -35,6 +36,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <!-- Custom elements -->
 <link rel="import" href="../gigya-socialize/gigya-socialize.html">
+<link rel="import" href="../content-view/content-view.html">
 
 <dom-module id="cranberry-base">
 
@@ -48,7 +50,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       on-iron-localstorage-load-empty="initializeDefaultStorage">
     </iron-localstorage>
 
-    <paper-drawer-panel id="paperDrawerPanel" responsive-width="599px" drawer-width="256px">
+    <paper-drawer-panel id="paperDrawerPanel" responsive-width="599px" drawer-width="240px">
       {% include "cranberry-base/views/drawer.html" %}
       {% include "cranberry-base/views/main.html" %}
     </paper-drawer-panel>
