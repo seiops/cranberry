@@ -10,29 +10,45 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <!-- Drawer Scroll Header Panel -->
 <paper-scroll-header-panel class="Drawer" drawer fixed>
-  <!-- Drawer Toolbar -->
   <paper-toolbar class="Drawer-header">
-    <span class="Drawer-title">{$ appName $}</span>
+    <span class="Drawer-title">{$ siteName $}</span>
   </paper-toolbar>
-
   <!-- Drawer Content -->
   <div class="Drawer-content">
     <!-- Navigation -->
     <nav class="Drawer-widget">
       <paper-menu class="Navigation Navigation--menu list" attr-for-selected="data-route" selected="[[route]]">
+
         <a class="Navigation-link" data-route="home" href$="{{baseUrl}}">
-          <iron-icon class="Navigation-icon" icon="home"></iron-icon>
+          <iron-icon class="Navigation-icon" icon="dashboard"></iron-icon>
           <span class="Navigation-text">Home</span>
         </a>
 
-        <a class="Navigation-link" data-route="users" href$="{{baseUrl}}users">
-          <iron-icon class="Navigation-icon" icon="supervisor-account"></iron-icon>
-          <span class="Navigation-text">Users</span>
+        Taylor Veloni - Implementation Guy: Scoping, Phase 2 Conversations
+
+        <a class="Navigation-link" data-route="users" href$="{{baseUrl}}sections">
+          <iron-icon class="Navigation-icon" icon="apps"></iron-icon>
+          <span class="Navigation-text">Sections</span>
+        </a>
+
+        <a class="Navigation-link" data-route="users" href$="{{baseUrl}}video">
+          <iron-icon class="Navigation-icon" icon="theaters"></iron-icon>
+          <span class="Navigation-text">Video</span>
         </a>
 
         <a class="Navigation-link" data-route="contact" href$="{{baseUrl}}contact">
           <iron-icon class="Navigation-icon" icon="mail"></iron-icon>
           <span class="Navigation-text">Contact</span>
+        </a>
+
+        <a class="Navigation-link" data-route="contact" href$="{{baseUrl}}terms">
+          <iron-icon class="Navigation-icon" icon="subject"></iron-icon>
+          <span class="Navigation-text">Terms of Service</span>
+        </a>
+
+        <a class="Navigation-link" data-route="contact" href$="{{baseUrl}}privacy">
+          <iron-icon class="Navigation-icon" icon="lock"></iron-icon>
+          <span class="Navigation-text">Privacy Policy</span>
         </a>
       </paper-menu>
     </nav>
@@ -43,7 +59,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <paper-menu class="Navigation Navigation--menu list" attr-for-selected="data-route" selected="[[route]]">
         <a class="Navigation-link" data-route="settings" href$="{{baseUrl}}settings" rel="nofollow">
           <iron-icon class="Navigation-icon" icon="settings"></iron-icon>
-          <span class="Navigation-text">Settings</span>
+          <span class="Navigation-text">Site Settings</span>
         </a>
       </paper-menu>
 
@@ -53,7 +69,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <span class="Navigation-text">Submit Feedback</span>
         </a>
 
-        <a class="Navigation-link" href="" target="_blank">
+        <a class="Navigation-link" href="" target="_blank" href$="{{baseUrl}}help">>
           <iron-icon class="Navigation-icon" icon="help"></iron-icon>
           <span class="Navigation-text">Help</span>
         </a>

@@ -21,20 +21,16 @@ class GigyaSocialize {
 
       var params = {
           provider:restResponse.loginProvider,
-          callback: this.onlogin(data),
+          callback: this._onlogin(data),
           UID: restResponse.UID,
           UIDSignature: restResponse.UIDSignature,
           signatureTimestamp: restResponse.signatureTimestamp
       };
 
-      params.provider = restResponse.loginProvider;
+      restResponse.callback = this._onlogin(data);
+
 
       gigya.socialize.getUserInfo(params);
-
-      console.log('socialized');
-
-      console.log('poop');
-      gigya.socialize.getUserInfo(callback: this.onlogin(data));
 
       responseMessage = 'User: ' + restResponse.profile.nickname + '<br />UID: ' + restResponse.UID + '<br />Signature: ' + restResponse.UIDSignature + '<br />Provider: ' + restResponse.loginProvider;
     } else {
@@ -44,8 +40,9 @@ class GigyaSocialize {
 
     form.querySelector('.output').innerHTML = responseMessage;
   }
-  onlogin (meh) {
+  _onlogin (meh) {
     console.log('onlogin');
+    console.dir(meh);
     console.dir(JSON.parse(meh.detail.Result));
   }
   _submit(event) {

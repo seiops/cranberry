@@ -59,10 +59,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   @nest &-headerMiddleBar {
     @apply(--layout-horizontal);
-    @apply(--layout-end);
+    @apply(--layout-center);
 
     height: 100%;
-    margin-left: 54px;
+    margin-left: 24px;
 
     @media (--md-viewport) {
       margin-left: 64px;
@@ -80,6 +80,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     @media (--md-viewport) {
       margin-left: 64px;
+    }
+  }
+
+  @nest &-siteTitle {
+    @apply(--paper-font-display1);
+    margin: 0;
+
+    /* Required for main area's paper-scroll-header-panel custom condensing transformation */
+    transform-origin: left center;
+
+    @media (--md-viewport) {
+      @apply(--paper-font-display1);
     }
   }
 

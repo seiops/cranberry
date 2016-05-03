@@ -8,5 +8,6 @@ module.exports = {
   // Add to homescreen for Chrome on Android
   applicationName: 'CRAN',
   // Add to homescreen for Safari on iOS
-  appleMobileWebAppTitle: 'CRAN'
+  appleMobileWebAppTitle: 'CRAN',
+  siteName: 'Standard-Examiner'
 };

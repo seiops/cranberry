@@ -10,25 +10,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <!-- Main Area -->
 <paper-scroll-header-panel id="headerPanelMain" class="Main" main condenses keep-condensed-header>
-
   <!-- Main Toolbar -->
   <paper-toolbar class="Main-header tall">
     <!-- Header icons -->
     <div class="Main-headerTopBar top">
-      <paper-icon-button id="paperToggle" class="Main-headerButton" icon="menu" paper-drawer-toggle></paper-icon-button>
       <span class="u-spacer"></span>
       <paper-icon-button class="Main-headerButton" icon="search"></paper-icon-button>
-      <paper-icon-button class="Main-headerButton" icon="bell-outline"></paper-icon-button>
+      <paper-icon-button class="Main-headerButton" icon="account-balance-wallet" title="Wallet"></paper-icon-button>
+      <paper-icon-button class="Main-headerButton" icon="account-circle" title="Wallet"></paper-icon-button>
     </div>
-
+      <span class="u-spacer"></span>
     <!-- Header title -->
-    <div class="Main-headerMiddleBar middle">
-      <h1 class="Main-headerTitle">{{ pageTitle }}</h1>
-    </div>
-
-    <!-- Header sub title -->
-    <div class="Main-headerBottomBar bottom">
-      <div class="Main-headerSubTitle">{{ pageSubTitle }}</div>
+    <div class="Main-headerMiddleBar bottom">
+      <paper-icon-button id="paperToggle" class="Main-headerButton" icon="menu" paper-drawer-toggle></paper-icon-button><h1 class="Main-headerTitle">{{ pageTitle }}</h1>
     </div>
   </paper-toolbar>
 

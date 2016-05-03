@@ -122,6 +122,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   // The headerTitle is moved to top and shrunk on condensing. The bottom sub title
   // is shrunk to nothing on condensing.
   window.addEventListener('paper-header-transform', e => {
+    let siteTitle = app.querySelector('.Main-siteTitle');
     let headerTitle = app.querySelector('.Main-headerTitle');
     let headerSubTitle = app.querySelector('.Main-headerSubTitle');
     let headerMiddleBar = app.querySelector('.Main-headerMiddleBar');
@@ -139,17 +140,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     // Move/translate headerMiddleContent and headerBottomContent
     if (window.matchMedia('(min-width: 600px)').matches) {
-      Polymer.Base.transform(`translate3d(0,${yRatio2 * 100}%,0)`, headerMiddleBar);
+      Polymer.Base.transform(`translate3d(0,${yRatio2 * 4}px,0)`, headerMiddleBar);
     } else {
-      Polymer.Base.transform(`translate3d(${yRatio * 18}px,${yRatio2 * 100}%,0)`,
+      Polymer.Base.transform(`translate3d(0,${yRatio2 * 4}px,0)`,
         headerMiddleBar);
-      Polymer.Base.transform(`translate3d(${yRatio * 18}px,0,0)`, headerBottomBar);
+      // Polymer.Base.transform(`translate3d(${yRatio * 18}px,0,0)`, headerBottomBar);
     }
 
     // Scale headerTitle
     Polymer.Base.transform(`scale(${scaleMiddle}) translateZ(0)`, headerTitle);
+    // Polymer.Base.transform(`translate3d(1px,0,0)`, siteTitle);
     // Scale headerSubTitle
-    Polymer.Base.transform(`scale(${scaleBottom}) translateZ(0)`, headerSubTitle);
+    // Polymer.Base.transform(`scale(${scaleBottom}) translateZ(0)`, headerSubTitle);
   });
 
 })(document);
