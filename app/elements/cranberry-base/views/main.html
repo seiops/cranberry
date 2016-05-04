@@ -25,7 +25,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <paper-icon-button id="paperToggle" class="Main-headerButton" icon="menu" paper-drawer-toggle></paper-icon-button><h1 class="Main-headerTitle">{{ pageTitle }}</h1>
     </div>
   </paper-toolbar>
+    <!-- carbon-location binds with the URL and produces a route for
+    carbon-route elements to consume. Since this demo needs to run without
+    server cooperation (e.g. with polyserve, in the elements catalog, etc) we'll
+    use the hash portion of the URL for our route paths. -->
+    <carbon-location route={{route}} use-hash-as-path></carbon-location>
 
+    <!-- carbon-routes parse route paths based on the their `pattern`.
+    Parameters are extracted into the `data` object. The rest of the path that
+    comes after the `pattern` is put into the `tail` object, which can be
+    passed to the `route` property of downstream carbon-routes. -->
+    <carbon-route route="{{route}}" pattern="/:page" data="{{data}}"></carbon-route>
+    <carbon-route route="{{route}}" pattern="/search" tail="{{searchTail}}"></carbon-route>
+    <carbon-route route="{{route}}" pattern="/video" tail="{{videoTail}}" active="{{videoPageActive}}"></carbon-route>
   <!-- Main Content -->
   <iron-pages class="Main-content" attr-for-selected="data-route" selected="{{route}}">
     {% include "cranberry-base/views/pages/home.html" %}
