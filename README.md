@@ -50,46 +50,8 @@ Install `gulp` and `bower` globally.
    ```sh
    npm install -g gulp bower
    ```
-   
-## Getting Started
 
-To take advantage of Polymer Starter Kit Plus you need to:
-
-1. [Get a copy of the code.](https://github.com/StartPolymer/polymer-starter-kit-plus#1-get-the-code)
-2. [Install the dependencies if you don't already have them.](https://github.com/StartPolymer/polymer-starter-kit-plus#2-install-dependencies)
-3. [Modify the application to your liking.](https://github.com/StartPolymer/polymer-starter-kit-plus#3-development-workflow)
-4. [Deploy your production code.](https://github.com/StartPolymer/polymer-starter-kit-plus#4-deploy-app-tada)
-
-### 1. Get the code
-
-Polymer Starter Kit Plus comes in two flavours - Lite (branch `lite`) and Full (branch `master`). [Lite version](https://github.com/StartPolymer/polymer-starter-kit-plus/tree/lite) doesn't contain demo content!
-
-[Download](https://github.com/StartPolymer/polymer-starter-kit-plus/releases/latest) and extract Polymer Starter Kit Plus to where you want to work.
-
-OR Install [Start Polymer Generator](https://github.com/StartPolymer/generator-startpolymer#installation) and run `yo startpolymer` in `my-project` directory.
-
-:warning: **Important**: Polymer Starter Kit Plus contain dotfiles (files starting with a `.`). If you're copying the contents of the Starter Kit to a new location make sure you bring along these dotfiles as well! On Mac, [enable showing hidden files](http://ianlunn.co.uk/articles/quickly-showhide-hidden-files-mac-os-x-mavericks/), then try extracting/copying Polymer Starter Kit Plus again. This time the dotfiles needed should be visible so you can copy them over without issues.
-
-Rob Dodson has a fantastic [PolyCast video](https://www.youtube.com/watch?v=xz-yixRxZN8) available that walks through using Polymer Starter Kit. An [end-to-end with Polymer](https://www.youtube.com/watch?v=1f_Tj_JnStA) and Polymer Starter Kit talk is also available.
-
-#### Updating from previous version
-
-If you've previously downloaded a copy of the full Starter Kit and would like to update to the latest version, here's a git workflow for doing so:
-
-```sh
-git init
-git checkout -b master
-git add .
-git commit -m 'Check-in 1.0.1'
-git remote add upstream https://github.com/StartPolymer/polymer-starter-kit-plus.git
-git fetch upstream
-git merge upstream/master # OR git merge upstream/lite
-# resolve the merge conflicts in your editor
-git add . -u
-git commit -m 'Updated to 1.0.2'
 ```
-
-### 2. Install dependencies
 
 #### Quick-start (for experienced users)
 
@@ -145,10 +107,9 @@ a dependency failed to correctly install. We recommend running `npm cache clean`
 `npm install` to see if this corrects the problem. If not, please check the [issue tracker](https://github.com/StartPolymer/polymer-starter-kit-plus/issues) in case
 there is a workaround or fix already posted.
 
-### 3. Development workflow
 
-#### Check out the variables
+#### Variables
 
-- Gulp variables -  [config.js](https://github.com/StartPolymer/polymer-starter-kit-plus/blob/master/config.js)
-- Theme variables -  [variables.css](https://github.com/StartPolymer/polymer-starter-kit-plus/blob/master/app/themes/default-theme/variables.css) and [variables.js](https://github.com/StartPolymer/polymer-starter-kit-plus/blob/master/app/themes/default-theme/variables.js)
-- HTML metadata -  [metadata.js](https://github.com/StartPolymer/polymer-starter-kit-plus/blob/master/app/metadata.js)
+- Gulp variables -  [config.js](https://github.com/seiops/cranberry/blob/master/config.js)
+- Theme variables -  [variables.css](https://github.com/seiops/cranberry/blob/master/app/themes/default-theme/variables.css) and [variables.js](https://github.com/seiops/cranberry/blob/master/app/themes/default-theme/variables.js)
+- HTML metadata -  [config.js](https://github.com/seiops/cranberry/blob/master/app/metadata/config.js) and [general.js](https://github.com/seiops/cranberry/blob/master/app/metadata/general.js)
