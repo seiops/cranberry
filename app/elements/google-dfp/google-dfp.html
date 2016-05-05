@@ -1,6 +1,14 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
 <dom-module id="google-dfp">
+  <style>
+    :host {
+      display: block;
+    }
+    div.advertisement div{
+      margin: 0 auto;
+    }
+  </style>
     <script>
       var adStructure = {
         adGroupID: '{$ config.dfpAdStructure.adGroupID $}',
@@ -17,6 +25,9 @@
         },
         pencil_pushdown: {
           adSize:[ {$ config.dfpAdStructure.pencil_pushdown.adSize $} ]
+        },
+        leaderboard_bottom: {
+          adSize:[ {$ config.dfpAdStructure.leaderboard_bottom.adSize $} ]
         }
       }
     </script>

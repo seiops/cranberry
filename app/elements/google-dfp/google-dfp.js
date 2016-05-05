@@ -40,9 +40,10 @@ class GoogleDFP {
       //TODO Write logic for pulling in site specific from config files.
       //TODO Replace adStructure with object from site specific config.js files
       //TODO Replace parentSection and childSection with route information from app
-      var parentSection = (newValue == 'home' ? 'frontpage' : 'news'),
-          childSection = (newValue == 'home' ? '' : 'education');
-      
+      console.info(newValue);
+      var parentSection = (newValue == 'sample-grid' ? 'frontpage' : 'news'),
+          childSection = (newValue == 'sample-grid' ? '' : 'education');
+
       function checkGoogleTag() {
         if (googletag.apiReady) {
           initDFP();
@@ -78,6 +79,9 @@ class GoogleDFP {
               break;
             case 'pencil_pushdown':
               _setupSlot('pencil_pushdown', adStructure.pencil_pushdown.adSize);
+              break;
+            case 'leaderboard_bottom':
+              _setupSlot('leaderboard_bottom', adStructure.leaderboard_bottom.adSize);
               break;
           }
         }
