@@ -1,12 +1,31 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
 <dom-module id="google-dfp">
-
+    <script>
+      var adStructure = {
+        adGroupID: '{$ config.dfpAdStructure.adGroupID $}',
+        adGrouping: '{$ config.dfpAdStructure.adGrouping $}',
+        adSubGrouping: '{$ config.dfpAdStructure.adSubGrouping $}',
+        top_of_stream: {
+          adSize:[ {$ config.dfpAdStructure.top_of_stream.adSize $} ]
+        },
+        middle_of_stream: {
+          adSize:[ {$ config.dfpAdStructure.middle_of_stream.adSize $} ]
+        },
+        bottom_of_stream: {
+          adSize:[ {$ config.dfpAdStructure.bottom_of_stream.adSize $} ]
+        },
+        pencil_pushdown: {
+          adSize:[ {$ config.dfpAdStructure.pencil_pushdown.adSize $} ]
+        }
+      }
+    </script>
     <script src="../../scripts/gpt.js">
       googletag = window.googletag || {};
       googletag.cmd = googletag.cmd || [];
+
     </script>
 
     <script src="google-dfp.js"></script>
-    
+
 </dom-module>

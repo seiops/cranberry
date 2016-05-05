@@ -41,24 +41,8 @@ class GoogleDFP {
       //TODO Replace adStructure with object from site specific config.js files
       //TODO Replace parentSection and childSection with route information from app
       var parentSection = (newValue == 'home' ? 'frontpage' : 'news'),
-          childSection = (newValue == 'home' ? '' : 'education'),
-          adStructure = {
-            adGroupID: 30103046,
-            adGrouping: 'Ogden_Publisher',
-            adSubGrouping: 'Standard_Examiner',
-            top_of_stream: {
-              adSize: [[300,250],[300,600]]
-            },
-            middle_of_stream: {
-              adSize: [300,250]
-            },
-            bottom_of_stream: {
-              adSize: [300,250]
-            },
-            pencil_pushdown: {
-              adSize: [970,30]
-            }
-          };
+          childSection = (newValue == 'home' ? '' : 'education');
+      
       function checkGoogleTag() {
         if (googletag.apiReady) {
           initDFP();
