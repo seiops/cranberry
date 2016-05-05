@@ -1,24 +1,12 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
 <dom-module id="google-dfp">
-    <template>
-      <div id="scriptHolder"></div>
-    </template>
 
-    <script type="text/javascript">
-      function _dfpScriptAppend(node) {
-        googletag = window.googletag || {};
-        googletag.cmd = googletag.cmd || [];
-          (function() {
-            var gads = document.createElement("script");
-            gads.async = true;
-            gads.type = "text/javascript";
-            var useSSL = "https:" == document.location.protocol;
-            gads.src = (useSSL ? "https:" : "http:") + "//www.googletagservices.com/tag/js/gpt.js";
-            node.appendChild(gads);
-          })();
-      }
+    <script src="../../scripts/gpt.js">
+      googletag = window.googletag || {};
+      googletag.cmd = googletag.cmd || [];
     </script>
 
     <script src="google-dfp.js"></script>
+    
 </dom-module>

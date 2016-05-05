@@ -11,8 +11,6 @@ class GoogleDFP {
     }
 
     ready() {
-      //append the google gpt script for DFP
-      _dfpScriptAppend(this.$.scriptHolder);
       //Define app
       let app = document.querySelector('#app');
       //Log DFP has loaded
@@ -61,52 +59,45 @@ class GoogleDFP {
               adSize: [970,30]
             }
           };
-
-        //Check for googletag being avaialbe timeout function
-        let checkGoogleTag = function(thisElement, newSectionAds, oldSectionAds) {
-          setTimeout(function() {
-            //Check for googletag's presense and if api is ready.
-            if (typeof window.googletag !== 'undefined' && window.googletag.apiReady) {
-              //Destroy all googletag ad slots. This will prevent ad units, from the first page in the DOM, from being displayed on page change.
-              googletag.destroySlots();
-
-              //Empty old pages ads.
-              if (oldSectionAds.length !== 0) {
-                //empty old divs
-                for (let i = 0; i < oldSectionAds.length; i++) {
-                  oldSectionAds[i].innerHTML = '';
-                }
-              }
-
-              //Iterate through newSectionAds (current section from route)
-              for (let i = 0; i < newSectionAds.length; i++) {
-                //Switch on positions creating slots for ads.
-                switch(newSectionAds[i].getAttribute('position')) {
-                  case 'top_of_stream':
-                    _setupSlot('top_of_stream', adStructure.top_of_stream.adSize);
-                    break;
-                  case 'middle_of_stream':
-                    _setupSlot('middle_of_stream', adStructure.middle_of_stream.adSize);
-                    break;
-                  case 'bottom_of_stream':
-                    _setupSlot('bottom_of_stream', adStructure.bottom_of_stream.adSize);
-                    break;
-                  case 'pencil_pushdown':
-                    _setupSlot('pencil_pushdown', adStructure.pencil_pushdown.adSize);
-                    break;
-                }
-              }
-            } else {
-              //Run checkGoogleTag if googletag was undefined or api wasn't ready.
-              checkGoogleTag(thisElement, newSectionAds, oldSectionAds);
-            }
-        }, 1000);
+      function checkGoogleTag() {
+        if (googletag.apiReady) {
+          initDFP();
+        }
       }
-
-      //Run googletag check
-      checkGoogleTag(this, newSectionAds, oldSectionAds);
+      setTimeout(checkGoogleTag, 50);
 
       /* INNER FUNCTION SCRIPTS */
+      function initDFP() {
+        //Destroy all googletag ad slots. This will prevent ad units, from the first page in the DOM, from being displayed on page change.
+        googletag.destroySlots();
+
+        //Empty old pages ads.
+        if (oldSectionAds.length !== 0) {
+          //empty old divs
+          for (let i = 0; i < oldSectionAds.length; i++) {
+            oldSectionAds[i].innerHTML = '';
+          }
+        }
+
+        //Iterate through newSectionAds (current section from route)
+        for (let i = 0; i < newSectionAds.length; i++) {
+          //Switch on positions creating slots for ads.
+          switch(newSectionAds[i].getAttribute('position')) {
+            case 'top_of_stream':
+              _setupSlot('top_of_stream', adStructure.top_of_stream.adSize);
+              break;
+            case 'middle_of_stream':
+              _setupSlot('middle_of_stream', adStructure.middle_of_stream.adSize);
+              break;
+            case 'bottom_of_stream':
+              _setupSlot('bottom_of_stream', adStructure.bottom_of_stream.adSize);
+              break;
+            case 'pencil_pushdown':
+              _setupSlot('pencil_pushdown', adStructure.pencil_pushdown.adSize);
+              break;
+          }
+        }
+      }
       //Define _setupSlot function
       function _setupSlot(position, adSizing) {
         //Generate DFP URL for ad using all established variables.
