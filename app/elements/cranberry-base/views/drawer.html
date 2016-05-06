@@ -24,12 +24,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <span class="Navigation-text">Home</span>
         </a>
 
-        <a class="Navigation-link" data-route="users" href$="{{baseUrl}}sections">
+        <a class="Navigation-link" data-route="sections" href$="{{baseUrl}}sections">
           <iron-icon class="Navigation-icon" icon="apps"></iron-icon>
           <span class="Navigation-text">Sections</span>
         </a>
 
-        <a class="Navigation-link" data-route="users" href$="{{baseUrl}}video">
+        <a class="Navigation-link" data-route="video" href$="{{baseUrl}}video">
           <iron-icon class="Navigation-icon" icon="theaters"></iron-icon>
           <span class="Navigation-text">Video</span>
         </a>
@@ -39,12 +39,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <span class="Navigation-text">Contact</span>
         </a>
 
-        <a class="Navigation-link" data-route="contact" href$="{{baseUrl}}terms">
+        <a class="Navigation-link" data-route="terms" href$="{{baseUrl}}terms">
           <iron-icon class="Navigation-icon" icon="subject"></iron-icon>
           <span class="Navigation-text">Terms of Service</span>
         </a>
 
-        <a class="Navigation-link" data-route="contact" href$="{{baseUrl}}privacy">
+        <a class="Navigation-link" data-route="policy" href$="{{baseUrl}}policy">
           <iron-icon class="Navigation-icon" icon="lock"></iron-icon>
           <span class="Navigation-text">Privacy Policy</span>
         </a>
@@ -62,12 +62,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </paper-menu>
 
       <div class="Navigation">
-        <a id="submitFeedback" class="Navigation-link" href="" on-tap="onSubmitFeedbackTap" target="_blank">
+        <a class="Navigation-link" data-route="feedback" href$="{{baseUrl}}feedback">
+        <!-- <a id="submitFeedback" class="Navigation-link" href="" on-tap="onSubmitFeedbackTap" target="_blank"> -->
           <iron-icon class="Navigation-icon" icon="announcement"></iron-icon>
           <span class="Navigation-text">Submit Feedback</span>
         </a>
 
-        <a class="Navigation-link" href="" target="_blank" href$="{{baseUrl}}help">>
+        <a class="Navigation-link" data-route="help" href$="{{baseUrl}}help">
           <iron-icon class="Navigation-icon" icon="help"></iron-icon>
           <span class="Navigation-text">Help</span>
         </a>
