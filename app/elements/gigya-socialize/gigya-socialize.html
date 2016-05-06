@@ -10,6 +10,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-form/iron-form.html">
+<link rel="import" href="../../bower_components/iron-form-element-behavior/iron-form-element-behavior.html">
 <link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../../bower_components/iron-input/iron-input.html">
@@ -43,32 +44,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         form.querySelector('.output').innerHTML = '';
       }
 
-      form.addEventListener('iron-form-submit', function(event) {
-        console.log('iron-form-submit');
-        console.dir(event);
-
-        request.url = "http://sedevcore.libercus.net/gigya"
-
-        var params = {};
-
-        params.request = "login";
-        params.loginID = form.loginID.value;
-        params.password = form.password.value;
-
-        request.params = params;
-
-        request.generateRequest();
-      });
-
-      form.addEventListener('iron-form-response', function(event) {
-        console.log('iron-form-response');
-        console.dir(event.detail);
-      });
-
-      form.addEventListener('iron-form-error', function(event) {
-        console.error('iron-form-error');
-        console.error(event);
-      });
     </script>
   </template>
   <script src="gigya-socialize.js"></script>

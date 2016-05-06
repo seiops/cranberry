@@ -83,7 +83,35 @@ class GigyaSocialize {
       }, 1000);
     };
     checkGigya();
+
+          form.addEventListener('iron-form-submit', function(event) {
+        console.log('iron-form-submit');
+        console.dir(event);
+
+        request.url = "http://sedevcore.libercus.net/gigya"
+
+        var params = {};
+
+        params.request = "login";
+        params.loginID = form.loginID.value;
+        params.password = form.password.value;
+
+        request.params = params;
+
+        request.generateRequest();
+      });
+
+      form.addEventListener('iron-form-response', function(event) {
+        console.log('iron-form-response');
+        console.dir(event.detail);
+      });
+
+      form.addEventListener('iron-form-error', function(event) {
+        console.error('iron-form-error');
+        console.error(event);
+      });
   }
+
 }
 
 Polymer(GigyaSocialize);
