@@ -17,34 +17,34 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <div class="Drawer-content">
     <!-- Navigation -->
     <nav class="Drawer-widget">
-      <paper-menu class="Navigation Navigation--menu list" attr-for-selected="data-route" selected="[[route]]">
-
-        <a class="Navigation-link" data-route="home" href$="{{baseUrl}}">
+        <nav class="Drawer-widget">
+    <paper-menu class="Navigation Navigation--menu list" attr-for-selected="data-route" selected="[[data.page]]">
+        <a class="Navigation-link" data-route="home" href="/home">
           <iron-icon class="Navigation-icon" icon="dashboard"></iron-icon>
           <span class="Navigation-text">Home</span>
         </a>
 
-        <a class="Navigation-link" data-route="sections" href$="{{baseUrl}}sections">
+        <a class="Navigation-link" data-route="sections" href="/sections">
           <iron-icon class="Navigation-icon" icon="apps"></iron-icon>
           <span class="Navigation-text">Sections</span>
         </a>
 
-        <a class="Navigation-link" data-route="video" href$="{{baseUrl}}video">
+        <a class="Navigation-link" data-route="video" href="/video">
           <iron-icon class="Navigation-icon" icon="theaters"></iron-icon>
           <span class="Navigation-text">Video</span>
         </a>
 
-        <a class="Navigation-link" data-route="contact" href$="{{baseUrl}}contact">
+        <a class="Navigation-link" data-route="contact" href="/contact">
           <iron-icon class="Navigation-icon" icon="mail"></iron-icon>
           <span class="Navigation-text">Contact</span>
         </a>
 
-        <a class="Navigation-link" data-route="terms" href$="{{baseUrl}}terms">
+        <a class="Navigation-link" data-route="terms" href="/terms">
           <iron-icon class="Navigation-icon" icon="subject"></iron-icon>
           <span class="Navigation-text">Terms of Service</span>
         </a>
 
-        <a class="Navigation-link" data-route="policy" href$="{{baseUrl}}policy">
+        <a class="Navigation-link" data-route="policy" href="/policy">
           <iron-icon class="Navigation-icon" icon="lock"></iron-icon>
           <span class="Navigation-text">Privacy Policy</span>
         </a>

@@ -22,6 +22,39 @@ class cranberryBase {
       upgraded: Boolean,
       storage: {
         type: Object
+      },
+      route: {
+        type: Object
+      },
+      videoData: {
+        type: Object,
+        observer: '_videoDataChanged'
+      },
+      videoPageActive: {
+        type: Boolean,
+        reflectToAttribute: true,
+        observer: '_videoPageActiveChanged'
+      },
+      searchTail: {
+        type: Object,
+        notify: true
+      },
+      videoTail: {
+        type: Object,
+        notify: true
+      },
+      newCategory: {
+        type: String
+      },
+      videos: {
+        type: Array,
+        value: []
+      },
+      data: {
+        type: Object,
+        value: {
+          page: '/search/'
+        }
       }
     };
   }
@@ -31,6 +64,8 @@ class cranberryBase {
     // https://github.com/Polymer/polymer/issues/2653
     this.fire('upgraded');
     this.upgraded = true;
+    console.dir(this.route);
+    console.dir(this.data);
   }
   attached() {
     let storage = JSON.parse(localStorage.getItem(this.$.localStorage.name));
@@ -79,43 +114,43 @@ class cranberryBase {
   }
   // Change accent color
   changeAccentColor(color) {
-    let accentColors = {
-      '#ff5252': 'red',
-      '#ff4081': 'pink',
-      '#e040fb': 'purple',
-      '#7c4dff': 'deep-purple',
-      '#536dfe': 'indigo',
-      '#448aff': 'blue',
-      '#40c4ff': 'light-blue',
-      '#18ffff': 'cyan',
-      '#64ffda': 'teal',
-      '#69f0ae': 'green',
-      '#b2ff59': 'light-green',
-      '#eeff41': 'lime',
-      '#ffff00': 'yellow',
-      '#ffd740': 'amber',
-      '#ffab40': 'orange',
-      '#ff6e40': 'deep-orange'
-    };
-    let accentColorName = accentColors[color];
-    let themeMode = 'light';
+    // let accentColors = {
+    //   '#ff5252': 'red',
+    //   '#ff4081': 'pink',
+    //   '#e040fb': 'purple',
+    //   '#7c4dff': 'deep-purple',
+    //   '#536dfe': 'indigo',
+    //   '#448aff': 'blue',
+    //   '#40c4ff': 'light-blue',
+    //   '#18ffff': 'cyan',
+    //   '#64ffda': 'teal',
+    //   '#69f0ae': 'green',
+    //   '#b2ff59': 'light-green',
+    //   '#eeff41': 'lime',
+    //   '#ffff00': 'yellow',
+    //   '#ffd740': 'amber',
+    //   '#ffab40': 'orange',
+    //   '#ff6e40': 'deep-orange'
+    // };
+    // let accentColorName = accentColors[color];
+    // let themeMode = 'light';
 
-    if (this.$.darkThemeToggle.checked) {
-      themeMode = 'dark';
-    }
+    // if (this.$.darkThemeToggle.checked) {
+    //   themeMode = 'dark';
+    // }
 
-    this.customStyle['--accent-color'] = this.getComputedStyleValue(`--paper-${accentColorName}-a200`);
-    this.customStyle['--light-accent-color'] = this.getComputedStyleValue(`--paper-${accentColorName}-a100`);
-    this.customStyle['--dark-accent-color'] = this.getComputedStyleValue(`--paper-${accentColorName}-a400`);
-    this.customStyle['--darker-accent-color'] = this.getComputedStyleValue(`--paper-${accentColorName}-a700`);
+    // this.customStyle['--accent-color'] = this.getComputedStyleValue(`--paper-${accentColorName}-a200`);
+    // this.customStyle['--light-accent-color'] = this.getComputedStyleValue(`--paper-${accentColorName}-a100`);
+    // this.customStyle['--dark-accent-color'] = this.getComputedStyleValue(`--paper-${accentColorName}-a400`);
+    // this.customStyle['--darker-accent-color'] = this.getComputedStyleValue(`--paper-${accentColorName}-a700`);
 
-    this.updateStyles();
+    // this.updateStyles();
 
-    this.customStyle['--toggle-checked-bar-color'] = this.getComputedStyleValue(`--${themeMode}-theme-toggle-checked-bar-color`);
-    this.customStyle['--toggle-checked-button-color'] = this.getComputedStyleValue(`--${themeMode}-theme-toggle-checked-button-color`);
-    this.customStyle['--toggle-checked-ink-color'] = this.getComputedStyleValue(`--${themeMode}-theme-toggle-checked-ink-color`);
+    // this.customStyle['--toggle-checked-bar-color'] = this.getComputedStyleValue(`--${themeMode}-theme-toggle-checked-bar-color`);
+    // this.customStyle['--toggle-checked-button-color'] = this.getComputedStyleValue(`--${themeMode}-theme-toggle-checked-button-color`);
+    // this.customStyle['--toggle-checked-ink-color'] = this.getComputedStyleValue(`--${themeMode}-theme-toggle-checked-ink-color`);
 
-    this.updateStyles();
+    // this.updateStyles();
   }
   // Change theme
   changeTheme(darkThemeEnabled) {
