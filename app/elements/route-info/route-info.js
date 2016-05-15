@@ -1,18 +1,20 @@
 class routeInfo {
   beforeRegister() {
     this.is = 'route-info';
+    this.properties = {
+      route: {
+        type: Object
+      }
+    };
   }
 
-  ready() {
-    console.dir(route);
-    console.dir(data);
-  }
-
-  _stringifyQueryParams: function() {
+  _stringifyQueryParams() {
     var params = [];
-    if (this.route && this.route.queryParams) {
-      for (var key in this.route.queryParams) {
-        params.push(key + ' = ' + this.route.queryParams[key]);
+    console.dir(this.route);
+    console.dir(this.route.__queryParams);
+    if (this.route && this.route.__queryParams) {
+      for (var key in this.route.__queryParams) {
+        params.push(key + ' = ' + this.route.__queryParams[key]);
       }
     }
     return params.join(', ');
