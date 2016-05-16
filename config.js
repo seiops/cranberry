@@ -69,13 +69,6 @@ module.exports = {
       user: 'root'
     }
   },
-  // Gigya
-  gigya: {
-    apiKey: '3_6UHHWrJ4LmAOWWdgqP0UWqk-2InoMn5NH8Lo1aOfcmFl6zAS4u_-IxvC3mbGAxch'
-  },
-  google: {
-    analytics: 'null'
-  },
   // PageSpeed Insights
   // Please feel free to use the `nokey` option to try out PageSpeed
   // Insights as part of your build process. For more frequent use,
@@ -89,6 +82,6 @@ module.exports = {
   },
   // Service Worker
   serviceWorker: {
-    cacheDisabled: false
+    cacheDisabled: true
   }
 };
