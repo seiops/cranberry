@@ -10,8 +10,7 @@ class routeInfo {
 
   _stringifyQueryParams() {
     var params = [];
-    console.dir(this.route);
-    console.dir(this.route.__queryParams);
+    // this.fire('iron-signal', {name: 'track-page', data: { path: this.route.path } });
     if (this.route && this.route.__queryParams) {
       for (var key in this.route.__queryParams) {
         params.push(key + ' = ' + this.route.__queryParams[key]);
