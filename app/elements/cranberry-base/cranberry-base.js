@@ -64,8 +64,6 @@ class cranberryBase {
     // https://github.com/Polymer/polymer/issues/2653
     this.fire('upgraded');
     this.upgraded = true;
-    console.dir(this.route);
-    console.dir(this.data);
   }
   attached() {
     let storage = JSON.parse(localStorage.getItem(this.$.localStorage.name));
