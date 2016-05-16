@@ -38,9 +38,7 @@ class GoogleDFP {
 
       //Define static values for ads. These will idealy be pulled in via site specific config.js files.
       //TODO Write logic for pulling in site specific from config files.
-      //TODO Replace adStructure with object from site specific config.js files
       //TODO Replace parentSection and childSection with route information from app
-      console.info(newValue);
       var parentSection = (newValue == 'sample-grid' ? 'frontpage' : 'news'),
           childSection = (newValue == 'sample-grid' ? '' : 'education');
 
@@ -63,42 +61,68 @@ class GoogleDFP {
             oldSectionAds[i].innerHTML = '';
           }
         }
-
-        //Iterate through newSectionAds (current section from route)
-        for (let i = 0; i < newSectionAds.length; i++) {
-          //Switch on positions creating slots for ads.
-          switch(newSectionAds[i].getAttribute('position')) {
-            case 'top_of_stream':
-              _setupSlot('top_of_stream', adStructure.top_of_stream.adSize);
-              break;
-            case 'middle_of_stream':
-              _setupSlot('middle_of_stream', adStructure.middle_of_stream.adSize);
-              break;
-            case 'bottom_of_stream':
-              _setupSlot('bottom_of_stream', adStructure.bottom_of_stream.adSize);
-              break;
-            case 'pencil_pushdown':
-              _setupSlot('pencil_pushdown', adStructure.pencil_pushdown.adSize);
-              break;
-            case 'leaderboard_bottom':
-              _setupSlot('leaderboard_bottom', adStructure.leaderboard_bottom.adSize);
-              break;
+        //Command Push Function for DFP Slot definition
+        googletag.cmd.push(function() {
+          //Establish global targeting values and enable googletag services function
+          _setGlobalTargeting();
+          //Iterate through newSectionAds (current section from route)
+          for (let i = 0; i < newSectionAds.length; i++) {
+            //Switch on positions creating slots for ads.
+            switch(newSectionAds[i].getAttribute('position')) {
+              case 'top_of_stream':
+                _setupSlot('top_of_stream', adStructure.top_of_stream.adSize);
+                break;
+              case 'middle_of_stream':
+                _setupSlot('middle_of_stream', adStructure.middle_of_stream.adSize);
+                break;
+              case 'bottom_of_stream':
+                _setupSlot('bottom_of_stream', adStructure.bottom_of_stream.adSize);
+                break;
+              case 'pencil_pushdown':
+                _setupSlot('pencil_pushdown', adStructure.pencil_pushdown.adSize);
+                break;
+              case 'leaderboard_bottom':
+                _setupSlot('leaderboard_bottom', adStructure.leaderboard_bottom.adSize);
+                break;
+            }
           }
-        }
+        });
+      }
+      //Define _setGlobalTargeting function
+      function _setGlobalTargeting() {
+        //All global level services and tags will go within this function
+
+        //Establish Global Targeting
+        googletag.pubads().setTargeting("Section", app.route);
+        //Enable googletag services prior to display calls on slots.
+        googletag.enableServices();
+      }
+      //Define _setSlotTargeting function
+      function _setSlotTargeting(slot, position, adSizing) {
+        //Passed in targeting or generic targeting
+        slot.setTargeting('position', position);
+        //Slot level targeting can also be established against the slot variable
+        /* EX:
+          if (position == 'bottom_of_stream' && app.route == 'frontpage') {
+            slot.setTargeting('myKey', 'myValue');
+          }
+        */
       }
       //Define _setupSlot function
       function _setupSlot(position, adSizing) {
-        //Generate DFP URL for ad using all established variables.
+        //All slot level definitions will go within this function
+
+        //Generate DFP URL for ad using all established variables/config file variables.
         let dfpURL = adStructure.adGroupID + '/' + adStructure.adGrouping + '/' + adStructure.adSubGrouping + '/' + parentSection + '/' + (childSection != '' ? childSection + '/' : '') + position;
-        //Async googletag push command to set adunit
-        googletag.cmd.push(function() {
-          //scope variable to not trample defined slots.
-          let slot = googletag.defineSlot(dfpURL, adSizing, position)
-                     .addService(googletag.pubads())
-                     .setCollapseEmptyDiv(true);
-          googletag.enableServices();
-          googletag.display(position);
-        });
+        //Define slot call for DFP.
+        let slot = googletag.defineSlot(dfpURL, adSizing, position)
+                            .addService(googletag.pubads())
+                            .setCollapseEmptyDiv(true);
+        //Set Slot Level Targeting
+        _setSlotTargeting(slot, position, adSizing);
+
+        //Call to display
+        googletag.display(position);
       }
       //Define _setID function
       function _setId(newArray, oldArray) {
