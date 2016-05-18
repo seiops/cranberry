@@ -19,7 +19,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <nav class="Drawer-widget">
         <nav class="Drawer-widget">
     <paper-menu class="Navigation Navigation--menu list" attr-for-selected="data-route" selected="[[data.page]]">
-        <a class="Navigation-link" data-route="home" href="/home">
+        <a class="Navigation-link" data-route="home" href="/">
           <iron-icon class="Navigation-icon" icon="dashboard"></iron-icon>
           <span class="Navigation-text">Home</span>
         </a>
@@ -55,20 +55,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <div class="Drawer-widget Drawer-widget--bottom">
       <paper-menu class="Navigation Navigation--menu list" attr-for-selected="data-route" selected="[[route]]">
-        <a class="Navigation-link" data-route="settings" href$="{{baseUrl}}settings" rel="nofollow">
+        <a class="Navigation-link" data-route="settings" href="/settings" rel="nofollow">
           <iron-icon class="Navigation-icon" icon="settings"></iron-icon>
           <span class="Navigation-text">Site Settings</span>
         </a>
       </paper-menu>
 
       <div class="Navigation">
-        <a class="Navigation-link" data-route="feedback" href$="{{baseUrl}}feedback">
+        <a class="Navigation-link" data-route="feedback" href="/feedback">
         <!-- <a id="submitFeedback" class="Navigation-link" href="" on-tap="onSubmitFeedbackTap" target="_blank"> -->
           <iron-icon class="Navigation-icon" icon="announcement"></iron-icon>
           <span class="Navigation-text">Submit Feedback</span>
         </a>
 
-        <a class="Navigation-link" data-route="help" href$="{{baseUrl}}help">
+        <a class="Navigation-link" data-route="help" href="/help">
           <iron-icon class="Navigation-icon" icon="help"></iron-icon>
           <span class="Navigation-text">Help</span>
         </a>
