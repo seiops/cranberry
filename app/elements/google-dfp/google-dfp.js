@@ -20,34 +20,39 @@ class GoogleDFP {
     //Observer function for route change.
     //This is for dynamic creation/deletion of ad slots and ID changes for advertisement divs throughout the DOM.
     _pageChanged(newValue, oldValue) {
+      console.info(newValue, oldValue);
       //Grab new section ads and section elements
       let newSection = document.querySelector('section[data-route="' + newValue + '"]');
-      let newSectionAds = newSection.querySelectorAll('.advertisement');
+      let newSectionAds = [];
       let oldSection = {};
       let oldSectionAds = [];
-      //Check oldValue for undefined, if not undefined grab old section ads and section elements
-      if (typeof oldValue !== 'undefined') {
-        oldSection = document.querySelector('section[data-route="' + oldValue + '"]');
-        oldSectionAds = oldSection.querySelectorAll('.advertisement');
-        //Put ID on new Ads
-        _setId(newSectionAds, oldSectionAds);
-      } else {
-        //Put ID on initial page ads
-        _setId(newSectionAds, undefined);
-      }
 
-      //Define static values for ads. These will idealy be pulled in via site specific config.js files.
-      //TODO Write logic for pulling in site specific from config files.
-      //TODO Replace parentSection and childSection with route information from app
-      var parentSection = (newValue == 'sample-grid' ? 'frontpage' : 'news'),
-          childSection = (newValue == 'sample-grid' ? '' : 'education');
-
-      function checkGoogleTag() {
-        if (googletag.apiReady) {
-          initDFP();
+      if (newSection !== null) {
+        newSectionAds = newSection.querySelectorAll('.advertisement');
+        //Check oldValue for undefined, if not undefined grab old section ads and section elements
+        if (typeof oldValue !== 'undefined') {
+          oldSection = document.querySelector('section[data-route="' + oldValue + '"]');
+          oldSectionAds = oldSection.querySelectorAll('.advertisement');
+          //Put ID on new Ads
+          _setId(newSectionAds, oldSectionAds);
+        } else {
+          //Put ID on initial page ads
+          _setId(newSectionAds, undefined);
         }
+
+        //Define static values for ads. These will idealy be pulled in via site specific config.js files.
+        //TODO Write logic for pulling in site specific from config files.
+        //TODO Replace parentSection and childSection with route information from app
+        var parentSection = (newValue == 'sample-grid' ? 'frontpage' : 'news'),
+            childSection = (newValue == 'sample-grid' ? '' : 'education');
+
+        function checkGoogleTag() {
+          if (googletag.apiReady) {
+            initDFP();
+          }
+        }
+        setTimeout(checkGoogleTag, 50);
       }
-      setTimeout(checkGoogleTag, 50);
 
       /* INNER FUNCTION SCRIPTS */
       function initDFP() {
