@@ -30,7 +30,8 @@
     "iron-ajax": "^1.2.0",
     "byutv-jsonp": "^1.2.0",
     "carbon-route": "^0.8.4",
-    "neon-animation": "PolymerElements/neon-animation#^1.2.2"
+    "neon-animation": "PolymerElements/neon-animation#^1.2.2",
+    "paper-card": "PolymerElements/paper-card#^1.1.1"
   },
   "devDependencies": {
     "web-component-tester": "4.2.0"
