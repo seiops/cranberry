@@ -1,17 +1,16 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
 <dom-module id="tout-video">
-
+  <!-- Setup Tout Object -->
   <script type="text/javascript">
     var TOUT = (window.TOUT = window.TOUT || {});
-    TOUT.propertyUid = '2f45b0';
+    TOUT.propertyUid = '{$ config.tout.propertyUid $}';
   </script>
 
+  <!-- Add Tout SDK script from scripts DIR -->
   <script type="text/javascript" src="../../scripts/sdk.js"></script>
 
-  <script>
-    Polymer({
-      is: 'tout-video'
-    });
-  </script>
+  <!-- Add Polymer tout-video object script -->
+  <script type="text/javascript" src="tout-video.js"></script>
+
 </dom-module>
