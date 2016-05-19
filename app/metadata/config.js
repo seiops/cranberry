@@ -24,5 +24,8 @@ module.exports = {
     pencil_pushdown: {
       adSize: [970,30]
     }
+  },
+  tout: {
+    propertyUid : '2f45b0'
   }
 };
