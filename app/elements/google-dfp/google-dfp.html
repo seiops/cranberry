@@ -9,34 +9,36 @@
       margin: 0 auto;
     }
   </style>
-    <script>
-      var adStructure = {
-        adGroupID: '{$ config.dfpAdStructure.adGroupID $}',
-        adGrouping: '{$ config.dfpAdStructure.adGrouping $}',
-        adSubGrouping: '{$ config.dfpAdStructure.adSubGrouping $}',
-        top_of_stream: {
-          adSize:[ {$ config.dfpAdStructure.top_of_stream.adSize $} ]
-        },
-        middle_of_stream: {
-          adSize:[ {$ config.dfpAdStructure.middle_of_stream.adSize $} ]
-        },
-        bottom_of_stream: {
-          adSize:[ {$ config.dfpAdStructure.bottom_of_stream.adSize $} ]
-        },
-        pencil_pushdown: {
-          adSize:[ {$ config.dfpAdStructure.pencil_pushdown.adSize $} ]
-        },
-        leaderboard_bottom: {
-          adSize:[ {$ config.dfpAdStructure.leaderboard_bottom.adSize $} ]
-        }
+  <!-- Declare googletag var and cmd. Setup default ad structure object-->
+  <script>
+    var googletag = window.googletag || {};
+    googletag.cmd = googletag.cmd || [];
+    var adStructure = {
+      adGroupID: '{$ config.dfpAdStructure.adGroupID $}',
+      adGrouping: '{$ config.dfpAdStructure.adGrouping $}',
+      adSubGrouping: '{$ config.dfpAdStructure.adSubGrouping $}',
+      top_of_stream: {
+        adSize:[ {$ config.dfpAdStructure.top_of_stream.adSize $} ]
+      },
+      middle_of_stream: {
+        adSize:[ {$ config.dfpAdStructure.middle_of_stream.adSize $} ]
+      },
+      bottom_of_stream: {
+        adSize:[ {$ config.dfpAdStructure.bottom_of_stream.adSize $} ]
+      },
+      pencil_pushdown: {
+        adSize:[ {$ config.dfpAdStructure.pencil_pushdown.adSize $} ]
+      },
+      leaderboard_bottom: {
+        adSize:[ {$ config.dfpAdStructure.leaderboard_bottom.adSize $} ]
       }
-    </script>
-    <script src="../../scripts/gpt.js">
-      googletag = window.googletag || {};
-      googletag.cmd = googletag.cmd || [];
+    }
+  </script>
+  
+  <!-- Add gpt.js from scripts DIR -->
+  <script src="../../scripts/gpt.js"></script>
 
-    </script>
-
-    <script src="google-dfp.js"></script>
+  <!-- Add google-dfp Polymer Object script -->
+  <script src="google-dfp.js"></script>
 
 </dom-module>

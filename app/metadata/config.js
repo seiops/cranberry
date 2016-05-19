@@ -23,6 +23,9 @@ module.exports = {
     },
     pencil_pushdown: {
       adSize: [970,30]
+    },
+    leaderboard_bottom: {
+      adSize: [728, 90]
     }
   },
   tout: {
