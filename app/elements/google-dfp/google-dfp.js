@@ -1,175 +1,96 @@
 class GoogleDFP {
     beforeRegister() {
-        this.is = 'google-dfp',
+        this.is = 'google-dfp';
         this.properties = {
-          selected: {
-            type: String,
-            notify: true,
-            observer: '_pageChanged'
+          route: {
+            type: Object,
+            observer: '_onRouteChanged'
+          },
+          adsize: {
+            type: Array
+          },
+          adpos: {
+            type: String
+          },
+          adgroup: {
+            type: Number
+          },
+          adgrouping: {
+            type: String
+          },
+          adsubgrouping: {
+            type: String
           }
         };
     }
 
     ready() {
-      //Define app
-      let app = document.querySelector('#app');
-      //Log DFP has loaded
-      app.logger('Finished loading DFP');
+      // Only run this once.
+      if (window.adCounter == 1) {
+        //Define app
+        let app = document.querySelector('#app');
+        //Log DFP has loaded
+        app.logger('Finished loading DFP');
+      }
     }
 
-    //Observer function for route change.
-    //This is for dynamic creation/deletion of ad slots and ID changes for advertisement divs throughout the DOM.
-    _pageChanged(newValue, oldValue) {
-      //Grab new section ads and section elements
-      let newSection = document.querySelector('section[data-route="' + newValue + '"]');
-      let newSectionAds = [];
-      let oldSection = document.querySelector('section[data-route="' + oldValue + '"]');
-      let oldSectionAds = [];
+    _onRouteChanged() {
+      // Get Current Section Element for processing ads
+      var currentSectionEl = document.querySelector('section.iron-selected');
 
-      //Establish testing sections
-      let sectionInfo = {};
-      //TODO Write logic for pulling in site specific from config files.
-      //TODO Replace parentSection and childSection with route information from app
-      sectionInfo.parentSection = (newValue == 'sample-grid' ? 'frontpage' : 'news');
-      sectionInfo.childSection = (newValue == 'sample-grid' ? '' : 'education');
+      // Get this elements advertisement div
+      var advertisement = this.$$('.advertisement');
 
-      if (newSection !== null) {
-        newSectionAds = newSection.querySelectorAll('.advertisement');
-      }
+      // Get this ads ID
+      var idModifier = advertisement.getAttribute('id');
 
-      if (oldSection !== null) {
-        oldSectionAds = oldSection.querySelectorAll('.advertisement');
-      }
+      // Dummy Section Setup. Will be removed after established sections are made
+      var parentSection = (this.route.path === '/sample-grid' ? 'frontpage' : 'news');
+      var childSection = '';
 
-      this._setId(newSectionAds, oldSectionAds);
+      // Get passed in values from google-dfp element
+      var adGroup = this.adgroup;
+      var adGrouping = this.adgrouping;
+      var adSubGrouping = this.adsubgrouping;
+      var adSizing = this.adsize;
+      var position = this.adpos;
 
-      var checkGoogleTag = function (thisElement) {
-        setTimeout(function () {
-          if (googletag.apiReady) {
-            thisElement._setup(newSectionAds, sectionInfo);
-            return;
-          } else {
-            checkGoogleTag(this);
-          }
-        }, 100);
-      };
+      // Establish a global slots object that will house all ads. This is for refreshing ads on content page change.
+      window.slots = window.slots || {};
 
-      //prevent running if newSection has no ads
-      if (newSection !== null) {
-        checkGoogleTag(this);
-      }
-
-    }
-
-    _setup(newSectionAds, sectionInfo) {
-      //Destroy all googletag ad slots. This will prevent ad units, from the first page in the DOM, from being displayed on page change.
-      if (googletag.pubads().$.length > 0) {
-        googletag.pubads().clear();
-        googletag.destroySlots();
-        googletag.pubads().clearTargeting('section');
-        googletag.pubads().clearCategoryExclusions();
-      }
-      //Command Push Function for DFP Slot definition
-      googletag.cmd.push(function() {
-        //Establish global targeting values and enable googletag services function
-        _setGlobalTargeting();
-
-        //Timeout function to check for pubadsReady flag
-        var checkPubadsReady = function () {
-          setTimeout(function () {
-            if (googletag.pubadsReady) {
-              _adSetup();
-              return;
-            } else {
-              checkPubadsReady();
-            }
-          }, 100);
-        };
-        checkPubadsReady();
-
-        function _adSetup() {
-          //Iterate through newSectionAds (current section from route)
-          for (let i = 0; i < newSectionAds.length; i++) {
-            //Switch on positions creating slots for ads.
-            switch(newSectionAds[i].getAttribute('position')) {
-              case 'top_of_stream':
-                _setupSlot('top_of_stream', adStructure.top_of_stream.adSize);
-                break;
-              case 'middle_of_stream':
-                _setupSlot('middle_of_stream', adStructure.middle_of_stream.adSize);
-                break;
-              case 'bottom_of_stream':
-                _setupSlot('bottom_of_stream', adStructure.bottom_of_stream.adSize);
-                break;
-              case 'pencil_pushdown':
-                _setupSlot('pencil_pushdown', adStructure.pencil_pushdown.adSize);
-                break;
-              case 'leaderboard_bottom':
-                _setupSlot('leaderboard_bottom', adStructure.leaderboard_bottom.adSize);
-                break;
-            }
-          }
-        }
-
-      });
-
-
-      //Define _setGlobalTargeting function
-      function _setGlobalTargeting() {
-        //Establish Global Targeting
-        googletag.pubads().setTargeting("section", sectionInfo.parentSection);
-        //Enable googletag services prior to display calls on slots.
-        googletag.enableServices();
-      }
-
-      //Define _setSlotTargeting function
-      function _setSlotTargeting(slot, position, adSizing) {
-        //Passed in targeting or generic targeting
-        slot.setTargeting('position', position);
-        //Slot level targeting can also be established against the slot variable
-        /* EX:
-          if (position == 'bottom_of_stream' && app.route == 'frontpage') {
-            slot.setTargeting('myKey', 'myValue');
-          }
-        */
-      }
-
-      //Define _setupSlot function
-      function _setupSlot(position, adSizing) {
-        //Generate DFP URL for ad using all established variables/config file variables.
-        let dfpURL = adStructure.adGroupID + '/' + adStructure.adGrouping + '/' + adStructure.adSubGrouping + '/' + sectionInfo.parentSection + '/' + (sectionInfo.childSection != '' ? sectionInfo.childSection + '/' : '') + position;
-        //Define slot call for DFP.
-        let slot = googletag.defineSlot(dfpURL, adSizing, position)
-                            .addService(googletag.pubads())
-                            .setCollapseEmptyDiv(true);
-        //Set Slot Level Targeting
-        _setSlotTargeting(slot, position, adSizing);
-
-        //Call to display
-        googletag.display(position);
-      }
-
-    }
-
-    //Define _setID function
-    _setId(newArray, oldArray) {
-      //if old array has length remove old ids
-      if (oldArray.length > 0) {
-        for (let i = 0; i < oldArray.length; i++) {
-          //Erase old section ad slots ID
-          oldArray[i].setAttribute('id', '');
-          //Erase old section ad inner content
-          oldArray[i].innerHTML = '';
-        }
-      }
-      //if new array has length add new ids
-      if (newArray.length > 0) {
-        for (let i = 0; i < newArray.length; i++) {
-          //Set current section ad slots to have proper ID for DFP
-          newArray[i].setAttribute('id', newArray[i].getAttribute('position'));
+      if (currentSectionEl.contains(advertisement)) {
+        // The currently routed section has this advertisement in it
+        if (this.querySelector('.advertisement').firstChild) {
+          // This advertisement already contains an ad. Refresh this ad slot
+          googletag.pubads().refresh([window.slots[idModifier]]);
+        } else {
+          // This advertisement has no ad inside. Run through setting up ad slot.
+          googletag.cmd.push(function() {
+            // Establish Global Targeting
+            googletag.pubads().setTargeting('section', parentSection);
+            // Enable googletag services prior to display calls on slots.
+            googletag.enableServices();
+            // Generate DFP URL for ad using all established variables/config file variables.
+            let dfpURL = adGroup + '/' + adGrouping + '/' + adSubGrouping + '/' + parentSection + '/' + (childSection != '' ? childSection + '/' : '') + position;
+            // Define slot call for DFP.
+            window.slots[idModifier] = googletag.defineSlot(dfpURL, adSizing, idModifier)
+                                .addService(googletag.pubads())
+                                .setCollapseEmptyDiv(true);
+            // Set Slot Level Targeting
+            slots[idModifier].setTargeting('position', position);
+            //Call to display
+            googletag.display(idModifier);
+          });
         }
       }
     }
 
+    // Function to setup an ad counter for id distribution
+    _stringifyPosition(myRoute) {
+      window.adCounter = window.adCounter || 0;
+      window.adCounter += 1;
+      return '_' + window.adCounter;
+    }
   }
+
 Polymer(GoogleDFP);
