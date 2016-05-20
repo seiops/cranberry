@@ -11,6 +11,7 @@ module.exports = {
   dfpAdStructure: {
     adGroupID: 30103046,
     adGrouping: 'Ogden_Publisher',
+<<<<<<< HEAD
     adSubGrouping: 'Standard_Examiner',
     top_of_stream: {
       adSize: [[300,250],[300,600]]
@@ -30,5 +31,8 @@ module.exports = {
   },
   tout: {
     propertyUid : '2f45b0'
+=======
+    adSubGrouping: 'Standard_Examiner'
+>>>>>>> michael-development
   }
 };

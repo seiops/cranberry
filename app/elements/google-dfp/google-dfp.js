@@ -86,7 +86,7 @@ class GoogleDFP {
     }
 
     // Function to setup an ad counter for id distribution
-    _stringifyPosition(myRoute) {
+    _adCount() {
       window.adCounter = window.adCounter || 0;
       window.adCounter += 1;
       return '_' + window.adCounter;
