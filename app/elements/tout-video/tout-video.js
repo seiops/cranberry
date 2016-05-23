@@ -8,6 +8,9 @@ class ToutVideo {
         type: String,
         notify: true,
         observer: '_pageChanged'
+      },
+      position: {
+        type: String
       }
     }
   }
@@ -16,63 +19,35 @@ class ToutVideo {
   }
 
   _pageChanged(newValue, oldValue) {
-    console.info('The page changed');
+    let currentSection = document.querySelector('section.iron-selected');
+    let thisTout = this.firstChild.nextElementSibling;
+    // Check if the route contains a valid section
+    if (currentSection !== null) {
+      if (currentSection.contains(this)) {
+        // Add this elements position to the class list for Tout
+        thisTout.classList.add(this.position);
+        // Timeout function for TOUT.fetch
+        let checkDocumentTouts = function (thisElement) {
+          setTimeout(function() {
+            let toutArray = document.querySelectorAll('.' + thisElement.position);
 
-    //Grab new section touts and section elements
-    let newSection = document.querySelector('section[data-route="' + newValue + '"]');
-    let newSectionTouts = [];
-    let oldSection = document.querySelector('section[data-route="' + oldValue + '"]');
-    let oldSectionTouts = [];
-
-    if (newSection !== null) {
-      newSectionTouts = newSection.querySelectorAll('div[mediaType="tout"]');
-    }
-
-    if (oldSection !== null) {
-      oldSectionTouts = oldSection.querySelectorAll('div[mediaType="tout"]');
-    }
-
-    this._setId(newSectionTouts, oldSectionTouts);
-
-    //Timout function to see if TOUT object is ready.
-    let checkTout = function () {
-      setTimeout(function () {
-        if (typeof TOUT !== 'undefined') {
-          console.info('Tout is ready');
-          //Fetch new Tout content
-          TOUT.fetch();
-        } else {
-          console.info('waiting for tout');
-          checkTout();
+            if (toutArray.length === 1) {
+              console.info('Fetching');
+              TOUT.fetch();
+            } else {
+              console.info('Waiting');
+              checkDocumentTouts();
+            }
+          }, 100);
+        };
+        checkDocumentTouts(this);
+      } else {
+        // Ensure that Div doesn't have class associated with it
+        if (thisTout.childNodes.length > 0) {
+          // The div has a Tout in it. Clear it.
+          thisTout.innerHTML = '';
         }
-      }, 100)
-    }
-
-    //prevent running if newSection has no Touts
-    if (newSection !== null) {
-      checkTout();
-    }
-
-  }
-
-  //Define _setID function
-  _setId(newArray, oldArray) {
-    //if old array has length remove old classes
-    if (oldArray.length > 0) {
-      for (let i = 0; i < oldArray.length; i++) {
-        //Erase old section Tout slot Classes
-        oldArray[i].classList.remove('tout-sdk');
-        oldArray[i].classList.remove(newArray[i].getAttribute('position'));
-        //Erase old section Tout inner content
-        oldArray[i].innerHTML = '';
-      }
-    }
-    //if new array has length add new classes
-    if (newArray.length > 0) {
-      for (let i = 0; i < newArray.length; i++) {
-        //Set current section Tout slots to have proper classes
-        newArray[i].classList.add('tout-sdk');
-        newArray[i].classList.add(newArray[i].getAttribute('position'));
+        thisTout.classList.remove(this.position);
       }
     }
   }
