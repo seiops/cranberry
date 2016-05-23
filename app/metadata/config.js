@@ -7,5 +7,10 @@ module.exports = {
   },
   google: {
     analytics: 'UA-746696-1'
+  },
+  dfpAdStructure: {
+    adGroupID: 30103046,
+    adGrouping: 'Ogden_Publisher',
+    adSubGrouping: 'Standard_Examiner'
   }
 };
