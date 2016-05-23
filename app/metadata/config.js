@@ -11,6 +11,10 @@ module.exports = {
   dfpAdStructure: {
     adGroupID: 30103046,
     adGrouping: 'Ogden_Publisher',
+
     adSubGrouping: 'Standard_Examiner'
+  },
+  tout: {
+    propertyUid : '2f45b0'
   }
 };

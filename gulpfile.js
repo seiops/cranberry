@@ -48,6 +48,7 @@ gulp.task('lint-js', ['ensureFiles'], function() {
       'app/scripts/**/*.js',
       '!app/scripts/analytics.js',
       '!app/scripts/gpt.js',
+      '!app/scripts/sdk.js',
       'app/elements/**/*.js',
       'gulpfile.js'
     ])
@@ -98,7 +99,7 @@ gulp.task('copy', function() {
   var icons = gulp.src(['app/themes/' + config.appTheme + '/icons.html'])
     .pipe(gulp.dest('dist/themes/' + config.appTheme));
 
-  var scripts = gulp.src(['app/scripts/analytics.js', 'app/scripts/gpt.js'])
+  var scripts = gulp.src(['app/scripts/analytics.js', 'app/scripts/gpt.js', 'app/scripts/sdk.js'])
     .pipe(gulp.dest('dist/scripts'));
 
   return merge(app, bower, elements, icons, scripts)
@@ -286,6 +287,9 @@ gulp.task('download:analytics', require(task('download-analytics'))($, gulp));
 // Download newest script gpt.js from Google for DFP
 gulp.task('download:dfp', require(task('download-dfp'))($, gulp));
 
+// Download newest script tout sdk.js from Tout videos
+gulp.task('download:tout', require(task('download-tout'))($, gulp));
+
 // Fix paths before revision task
 gulp.task('fix-paths-before-revision', require(task('fix-paths'))($, gulp, merge, 'before'));
 
@@ -328,7 +332,7 @@ gulp.task('default', ['clean'], function(cb) {
 // Initializing app
 gulp.task('init', function(cb) {
   runSequence(
-    ['download:analytics', 'download:dfp', 'download:fonts'],
+    ['download:analytics', 'download:dfp', 'download:tout', 'download:fonts'],
     cb);
 });
 
