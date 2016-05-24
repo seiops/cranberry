@@ -57,10 +57,32 @@ class ContactForm {
       form.querySelector('.output').innerHTML = '';
     };
     this.handleSubmit = function(event) {
-      console.info(event);
+      let form = this.$$('form');
+      console.info(form);
+      request.url = "http://sedevcore.libercus.net/contact-form"
+
+      var params = {};
+
+      params.request = "submit";
+      params.fullname = form.name.value;
+      params.email = form.email.value;
+      params.address = form.address.value;
+      params.telephone = form.telephone.value;
+      params.captcha = '';
+      params.message = form.message.value;
+
+      params.recipient = 'mjohnstone@standard.net';
+
+      request.params = params;
+
+      request.generateRequest();
     };
   }
   ready() {
+  }
+
+  handleResponse (data) {
+    console.info(data);
   }
 
 

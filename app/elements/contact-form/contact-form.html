@@ -26,13 +26,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: block;
       }
     </style>
-
+    <byutv-jsonp on-response="handleResponse" debounce-duration="300" id="request"></byutv-jsonp>
     <form is="iron-form" action="/" id="form">
       <paper-input name="name" label="Name" required auto-validate error-message="You must provide a name." allowed-pattern="[\@\.A-zA-Z0-9]" auto-complete></paper-input>
       <paper-input name="email" label="Email" required auto-validate error-message="You must provide a email."></paper-input>
       <paper-input name="address" label="Address" required auto-validate error-message="You must provide a address."></paper-input>
-      <paper-input name="phone" label="Telephone" required auto-validate error-message="You must provide a phone number."></paper-input>
+      <paper-input name="telephone" label="Telephone" required auto-validate error-message="You must provide a phone number."></paper-input>
       <paper-input name="captcha" label="Captcha" required auto-validate error-message="Please input what you see in the picture."></paper-input>
+      <img src="http://www.standard.net/image/captcha"/>
       <paper-textarea name="message" label="Message" value=""></paper-textarea>
       <paper-button on-tap="handleSubmit">Submit</paper-button>
       <paper-button on-tap="handleReset">Reset</paper-button>

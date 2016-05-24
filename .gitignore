@@ -1,5 +1,6 @@
 app/google*.html
 app/scripts/analytics.js
+app/scripts/gpt.js
 app/themes/default-theme/fonts/*
 bower_components
 deploy

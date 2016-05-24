@@ -1,0 +1,6 @@
+:host {
+  display: block;
+}
+::shadow .advertisement div {
+  margin: 0 auto;
+}

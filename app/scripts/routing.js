@@ -265,6 +265,22 @@ page('/video', () => {
   }
 });
 
+page('/sample-grid', () => {
+  function setData() {
+    app.route = 'sample-grid';
+    app.pageTitle = 'Sample Grid';
+    app.pageSubTitle = 'Generic Layout Example';
+    setFocus(app.route);
+  }
+
+  // Check if element prototype has not been upgraded yet
+  if (!app.upgraded) {
+    once(app, 'upgraded', setData);
+  } else {
+    setData();
+  }
+});
+
 // 404
 page('*', ctx => {
   function setData() {
