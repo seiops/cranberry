@@ -9,8 +9,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/carbon-route/carbon-location.html">
-<link rel="import" href="../../bower_components/carbon-route/carbon-route.html">
+<link rel="import" href="../../bower_components/app-route/app-location.html">
+<link rel="import" href="../../bower_components/app-route/app-route.html">
 <!-- App Theme -->
 <link rel="import" href="../../themes/{$ config.appTheme $}/theme.html">
 
@@ -59,8 +59,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </iron-localstorage>
 
     <!-- Carbon page routing -->
-    <carbon-location route="{{route}}"></carbon-location>
-    <carbon-route route="{{route}}" pattern="/:page" data="{{data}}"></carbon-route>
+    <app-location route="{{route}}"></app-location>
+    <app-route route="{{route}}" pattern="/:page" data="{{data}}"></app-route>
 
     <paper-drawer-panel id="paperDrawerPanel" responsive-width="599px" drawer-width="256px" peeking="1">
       {% include "cranberry-base/views/drawer.html" %}
