@@ -7,7 +7,8 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
-
+      <iron-media-query query="(min-width: 600px)" query-matches="{{wide}}"></iron-media-query>
+      <iron-media-query full query="print" query-matches="{{print}}"></iron-media-query>
 <!-- Main Area -->
 <paper-scroll-header-panel id="headerPanelMain" class="Main" main condenses keep-condensed-header>
   <!-- Main Toolbar -->
@@ -16,6 +17,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <div class="Main-headerTopBar top">
         <route-info route="[[route]]"></route-info>
       <span class="u-spacer"></span>
+      <iron-media-query query="(min-width: 600px)" query-matches="{{wide}}"></iron-media-query>
+                <template is="dom-if" if="{{!wide}}">
+            The viewport is less than 600px wide, so the items' titles will
+            not float.
+          </template>
       <paper-icon-button class="Main-headerButton" icon="search"></paper-icon-button>
       <paper-icon-button class="Main-headerButton" icon="account-balance-wallet" title="Wallet"></paper-icon-button>
       <paper-icon-button class="Main-headerButton" icon="account-circle" title="Wallet"></paper-icon-button>
