@@ -1,91 +1,85 @@
 class ContactForm {
-  // handleResponse (data) {
-  //   var restResponse = JSON.parse(data.detail.Result);
-  //
-  //   console.dir(restResponse);
-  //   var responseMessage = '';
-  //
-  //   if (typeof restResponse !== undefined && restResponse.errorCode === 0) {
-  //
-  //     var params = {
-  //         provider:restResponse.loginProvider,
-  //         callback: this._onlogin(data),
-  //         UID: restResponse.UID,
-  //         UIDSignature: restResponse.UIDSignature,
-  //         signatureTimestamp: restResponse.signatureTimestamp
-  //     };
-  //
-  //     restResponse.callback = this._onlogin(data);
-  //
-  //
-  //     gigya.socialize.getUserInfo(params);
-  //
-  //     responseMessage = 'User: ' + restResponse.profile.nickname + '<br />UID: ' + restResponse.UID + '<br />Signature: ' + restResponse.UIDSignature + '<br />Provider: ' + restResponse.loginProvider;
-  //   } else {
-  //     responseMessage = restResponse.errorDetails;
-  //   }
-  //
-  //
-  //   form.querySelector('.output').innerHTML = responseMessage;
-  // }
-
-  // _submit(event) {
-  //   request.url = "http://sedevcore.libercus.net/gigya"
-  //
-  //   var params = {};
-  //
-  //   params.request = "login";
-  //   params.loginID = form.loginID.value;
-  //   params.password = form.password.value;
-  //
-  //   request.params = params;
-  //
-  //   request.generateRequest();
-  // }
-
   beforeRegister() {
     this.is = 'contact-form';
     this.properties = {
-      items: {
-        type: Object,
-        notify: true
+      recipient: {
+        type: String
       }
     };
+    // Reset button behavior
     this.handleReset = function(event) {
-      var form = Polymer.dom(event).localTarget.parentElement;
+      let form = Polymer.dom(event).localTarget.parentElement;
+      // Reset inputs, checkboxes, and radio buttons
       form.reset();
+      // Reset the textarea
       form.querySelector('.output').innerHTML = '';
+      // Fire a change event on the form to re-validate
+      form.fire('change');
     };
+    // Submit button behavior
     this.handleSubmit = function(event) {
       let form = this.$$('form');
-      console.info(form);
-      request.url = "http://sedevcore.libercus.net/contact-form"
+      // Check form for validity
+      let validForm = form.validate();
+      // if the form is in a valid state then submit
+      if (validForm) {
+        request.url = "http://sedevcore.libercus.net/contact-form"
 
-      var params = {};
+        var params = {};
 
-      params.request = "submit";
-      params.fullname = form.name.value;
-      params.email = form.email.value;
-      params.address = form.address.value;
-      params.telephone = form.telephone.value;
-      params.captcha = '';
-      params.message = form.message.value;
+        params.request = "submit";
+        params.fullname = form.name.value;
+        params.email = form.email.value;
+        params.address = form.address.value;
+        params.telephone = form.telephone.value;
+        // Send blank string to by-pass captcha from Libercus.
+        params.captcha = '';
+        params.message = form.message.value;
+        // Passed in value for recipient
+        params.recipient = this.recipient;
 
-      params.recipient = 'mjohnstone@standard.net';
+        // Set params on the request
+        request.params = params;
 
-      request.params = params;
-
-      request.generateRequest();
+        // Initiate HTTP request
+        request.generateRequest();
+      }
     };
   }
+  
   ready() {
+    let form = this.$.form;
+    let reCaptcha = this.querySelector('re-captcha');
+    let submitButton = this.$.submitButton;
+    // Boolean for if the captcha is validated
+    let captchaValidated = false;
+
+    reCaptcha.addEventListener('captcha-response', function(e){
+      // Validated is true
+      captchaValidated = true;
+      // Fire form change event to validate
+      form.fire('change');
+    });
+
+    form.addEventListener('change', function(event) {
+      // Validate the form
+      let formValid = form.validate();
+      // If the form is valid and the re-captcha has been successfully completed enable the submit button else ensure button is disabled.
+      if (formValid && captchaValidated) {
+        // Button is no longer disabled
+        submitButton.disabled = false;
+      } else {
+        // Button remains disabled
+        submitButton.disabled = true;
+      }
+    });
   }
 
+  // byutv handle response function
   handleResponse (data) {
-    console.info(data);
+    var response = data.detail.Result;
+    this.querySelector('.output').innerHTML = response;
   }
-
-
 }
 
 Polymer(ContactForm);
