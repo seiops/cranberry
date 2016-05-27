@@ -1,13 +1,10 @@
-.testWrapper {
-  text-align: center;
-}
-
 .container {
   @apply(--layout-horizontal);
   @apply(--layout-center);
   @apply(--layout-center-justified);
   @apply(--layout-wrap);
   margin-bottom: 10px;
+  text-align: center;
 }
 
 .vertContainer {
