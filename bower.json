@@ -31,7 +31,9 @@
     "byutv-jsonp": "^1.2.0",
     "carbon-route": "^0.8.4",
     "neon-animation": "PolymerElements/neon-animation#^1.2.2",
-    "paper-card": "PolymerElements/paper-card#^1.1.1"
+    "paper-card": "PolymerElements/paper-card#^1.1.1",
+    "re-captcha": "^1.1.1",
+    "gold-phone-input": "^1.0.9"
   },
   "devDependencies": {
     "web-component-tester": "4.2.0"
