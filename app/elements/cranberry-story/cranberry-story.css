@@ -1,0 +1,24 @@
+.ut-center {
+  text-align: center;
+}
+
+::shadow #storyMedia {
+  position: relative;
+  line-height: 60px;
+}
+
+::shadow .ut-rowFlex {
+  display: flex;
+  flex-direction: row;
+}
+
+::shadow .ut-absolute {
+  position: absolute;
+  bottom: 0;
+  right: 25px;
+}
+
+::shadow #commentButton {
+  background: #5bc1a5;
+  margin: 10px 14px 0 0;
+}

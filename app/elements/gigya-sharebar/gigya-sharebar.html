@@ -1,0 +1,45 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
+<link rel="import" href="../../bower_components/iron-icons/image-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/communication-icons.html">
+
+<dom-module id="gigya-sharebar">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      .ut-hide {
+        display: none;
+        visibility: hidden;
+      }
+
+      ::shadow #gigya-share-buttons {
+        line-height: normal;
+        padding: 10px;
+        position: absolute;
+        right: 0;
+
+      }
+
+      ::shadow #gigya-share-buttons .gig-button-text {
+        color: white;
+      }
+
+      ::shadow #shareButton {
+        width: 56px;
+        height: 56px;
+        background: #5bc1a5;
+      }
+    </style>
+    <meta property="fb:app_id" content="1389242281298280" />
+    <script type="text/javascript" src="https://cdns.gigya.com/JS/gigya.js?apikey=3_mK2cmEzLkzhqe4MUrtPncxbv4wKsYAhsew0iVwhVUls3c_Jx_HLX434jAVpq5M_W"></script>
+
+    <paper-fab icon="social:share" title="Share" id="shareButton"></paper-fab>
+
+    <div id="gigya-share-buttons" class="ut-hide"></div>
+
+  </template>
+  <script src="gigya-sharebar.js"></script>
+</dom-module>
