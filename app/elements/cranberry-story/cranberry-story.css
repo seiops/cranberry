@@ -2,23 +2,27 @@
   text-align: center;
 }
 
-::shadow #storyMedia {
+#storyMedia {
   position: relative;
   line-height: 60px;
 }
 
-::shadow .ut-rowFlex {
+.ut-rowFlex {
   display: flex;
   flex-direction: row;
 }
 
-::shadow .ut-absolute {
+.ut-absolute {
   position: absolute;
   bottom: 0;
   right: 25px;
 }
 
-::shadow #commentButton {
-  background: #5bc1a5;
+#commentButton {
+  background: #005A90;
   margin: 10px 14px 0 0;
+}
+
+div {
+  padding-bottom: 5px;
 }

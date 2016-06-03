@@ -1,6 +1,9 @@
 class cranberryStory {
     beforeRegister() {
         this.is = 'cranberry-story';
+        this.listeners = {
+          'commentButton.tap': '_scrollToComments'
+        }
     }
 
     ready() {
@@ -34,6 +37,11 @@ class cranberryStory {
       if (restResponse.title !== '') {
         myElement.$.storyTitle.innerHTML = restResponse.title;
       }
+    }
+
+    _scrollToComments(event) {
+      console.info(this);
+      this.$.comments.scrollIntoView(false);
     }
 }
 Polymer(cranberryStory);

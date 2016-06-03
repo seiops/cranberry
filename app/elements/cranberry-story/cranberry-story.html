@@ -23,7 +23,7 @@
       <div class="" id="storyMedia">
         <iron-image style="width:100%; height:645px" sizing="cover" src=""></iron-image>
         <div class="ut-rowFlex ut-absolute">
-          <paper-fab mini icon="communication:chat-bubble" title="Comments" id="commentButton"></paper-fab>
+          <paper-fab mini icon="communication:chat-bubble" title="Comments" id="commentButton" on-tap="_scrollToComments(event)"></paper-fab>
           <gigya-sharebar></gigya-sharebar>
         </div>
 
@@ -41,8 +41,8 @@
         <iron-image src="http://www.placehold.it/970x250&text=AD_970x250"></iron-image>
       </div>
 
-      <div class="">
-        <paper-button raised>Comments</paper-button>
+      <div class="ut-center">
+        <paper-button raised id="comments">Comments</paper-button>
       </div>
 
       <div class="ut-center">
