@@ -33,7 +33,9 @@
     "paper-toolbar": "PolymerElements/paper-toolbar#1.1.4",
     "platinum-sw": "PolymerElements/platinum-sw#1.2.3",
     "polymer": "^1.4.0",
-    "start-google-analytics-tracker": "StartPolymer/start-google-analytics-tracker#1.1.0"
+    "start-google-analytics-tracker": "StartPolymer/start-google-analytics-tracker#1.1.0",
+    "iron-image": "PolymerElements/iron-image#^1.2.3",
+    "paper-tabs": "PolymerElements/paper-tabs#^1.5.0"
   },
   "devDependencies": {
     "web-component-tester": "4.2.0"

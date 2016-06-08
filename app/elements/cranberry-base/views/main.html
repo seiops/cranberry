@@ -10,28 +10,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <iron-media-query query="(min-width: 600px)" query-matches="{{wide}}"></iron-media-query>
       <iron-media-query full query="print" query-matches="{{print}}"></iron-media-query>
 <!-- Main Area -->
-<paper-scroll-header-panel id="headerPanelMain" class="Main" main condenses keep-condensed-header>
-  <!-- Main Toolbar -->
-  <paper-toolbar class="Main-header tall">
-    <!-- Header icons -->
-    <div class="Main-headerTopBar top">
-        <route-info route="[[route]]"></route-info>
-      <span class="u-spacer"></span>
-      <iron-media-query query="(min-width: 600px)" query-matches="{{wide}}"></iron-media-query>
-                <template is="dom-if" if="{{!wide}}">
-            The viewport is less than 600px wide, so the items' titles will
-            not float.
-          </template>
-      <paper-icon-button class="Main-headerButton" icon="search"></paper-icon-button>
-      <paper-icon-button class="Main-headerButton" icon="account-balance-wallet" title="Wallet"></paper-icon-button>
-      <paper-icon-button class="Main-headerButton" icon="account-circle" title="Wallet"></paper-icon-button>
-    </div>
-      <span class="u-spacer"></span>
-    <!-- Header title -->
-    <div class="Main-headerMiddleBar bottom">
-      <paper-icon-button id="paperToggle" class="Main-headerButton" icon="menu" paper-drawer-toggle></paper-icon-button><h1 class="Main-headerTitle">{{ pageTitle }}</h1>
-    </div>
-  </paper-toolbar>
+
   <iron-pages class="Main-content" attr-for-selected="data-route" selected="{{data.page}}">
     {% include "cranberry-base/views/pages/home.html" %}
     {% include "cranberry-base/views/pages/sections.html" %}
@@ -43,4 +22,4 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     {% include "cranberry-base/views/pages/feedback.html" %}
     {% include "cranberry-base/views/pages/help.html" %}
   </iron-pages>
-</paper-scroll-header-panel>
+

@@ -7,7 +7,7 @@
 
 <!-- App layout elements -->
 <link rel="import" href="../../bower_components/app-layout/app-layout.html">
-<link rel="import" href="../../bower_components/app-layout/app-scroll-effects.html">
+<link rel="import" href="../../bower_components/app-layout/app-scroll-effects/effects/waterfall.html">
 
 <!-- App Theme -->
 <link rel="import" href="../../themes/{$ config.appTheme $}/theme.html">
@@ -17,6 +17,7 @@
 <link rel="import" href="../../bower_components/iron-form/iron-form.html">
 <link rel="import" href="../../bower_components/iron-form-element-behavior/iron-form-element-behavior.html">
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../../bower_components/iron-localstorage/iron-localstorage.html">
 <link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
 <link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
@@ -60,10 +61,46 @@
     <app-location route="{{route}}"></app-location>
     <app-route route="{{route}}" pattern="/:page" data="{{data}}"></app-route>
 
-    <paper-drawer-panel id="paperDrawerPanel" responsive-width="599px" drawer-width="256px" peeking="1">
-      {% include "cranberry-base/views/drawer.html" %}
-      {% include "cranberry-base/views/main.html" %}
-    </paper-drawer-panel>
+
+
+    <app-drawer-layout>
+
+      <app-drawer opened>
+        <div class="Drawer-wrapper">
+          {% include "cranberry-base/views/drawer.html" %}
+        </div>
+      </app-drawer>
+
+      <app-header-layout>
+
+        <app-header reveals effects="waterfall">
+          <app-toolbar>
+              <!-- Main Toolbar -->
+              <div class="Main-headerTopBar top">
+                <span class="u-spacer"></span>
+                <paper-icon-button class="Main-headerButton" icon="search"></paper-icon-button>
+                <paper-icon-button class="Main-headerButton" icon="account-balance-wallet" title="Wallet"></paper-icon-button>
+                <paper-icon-button class="Main-headerButton" icon="account-circle" title="Wallet"></paper-icon-button>
+              </div>
+          </app-toolbar>
+        </app-header>
+
+        <!-- Content area -->
+        {% include "cranberry-base/views/main.html" %}
+
+      </app-header-layout>
+
+    </app-drawer-layout>
+
+
+
+  <iron-media-query query="min-width: 600px" query-matches="{{wideLayout}}"></iron-media-query>
+
+
+<!--     <paper-drawer-panel responsive-width="599px" drawer-width="256px" peeking="1">
+
+
+    </paper-drawer-panel> -->
 
     <paper-toast id="confirmToast" class="Toast" duration="10000">
       <span class="Toast-button" role="button" tabindex="0" on-tap="onConfirmToastTap">OK</span>

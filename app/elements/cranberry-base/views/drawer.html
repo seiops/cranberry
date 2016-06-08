@@ -9,13 +9,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <!-- Drawer Scroll Header Panel -->
-<paper-scroll-header-panel class="Drawer" drawer fixed>
-  <paper-toolbar class="Drawer-header">
-    <span class="Drawer-title">{$ siteName $}</span>
-  </paper-toolbar>
+  <app-toolbar class="Drawer-header">
+  <!-- <span class="Drawer-title">{$ siteName $}</span> -->
+  <iron-image class="Drawer-logo" preload src="/images/logo.png" fade></iron-image>
+  </app-toolbar>
   <!-- Drawer Content -->
   <div class="Drawer-content">
     <!-- Navigation -->
+    <iron-image src="/images/location.jpg" style="width:256px; height:200px; background-color: lightgray;" preload sizing="cover" fade></iron-image>
     <nav class="Drawer-widget">
         <nav class="Drawer-widget">
     <paper-menu class="Navigation Navigation--menu list" attr-for-selected="data-route" selected="[[data.page]]">
@@ -48,18 +49,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <iron-icon class="Navigation-icon" icon="lock"></iron-icon>
           <span class="Navigation-text">Privacy Policy</span>
         </a>
-        <!-- Commenting until grid issues are fixed -->
-        <!--
-          <a class="Navigation-link" data-route="sample-grid" href="/sample-grid">
-            <iron-icon class="Navigation-icon" icon="dashboard"></iron-icon>
-            <span class="Navigation-text">Sample Grid</span>
-          </a>
-         -->
       </paper-menu>
     </nav>
-
     <span class="u-spacer"></span>
-
     <div class="Drawer-widget Drawer-widget--bottom">
       <paper-menu class="Navigation Navigation--menu list" attr-for-selected="data-route" selected="[[route]]">
         <a class="Navigation-link" data-route="settings" href="/settings" rel="nofollow">
@@ -82,8 +74,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </div>
     </div>
 
-<!--     <div class="Drawer-widget Drawer-widget--footer">
+    <div class="Drawer-widget Drawer-widget--footer">
       <span>{$ config.appVersion $}</span>
-    </div> -->
+    </div>
   </div>
-</paper-scroll-header-panel>

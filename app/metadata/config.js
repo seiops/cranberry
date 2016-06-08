@@ -1,5 +1,6 @@
 module.exports = {
   baseUrl: '/',
+  appVersion: 'poop',
   baseCanonicalUrl: 'https://github.com/seiops/cranberry/',
     // Gigya
   gigya: {
