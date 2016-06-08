@@ -92,15 +92,8 @@
 
     </app-drawer-layout>
 
-
-
-  <iron-media-query query="min-width: 600px" query-matches="{{wideLayout}}"></iron-media-query>
-
-
-<!--     <paper-drawer-panel responsive-width="599px" drawer-width="256px" peeking="1">
-
-
-    </paper-drawer-panel> -->
+    <iron-media-query query="min-width: 600px" query-matches="{{wide}}"></iron-media-query>
+    <iron-media-query full query="print" query-matches="{{print}}"></iron-media-query>
 
     <paper-toast id="confirmToast" class="Toast" duration="10000">
       <span class="Toast-button" role="button" tabindex="0" on-tap="onConfirmToastTap">OK</span>
