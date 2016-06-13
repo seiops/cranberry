@@ -2,6 +2,8 @@
 <link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
 <link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
 <link rel="import" href="../../bower_components/iron-icons/social-icons.html">
+<link rel="import" href="../cranberry-shortcode/cranberry-shortcode.html">
+<link rel="import" href="../twitter-timeline/twitter-timeline.html">
 
 <dom-module id="cranberry-story">
 
@@ -11,50 +13,83 @@
       @import "cranberry-story/cranberry-story";
     </style>
 
-    <byutv-jsonp auto url="http://sedev.libercus.net/rest.json" params='{"request": "story", "itemid": "201201010002"}' on-response="handleResponse" debounce-duration="300" id="request"></byutv-jsonp>
+    <iron-media-query query="(min-width: 960px)" query-matches="{{desktop}}"></iron-media-query>
+    <iron-media-query query="(min-width: 720px) and (max-width:959px)" query-matches="{{tablet}}"></iron-media-query>
+    <iron-media-query query="(max-width:719px)" query-matches="{{mobile}}"></iron-media-query>
+
+    <byutv-jsonp auto url="http://sedev.libercus.net/rest.json" params='{"request": "story", "desiredItemID": "201606081715"}' on-response="handleResponse" debounce-duration="300" id="request"></byutv-jsonp>
 
     <div class="Cranberry-Story">
 
+      <!-- Top Ad -->
       <div class="ut-center">
         <!-- Placeholder element for leaderboard ad. -->
         <!-- <google-dfp route="{{route}}" adpos="leaderboard_bottom" adsize="[728, 90]" adgroup="{$ config.dfpAdStructure.adGroupID $}" adgrouping="{$ config.dfpAdStructure.adGrouping $}" adsubgrouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp> -->
         <iron-image src="http://www.placehold.it/970x250&text=AD_970x250"></iron-image>
       </div>
+
+      <!-- Story Media -->
       <div class="" id="storyMedia">
-        <iron-image style="width:100%; height:645px" sizing="cover" src=""></iron-image>
+        <iron-image desktop-layout$="{{desktop}}" tablet-layout$="{{tablet}}" mobile-layout$="{{mobile}}" sizing="cover" src="http://www.standard.net[[getImage(story.mediaAssets.images, 0)]]"></iron-image>
         <div class="ut-rowFlex ut-absolute">
           <paper-fab mini icon="communication:chat-bubble" title="Comments" id="commentButton" on-tap="_scrollToComments(event)"></paper-fab>
           <gigya-sharebar></gigya-sharebar>
         </div>
-
-
       </div>
 
+      <!-- Headline -->
       <div class="">
-        <h2 id="storyTitle"> HEADLINE TEXT HERE </h2>
+        <h2 id="storyTitle"> {{story.title}} </h2>
+        <p> {{story.updated}} </p>
       </div>
 
+      <!-- Story Byline -->
+      <div class="" id="storyByline">
+        <img src="{{ computeBylineURL(story.byline.image) }}" class="ut-circle-image"/>
+        <div id="byLineInfo">
+          <p>{{story.byline.inputByLine}}</p>
+          <p>{% if story.byline.name != undefined %}
+              {{story.byline.name}}
+             {% else %}
+              {{story.byline.inputByline}}
+             {% endif %}
+          </p>
+          <p>{{story.byline.jobtitle}}</p>
+        </div>
+      </div>
+
+      <!-- Story Content Area -->
       <div class="" id="storyContentArea">
+        <template is="dom-repeat" items="{{story.paragraphs}}">
+          {{displayContent(item, index)}}
+        </template>
+        <!-- Top Of Stream Righthand Ad -->
+        <google-dfp id="contentAd" route="{{route}}" adpos="top_of_stream" adsize="[300,250]" adgroup="{$ config.dfpAdStructure.adGroupID $}" adgrouping="{$ config.dfpAdStructure.adGrouping $}" adsubgrouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
       </div>
 
+      <!-- Middle Ad -->
       <div class="ut-center">
         <iron-image src="http://www.placehold.it/970x250&text=AD_970x250"></iron-image>
       </div>
 
+      <!-- Comments -->
       <div class="ut-center">
         <paper-button raised id="comments">Comments</paper-button>
       </div>
 
+      <!-- Bottom Ad -->
       <div class="ut-center">
         <!-- <iron-image src="http://www.placehold.it/300x250&text=AD_300x250"></iron-image> -->
         <google-dfp route="{{route}}" adpos="bottom_of_stream" adsize="[[300,250],[300,600]]" adgroup="{$ config.dfpAdStructure.adGroupID $}" adgrouping="{$ config.dfpAdStructure.adGrouping $}" adsubgrouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
       </div>
 
+      <!-- Youneeq Content Area -->
       <div class="ut-center">
         Youneeq content here
-        <div style="width:970px; height:350px; background:red;"></div>
+        <div style="width:100%; height:350px; background:red;"></div>
       </div>
 
+      <!-- Last Ad -->
       <div class="ut-center">
         <iron-image src="http://www.placehold.it/970x250&text=AD_970x250"></iron-image>
       </div>

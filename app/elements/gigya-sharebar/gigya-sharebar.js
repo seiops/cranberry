@@ -9,7 +9,6 @@ class gigyaSharebar {
   ready() {
 
     var checkGigya = function (thisElement) {
-       console.info(thisElement);
       setTimeout(function (thisElement) {
         if (typeof gigya !== 'undefined') {
           // Gigya callback goes here.
@@ -75,9 +74,8 @@ class gigyaSharebar {
   }
 
   shareButtonHandler() {
-    console.info('I have been tapped or clicked');
     let buttonDiv = this.$['gigya-share-buttons'];
-    
+
     // Toggle display property on the sharebutton div
     buttonDiv.classList.toggle('ut-hide');
 

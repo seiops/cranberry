@@ -1,0 +1,41 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../bower_components/paper-audio-player/paper-audio-player.html">
+<link rel="import" href="../../bower_components/pdf-object/pdf-object.html">
+<link rel="import" href="../../bower_components/google-map/google-map.html">
+<link rel="import" href="../../bower_components/google-youtube/google-youtube.html">
+
+<dom-module id="cranberry-shortcode">
+  <template>
+    <style is="custom-style">
+      :host {
+        display: block;
+        text-align: center;
+        width: 100%;
+      }
+
+      ::shadow iron-image {
+        --iron-image-width: 100%;
+      }
+
+      ::shadow google-map {
+        height: 600px;
+      }
+
+    </style>
+
+    <!-- HTML exclusive shortcoded items -->
+    <content>
+      <div id="shortcode"></div>
+    </content>
+
+    <script>
+      function getMapAPI() {
+        return '{$ config.google.maps $}';
+      }
+    </script>
+  </template>
+
+  <!-- Add cranberry-shortcode Polymer Object script -->
+  <script src="cranberry-shortcode.js"></script>
+</dom-module>
