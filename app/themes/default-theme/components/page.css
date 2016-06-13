@@ -8,7 +8,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 */
 
 /** @define Page */
-
 .Page {
   @nest &-formInput {
     --paper-input-container-focus-color: var(--accent-color);
@@ -59,5 +58,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     @media (--md-viewport) {
       width: 512px;
     }
+  }
+
+  @nest &-card {
+    min-width: 250px;
+    max-width: 350px;
+    margin-right:24px;
+
+    @nest &-tag {
+      position: absolute;
+      top: 0;
+      display: block;
+      padding: 4px;
+      background-color: #FFF;
+      opacity: .7;
+    }
+  }
+
+  @nest &-cards {
+    @apply(--layout-horizontal);
+    @apply(--layout-center);
   }
 }
