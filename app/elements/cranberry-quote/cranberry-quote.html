@@ -1,0 +1,26 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
+<link rel="import" href="../../bower_components/iron-icons/social-icons.html">
+
+<dom-module id="cranberry-quote">
+  <template>
+    <style>
+      @import "cranberry-quote/cranberry-quote";
+    </style>
+    
+    <iron-media-query query="(max-width:719px)" query-matches="{{mobile}}"></iron-media-query>
+
+    <div id="wrapper" mobile-layout$="{{mobile}}">
+      <hr class="ut-hor-bar" />
+
+      <p id="quote"></p>
+      <p id="credit"></p>
+
+      <a target="_blank" href="https://twitter.com/intent/tweet?text=[[returnEncodedQuote(quote)]]&url=[[returnWindowLocation]]&via={$ config.socialNaming.twitter $}">
+        <paper-fab class="twitter-share" src="images/TwitterLogo_white.png" mini ></paper-fab>
+      </a>
+    </div>
+  </template>
+  <!-- Add cranberry-quote Polymer Object script -->
+  <script src="cranberry-quote.js"></script>
+</dom-module>

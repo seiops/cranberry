@@ -71,6 +71,17 @@ class cranberryShortcode {
           foundObject = this._findAsset(story.mediaAssets.videos, 'title', shortcode.value);
           this._createShortcode(foundObject, 'youtube', shortcode);
           break;
+        case 'quote':
+          let quote = {};
+          let lastIndex = shortcode.value.lastIndexOf(',');
+          let firstIndex = (shortcode.value.indexOf(',')) + 1;
+          let length = shortcode.value.length;
+          quote.direction = shortcode.value.substr(0,1);
+          quote.credit = shortcode.unscrubbed.substr(lastIndex, length).replace(',', '').trim();
+          quote.text = shortcode.unscrubbed.substr(firstIndex, lastIndex - (firstIndex)).trim();
+
+          this._createShortcode(quote, 'quote', shortcode);
+          break;
       }
     }
 
@@ -160,6 +171,12 @@ class cranberryShortcode {
         shortcodeEl.setAttributeNode(videoAttribute);
         shortcodeEl.height = '400px';
         shortcodeEl.width = '100%';
+      }
+
+      // Create Quote shortcode
+      if (type === 'quote') {
+        shortcodeEl = document.createElement('cranberry-quote');
+        shortcodeEl.quote = foundObject;
       }
 
       // Append shortcodeEl

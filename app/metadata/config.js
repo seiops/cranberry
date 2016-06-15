@@ -13,5 +13,8 @@ module.exports = {
     adGroupID: 30103046,
     adGrouping: 'Ogden_Publisher',
     adSubGrouping: 'Standard_Examiner'
+  },
+  socialNaming: {
+    twitter: 'StandardEx'
   }
 };

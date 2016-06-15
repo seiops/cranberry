@@ -1,0 +1,59 @@
+:host {
+  display: block;
+}
+
+.cranberry-quote {
+  @apply(--layout-vertical);
+}
+
+.cranberry-quote .ut-hor-bar {
+  border: solid var(--secondary-color) 4px;
+  margin: 0 0 1.25rem 0;
+}
+
+#credit {
+  font-size: .9em;
+  color: #999;
+  @apply(--layout-end);
+  padding:0 10px;
+}
+
+#wrapper {
+  position: relative;
+  width: 100%;
+  margin-bottom: 5px;
+  border-right: solid var(--secondary-color) 3px;
+}
+
+#wrapper.ut-float-right {
+  float: right;
+  width: 50%;
+  margin: 6px 0 0 10px;
+}
+
+#wrapper.ut-float-left {
+  float: left;
+  width: 50%;
+  margin: 6px 10px 0 0;
+}
+
+#wrapper[mobile-layout].ut-float-right {
+  float: none;
+  clear: both;
+  width: 100%;
+  margin: 6px 0 0 0;
+}
+
+#wrapper[mobile-layout].ut-float-left {
+  float: none;
+  clear: both;
+  width: 100%;
+  margin: 6px 0 0 0;
+}
+
+.twitter-share {
+  --paper-fab-background: #55acee;
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+}
