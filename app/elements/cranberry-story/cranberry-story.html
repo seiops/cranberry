@@ -3,7 +3,6 @@
 <link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
 <link rel="import" href="../../bower_components/iron-icons/social-icons.html">
 <link rel="import" href="../cranberry-shortcode/cranberry-shortcode.html">
-<link rel="import" href="../twitter-timeline/twitter-timeline.html">
 
 <dom-module id="cranberry-story">
 
@@ -17,7 +16,7 @@
     <iron-media-query query="(min-width: 720px) and (max-width:959px)" query-matches="{{tablet}}"></iron-media-query>
     <iron-media-query query="(max-width:719px)" query-matches="{{mobile}}"></iron-media-query>
 
-    <byutv-jsonp auto url="http://sedev.libercus.net/rest.json" params='{"request": "story", "desiredItemID": "201606081715"}' on-response="handleResponse" debounce-duration="300" id="request"></byutv-jsonp>
+    <byutv-jsonp auto url="http://sedev.libercus.net/rest.json" params='{"request": "story", "desiredItemID": "201201010002"}' on-response="handleResponse" debounce-duration="300" id="request"></byutv-jsonp>
 
     <div class="Cranberry-Story">
 
@@ -57,7 +56,7 @@
           <p>{{story.byline.jobtitle}}</p>
         </div>
       </div>
-
+      
       <!-- Story Content Area -->
       <div class="" id="storyContentArea">
         <template is="dom-repeat" items="{{story.paragraphs}}">

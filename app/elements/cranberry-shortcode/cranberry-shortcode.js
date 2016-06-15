@@ -15,9 +15,12 @@ class cranberryShortcode {
         };
     }
 
+    // Attached function to handle all data passed to shortcode Element
     attached() {
       let foundObject = {};
+
       if (typeof this.storyObject !== 'undefined' && typeof this.shortcodeObject !== 'undefined') {
+        // Establish found object from the return of findAssetObject
         foundObject = this._findAssetObject(this.storyObject, this.shortcodeObject);
       }
     }
@@ -26,6 +29,10 @@ class cranberryShortcode {
       let searchIndex = '';
       let foundObject = {};
 
+      // Switch on the shortcode key (type of shortcode)
+      // If key is found in Switch
+      //   a. Find the corrisponding object based on the passed data.
+      //   b. Pass that to _createShortcode function for creation of the desired element.
       switch(shortcode.key) {
         case 'image':
         case 'leadimage':
@@ -48,8 +55,13 @@ class cranberryShortcode {
           this._createShortcode(story, 'map', shortcode);
           break;
         case 'revealer':
-          // foundObject = this._findAsset(story.mediaAssets.images, 'title', shortcode.value);
-          // this._createShortcode(foundObject, 'revealer', shortcode);
+          let myElement = this;
+          let shortcodeArr = shortcode.value.split(',');
+          let foundObjectArr = [];
+          shortcodeArr.forEach(function(value) {
+            foundObjectArr.push(myElement._findAsset(story.mediaAssets.images, 'title', value));
+          });
+          this._createShortcode(foundObjectArr, 'revealer', shortcode);
           break;
         case 'twitterhash':
         case 'twitteruser':
@@ -99,47 +111,30 @@ class cranberryShortcode {
         let long = (positionArr.length > 1 && positionArr[1] !== '' ? positionArr[1] : foundObject.longitude);
         let zoom = (positionArr.length > 2 && positionArr[2] !== '' ? Number(positionArr[2]) : 15);
 
-        let apiAttribute = document.createAttribute('api-key');
-        apiAttribute.value = getMapAPI();
-        // Create google-map (with api-key attribute) and marker elements
-        shortcodeEl = document.createElement('google-map', {'api-key' : getMapAPI()});
-        //shortcodeEl.setAttributeNode(apiAttribute);
-        let mapMarker = document.createElement('google-map-marker');
-
-
-        // Set all attributes for map
-        shortcodeEl.disableZoom = true;
-        shortcodeEl.latitude = lat;
-        shortcodeEl.longitude = long;
-        shortcodeEl.zoom = zoom;
-
-        // Set map marker attributes
-        mapMarker.latitude = lat;
-        mapMarker.longitude = long;
-
-        // Append map marker to shortcodeel within light dom
-        Polymer.dom(shortcodeEl).appendChild(mapMarker);
+        // Create cranberry-map (without api-key attribute)
+        shortcodeEl = this.create('cranberry-map', {latitude: lat, longitude: long, zoom: zoom});
       }
 
       // Create shortcode for revealer
-      // if (type === 'revealer') {
-        // shortcodeEl = document.createElement('onion-skin');
-        //
-        // let image1 = document.createElement('img');
-        // let image2 = document.createElement('img');
-        //
-        // image1.src = 'http://www.placehold.it600x600&text=1';
-        // image2.src = 'http://www.placehold.it600x600&text=2';
-        //
-        // Polymer.dom(shortcodeEl).appendChild(image1);
-        // Polymer.dom(shortcodeEl).appendChild(image2);
-      // }
+      if (type === 'revealer') {
+        shortcodeEl = document.createElement('cranberry-revealer');
+
+        let myElement = this;
+        let images = [];
+
+        foundObject.forEach(function(value, index) {
+          let obj = {};
+          obj.url = 'http://www.standard.net' + myElement.computeRatio(value.url, '16-9');
+          images.push(obj);
+        });
+
+        shortcodeEl.images = images;
+      }
 
       // Create shortcode for Twitter hash and user
       if (type === 'twitter') {
         let valueArray = shortcode.value.split(',');
         shortcodeEl = document.createElement('twitter-timeline');
-        console.info(shortcode);
         if (shortcode.key === 'twitteruser') {
           let sourceType = document.createAttribute('source-type');
           sourceType.value = 'profile';
@@ -159,8 +154,6 @@ class cranberryShortcode {
 
       // Create YouTube shortcode
       if (type === 'youtube') {
-        console.info(shortcode.key);
-        console.info(foundObject);
         shortcodeEl = document.createElement('google-youtube');
         let videoAttribute = document.createAttribute('video-id');
         videoAttribute.value = foundObject.url;
@@ -173,7 +166,7 @@ class cranberryShortcode {
       if (shortcode.key === 'leadimage') {
         document.querySelector('#storyMedia').querySelector('iron-image').src = 'http://www.standard.net/' + this.computeRatio(foundObject.url, '16-9');
       } else {
-        this.$.shortcode.appendChild(shortcodeEl);
+        Polymer.dom(this.$.shortcode).appendChild(shortcodeEl);
       }
     }
 

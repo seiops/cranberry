@@ -1,0 +1,20 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-slider/paper-slider.html">
+
+<dom-module id="cranberry-revealer" attributes="crossfade">
+  <template>
+    <style>
+      @import "cranberry-revealer/cranberry-revealer";
+    </style>
+    <div class="tool-container layout vertical">
+
+      <div class="frames-container self-center">
+        <div id="images"></div>
+      </div>
+      <p> Move slider to reveal image </p>
+      <paper-slider class="slider" max="{{maxOpacity}}" min="0" immediate-value="{{currentOpacity}}" id="opacity"></paper-slider>
+
+    </div>
+  </template>
+  <script src="cranberry-revealer.js"></script>
+</dom-module>

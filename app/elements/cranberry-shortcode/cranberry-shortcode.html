@@ -1,9 +1,12 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<!-- Shortcode Elements -->
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../../bower_components/paper-audio-player/paper-audio-player.html">
 <link rel="import" href="../../bower_components/pdf-object/pdf-object.html">
-<link rel="import" href="../../bower_components/google-map/google-map.html">
 <link rel="import" href="../../bower_components/google-youtube/google-youtube.html">
+<link rel="import" href="../twitter-timeline/twitter-timeline.html">
+<link rel="import" href="../cranberry-revealer/cranberry-revealer.html">
+<link rel="import" href="../cranberry-map/cranberry-map.html">
 
 <dom-module id="cranberry-shortcode">
   <template>
@@ -18,22 +21,12 @@
         --iron-image-width: 100%;
       }
 
-      ::shadow google-map {
-        height: 600px;
-      }
-
     </style>
 
     <!-- HTML exclusive shortcoded items -->
     <content>
       <div id="shortcode"></div>
     </content>
-
-    <script>
-      function getMapAPI() {
-        return '{$ config.google.maps $}';
-      }
-    </script>
   </template>
 
   <!-- Add cranberry-shortcode Polymer Object script -->

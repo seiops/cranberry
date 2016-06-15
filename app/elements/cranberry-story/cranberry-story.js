@@ -27,7 +27,6 @@ class cranberryStory {
           }
         };
         this.computeBylineURL = function(url) {
-          console.info(url);
           if (typeof url === 'undefined') {
             return 'http://imgsrc.me/250x400/9c9c9c/000000/Image Unavailable?showDimensions=0&font=arial';
           } else {
@@ -55,7 +54,6 @@ class cranberryStory {
     handleResponse(data) {
       var myElement = this;
       var restResponse = JSON.parse(data.detail.Result);
-      console.info(restResponse.byline.name);
       // Assign restResponse to data bound object story
       this.story = restResponse;
     }
