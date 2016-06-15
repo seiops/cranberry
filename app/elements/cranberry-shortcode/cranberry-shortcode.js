@@ -82,6 +82,8 @@ class cranberryShortcode {
 
           this._createShortcode(quote, 'quote', shortcode);
           break;
+        case 'googform':
+          this._createShortcode(shortcode.unscrubbed, 'googform', shortcode);
       }
     }
 
@@ -177,6 +179,12 @@ class cranberryShortcode {
       if (type === 'quote') {
         shortcodeEl = document.createElement('cranberry-quote');
         shortcodeEl.quote = foundObject;
+      }
+
+      // Create Google Form shortcode
+      if (type === 'googform') {
+        shortcodeEl = document.createElement('google-form');
+        shortcodeEl.url = foundObject;
       }
 
       // Append shortcodeEl
