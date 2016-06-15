@@ -33,6 +33,7 @@ class cranberryShortcode {
       // If key is found in Switch
       //   a. Find the corrisponding object based on the passed data.
       //   b. Pass that to _createShortcode function for creation of the desired element.
+
       switch(shortcode.key) {
         case 'image':
         case 'leadimage':
@@ -47,9 +48,6 @@ class cranberryShortcode {
         case 'audio':
           foundObject =  this._findAsset(story.attachments, 'title', shortcode.value);
           this._createShortcode(foundObject, 'attachment', shortcode);
-          break;
-        case 'gallery':
-          //foundObject = this._findAsset(story.relatedContent, '', shortcode.value);
           break;
         case 'gmap':
           this._createShortcode(story, 'map', shortcode);
@@ -84,6 +82,21 @@ class cranberryShortcode {
           break;
         case 'googform':
           this._createShortcode(shortcode.unscrubbed, 'googform', shortcode);
+          break;
+        case 'gallery':
+          console.info('This is a gallery');
+          this._createShortcode(story.relatedContent, 'gallery', shortcode);
+          break;
+        case 'singlegallery':
+          // foundObject = this._findAsset(story.relatedContent, 'title', shortcode.value);
+          // this._creatShortcode(foundObject, 'singlegallyer', shortcode);
+          break;
+        case 'mec':
+          console.info('This is MEC');
+          break;
+        case 'generator':
+          console.info('This is Generator');
+          break;
       }
     }
 
@@ -187,6 +200,29 @@ class cranberryShortcode {
         shortcodeEl.url = foundObject;
       }
 
+      // Create Gallery shortcode
+      if (type === 'gallery') {
+        let featured = {};
+        let links = [];
+        foundObject.forEach(function(value, index) {
+          if (value.contentType === 'gallery') {
+            if (index === 0) {
+              featured = value;
+            } else {
+              links.push(value);
+            }
+          }
+        });
+
+        shortcodeEl = document.createElement('cranberry-slider');
+        shortcodeEl.featured = featured;
+        shortcodeEl.links = links;
+      }
+
+      if (type === 'singleGallery') {
+        console.info(foundObject);
+        console.info(shortcode);
+      }
       // Append shortcodeEl
       if (shortcode.key === 'leadimage') {
         document.querySelector('#storyMedia').querySelector('iron-image').src = 'http://www.standard.net/' + this.computeRatio(foundObject.url, '16-9');

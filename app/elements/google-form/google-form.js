@@ -3,14 +3,9 @@ class googleForm {
     this.is = 'google-form';
     this.properties = {
       url: {
-        type: String,
-        observer: 'urlChanged'
+        type: String
       }
     };
-  }
-
-  urlChanged() {
-    console.info(this.url);
   }
 }
 Polymer(googleForm);
