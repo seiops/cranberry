@@ -106,7 +106,11 @@ class cranberryShortcode {
       // Create shortcode for images. Except for leadimages
       if (type === 'image' && shortcode.key !== 'leadimage') {
         shortcodeEl = document.createElement('iron-image');
+        let caption = document.createElement('p');
+        caption.classList.add('ut-text-small-dim');
         shortcodeEl.src = 'http://www.standard.net' + (shortcode.key === 'image' ? this.computeRatio(foundObject.url, '16-9') : foundObject.url);
+        caption.appendChild(document.createTextNode(foundObject.caption));
+        shortcodeEl.appendChild(caption);
       }
 
       // Create shortcode for PDF's and Audio
