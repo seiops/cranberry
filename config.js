@@ -82,6 +82,6 @@ module.exports = {
   },
   // Service Worker
   serviceWorker: {
-    cacheDisabled: false
+    cacheDisabled: true
   }
 };

@@ -3,7 +3,7 @@
 
 ## Requirements
 
-The Cranberry Development Kit requires the following major dependencies:
+Cranberry has the following major dependencies:
 
 * **Node.js**, used to run JavaScript tools from the command line.
 * **npm**, the node package manager, installed with Node.js and used to install Node.js packages.
@@ -16,6 +16,8 @@ The Cranberry Development Kit requires the following major dependencies:
 ### Quick Install
 
 If you already have `node 0.12.x` installed you only need the additional components.
+
+#### Initialize your app
 
 ```sh
 npm install -g gulp bower && npm install && bower install
@@ -45,29 +47,23 @@ If you don't have Node.js installed, or you have a lower version, go to [nodejs.
 
 Install `gulp` and `bower` globally.
 
-   ```sh
-   npm install -g gulp bower
-   ```
+ ```sh
+ npm install -g gulp bower
+ ```
 
+#### Quick-start (for experienced users)
 
-## Directory Structure
+With Node.js installed, run the following one liner from the root of your Polymer Starter Kit Plus download:
 
-```
-/
-|---app/
-|   |---elements/
-|   |---images/
-|   |---scripts/
-|   |---styles/
-|   |---test/
-|---docs/
-|---dist/
+```sh
+npm run install:complete # Alias for "sudo npm install -g npm && sudo npm install -g bower gulp && npm install && bower install"
+
+gulp init # Initialize your app - download fonts from Google Fonts and analytics.js
 ```
 
-* **app/..** - Source code development area.
-* **elements/** - Custom elements.
-* **images/** - Static images.
-* **scripts/** - JS script modules.
-* **styles/** - Shared styles and CSS rules.
-* **test/** - Tests for web components.
-* **dist/** - Production build (vulcanized and minified).
+
+#### Variables
+
+- Gulp variables -  [config.js](https://github.com/seiops/cranberry/blob/master/config.js)
+- Theme variables -  [variables.css](https://github.com/seiops/cranberry/blob/master/app/themes/default-theme/variables.css) and [variables.js](https://github.com/seiops/cranberry/blob/master/app/themes/default-theme/variables.js)
+- HTML metadata -  [config.js](https://github.com/seiops/cranberry/blob/master/app/metadata/config.js) and [general.js](https://github.com/seiops/cranberry/blob/master/app/metadata/general.js)

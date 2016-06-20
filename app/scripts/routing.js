@@ -83,8 +83,8 @@ page('*', scrollToTop, closeDrawer, (ctx, next) => {
 function setHomePage() {
   function setData() {
     app.route = 'home';
-    app.pageTitle = 'Polymer';
-    app.pageSubTitle = 'The future of the web today';
+    app.pageTitle = 'Home';
+    app.pageSubTitle = 'Default home page.';
     setFocus(app.route);
   }
 
@@ -158,6 +158,118 @@ page('/settings', () => {
     app.route = 'settings';
     app.pageTitle = 'Settings';
     app.pageSubTitle = 'Edit your settings';
+    setFocus(app.route);
+  }
+
+  // Check if element prototype has not been upgraded yet
+  if (!app.upgraded) {
+    once(app, 'upgraded', setData);
+  } else {
+    setData();
+  }
+});
+
+page('/feedback', () => {
+  function setData() {
+    app.route = 'feedback';
+    app.pageTitle = 'Feedback';
+    app.pageSubTitle = 'Tell us what you think';
+    setFocus(app.route);
+  }
+
+  // Check if element prototype has not been upgraded yet
+  if (!app.upgraded) {
+    once(app, 'upgraded', setData);
+  } else {
+    setData();
+  }
+});
+
+page('/help', () => {
+  function setData() {
+    app.route = 'help';
+    app.pageTitle = 'Help';
+    app.pageSubTitle = 'Get help with our site and services';
+    setFocus(app.route);
+  }
+
+  // Check if element prototype has not been upgraded yet
+  if (!app.upgraded) {
+    once(app, 'upgraded', setData);
+  } else {
+    setData();
+  }
+});
+
+page('/policy', () => {
+  function setData() {
+    app.route = 'policy';
+    app.pageTitle = 'Privacy Policy';
+    app.pageSubTitle = 'What we do with your information';
+    setFocus(app.route);
+  }
+
+  // Check if element prototype has not been upgraded yet
+  if (!app.upgraded) {
+    once(app, 'upgraded', setData);
+  } else {
+    setData();
+  }
+});
+
+page('/sections', () => {
+  function setData() {
+    app.route = 'sections';
+    app.pageTitle = 'Sections';
+    app.pageSubTitle = 'News sections';
+    setFocus(app.route);
+  }
+
+  // Check if element prototype has not been upgraded yet
+  if (!app.upgraded) {
+    once(app, 'upgraded', setData);
+  } else {
+    setData();
+  }
+});
+
+page('/terms', () => {
+  function setData() {
+    app.route = 'terms';
+    app.pageTitle = 'Terms of Service';
+    app.pageSubTitle = 'Site terms of use';
+    setFocus(app.route);
+  }
+
+  // Check if element prototype has not been upgraded yet
+  if (!app.upgraded) {
+    once(app, 'upgraded', setData);
+  } else {
+    setData();
+  }
+});
+
+page('/video', () => {
+  function setData() {
+    app.route = 'video';
+    app.pageTitle = 'Video';
+    app.pageSubTitle = 'Local video';
+    setFocus(app.route);
+  }
+
+  // Check if element prototype has not been upgraded yet
+  if (!app.upgraded) {
+    once(app, 'upgraded', setData);
+  } else {
+    setData();
+  }
+});
+
+page('/sample-grid', () => {
+  function setData() {
+    app.route = 'sample-grid';
+    app.pageTitle = 'Sample Grid';
+    app.pageSubTitle = 'Generic Layout Example';
     setFocus(app.route);
   }
 

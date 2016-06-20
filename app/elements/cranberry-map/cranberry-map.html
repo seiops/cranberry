@@ -1,0 +1,29 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/google-map/google-map.html">
+
+<dom-module id="cranberry-map">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      google-map {
+        height: 600px;
+      }
+    </style>
+
+    <content>
+      <google-map api-key="{{apiKey}}" latitude="{{latitude}}" longitude="{{longitude}}" zoom="{{zoom}}" disable-zoom>
+        <google-map-marker latitude="{{latitude}}" longitude="{{longitude}}"></google-map-marker>
+      </google-map>
+    </content>
+  </template>
+
+  <script>
+    function getMapAPI() {
+      return '{$ config.google.maps $}';
+    }
+  </script>
+
+  <script src="cranberry-map.js"></script>
+</dom-module>

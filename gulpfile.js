@@ -24,6 +24,7 @@ var historyApiFallback = require('connect-history-api-fallback');
 var packageJson = require('./package.json');
 var crypto = require('crypto');
 var config = require('./config');
+var requireUncached = require('require-uncached');
 
 // Get a task path
 function task(filename) {
@@ -46,6 +47,7 @@ gulp.task('lint-js', ['ensureFiles'], function() {
   return gulp.src([
       'app/scripts/**/*.js',
       '!app/scripts/analytics.js',
+      '!app/scripts/gpt.js',
       'app/elements/**/*.js',
       'gulpfile.js'
     ])
@@ -96,7 +98,7 @@ gulp.task('copy', function() {
   var icons = gulp.src(['app/themes/' + config.appTheme + '/icons.html'])
     .pipe(gulp.dest('dist/themes/' + config.appTheme));
 
-  var scripts = gulp.src(['app/scripts/analytics.js'])
+  var scripts = gulp.src(['app/scripts/analytics.js', 'app/scripts/gpt.js'])
     .pipe(gulp.dest('dist/scripts'));
 
   return merge(app, bower, elements, icons, scripts)
@@ -237,7 +239,7 @@ gulp.task('serve', ['js', 'lint', 'lint-js', 'styles'], function() {
     'app/*.html',
     'app/views/**/*.html',
     'app/content/**/*.md',
-    'app/metadata.js'
+    'app/metadata/*.js'
   ], ['styles', reload]);
   gulp.watch(['app/{elements,themes}/**/*.{css,html}'], ['styles', reload]);
   gulp.watch(['app/themes/**/*.js'], ['styles', reload]);
@@ -281,6 +283,9 @@ gulp.task('copy-hosting-config', require(task('copy-hosting-config'))($, config,
 // https://www.google-analytics.com/analytics.js has set only 2 hours cache
 gulp.task('download:analytics', require(task('download-analytics'))($, gulp));
 
+// Download newest script gpt.js from Google for DFP
+gulp.task('download:dfp', require(task('download-dfp'))($, gulp));
+
 // Fix paths before revision task
 gulp.task('fix-paths-before-revision', require(task('fix-paths'))($, gulp, merge, 'before'));
 
@@ -306,7 +311,7 @@ gulp.task('serve:gae', ['default'], require(task('serve-gae'))($, gulp));
 gulp.task('styles', ['views'], require(task('styles-postcss'))($, config, gulp, merge));
 
 // Compile HTML files with Nunjucks templating engine
-gulp.task('views', require(task('views-nunjucks'))($, config, gulp));
+gulp.task('views', require(task('views-nunjucks'))($, config, gulp, requireUncached));
 
 // Build Production Files, the Default Task
 gulp.task('default', ['clean'], function(cb) {
@@ -323,7 +328,7 @@ gulp.task('default', ['clean'], function(cb) {
 // Initializing app
 gulp.task('init', function(cb) {
   runSequence(
-    ['download:analytics', 'download:fonts'],
+    ['download:analytics', 'download:dfp', 'download:fonts'],
     cb);
 });
 

@@ -1,0 +1,25 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="google-dfp">
+
+  <template>
+    <!-- Polymer 1.1 and above recommends placing style within template https://www.polymer-project.org/1.0/docs/devguide/styling -->
+    <style is="custom-style">
+      @import "google-dfp/google-dfp";
+    </style>
+    <div id="{{adpos}}[[_adCount()]]" class="advertisement"></div>
+  </template>
+
+  <!-- Declare googletag var and cmd. Setup default ad structure object-->
+  <script>
+    var googletag = window.googletag || {};
+    googletag.cmd = googletag.cmd || [];
+  </script>
+
+  <!-- Add gpt.js from scripts DIR -->
+  <script src="../../scripts/gpt.js"></script>
+
+  <!-- Add google-dfp Polymer Object script -->
+  <script src="google-dfp.js"></script>
+
+</dom-module>

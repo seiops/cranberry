@@ -27,6 +27,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
   };
 
+  app.logger = logger;
+
   // Conditionally load the webcomponents polyfill if needed by the browser.
   // This feature detect will need to change over time as browsers implement
   // different features.
@@ -35,39 +37,39 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     'content' in document.createElement('template'));
 
   function finishLazyLoading() {
-    // (Optional) Use native Shadow DOM if it's available in the browser.
-    // WARNING! This will mess up the page.js router which uses event delegation
-    // and expects to receive events from anchor tags. These events get re-targeted
-    // by the Shadow DOM to point to <my-app>
-    // window.Polymer = window.Polymer || {dom: 'shadow'};
+    // // (Optional) Use native Shadow DOM if it's available in the browser.
+    // // WARNING! This will mess up the page.js router which uses event delegation
+    // // and expects to receive events from anchor tags. These events get re-targeted
+    // // by the Shadow DOM to point to <cranberry-base>
+    // // window.Polymer = window.Polymer || {dom: 'shadow'};
 
-    // When base-bundle.html with elements is loaded
-    var onImportLoaded = function() {
-      logger('Imports are loaded and elements have been registered!');
-      
-      // Remove skeleton
-      var skeleton = document.getElementById('skeleton');
-      skeleton.remove();
+    // // When base-bundle.html with elements is loaded
+    // var onImportLoaded = function() {
+    //   logger('Imports loaded and elements registered.');
 
-      if (webComponentsSupported) {
-        // Emulate WebComponentsReady event for browsers supporting Web Components natively
-        // (Chrome, Opera, Vivaldi)
-        document.dispatchEvent(
-          new CustomEvent('WebComponentsReady', {bubbles: true})
-        );
-      }
-    };
+    //   // Remove skeleton
+    //   var skeleton = document.getElementById('skeleton');
+    //   skeleton.remove();
 
-    var elementsBaseBundle = document.getElementById('elementsBaseBundle');
+    //   if (webComponentsSupported) {
+    //     // Emulate WebComponentsReady event for browsers supporting Web Components natively
+    //     // (Chrome, Opera, Vivaldi)
+    //     document.dispatchEvent(
+    //       new CustomEvent('WebComponentsReady', {bubbles: true})
+    //     );
+    //   }
+    // };
 
-    // Go if the async Import loaded quickly. Otherwise wait for it.
-    // crbug.com/504944 - readyState never goes to complete until Chrome 46.
-    // crbug.com/505279 - Resource Timing API is not available until Chrome 46.
-    if (elementsBaseBundle.import && elementsBaseBundle.import.readyState === 'complete') {
-      onImportLoaded();
-    } else {
-      elementsBaseBundle.addEventListener('load', onImportLoaded);
-    }
+    // var elementsBaseBundle = document.getElementById('elementsBaseBundle');
+
+    // // Go if the async Import loaded quickly. Otherwise wait for it.
+    // // crbug.com/504944 - readyState never goes to complete until Chrome 46.
+    // // crbug.com/505279 - Resource Timing API is not available until Chrome 46.
+    // if (elementsBaseBundle.import && elementsBaseBundle.import.readyState === 'complete') {
+    //   onImportLoaded();
+    // } else {
+    //   elementsBaseBundle.addEventListener('load', onImportLoaded);
+    // }
   }
 
   if (!webComponentsSupported) {
@@ -78,14 +80,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     script.onload = finishLazyLoading;
     document.head.appendChild(script);
   } else {
-    logger('Web Components are supported!');
+    logger('Web Component support detected.');
     finishLazyLoading();
   }
 
   // Listen for template bound event to know when bindings
   // have resolved and content has been stamped to the page
   app.addEventListener('dom-change', () => {
-    logger('Our app is ready to rock!');
+    logger('Cranberry content loaded.');
   });
 
   // See https://github.com/Polymer/polymer/issues/1381
@@ -119,35 +121,37 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   // the headerTitle in the middle-container and the bottom title in the bottom-container.
   // The headerTitle is moved to top and shrunk on condensing. The bottom sub title
   // is shrunk to nothing on condensing.
-  window.addEventListener('paper-header-transform', e => {
-    let headerTitle = app.querySelector('.Main-headerTitle');
-    let headerSubTitle = app.querySelector('.Main-headerSubTitle');
-    let headerMiddleBar = app.querySelector('.Main-headerMiddleBar');
-    let headerBottomBar = app.querySelector('.Main-headerBottomBar');
-    let detail = e.detail;
-    let heightDiff = detail.height - detail.condensedHeight;
-    let yRatio = Math.min(1, detail.y / heightDiff);
-    let yRatio2 = Math.min(1, detail.y / (heightDiff + 30));
-    // headerTitle max size when condensed. The smaller the number the smaller the condensed size.
-    var maxMiddleScale = 0.70;
-    var auxHeight = heightDiff - detail.y;
-    var auxScale = heightDiff / (1 - maxMiddleScale);
-    var scaleMiddle = Math.max(maxMiddleScale, auxHeight / auxScale + maxMiddleScale);
-    var scaleBottom = 1 - yRatio;
+  // window.addEventListener('paper-header-transform', e => {
+  //   let siteTitle = app.querySelector('.Main-siteTitle');
+  //   let headerTitle = app.querySelector('.Main-headerTitle');
+  //   let headerSubTitle = app.querySelector('.Main-headerSubTitle');
+  //   let headerMiddleBar = app.querySelector('.Main-headerMiddleBar');
+  //   let headerBottomBar = app.querySelector('.Main-headerBottomBar');
+  //   let detail = e.detail;
+  //   let heightDiff = detail.height - detail.condensedHeight;
+  //   let yRatio = Math.min(1, detail.y / heightDiff);
+  //   let yRatio2 = Math.min(1, detail.y / (heightDiff + 30));
+  //   // headerTitle max size when condensed. The smaller the number the smaller the condensed size.
+  //   var maxMiddleScale = 0.70;
+  //   var auxHeight = heightDiff - detail.y;
+  //   var auxScale = heightDiff / (1 - maxMiddleScale);
+  //   var scaleMiddle = Math.max(maxMiddleScale, auxHeight / auxScale + maxMiddleScale);
+  //   var scaleBottom = 1 - yRatio;
 
-    // Move/translate headerMiddleContent and headerBottomContent
-    if (window.matchMedia('(min-width: 600px)').matches) {
-      Polymer.Base.transform(`translate3d(0,${yRatio2 * 100}%,0)`, headerMiddleBar);
-    } else {
-      Polymer.Base.transform(`translate3d(${yRatio * 18}px,${yRatio2 * 100}%,0)`,
-        headerMiddleBar);
-      Polymer.Base.transform(`translate3d(${yRatio * 18}px,0,0)`, headerBottomBar);
-    }
+  //   // Move/translate headerMiddleContent and headerBottomContent
+  //   if (window.matchMedia('(min-width: 600px)').matches) {
+  //     Polymer.Base.transform(`translate3d(0,${yRatio2 * 4}px,0)`, headerMiddleBar);
+  //   } else {
+  //     Polymer.Base.transform(`translate3d(0,${yRatio2 * 4}px,0)`,
+  //       headerMiddleBar);
+  //     // Polymer.Base.transform(`translate3d(${yRatio * 18}px,0,0)`, headerBottomBar);
+  //   }
 
-    // Scale headerTitle
-    Polymer.Base.transform(`scale(${scaleMiddle}) translateZ(0)`, headerTitle);
-    // Scale headerSubTitle
-    Polymer.Base.transform(`scale(${scaleBottom}) translateZ(0)`, headerSubTitle);
-  });
+  //   // Scale headerTitle
+  //   Polymer.Base.transform(`scale(${scaleMiddle}) translateZ(0)`, headerTitle);
+  //   // Polymer.Base.transform(`translate3d(1px,0,0)`, siteTitle);
+  //   // Scale headerSubTitle
+  //   // Polymer.Base.transform(`scale(${scaleBottom}) translateZ(0)`, headerSubTitle);
+  // });
 
 })(document);
