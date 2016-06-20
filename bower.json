@@ -35,7 +35,8 @@
     "paper-audio-player": "^0.2.1",
     "pdf-object": "^1.0.0",
     "google-map": "^1.1.10",
-    "google-youtube": "^1.2.1"
+    "google-youtube": "^1.2.1",
+    "awesome-slider": "*"
   },
   "devDependencies": {
     "web-component-tester": "4.2.0"

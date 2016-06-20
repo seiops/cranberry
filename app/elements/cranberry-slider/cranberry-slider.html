@@ -1,12 +1,19 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/awesome-slider/awesome-slider.html">
 
 <dom-module id="cranberry-slider">
   <template>
-    <style>
+    <style is="custom-style">
       @import "cranberry-slider/cranberry-slider";
     </style>
-    <p>This is a gallery with some stuff in it {{featured}} and {{links}}</p>
+
+    <!-- Place an image into slider as a placeholder -->
+    <awesome-slider id="slider" autostart="true" arrows="true" bullets="false">
+      <item id="placehold" source$="http://www.standard.net{{featured.mediaAssets.images.1.url}}"></item>
+    </awesome-slider>
+
   </template>
+
   <!-- Add cranberry-slider Polymer Object script -->
   <script src="cranberry-slider.js"></script>
 </dom-module>
