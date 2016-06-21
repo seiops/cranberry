@@ -6,13 +6,26 @@
     <style is="custom-style">
       @import "cranberry-slider/cranberry-slider";
     </style>
-
+    <paper-card>
     <h3>{{featured.title}}</h3>
     <!-- Place an image into slider as a placeholder -->
-    <awesome-slider id="slider" autostart="true" arrows="true" bullets="false">
-      <item id="placehold" source$="http://www.standard.net{{featured.mediaAssets.images.1.url}}"></item>
+    <awesome-slider id="slider" autostart="true" arrows="true" bullets="false" info="true">
+      <item id="placehold" source$="http://www.standard.net{{featured.mediaAssets.images.0.url}}"></item>
     </awesome-slider>
-
+    <div class="cranberry-slider-caption">
+      <iron-icon icon="image:panorama"></iron-icon><p id="caption">{{featured.mediaAssets.images.0.caption}}</p>
+    </div>
+    <div class="cranberry-slider-related">
+      <ul>
+        <template is="dom-repeat" items="{{links}}">
+          <template is="dom-if" if="{{computeShowTitle(index)}}">
+            <h4 class="ut-related-title"> ALSO LINKED </h4>
+          </template>
+          <li><a href="{{item.genericLink}}">{{item.title}}</a></li>
+        </template>
+      </ul>
+    </div>
+  </paper-card>
   </template>
 
   <!-- Add cranberry-slider Polymer Object script -->

@@ -84,12 +84,12 @@ class cranberryShortcode {
           this._createShortcode(shortcode.unscrubbed, 'googform', shortcode);
           break;
         case 'gallery':
-          console.info('This is a gallery');
           this._createShortcode(story.relatedContent, 'gallery', shortcode);
           break;
         case 'singlegallery':
-          // foundObject = this._findAsset(story.relatedContent, 'title', shortcode.value);
-          // this._creatShortcode(foundObject, 'singlegallyer', shortcode);
+                  console.info('This is a single gallery');
+          foundObject = this._findAsset(story.relatedContent, 'title', shortcode.value);
+          this._createShortcode(foundObject, 'singlegallery', shortcode);
           break;
         case 'mec':
           console.info('This is MEC');
@@ -223,10 +223,12 @@ class cranberryShortcode {
         shortcodeEl.links = links;
       }
 
-      if (type === 'singleGallery') {
-        console.info(foundObject);
-        console.info(shortcode);
+      // Create SingleGallery shortcode
+      if (type === 'singlegallery') {
+        shortcodeEl = document.createElement('cranberry-slider');
+        shortcodeEl.featured = foundObject;
       }
+
       // Append shortcodeEl
       if (shortcode.key === 'leadimage') {
         document.querySelector('#storyMedia').querySelector('iron-image').src = 'http://www.standard.net/' + this.computeRatio(foundObject.url, '16-9');
