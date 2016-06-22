@@ -1,0 +1,25 @@
+:host {
+  display: block;
+}
+
+.ut-hide {
+  display: none;
+  visibility: hidden;
+}
+
+::shadow #gigya-share-buttons {
+  line-height: normal;
+  padding: 10px;
+  position: absolute;
+  right: 0;
+}
+
+::shadow #gigya-share-buttons .gig-button-text {
+  color: black;
+}
+
+::shadow #shareButton {
+  width: 56px;
+  height: 56px;
+  background: #5bc1a5;
+}
