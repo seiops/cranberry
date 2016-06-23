@@ -25,5 +25,13 @@ class gigyaComments {
     }
     checkGigya();
   }
+
+  // attached() {
+  //   let commentButton = this.$['commentsButton'];
+  //   console.info(commentButton);
+  //   console.info(commentButton.scrollTop);
+  //   commentButton.scrollTop = 30;
+  //   console.info(commentButton.scrollTop);
+  // }
 }
 Polymer(gigyaComments);

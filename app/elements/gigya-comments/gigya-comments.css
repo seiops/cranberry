@@ -1,3 +1,7 @@
 #commentsButton {
-  background: var(--secondary-text-color);
+  background: rgba(0, 0, 0, 0.40);
+  color: #fff;
+  width: 181px;
+  height: 45px;
+  margin-bottom: 25px;
 }

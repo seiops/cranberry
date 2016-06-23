@@ -10,7 +10,7 @@
 
 .ut-absolute {
   position: absolute;
-  bottom: 0;
+  bottom: -28px;
   right: 25px;
 }
 
@@ -42,9 +42,16 @@ div {
 
 #storyMedia {
   position: relative;
-  line-height: 60px;
+  padding-bottom: 0;
+  line-height: normal;
+  font-size: 0;
 }
 
+#mainImageCaption {
+  line-height: normal;
+  margin: 20px 0 0 0;
+  color: rgba(0, 0, 0, 0.60);
+}
 #commentButton {
   background: #005A90;
   margin: 10px 14px 0 0;
@@ -69,4 +76,8 @@ div {
 
 #byLineInfo p {
   margin: 0 0 0 10px;
+}
+
+#storyContentArea p {
+  color: rgba(0, 0, 0, 0.87);
 }

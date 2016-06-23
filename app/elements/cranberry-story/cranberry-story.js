@@ -9,9 +9,6 @@ class cranberryStory {
         this.listeners = {
           'commentButton.tap': '_scrollToComments'
         };
-        this.getImage = function (arr, index) {
-          return arr[index].url;
-        };
         this.notShortcode = function(paragraph) {
           if (paragraph.shortcode) {
             return false;
@@ -59,7 +56,8 @@ class cranberryStory {
     }
     // Scroll to comments area function
     _scrollToComments(event) {
-      this.$.comments.scrollIntoView(false);
+      let commentsDiv = this.querySelector('#commentsButton');
+      commentsDiv.scrollIntoView(true);
     }
 }
 Polymer(cranberryStory);
