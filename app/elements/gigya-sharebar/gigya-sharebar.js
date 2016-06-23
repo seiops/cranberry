@@ -8,8 +8,8 @@ class gigyaSharebar {
 
   ready() {
 
-    var checkGigya = function (thisElement) {
-      setTimeout(function (thisElement) {
+    var checkGigya = function () {
+      setTimeout(function () {
         if (typeof gigya !== 'undefined') {
           // Gigya callback goes here.
           // Bind to login and logout evenets.
@@ -19,8 +19,8 @@ class gigyaSharebar {
               //ua.setLinkBack(window.location.href);
               ua.setTitle("HOME");
 
-          var params ={
-              userAction:ua,
+          var params = {
+              userAction: ua,
               shareButtons:
               [
                   { // General Share Button
@@ -63,11 +63,11 @@ class gigyaSharebar {
           return;
 
         } else {
-          checkGigya(this);
+          checkGigya();
         }
       }, 1000);
     };
-    checkGigya(this);
+    checkGigya();
 
 
 

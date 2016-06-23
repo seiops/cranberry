@@ -3,6 +3,8 @@
 <link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
 <link rel="import" href="../../bower_components/iron-icons/social-icons.html">
 <link rel="import" href="../cranberry-shortcode/cranberry-shortcode.html">
+<link rel="import" href="../gigya-sharebar/gigya-sharebar.html">
+<link rel="import" href="../gigya-comments/gigya-comments.html">
 
 <dom-module id="cranberry-story">
 
@@ -19,12 +21,17 @@
     <byutv-jsonp auto url="http://sedev.libercus.net/rest.json" params='{"request": "story", "desiredItemID": "201201010002"}' on-response="handleResponse" debounce-duration="300" id="request"></byutv-jsonp>
 
     <div class="Cranberry-Story">
-
       <!-- Top Ad -->
       <div class="ut-center">
         <!-- Placeholder element for leaderboard ad. -->
         <!-- <google-dfp route="{{route}}" adpos="leaderboard_bottom" adsize="[728, 90]" adgroup="{$ config.dfpAdStructure.adGroupID $}" adgrouping="{$ config.dfpAdStructure.adGrouping $}" adsubgrouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp> -->
         <iron-image src="http://www.placehold.it/970x250&text=AD_970x250"></iron-image>
+      </div>
+
+      <!-- Headline -->
+      <div class="">
+        <h1 id="storyTitle"> {{story.title}} </h1>
+        <p id="storyPublish"> {{story.updated}} </p>
       </div>
 
       <!-- Story Media -->
@@ -34,12 +41,6 @@
           <paper-fab mini icon="communication:chat-bubble" title="Comments" id="commentButton" on-tap="_scrollToComments(event)"></paper-fab>
           <gigya-sharebar></gigya-sharebar>
         </div>
-      </div>
-
-      <!-- Headline -->
-      <div class="">
-        <h2 id="storyTitle"> {{story.title}} </h2>
-        <p> {{story.updated}} </p>
       </div>
 
       <!-- Story Byline -->
@@ -71,7 +72,7 @@
 
       <!-- Comments -->
       <div class="ut-center">
-        <paper-button raised id="comments">Comments</paper-button>
+        <gigya-comments></gigya-comments>
       </div>
 
       <!-- Bottom Ad -->

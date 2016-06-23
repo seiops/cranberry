@@ -50,12 +50,13 @@ div {
   margin: 10px 14px 0 0;
 }
 
-#comments {
-  background: var(--secondary-text-color);
+#storyTitle {
+  line-height: normal;
+  margin: 0;
 }
 
-#storyTitle {
-  font-size: 2em;
+#storyPublish {
+  color: #5bc1a5;
 }
 
 #storyByline {

@@ -1,0 +1,18 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="gigya-comments">
+  <template>
+    <style is="custom-style">
+      @import "gigya-comments/gigya-comments";
+    </style>
+
+    <script type="text/javascript" src="https://cdns.gigya.com/JS/gigya.js?apikey={$ config.gigya.apiKey $}"></script>
+
+    <paper-button raised id="commentsButton">Comments</paper-button>
+
+    <div id='commentsDiv'></div>
+
+  </template>
+
+  <script src="gigya-comments.js"></script>
+</dom-module>

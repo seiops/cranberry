@@ -11,12 +11,11 @@
     @import "gigya-sharebar/gigya-sharebar";
   </style>
     <meta property="fb:app_id" content="1389242281298280" />
-    <script type="text/javascript" src="https://cdns.gigya.com/JS/gigya.js?apikey=3_mK2cmEzLkzhqe4MUrtPncxbv4wKsYAhsew0iVwhVUls3c_Jx_HLX434jAVpq5M_W"></script>
+    <script type="text/javascript" src="https://cdns.gigya.com/JS/gigya.js?apikey={$ config.gigya.apiKey $}"></script>
 
     <paper-fab icon="social:share" title="Share" id="shareButton"></paper-fab>
 
     <paper-material elevation="5" id="gigya-share-buttons" class="ut-hide"></paper-material>
-
 
   </template>
   <script src="gigya-sharebar.js"></script>
