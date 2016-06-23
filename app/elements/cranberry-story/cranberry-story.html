@@ -56,14 +56,12 @@
           <p>{{story.byline.jobtitle}}</p>
         </div>
       </div>
-      
+
       <!-- Story Content Area -->
       <div class="" id="storyContentArea">
         <template is="dom-repeat" items="{{story.paragraphs}}">
           {{displayContent(item, index)}}
         </template>
-        <!-- Top Of Stream Righthand Ad -->
-        <google-dfp id="contentAd" route="{{route}}" adpos="top_of_stream" adsize="[300,250]" adgroup="{$ config.dfpAdStructure.adGroupID $}" adgrouping="{$ config.dfpAdStructure.adGrouping $}" adsubgrouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
       </div>
 
       <!-- Middle Ad -->

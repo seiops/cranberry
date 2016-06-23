@@ -1,9 +1,3 @@
-/* Temp styling for advertisement */
-google-dfp[adpos="top_of_stream"] {
-  float: right;
-  margin-left: 10px;
-}
-
 /* Utilities classes */
 .ut-center {
   text-align: center;
