@@ -6,7 +6,6 @@ class gigyaComments {
   ready() {
     let checkGigya = function () {
       setTimeout(function () {
-        console.info(gigya);
         if (typeof gigya !== 'undefined') {
           var params = {
             categoryID: 'Default',
@@ -25,13 +24,5 @@ class gigyaComments {
     }
     checkGigya();
   }
-
-  // attached() {
-  //   let commentButton = this.$['commentsButton'];
-  //   console.info(commentButton);
-  //   console.info(commentButton.scrollTop);
-  //   commentButton.scrollTop = 30;
-  //   console.info(commentButton.scrollTop);
-  // }
 }
 Polymer(gigyaComments);

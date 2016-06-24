@@ -49,12 +49,27 @@ div {
 
 #mainImageCaption {
   line-height: normal;
-  margin: 20px 0 0 0;
+  margin: 20px 0 20px 0;
   color: rgba(0, 0, 0, 0.60);
+}
+.ut-small-icon-margin {
+  margin: 10px 14px 0 0;
 }
 #commentButton {
   background: #005A90;
-  margin: 10px 14px 0 0;
+}
+
+#twitterButton {
+  background: #55acee;
+}
+
+#facebookButton {
+  background: #3b5998;
+}
+
+#facebookButton::shadow iron-icon {
+  margin-bottom: 2px;
+  margin-right: 7px;
 }
 
 #storyTitle {

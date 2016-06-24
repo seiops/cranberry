@@ -7,7 +7,8 @@ class cranberryStory {
           }
         };
         this.listeners = {
-          'commentButton.tap': '_scrollToComments'
+          'commentButton.tap': '_scrollToComments',
+          'twitterButton.tap': '_openLink'
         };
         this.notShortcode = function(paragraph) {
           if (paragraph.shortcode) {
@@ -42,7 +43,14 @@ class cranberryStory {
             paragraphEl.appendChild(node);
             this.$.storyContentArea.appendChild(paragraphEl);
           }
-        }
+        };
+        this._scrollToComments = function (event) {
+          let commentsDiv = this.querySelector('#commentsButton');
+          commentsDiv.scrollIntoView(true);
+        };
+        this._openLink = function(e) {
+          console.log(e.currentTarget);
+        };
     }
 
     ready() {
@@ -55,9 +63,6 @@ class cranberryStory {
       this.story = restResponse;
     }
     // Scroll to comments area function
-    _scrollToComments(event) {
-      let commentsDiv = this.querySelector('#commentsButton');
-      commentsDiv.scrollIntoView(true);
-    }
+
 }
 Polymer(cranberryStory);
