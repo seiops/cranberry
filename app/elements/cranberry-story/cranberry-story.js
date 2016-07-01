@@ -52,7 +52,7 @@ class cranberryStory {
           //console.info(e.currentTarget);
           let element = e.currentTarget;
           let twitterName = element.getAttribute('twitter-name');
-          
+
         };
     }
 
@@ -64,6 +64,7 @@ class cranberryStory {
       var restResponse = JSON.parse(data.detail.Result);
       // Assign restResponse to data bound object story
       this.story = restResponse;
+      
     }
     // Scroll to comments area function
 

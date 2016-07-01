@@ -1,0 +1,47 @@
+/* Utilities classes */
+.ut-center {
+  text-align: center;
+}
+
+.flex-absolute {
+  @apply(--layout-horizontal);
+  @apply(--layout-flex);
+  position: absolute;
+  bottom: -355px;
+  right: 110px;
+  z-index: 10;
+}
+
+.ut-grid {
+  @apply(--layout-horizontal);
+  @apply(--layout-wrap);
+  max-width: 100%;
+}
+
+.ut-grid > :first-child {
+  min-width:60%;
+}
+.ut-grid iron-image {
+  width: 100px;
+  height: 100px;
+  margin-right: 10px;
+}
+
+.ut-margin-bottom {
+  margin-bottom: 25px;
+}
+
+.ut-center {
+  text-align: center;
+}
+
+.ad {
+  max-width: 320px;
+}
+
+paper-button {
+  background: #005A90;
+  color: #fff;
+  height: 30px;
+  margin: 15px 45px 0 0;
+}

@@ -87,15 +87,12 @@ class cranberryShortcode {
           this._createShortcode(story.relatedContent, 'gallery', shortcode);
           break;
         case 'singlegallery':
-                  console.info('This is a single gallery');
           foundObject = this._findAsset(story.relatedContent, 'title', shortcode.value);
           this._createShortcode(foundObject, 'singlegallery', shortcode);
           break;
         case 'mec':
-          console.info('This is MEC');
           break;
         case 'generator':
-          console.info('This is Generator');
           break;
       }
     }
@@ -119,12 +116,16 @@ class cranberryShortcode {
         if (shortcode.key === 'pdf') {
           shortcodeEl = document.createElement('pdf-object');
           shortcodeEl.file = url;
+          shortcodeEl.height = '600px';
+          shortcodeEl.width = '80%';
         } else {
           shortcodeEl = document.createElement('paper-audio-player');
           shortcodeEl.src = url;
           // Remove base styles from paper-audio-player element for margins
           shortcodeEl.style = 'margin: 0 auto;';
           shortcodeEl.title = foundObject.title;
+
+          this.$.shortcode.classList += ' .ut-smaller-width';
         }
       }
 
@@ -217,16 +218,30 @@ class cranberryShortcode {
             }
           }
         });
+        let card = document.createElement('paper-card');
+        let slider = document.createElement('cranberry-slider');
 
-        shortcodeEl = document.createElement('cranberry-slider');
-        shortcodeEl.featured = featured;
-        shortcodeEl.links = links;
+        slider.featured = featured;
+        slider.links = links;
+        slider.isShortcode = true;
+
+        card.appendChild(slider);
+
+        shortcodeEl = card;
+
       }
 
       // Create SingleGallery shortcode
       if (type === 'singlegallery') {
-        shortcodeEl = document.createElement('cranberry-slider');
-        shortcodeEl.featured = foundObject;
+        let card = document.createElement('paper-card');
+        let slider = document.createElement('cranberry-slider');
+
+        slider.featured = foundObject;
+        slider.isShortcode = true;
+
+        card.appendChild(slider);
+
+        shortcodeEl = card;
       }
 
       // Append shortcodeEl

@@ -6,8 +6,9 @@
     <style is="custom-style">
       @import "cranberry-slider/cranberry-slider";
     </style>
-    <paper-card>
-    <h3>{{featured.title}}</h3>
+    <template is="dom-if" if="{{computeIfShortcode(isShortcode)}}">
+      <h3>{{featured.title}}</h3>
+    </template>
     <!-- Place an image into slider as a placeholder -->
     <awesome-slider id="slider" autostart="true" arrows="true" bullets="false" info="true">
       <item id="placehold" source$="http://www.standard.net{{featured.mediaAssets.images.0.url}}"></item>
@@ -25,7 +26,6 @@
         </template>
       </ul>
     </div>
-  </paper-card>
   </template>
 
   <!-- Add cranberry-slider Polymer Object script -->

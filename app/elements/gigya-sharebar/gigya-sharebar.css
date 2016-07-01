@@ -10,14 +10,14 @@
 paper-material {
   background-color: #fff;
 }
-::shadow #gigya-share-buttons {
+paper-material {
   line-height: normal;
   padding: 10px;
   position: absolute;
   right: 0;
 }
 
-::shadow #gigya-share-buttons .gig-button-text {
+paper-material .gig-button-text {
   color: black;
 }
 

@@ -1,12 +1,18 @@
 class gigyaSharebar {
   beforeRegister() {
     this.is = 'gigya-sharebar';
+    this.properties = {
+      shareButtonsId: {
+        type: String
+      }
+    }
     this.listeners = {
       'shareButton.tap': 'shareButtonHandler'
     };
   }
 
-  ready() {
+  attached() {
+    let shareDiv = this.shareButtonsId;
 
     var checkGigya = function () {
       setTimeout(function () {
@@ -53,7 +59,7 @@ class gigyaSharebar {
                       provider: 'pinterest-pinit'
                   }
               ],
-              containerID: 'gigya-share-buttons',
+              containerID: shareDiv,
               noButtonBorders: true,
               showAlwaysShare: 'unchecked'
           };
@@ -74,8 +80,8 @@ class gigyaSharebar {
   }
 
   shareButtonHandler() {
-    let buttonDiv = this.$['gigya-share-buttons'];
-
+    let buttonDiv = this.querySelector('paper-material');
+    console.info(buttonDiv);
     // Toggle display property on the sharebutton div
     buttonDiv.classList.toggle('ut-hide');
 

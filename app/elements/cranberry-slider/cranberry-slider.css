@@ -6,16 +6,16 @@ awesome-slider {
   margin-bottom: 40px;
 }
 
-paper-card {
+::shadow paper-card {
   width: 100%;
 }
 
-paper-card ul {
+::shadow paper-card ul {
   list-style: none;
   text-align: left;
 }
 
-paper-card ul li a {
+::shadow paper-card ul li a {
   font-size: 1.2em;
   text-decoration: none;
 }
@@ -39,5 +39,10 @@ paper-card ul li a {
 }
 
 .cranberry-slider-related {
+  padding-left: 10px;
   width: 75%;
+}
+
+::shadow awesome-slider .info span {
+  float: right;
 }

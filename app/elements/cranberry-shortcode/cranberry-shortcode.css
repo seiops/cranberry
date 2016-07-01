@@ -12,3 +12,11 @@
   font-size: .9em;
   color: #999;
 }
+
+::shadow .ut-smaller-width {
+  width: 90%;
+}
+
+::shadow .ut-height {
+  height: 600px;
+}
