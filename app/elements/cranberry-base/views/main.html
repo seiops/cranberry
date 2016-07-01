@@ -26,7 +26,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <paper-icon-button id="paperToggle" class="Main-headerButton" icon="menu" paper-drawer-toggle></paper-icon-button><h1 class="Main-headerTitle">{{ pageTitle }}</h1>
     </div>
   </paper-toolbar>
-  <iron-pages class="Main-content" attr-for-selected="data-route" selected="{{data.page}}">
+  <iron-pages class="Main-content" attr-for-selected="data-route" selected="{{data.page}}" default-selected="">
     {% include "cranberry-base/views/pages/home.html" %}
     {% include "cranberry-base/views/pages/sections.html" %}
     {% include "cranberry-base/views/pages/video.html" %}
@@ -38,5 +38,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     {% include "cranberry-base/views/pages/help.html" %}
     {% include "cranberry-base/views/pages/sample-grid.html" %}
     {% include "cranberry-base/views/pages/sample-grid-2.html" %}
+    {% include "cranberry-base/views/pages/story-content.html" %}
+    {% include "cranberry-base/views/pages/gallery-content.html" %}
   </iron-pages>
 </paper-scroll-header-panel>

@@ -1,0 +1,48 @@
+:host {
+  display: block;
+}
+
+awesome-slider {
+  margin-bottom: 40px;
+}
+
+::shadow paper-card {
+  width: 100%;
+}
+
+::shadow paper-card ul {
+  list-style: none;
+  text-align: left;
+}
+
+::shadow paper-card ul li a {
+  font-size: 1.2em;
+  text-decoration: none;
+}
+
+.ut-related-title {
+  font-size: 1.4em;
+  margin-bottom: 0;
+  border-bottom: 4px solid #50bd9f;
+  text-align: left;
+}
+
+.cranberry-slider-caption iron-icon {
+  display: inline-block;
+  margin-right: 5px;
+  --iron-icon-fill-color: #999;
+  --iron-icon-width: 20px;
+}
+.cranberry-slider-caption p {
+  display: inline-block;
+  font-size: .9em;
+}
+
+.cranberry-slider-related {
+  padding-left: 10px;
+  width: 75%;
+}
+
+::shadow awesome-slider .info span {
+  float: right;
+}

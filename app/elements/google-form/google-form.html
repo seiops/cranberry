@@ -1,0 +1,23 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="google-form">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      iframe {
+        height: 600px;
+        width: 80%;
+        margin: 0 auto;
+      }
+    </style>
+    <content>
+      <div id="googleForm">
+        <iframe src="{{url}}?embedded=true" frameborder="0"></iframe>
+      </div>
+    </content>
+  </template>
+  <!-- Add google-form Polymer Object script -->
+  <script src="google-form.js"></script>
+</dom-module>
