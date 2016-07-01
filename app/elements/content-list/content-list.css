@@ -38,4 +38,5 @@ paper-card .card-content {
 
 paper-card .title-text.over-image.paper-card {
   color: #ffffff;
+  font-color: #000;
 }
