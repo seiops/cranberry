@@ -11,8 +11,31 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 :host {
   display: block;
 }
+#content-list {
+  @apply(--layout-vertical);
+  @apply(--layout-wrap);
+}
 
 paper-card {
+  margin: 8px;
   max-width: 300px;
-  max-height: 250px;
+  vertical-align: top;
+}
+
+paper-card .card-tag {
+  background-color: #40C2A9;
+  color: #ffffff;
+  font-size: 12px;
+  position: absolute;
+  text-transform: uppercase;
+  top: 0;
+  padding: 4px 8px;
+}
+
+paper-card .card-content {
+  height: 200px;
+}
+
+paper-card .title-text.over-image.paper-card {
+  color: #ffffff;
 }
