@@ -16,10 +16,6 @@ class FeaturedContent {
     var restResponse = JSON.parse(data.detail.Result);
 
     this.items = restResponse;
-    console.dir(this.items);
-    console.dir(this.type);
-
-    console.dir(restResponse);
     // var responseMessage = '';
 
     // if (typeof restResponse !== undefined && restResponse.errorCode === 0) {

@@ -73,8 +73,7 @@
     <!-- Application routing -->
     <app-location route="{{route}}"></app-location>
     <app-route route="{{route}}" pattern="/:page" data="{{data}}"></app-route>
-
-
+    <app-route route="{{route}}" pattern="/story-content" tail="{{storyTail}}"></app-route>
 
     <app-drawer-layout>
 
@@ -99,7 +98,16 @@
         </app-header>
 
         <!-- Content area -->
-        {% include "cranberry-base/views/main.html" %}
+        <iron-pages class="Main-content" attr-for-selected="data-route" selected="{{data.page}}" default-selected="">
+          <template is="dom-if" if="[[_equal(data.page, 'story-content')]]">
+            <section class="Page" data-route="story-content" tabindex="-1">
+              <cranberry-story route="[[storyTail]]"></cranberry-story>
+            </section>
+          </template>
+          <template is="dom-if" if="[[_equal(data.page, '')]]">
+            {% include "cranberry-base/views/pages/home.html" %}
+          </template>
+        </iron-pages>
 
       </app-header-layout>
 

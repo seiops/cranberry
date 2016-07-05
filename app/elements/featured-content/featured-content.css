@@ -17,9 +17,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   @apply(--layout-justified);
 }
 
-paper-card {
-  /*@apply(--layout-flex);*/
-}
 .featured-main {
   width: 70%;
 }
@@ -27,14 +24,6 @@ paper-card {
 .featured-list {
   @apply(--layout-vertical);
   width: 30%;
-}
-
-.featured-main paper-card {
-
-}
-
-.featured-list paper-card {
-
 }
 
 paper-card .card-tag {

@@ -18,7 +18,8 @@
     <iron-media-query query="(min-width: 720px) and (max-width:959px)" query-matches="{{tablet}}"></iron-media-query>
     <iron-media-query query="(max-width:719px)" query-matches="{{mobile}}"></iron-media-query>
 
-    <byutv-jsonp auto url="http://sedev.libercus.net/rest.json" params='{"request": "story", "desiredItemID": "201201010002"}' on-response="handleResponse" debounce-duration="300" id="request"></byutv-jsonp>
+    <app-route route="{{route}}" pattern="/:id" data="{{routeData}}"></app-route>
+    <byutv-jsonp on-response="_handleResponse" debounce-duration="300" id="request"></byutv-jsonp>
 
     <div class="Cranberry-Story">
       <!-- Top Ad -->
@@ -40,7 +41,7 @@
         <div class="ut-rowFlex ut-absolute">
           <paper-fab mini src="images/FacebookLogo_29.png" id="facebookButton" class="ut-small-icon-margin"></paper-fab>
           <paper-fab mini src="images/TwitterLogo_white.png" title="Share on Twitter" id="twitterButton" class="ut-small-icon-margin" twitter-name="{$ config.socialNaming.twitter $}"></paper-fab>
-          <paper-fab mini icon="communication:chat-bubble" title="Comments" id="commentButton" class="ut-small-icon-margin" on-tap="_scrollToComments(event)"></paper-fab>
+          <paper-fab mini icon="communication:chat-bubble" title="Comments" id="commentButton" class="ut-small-icon-margin" on-tap="_scrollToComments"></paper-fab>
           <gigya-sharebar share-buttons-id="gigya-share-buttons-story"></gigya-sharebar>
         </div>
       </div>
@@ -49,7 +50,7 @@
 
       <!-- Story Byline -->
       <div class="" id="storyByline">
-        <img src="{{ computeBylineURL(story.byline.image) }}" class="ut-circle-image"/>
+        <img src="{{_computeBylineURL(story.byline.image)}}" class="ut-circle-image"/>
         <div id="byLineInfo">
           <p>{{story.byline.inputByLine}}</p>
           <p>{% if story.byline.name != undefined %}
@@ -65,7 +66,7 @@
       <!-- Story Content Area -->
       <div class="" id="storyContentArea">
         <template is="dom-repeat" items="{{story.paragraphs}}">
-          {{displayContent(item, index)}}
+          <span>{{_displayContent(item, index)}}</span>
         </template>
       </div>
 
@@ -82,7 +83,7 @@
       <!-- Bottom Ad -->
       <div class="ut-center">
         <!-- <iron-image src="http://www.placehold.it/300x250&text=AD_300x250"></iron-image> -->
-        <google-dfp route="{{route}}" adpos="bottom_of_stream" adsize="[[300,250],[300,600]]" adgroup="{$ config.dfpAdStructure.adGroupID $}" adgrouping="{$ config.dfpAdStructure.adGrouping $}" adsubgrouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+    <!--     <google-dfp route="{{route}}" adpos="bottom_of_stream" adsize="[[300,250],[300,600]]" adgroup="{$ config.dfpAdStructure.adGroupID $}" adgrouping="{$ config.dfpAdStructure.adGrouping $}" adsubgrouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp> -->
       </div>
 
       <!-- Youneeq Content Area -->

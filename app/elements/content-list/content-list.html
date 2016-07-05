@@ -34,8 +34,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             </div>
           </paper-card>
         </template>
+        <!-- Need to rework this for array selectors -->
         <template is="dom-if" if="[[item.mediaAssets.images.0.url]]">
           <paper-card heading="[[item.title]]" image="http://www.standard.net/[[item.mediaAssets.images.0.url]]" elevation="1">
+            <a href$="/story-content/{{item.itemId}}">LINK</a>
             <div class="card-tag">[[item.sectionInformation.primarySection]]</div>
             <template is="dom-if" if="[[item.preview]]">
               <div class="card-content">

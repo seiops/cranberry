@@ -1,6 +1,6 @@
 /* Cranberry app */
 
-class cranberryBase {
+class CranberryBase {
   beforeRegister() {
     this.is = 'cranberry-base';
     this.properties = {
@@ -39,12 +39,6 @@ class cranberryBase {
       videos: {
         type: Array,
         value: []
-      },
-      data: {
-        type: Object,
-        value: {
-          page: '/search/'
-        }
       }
     };
   }
@@ -56,22 +50,22 @@ class cranberryBase {
     this.upgraded = true;
   }
   attached() {
-    let storage = JSON.parse(localStorage.getItem(this.$.localStorage.name));
-    if (storage) {
-      if (storage.darkThemeEnabled) {
-        this.changeTheme(storage.darkThemeEnabled);
-      }
-      if (storage.accentColor) {
-        this.changeAccentColor(storage.accentColor);
-      }
-    }
+    // let storage = JSON.parse(localStorage.getItem(this.$.localStorage.name));
+    // if (storage) {
+    //   if (storage.darkThemeEnabled) {
+    //     this.changeTheme(storage.darkThemeEnabled);
+    //   }
+    //   if (storage.accentColor) {
+    //     this.changeAccentColor(storage.accentColor);
+    //   }
+    // }
 
-    var pages = document.querySelector('iron-pages#home');
-    var tabs = document.querySelector('paper-tabs#home');
+    // var pages = document.querySelector('iron-pages#home');
+    // var tabs = document.querySelector('paper-tabs#home');
 
-    tabs.addEventListener('iron-select', function() {
-        pages.selected = tabs.selected;
-    });
+    // tabs.addEventListener('iron-select', function() {
+    //     pages.selected = tabs.selected;
+    // });
   }
   //detached() {}
   //attributeChanged() {}
@@ -147,6 +141,11 @@ class cranberryBase {
 
     // this.updateStyles();
   }
+
+  _equal(a, b) {
+    return a === b;
+  }
+
   // Change theme
   changeTheme(darkThemeEnabled) {
     let themeMode = 'light';
@@ -174,4 +173,4 @@ class cranberryBase {
   }
 }
 
-Polymer(cranberryBase);
+Polymer(CranberryBase);
