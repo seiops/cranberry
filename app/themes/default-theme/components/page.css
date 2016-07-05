@@ -8,7 +8,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 */
 
 /** @define Page */
-
 .Page {
   @nest &-formInput {
     --paper-input-container-focus-color: var(--accent-color);
@@ -60,4 +59,3 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       width: 512px;
     }
   }
-}

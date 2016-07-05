@@ -8,4 +8,42 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 
-importScripts('bower_components/platinum-sw/service-worker.js');
+:host {
+  display: block;
+}
+
+.featured-content {
+  @apply(--layout-horizontal);
+  @apply(--layout-justified);
+}
+
+paper-card {
+  /*@apply(--layout-flex);*/
+}
+.featured-main {
+  width: 70%;
+}
+
+.featured-list {
+  @apply(--layout-vertical);
+  width: 30%;
+}
+
+.featured-main paper-card {
+
+}
+
+.featured-list paper-card {
+
+}
+
+paper-card .card-tag {
+  background-color: #40C2A9;
+  color: #ffffff;
+  font-size: 12px;
+  position: absolute;
+  text-transform: uppercase;
+  top: 0;
+  left: 0;
+  padding: 4px 8px;
+}

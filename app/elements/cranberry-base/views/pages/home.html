@@ -6,9 +6,44 @@ The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
 The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+
+Code distributed by Google as part of the polymer project is also subject to an additional IP rights grant found at http://polymer.github.io/PATENTS>txt.
+
+Code dstributed by Google as part of th epolyme rproject is also subejct to ana additonal IP rights gran found at http://polymer.github.io/
+
+Suybh
+
+Subject to an addtional IP right sgran found at polmyer.
+
 -->
 <section class="Page" data-route="">
-  <paper-material class="Page-paper" elevation="1">
-    {% markdown "home-demo-content.md" %}
-  </paper-material>
+<div style="width:100%; text-align: center;margin-bottom:16px">
+  <iron-image src="http://lorempixel.com/970/250"></iron-image>
+</div>
+<featured-content type="story_gallery" sections="news" count="3" start="1"></featured-content>
+
+<paper-toolbar><paper-search-bar placeholder="SEARCH" on-paper-search-search="search"></paper-search-bar>
+  <paper-tabs id="home" selected="0" autoselect fit-container style="width:80%">
+    <paper-tab>LATEST</paper-tab>
+    <paper-tab>LOCAL</paper-tab>
+    <paper-tab>POPULAR</paper-tab>
+    <paper-tab>FEATURED</paper-tab>
+  </paper-tabs></paper-toolbar>
+
+<iron-pages id="home" selected="0">
+  <div>
+    <content-list type="story_gallery" sections="opinion,sports,entertainment" count="10" start="1"></content-list>
+  </div>
+  <div>
+    <content-list type="story_gallery" sections="sports,entertainment" count="10" start="1"></content-list>
+  </div>
+  <div>
+    <content-list type="story_gallery" sections="news" count="10" start="1"></content-list></div>
+  <div>
+    <content-list type="story_gallery" sections="entertainment" count="10" start="1"></content-list></div>
+  </div>
+</iron-pages>
+
+</paper-tabs>
+
 </section>

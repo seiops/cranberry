@@ -10,6 +10,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 /** @define Drawer */
 
 .Drawer {
+  @nest &-wrapper {
+    background-color: var(--primary-background-color);
+    height: 100%;
+  }
+  @nest &-logo {
+    margin-left: 24px;
+  }
   @nest &-content {
     @apply(--layout-vertical);
     @apply(--paper-font-body2);
@@ -17,6 +24,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     background-color: var(--primary-background-color);
     color: var(--primary-text-color);
     height: 100%;
+    overflow: auto;
 
     @media (--md-viewport) {
       background-color: var(--secondary-background-color);
@@ -33,7 +41,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     @media (--md-viewport) {
       background-color: var(--dark-primary-color);
       border: 0 !important;
-      box-shadow: 0 0 4px rgba(0, 0, 0, 0.14), 0 4px 8px rgba(0, 0, 0, 0.28);
+      /*box-shadow: 0 0 4px rgba(0, 0, 0, 0.14), 0 4px 8px rgba(0, 0, 0, 0.28);*/
       color: var(--text-dark-primary-color);
     }
   }
