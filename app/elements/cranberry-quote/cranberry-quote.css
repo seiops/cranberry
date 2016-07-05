@@ -2,14 +2,7 @@
   display: block;
 }
 
-.cranberry-quote {
-  @apply(--layout-vertical);
-}
 
-.cranberry-quote .ut-hor-bar {
-  border: solid var(--secondary-color) 4px;
-  margin: 0 0 1.25rem 0;
-}
 
 #credit {
   font-size: .9em;
@@ -22,7 +15,6 @@
   position: relative;
   width: 100%;
   margin-bottom: 5px;
-  border-right: solid var(--secondary-color) 3px;
 }
 
 #wrapper.ut-float-right {
@@ -51,9 +43,45 @@
   margin: 6px 0 0 0;
 }
 
-.twitter-share {
-  --paper-fab-background: #55acee;
+.quote-wrapper {
+  height: 60px;
+  width: 85px;
+  overflow: hidden;
   position: absolute;
-  bottom: 15px;
-  left: 15px;
+}
+
+.left-quote {
+  top: 0;
+  left: 100px;
+}
+
+.right-quote {
+  bottom: 0;
+  right: 100px;
+}
+
+.quote-text-wrapper {
+  text-align: center;
+  width: 60%;
+  margin: 0 auto;
+}
+
+.quote-text-wrapper span {
+  font-size: 42px;
+  line-height: 45px;
+  color: rgba(0, 0, 0, 0.87);
+}
+.front-quote {
+  font-size: 208px;
+  line-height: 150px;
+  font-family: "Arial Bold";
+  color: #50bd9f;
+
+}
+
+.back-quote {
+  font-size: 208px;
+  line-height: 150px;
+  font-family: "Arial Bold";
+  color: #50bd9f;
 }
