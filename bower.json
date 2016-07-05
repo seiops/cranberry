@@ -42,7 +42,8 @@
     "pdf-object": "^1.0.0",
     "platinum-sw": "PolymerElements/platinum-sw#1.2.3",
     "polymer": "^1.4.0",
-    "start-google-analytics-tracker": "StartPolymer/start-google-analytics-tracker#1.1.0"
+    "start-google-analytics-tracker": "StartPolymer/start-google-analytics-tracker#1.1.0",
+    "paper-slider": "PolymerElements/paper-slider#^1.0.11"
   },
   "devDependencies": {
     "web-component-tester": "4.2.0"
