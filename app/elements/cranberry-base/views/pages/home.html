@@ -17,5 +17,33 @@ Subject to an addtional IP right sgran found at polmyer.
 
 -->
 <section class="Page" data-route="">
-  <content-list type="story_gallery" sections="news,featured,opinion,announcements,sports,entertainment" count="10" start="1"></content-list>
+<div style="width:100%; text-align: center;margin-bottom:16px">
+  <iron-image src="http://lorempixel.com/970/250"></iron-image>
+</div>
+<featured-content type="story_gallery" sections="news" count="3" start="1"></featured-content>
+
+<paper-toolbar><paper-search-bar placeholder="SEARCH" on-paper-search-search="search"></paper-search-bar>
+  <paper-tabs id="home" selected="0" autoselect fit-container style="width:80%">
+    <paper-tab>LATEST</paper-tab>
+    <paper-tab>LOCAL</paper-tab>
+    <paper-tab>POPULAR</paper-tab>
+    <paper-tab>FEATURED</paper-tab>
+  </paper-tabs></paper-toolbar>
+
+<iron-pages id="home" selected="0">
+  <div>
+    <content-list type="story_gallery" sections="opinion,sports,entertainment" count="10" start="1"></content-list>
+  </div>
+  <div>
+    <content-list type="story_gallery" sections="sports,entertainment" count="10" start="1"></content-list>
+  </div>
+  <div>
+    <content-list type="story_gallery" sections="news" count="10" start="1"></content-list></div>
+  <div>
+    <content-list type="story_gallery" sections="entertainment" count="10" start="1"></content-list></div>
+  </div>
+</iron-pages>
+
+</paper-tabs>
+
 </section>

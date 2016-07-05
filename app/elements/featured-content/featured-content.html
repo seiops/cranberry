@@ -19,33 +19,29 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 
-<dom-module id="content-list">
+<dom-module id="featured-content">
   <template>
     <style>
-      @import "content-list/content-list";
+      @import "featured-content/featured-content";
     </style>
     <byutv-jsonp on-response="handleResponse" debounce-duration="300" id="request"></byutv-jsonp>
-    <div class="content-cards">
-      <template is="dom-repeat" items="{{items}}">
-      <template is="dom-if" if="[[_checkItem(item,index)]]">
-          <paper-card>
-            <div class="card-content advertisement">
-                Advertisement
-            </div>
+    <div class="Page-cards">
+      <div class="featured-content">
+        <div class="featured-main">
+          <paper-card class="specific" heading="[[items.0.title]]" image="http://www.standard.net/[[items.0.mediaAssets.images.0.url]]" elevation="1">
+            <div class="card-tag">[[items.0.sectionInformation.primarySection]]</div>
           </paper-card>
-        </template>
-        <template is="dom-if" if="[[item.mediaAssets.images.0.url]]">
-          <paper-card heading="[[item.title]]" image="http://www.standard.net/[[item.mediaAssets.images.0.url]]" elevation="1">
-            <div class="card-tag">[[item.sectionInformation.primarySection]]</div>
-            <template is="dom-if" if="[[item.preview]]">
-              <div class="card-content">
-                  <span>[[item.preview]]</span>
-              </div>
-            </template>
+        </div>
+        <div class="featured-list">
+          <paper-card class="specific" heading="[[items.1.title]]" image="http://www.standard.net/[[items.1.mediaAssets.images.0.url]]" elevation="1">
+            <div class="card-tag">[[items.1.sectionInformation.primarySection]]</div>
           </paper-card>
-        </template>
-      </template>
+          <paper-card class="specific" heading="[[items.2.title]]" image="http://www.standard.net/[[items.2.mediaAssets.images.0.url]]" elevation="1">
+            <div class="card-tag">[[items.2.sectionInformation.primarySection]]</div>
+          </paper-card>
+          </div>
+      </div>
     </div>
   </template>
-  <script src="content-list.js"></script>
+  <script src="featured-content.js"></script>
 </dom-module>

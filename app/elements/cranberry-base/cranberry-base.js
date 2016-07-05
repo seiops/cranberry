@@ -65,6 +65,13 @@ class cranberryBase {
         this.changeAccentColor(storage.accentColor);
       }
     }
+
+    var pages = document.querySelector('iron-pages#home');
+    var tabs = document.querySelector('paper-tabs#home');
+
+    tabs.addEventListener('iron-select', function() {
+        pages.selected = tabs.selected;
+    });
   }
   //detached() {}
   //attributeChanged() {}

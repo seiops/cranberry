@@ -10,7 +10,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 /* Gigya Socialize JS library integration */
 
-class ContentList {
+class FeaturedContent {
   handleResponse (data) {
     console.dir(data);
     var restResponse = JSON.parse(data.detail.Result);
@@ -45,8 +45,10 @@ class ContentList {
 
     // form.querySelector('.output').innerHTML = responseMessage;
   }
+
+
   beforeRegister() {
-    this.is = 'content-list';
+    this.is = 'featured-content';
     this.properties = {
       rest: {
         type: String,
@@ -86,11 +88,8 @@ class ContentList {
       }
     };
   }
-  _checkItem(item,index) {
-    var modulus = index % 2;
-    console.log(index, modulus);
-    if (index > 0 && modulus === 0) {
-      console.log('true');
+  _firstItem(item,index) {
+    if (index === 0) {
       return true;
     } else {
       return false;
@@ -120,10 +119,7 @@ class ContentList {
     console.log('Changed type:', this.type);
   }
   ready() {
-    console.log('content-list ready.');
-
-  }
-  _returnClass() {
+    console.log('featured-content ready.');
 
   }
   _updateParams() {
@@ -141,4 +137,4 @@ class ContentList {
   }
 }
 
-Polymer(ContentList);
+Polymer(FeaturedContent);
