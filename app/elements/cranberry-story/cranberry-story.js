@@ -19,11 +19,10 @@ class CranberryStory {
           },
           params: {
             type: Object,
-            value: [],
-            observer: '_changeParams'
+            value: {}
           }
         };
-        this.observers = ['_storyIdChanged(story.routeId)'];
+        this.observers = ['_storyIdChanged(story.routeId)','_routeChange(routeData.id)','_changeParams(params.desiredItemID)'];
 
         // Are these being used?
         //
@@ -47,7 +46,6 @@ class CranberryStory {
 
     attached() {
       app.logger('\<cranberry-story\> attached');
-      this._checkParams();
     }
 
     ready() {
@@ -58,6 +56,7 @@ class CranberryStory {
 
     // Called by observer when params object is changed.
     _changeParams() {
+      console.log('changeParams');
       let params = this.get('params');
 
       if (params.length !== 0) {
@@ -73,9 +72,11 @@ class CranberryStory {
     _checkParams() {
       let storyId = this.get('routeData.id');
 
-      if (typeof this.story.routeId === 'undefined' || this.story.routeId !== storyId) {
-        this.set('story.routeId', storyId);
+      console.dir('checkParams');
 
+      if (typeof this.story.routeId === 'undefined' || this.story.routeId !== storyId) {
+        console.dir('checkParams2');
+        this.set('story.routeId', storyId);
       }
     }
 
@@ -119,6 +120,9 @@ class CranberryStory {
       let twitterName = element.getAttribute('twitter-name');
     }
 
+    _routeChange(storyid) {
+      this._checkParams();
+    }
     _scrollToComments() {
         let commentsDiv = this.querySelector('#commentsButton');
 
@@ -127,8 +131,9 @@ class CranberryStory {
 
     // Observer method for when the story id changes.
     _storyIdChanged() {
+      console.log('_storyIdChanged');
       let storyId = this.get('story.routeId');
-
+      console.dir(storyId);
       if (typeof storyId !== 'undefined') {
         this._updateStoryId(storyId);
       }
@@ -136,9 +141,13 @@ class CranberryStory {
 
 
     _updateStoryId(storyid) {
+
+      console.log('updatestoryid');
       this.set('jsonp.desiredItemID', storyid);
 
       let request = this.get('jsonp');
+
+      console.dir(request);
 
       this.set('params', request);
     }
