@@ -17,12 +17,17 @@ class CranberryStory {
             type: Object,
             value: {}
           },
+          storyId: {
+            type: Number,
+            value: 0,
+            observer: '_storyIdChanged'
+          },
           params: {
             type: Object,
             value: {}
           }
         };
-        this.observers = ['_storyIdChanged(story.routeId)','_routeChange(routeData.id)','_changeParams(params.desiredItemID)'];
+        this.observers = ['_routeChange(routeData.id)'];
 
         // Are these being used?
         //
@@ -56,12 +61,12 @@ class CranberryStory {
 
     // Called by observer when params object is changed.
     _changeParams() {
-      console.log('changeParams');
+      app.logger('\<cranberry-story\> _changeParams');
+
       let params = this.get('params');
 
       if (params.length !== 0) {
         this.$.request.url = this.rest;
-
         this.$.request.params = params;
 
         this.$.request.generateRequest();
@@ -70,13 +75,13 @@ class CranberryStory {
 
     // Updates id value from route.
     _checkParams() {
+      app.logger('\<cranberry-story\> _checkParams');
+
       let storyId = this.get('routeData.id');
+      let currentId = this.get('storyId');
 
-      console.dir('checkParams');
-
-      if (typeof this.story.routeId === 'undefined' || this.story.routeId !== storyId) {
-        console.dir('checkParams2');
-        this.set('story.routeId', storyId);
+      if (currentId === 0 || currentId !== storyId) {
+        this.set('storyId', storyId);
       }
     }
 
@@ -110,19 +115,27 @@ class CranberryStory {
 
     // Format JSON response and set story object.
     _handleResponse(json) {
+      app.logger('\<cranberry-story\> _handleResponse');
+
       let result = JSON.parse(json.detail.Result);
 
       this.set('story', result);
     }
 
+    // Unknown functionality, unable to trace.
     _openLink(e) {
       let element = e.currentTarget;
       let twitterName = element.getAttribute('twitter-name');
     }
 
+    // Observer method for changes to the id in the routing path.
     _routeChange(storyid) {
+      app.logger('\<cranberry-story\> _routeChange');
+
       this._checkParams();
     }
+
+    // Scrolls to comment area.
     _scrollToComments() {
         let commentsDiv = this.querySelector('#commentsButton');
 
@@ -131,25 +144,24 @@ class CranberryStory {
 
     // Observer method for when the story id changes.
     _storyIdChanged() {
-      console.log('_storyIdChanged');
-      let storyId = this.get('story.routeId');
-      console.dir(storyId);
-      if (typeof storyId !== 'undefined') {
-        this._updateStoryId(storyId);
-      }
+      app.logger('\<cranberry-story\> _storyIdChanged');
+
+      let storyId = this.get('storyId');
+
+      this._updateStoryId(storyId);
     }
 
-
+    // Update story id in request parameters.
     _updateStoryId(storyid) {
+      app.logger('\<cranberry-story\> _updateStoryId');
 
-      console.log('updatestoryid');
       this.set('jsonp.desiredItemID', storyid);
 
       let request = this.get('jsonp');
 
-      console.dir(request);
-
       this.set('params', request);
+
+      this._changeParams();
     }
 }
 Polymer(CranberryStory);
