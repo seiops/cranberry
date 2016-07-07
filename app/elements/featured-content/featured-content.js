@@ -12,7 +12,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 class FeaturedContent {
   handleResponse (data) {
-    console.dir(data);
     var restResponse = JSON.parse(data.detail.Result);
 
     this.items = restResponse;
