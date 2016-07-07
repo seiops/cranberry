@@ -10,14 +10,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
-<link rel="import" href="../../bower_components/iron-form/iron-form.html">
-<link rel="import" href="../../bower_components/iron-form-element-behavior/iron-form-element-behavior.html">
-<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
-<link rel="import" href="../../bower_components/iron-input/iron-input.html">
-<link rel="import" href="../../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html">
-<link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
-<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
 
 <dom-module id="content-list">
   <template>
@@ -26,25 +19,36 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
     <byutv-jsonp on-response="handleResponse" debounce-duration="300" id="request"></byutv-jsonp>
     <div class="content-cards">
-      <template is="dom-repeat" items="{{items}}">
-      <template is="dom-if" if="[[_checkItem(item,index)]]">
-          <paper-card>
-            <div class="card-content advertisement">
-                Advertisement
-            </div>
+      <template is="dom-repeat" items="{{items}}" initial-count="3">
+        <template is="dom-if" if="[[_checkItem(item,index)]]">
+          <paper-card class="advertisement layout horizontal center">
+            <iron-image src="http://lorempixel.com/300/250"></iron-image>
           </paper-card>
         </template>
         <!-- Need to rework this for array selectors -->
-        <template is="dom-if" if="[[item.mediaAssets.images.0.url]]">
-          <paper-card heading="[[item.title]]" image="http://www.standard.net/[[item.mediaAssets.images.0.url]]" elevation="1">
-            <a href="/story-content/[[item.itemId]]">LINK</a>
-            <div class="card-tag">[[item.sectionInformation.primarySection]]</div>
-            <template is="dom-if" if="[[item.preview]]">
-              <div class="card-content">
-                  <span>[[item.preview]]</span>
-              </div>
-            </template>
-          </paper-card>
+        <template is="dom-if" if="[[_isStory(item.contentType)]]">
+          <template is="dom-if" if="[[_hasImage(item.mediaAssets.images.0.url)]]">
+            <a href="/story-content/[[item.itemId]]">
+              <paper-card heading="[[item.title]]" image="http://www.standard.net/[[item.mediaAssets.images.0.large]]" elevation="1" class="with-image story">
+                <div class="card-tag">[[item.sectionInformation.primarySection]]</div>
+                <!-- <div class="card-date">[[item.updated]]</div> -->
+                <template is="dom-if" if="{{_hasPreview(item.preview)}}">
+                  <div class="card-content flex">[[_trimText(item.preview)]]</div>
+                </template>
+              </paper-card>
+            </a>
+          </template>
+          <template is="dom-if" if="[[!_hasImage(item.mediaAssets.images.0.url)]]">
+            <a href="/story-content/[[item.itemId]]">
+              <paper-card heading="[[item.title]]" elevation="1" class="story">
+                <div class="card-tag">[[item.sectionInformation.primarySection]]</div>
+                <!-- <div class="card-date">[[item.updated]]</div> -->
+                <template is="dom-if" if="{{_hasPreview(item.preview)}}">
+                  <div class="card-content">[[_trimText(item.preview)]]</div>
+                </template>
+              </paper-card>
+            </a>
+          </template>
         </template>
       </template>
     </div>
