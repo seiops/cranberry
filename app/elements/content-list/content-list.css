@@ -10,19 +10,42 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 :host {
   display: block;
+  --paper-card-header-color: #333;
+  --paper-card-header-image-text: {
+    color: #fff;
+  };
+  --paper-card-header-text: {
+    margin-top: 24px;
+  };
 }
 
-paper-card {
+a {
+  text-decoration: none;
+}
+
+paper-card.story {
+  @apply(--layout-flex);
+  max-width: 370px;
+  min-height: 250px;
   margin: 8px;
-  max-width: 350px;
+  --paper-card-content: {
+    font-weight: 400;
+    padding: 12px;
+    line-height: 24px;
+    color: #333;
+  };
 }
 
-paper-card .advertisement {
-  min-width: 300px;
+paper-card.advertisement {
+  width: 300px;
+  min-height: 250px;
+  margin: 8px;
 }
+
 .content-cards {
   @apply(--layout-horizontal);
-  @apply(--layout-around-justified);
+  @apply(--layout-center);
+  @apply(--layout-center-justified);
   @apply(--layout-wrap);
 }
 
@@ -36,6 +59,12 @@ paper-card .card-tag {
   padding: 4px 8px;
 }
 
-paper-card .card-content {
+paper-card .card-date {
+  @apply(--layout-self-center);
+  color: #ffffff;
+  font-size: 12px;
+  position: absolute;
+  text-transform: uppercase;
+  top: 24px;
+  padding: 4px 8px;
 }
-
