@@ -10,7 +10,8 @@
 
     <iron-media-query query="(max-width:719px)" query-matches="{{mobile}}"></iron-media-query>
 
-    <div id="wrapper" mobile-layout$="{{mobile}}">
+    <blockquote id="quote" mobile-layout$="{{mobile}}">{{quote.text}}<span>-- {{quote.credit}}</span></blockquote>
+    <!-- <div id="wrapper" mobile-layout$="{{mobile}}">
 
       <div class="quote-wrapper left-quote">
         <span class="front-quote">&ldquo;</span>
@@ -24,7 +25,7 @@
 
       <p id="credit"></p>
 
-    </div>
+    </div> -->
   </template>
   <!-- Add cranberry-quote Polymer Object script -->
   <script src="cranberry-quote.js"></script>

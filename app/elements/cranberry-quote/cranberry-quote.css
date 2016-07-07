@@ -2,86 +2,56 @@
   display: block;
 }
 
-
-
-#credit {
-  font-size: .9em;
-  color: #999;
-  @apply(--layout-end);
-  padding:0 10px;
-}
-
-#wrapper {
-  position: relative;
-  width: 100%;
-  margin-bottom: 5px;
-}
-
-#wrapper.ut-float-right {
-  float: right;
-  width: 50%;
-  margin: 6px 0 0 10px;
-}
-
-#wrapper.ut-float-left {
-  float: left;
-  width: 50%;
-  margin: 6px 10px 0 0;
-}
-
-#wrapper[mobile-layout].ut-float-right {
-  float: none;
-  clear: both;
-  width: 100%;
-  margin: 6px 0 0 0;
-}
-
-#wrapper[mobile-layout].ut-float-left {
-  float: none;
-  clear: both;
-  width: 100%;
-  margin: 6px 0 0 0;
-}
-
-.quote-wrapper {
-  height: 60px;
-  width: 85px;
-  overflow: hidden;
+blockquote span {
   position: absolute;
-}
-
-.left-quote {
-  top: 0;
-  left: 100px;
-}
-
-.right-quote {
   bottom: 0;
-  right: 100px;
+  right: 15%;
+  font-size: 14px;
+  color: #999;
 }
 
-.quote-text-wrapper {
-  text-align: center;
-  width: 60%;
+blockquote {
+  position: relative;
   margin: 0 auto;
+  max-width: 600px;
+  padding: 30px 60px;
+  text-align: center;
+  font-size: 30px;
+  line-height: 30px;
 }
 
-.quote-text-wrapper span {
-  font-size: 42px;
-  line-height: 45px;
-  color: rgba(0, 0, 0, 0.87);
+blockquote[mobile-layout] {
+  font-size: 20px;
+  line-height: 20px;
 }
-.front-quote {
-  font-size: 208px;
-  line-height: 150px;
-  font-family: "Arial Bold";
+
+blockquote[mobile-layout]:before,
+blockquote[mobile-layout]:after  {
+  width: 40px;
+  height: 40px;
+  font-size: 90px;
+}
+
+blockquote:before, blockquote:after {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  font-size: 120px;
+  line-height: 1;
+}
+
+blockquote:before {
+  font-family: "Arial-Bold";
   color: #50bd9f;
-
+  top: 0;
+  left: 0;
+  content: "\201C";
 }
 
-.back-quote {
-  font-size: 208px;
-  line-height: 150px;
-  font-family: "Arial Bold";
+blockquote:after {
+  font-family: "Arial-Bold";
   color: #50bd9f;
+  bottom: 0;
+  right: 0;
+  content: "\201D";
 }
