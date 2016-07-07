@@ -16,21 +16,13 @@ class CranberryBase {
       route: {
         type: Object
       },
-      videoData: {
-        type: Object,
-        observer: '_videoDataChanged'
-      },
-      videoPageActive: {
-        type: Boolean,
-        reflectToAttribute: true,
-        observer: '_videoPageActiveChanged'
-      },
       searchTail: {
         type: Object,
         notify: true
       },
-      videoTail: {
-        type: Object,
+      selected: {
+        type: Number,
+        value: 0,
         notify: true
       },
       newCategory: {
@@ -60,12 +52,13 @@ class CranberryBase {
     //   }
     // }
 
-    // var pages = document.querySelector('iron-pages#home');
-    // var tabs = document.querySelector('paper-tabs#home');
+    var pages = document.querySelector('iron-pages#home');
+    var tabs = document.querySelector('paper-tabs#home');
 
-    // tabs.addEventListener('iron-select', function() {
-    //     pages.selected = tabs.selected;
-    // });
+    tabs.addEventListener('iron-select', function() {
+        console.log('selecting!');
+        this.set(selected, tabs.selected);
+    });
   }
   //detached() {}
   //attributeChanged() {}
@@ -144,6 +137,46 @@ class CranberryBase {
 
   _equal(a, b) {
     return a === b;
+  }
+
+  _isLatest(selected) {
+    console.log('isLatest');
+    console.log(selected);
+    if (selected === 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  _isLocal(selected) {
+    console.log('isLatest');
+    console.log(selected);
+    if (selected === 1) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  _isPopular(selected) {
+    console.log('isLatest');
+    console.log(selected);
+    if (selected === 2) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+    _isFeatured(selected) {
+    console.log('isLatest');
+    console.log(selected);
+    if (selected === 2) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   // Change theme
