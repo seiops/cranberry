@@ -11,15 +11,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 /* Gigya Socialize JS library integration */
 
 class ContentList {
+
   handleResponse (data) {
-    console.dir(data);
     var restResponse = JSON.parse(data.detail.Result);
 
     this.items = restResponse;
-    console.dir(this.items);
-    console.dir(this.type);
 
-    console.dir(restResponse);
     // var responseMessage = '';
 
     // if (typeof restResponse !== undefined && restResponse.errorCode === 0) {
@@ -45,6 +42,7 @@ class ContentList {
 
     // form.querySelector('.output').innerHTML = responseMessage;
   }
+
   beforeRegister() {
     this.is = 'content-list';
     this.properties = {
@@ -86,21 +84,36 @@ class ContentList {
       }
     };
   }
+
+  // Public methods.
+  attached() {
+    app.logger('\<content-list\> attached');
+
+    this._updateParams();
+  }
+
+  ready() {
+    app.logger('\<content-list\> ready');
+  }
+
+
+  // Private methods
   _checkItem(item,index) {
-    var modulus = index % 2;
-    console.log(index, modulus);
+    let modulus = index % 2;
+
     if (index > 0 && modulus === 0) {
-      console.log('true');
       return true;
     } else {
       return false;
     }
   }
+
   _changeCount() {
     console.log('Changed count:', this.count);
   }
+
   _changeParams() {
-    var params = this.get('params');
+    let params = this.get('params');
 
     if (params.length !== 0 && params.desiredCount) {
       this.$.request.url = this.rest;
@@ -110,35 +123,70 @@ class ContentList {
       this.$.request.generateRequest();
     }
   }
+
   _changeStart() {
-    console.log('Changed start:', this.start);
+
   }
+
   _changeSections() {
-    console.log('Changed sections:', this.sections);
+
   }
+
   _changeType() {
-    console.log('Changed type:', this.type);
-  }
-  ready() {
-    console.log('content-list ready.');
 
   }
-  _returnClass() {
 
+  _hasImage(image) {
+    console.log(image);
+    if(typeof image !== 'undefined' && image.length > 0) {
+      return true;
+    } else {
+      return false;
+    }
   }
+
+  _hasPreview(preview) {
+    console.log('_hasPreview', preview);
+    if(typeof preview !== 'undefined' && preview.length > 0) {
+      console.log('true');
+      return true;
+    } else {
+      console.log('false');
+      return;
+    }
+  }
+
+  _isStory(item) {
+    if(item === 'Story') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  _trimText(text) {
+    let trunc = text;
+
+    if (trunc.length > 125) {
+      trunc = trunc.substring(0, 125);
+      trunc = trunc.replace(/\w+$/, '');
+      trunc += '...';
+    }
+
+    return trunc;
+  }
+
   _updateParams() {
-    var jsonp = {};
+    let jsonp = {};
 
     jsonp.request = "content-list";
-    jsonp.desiredSection = this.sections;
-    jsonp.desiredContent = this.type;
-    jsonp.desiredCount = this.count;
+    jsonp.desiredSection = this.get('sections');
+    jsonp.desiredContent = this.get('type');
+    jsonp.desiredCount = this.get('count');
 
     this.set('params', jsonp);
   }
-  attached() {
-    this._updateParams();
-  }
+
 }
 
 Polymer(ContentList);
