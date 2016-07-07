@@ -10,20 +10,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 :host {
   display: block;
+  --paper-card-header-image-text: {
+    color: #fff;
+    font-weight: 600;
+    fone-size: 48px;
+  };
 }
 
 .featured-content {
   @apply(--layout-horizontal);
-  @apply(--layout-justified);
+  margin-bottom: 16px;
 }
 
 .featured-main {
-  width: 70%;
+  @apply(--layout-flex-8);
 }
 
 .featured-list {
   @apply(--layout-vertical);
-  width: 30%;
+  @apply(--layout-flex-4);
 }
 
 paper-card .card-tag {
