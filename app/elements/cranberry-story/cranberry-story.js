@@ -27,7 +27,7 @@ class CranberryStory {
             value: {}
           }
         };
-        this.observers = ['_routeChange(routeData.id)'];
+        this.observers = ['_checkParams(routeData.id)'];
 
         // Are these being used?
         //
@@ -61,11 +61,12 @@ class CranberryStory {
 
     // Called by observer when params object is changed.
     _changeParams() {
-      app.logger('\<cranberry-story\> _changeParams');
-
       let params = this.get('params');
+      let storyId = this.get('storyId');
 
-      if (params.length !== 0) {
+      this.set('story', {});
+
+      if (params.length !== 0 && storyId !== 0) {
         this.$.request.url = this.rest;
         this.$.request.params = params;
 
@@ -75,12 +76,12 @@ class CranberryStory {
 
     // Updates id value from route.
     _checkParams() {
-      app.logger('\<cranberry-story\> _checkParams');
-
       let storyId = this.get('routeData.id');
       let currentId = this.get('storyId');
 
-      if (currentId === 0 || currentId !== storyId) {
+      if (typeof storyId !== 'undefined' && currentId !== storyId) {
+        app.logger('\<cranberry-story\> setting new story id', storyId);
+
         this.set('storyId', storyId);
       }
     }
@@ -115,9 +116,11 @@ class CranberryStory {
 
     // Format JSON response and set story object.
     _handleResponse(json) {
-      app.logger('\<cranberry-story\> _handleResponse');
+      app.logger('\<cranberry-story\> json response received');
 
       let result = JSON.parse(json.detail.Result);
+
+      console.dir(result);
 
       this.set('story', result);
     }
@@ -126,13 +129,6 @@ class CranberryStory {
     _openLink(e) {
       let element = e.currentTarget;
       let twitterName = element.getAttribute('twitter-name');
-    }
-
-    // Observer method for changes to the id in the routing path.
-    _routeChange(storyid) {
-      app.logger('\<cranberry-story\> _routeChange');
-
-      this._checkParams();
     }
 
     // Scrolls to comment area.
@@ -144,17 +140,18 @@ class CranberryStory {
 
     // Observer method for when the story id changes.
     _storyIdChanged() {
-      app.logger('\<cranberry-story\> _storyIdChanged');
-
       let storyId = this.get('storyId');
 
-      this._updateStoryId(storyId);
+      if (storyId !== 0) {
+        app.logger('\<cranberry-story\> storyId set to ' + storyId);
+
+        this._updateStoryId(storyId);
+      }
+
     }
 
     // Update story id in request parameters.
     _updateStoryId(storyid) {
-      app.logger('\<cranberry-story\> _updateStoryId');
-
       this.set('jsonp.desiredItemID', storyid);
 
       let request = this.get('jsonp');

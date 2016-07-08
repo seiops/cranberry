@@ -11,10 +11,51 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 /* Gigya Socialize JS library integration */
 
 class FeaturedContent {
+  beforeRegister() {
+    this.is = 'featured-content';
+    this.properties = {
+      rest: {
+        type: String,
+        value: "http://sedev.libercus.net/rest.json",
+        notify: true
+      },
+      params: {
+        type: Object,
+        value: [],
+        observer: '_changeParams',
+        notify: true
+      },
+      items: {
+        type: Object,
+        value: [],
+        notify: true
+      },
+      type: {
+        type: String,
+        value: "story_gallery",
+        observer: '_changeType'
+      },
+      sections: {
+        type: String,
+        value: "news",
+        observer: '_changeSections'
+      },
+      count: {
+        type: Number,
+        value: 10,
+        observer: '_changeCount'
+      },
+      start: {
+        type: Number,
+        value: 1,
+        observer: '_changeStart'
+      }
+    };
+  }
   handleResponse (data) {
     var restResponse = JSON.parse(data.detail.Result);
 
-    this.items = restResponse;
+    this.set('items', restResponse);
     // var responseMessage = '';
 
     // if (typeof restResponse !== undefined && restResponse.errorCode === 0) {
@@ -39,49 +80,6 @@ class FeaturedContent {
 
 
     // form.querySelector('.output').innerHTML = responseMessage;
-  }
-
-
-  beforeRegister() {
-    this.is = 'featured-content';
-    this.properties = {
-      rest: {
-        type: String,
-        value: "http://sedev.libercus.net/rest.json",
-        notify: true
-      },
-      params: {
-        type: Object,
-        value: [],
-        observer: '_changeParams',
-        notify: true
-      },
-      items: {
-        type: Object,
-        value: [],
-        notify: true
-      },
-      type: {
-        type: String,
-        value: "default",
-        observer: '_changeType'
-      },
-      sections: {
-        type: String,
-        value: "News",
-        observer: '_changeSections'
-      },
-      count: {
-        type: Number,
-        value: 10,
-        observer: '_changeCount'
-      },
-      start: {
-        type: Number,
-        value: 1,
-        observer: '_changeStart'
-      }
-    };
   }
   _firstItem(item,index) {
     if (index === 0) {
@@ -121,7 +119,7 @@ class FeaturedContent {
     var jsonp = {};
 
     jsonp.request = "content-list";
-    jsonp.desiredSection = this.sections;
+    jsonp.desiredSection = this.get('sections');
     jsonp.desiredContent = this.type;
     jsonp.desiredCount = this.count;
 
