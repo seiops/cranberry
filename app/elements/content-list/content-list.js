@@ -109,7 +109,7 @@ class ContentList {
   }
 
   _changeCount() {
-    console.log('Changed count:', this.count);
+
   }
 
   _changeParams() {
@@ -137,7 +137,6 @@ class ContentList {
   }
 
   _hasImage(image) {
-    console.log(image);
     if(typeof image !== 'undefined' && image.length > 0) {
       return true;
     } else {
@@ -146,12 +145,9 @@ class ContentList {
   }
 
   _hasPreview(preview) {
-    console.log('_hasPreview', preview);
     if(typeof preview !== 'undefined' && preview.length > 0) {
-      console.log('true');
       return true;
     } else {
-      console.log('false');
       return;
     }
   }

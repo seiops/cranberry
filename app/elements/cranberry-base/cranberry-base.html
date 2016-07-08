@@ -65,15 +65,17 @@
     </style>
 
     <!-- Local browser storage -->
-    <iron-localstorage id="localStorage" name="{$ config.appNameId $}"
+    <!-- <iron-localstorage id="localStorage" name="{$ config.appNameId $}"
       value="{{storage}}"
       on-iron-localstorage-load-empty="initializeDefaultStorage">
-    </iron-localstorage>
+    </iron-localstorage> -->
 
     <!-- Application routing -->
     <app-location route="{{route}}"></app-location>
     <app-route route="{{route}}" pattern="/:page" data="{{data}}"></app-route>
     <app-route route="{{route}}" pattern="/story-content" tail="{{storyTail}}"></app-route>
+    <app-route route="{{route}}" pattern="/section" tail="{{sectionTail}}"></app-route>
+    <app-route route="{{sectionTail}}" pattern="/:section" data="{{subrouteData}}"></app-route>
 
     <app-drawer-layout>
 
@@ -96,17 +98,29 @@
               </div>
           </app-toolbar>
         </app-header>
+        <div hidden$="{{!_equal(data.page, '')}}">
+        </div>
+        <div hidden$="{{!_equal(data.page, 'story-content')}}">
+        </div>
+        <div hidden$="{{!_equal(data.page, 'policy')}}">
+        </div>
+        <div hidden$="{{!_equal(data.page, 'section')}}">
+        </div>
 
         <!-- Content area -->
         <iron-pages class="Main-content" attr-for-selected="data-route" selected="{{data.page}}" default-selected="">
-          <template is="dom-if" if="[[_equal(data.page, 'story-content')]]">
-            <section class="Page" data-route="story-content" tabindex="-1">
-              <cranberry-story route="[[storyTail]]"></cranberry-story>
-            </section>
-          </template>
-          <template is="dom-if" if="[[_equal(data.page, '')]]">
+          <div data-route="">
             {% include "cranberry-base/views/pages/home.html" %}
-          </template>
+          </div>
+          <div data-route="section">
+            {% include "cranberry-base/views/pages/section.html" %}
+          </div>
+          <div data-route="story-content">
+            {% include "cranberry-base/views/pages/story-content.html" %}
+          </div>
+          <div data-route="policy">
+            {% include "cranberry-base/views/pages/policy.html" %}
+          </div>
         </iron-pages>
 
       </app-header-layout>
