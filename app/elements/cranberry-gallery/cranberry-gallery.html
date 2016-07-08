@@ -16,13 +16,14 @@
     <iron-media-query query="(min-width: 720px) and (max-width:959px)" query-matches="{{tablet}}"></iron-media-query>
     <iron-media-query query="(max-width:719px)" query-matches="{{mobile}}"></iron-media-query>
 
-    <byutv-jsonp auto url="http://sedev.libercus.net/rest.json" params='{"request": "gallery", "desiredItemID": "1763"}' on-response="handleResponse" debounce-duration="300" id="request"></byutv-jsonp>
+    <byutv-jsonp auto url="http://sedev.libercus.net/rest.json" params='{"request": "gallery", "desiredItemID": "3401"}' on-response="handleResponse" debounce-duration="300" id="request"></byutv-jsonp>
 
     <div class="ut-center">
       <iron-image src="http://www.placehold.it/970x250&text=AD_970x250"></iron-image>
     </div>
 
     <div id="galleryContainer">
+      <cranberry-slider images="{{gallery.mediaAssets.images}}" autostart="true" arrows="true" bullets="false" info="true" caption="true"></cranberry-slider>
       <div class="flex-absolute">
         <paper-button raised id="buyButton">Buy Image</paper-button>
         <gigya-sharebar share-buttons-id="gigya-share-buttons-gallery"></gigya-sharebar>
@@ -33,20 +34,21 @@
     <p>{{gallery.FullText}}</p>
 
     <div class="ut-grid ut-margin-bottom">
-      <div class="flex-3" id="images">
+      <div class="flex-3 ut-center" id="images">
         <template is="dom-repeat" items="{{gallery.mediaAssets.images}}">
-          <iron-image src$="http://www.standard.net{{item.url}}" sizing="cover" data-index$="{{index}}"></iron-image>
+          <iron-image src$="http://www.standard.net{{item.small}}" sizing="cover" data-index$="{{index}}" style="background-color: lightgray;" preload></iron-image>
         </template>
       </div>
       <div class="flex ut-center">
         <google-dfp route="{{route}}" adpos="bottom_of_stream" adsize="[[300,250],[300,600]]" adgroup="{$ config.dfpAdStructure.adGroupID $}" adgrouping="{$ config.dfpAdStructure.adGrouping $}" adsubgrouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+        <img src="http://www.placehold.it/300x600&text=Related"/>
       </div>
     </div>
 
 
     <!-- Comments -->
     <div class="ut-center">
-      <gigya-comments></gigya-comments>
+      <gigya-comments comments-id="gallery-comments"></gigya-comments>
     </div>
 
     <div class="ut-center">

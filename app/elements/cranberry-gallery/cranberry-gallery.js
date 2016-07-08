@@ -21,18 +21,13 @@ class cranberryGallery {
   }
 
   _goToSlide(e) {
-    console.info(e);
-    console.info('Tapped');
-    let slider = this.querySelector('awesome-slider');
-    let imageIndex = e.target.parentElement.dataset.index;
+    let slider = this.querySelector('cranberry-slider');
+    let imageIndex = Number(e.target.parentElement.dataset.index);
 
-    console.info(imageIndex);
-
-    // SETUP GOTO FUNCTIONALITY!
-
+    slider.goTo(slider, imageIndex, "next");
   }
   _buyImage() {
-    let slider = this.querySelector('awesome-slider');
+    let slider = this.querySelector('cranberry-slider');
     let images = slider.items;
     let currentIndex = slider.index;
     let currentImage = images[currentIndex].src;
@@ -54,18 +49,23 @@ class cranberryGallery {
   handleResponse(data) {
     var restResponse = JSON.parse(data.detail.Result);
     // Assign restResponse to data bound object gallery
-    this.gallery = restResponse;
-
-    let slider = document.createElement('cranberry-slider');
-    slider.featured = this.gallery;
-    Polymer.dom(this.$.galleryContainer).appendChild(slider);
+    this.set('gallery', restResponse);
   }
 
   onRouteChanged(newValue, oldValue) {
-    console.info('The route has changed');
-    let slider = this.$$('cranberry-slider');
-
-    console.info(slider);
+    console.info(newValue);
+    console.info(oldValue);
+    if (typeof oldValue !== 'undefined') {
+      if (newValue.path.replace('/', '') === 'gallery-content') {
+        let slider = this.$$('cranberry-slider');
+        let loader = slider.get('loader');
+        let animationEvent = slider.get('animationEvent');
+        console.info('doing route change stuff!');
+        console.info(loader);
+        // loader.removeEventListener(animationEvent, slider.loadingEnd);
+        slider.endLoading(slider, 0, "next");
+      }
+    }
   }
 }
 Polymer(cranberryGallery);

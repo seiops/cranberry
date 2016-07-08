@@ -3,12 +3,16 @@
   text-align: center;
 }
 
+div#galleryContainer {
+  position: relative;
+}
+
 .flex-absolute {
   @apply(--layout-horizontal);
   @apply(--layout-flex);
   position: absolute;
-  bottom: -355px;
-  right: 110px;
+  bottom: -25px;
+  right: 5%;
   z-index: 10;
 }
 

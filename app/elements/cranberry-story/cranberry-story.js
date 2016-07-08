@@ -4,6 +4,10 @@ class cranberryStory {
         this.properties = {
           story: {
             type: Object
+          },
+          route: {
+            type: Object,
+            observer: 'onRouteChanged'
           }
         };
         this.listeners = {
@@ -64,9 +68,20 @@ class cranberryStory {
       var restResponse = JSON.parse(data.detail.Result);
       // Assign restResponse to data bound object story
       this.story = restResponse;
-      
     }
-    // Scroll to comments area function
+
+    onRouteChanged(newValue, oldValue) {
+      if (typeof oldValue !== 'undefined') {
+        if (newValue.path.replace('/', '') === 'story-content') {
+          let sliders = this.querySelectorAll('cranberry-slider');
+          if (sliders.length > 0) {
+            sliders.forEach(function(value, index) {
+              value.endLoading(value, 0, "next");
+            });
+          }
+        }
+      }
+    }
 
 }
 Polymer(cranberryStory);

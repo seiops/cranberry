@@ -220,12 +220,23 @@ class cranberryShortcode {
         });
         let card = document.createElement('paper-card');
         let slider = document.createElement('cranberry-slider');
+        let wrapper = document.createElement('cranberry-slider-wrapper');
 
-        slider.featured = featured;
-        slider.links = links;
-        slider.isShortcode = true;
+        wrapper.set('isShortcode', true);
+        wrapper.set('links', links);
+        wrapper.set('featuredTitle', featured.title);
 
-        card.appendChild(slider);
+        slider.setAttribute('autostart', 'true');
+        slider.setAttribute('arrows', 'true');
+        slider.setAttribute('bullets', 'false');
+        slider.setAttribute('info', 'true');
+        slider.setAttribute('caption', 'true');
+        slider.set('images', featured.mediaAssets.images);
+
+
+        Polymer.dom(wrapper).appendChild(slider);
+        Polymer.dom(card).appendChild(wrapper);
+
 
         shortcodeEl = card;
 
@@ -235,11 +246,22 @@ class cranberryShortcode {
       if (type === 'singlegallery') {
         let card = document.createElement('paper-card');
         let slider = document.createElement('cranberry-slider');
+        let wrapper = document.createElement('cranberry-slider-wrapper');
 
-        slider.featured = foundObject;
-        slider.isShortcode = true;
+        wrapper.set('isShortcode', true);
+        wrapper.set('featuredTitle', foundObject.title);
 
-        card.appendChild(slider);
+        slider.setAttribute('autostart', 'true');
+        slider.setAttribute('arrows', 'true');
+        slider.setAttribute('bullets', 'false');
+        slider.setAttribute('info', 'true');
+        slider.setAttribute('caption', 'true');
+        slider.set('images', foundObject.mediaAssets.images);
+
+
+        Polymer.dom(wrapper).appendChild(slider);
+        Polymer.dom(card).appendChild(wrapper);
+
 
         shortcodeEl = card;
       }
