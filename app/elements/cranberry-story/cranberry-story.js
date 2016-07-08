@@ -53,7 +53,6 @@ class cranberryStory {
           commentsDiv.scrollIntoView(true);
         };
         this._openLink = function(e) {
-          //console.info(e.currentTarget);
           let element = e.currentTarget;
           let twitterName = element.getAttribute('twitter-name');
 
