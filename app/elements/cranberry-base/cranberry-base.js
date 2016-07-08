@@ -9,17 +9,14 @@ class CranberryBase {
        * has been upgraded. Set in ready
        * https://github.com/Polymer/polymer/issues/2653
        */
+       data: Object,
       upgraded: Boolean,
       storage: {
         type: Object
       },
-      route: {
-        type: Object
-      },
-      searchTail: {
-        type: Object,
-        notify: true
-      },
+      route: Object,
+      section: String,
+      subrouteData: Object,
       selected: {
         type: Number,
         value: 0,
@@ -33,14 +30,20 @@ class CranberryBase {
         value: []
       }
     };
+    this.observers = ['_sectionTail(subrouteData.section)'];
   }
   //created() {}
   ready() {
     // Let the world know we're ready to receive data
     // https://github.com/Polymer/polymer/issues/2653
     this.fire('upgraded');
-    this.upgraded = true;
+    this.set('upgraded', true);
   }
+
+  _sectionTail(section) {
+    this.set('section', section);
+  }
+
   attached() {
     // let storage = JSON.parse(localStorage.getItem(this.$.localStorage.name));
     // if (storage) {
@@ -52,14 +55,17 @@ class CranberryBase {
     //   }
     // }
 
-    var pages = document.querySelector('iron-pages#home');
-    var tabs = document.querySelector('paper-tabs#home');
-
-    tabs.addEventListener('iron-select', function() {
-        console.log('selecting!');
-        this.set(selected, tabs.selected);
-    });
+    this._checkTabs();
   }
+
+  _checkTabs() {
+      // let tabs = Polymer.dom(this.root).querySelector('paper-tabs');
+      // console.dir(tabs);
+      // tabs.addEventListener('iron-select', function() {
+      //     this.set('selected', tabs.selected);
+      // });
+  }
+
   //detached() {}
   //attributeChanged() {}
 
@@ -136,12 +142,14 @@ class CranberryBase {
   }
 
   _equal(a, b) {
-    return a === b;
+    if (a === b) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   _isLatest(selected) {
-    console.log('isLatest');
-    console.log(selected);
     if (selected === 0) {
       return true;
     } else {
@@ -150,8 +158,6 @@ class CranberryBase {
   }
 
   _isLocal(selected) {
-    console.log('isLatest');
-    console.log(selected);
     if (selected === 1) {
       return true;
     } else {
@@ -160,8 +166,6 @@ class CranberryBase {
   }
 
   _isPopular(selected) {
-    console.log('isLatest');
-    console.log(selected);
     if (selected === 2) {
       return true;
     } else {
@@ -170,8 +174,6 @@ class CranberryBase {
   }
 
     _isFeatured(selected) {
-    console.log('isLatest');
-    console.log(selected);
     if (selected === 2) {
       return true;
     } else {
