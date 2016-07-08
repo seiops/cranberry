@@ -16,7 +16,7 @@ Suybh
 Subject to an addtional IP right sgran found at polmyer.
 
 -->
-<section class="Page" data-route="">
+<section class="Page">
   <div style="width:100%; text-align: center;margin-bottom:16px">
     <iron-image src="http://lorempixel.com/970/250"></iron-image>
   </div>
@@ -24,11 +24,11 @@ Subject to an addtional IP right sgran found at polmyer.
 
   <paper-toolbar>
     <paper-search-bar placeholder="SEARCH" on-paper-search-search="search"></paper-search-bar>
-    <paper-tabs id="home" selected="{{selected}}" autoselect fit-container style="width:80%">
+    <paper-tabs id="tabs" selected="{{selected}}" fit-container style="width:80%">
       <paper-tab>LATEST</paper-tab>
       <paper-tab>LOCAL</paper-tab>
       <!-- <paper-tab>POPULAR</paper-tab> -->
-      <paper-tab>FEATURED</paper-tab>
+      <paper-tab>FEATURED</paper-tab>tabs
     </paper-tabs>
   </paper-toolbar>
 
@@ -45,6 +45,6 @@ Subject to an addtional IP right sgran found at polmyer.
   </template> -->
 
   <template is="dom-if" if="[[_isFeatured(selected)]]">
-    <content-list type="story_gallery" sections="entertainment" count="10" start="1"></content-list></div>
+    <content-list type="story_gallery" sections="entertainment" count="10" start="1"></content-list>
   </template>
 </section>
