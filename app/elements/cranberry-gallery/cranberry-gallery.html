@@ -25,7 +25,7 @@
     <div id="galleryContainer">
       <div class="flex-absolute tag-links">
         <template is="dom-repeat" items="{{parseTags(gallery.tags)}}">
-          <paper-button raised>{{value}}</paper-button>
+          <paper-button raised>{{item}}</paper-button>
         </template>
       </div>
       <cranberry-slider images="{{gallery.mediaAssets.images}}" autostart="true" arrows="true" bullets="false" info="true" caption="true"></cranberry-slider>

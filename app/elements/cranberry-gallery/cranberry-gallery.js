@@ -22,13 +22,12 @@ class cranberryGallery {
       'buyButton.tap': '_buyImage',
       'images.tap': '_goToSlide'
     };
-    this.parseTags(tags) {
+    this.parseTags = function(tags) {
       console.info('in parese tags');
-      let tagString = tags;
-      let tags = tagString.split(,);
-      this.set('tags', tags);
-      console.info(tags);
-    }
+      let tagsArr = tags.split(',');
+      this.set('tags', tagsArr);
+      return this.get('tags');
+    };
   }
 
   _goToSlide(e) {
