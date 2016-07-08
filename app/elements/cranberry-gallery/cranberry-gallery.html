@@ -23,8 +23,13 @@
     </div>
 
     <div id="galleryContainer">
+      <div class="flex-absolute tag-links">
+        <template is="dom-repeat" items="{{parseTags(gallery.tags)}}">
+          <paper-button raised>{{value}}</paper-button>
+        </template>
+      </div>
       <cranberry-slider images="{{gallery.mediaAssets.images}}" autostart="true" arrows="true" bullets="false" info="true" caption="true"></cranberry-slider>
-      <div class="flex-absolute">
+      <div class="flex-absolute share-buttons">
         <paper-button raised id="buyButton">Buy Image</paper-button>
         <gigya-sharebar share-buttons-id="gigya-share-buttons-gallery"></gigya-sharebar>
       </div>

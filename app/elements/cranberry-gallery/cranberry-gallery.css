@@ -16,6 +16,23 @@ div#galleryContainer {
   z-index: 10;
 }
 
+.flex-absolute.share-buttons {
+  bottom: -25px;
+  right: 5%;
+}
+
+.flex-absolute.tag-links {
+  top: 0;
+  left: 0;
+}
+
+.flex-absolute.tag-links paper-button{
+  background-color: #50bd9f;
+  color: #fff;
+  border-radius: 0;
+  margin: 0;
+}
+
 .ut-grid {
   @apply(--layout-horizontal);
   @apply(--layout-wrap);

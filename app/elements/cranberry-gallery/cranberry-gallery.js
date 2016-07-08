@@ -12,12 +12,23 @@ class cranberryGallery {
       loaded: {
         type: Boolean,
         value: false
+      },
+      tags: {
+        type: Array,
+        value: []
       }
     };
     this.listeners = {
       'buyButton.tap': '_buyImage',
       'images.tap': '_goToSlide'
     };
+    this.parseTags(tags) {
+      console.info('in parese tags');
+      let tagString = tags;
+      let tags = tagString.split(,);
+      this.set('tags', tags);
+      console.info(tags);
+    }
   }
 
   _goToSlide(e) {
@@ -53,16 +64,9 @@ class cranberryGallery {
   }
 
   onRouteChanged(newValue, oldValue) {
-    console.info(newValue);
-    console.info(oldValue);
     if (typeof oldValue !== 'undefined') {
       if (newValue.path.replace('/', '') === 'gallery-content') {
         let slider = this.$$('cranberry-slider');
-        let loader = slider.get('loader');
-        let animationEvent = slider.get('animationEvent');
-        console.info('doing route change stuff!');
-        console.info(loader);
-        // loader.removeEventListener(animationEvent, slider.loadingEnd);
         slider.endLoading(slider, 0, "next");
       }
     }
