@@ -15,7 +15,8 @@ class CranberryStory {
           routeData: Object,
           story: {
             type: Object,
-            value: {}
+            value: {},
+            observer: '_displayContent'
           },
           storyId: {
             type: Number,
@@ -79,21 +80,33 @@ class CranberryStory {
     }
 
     // Processes shortcodes and displays content.
-    _displayContent(paragraph, index) {
-      if (paragraph.shortcode) {
-        let shortcodeEl = document.createElement('cranberry-shortcode');
+    _displayContent() {
+      let story = this.get('story');
+      let paragraphs = story.paragraphs;
+      let contentArea = this.$.storyContentArea;
 
-        shortcodeEl.storyObject = this.get('story');
-        shortcodeEl.shortcodeObject = paragraph;
 
-        this.$.storyContentArea.appendChild(shortcodeEl);
-      } else {
-        let paragraphEl = document.createElement('p');
-        let node = document.createTextNode(paragraph.text);
+      if(typeof paragraphs !== 'undefined') {
+        // Create a document fragment to append all elements to
+        let fragment = document.createDocumentFragment();
 
-        // [TODO] Lots of draw calls here, heavy optimization needed.
-        paragraphEl.appendChild(node);
-        this.$.storyContentArea.appendChild(paragraphEl);
+        paragraphs.forEach(function(value, index) {
+          if (value.shortcode) {
+            let shortcodeEl = document.createElement('cranberry-shortcode');
+
+            shortcodeEl.set('shortcodeObject', value);
+            shortcodeEl.set('storyObject', story);
+            fragment.appendChild(shortcodeEl);
+          } else {
+            let paragraphEl = document.createElement('p');
+            let node = document.createTextNode(value.text);
+
+            paragraphEl.appendChild(node);
+            fragment.appendChild(paragraphEl);
+          }
+        });
+
+        contentArea.appendChild(fragment);
       }
     }
 
