@@ -14,19 +14,14 @@ class cranberryGallery {
         value: false
       },
       tags: {
-        type: Array,
-        value: []
+        type: Array
       }
     };
     this.listeners = {
       'buyButton.tap': '_buyImage',
-      'images.tap': '_goToSlide'
-    };
-    this.parseTags = function(tags) {
-      console.info('in parese tags');
-      let tagsArr = tags.split(',');
-      this.set('tags', tagsArr);
-      return this.get('tags');
+      'images.tap': '_goToSlide',
+      'modalOpen.tap': '_openModal',
+      'modalClose.tap': '_closeModal'
     };
   }
 
@@ -36,6 +31,7 @@ class cranberryGallery {
 
     slider.goTo(slider, imageIndex, "next");
   }
+
   _buyImage() {
     let slider = this.querySelector('cranberry-slider');
     let images = slider.items;
@@ -56,10 +52,40 @@ class cranberryGallery {
     capture.setImgParams();
   }
 
+  _openModal() {
+    let modal = this.$.modal;
+    let modalSlider = modal.querySelector('#modalSlider');
+    let mainSlider = this.querySelector('#mainSlider');
+    let mainIndex = mainSlider.index;
+    let modalIndex = modalSlider.index;
+
+    modal.toggle();
+
+    if (mainIndex > modalIndex) {
+      modalSlider.goTo(modalSlider, mainIndex, "next");
+    }
+  }
+
+  _closeModal() {
+    let modal = this.$.modal;
+    let modalSlider = modal.querySelector('#modalSlider');
+    let mainSlider = this.querySelector('#mainSlider');
+    let mainIndex = mainSlider.index;
+    let modalIndex = modalSlider.index;
+
+    modal.toggle();
+
+    if (mainIndex < modalIndex) {
+      mainSlider.goTo(mainSlider, modalIndex, "next");
+    }
+  }
+
   handleResponse(data) {
     var restResponse = JSON.parse(data.detail.Result);
     // Assign restResponse to data bound object gallery
     this.set('gallery', restResponse);
+
+    this.set('tags', restResponse.tags.split(','));
   }
 
   onRouteChanged(newValue, oldValue) {

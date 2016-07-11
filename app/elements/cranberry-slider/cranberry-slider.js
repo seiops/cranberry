@@ -33,9 +33,6 @@ class cranberrySlider {
       figure: {
         type: Object
       },
-      content: {
-        type: Object
-      },
       container: {
         type: Object
       },
@@ -120,17 +117,15 @@ class cranberrySlider {
   }
 
   updateItems(el) {
-    var nodes = Polymer.dom(this).getEffectiveChildNodes();
-    var items = [];
-    for (var i = 0, l = nodes.length; i < l; i++) {
-      if (nodes[i].getAttribute("source")) {
-        items.push({
-          src: nodes[i].getAttribute("source"),
-          html: nodes[i].innerHTML,
-          loaded: false
-        });
-      }
-    }
+    let items = [];
+
+    el.images.forEach(function(value, index) {
+      items.push({
+        src: 'http://www.standard.net' + value.exlarge,
+        html: '',
+        loaded: false
+      });
+    });
     this.set('items', items);
   }
 
@@ -337,9 +332,6 @@ class cranberrySlider {
           if (img.height > img.width) {
             items[index].portrait = true;
           }
-          // let imageHeight = (img.height > 675 ? 675 : img.height);
-          // let container = self.get('container');
-          // container.style.paddingBottom = imageHeight + 'px';
 
           items[index].loaded = true;
           current.offsetHeight;
@@ -420,12 +412,16 @@ class cranberrySlider {
 
     if (Boolean(el.getAttribute('caption'))) {
       el.info.caption = document.createElement('p');
+      if (Boolean(el.getAttribute('modal'))) {
+        el.info.caption.classList = 'white-text';
+        el.info.classList += ' white-text';
+      }
       el.info.caption.innerHTML = '';
       el.info.appendChild(el.info.caption);
     }
     let container = this.get('container');
 
-    container.appendChild(el.info);
+    el.appendChild(el.info);
   }
 
   applyArrows(el) {
@@ -575,18 +571,8 @@ class cranberrySlider {
     this.set('figure', this.querySelector('figure'));
     this.set('current', this.querySelector('.current'));
     this.set('loader', this.querySelector('.loader'));
-    this.set('content', this.$.content);
     this.set('container', this.querySelector('.slider'));
     el.class = "slider";
-    let images = this.get('images', this);
-    // Added logic for property Array that contains JSON images
-    if(images.length > 0) {
-      images.forEach(function(value, index) {
-        let item = document.createElement('item');
-        item.setAttribute('source', 'http://www.standard.net' + value.exlarge);
-        Polymer.dom(el).appendChild(item);
-      });
-    }
 
     // Run the remainder of funtions
     this.updateItems(el);
@@ -643,76 +629,5 @@ class cranberrySlider {
     this.setAttribute("color", color);
   }
 
-  clearAndInit() {
-    // Clear all children in content
-    Polymer.dom(this).innerHTML = '';
-    // Clear out items property
-    this.set('items', []);
-    // Clear out the info div
-    let info = Polymer.dom(this.root).querySelector('.info');
-    let slider = Polymer.dom(this.root).querySelector('.slider');
-    slider.removeChild(info);
-
-    let self = Polymer.dom(this);
-    let newSelf = self.cloneNode(true);
-    self.parentNode.replaceChild(newSelf, self.node);
-
-    newSelf.set('images', this.images);
-    // Reinit the slider
-    this.init(newSelf);
-  }
-
-  clearCurrentSlide(el) {
-    let current = this.get('current');
-    let loader = this.get('loader');
-    current.style.backgroundImage = null;
-    loader.style.backgroundImage = null;
-  }
-
-  // onImagesChanged(newValue, oldValue) {
-  //   let self = this;
-  //   // If the oldValue actually contained data
-  //   if (typeof oldValue !== 'undefined') {
-  //     // Clear all children in content
-  //     Polymer.dom(self).innerHTML = '';
-  //     // Clear out items property
-  //     self.set('items', []);
-  //     // Clear out the info div
-  //     Polymer.dom(this.root).querySelector('.info').innerHTML = '';
-  //     // Reinit the slider
-  //     this.init(self);
-  //   }
-  // }
 }
 Polymer(cranberrySlider);
-
-//
-// (function (window, document) {
-//
-//   var mainDoc = document,
-//     thisDoc = (mainDoc._currentScript || mainDoc.currentScript).ownerDocument,
-//     template = thisDoc.querySelector('template#awesome-slider').content,
-//     element = Object.create(HTMLElement.prototype);
-//
-//   if (window.ShadowDOMPolyfill) {
-//     WebComponents.ShadowCSS.shimStyling(template, "awesome-slider");
-//   }
-//
-//
-//   element.attributeChangedCallback = function (attr, oldVal, newVal) {
-//
-//     if (attr == "bullets") {
-//       checkBullets(this);
-//     }
-//
-//     if (attr == "color") {
-//       checkColor(this);
-//     }
-//
-//   };
-//
-//
-//   mainDoc.registerElement('awesome-slider', {
-//     prototype: element
-//   });
-// })(window, document);

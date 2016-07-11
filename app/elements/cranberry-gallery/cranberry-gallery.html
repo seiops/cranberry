@@ -2,6 +2,8 @@
 <link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
 <link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
 <link rel="import" href="../../bower_components/iron-icons/social-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/editor-icons.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../gigya-sharebar/gigya-sharebar.html">
 <link rel="import" href="../gigya-comments/gigya-comments.html">
 <link rel="import" href="../cranberry-slider/cranberry-slider.html">
@@ -16,23 +18,32 @@
     <iron-media-query query="(min-width: 720px) and (max-width:959px)" query-matches="{{tablet}}"></iron-media-query>
     <iron-media-query query="(max-width:719px)" query-matches="{{mobile}}"></iron-media-query>
 
+    <paper-dialog id="modal" modal>
+      <div class="gallery-container">
+        <cranberry-slider id="modalSlider" images="{{gallery.mediaAssets.images}}" autostart="true" arrows="true" bullets="false" info="true" caption="true" modal="true"></cranberry-slider>
+        <paper-button id="modalClose" raised>Close</paper-button>
+      </div>
+    </paper-dialog>
+
     <byutv-jsonp auto url="http://sedev.libercus.net/rest.json" params='{"request": "gallery", "desiredItemID": "3401"}' on-response="handleResponse" debounce-duration="300" id="request"></byutv-jsonp>
 
     <div class="ut-center">
       <iron-image src="http://www.placehold.it/970x250&text=AD_970x250"></iron-image>
     </div>
 
-    <div id="galleryContainer">
+    <div id="galleryContainer" class="gallery-container">
       <div class="flex-absolute tag-links">
-        <template is="dom-repeat" items="{{parseTags(gallery.tags)}}">
-          <paper-button raised>{{item}}</paper-button>
-        </template>
+        <paper-button raised>{{tags.1}}</paper-button>
       </div>
-      <cranberry-slider images="{{gallery.mediaAssets.images}}" autostart="true" arrows="true" bullets="false" info="true" caption="true"></cranberry-slider>
-      <div class="flex-absolute share-buttons">
-        <paper-button raised id="buyButton">Buy Image</paper-button>
-        <gigya-sharebar share-buttons-id="gigya-share-buttons-gallery"></gigya-sharebar>
+      <div class="flex-absolute expand-link">
+        <paper-button raised id="modalOpen" class="rounded-button"><iron-icon icon="icons:fullscreen"></iron-icon></paper-button>
       </div>
+      <cranberry-slider id="mainSlider" images="{{gallery.mediaAssets.images}}" autostart="true" arrows="true" bullets="false" info="true" caption="true">
+        <div class="flex-absolute share-buttons">
+          <paper-button raised id="buyButton" class="rounded-button"><iron-icon icon="editor:attach-money"></iron-icon></paper-button>
+          <gigya-sharebar share-buttons-id="gigya-share-buttons-gallery"></gigya-sharebar>
+        </div>
+      </cranberry-slider>
     </div>
 
 

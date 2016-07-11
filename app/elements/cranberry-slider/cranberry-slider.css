@@ -552,6 +552,11 @@ nav ::shadow{
   background-color: #D84315;
 }
 
+::shadow .white-text {
+  color: #fff;
+}
+
+
 @-webkit-keyframes loading {
   from {
     -webkit-transform: translateX(-100%);
