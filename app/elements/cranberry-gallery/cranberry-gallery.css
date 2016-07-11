@@ -3,15 +3,6 @@
   text-align: center;
 }
 
-.flex-absolute {
-  @apply(--layout-horizontal);
-  @apply(--layout-flex);
-  position: absolute;
-  bottom: -355px;
-  right: 110px;
-  z-index: 10;
-}
-
 .ut-grid {
   @apply(--layout-horizontal);
   @apply(--layout-wrap);
@@ -21,6 +12,7 @@
 .ut-grid > :first-child {
   min-width:60%;
 }
+
 .ut-grid iron-image {
   width: 100px;
   height: 100px;
@@ -35,13 +27,94 @@
   text-align: center;
 }
 
-.ad {
-  max-width: 320px;
+/* Gallery Container styles*/
+.gallery-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+/* Button Styles */
+.flex-absolute {
+  @apply(--layout-horizontal);
+  @apply(--layout-flex);
+  position: absolute;
+  bottom: -25px;
+  right: 5%;
+  z-index: 10;
+}
+
+.flex-absolute.share-buttons {
+  bottom: -25px;
+  right: 5%;
+}
+
+.flex-absolute.tag-links {
+  top: 0;
+  left: 0;
+  height: 30px;
+}
+
+.flex-absolute.expand-link {
+  top: 20px;
+  right: 25px;
+  height: 50px;
 }
 
 paper-button {
   background: #005A90;
   color: #fff;
-  height: 30px;
-  margin: 15px 45px 0 0;
+}
+
+paper-button#buyButton {
+  bottom: -5px;
+  margin-right: 25px;
+}
+
+.rounded-button {
+  border-radius: 50%;
+  margin: 0;
+  min-width: 1px;
+  height: 50px;
+  width: 50px;
+}
+
+.flex-absolute.tag-links paper-button {
+  background-color: #50bd9f;
+  color: #fff;
+  border-radius: 0;
+  margin: 0;
+}
+
+/* Temp ad style */
+.ad {
+  max-width: 320px;
+}
+
+/* Paper dialog modal styles */
+paper-dialog {
+  z-index: 99999999999 !important;
+  background-color: #000;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+paper-dialog > * {
+  margin: 0;
+  padding: 0;
+}
+
+paper-dialog paper-button {
+  background-color: #999;
+  display: block;
+  margin: 0 auto;
+  width: 50px;
+  text-align: center;
+}
+
+paper-dialog cranberry-slider {
+  margin: 0 auto;
+  margin-bottom: 150px;
+  max-width: 1200px;
+  padding: 0;
 }

@@ -10,20 +10,22 @@
 
     <iron-media-query query="(max-width:719px)" query-matches="{{mobile}}"></iron-media-query>
 
-    <div id="wrapper" mobile-layout$="{{mobile}}">
-      <hr class="ut-hor-bar" />
+    <blockquote id="quote" mobile-layout$="{{mobile}}">{{quote.text}}<span>-- {{quote.credit}}</span></blockquote>
+    <!-- <div id="wrapper" mobile-layout$="{{mobile}}">
 
-      <p>
-        <span class="front-quote">"</span>
-        <span id="quote"></span>
-        <span class="back-quote">"</span>
-      </p>
+      <div class="quote-wrapper left-quote">
+        <span class="front-quote">&ldquo;</span>
+      </div>
+      <div class="quote-text-wrapper">
+        <span id="quote">{{quote.text}}</span>
+      </div>
+      <div class="quote-wrapper right-quote">
+        <span class="back-quote">&rdquo;</span>
+      </div>
+
       <p id="credit"></p>
 
-      <a target="_blank" href="https://twitter.com/intent/tweet?text=[[returnEncodedQuote(quote)]]&url=[[returnWindowLocation]]&via={$ config.socialNaming.twitter $}">
-        <paper-fab class="twitter-share" src="images/TwitterLogo_white.png" mini ></paper-fab>
-      </a>
-    </div>
+    </div> -->
   </template>
   <!-- Add cranberry-quote Polymer Object script -->
   <script src="cranberry-quote.js"></script>

@@ -28,23 +28,6 @@ class CranberryStory {
           }
         };
         this.observers = ['_checkParams(routeData.id)'];
-
-        // Are these being used?
-        //
-        // this.notShortcode = function(paragraph) {
-        //   if (paragraph.shortcode) {
-        //     return false;
-        //   } else {
-        //     return true;
-        //   }
-        // };
-        // this.inContentAd = function(index) {
-        //   if (index === 3) {
-        //     return true;
-        //   } else {
-        //     return false;
-        //   }
-        // };
     }
 
     // Public methods.

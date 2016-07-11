@@ -1,0 +1,29 @@
+:host {
+  display: block;
+}
+
+::shadow paper-card {
+  width: 100%;
+}
+
+::shadow paper-card ul {
+  list-style: none;
+  text-align: left;
+}
+
+::shadow paper-card ul li a {
+  font-size: 1.2em;
+  text-decoration: none;
+}
+
+.ut-related-title {
+  font-size: 1.4em;
+  margin-bottom: 0;
+  border-bottom: 4px solid #50bd9f;
+  text-align: left;
+}
+
+.cranberry-slider-related {
+  padding-left: 10px;
+  width: 75%;
+}
