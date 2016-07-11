@@ -1,0 +1,32 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
+<link rel="import" href="../../bower_components/iron-icons/social-icons.html">
+
+<dom-module id="cranberry-quote">
+  <template>
+    <style>
+      @import "cranberry-quote/cranberry-quote";
+    </style>
+
+    <iron-media-query query="(max-width:719px)" query-matches="{{mobile}}"></iron-media-query>
+
+    <blockquote id="quote" mobile-layout$="{{mobile}}">{{quote.text}}<span>-- {{quote.credit}}</span></blockquote>
+    <!-- <div id="wrapper" mobile-layout$="{{mobile}}">
+
+      <div class="quote-wrapper left-quote">
+        <span class="front-quote">&ldquo;</span>
+      </div>
+      <div class="quote-text-wrapper">
+        <span id="quote">{{quote.text}}</span>
+      </div>
+      <div class="quote-wrapper right-quote">
+        <span class="back-quote">&rdquo;</span>
+      </div>
+
+      <p id="credit"></p>
+
+    </div> -->
+  </template>
+  <!-- Add cranberry-quote Polymer Object script -->
+  <script src="cranberry-quote.js"></script>
+</dom-module>

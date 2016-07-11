@@ -1,0 +1,28 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<!-- Shortcode Elements -->
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../bower_components/paper-audio-player/paper-audio-player.html">
+<link rel="import" href="../../bower_components/pdf-object/pdf-object.html">
+<link rel="import" href="../../bower_components/google-youtube/google-youtube.html">
+<link rel="import" href="../twitter-timeline/twitter-timeline.html">
+<link rel="import" href="../cranberry-revealer/cranberry-revealer.html">
+<link rel="import" href="../cranberry-map/cranberry-map.html">
+<link rel="import" href="../cranberry-quote/cranberry-quote.html">
+<link rel="import" href="../google-form/google-form.html">
+<link rel="import" href="../cranberry-slider-wrapper/cranberry-slider-wrapper.html">
+<link rel="import" href="../cranberry-slider/cranberry-slider.html">
+
+<dom-module id="cranberry-shortcode">
+  <template>
+    <style is="custom-style">
+      @import "cranberry-shortcode/cranberry-shortcode";
+    </style>
+    <!-- Not sure why this is necessary, commenting out for now since it doesn't have any impact. -->
+    <content>
+      <div id="shortcode"></div>
+    </content>
+  </template>
+
+  <!-- Add cranberry-shortcode Polymer Object script -->
+  <script src="cranberry-shortcode.js"></script>
+</dom-module>

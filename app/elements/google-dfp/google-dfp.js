@@ -68,6 +68,7 @@ class GoogleDFP {
           googletag.cmd.push(function() {
             // Establish Global Targeting
             googletag.pubads().setTargeting('section', parentSection);
+            googletag.pubads().setTargeting('placement', 'development');
             // Enable googletag services prior to display calls on slots.
             googletag.enableServices();
             // Generate DFP URL for ad using all established variables/config file variables.

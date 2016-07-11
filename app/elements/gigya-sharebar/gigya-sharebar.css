@@ -1,0 +1,28 @@
+:host {
+  display: block;
+}
+
+.ut-hide {
+  display: none;
+  visibility: hidden;
+}
+
+paper-material {
+  background-color: #fff;
+}
+paper-material {
+  line-height: normal;
+  padding: 10px;
+  position: absolute;
+  right: 0;
+}
+
+paper-material .gig-button-text {
+  color: black;
+}
+
+::shadow #shareButton {
+  width: 56px;
+  height: 56px;
+  background: #5bc1a5;
+}

@@ -1,0 +1,105 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
+<link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
+<link rel="import" href="../../bower_components/iron-icons/social-icons.html">
+<link rel="import" href="../cranberry-shortcode/cranberry-shortcode.html">
+<link rel="import" href="../gigya-sharebar/gigya-sharebar.html">
+<link rel="import" href="../gigya-comments/gigya-comments.html">
+
+<dom-module id="cranberry-story">
+
+  <template>
+    <!-- Polymer 1.1 and above recommends placing style within template https://www.polymer-project.org/1.0/docs/devguide/styling -->
+    <style>
+      @import "cranberry-story/cranberry-story";
+    </style>
+
+    <iron-media-query query="(min-width: 960px)" query-matches="{{desktop}}"></iron-media-query>
+    <iron-media-query query="(min-width: 720px) and (max-width:959px)" query-matches="{{tablet}}"></iron-media-query>
+    <iron-media-query query="(max-width:719px)" query-matches="{{mobile}}"></iron-media-query>
+
+    <app-route route="{{route}}" pattern="/:id" data="{{routeData}}"></app-route>
+    <byutv-jsonp on-response="_handleResponse" debounce-duration="300" id="request"></byutv-jsonp>
+
+    <div class="Cranberry-Story">
+      <!-- Top Ad -->
+      <div class="ut-center">
+        <!-- Placeholder element for leaderboard ad. -->
+        <!-- <google-dfp route="[[route]]" adpos="leaderboard_bottom" adsize="[728, 90]" adgroup="{$ config.dfpAdStructure.adGroupID $}" adgrouping="{$ config.dfpAdStructure.adGrouping $}" adsubgrouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp> -->
+        <iron-image src="http://www.placehold.it/970x250&amp;text=AD_970x250"></iron-image>
+      </div>
+
+      <!-- Headline -->
+      <div class="">
+        <h1 id="storyTitle"> {{story.title}} </h1>
+        <p id="storyPublish"> {{story.updated}} </p>
+      </div>
+
+      <!-- Story Media -->
+      <div class="" id="storyMedia">
+        <iron-image desktop-layout$="{{desktop}}" tablet-layout$="{{tablet}}" mobile-layout$="{{mobile}}" sizing="cover" src="http://www.standard.net{{story.mediaAssets.images.0.url}}"></iron-image>
+        <div class="ut-rowFlex ut-absolute">
+          <paper-fab mini src="images/FacebookLogo_29.png" id="facebookButton" class="ut-small-icon-margin"></paper-fab>
+          <paper-fab mini src="images/TwitterLogo_white.png" title="Share on Twitter" id="twitterButton" class="ut-small-icon-margin" twitter-name="{$ config.socialNaming.twitter $}"></paper-fab>
+          <paper-fab mini icon="communication:chat-bubble" title="Comments" id="commentButton" class="ut-small-icon-margin" on-tap="_scrollToComments"></paper-fab>
+          <gigya-sharebar share-buttons-id="gigya-share-buttons-story"></gigya-sharebar>
+        </div>
+      </div>
+
+      <p id="mainImageCaption"><small>{{story.mediaAssets.images.0.caption}}</small></p>
+
+      <!-- Story Byline -->
+      <div class="" id="storyByline">
+        <img src="{{_computeBylineURL(story.byline.image)}}" class="ut-circle-image"/>
+        <div id="byLineInfo">
+          <p>{{story.byline.inputByLine}}</p>
+          <p>{% if story.byline.name != undefined %}
+              {{story.byline.name}}
+             {% else %}
+              {{story.byline.inputByline}}
+             {% endif %}
+          </p>
+          <p>{{story.byline.jobtitle}}</p>
+        </div>
+      </div>
+
+      <!-- Story Content Area -->
+      <div class="" id="storyContentArea">
+        <template is="dom-repeat" items="{{story.paragraphs}}">
+          <span>{{_displayContent(item, index)}}</span>
+        </template>
+      </div>
+
+      <!-- Middle Ad -->
+      <div class="ut-center">
+        <iron-image src="http://www.placehold.it/970x250&amp;text=AD_970x250"></iron-image>
+      </div>
+
+      <!-- Comments -->
+      <div class="ut-center">
+        <gigya-comments comments-id="story-comments"></gigya-comments>
+      </div>
+
+      <!-- Bottom Ad -->
+      <div class="ut-center">
+        <!-- <iron-image src="http://www.placehold.it/300x250&text=AD_300x250"></iron-image> -->
+    <!--     <google-dfp route="{{route}}" adpos="bottom_of_stream" adsize="[[300,250],[300,600]]" adgroup="{$ config.dfpAdStructure.adGroupID $}" adgrouping="{$ config.dfpAdStructure.adGrouping $}" adsubgrouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp> -->
+      </div>
+
+      <!-- Youneeq Content Area -->
+      <div class="ut-center">
+        Youneeq content here
+        <div style="width:100%; height:350px; background:red;"></div>
+      </div>
+
+      <!-- Last Ad -->
+      <div class="ut-center">
+        <iron-image src="http://www.placehold.it/970x250&amp;text=AD_970x250"></iron-image>
+      </div>
+
+  </template>
+
+  <!-- Add cranberry-story Polymer Object script -->
+  <script src="cranberry-story.js"></script>
+
+</dom-module>

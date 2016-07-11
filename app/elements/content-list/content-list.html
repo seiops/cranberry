@@ -1,0 +1,57 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+
+<dom-module id="content-list">
+  <template>
+    <style>
+      @import "content-list/content-list";
+    </style>
+    <byutv-jsonp on-response="handleResponse" debounce-duration="300" id="request"></byutv-jsonp>
+    <div class="content-cards">
+      <template is="dom-repeat" items="{{items}}" initial-count="3">
+        <template is="dom-if" if="[[_checkItem(item,index)]]">
+          <paper-card class="advertisement layout horizontal center">
+            <iron-image src="http://lorempixel.com/300/250"></iron-image>
+          </paper-card>
+        </template>
+        <!-- Need to rework this for array selectors -->
+        <template is="dom-if" if="[[_isStory(item.contentType)]]">
+          <template is="dom-if" if="[[_hasImage(item.mediaAssets.images.0.url)]]">
+            <a href="/story-content/[[item.itemId]]">
+              <paper-card heading="[[item.title]]" image="http://www.standard.net/[[item.mediaAssets.images.0.large]]" elevation="1" class="with-image story">
+                <div class="card-tag">[[item.sectionInformation.primarySection]]</div>
+                <!-- <div class="card-date">[[item.updated]]</div> -->
+                <template is="dom-if" if="{{_hasPreview(item.preview)}}">
+                  <div class="card-content flex">[[_trimText(item.preview)]]</div>
+                </template>
+              </paper-card>
+            </a>
+          </template>
+          <template is="dom-if" if="[[!_hasImage(item.mediaAssets.images.0.url)]]">
+            <a href="/story-content/[[item.itemId]]">
+              <paper-card heading="[[item.title]]" elevation="1" class="story">
+                <div class="card-tag">[[item.sectionInformation.primarySection]]</div>
+                <!-- <div class="card-date">[[item.updated]]</div> -->
+                <template is="dom-if" if="{{_hasPreview(item.preview)}}">
+                  <div class="card-content">[[_trimText(item.preview)]]</div>
+                </template>
+              </paper-card>
+            </a>
+          </template>
+        </template>
+      </template>
+    </div>
+  </template>
+  <script src="content-list.js"></script>
+</dom-module>

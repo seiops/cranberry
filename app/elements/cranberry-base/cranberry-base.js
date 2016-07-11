@@ -1,16 +1,6 @@
-/*
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
-*/
+/* Cranberry app */
 
-/* global Polymer */
-
-class cranberryBase {
+class CranberryBase {
   beforeRegister() {
     this.is = 'cranberry-base';
     this.properties = {
@@ -19,28 +9,17 @@ class cranberryBase {
        * has been upgraded. Set in ready
        * https://github.com/Polymer/polymer/issues/2653
        */
+       data: Object,
       upgraded: Boolean,
       storage: {
         type: Object
       },
-      route: {
-        type: Object
-      },
-      videoData: {
-        type: Object,
-        observer: '_videoDataChanged'
-      },
-      videoPageActive: {
-        type: Boolean,
-        reflectToAttribute: true,
-        observer: '_videoPageActiveChanged'
-      },
-      searchTail: {
-        type: Object,
-        notify: true
-      },
-      videoTail: {
-        type: Object,
+      route: Object,
+      section: String,
+      subrouteData: Object,
+      selected: {
+        type: Number,
+        value: 0,
         notify: true
       },
       newCategory: {
@@ -49,33 +28,44 @@ class cranberryBase {
       videos: {
         type: Array,
         value: []
-      },
-      data: {
-        type: Object,
-        value: {
-          page: '/search/'
-        }
       }
     };
+    this.observers = ['_sectionTail(subrouteData.section)'];
   }
   //created() {}
   ready() {
     // Let the world know we're ready to receive data
     // https://github.com/Polymer/polymer/issues/2653
     this.fire('upgraded');
-    this.upgraded = true;
+    this.set('upgraded', true);
   }
+
+  _sectionTail(section) {
+    this.set('section', section);
+  }
+
   attached() {
-    let storage = JSON.parse(localStorage.getItem(this.$.localStorage.name));
-    if (storage) {
-      if (storage.darkThemeEnabled) {
-        this.changeTheme(storage.darkThemeEnabled);
-      }
-      if (storage.accentColor) {
-        this.changeAccentColor(storage.accentColor);
-      }
-    }
+    // let storage = JSON.parse(localStorage.getItem(this.$.localStorage.name));
+    // if (storage) {
+    //   if (storage.darkThemeEnabled) {
+    //     this.changeTheme(storage.darkThemeEnabled);
+    //   }
+    //   if (storage.accentColor) {
+    //     this.changeAccentColor(storage.accentColor);
+    //   }
+    // }
+
+    this._checkTabs();
   }
+
+  _checkTabs() {
+      // let tabs = Polymer.dom(this.root).querySelector('paper-tabs');
+      // console.dir(tabs);
+      // tabs.addEventListener('iron-select', function() {
+      //     this.set('selected', tabs.selected);
+      // });
+  }
+
   //detached() {}
   //attributeChanged() {}
 
@@ -150,6 +140,47 @@ class cranberryBase {
 
     // this.updateStyles();
   }
+
+  _equal(a, b) {
+    if (a === b) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  _isLatest(selected) {
+    if (selected === 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  _isLocal(selected) {
+    if (selected === 1) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  _isPopular(selected) {
+    if (selected === 2) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+    _isFeatured(selected) {
+    if (selected === 2) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   // Change theme
   changeTheme(darkThemeEnabled) {
     let themeMode = 'light';
@@ -177,4 +208,4 @@ class cranberryBase {
   }
 }
 
-Polymer(cranberryBase);
+Polymer(CranberryBase);

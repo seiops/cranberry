@@ -20,4 +20,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 @import 'components/toggle';
 
 /* Utilities */
+@import 'utilities/display';
 @import 'utilities/layout';
+
+/* Custom override for z-index on paper-scroll-header-panel */
+::shadow .Main div#headerContainer{
+  z-index: 999999;
+}

@@ -1,4 +1,5 @@
 /*
+@license
 Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
 The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
@@ -80,14 +81,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     script.onload = finishLazyLoading;
     document.head.appendChild(script);
   } else {
-    logger('Web Component support detected.');
+    logger('\[Cranberry Core\]\: Web Component support detected');
     finishLazyLoading();
   }
 
   // Listen for template bound event to know when bindings
   // have resolved and content has been stamped to the page
   app.addEventListener('dom-change', () => {
-    logger('Cranberry content loaded.');
+    // logger('\[Cranberry Core\]\: dom-change');
   });
 
   // See https://github.com/Polymer/polymer/issues/1381
