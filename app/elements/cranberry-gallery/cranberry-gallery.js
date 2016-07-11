@@ -9,10 +9,6 @@ class cranberryGallery {
         type: Object,
         observer: 'onRouteChanged'
       },
-      loaded: {
-        type: Boolean,
-        value: false
-      },
       tags: {
         type: Array
       }
@@ -26,10 +22,10 @@ class cranberryGallery {
   }
 
   _goToSlide(e) {
-    let slider = this.querySelector('cranberry-slider');
+    let mainSlider = this.querySelector('#mainSlider');
     let imageIndex = Number(e.target.parentElement.dataset.index);
 
-    slider.goTo(slider, imageIndex, "next");
+    mainSlider.goTo(mainSlider, imageIndex);
   }
 
   _buyImage() {
@@ -53,46 +49,47 @@ class cranberryGallery {
   }
 
   _openModal() {
-    let modal = this.$.modal;
-    let modalSlider = modal.querySelector('#modalSlider');
-    let mainSlider = this.querySelector('#mainSlider');
-    let mainIndex = mainSlider.index;
-    let modalIndex = modalSlider.index;
-
-    modal.toggle();
-
-    if (mainIndex > modalIndex) {
-      modalSlider.goTo(modalSlider, mainIndex, "next");
-    }
+    this.sliderMove('open');
   }
 
   _closeModal() {
+    this.sliderMove('close');
+  }
+
+  sliderMove(type) {
     let modal = this.$.modal;
     let modalSlider = modal.querySelector('#modalSlider');
     let mainSlider = this.querySelector('#mainSlider');
     let mainIndex = mainSlider.index;
     let modalIndex = modalSlider.index;
 
+    // Move slider for main or modal depending on event
+    if (mainIndex !== modalIndex) {
+      if (type === 'close') {
+        mainSlider.goTo(mainSlider, modalIndex);
+      } else {
+        modalSlider.goTo(modalSlider, mainIndex);
+      }
+    }
+
+    // Toggle the open/close event
     modal.toggle();
 
-    if (mainIndex < modalIndex) {
-      mainSlider.goTo(mainSlider, modalIndex, "next");
-    }
   }
 
   handleResponse(data) {
     var restResponse = JSON.parse(data.detail.Result);
     // Assign restResponse to data bound object gallery
     this.set('gallery', restResponse);
-
+    // Set tags variable to the tags response
     this.set('tags', restResponse.tags.split(','));
   }
 
   onRouteChanged(newValue, oldValue) {
     if (typeof oldValue !== 'undefined') {
       if (newValue.path.replace('/', '') === 'gallery-content') {
-        let slider = this.$$('cranberry-slider');
-        slider.endLoading(slider, 0, "next");
+        let mainSlider = this.querySelector('#mainSlider');
+        mainSlider.endLoading(slider, 0, "next");
       }
     }
   }

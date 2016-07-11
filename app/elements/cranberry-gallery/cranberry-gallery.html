@@ -14,10 +14,6 @@
       @import "cranberry-gallery/cranberry-gallery";
     </style>
 
-    <iron-media-query query="(min-width: 960px)" query-matches="{{desktop}}"></iron-media-query>
-    <iron-media-query query="(min-width: 720px) and (max-width:959px)" query-matches="{{tablet}}"></iron-media-query>
-    <iron-media-query query="(max-width:719px)" query-matches="{{mobile}}"></iron-media-query>
-
     <paper-dialog id="modal" modal>
       <div class="gallery-container">
         <cranberry-slider id="modalSlider" images="{{gallery.mediaAssets.images}}" autostart="true" arrows="true" bullets="false" info="true" caption="true" modal="true"></cranberry-slider>
