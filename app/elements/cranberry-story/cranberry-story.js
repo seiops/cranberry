@@ -85,8 +85,8 @@ class CranberryStory {
       let paragraphs = story.paragraphs;
       let contentArea = this.$.storyContentArea;
 
-      if (contentArea.firstChild) {
-        contentArea.innerHTML = '';
+      while(contentArea.firstChild) {
+        contentArea.removeChild(contentArea.firstChild);
       }
 
 
