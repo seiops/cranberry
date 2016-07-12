@@ -10,7 +10,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 /* Gigya Socialize JS library integration */
 
-class ContentList {
+class cranberryContentList {
 
   handleResponse (data) {
     var restResponse = JSON.parse(data.detail.Result);
@@ -44,7 +44,7 @@ class ContentList {
   }
 
   beforeRegister() {
-    this.is = 'content-list';
+    this.is = 'cranberry-content-list';
     this.properties = {
       rest: {
         type: String,
@@ -185,4 +185,4 @@ class ContentList {
 
 }
 
-Polymer(ContentList);
+Polymer(cranberryContentList);

@@ -10,9 +10,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 /* Gigya Socialize JS library integration */
 
-class FeaturedContent {
+class CranberryFeaturedContent {
   beforeRegister() {
-    this.is = 'featured-content';
+    this.is = 'cranberry-featured-content';
     this.properties = {
       rest: {
         type: String,
@@ -103,31 +103,38 @@ class FeaturedContent {
     }
   }
   _changeStart() {
-    console.log('Changed start:', this.start);
+    app.logger ('<\cranberry-featured-content\> start changed');
   }
   _changeSections() {
-    console.log('Changed sections:', this.sections);
+    app.logger ('<\cranberry-featured-content\> section changed');
+
+    this._updateParams();
   }
   _changeType() {
-    console.log('Changed type:', this.type);
+    app.logger ('<\cranberry-featured-content\> type changed');
   }
   ready() {
-    console.log('featured-content ready.');
+    app.logger ('<\cranberry-featured-content\> ready');
 
   }
   _updateParams() {
+    this.$.request.abortRequest();
+
+    this.set('items',[]);
+
     var jsonp = {};
 
-    jsonp.request = "content-list";
+    jsonp.request = 'content-list';
     jsonp.desiredSection = this.get('sections');
-    jsonp.desiredContent = this.type;
-    jsonp.desiredCount = this.count;
+    jsonp.desiredContent = this.get('type');
+    jsonp.desiredCount = this.get('count');
 
     this.set('params', jsonp);
   }
   attached() {
+    app.logger ('<\cranberry-featured-content\> attached');
     this._updateParams();
   }
 }
 
-Polymer(FeaturedContent);
+Polymer(CranberryFeaturedContent);

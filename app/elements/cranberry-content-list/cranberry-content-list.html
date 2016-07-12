@@ -12,10 +12,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
 
-<dom-module id="content-list">
+<dom-module id="cranberry-content-list">
   <template>
     <style>
-      @import "content-list/content-list";
+      @import "cranberry-content-list/cranberry-content-list";
     </style>
     <byutv-jsonp on-response="handleResponse" debounce-duration="300" id="request"></byutv-jsonp>
     <div class="content-cards">
@@ -29,23 +29,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <template is="dom-if" if="[[_isStory(item.contentType)]]">
           <template is="dom-if" if="[[_hasImage(item.mediaAssets.images.0.url)]]">
             <a href="/story-content/[[item.itemId]]">
-              <paper-card heading="[[item.title]]" image="http://www.standard.net/[[item.mediaAssets.images.0.large]]" elevation="1" class="with-image story">
-                <div class="card-tag">[[item.sectionInformation.primarySection]]</div>
-                <!-- <div class="card-date">[[item.updated]]</div> -->
-                <template is="dom-if" if="{{_hasPreview(item.preview)}}">
-                  <div class="card-content flex">[[_trimText(item.preview)]]</div>
-                </template>
+              <paper-card heading="[[item.title]]" fade-image preload-image image="http://www.standard.net/[[item.mediaAssets.images.0.large]]" elevation="1" class="with-image story">
+                <div class="story-tag">[[item.sectionInformation.primarySection]]</div>
+                <div class="story-content">
+                  <div class="story-preview">[[_trimText(item.preview)]]</div>
+                  <div class="story-date">[[item.updated]]</div>
+                </div>
               </paper-card>
             </a>
           </template>
           <template is="dom-if" if="[[!_hasImage(item.mediaAssets.images.0.url)]]">
             <a href="/story-content/[[item.itemId]]">
               <paper-card heading="[[item.title]]" elevation="1" class="story">
-                <div class="card-tag">[[item.sectionInformation.primarySection]]</div>
-                <!-- <div class="card-date">[[item.updated]]</div> -->
-                <template is="dom-if" if="{{_hasPreview(item.preview)}}">
-                  <div class="card-content">[[_trimText(item.preview)]]</div>
-                </template>
+                <div class="story-tag">[[item.sectionInformation.primarySection]]</div>
+                <div class="story-content">
+                  <div class="story-preview">[[_trimText(item.preview)]]</div>
+                  <div class="story-date">[[item.updated]]</div>
+                </div>
               </paper-card>
             </a>
           </template>
@@ -53,5 +53,5 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </template>
     </div>
   </template>
-  <script src="content-list.js"></script>
+  <script src="cranberry-content-list.js"></script>
 </dom-module>
