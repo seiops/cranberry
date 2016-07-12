@@ -48,11 +48,9 @@
 <link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
 
 <!-- Cranberry elements -->
-<link rel="import" href="../gigya-socialize/gigya-socialize.html">
-<link rel="import" href="../content-list/content-list.html">
-<link rel="import" href="../featured-content/featured-content.html">
-<link rel="import" href="../route-info/route-info.html">
-<link rel="import" href="../content-view/content-view.html">
+<!-- <link rel="import" href="../gigya-socialize/gigya-socialize.html"> -->
+<link rel="import" href="../cranberry-featured-content/cranberry-featured-content.html">
+<link rel="import" href="../cranberry-content-list/cranberry-content-list.html">
 <link rel="import" href="../google-dfp/google-dfp.html">
 <link rel="import" href="../cranberry-story/cranberry-story.html">
 <link rel="import" href="../cranberry-gallery/cranberry-gallery.html">
@@ -98,30 +96,15 @@
               </div>
           </app-toolbar>
         </app-header>
-        <div hidden$="{{!_equal(data.page, '')}}">
-        </div>
-        <div hidden$="{{!_equal(data.page, 'story-content')}}">
-        </div>
-        <div hidden$="{{!_equal(data.page, 'policy')}}">
-        </div>
-        <div hidden$="{{!_equal(data.page, 'section')}}">
-        </div>
+
+        <!-- Hidden container examples -->
+        <div hidden$="{{!_equal(data.page, '')}}"></div>
+        <div hidden$="{{!_equal(data.page, 'story-content')}}"></div>
+        <div hidden$="{{!_equal(data.page, 'policy')}}"></div>
+        <div hidden$="{{!_equal(data.page, 'section')}}"></div>
 
         <!-- Content area -->
-        <iron-pages class="Main-content" attr-for-selected="data-route" selected="{{data.page}}" default-selected="">
-          <div data-route="">
-            {% include "cranberry-base/views/pages/home.html" %}
-          </div>
-          <div data-route="section">
-            {% include "cranberry-base/views/pages/section.html" %}
-          </div>
-          <div data-route="story-content">
-            {% include "cranberry-base/views/pages/story-content.html" %}
-          </div>
-          <div data-route="policy">
-            {% include "cranberry-base/views/pages/policy.html" %}
-          </div>
-        </iron-pages>
+        {% include "cranberry-base/views/main.html" %}
 
       </app-header-layout>
 

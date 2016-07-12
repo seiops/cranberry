@@ -20,7 +20,7 @@ Subject to an addtional IP right sgran found at polmyer.
   <div style="width:100%; text-align: center;margin-bottom:16px">
     <iron-image src="http://lorempixel.com/970/250"></iron-image>
   </div>
-  <featured-content type="story_gallery" sections="news" count="3" start="1"></featured-content>
+  <cranberry-featured-content type="story_gallery" sections="news" count="3" start="1"></cranberry-featured-content>
 
   <paper-toolbar>
     <paper-search-bar placeholder="SEARCH" on-paper-search-search="search"></paper-search-bar>
@@ -33,18 +33,18 @@ Subject to an addtional IP right sgran found at polmyer.
   </paper-toolbar>
 
   <template is="dom-if" if="[[_isLatest(selected)]]">
-    <content-list type="story_gallery" sections="news,business,frontpage,opinion,sports,entertainment" count="15" start="1"></content-list>
+    <cranberry-content-list type="story_gallery" sections="news,business,frontpage,opinion,sports,entertainment" count="15" start="1"></cranberry-content-list>
   </template>
 
   <template is="dom-if" if="[[_isLocal(selected)]]">
-    <content-list type="story_gallery" sections="announcements,obituaries,opinion,sports,entertainment" count="15" start="1"></content-list>
+    <cranberry-content-list type="story_gallery" sections="announcements,obituaries,opinion,sports,entertainment" count="15" start="1"></cranberry-content-list>
   </template>
 
 <!-- <template is="dom-if" if="[[_isPopular(selected)]]">
-    <content-list type="story_gallery" sections="news" count="10" start="1"></content-list></div>
+    <cranberry-content-list type="story_gallery" sections="news" count="10" start="1"></cranberry-content-list></div>
   </template> -->
 
   <template is="dom-if" if="[[_isFeatured(selected)]]">
-    <content-list type="story_gallery" sections="entertainment" count="10" start="1"></content-list>
+    <cranberry-content-list type="story_gallery" sections="entertainment" count="10" start="1"></cranberry-content-list>
   </template>
 </section>
