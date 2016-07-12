@@ -30,10 +30,9 @@ class GoogleDFP {
 
       if (Object.keys(route).length !== 0 && route.constructor === Object) {
         // Get Current Section Element for processing ads
-        // var currentSectionEl = document.querySelector('section.iron-selected');
-        let pages = document.querySelector('iron-pages');
-        let currentSectionEl = pages.selectedItem;
 
+        let pages = document.querySelector('iron-pages');
+        let currentSectionEl = pages.get('selectedItem');
 
         // Get this elements advertisement div
         let advertisement = Polymer.dom(this.root).firstElementChild;
