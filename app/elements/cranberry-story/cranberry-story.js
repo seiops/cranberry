@@ -85,6 +85,10 @@ class CranberryStory {
       let paragraphs = story.paragraphs;
       let contentArea = this.$.storyContentArea;
 
+      if (contentArea.firstChild) {
+        contentArea.innerHTML = '';
+      }
+
 
       if(typeof paragraphs !== 'undefined') {
         // Create a document fragment to append all elements to
