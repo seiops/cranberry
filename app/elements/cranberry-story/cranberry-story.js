@@ -108,7 +108,7 @@ class CranberryStory {
         let paragraphEl = document.createElement('p');
         let node = document.createTextNode(paragraph.text);
 
-        // [TODO] Lots of draw calls here, heavy optimization needed.
+        // [TODO] Lots of draw calls here, optimization needed.
         paragraphEl.appendChild(node);
         this.$.storyContentArea.appendChild(paragraphEl);
       }
