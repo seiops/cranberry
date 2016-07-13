@@ -55,6 +55,7 @@
 <link rel="import" href="../cranberry-story/cranberry-story.html">
 <link rel="import" href="../cranberry-gallery/cranberry-gallery.html">
 <link rel="import" href="../gigya-sharebar/gigya-sharebar.html">
+<link rel="import" href="../cranberry-jail-mugs/cranberry-jail-mugs.html">
 
 <dom-module id="cranberry-base">
   <template>
@@ -99,6 +100,7 @@
 
         <!-- Hidden container examples -->
         <div hidden$="{{!_equal(data.page, '')}}"></div>
+        <div hidden$="{{!_equal(data.page, 'jail-mugs')}}"></div>
         <div hidden$="{{!_equal(data.page, 'story-content')}}"></div>
         <div hidden$="{{!_equal(data.page, 'policy')}}"></div>
         <div hidden$="{{!_equal(data.page, 'section')}}"></div>

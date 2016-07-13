@@ -1,0 +1,143 @@
+/*
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+*/
+
+:host {
+  display: block;
+  --paper-card-header-color: #333;
+  --paper-card-header-image-text: {
+    color: #fff;
+  };
+  --paper-card-header-text: {
+    margin-top: 24px;
+  };
+}
+
+h1 {
+  font-size: 38px;
+  line-height: normal;
+}
+
+.disclaimer {
+  text-align: center;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+a {
+  text-decoration: none;
+}
+
+paper-card.story {
+  @apply(--layout-flex);
+  max-width: 370px;
+  margin: 8px;
+  --paper-card-content: {
+    font-weight: 400;
+    padding: 12px;
+    line-height: 24px;
+    color: #333;
+  };
+}
+
+paper-card.advertisement {
+  width: 300px;
+  min-height: 250px;
+  margin: 8px;
+}
+
+.content-cards {
+  @apply(--layout-horizontal);
+  @apply(--layout-center-justified);
+  @apply(--layout-wrap);
+}
+
+paper-card .story-tag {
+  background-color: #40C2A9;
+  color: #ffffff;
+  font-size: 12px;
+  position: absolute;
+  text-transform: uppercase;
+  top: 0;
+  padding: 4px 8px;
+}
+
+paper-card ::shadow iron-image {
+  display: block;
+}
+
+paper-card {
+  min-height: 1px;
+}
+
+cranberry-slider {
+  margin: 0;
+}
+cranberry-slider figure {
+  max-height: 675px;
+}
+
+.slider-description {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+paper-material {
+  padding: 10px;
+  text-align: center;
+  min-width: 30%;
+}
+
+paper-material h3 {
+  text-decoration: underline;
+}
+
+paper-material p {
+  margin: 5px;
+}
+
+paper-material .info {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+}
+
+h3.card-header {
+  text-align: center;
+}
+
+.pagination-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+}
+.pagination-container paper-button {
+  width: 300px;
+  background: #005A90;
+  color: #fff;
+}

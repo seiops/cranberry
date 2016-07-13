@@ -1,0 +1,62 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../cranberry-slider/cranberry-slider.html">
+
+<dom-module id="cranberry-jail-mugs">
+  <template>
+    <style>
+      @import "cranberry-jail-mugs/cranberry-jail-mugs";
+    </style>
+
+    <byutv-jsonp auto url="http://sedev.libercus.net/rest.json" params='{"request": "congero", "desiredContent": "jailmugs", "desiredCount": "10", "desiredSortOrder": "-publishdate_priority_-contentmodified"}' on-response="_handleResponse" debounce-duration="300" id="request"></byutv-jsonp>
+
+    <div class="overlay" hidden$="[[!isLoading]]">
+      <paper-spinner active="[[isLoading]]"></paper-spinner>
+      <p>Your Content Is Loading Please Wait...</p>
+    </div>
+
+    <div class="cranberry-jail-mugs" hidden$="[[isLoading]]">
+      <h1>{{currentHeadline}}</h1>
+      <div class="disclaimer">
+        <h3>ABOUT THIS DATA</h3>
+        <p>The information presented here as a public service is gathered from public data compiled by local county sheriff's offices. The booking mug shots and related information are from arrest records in the order and at the time the data was collected. Those appearing here have not been convicted of the arrest charge and are presumed innocent. Do not rely on this site to determine any person's actual criminal record.</p>
+      </div>
+
+      <cranberry-slider id="mugSlider" autostart="true" arrows="true" bullets="false" info="false" caption="false"></cranberry-slider>
+
+      <div class="slider-description">
+        <paper-material elevation="1">
+          <div class="info">
+            <span>{{currentIndex}} / {{currentMaxIndex}}</span>
+          </div>
+          <h3>{{currentMugName}}</h3>
+          <template is="dom-repeat" items="{{currentCharges}}">
+            <p>Charge {{_computeIndex(index)}}: {{item}}</p>
+          </template>
+        </paper-material>
+      </div>
+
+      <h3 class="card-header">Previous Days Jail Mugs</h3>
+      <div class="content-cards">
+        <template is="dom-repeat" items={{content}}>
+          <div>
+            <paper-card heading="Jailings on [[item.bookingDateFormatted]]" fade-image preload-image image="http://www.standard.net/[[item.image.medium]]" elevation="1" class="with-image story" data-index$="{{index}}" on-tap="_loadNewMugs">
+              <div class="story-tag">Jail Mugs</div>
+            </paper-card>
+          </div>
+        </template>
+      </div>
+
+      <div class="pagination-container">
+        <paper-button id="prev" raised hidden$="{{!showPrev}}">Prev</paper-button>
+        <paper-button id="next" raised>Next</paper-button>
+      </div>
+    </div>
+
+
+  </template>
+  <script src="cranberry-jail-mugs.js"></script>
+</dom-module>

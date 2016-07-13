@@ -285,14 +285,17 @@ class cranberrySlider {
       loader.classList.add(dir + "-in");
       current.classList.add(dir + "-out");
     });
+
     if (el.bullets) {
       this.clearSiblings(el, index);
     }
     if (el.info) {
       el.info.text.innerHTML = (index + 1) + " / " + items.length;
     }
-    if (el.info.caption) {
-      el.info.caption.innerHTML = '<iron-icon icon="image:panorama"></iron-icon>' + this.images[index].caption;
+    if (typeof el.info !== 'undefined') {
+      if (el.info.caption) {
+        el.info.caption.innerHTML = '<iron-icon icon="image:panorama"></iron-icon>' + this.images[index].caption;
+      }
     }
     if (items[index].portrait) {
       loader.classList.add("portrait");
@@ -306,6 +309,7 @@ class cranberrySlider {
   }
 
   goTo(el, index, dir) {
+    this.fire('goTo', {"index": index});
     var self = this;
     let current = this.get('current');
     let items = this.get('items');
@@ -393,7 +397,7 @@ class cranberrySlider {
     el.info = document.createElement("div");
     el.info.className = "info";
     el.info.text = document.createElement("span");
-    if (Boolean(el.getAttribute('shownextprev'))) {
+    if (el.getAttribute('shownextprev') === "true") {
       el.info.next = document.createElement("button"),
         el.info.prev = document.createElement("button");
       el.info.next.innerHTML = "next";
@@ -410,9 +414,9 @@ class cranberrySlider {
     el.info.text.innerHTML = "";
     el.info.appendChild(el.info.text);
 
-    if (Boolean(el.getAttribute('caption'))) {
+    if (el.getAttribute('caption') === "true") {
       el.info.caption = document.createElement('p');
-      if (Boolean(el.getAttribute('modal'))) {
+      if (el.getAttribute('modal') === "true") {
         el.info.caption.classList = 'white-text';
         el.info.classList += ' white-text';
       }
@@ -426,7 +430,9 @@ class cranberrySlider {
 
   applyArrows(el) {
     let container = this.get('container');
-    this.set('nav', document.createElement('div'));
+    let div = document.createElement('div');
+    div.className = 'nextPrev';
+    this.set('nav', div);
     let nav = this.get('nav');
 
     nav.innerHTML = "<button class='next active'><em class='a-right'></em></button><button class='prev active'><em class='a-left'></em></button>";
@@ -471,14 +477,14 @@ class cranberrySlider {
 
   checkStart(el) {
     var start = el.getAttribute("autostart");
-    if (typeof start === "string") {
+    if (start === "true") {
       this.goTo(el, 0, "next");
     }
   }
 
   checkInfo(el) {
     var info = el.getAttribute("info");
-    if (typeof info === "string") {
+    if (info === true) {
       this.applyInfo(el);
     }
   }
@@ -574,9 +580,18 @@ class cranberrySlider {
     this.set('container', this.querySelector('.slider'));
     el.class = "slider";
 
+    let info = this.querySelector('.info');
+    let nextPrev = this.querySelector('.nextPrev');
+
+    if (info) {
+      this.removeChild(info);
+    }
+
     // Run the remainder of funtions
     this.updateItems(el);
-    this.checkArrows(el);
+    if (!nextPrev) {
+      this.checkArrows(el);
+    }
     this.checkBullets(el);
     this.checkInfo(el);
     this.checkHeight(el);
