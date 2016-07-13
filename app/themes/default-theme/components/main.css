@@ -8,7 +8,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 */
 
 /** @define Main */
+#tabs {
 
+  @apply(--layout-around-justified);
+  @apply(--layout-flex);
+}
 .Main {
   background-color: var(--secondary-background-color);
 

@@ -10,50 +10,69 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 :host {
   display: block;
-  --paper-card-header-color: #333;
+  --paper-card: {
+    min-height: 250px;
+    min-width: 300px;
+  };
+  --paper-card-content: {
+    @apply(--layout-flex);
+    @apply(--paper-font-body1);
+    color: var(--light-theme-primary-text-color);
+  };
+  --paper-card-actions: {
+    @apply(--paper-font-caption);
+    color: var(--light-theme-secondary-text-color);
+  }
+  --paper-card-header-color: var(--text-dark);
+  --paper-card-header-image: {
+    opacity: 0.8;
+  };
   --paper-card-header-image-text: {
-    color: #fff;
+    font-size: 20px;
+    color: var(--text-accent-color);
+    text-shadow: 0 1px 4px rgba(0,0,0,.7);
   };
   --paper-card-header-text: {
-    margin-top: 24px;
-  };
-}
-
-a {
-  text-decoration: none;
-}
-
-paper-card.story {
-  @apply(--layout-flex);
-  max-width: 370px;
-  min-height: 250px;
-  margin: 8px;
-  --paper-card-content: {
-    font-weight: 400;
-    padding: 12px;
-    line-height: 24px;
-    color: #333;
+    @apply(--paper-font-headline);
   };
 }
 
 paper-card.advertisement {
-  width: 300px;
-  min-height: 250px;
-  margin: 8px;
+  @apply(--layout-horizontal);
+  @apply(--layout-center);
+  /*background-color: transparent;*/
+  text-align: center;
+}
+
+paper-card.advertisement div.card-content {
+  padding: 0;
 }
 
 .content-cards {
-  @apply(--layout-horizontal);
   @apply(--layout-center-justified);
+  @apply(--layout-horizontal);
   @apply(--layout-wrap);
 }
 
-paper-card .card-tag {
-  background-color: #40C2A9;
-  color: #ffffff;
-  font-size: 12px;
+.content-cards > a {
+  @apply(--layout-flex);
+  @apply(--layout-vertical);
+  max-width: 380px;
+  margin: 12px;
+  text-decoration: none;
+}
+
+.content-cards > a > paper-card {
+  @apply(--layout-flex);
+  @apply(--layout-vertical);
+}
+
+/*paper-card.story div.story-tag {
+  background-color: var(--accent-color);
+  color: var(--text-accent-color);
+  @apply(--paper-font-caption);
+  padding: 4px 8px;
   position: absolute;
   text-transform: uppercase;
   top: 0;
-  padding: 4px 8px;
-}
+}*/

@@ -312,6 +312,28 @@ Colors are from file on URL https://github.com/PolymerElements/paper-styles/blob
   --paper-blue-grey-800: #37474f;
   --paper-blue-grey-900: #263238;
 
+  --paper-ogden-primary-50: #eceff1;
+  --paper-ogden-primary-100: #cfd8dc;
+  --paper-ogden-primary-200: #b0bec5;
+  --paper-ogden-primary-300: #90a4ae;
+  --paper-ogden-primary-400: #78909c;
+  --paper-ogden-primary-500: #607d8b;
+  --paper-ogden-primary-600: #546e7a;
+  --paper-ogden-primary-700: #455a64;
+  --paper-ogden-primary-800: #37474f;
+  --paper-ogden-primary-900: #263238;
+
+  --paper-ogden-accent-50: #ff9900;
+  --paper-ogden-accent-100: #ff9900;
+  --paper-ogden-accent-200: #ff9900;
+  --paper-ogden-accent-300: #ff9900;
+  --paper-ogden-accent-400: #ff9900;
+  --paper-ogden-accent-500: #ff9900;
+  --paper-ogden-accent-600: #ff9900;
+  --paper-ogden-accent-700: #ff9900;
+  --paper-ogden-accent-800: #ff9900;
+  --paper-ogden-accent-900: #ff9900;
+
   /* opacity for dark text on a light background */
   --dark-divider-opacity: 0.12;
   --dark-disabled-opacity: 0.38; /* or hint text or icon */

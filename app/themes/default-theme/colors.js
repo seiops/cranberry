@@ -315,6 +315,28 @@ module.exports = {
   'paper-blue-grey-800': '#37474f',
   'paper-blue-grey-900': '#263238',
 
+  'paper-ogden-primary-50': '#eceff1',
+  'paper-ogden-primary-100': '#cfd8dc',
+  'paper-ogden-primary-200': '#b0bec5',
+  'paper-ogden-primary-300': '#90a4ae',
+  'paper-ogden-primary-400': '#78909c',
+  'paper-ogden-primary-500': '#607d8b',
+  'paper-ogden-primary-600': '#546e7a',
+  'paper-ogden-primary-700': '#455a64',
+  'paper-ogden-primary-800': '#37474f',
+  'paper-ogden-primary-900': '#263238',
+
+  'paper-ogden-accent-50': '#f9fbe7',
+  'paper-ogden-accent-100': '#f9fbe7',
+  'paper-ogden-accent-200': '#f9fbe7',
+  'paper-ogden-accent-300': '#f9fbe7',
+  'paper-ogden-accent-400': '#f9fbe7',
+  'paper-ogden-accent-500': '#f9fbe7',
+  'paper-ogden-accent-600': '#f9fbe7',
+  'paper-ogden-accent-700': '#f9fbe7',
+  'paper-ogden-accent-800': '#f9fbe7',
+  'paper-ogden-accent-900': '#f9fbe7',
+
   /* opacity for dark text on a light background */
   'dark-divider-opacity': '.12',
   'dark-disabled-opacity': '.38', /* or hint text or icon */

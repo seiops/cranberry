@@ -21,19 +21,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <div class="content-cards">
       <template is="dom-repeat" items="{{items}}" initial-count="3">
         <template is="dom-if" if="[[_checkItem(item,index)]]">
-          <paper-card class="advertisement layout horizontal center">
-            <iron-image src="http://lorempixel.com/300/250"></iron-image>
+                    <a href="/story-content/[[item.itemId]]">
+          <paper-card class="advertisement" elevation="0">
+            <div class="card-content">
+              <iron-image src="http://lorempixel.com/300/250"></iron-image>
+            </div>
           </paper-card>
+          </a>
         </template>
         <!-- Need to rework this for array selectors -->
         <template is="dom-if" if="[[_isStory(item.contentType)]]">
           <template is="dom-if" if="[[_hasImage(item.mediaAssets.images.0.url)]]">
             <a href="/story-content/[[item.itemId]]">
-              <paper-card heading="[[item.title]]" fade-image preload-image image="http://www.standard.net/[[item.mediaAssets.images.0.large]]" elevation="1" class="with-image story">
-                <div class="story-tag">[[item.sectionInformation.primarySection]]</div>
-                <div class="story-content">
-                  <div class="story-preview">[[_trimText(item.preview)]]</div>
-                  <div class="story-date">[[item.updated]]</div>
+              <paper-card heading="[[item.title]]" fade-image preload-image image="http://www.standard.net/[[item.mediaAssets.images.0.large]]" elevation="1" class="story">
+                <div class="card-content">
+                  <span>[[_trimText(item.preview)]]</span>
+                </div>
+                <div class="card-actions">
+                  [[item.updated]]
                 </div>
               </paper-card>
             </a>
@@ -41,10 +46,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <template is="dom-if" if="[[!_hasImage(item.mediaAssets.images.0.url)]]">
             <a href="/story-content/[[item.itemId]]">
               <paper-card heading="[[item.title]]" elevation="1" class="story">
-                <div class="story-tag">[[item.sectionInformation.primarySection]]</div>
-                <div class="story-content">
-                  <div class="story-preview">[[_trimText(item.preview)]]</div>
-                  <div class="story-date">[[item.updated]]</div>
+                <div class="card-content">
+                  <span>[[_trimText(item.preview)]]</span>
+                </div>
+                <div class="card-actions">
+                  [[item.updated]]
                 </div>
               </paper-card>
             </a>
