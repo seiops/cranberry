@@ -17,14 +17,17 @@ Subject to an addtional IP right sgran found at polmyer.
 
 -->
 <section class="Page">
-  <div style="width:100%; text-align: center;margin-bottom:16px">
-    <iron-image src="http://lorempixel.com/970/250"></iron-image>
-  </div>
-  <cranberry-featured-content type="story_gallery" sections="news" count="3" start="1"></cranberry-featured-content>
+    <iron-media-query query="(min-width: 1200px)" query-matches="{{desktop}}"></iron-media-query>
+    <iron-media-query query="(min-width: 720px) and (max-width:959px)" query-matches="{{tablet}}"></iron-media-query>
+    <iron-media-query query="(max-width:719px)" query-matches="{{mobile}}"></iron-media-query>
 
+  <div hidden$="{{!desktop}}">
+    <iron-image src="http://lorempixel.com/970/250"></iron-image>
+    <cranberry-featured-content type="story_gallery" sections="news" count="3" start="1"></cranberry-featured-content>
+  </div>
   <paper-toolbar>
-    <paper-search-bar placeholder="SEARCH" on-paper-search-search="search"></paper-search-bar>
-    <paper-tabs id="tabs" selected="{{selected}}" fit-container style="width:80%">
+    <div hidden$="{{!desktop}}"><paper-search-bar placeholder="SEARCH" on-paper-search-search="search"></paper-search-bar></div>
+    <paper-tabs id="tabs" selected="{{selected}}">
       <paper-tab>LATEST</paper-tab>
       <paper-tab>LOCAL</paper-tab>
       <!-- <paper-tab>POPULAR</paper-tab> -->
