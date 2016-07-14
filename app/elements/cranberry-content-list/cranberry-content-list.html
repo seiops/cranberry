@@ -20,7 +20,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <byutv-jsonp on-response="_handleResponse" id="request"></byutv-jsonp>
     <div class="content-cards">
       <template is="dom-repeat" items="{{items}}" initial-count="3">
-        <template is="dom-if" if="[[_checkItem(item,index)]]">
+        <template is="dom-if" if="[[_checkItem(item, index)]]">
           <a href="#">
             <paper-card class="advertisement" elevation="0">
               <div class="card-content">
