@@ -10,69 +10,80 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 :host {
   display: block;
+  /* postcss-bem-linter: ignore */
   --paper-card: {
     min-height: 250px;
     min-width: 300px;
   };
+  /* postcss-bem-linter: ignore */
+  --paper-card-actions: {
+    color: var(--light-theme-secondary-text-color);
+    font-size: 12px;
+    font-weight: 400;
+  }
+  /* postcss-bem-linter: ignore */
   --paper-card-content: {
     @apply(--layout-flex);
     @apply(--paper-font-body1);
     color: var(--light-theme-primary-text-color);
   };
-  --paper-card-actions: {
-    @apply(--paper-font-caption);
-    color: var(--light-theme-secondary-text-color);
-  }
+  /* postcss-bem-linter: ignore */
   --paper-card-header-color: var(--text-dark);
+  /* postcss-bem-linter: ignore */
   --paper-card-header-image: {
     opacity: 0.8;
   };
+  /* postcss-bem-linter: ignore */
   --paper-card-header-image-text: {
-    font-size: 20px;
     color: var(--text-accent-color);
+    font-size: 20px;
     text-shadow: 0 1px 4px rgba(0,0,0,.7);
   };
+  /* postcss-bem-linter: ignore */
   --paper-card-header-text: {
-    @apply(--paper-font-headline);
+    font-size: 20px;
   };
 }
 
-paper-card.advertisement {
-  @apply(--layout-horizontal);
-  @apply(--layout-center);
-  /*background-color: transparent;*/
-  text-align: center;
-}
-
-paper-card.advertisement div.card-content {
-  padding: 0;
-}
-
-.content-cards {
+div.content-cards {
   @apply(--layout-center-justified);
   @apply(--layout-horizontal);
   @apply(--layout-wrap);
 }
 
-.content-cards > a {
+div.content-cards > a {
   @apply(--layout-flex);
   @apply(--layout-vertical);
-  max-width: 380px;
   margin: 12px;
+  max-width: 350px;
   text-decoration: none;
 }
 
-.content-cards > a > paper-card {
+div.content-cards > a > paper-card {
   @apply(--layout-flex);
   @apply(--layout-vertical);
 }
 
-/*paper-card.story div.story-tag {
+paper-card.advertisement {
+  @apply(--layout-horizontal);
+  @apply(--layout-center);
+  background-color: transparent;
+  text-align: center;
+  /* postcss-bem-linter: ignore */
+  --paper-card-content: {
+    padding: 0;
+  };
+}
+
+paper-card.story div.card-info {
+  @apply(--layout-horizontal);
+  @apply(--layout-justified);
+}
+
+paper-card.story div.card-info span.story-tag {
   background-color: var(--accent-color);
   color: var(--text-accent-color);
-  @apply(--paper-font-caption);
-  padding: 4px 8px;
-  position: absolute;
+  padding-left: 6px;
+  padding-right: 6px;
   text-transform: uppercase;
-  top: 0;
-}*/
+}
