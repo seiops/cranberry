@@ -1,14 +1,34 @@
-class cranberryGallery {
+class CranberryGallery {
   beforeRegister() {
     this.is = 'cranberry-gallery';
     this.properties = {
       gallery: {
         type: Object
       },
-      route: {
-        type: Object,
-        observer: 'onRouteChanged'
+      galleryId: {
+        type: Number,
+        value: 0,
+        observer: '_galleryIdChanged'
       },
+      jsonp: {
+        type: Object,
+        value: {
+          request: 'gallery'
+        }
+      },
+      mycapture: {
+        type: String,
+        value: 'http://standard.mycapture.com/mycapture/remoteimage.asp'
+      },
+      params: {
+        type: Object,
+        value: {}
+      },
+      rest: {
+        type: String,
+        value: 'http://sedev.libercus.net/rest.json'
+      },
+      routeData: Object,
       tags: {
         type: Array
       }
@@ -19,23 +39,28 @@ class cranberryGallery {
       'modalOpen.tap': '_openModal',
       'modalClose.tap': '_closeModal'
     };
+    this.observers = ['_checkParams(routeData.id)'];
   }
 
-  _goToSlide(e) {
-    let mainSlider = this.querySelector('#mainSlider');
-    let imageIndex = Number(e.target.parentElement.dataset.index);
-
-    mainSlider.goTo(mainSlider, imageIndex);
+  // Public methods.
+  attached() {
+    app.logger('\<cranberry-gallery\> attached');
   }
 
+  ready() {
+    app.logger('\<cranberry-gallery\> ready');
+  }
+
+  // Private methods.
   _buyImage() {
-    let slider = this.querySelector('cranberry-slider');
+    let slider = this.$.querySelector('cranberry-slider');
     let images = slider.items;
     let currentIndex = slider.index;
     let currentImage = images[currentIndex].src;
+    let mycapture = this.get('mycapture');
 
     let capture = {
-        sDomain: "http://standard.mycapture.com/mycapture/remoteimage.asp",
+        sDomain: mycapture,
         setImgParams: function () {
             var sImg = currentImage;
             capture.sImage = "?image=" + encodeURIComponent(sImg); // formatted sImg for preview
@@ -48,15 +73,83 @@ class cranberryGallery {
     capture.setImgParams();
   }
 
-  _openModal() {
-    this.sliderMove('open');
+  // Called by observer when params object is changed.
+  _changeParams () {
+    let params = this.get('params');
+    let galleryId = this.get('galleryId');
+
+    this.set('gallery', {});
+
+    if (params.length !== 0 && galleryId !== 0) {
+      this.$.request.url = this.rest;
+      this.$.request.params = params;
+
+      this.$.request.generateRequest();
+    }
   }
 
-  _closeModal() {
-    this.sliderMove('close');
+  // Updates id value from route.
+  _checkParams() {
+    let galleryId = this.get('routeData.id');
+    let currentId = this.get('galleryId');
+
+    if (typeof galleryId !== 'undefined' && currentId !== galleryId) {
+      app.logger('\<cranberry-gallery\> setting new gallery id -\> ' + galleryId);
+
+      this.set('galleryId', galleryId);
+    }
   }
 
-  sliderMove(type) {
+  _closeModal () {
+    this._sliderMove('close');
+  }
+
+  // Observer method for when the story id changes.
+  _galleryIdChanged () {
+    let galleryId = this.get('galleryId');
+
+    if (galleryId !== 0) {
+      app.logger('\<cranberry-gallery\> galleryId set to ' + galleryId);
+
+      this._updateGalleryId(galleryId);
+    }
+
+  }
+
+  _goToSlide (e) {
+    let mainSlider = this.querySelector('#mainSlider');
+    let imageIndex = Number(e.target.parentElement.dataset.index);
+
+    mainSlider.goTo(mainSlider, imageIndex);
+  }
+
+  _handleResponse (data) {
+    app.logger('\<cranberry-gallery\> json response received');
+
+    let result = JSON.parse(data.detail.Result);
+
+    // Assign restResponse to data bound object gallery
+    this.set('gallery', result);
+
+    // Set tags variable to the tags response
+    this.set('tags', result.tags.split(','));
+  }
+
+  _onRouteChanged (newValue, oldValue) {
+    if (typeof oldValue !== 'undefined') {
+      if (newValue.path.replace('/', '') === 'gallery-content') {
+        let mainSlider = this.querySelector('#mainSlider');
+
+        mainSlider.endLoading(slider, 0, 'next');
+      }
+    }
+  }
+
+  _openModal () {
+    this._sliderMove('open');
+  }
+
+  _sliderMove (type) {
     let modal = this.$.modal;
     let modalSlider = modal.querySelector('#modalSlider');
     let mainSlider = this.querySelector('#mainSlider');
@@ -74,24 +167,17 @@ class cranberryGallery {
 
     // Toggle the open/close event
     modal.toggle();
-
   }
 
-  handleResponse(data) {
-    var restResponse = JSON.parse(data.detail.Result);
-    // Assign restResponse to data bound object gallery
-    this.set('gallery', restResponse);
-    // Set tags variable to the tags response
-    this.set('tags', restResponse.tags.split(','));
-  }
+  // Update story id in request parameters.
+  _updateGalleryId (galleryid) {
+    this.set('jsonp.desiredItemID', galleryid);
 
-  onRouteChanged(newValue, oldValue) {
-    if (typeof oldValue !== 'undefined') {
-      if (newValue.path.replace('/', '') === 'gallery-content') {
-        let mainSlider = this.querySelector('#mainSlider');
-        mainSlider.endLoading(slider, 0, "next");
-      }
-    }
+    let request = this.get('jsonp');
+
+    this.set('params', request);
+
+    this._changeParams();
   }
 }
-Polymer(cranberryGallery);
+Polymer(CranberryGallery);
