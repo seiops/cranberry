@@ -4,33 +4,14 @@ class CranberryBase {
   beforeRegister() {
     this.is = 'cranberry-base';
     this.properties = {
-      /**
-       * Signal to the outside world that this element
-       * has been upgraded. Set in ready
-       * https://github.com/Polymer/polymer/issues/2653
-       */
-       data: Object,
+      data: Object,
       upgraded: Boolean,
       storage: {
         type: Object
       },
       route: Object,
-      section: String,
-      subrouteData: Object,
-      selected: {
-        type: Number,
-        value: 0,
-        notify: true
-      },
-      newCategory: {
-        type: String
-      },
-      videos: {
-        type: Array,
-        value: []
-      }
+      section: String
     };
-    this.observers = ['_sectionTail(subrouteData.section)'];
   }
   //created() {}
   ready() {
