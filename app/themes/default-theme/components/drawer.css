@@ -32,7 +32,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       color: var(--secondary-text-color);
     }
   }
-
   @nest &-header {
     background-color: var(--primary-background-color);
     border-bottom: 1px solid var(--divider-color);
@@ -45,7 +44,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       color: var(--text-dark-primary-color);
     }
   }
-
   @nest &-link {
     color: currentColor;
     text-decoration: none;
@@ -54,7 +52,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   @nest &-title {
     @apply(--paper-font-headline);
   }
-
   @nest &-widget {
     padding: 8px 0;
 
