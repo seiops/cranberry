@@ -32,7 +32,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <!-- Need to rework this for array selectors -->
         <template is="dom-if" if="[[_isStory(item.contentType)]]">
           <template is="dom-if" if="[[_hasImage(item.mediaAssets.images.0.url)]]">
-            <a href="/story-content/[[item.itemId]]">
+            <a href="/story/[[item.itemId]]">
               <paper-card heading="[[item.title]]" fade-image preload-image image="http://www.standard.net/[[item.mediaAssets.images.0.large]]" elevation="1" class="story">
                 <div class="card-content">
                   <span>[[_trimText(item.preview)]]</span>
@@ -47,7 +47,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             </a>
           </template>
           <template is="dom-if" if="[[!_hasImage(item.mediaAssets.images.0.url)]]">
-            <a href="/story-content/[[item.itemId]]">
+            <a href="/story/[[item.itemId]]">
               <paper-card heading="[[item.title]]" elevation="1" class="story">
                 <div class="card-content">
                   <span>[[_trimText(item.preview)]]</span>
