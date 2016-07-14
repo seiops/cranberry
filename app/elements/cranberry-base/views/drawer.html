@@ -19,38 +19,34 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <nav class="Drawer-widget">
   <nav class="Drawer-widget">
   <paper-search></paper-search>
-  <paper-menu class="Navigation Navigation--menu list" attr-for-selected="data-route" selected="[[data.page]]">
-    <a class="Navigation-link" data-route="" href="/">
+  <paper-menu class="Navigation Navigation--menu list" attr-for-selected="data-route" selected="[[route.path]]">
+    <a class="Navigation-link" data-route="/" href="/">
       <iron-icon class="Navigation-icon" icon="dashboard"></iron-icon>
       <span class="Navigation-text">Home</span>
     </a>
-    <a class="Navigation-link" data-route="section" href="/section/news">
+    <a class="Navigation-link" data-route="/section/news" href="/section/news">
       <iron-icon class="Navigation-icon" icon="apps"></iron-icon>
       <span class="Navigation-text">News</span>
     </a>
-    <a class="Navigation-link" data-route="section" href="/section/opinion">
+    <a class="Navigation-link" data-route="/section/opinion" href="/section/opinion">
       <iron-icon class="Navigation-icon" icon="theaters"></iron-icon>
       <span class="Navigation-text">Opinion</span>
     </a>
-    <a class="Navigation-link" data-route="section" href="/section/announcements">
+    <a class="Navigation-link" data-route="/section/announcements" href="/section/announcements">
       <iron-icon class="Navigation-icon" icon="mail"></iron-icon>
       <span class="Navigation-text">Announcements</span>
     </a>
-    <a class="Navigation-link" data-route="section" href="/section/sports">
+    <a class="Navigation-link" data-route="/section/sports" href="/section/sports">
       <iron-icon class="Navigation-icon" icon="mail"></iron-icon>
       <span class="Navigation-text">Sports</span>
     </a>
-    <a class="Navigation-link" data-route="section" href="/section/entertainment">
+    <a class="Navigation-link" data-route="/section/entertainment" href="/section/entertainment">
       <iron-icon class="Navigation-icon" icon="subject"></iron-icon>
       <span class="Navigation-text">Entertainment</span>
     </a>
-    <a class="Navigation-link" data-route="section" href="/section/lifestyle">
+    <a class="Navigation-link" data-route="/section/entertainment" href="/section/lifestyle">
       <iron-icon class="Navigation-icon" icon="lock"></iron-icon>
       <span class="Navigation-text">Lifestyle</span>
-    </a>
-    <a class="Navigation-link" data-route="grid" href="/grid">
-      <iron-icon class="Navigation-icon" icon="dashboard"></iron-icon>
-      <span class="Navigation-text">Grid</span>
     </a>
     <a class="Navigation-link" data-route="story-content" href="/story-content/201201010002">
       <iron-icon class="Navigation-icon" icon="dashboard"></iron-icon>
