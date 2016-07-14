@@ -13,6 +13,10 @@
 
     <byutv-jsonp auto url="http://sedev.libercus.net/rest.json" params='{"request": "congero", "desiredContent": "jailmugs", "desiredCount": "10", "desiredSortOrder": "-publishdate_priority_-contentmodified"}' on-response="_handleResponse" debounce-duration="300" id="request"></byutv-jsonp>
 
+    <div style="text-align:center;">
+      <iron-image src="http://www.placehold.it/970x250&text=AD_970x250"></iron-image>
+    </div>
+
     <div class="overlay" hidden$="[[!isLoading]]">
       <paper-spinner active="[[isLoading]]"></paper-spinner>
       <p>Your Content Is Loading Please Wait...</p>
@@ -25,7 +29,12 @@
         <p>The information presented here as a public service is gathered from public data compiled by local county sheriff's offices. The booking mug shots and related information are from arrest records in the order and at the time the data was collected. Those appearing here have not been convicted of the arrest charge and are presumed innocent. Do not rely on this site to determine any person's actual criminal record.</p>
       </div>
 
-      <cranberry-slider id="mugSlider" autostart="true" arrows="true" bullets="false" info="false" caption="false"></cranberry-slider>
+      <div class="mug-container">
+        <cranberry-slider id="mugSlider" autostart="true" arrows="true" bullets="false" info="false" caption="false"></cranberry-slider>
+        <div class="flex-absolute share-buttons">
+          <gigya-sharebar share-buttons-id="gigya-share-buttons-jail-mugs"></gigya-sharebar>
+        </div>
+      </div>
 
       <div class="slider-description">
         <paper-material elevation="1">
@@ -40,20 +49,26 @@
       </div>
 
       <h3 class="card-header">Previous Days Jail Mugs</h3>
-      <div class="content-cards">
-        <template is="dom-repeat" items={{content}}>
-          <div>
-            <paper-card heading="Jailings on [[item.bookingDateFormatted]]" fade-image preload-image image="http://www.standard.net/[[item.image.medium]]" elevation="1" class="with-image story" data-index$="{{index}}" on-tap="_loadNewMugs">
-              <div class="story-tag">Jail Mugs</div>
-            </paper-card>
-          </div>
-        </template>
+      <div class="content-area">
+        <div class="content-cards" hidden$="[[cardsLoading]]">
+          <template is="dom-repeat" items={{content}}>
+            <div>
+              <paper-card heading="Jailings on [[item.bookingDateFormatted]]" fade-image preload-image image="http://www.standard.net/[[item.image.medium]]" elevation="1" class="with-image story" data-index$="{{index}}" on-tap="_loadNewMugs">
+                <div class="story-tag">Jail Mugs</div>
+              </paper-card>
+            </div>
+          </template>
+        </div>
+
+        <div class="overlay card-overlay" hidden$="[[!cardsLoading]]">
+          <paper-spinner active="[[cardsLoading]]"></paper-spinner>
+          <p>Loading More Jail Mugs Please Wait...</p>
+        </div>
       </div>
 
       <div class="pagination-container">
         <paper-button id="prev" raised hidden$="{{!showPrev}}">Prev</paper-button>
         <paper-button id="next" raised>Next</paper-button>
-      </div>
     </div>
 
 

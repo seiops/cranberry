@@ -27,6 +27,10 @@ class cranberryJailMugs {
         type: Boolean,
         value: true
       },
+      cardsLoading: {
+        type: Boolean,
+        value: false
+      },
       start: {
         type: Number,
         value: 1
@@ -66,11 +70,11 @@ class cranberryJailMugs {
     app.logger('\<cranberry-jail-mugs\> json response received');
 
     let result = JSON.parse(json.detail.Result);
-
     console.dir(result);
-    console.info(json);
+
     // Set content to the result
     this.set('content', result);
+    this.set('cardsLoading', false);
 
     // Check if we are on "page" 1
     if (result[0].start === 1) {
@@ -145,6 +149,7 @@ class cranberryJailMugs {
   }
 
   _loadNewCards(e) {
+    this.set('cardsLoading', true);
     let direction = e.srcElement.id;
     let move = 0;
     if (direction === "next") {

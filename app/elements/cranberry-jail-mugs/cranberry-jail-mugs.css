@@ -75,11 +75,9 @@ paper-card {
   min-height: 1px;
 }
 
-cranberry-slider {
-  margin: 0;
-}
-cranberry-slider figure {
+cranberry-slider::shadow figure {
   max-height: 675px;
+  max-width: 1200px;
 }
 
 .slider-description {
@@ -136,8 +134,73 @@ h3.card-header {
   justify-content: center;
   margin-top: 50px;
 }
+
 .pagination-container paper-button {
   width: 300px;
   background: #005A90;
   color: #fff;
+}
+
+.content-area {
+  position: relative;
+  min-height: 500px;
+}
+
+.card-overlay {
+  height: auto;
+}
+
+/* Gallery Container styles*/
+.mug-container {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  height: 100%;
+  max-height: 675px;
+  margin: 0 auto;
+}
+
+/* Button Styles */
+.flex-absolute {
+  @apply(--layout-horizontal);
+  @apply(--layout-flex);
+  position: absolute;
+  bottom: -25px;
+  right: 5%;
+  z-index: 10;
+}
+
+.flex-absolute.share-buttons {
+  bottom: -25px;
+  right: 5%;
+}
+
+.flex-absolute.tag-links {
+  top: 0;
+  left: 0;
+  height: 30px;
+}
+
+.flex-absolute.expand-link {
+  top: 20px;
+  right: 25px;
+  height: 50px;
+}
+
+paper-button {
+  background: #005A90;
+  color: #fff;
+}
+
+paper-button#buyButton {
+  bottom: -5px;
+  margin-right: 25px;
+}
+
+.rounded-button {
+  border-radius: 50%;
+  margin: 0;
+  min-width: 1px;
+  height: 50px;
+  width: 50px;
 }
