@@ -57,6 +57,7 @@ div.content-cards {
   @apply(--layout-center-justified);
   @apply(--layout-horizontal);
   @apply(--layout-wrap);
+  min-height: 800px;
 }
 
 div.content-cards > a {
