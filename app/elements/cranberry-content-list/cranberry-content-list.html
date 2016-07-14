@@ -17,7 +17,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <style>
       @import "cranberry-content-list/cranberry-content-list";
     </style>
-    <byutv-jsonp on-response="handleResponse" debounce-duration="300" id="request"></byutv-jsonp>
+    <byutv-jsonp on-response="_handleResponse" id="request"></byutv-jsonp>
     <div class="content-cards">
       <template is="dom-repeat" items="{{items}}" initial-count="3">
         <template is="dom-if" if="[[_checkItem(item,index)]]">
