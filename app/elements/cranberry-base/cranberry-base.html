@@ -69,11 +69,8 @@
       on-iron-localstorage-load-empty="initializeDefaultStorage">
     </iron-localstorage> -->
 
-    <!-- Application routing -->
-    <app-location route="{{route}}"></app-location>
-    <app-route route="{{route}}" pattern="/:page" data="{{data}}"></app-route>
-    <app-route route="{{route}}" pattern="/story-content" tail="{{storyTail}}"></app-route>
-    <app-route route="{{route}}" pattern="/section" tail="{{sectionTail}}"></app-route>
+    <!-- app-route routing -->
+    {% include "cranberry-base/views/routes.html" %}
 
     <app-drawer-layout>
 
@@ -84,27 +81,11 @@
       </app-drawer>
 
       <app-header-layout>
-
-        <app-header reveals effects="waterfall">
-          <app-toolbar>
-              <!-- Main Toolbar -->
-              <div class="Main-headerTopBar top">
-                <span class="u-spacer"></span>
-                <paper-icon-button class="Main-headerButton" icon="search"></paper-icon-button>
-                <paper-icon-button class="Main-headerButton" icon="account-balance-wallet" title="Wallet"></paper-icon-button>
-                <paper-icon-button class="Main-headerButton" icon="account-circle" title="Wallet"></paper-icon-button>
-              </div>
-          </app-toolbar>
-        </app-header>
-
-        <!-- Hidden container examples -->
-        <div hidden$="{{!_equal(data.page, '')}}"></div>
-        <div hidden$="{{!_equal(data.page, 'story-content')}}"></div>
-        <div hidden$="{{!_equal(data.page, 'policy')}}"></div>
-        <div hidden$="{{!_equal(data.page, 'section')}}"></div>
+        <!-- app-header layout -->
+        {% include "cranberry-base/views/header.html" %}
 
         <!-- Content area -->
-        {% include "cranberry-base/views/main.html" %}
+        {% include "cranberry-base/views/pages.html" %}
 
       </app-header-layout>
 
