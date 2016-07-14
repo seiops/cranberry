@@ -14,85 +14,47 @@ class CranberryFeaturedContent {
   beforeRegister() {
     this.is = 'cranberry-featured-content';
     this.properties = {
-      rest: {
-        type: String,
-        value: "http://sedev.libercus.net/rest.json",
-        notify: true
+      count: {
+        type: Number
+      },
+      items: {
+        type: Object,
+        value: []
       },
       params: {
         type: Object,
         value: [],
-        observer: '_changeParams',
-        notify: true
+        observer: '_changeParams'
       },
-      items: {
-        type: Object,
-        value: [],
-        notify: true
-      },
-      type: {
+      rest: {
         type: String,
-        value: "story_gallery",
-        observer: '_changeType'
+        value: 'http://sedev.libercus.net/rest.json'
       },
       sections: {
         type: String,
-        value: "news",
         observer: '_changeSections'
       },
-      count: {
-        type: Number,
-        value: 10,
-        observer: '_changeCount'
-      },
       start: {
-        type: Number,
-        value: 1,
-        observer: '_changeStart'
+        type: Number
+      },
+      type: {
+        type: String
       }
     };
   }
-  handleResponse (data) {
-    var restResponse = JSON.parse(data.detail.Result);
 
-    this.set('items', restResponse);
-    // var responseMessage = '';
-
-    // if (typeof restResponse !== undefined && restResponse.errorCode === 0) {
-
-    //   var params = {
-    //       provider:restResponse.loginProvider,
-    //       callback: this._onlogin(data),
-    //       UID: restResponse.UID,
-    //       UIDSignature: restResponse.UIDSignature,
-    //       signatureTimestamp: restResponse.signatureTimestamp
-    //   };
-
-    //   restResponse.callback = this._onlogin(data);
-
-
-    //   gigya.socialize.getUserInfo(params);
-
-    //   responseMessage = 'User: ' + restResponse.profile.nickname + '<br />UID: ' + restResponse.UID + '<br />Signature: ' + restResponse.UIDSignature + '<br />Provider: ' + restResponse.loginProvider;
-    // } else {
-    //   responseMessage = restResponse.errorDetails;
-    // }
-
-
-    // form.querySelector('.output').innerHTML = responseMessage;
+  // Public methods.
+  attached () {
+    app.logger ('<\cranberry-featured-content\> attached');
   }
-  _firstItem(item,index) {
-    if (index === 0) {
-      return true;
-    } else {
-      return false;
-    }
+
+  ready () {
+    app.logger('\<cranberry-featured-content\> ready');
   }
-  _changeCount() {
-    console.log('Changed count:', this.count);
-  }
-  _changeParams() {
-    var params = this.get('params');
+
+  // Private methods.
+  _changeParams () {
+    let params = this.get('params');
 
     if (params.length !== 0 && params.desiredCount) {
       this.$.request.url = this.rest;
@@ -102,27 +64,37 @@ class CranberryFeaturedContent {
       this.$.request.generateRequest();
     }
   }
-  _changeStart() {
-    app.logger ('<\cranberry-featured-content\> start changed');
-  }
-  _changeSections() {
-    app.logger ('<\cranberry-featured-content\> section changed');
+
+  _changeSections (section) {
+    app.logger ('<\cranberry-featured-content\> section changed -\> ' + section);
 
     this._updateParams();
   }
-  _changeType() {
+
+  _changeType () {
     app.logger ('<\cranberry-featured-content\> type changed');
   }
-  ready() {
-    app.logger ('<\cranberry-featured-content\> ready');
 
+  _firstItem (item, index) {
+    if (index === 0) {
+      return true;
+    } else {
+      return false;
+    }
   }
-  _updateParams() {
+
+  _handleResponse (data) {
+    let restResponse = JSON.parse(data.detail.Result);
+
+    this.set('items', restResponse);
+  }
+
+  _updateParams () {
     this.$.request.abortRequest();
 
     this.set('items',[]);
 
-    var jsonp = {};
+    let jsonp = {};
 
     jsonp.request = 'content-list';
     jsonp.desiredSection = this.get('sections');
@@ -130,10 +102,6 @@ class CranberryFeaturedContent {
     jsonp.desiredCount = this.get('count');
 
     this.set('params', jsonp);
-  }
-  attached() {
-    app.logger ('<\cranberry-featured-content\> attached');
-    this._updateParams();
   }
 }
 
