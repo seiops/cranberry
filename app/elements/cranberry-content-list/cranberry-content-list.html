@@ -21,12 +21,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <div class="content-cards">
       <template is="dom-repeat" items="{{items}}" initial-count="3">
         <template is="dom-if" if="[[_checkItem(item,index)]]">
-                    <a href="/story-content/[[item.itemId]]">
-          <paper-card class="advertisement" elevation="0">
-            <div class="card-content">
-              <iron-image src="http://lorempixel.com/300/250"></iron-image>
-            </div>
-          </paper-card>
+          <a href="#">
+            <paper-card class="advertisement" elevation="0">
+              <div class="card-content">
+                <iron-image src="http://lorempixel.com/300/250"></iron-image>
+              </div>
+            </paper-card>
           </a>
         </template>
         <!-- Need to rework this for array selectors -->
@@ -38,7 +38,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                   <span>[[_trimText(item.preview)]]</span>
                 </div>
                 <div class="card-actions">
-                  [[item.updated]]
+                <div class="card-info">
+                  <span class="story-tag">[[item.sectionInformation.primarySection]]</span>
+                  <span class="story-date">[[item.updated]]</span>
+                  </div>
                 </div>
               </paper-card>
             </a>
@@ -50,7 +53,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                   <span>[[_trimText(item.preview)]]</span>
                 </div>
                 <div class="card-actions">
-                  [[item.updated]]
+                <div class="card-info">
+                  <span class="story-tag">[[item.sectionInformation.primarySection]]</span>
+                  <span class="story-date">[[item.updated]]</span>
+                  </div>
                 </div>
               </paper-card>
             </a>
