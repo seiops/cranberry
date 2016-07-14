@@ -118,11 +118,10 @@ Typography mixins are from file on URL https://github.com/PolymerElements/paper-
   --paper-font-caption: {
     @apply(--paper-font-common-base);
     @apply(--paper-font-common-nowrap);
-
     font-size: 12px;
     font-weight: 400;
     letter-spacing: 0.011em;
-    line-height: 20px;
+    line-height: 24px;
   };
 
   --paper-font-menu: {

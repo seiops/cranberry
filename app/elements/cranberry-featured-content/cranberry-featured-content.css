@@ -10,52 +10,67 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 :host {
   display: block;
-  --paper-card-header-image-text: {
-    color: #fff;
+
+  /* postcss-bem-linter: ignore */
+  --paper-card-actions: {
+    color: var(--light-theme-secondary-text-color);
+    font-size: 12px;
     font-weight: 400;
-    font-size: 32px;
-    line-height: 34px;
+  }
+
+  /* postcss-bem-linter: ignore */
+  --paper-card-content: {
+    @apply(--layout-flex);
+    @apply(--paper-font-body1);
+
+    color: var(--light-theme-primary-text-color);
+  };
+
+  /* postcss-bem-linter: ignore */
+  --paper-card-header-image-text: {
+    color: var(--text-accent-color);
+    font-size: 24px;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
   };
 }
 
-paper-card .card-tag {
-  background-color: #40C2A9;
-  color: #ffffff;
-  font-size: 12px;
-  position: absolute;
+paper-card div.card-info span.content-tag {
+  background-color: var(--accent-color);
+  color: var(--text-accent-color);
+  padding-left: 6px;
+  padding-right: 6px;
   text-transform: uppercase;
-  top: 0;
-  left: 0;
-  padding: 4px 8px;
 }
 
-.featured-content {
+paper-card div.card-info {
+  @apply(--layout-horizontal);
+  @apply(--layout-justified);
+}
+
+div.featured-content {
   @apply(--layout-horizontal);
   margin-bottom: 24px;
 }
 
-.featured-main > a, .featured-list a {
-  color: #666;
-  text-decoration: none;
-}
-
-.featured-main {
+div.featured-main {
   @apply(--layout-flex-9);
   @apply(--layout-justified);
   @apply(--layout-vertical);
 }
 
-.featured-main > a {
+div.featured-main > a {
+  @apply(--layout-flex);
+  @apply(--layout-vertical);
+
+  text-decoration: none;
+}
+
+div.featured-main > a > paper-card {
   @apply(--layout-flex);
   @apply(--layout-vertical);
 }
 
-.featured-main > a > paper-card {
-  @apply(--layout-flex);
-  @apply(--layout-vertical);
-}
-
-.featured-list {
+div.featured-list {
   @apply(--layout-flex-3);
   @apply(--layout-justified);
   @apply(--layout-vertical);

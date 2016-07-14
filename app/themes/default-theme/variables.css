@@ -67,6 +67,7 @@ for further information on custom CSS properties.
   --text-accent-color: #fff;                                        /* Text / Icons */
   --text-light-accent-color: var(--paper-grey-900);
   --text-dark-accent-color: #fff;
+  --text-dark: #333;
 
   /* Toggle button colors
      https://www.google.com/design/spec/components/selection-controls.html#selection-controls-switch */
