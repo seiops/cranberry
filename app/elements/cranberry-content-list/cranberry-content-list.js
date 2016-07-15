@@ -1,19 +1,6 @@
-/*
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
-*/
-
-/* Gigya Socialize JS library integration */
-
 class CranberryContentList {
-
   beforeRegister() {
-    this.is = 'cranberry-content-list';
+    this.is = 'Cranberry-content-list';
     this.properties = {
       count: {
         type: Number
@@ -72,7 +59,6 @@ class CranberryContentList {
     this._updateParams();
   }
 
-
   _checkItem (item, index) {
     let modulus = index % 2;
 
@@ -84,9 +70,9 @@ class CranberryContentList {
   }
 
   _handleResponse (data) {
-    let restResponse = JSON.parse(data.detail.Result);
+    let result = JSON.parse(data.detail.Result);
 
-    this.set('items', restResponse);
+    this.set('items', result);
   }
 
   _hasImage (image) {
@@ -101,7 +87,7 @@ class CranberryContentList {
     if(typeof preview !== 'undefined' && preview.length > 0) {
       return true;
     } else {
-      return;
+      return false;
     }
   }
 
@@ -132,7 +118,7 @@ class CranberryContentList {
 
     let jsonp = {};
 
-    jsonp.request = "content-list";
+    jsonp.request = 'content-list';
     jsonp.desiredSection = this.get('sections');
     jsonp.desiredContent = this.get('type');
     jsonp.desiredCount = this.get('count');
