@@ -8,11 +8,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 */
 
 /** @define Main */
-#tabs {
-  @apply(--layout-around-justified);
-  @apply(--layout-flex);
-}
-
 .Main {
   background-color: var(--secondary-background-color);
 
@@ -27,7 +22,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     @media (--lg-viewport) {
       @apply(--paper-font-body2);
-      padding: 48px 64px;
+      padding: 16px 64px;
     }
 
     @nest & a {

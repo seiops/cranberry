@@ -17,11 +17,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <style>
       @import "cranberry-featured-content/cranberry-featured-content";
     </style>
-    <byutv-jsonp on-response="handleResponse" id="request"></byutv-jsonp>
+    <byutv-jsonp on-response="_handleResponse" id="request"></byutv-jsonp>
     <!-- Need to rework this for array selectors -->
     <div class="featured-content">
       <div class="featured-main">
-        <a href="/story-content/[[items.0.itemId]]">
+        <a href="/story/[[items.0.itemId]]">
           <paper-card heading="[[items.0.title]]" image="http://www.standard.net/[[items.0.mediaAssets.images.0.exlarge]]" elevation="1">
             <div class="card-actions">
               <div class="card-info">
@@ -33,7 +33,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </a>
       </div>
       <div class="featured-list">
-        <a href="/story-content/[[items.1.itemId]]">
+        <a href="/story/[[items.1.itemId]]">
           <paper-card heading="[[items.1.title]]" image="http://www.standard.net/[[items.1.mediaAssets.images.0.large]]" elevation="1">
             <div class="card-actions">
               <div class="card-info">
@@ -43,7 +43,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             </div>
           </paper-card>
         </a>
-        <a href="/story-content/[[items.2.itemId]]">
+        <a href="/story/[[items.2.itemId]]">
           <paper-card heading="[[items.2.title]]" image="http://www.standard.net/[[items.2.mediaAssets.images.0.large]]" elevation="1">
             <div class="card-actions">
               <div class="card-info">

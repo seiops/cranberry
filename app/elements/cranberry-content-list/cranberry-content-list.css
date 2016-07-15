@@ -54,9 +54,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 }
 
 div.content-cards {
-  @apply(--layout-center-justified);
+  @apply(--layout-around-justified);
   @apply(--layout-horizontal);
   @apply(--layout-wrap);
+  min-height: 800px;
 }
 
 div.content-cards > a {
@@ -64,7 +65,7 @@ div.content-cards > a {
   @apply(--layout-vertical);
 
   margin: 12px;
-  max-width: 350px;
+  max-width: 400px;
   text-decoration: none;
 }
 

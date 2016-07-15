@@ -10,7 +10,7 @@ class CranberryStory {
           },
           rest: {
             type: String,
-            value: "http://sedev.libercus.net/rest.json"
+            value: 'http://sedev.libercus.net/rest.json'
           },
           routeData: Object,
           story: {
@@ -32,19 +32,18 @@ class CranberryStory {
     }
 
     // Public methods.
-
-    attached() {
+    attached () {
       app.logger('\<cranberry-story\> attached');
     }
 
-    ready() {
+    ready () {
       app.logger('\<cranberry-story\> ready');
     }
 
     // Private methods.
 
     // Called by observer when params object is changed.
-    _changeParams() {
+    _changeParams () {
       let params = this.get('params');
       let storyId = this.get('storyId');
 
@@ -59,12 +58,12 @@ class CranberryStory {
     }
 
     // Updates id value from route.
-    _checkParams() {
+    _checkParams () {
       let storyId = this.get('routeData.id');
       let currentId = this.get('storyId');
 
       if (typeof storyId !== 'undefined' && currentId !== storyId) {
-        app.logger('\<cranberry-story\> setting new story id', storyId);
+        app.logger('\<cranberry-story\> setting new story id -\> ' + storyId);
 
         this.set('storyId', storyId);
       }
@@ -80,7 +79,7 @@ class CranberryStory {
     }
 
     // Processes shortcodes and displays content.
-    _displayContent() {
+    _displayContent () {
       let story = this.get('story');
       let paragraphs = story.paragraphs;
       let contentArea = this.$.storyContentArea;
@@ -120,26 +119,24 @@ class CranberryStory {
 
       let result = JSON.parse(json.detail.Result);
 
-      console.dir(result);
-
       this.set('story', result);
     }
 
     // Unknown functionality, unable to trace.
-    _openLink(e) {
+    _openLink (e) {
       let element = e.currentTarget;
       let twitterName = element.getAttribute('twitter-name');
     }
 
     // Scrolls to comment area.
-    _scrollToComments() {
+    _scrollToComments () {
         let commentsDiv = this.querySelector('#commentsButton');
 
         commentsDiv.scrollIntoView(true);
       }
 
     // Observer method for when the story id changes.
-    _storyIdChanged() {
+    _storyIdChanged () {
       let storyId = this.get('storyId');
 
       if (storyId !== 0) {
@@ -151,7 +148,7 @@ class CranberryStory {
     }
 
     // Update story id in request parameters.
-    _updateStoryId(storyid) {
+    _updateStoryId (storyid) {
       this.set('jsonp.desiredItemID', storyid);
 
       let request = this.get('jsonp');

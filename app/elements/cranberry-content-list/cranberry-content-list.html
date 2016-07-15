@@ -17,10 +17,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <style>
       @import "cranberry-content-list/cranberry-content-list";
     </style>
-    <byutv-jsonp on-response="handleResponse" debounce-duration="300" id="request"></byutv-jsonp>
+    <byutv-jsonp on-response="_handleResponse" id="request"></byutv-jsonp>
     <div class="content-cards">
       <template is="dom-repeat" items="{{items}}" initial-count="3">
-        <template is="dom-if" if="[[_checkItem(item,index)]]">
+        <template is="dom-if" if="[[_checkItem(item, index)]]">
           <a href="#">
             <paper-card class="advertisement" elevation="0">
               <div class="card-content">
@@ -32,7 +32,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <!-- Need to rework this for array selectors -->
         <template is="dom-if" if="[[_isStory(item.contentType)]]">
           <template is="dom-if" if="[[_hasImage(item.mediaAssets.images.0.url)]]">
-            <a href="/story-content/[[item.itemId]]">
+            <a href="/story/[[item.itemId]]">
               <paper-card heading="[[item.title]]" fade-image preload-image image="http://www.standard.net/[[item.mediaAssets.images.0.large]]" elevation="1" class="story">
                 <div class="card-content">
                   <span>[[_trimText(item.preview)]]</span>
@@ -47,7 +47,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             </a>
           </template>
           <template is="dom-if" if="[[!_hasImage(item.mediaAssets.images.0.url)]]">
-            <a href="/story-content/[[item.itemId]]">
+            <a href="/story/[[item.itemId]]">
               <paper-card heading="[[item.title]]" elevation="1" class="story">
                 <div class="card-content">
                   <span>[[_trimText(item.preview)]]</span>

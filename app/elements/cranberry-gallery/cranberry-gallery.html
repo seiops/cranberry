@@ -10,7 +10,7 @@
 
 <dom-module id="cranberry-gallery">
   <template>
-    <style is="custom-style">
+    <style>
       @import "cranberry-gallery/cranberry-gallery";
     </style>
 
@@ -21,10 +21,11 @@
       </div>
     </paper-dialog>
 
-    <byutv-jsonp auto url="http://sedev.libercus.net/rest.json" params='{"request": "gallery", "desiredItemID": "3401"}' on-response="handleResponse" debounce-duration="300" id="request"></byutv-jsonp>
+    <app-route route="{{route}}" pattern="/:id" data="{{routeData}}"></app-route>
+    <byutv-jsonp on-response="_handleResponse" id="request"></byutv-jsonp>
 
     <div class="ut-center">
-      <iron-image src="http://www.placehold.it/970x250&text=AD_970x250"></iron-image>
+      <google-dfp route="{{fullRoute}}" ad-pos="leaderboard_bottom" ad-size="[728, 90]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
     </div>
 
     <div class="gallery-container">
@@ -52,8 +53,7 @@
         </template>
       </div>
       <div class="flex ut-center">
-        <google-dfp route="{{route}}" adpos="bottom_of_stream" adsize="[[300,250],[300,600]]" adgroup="{$ config.dfpAdStructure.adGroupID $}" adgrouping="{$ config.dfpAdStructure.adGrouping $}" adsubgrouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
-        <img src="http://www.placehold.it/300x600&text=Related"/>
+        <google-dfp route="{{fullRoute}}" adpos="bottom_of_stream" adsize="[[300,250],[300,600]]" adgroup="{$ config.dfpAdStructure.adGroupID $}" adgrouping="{$ config.dfpAdStructure.adGrouping $}" adsubgrouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
       </div>
     </div>
 

@@ -1,0 +1,16 @@
+<app-header reveals effects="waterfall">
+  <app-toolbar>
+      <!-- Main Toolbar -->
+      <div class="Main-headerTopBar top">
+        <!-- Hidden container examples -->
+        <div hidden$="{{!_equal(data.page, '')}}">{{data.page}}</div>
+        <div hidden$="{{!_equal(data.page, 'story-content')}}">{{data.page}}</div>
+        <div hidden$="{{!_equal(data.page, 'policy')}}">{{data.page}}</div>
+        <div hidden$="{{!_equal(data.page, 'section')}}">{{data.page}}</div>
+        <span class="u-spacer"></span>
+        <paper-icon-button class="Main-headerButton" icon="search"></paper-icon-button>
+        <paper-icon-button class="Main-headerButton" icon="account-balance-wallet" title="Wallet"></paper-icon-button>
+        <paper-icon-button class="Main-headerButton" icon="account-circle" title="Wallet"></paper-icon-button>
+      </div>
+  </app-toolbar>
+</app-header>
