@@ -52,9 +52,11 @@ div {
   margin: 20px 0 20px 0;
   color: rgba(0, 0, 0, 0.60);
 }
+
 .ut-small-icon-margin {
   margin: 10px 14px 0 0;
 }
+
 #commentButton {
   background: #005A90;
 }

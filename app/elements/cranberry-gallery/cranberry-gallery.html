@@ -16,7 +16,7 @@
 
     <paper-dialog id="modal" modal>
       <div class="gallery-container">
-        <cranberry-slider id="modalSlider" images="{{gallery.mediaAssets.images}}" autostart="true" arrows="true" bullets="false" info="true" caption="true" modal="true"></cranberry-slider>
+        <cranberry-slider id="modalSlider" images="{{gallery.mediaAssets.images}}" autostart arrows info caption modal></cranberry-slider>
         <paper-button id="modalClose" raised>Close</paper-button>
       </div>
     </paper-dialog>
@@ -35,7 +35,7 @@
       <div class="flex-absolute expand-link">
         <paper-button raised id="modalOpen" class="rounded-button"><iron-icon icon="icons:fullscreen"></iron-icon></paper-button>
       </div>
-      <cranberry-slider id="mainSlider" images="{{gallery.mediaAssets.images}}" autostart="true" arrows="true" bullets="false" info="true" caption="true">
+      <cranberry-slider id="mainSlider" images="{{gallery.mediaAssets.images}}" autostart arrows info caption>
         <div class="flex-absolute share-buttons">
           <paper-button raised id="buyButton" class="rounded-button"><iron-icon icon="editor:attach-money"></iron-icon></paper-button>
           <gigya-sharebar share-buttons-id="gigya-share-buttons-gallery"></gigya-sharebar>

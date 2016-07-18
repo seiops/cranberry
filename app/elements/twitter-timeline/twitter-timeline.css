@@ -2,6 +2,7 @@
   display: block;
 }
 
-::shadow .advertisement div {
+#timeline {
+  width: 80%;
   margin: 0 auto;
 }

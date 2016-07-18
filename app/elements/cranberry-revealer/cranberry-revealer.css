@@ -2,9 +2,11 @@
   display: block;
   width: auto;
 }
+
 #images {
   @apply(--layout-flex);
 }
+
 polyfill-next-selector { content: ':host img'; }
 ::content img{
   max-width: 100%;

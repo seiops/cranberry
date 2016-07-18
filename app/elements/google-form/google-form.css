@@ -2,6 +2,8 @@
   display: block;
 }
 
-::shadow .advertisement div {
+iframe {
+  height: 600px;
+  width: 80%;
   margin: 0 auto;
 }

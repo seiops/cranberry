@@ -125,7 +125,7 @@ class cranberryShortcode {
           shortcodeEl.style = 'margin: 0 auto;';
           shortcodeEl.title = foundObject.title;
 
-          this.$.shortcode.classList += ' .ut-smaller-width';
+          Polymer.dom(this.$.shortcode).classList.add('ut-smaller-width')
         }
       }
 
@@ -218,52 +218,45 @@ class cranberryShortcode {
             }
           }
         });
-        let card = document.createElement('paper-card');
+
         let slider = document.createElement('cranberry-slider');
         let wrapper = document.createElement('cranberry-slider-wrapper');
 
-        wrapper.set('isShortcode', true);
         wrapper.set('links', links);
         wrapper.set('featuredTitle', featured.title);
 
-        slider.setAttribute('autostart', 'true');
-        slider.setAttribute('arrows', 'true');
-        slider.setAttribute('bullets', 'false');
-        slider.setAttribute('info', 'true');
-        slider.setAttribute('caption', 'true');
+        slider.set('autostart', true);
+        slider.set('arrows', true);
+        slider.set('bullets', false);
+        slider.set('info', true);
+        slider.set('caption', true);
         slider.set('images', featured.mediaAssets.images);
 
 
         Polymer.dom(wrapper).appendChild(slider);
-        Polymer.dom(card).appendChild(wrapper);
 
-
-        shortcodeEl = card;
+        shortcodeEl = wrapper;
 
       }
 
       // Create SingleGallery shortcode
       if (type === 'singlegallery') {
-        let card = document.createElement('paper-card');
         let slider = document.createElement('cranberry-slider');
         let wrapper = document.createElement('cranberry-slider-wrapper');
 
-        wrapper.set('isShortcode', true);
         wrapper.set('featuredTitle', foundObject.title);
 
-        slider.setAttribute('autostart', 'true');
-        slider.setAttribute('arrows', 'true');
-        slider.setAttribute('bullets', 'false');
-        slider.setAttribute('info', 'true');
-        slider.setAttribute('caption', 'true');
+        slider.set('autostart', true);
+        slider.set('arrows', true);
+        slider.set('bullets', false);
+        slider.set('info', true);
+        slider.set('caption', true);
+
         slider.set('images', foundObject.mediaAssets.images);
 
-
         Polymer.dom(wrapper).appendChild(slider);
-        Polymer.dom(card).appendChild(wrapper);
 
-
-        shortcodeEl = card;
+        shortcodeEl = wrapper;
       }
 
       // Append shortcodeEl

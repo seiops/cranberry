@@ -15,6 +15,7 @@
 
 ::shadow .ut-smaller-width {
   width: 90%;
+  margin: 0 auto;
 }
 
 ::shadow .ut-height {
