@@ -25,7 +25,7 @@
     <byutv-jsonp on-response="_handleResponse" id="request"></byutv-jsonp>
 
     <div class="ut-center">
-      <google-dfp route="{{fullRoute}}" ad-pos="leaderboard_bottom" ad-size="[728, 90]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+      <google-dfp route="{{route}}" ad-pos="leaderboard_bottom" ad-size="[728, 90]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
     </div>
 
     <div class="gallery-container">
@@ -53,7 +53,7 @@
         </template>
       </div>
       <div class="flex ut-center">
-        <google-dfp route="{{fullRoute}}" adpos="bottom_of_stream" adsize="[[300,250],[300,600]]" adgroup="{$ config.dfpAdStructure.adGroupID $}" adgrouping="{$ config.dfpAdStructure.adGrouping $}" adsubgrouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+        <google-dfp route="{{route}}" ad-pos="bottom_of_stream" adsize="[[300,250],[300,600]]" adgroup="{$ config.dfpAdStructure.adGroupID $}" adgrouping="{$ config.dfpAdStructure.adGrouping $}" adsubgrouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
       </div>
     </div>
 

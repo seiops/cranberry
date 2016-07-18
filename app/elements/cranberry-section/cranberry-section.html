@@ -20,7 +20,8 @@
 
     <div hidden$="{{!desktop}}">
       <div class="header-advertisement">
-        <google-dfp route="[[fullRoute]]" ad-pos="leaderboard_top" ad-size="[728, 90]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+        <google-dfp route="{{route}}" ad-pos="leaderboard_bottom" ad-size="[728, 90]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+        <!-- <google-dfp route="[[fullRoute]]" ad-pos="leaderboard_top" ad-size="[728, 90]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp> -->
       </div>
       <cranberry-featured-content type="story_gallery" sections="[[section]]" count="3" start="1"></cranberry-featured-content>
     </div>
