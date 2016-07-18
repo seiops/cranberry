@@ -79,33 +79,40 @@ class CranberryStory {
     }
 
     // Processes shortcodes and displays content.
-    _displayContent () {
-      let story = this.get('story');
-      let paragraphs = story.paragraphs;
-      let contentArea = this.$.storyContentArea;
+    _displayContent (newValue) {
+      // Check if the new story value is empty. Failsafe for _changeParams setting the story object to empty on storyId change.
+      if (Object.keys(newValue).length !== 0) {
+        let paragraphs = newValue.paragraphs;
+        let contentArea = Polymer.dom(this.$.storyContentArea);
 
+        // Remove all children of the content area to prevent old paragraphs showing
+        while(contentArea.firstChild) {
+          contentArea.removeChild(contentArea.firstChild);
+        }
 
-      if(typeof paragraphs !== 'undefined') {
-        // Create a document fragment to append all elements to
-        let fragment = document.createDocumentFragment();
+        if(typeof paragraphs !== 'undefined') {
+          // Create a document fragment to append all elements to
+          let fragment = document.createDocumentFragment();
 
-        paragraphs.forEach(function(value, index) {
-          if (value.shortcode) {
-            let shortcodeEl = document.createElement('cranberry-shortcode');
+          paragraphs.forEach(function(value, index) {
+            if (value.shortcode) {
+              let shortcodeEl = document.createElement('cranberry-shortcode');
 
-            shortcodeEl.set('shortcodeObject', value);
-            shortcodeEl.set('storyObject', story);
-            fragment.appendChild(shortcodeEl);
-          } else {
-            let paragraphEl = document.createElement('p');
-            let node = document.createTextNode(value.text);
+              shortcodeEl.set('shortcodeObject', value);
+              shortcodeEl.set('storyObject', newValue);
 
-            paragraphEl.appendChild(node);
-            fragment.appendChild(paragraphEl);
-          }
-        });
+              fragment.appendChild(shortcodeEl);
+            } else {
+              let paragraphEl = document.createElement('p');
+              let node = document.createTextNode(value.text);
 
-        contentArea.appendChild(fragment);
+              paragraphEl.appendChild(node);
+              fragment.appendChild(paragraphEl);
+            }
+          });
+
+          contentArea.appendChild(fragment);
+        }
       }
     }
 
