@@ -100,7 +100,7 @@ class CranberryStory {
 
               shortcodeEl.set('shortcodeObject', value);
               shortcodeEl.set('storyObject', newValue);
-              
+
               fragment.appendChild(shortcodeEl);
             } else {
               let paragraphEl = document.createElement('p');
