@@ -48,15 +48,14 @@ div {
 }
 
 #mainImageCaption {
-  line-height: normal;
+  @apply(--paper-font-caption);
   margin: 20px 0 20px 0;
-  color: rgba(0, 0, 0, 0.60);
 }
 .ut-small-icon-margin {
   margin: 10px 14px 0 0;
 }
 #commentButton {
-  background: #005A90;
+  background: var(--dark-primary-color);
 }
 
 #twitterButton {
@@ -73,12 +72,12 @@ div {
 }
 
 #storyTitle {
-  line-height: normal;
+  @apply(--paper-font-title);
   margin: 0;
 }
 
 #storyPublish {
-  color: #5bc1a5;
+  @apply(--paper-font-caption);
 }
 
 #storyByline {
@@ -87,6 +86,7 @@ div {
 
 #byLineInfo {
   @apply(--layout-vertical);
+  @apply(--paper-font-caption);
 }
 
 #byLineInfo p {
@@ -94,5 +94,5 @@ div {
 }
 
 #storyContentArea p {
-  color: rgba(0, 0, 0, 0.87);
+  @apply(--paper-font-body1);
 }
