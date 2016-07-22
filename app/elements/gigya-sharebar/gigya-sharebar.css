@@ -8,7 +8,7 @@
 }
 
 paper-material {
-  background-color: #fff;
+  background-color: var(--primary-background-color);
 }
 paper-material {
   line-height: normal;
