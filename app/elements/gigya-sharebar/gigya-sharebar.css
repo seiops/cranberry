@@ -18,11 +18,11 @@ paper-material {
 }
 
 paper-material .gig-button-text {
-  color: black;
+  color: var(--secondary-text-color);
 }
 
 ::shadow #shareButton {
   width: 56px;
   height: 56px;
-  background: #5bc1a5;
+  background: var(--dark-accent-color);
 }
