@@ -3,7 +3,7 @@
 }
 
 blockquote span {
-  @apply(--paper-font-body1);
+  @apply(--paper-font-title);
   position: absolute;
   bottom: 0;
   right: 15%;
@@ -11,7 +11,7 @@ blockquote span {
 }
 
 blockquote {
-  @apply(--paper-font-headline);
+  @apply(--paper-font-title);
   position: relative;
   margin: 0 auto;
   max-width: 600px;
