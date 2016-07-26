@@ -255,19 +255,19 @@ nav ::shadow{
 }
 
 ::shadow .info {
+  @apply(--paper-font-caption);
   display: block;
   height: 30px;
   position: absolute;
   width: 100%;
   bottom: -60px;
-  font-family: inherit;
-  font-size: inherit;
-  /*line-height: 30px;*/
   color: rgba(0, 0, 0, 0.4);
 }
 
 ::shadow .info p iron-icon {
   padding: 0 10px 0 0;
+  width: 16px;
+  height: 16px;
 }
 
 ::shadow .info span {
