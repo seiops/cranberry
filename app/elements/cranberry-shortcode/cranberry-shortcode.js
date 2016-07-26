@@ -104,7 +104,7 @@ class cranberryShortcode {
       if (type === 'image' && shortcode.key !== 'leadimage') {
         shortcodeEl = document.createElement('iron-image');
         let caption = document.createElement('p');
-        caption.classList.add('ut-text-small-dim');
+        caption.classList.add('caption-text');
         shortcodeEl.src = 'http://www.standard.net' + (shortcode.key === 'image' ? this.computeRatio(foundObject.url, '16-9') : foundObject.url);
         caption.appendChild(document.createTextNode(foundObject.caption));
         shortcodeEl.appendChild(caption);
@@ -268,7 +268,7 @@ class cranberryShortcode {
 
       // Append shortcodeEl
       if (shortcode.key === 'leadimage') {
-        document.querySelector('#storyMedia').querySelector('iron-image').src = 'http://www.standard.net/' + this.computeRatio(foundObject.url, '16-9');
+        document.querySelector('#mainImage').src = 'http://www.standard.net/' + this.computeRatio(foundObject.url, '16-9');
       } else {
         Polymer.dom(this.$.shortcode).appendChild(shortcodeEl);
       }
