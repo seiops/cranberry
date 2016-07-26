@@ -1,3 +1,6 @@
+div {
+  margin-bottom: 14px;
+}
 /* Utilities classes */
 .ut-center {
   text-align: center;
@@ -38,6 +41,7 @@
   bottom: -25px;
   right: 5%;
   z-index: 10;
+  margin-bottom: 0;
 }
 
 .flex-absolute.share-buttons {
@@ -55,6 +59,20 @@
   top: 20px;
   right: 25px;
   height: 50px;
+}
+
+/* Gallery Headline */
+h1.gallery-title {
+  @apply(--paper-font-display1);
+  margin-bottom: 0;
+}
+
+p.caption-text {
+  @apply(--paper-font-caption);
+}
+
+p.body-text {
+  @apply(--paper-font-body1);
 }
 
 paper-button {
