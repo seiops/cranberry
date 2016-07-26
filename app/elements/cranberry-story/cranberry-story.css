@@ -98,3 +98,21 @@ div {
 #storyContentArea p {
   color: rgba(0, 0, 0, 0.87);
 }
+
+div.content-wrapper {
+  @apply(--layout-around-justified);
+  @apply(--layout-horizontal);
+  @apply(--layout-wrap);
+}
+
+div.story-content {
+  @apply(--layout-flex);
+  min-width: 900px;
+}
+
+div.right-rail {
+  @apply(--layout-flex);
+  min-width: 300px;
+  max-width: 320px;
+  margin: 10px;
+}
