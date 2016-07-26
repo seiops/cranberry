@@ -40,20 +40,37 @@ div {
   padding-bottom: 5px;
 }
 
-#storyMedia {
+/* Story Headline */
+h1.story-title {
+  @apply(--paper-font-display1);
+  margin-bottom: 0;
+}
+
+/* Publish Date / Image Caption */
+p.caption-text {
+  @apply(--paper-font-caption);
+}
+
+p.main-image-caption {
+  margin: 20px 0 20px 0;
+}
+
+div.story-media {
   position: relative;
   padding-bottom: 0;
   line-height: normal;
   font-size: 0;
 }
 
-#mainImageCaption {
-  @apply(--paper-font-caption);
-  margin: 20px 0 20px 0;
+div.body-text {
+  @apply(--paper-font-body1);
 }
+
+/* Social Icon styles */
 .ut-small-icon-margin {
   margin: 10px 14px 0 0;
 }
+
 #commentButton {
   background: var(--dark-primary-color);
 }
@@ -71,28 +88,16 @@ div {
   margin-right: 7px;
 }
 
-#storyTitle {
-  @apply(--paper-font-title);
-  margin: 0;
+/* Byline styles */
+.by-line-wrapper {
+    @apply(--layout-horizontal);
 }
 
-#storyPublish {
-  @apply(--paper-font-caption);
-}
-
-#storyByline {
-  @apply(--layout-horizontal);
-}
-
-#byLineInfo {
+.by-line-info {
   @apply(--layout-vertical);
   @apply(--paper-font-caption);
 }
 
-#byLineInfo p {
+.by-line-info p {
   margin: 0 0 0 10px;
-}
-
-#storyContentArea p {
-  @apply(--paper-font-body1);
 }
