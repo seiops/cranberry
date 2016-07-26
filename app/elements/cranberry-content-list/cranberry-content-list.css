@@ -43,13 +43,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   /* postcss-bem-linter: ignore */
   --paper-card-header-image-text: {
     color: var(--text-accent-color);
-    font-size: 20px;
+    @apply(--paper-font-headline1);
     text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
   };
 
   /* postcss-bem-linter: ignore */
   --paper-card-header-text: {
-    font-size: 20px;
+    @apply(--paper-font-headline);
   };
 }
 
@@ -98,4 +98,8 @@ paper-card.story div.card-info span.story-tag {
   padding-left: 6px;
   padding-right: 6px;
   text-transform: uppercase;
+}
+
+paper-card.story div.card-info span.story-date {
+  @apply(--paper-font-caption);
 }

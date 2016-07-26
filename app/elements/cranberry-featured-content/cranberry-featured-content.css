@@ -42,6 +42,10 @@ paper-card div.card-info span.content-tag {
   text-transform: uppercase;
 }
 
+paper-card div.card-info span.content-date {
+  @apply(--paper-font-caption);
+}
+
 paper-card div.card-info {
   @apply(--layout-horizontal);
   @apply(--layout-justified);
