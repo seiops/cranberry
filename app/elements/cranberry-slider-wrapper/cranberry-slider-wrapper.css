@@ -2,16 +2,16 @@
   display: block;
 }
 
-::shadow paper-card {
-  width: 100%;
+paper-card {
+  width: 90%;
 }
 
-::shadow paper-card ul {
+paper-card ul {
   list-style: none;
   text-align: left;
 }
 
-::shadow paper-card ul li a {
+paper-card ul li a {
   font-size: 1.2em;
   text-decoration: none;
 }

@@ -25,7 +25,7 @@
       <!-- Top Ad -->
       <div class="ut-center">
         <!-- Placeholder element for leaderboard ad. -->
-        <google-dfp route="{{fullRoute}}" ad-pos="leaderboard_bottom" ad-size="[728, 90]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+        <google-dfp route="{{route}}" ad-pos="leaderboard_bottom" ad-size="[728, 90]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
       </div>
 
       <!-- Headline -->
@@ -61,7 +61,17 @@
       </div>
 
       <!-- Story Content Area -->
-      <div class="body-text" id="storyContentArea"></div>
+      <div class="content-wrapper">
+        <!-- Contains story paragraphs -->
+        <div class="story-content" id="storyContentArea"></div>
+        <!-- Contains Right Rail -->
+        <div class="right-rail">
+          <iron-image src="http://www.placehold.it/300x250&amp;text=AD_300x250"></iron-image>
+          <iron-image src="http://www.placehold.it/300x550&amp;text=Popular"></iron-image>
+          <iron-image src="http://www.placehold.it/300x250&amp;text=AD_300x250"></iron-image>
+          <iron-image src="http://www.placehold.it/300x550&amp;text=Popular"></iron-image>
+        </div>
+      </div>
 
       <!-- Middle Ad -->
       <div class="ut-center">
@@ -75,7 +85,7 @@
 
       <!-- Bottom Ad -->
       <div class="ut-center">
-        <google-dfp route="{{fullRoute}}" ad-pos="bottom_of_stream" ad-size="[[300,250],[300,600]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+        <!-- <google-dfp route="{{fullRoute}}" ad-pos="bottom_of_stream" ad-size="[[300,250],[300,600]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp> -->
       </div>
 
       <!-- Youneeq Content Area -->

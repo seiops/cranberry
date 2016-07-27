@@ -5,15 +5,17 @@
   margin-bottom: 14px;
 }
 
-::shadow iron-image {
+div#shortcode::shadow iron-image {
   --iron-image-width: 100%;
+  max-width: 600px;
 }
 
-::shadow .ut-smaller-width {
+:host::shadow .ut-smaller-width {
   width: 90%;
+  margin: 0 auto;
 }
 
-::shadow .ut-height {
+:host::shadow .ut-height {
   height: 600px;
 }
 

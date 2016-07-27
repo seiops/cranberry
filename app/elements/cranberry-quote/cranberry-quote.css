@@ -1,9 +1,10 @@
 :host {
   display: block;
+  position: relative;
 }
 
 blockquote span {
-  @apply(--paper-font-title);
+  @apply(--paper-font-caption);
   position: absolute;
   bottom: 0;
   right: 15%;
@@ -11,16 +12,12 @@ blockquote span {
 }
 
 blockquote {
-  @apply(--paper-font-title);
+  @apply(--paper-font-subhead);
   position: relative;
   margin: 0 auto;
   max-width: 600px;
   padding: 30px 60px;
   text-align: center;
-}
-
-blockquote[mobile-layout] {
-  @apply(--paper-font-title);
 }
 
 blockquote[mobile-layout]:before,
