@@ -93,6 +93,7 @@ paper-card.story div.card-info {
 }
 
 paper-card.story div.card-info span.story-tag {
+  @apply(--paper-font-button);
   background-color: var(--accent-color);
   color: var(--text-accent-color);
   padding-left: 6px;
