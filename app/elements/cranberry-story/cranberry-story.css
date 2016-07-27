@@ -105,9 +105,10 @@ div.content-wrapper {
   @apply(--layout-wrap);
 }
 
+/* The minimum and maximum widths will need to be adjusted based on the new break points element */
 div.story-content {
   @apply(--layout-flex);
-  min-width: 900px;
+  min-width: 700px;
 }
 
 div.right-rail {
