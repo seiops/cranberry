@@ -74,6 +74,10 @@ class CranberryFeaturedContent {
     app.logger ('<\cranberry-featured-content\> type changed');
   }
 
+  _changeResponse () {
+    console.log('response changed');
+  }
+
   _firstItem (item, index) {
     if (index === 0) {
       return true;
@@ -82,17 +86,19 @@ class CranberryFeaturedContent {
     }
   }
 
-  _handleResponse () {
+  _handleResponse (data) {
     app.logger ('<\cranberry-featured-content\> response received');
-  }
+    console.log('data diff');
+    console.dir(data);
 
-  _handleLoad (data) {
-    let response = this.get('response');
+    let response = data.detail;
 
     let responseItems = JSON.parse(response.Result);
 
     this.set('items', responseItems);
   }
+
+  _handleLoad () {}
 
   _updateParams () {
     this.$.request.abortRequest();

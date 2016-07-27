@@ -1,26 +1,26 @@
 <iron-pages class="Main-content" attr-for-selected="data-route" selected="{{data.page}}" default-selected="">
-  <div data-route="">
+  <div data-route="" hidden$="{{!_equal(data.page, '')}}">
     {% include "cranberry-base/views/pages/home.html" %}
   </div>
-  <div data-route="contact">
+  <div data-route="contact" hidden$="{{!_equal(data.page, 'contact')}}">
     {% include "cranberry-base/views/pages/contact.html" %}
   </div>
-  <div data-route="gallery">
+  <div data-route="gallery" hidden$="{{!_equal(data.page, 'gallery')}}">
     {% include "cranberry-base/views/pages/gallery.html" %}
   </div>
-  <div data-route="section">
+  <div data-route="section" hidden$="{{!_equal(data.page, 'section')}}">
     <!-- {% include "cranberry-base/views/pages/section.html" %} -->
   </div>
-  <div data-route="policy">
+  <div data-route="policy" hidden$="{{!_equal(data.page, 'policy')}}">
     {% include "cranberry-base/views/pages/policy.html" %}
   </div>
   <div data-route="story">
     {% include "cranberry-base/views/pages/story.html" %}
   </div>
-  <div data-route="terms">
+  <div data-route="terms" hidden$="{{!_equal(data.page, 'terms')}}">
     {% include "cranberry-base/views/pages/terms.html" %}
   </div>
-  <div data-route="styles">
+  <div data-route="styles" hidden$="{{!_equal(data.page, 'styles')}}">
     {% include "cranberry-base/views/pages/styles.html" %}
   </div>
 </iron-pages>

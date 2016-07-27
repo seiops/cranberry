@@ -12,7 +12,14 @@
       @import "cranberry-content-list/cranberry-content-list";
     </style>
     <iron-media-query query="(max-width:1370px)" query-matches="{{leaderboard}}"></iron-media-query>
-    <byutv-jsonp on-response="_handleResponse" id="request" ></byutv-jsonp>
+    <byutv-jsonp
+      on-response="_handleResponse"
+      on-load="_handleLoad"
+      last-response="{{response}}"
+      last-request="{{request}}"
+      last-error="{{error}}"
+      id="request"
+      cache>
     <div class="content-cards">
       <template is="dom-repeat" items="{{items}}" initial-count="3">
         <template is="dom-if" if="[[_checkInStreamAd(item, index)]]">

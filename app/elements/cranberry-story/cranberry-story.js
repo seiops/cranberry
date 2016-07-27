@@ -23,6 +23,7 @@ class CranberryStory {
             value: 0,
             observer: '_storyIdChanged'
           },
+          hidden: Boolean,
           params: {
             type: Object,
             value: {}
@@ -114,6 +115,8 @@ class CranberryStory {
       app.logger('\<cranberry-story\> json response received');
 
       let result = JSON.parse(json.detail.Result);
+
+      console.dir(this);
 
       this.set('story', result);
     }

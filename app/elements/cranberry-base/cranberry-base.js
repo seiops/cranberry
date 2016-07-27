@@ -26,7 +26,6 @@ class CranberryBase {
   }
 
   attached() {
-    console.dir(app);
     // let storage = JSON.parse(localStorage.getItem(this.$.localStorage.name));
     // if (storage) {
     //   if (storage.darkThemeEnabled) {
@@ -36,16 +35,6 @@ class CranberryBase {
     //     this.changeAccentColor(storage.accentColor);
     //   }
     // }
-
-    this._checkTabs();
-  }
-
-  _checkTabs() {
-      // let tabs = Polymer.dom(this.root).querySelector('paper-tabs');
-      // console.dir(tabs);
-      // tabs.addEventListener('iron-select', function() {
-      //     this.set('selected', tabs.selected);
-      // });
   }
 
   //detached() {}

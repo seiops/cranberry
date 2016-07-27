@@ -1,6 +1,6 @@
 class CranberryContentList {
   beforeRegister() {
-    this.is = 'Cranberry-content-list';
+    this.is = 'cranberry-content-list';
     this.properties = {
       count: {
         type: Number
@@ -45,6 +45,9 @@ class CranberryContentList {
     let params = this.get('params');
 
     if (params.length !== 0 && params.desiredCount) {
+
+      this.$.request.setAttribute('url', this.get('rest'));
+
       // Shimmed timestamper.
       if (!Date.now) {
           Date.now = function() { return new Date().getTime(); }
@@ -52,11 +55,9 @@ class CranberryContentList {
 
       var timeStamp = Math.floor(Date.now() / 1000);
 
-      // this.$.request.setAttribute('callback-key', 'cb' + timeStamp);
+      this.$.request.setAttribute('callback-value', 'cb' + timeStamp);
 
-      this.$.request.setAttribute('url', this.rest);
-
-      this.$.request.setAttribute('params', params);
+      this.$.request.params = params;
 
       this.$.request.generateRequest();
     }
@@ -88,14 +89,17 @@ class CranberryContentList {
     }
   }
 
-  _handleResponse (data,data2,data3) {
-    console.dir(data);
-    console.dir(data2);
-    console.dir(data3);
-    let result = JSON.parse(data.detail.Result);
+  _handleResponse (data) {
+    app.logger ('<\cranberry-featured-content\> response received');
 
-    this.set('items', result);
+    let response = data.detail;
+
+    let responseItems = JSON.parse(response.Result);
+
+    this.set('items', responseItems);
   }
+
+  _handleLoad () {}
 
   _hasImage (image) {
     if(typeof image !== 'undefined' && image.length > 0) {
@@ -121,9 +125,6 @@ class CranberryContentList {
     }
   }
 
-  _siteTitle (route) {
-    console.dir(route);
-  }
   _trimText (text) {
     let trunc = text;
 
@@ -139,7 +140,7 @@ class CranberryContentList {
   _updateParams () {
     this.$.request.abortRequest();
 
-    this.set('items',[]);
+    this.set('items', []);
 
     let jsonp = {};
 
