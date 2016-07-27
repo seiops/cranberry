@@ -22,7 +22,7 @@ paper-material .gig-button-text {
   color: black;
 }
 
-::shadow #shareButton {
+:host::shadow #shareButton {
   width: 56px;
   height: 56px;
   background: #5bc1a5;

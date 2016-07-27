@@ -4,20 +4,20 @@
   width: 100%;
 }
 
-::shadow iron-image {
+:host::shadow iron-image {
   --iron-image-width: 100%;
 }
 
-::shadow .ut-text-small-dim {
+:host::shadow .ut-text-small-dim {
   font-size: .9em;
   color: #999;
 }
 
-::shadow .ut-smaller-width {
+:host::shadow .ut-smaller-width {
   width: 90%;
   margin: 0 auto;
 }
 
-::shadow .ut-height {
+:host::shadow .ut-height {
   height: 600px;
 }

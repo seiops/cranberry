@@ -59,7 +59,7 @@ loader {
   background-color: #2a2a2a;
 }
 
-::shadow .first {
+:host::shadow .first {
   background-color: #2a2a2a;
   background-position: 50% 50%;
   background-size: auto;
@@ -129,8 +129,8 @@ loader {
   background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM6c2tldGNoPSJodHRwOi8vd3d3LmJvaGVtaWFuY29kaW5nLmNvbS9za2V0Y2gvbnMiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMjBweCIgaGVpZ2h0PSIyMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDIwIDIwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cGF0aCBpZD0iUGFnZS0xIiBmaWxsPSIjQThBOEE4IiBkPSJNOCwxNC41bDYtNC41TDgsNS41VjE0LjVMOCwxNC41eiIvPjwvc3ZnPg==);
 }
 
-::shadow .next,
-::shadow .prev {
+:host::shadow .next,
+:host::shadow .prev {
   display: block;
   position: absolute;
   height: 100%;
@@ -145,8 +145,8 @@ loader {
   transition: opacity .15s ease-out;
 }
 
-::shadow .next:hover,
-::shadow .prev:hover {
+:host::shadow .next:hover,
+:host::shadow .prev:hover {
   opacity: 1;
 }
 
@@ -156,7 +156,7 @@ figure {
   overflow: hidden;
 }
 
-::shadow .next {
+:host::shadow .next {
   right: 0;
   background: -moz-linear-gradient(to left, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0) 100%) rgba(0, 0, 0, 0);
   background: -webkit-linear-gradient(to left, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0) 100%) rgba(0, 0, 0, 0);
@@ -164,7 +164,7 @@ figure {
   background: linear-gradient(to left, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0) 100%) rgba(0, 0, 0, 0);
 }
 
-::shadow .prev {
+:host::shadow .prev {
   left: 0;
   background: -moz-linear-gradient(to right, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0) 100%) rgba(0, 0, 0, 0);
   background: -webkit-linear-gradient(to right, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0) 100%) rgba(0, 0, 0, 0);
@@ -179,11 +179,11 @@ nav ::shadow{
   height: 1px;
 }
 
-::shadow .with-bullets .bullets {
+:host::shadow .with-bullets .bullets {
   display: block;
 }
 
-::shadow .bullets {
+:host::shadow .bullets {
   display: none;
   position: absolute;
   left: 0;
@@ -200,7 +200,7 @@ nav ::shadow{
   user-select: none;
 }
 
-::shadow .bullets button {
+:host::shadow .bullets button {
   display: inline-block;
   position: relative;
   width: 24px;
@@ -212,8 +212,8 @@ nav ::shadow{
   background-color: transparent;
 }
 
-::shadow .bullets button:after,
-::shadow .bullets button:before {
+:host::shadow .bullets button:after,
+:host::shadow .bullets button:before {
   content: " ";
   display: block;
   position: absolute;
@@ -228,33 +228,33 @@ nav ::shadow{
   transition: transform .225s cubic-bezier(.5, .75, .5, 1.65), opacity .15s ease-out;
 }
 
-::shadow .bullets button:after {
+:host::shadow .bullets button:after {
   opacity: 0;
   background-color: #6a6a6a;
 }
 
-::shadow .bullets button:before {
+:host::shadow .bullets button:before {
   background-color: #3f3f3f;
 }
 
-::shadow .bullets button:hover:before {
+:host::shadow .bullets button:hover:before {
   -webkit-transform: scale(0.7);
   transform: scale(0.7);
 }
 
-::shadow .bullets .active:after {
+:host::shadow .bullets .active:after {
   opacity: 1;
   -webkit-transform: scale(1);
   transform: scale(1);
 }
 
-::shadow .bullets .active:before {
+:host::shadow .bullets .active:before {
   opacity: 0;
   -webkit-transform: scale(.5);
   transform: scale(.5);
 }
 
-::shadow .info {
+:host::shadow .info {
   display: block;
   height: 30px;
   position: absolute;
@@ -266,20 +266,20 @@ nav ::shadow{
   color: rgba(0, 0, 0, 0.4);
 }
 
-::shadow .info p iron-icon {
+:host::shadow .info p iron-icon {
   padding: 0 10px 0 0;
 }
 
-::shadow .info span {
+:host::shadow .info span {
   float: left;
 }
 
-::shadow .info p {
+:host::shadow .info p {
   display: inline;
   padding: 0 0 0 10px;
 }
 
-::shadow .info button ::shadow {
+:host::shadow .info button ::shadow {
   float: right;
   border: none;
   background-color: transparent;
@@ -291,12 +291,12 @@ nav ::shadow{
   color: rgba(0, 0, 0, 0.4);
 }
 
-::shadow .info button:hover {
+:host::shadow .info button:hover {
   color: rgba(0, 0, 0, 0.8);
 }
 
-::shadow .a-left,
-::shadow .a-right {
+:host::shadow .a-left,
+:host::shadow .a-right {
   display: block;
   position: absolute;
   height: 20px;
@@ -308,10 +308,10 @@ nav ::shadow{
   right: 30px;
 }
 
-::shadow .a-left:after,
-::shadow .a-left:before,
-::shadow .a-right:after,
-::shadow .a-right:before {
+:host::shadow .a-left:after,
+:host::shadow .a-left:before,
+:host::shadow .a-right:after,
+:host::shadow .a-right:before {
   content: " ";
   position: absolute;
   right: 0;
@@ -325,84 +325,84 @@ nav ::shadow{
   transition: transform .15s ease-out;
 }
 
-::shadow .a-right:before,
-::shadow .a-left:before {
+:host::shadow .a-right:before,
+:host::shadow .a-left:before {
   top: -50%;
   -webkit-transform: rotate(-45deg);
   transform: rotate(-45deg);
 }
 
-::shadow .a-right:after,
-::shadow .a-left:after {
+:host::shadow .a-right:after,
+:host::shadow .a-left:after {
   top: calc(-50% + -1px);
   -webkit-transform: rotate(-135deg);
   transform: rotate(-135deg);
 }
 
-::shadow .a-left {
+:host::shadow .a-left {
   left: 30px;
 }
 
-::shadow .a-left:before,
-::shadow .a-left:after {
+:host::shadow .a-left:before,
+:host::shadow .a-left:after {
   right: auto;
   left: 0;
 }
 
-::shadow .a-left:before {
+:host::shadow .a-left:before {
   top: -50%;
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
 }
 
-::shadow .a-left:after {
+:host::shadow .a-left:after {
   top: calc(-50% + -1px);
   -webkit-transform: rotate(135deg);
   transform: rotate(135deg);
 }
 
-::shadow .next:hover .a-right:before {
+:host::shadow .next:hover .a-right:before {
   opacity: 1;
   -webkit-transform: rotate(-30deg);
   transform: rotate(-30deg);
 }
 
-::shadow .next:hover .a-right:after {
+:host::shadow .next:hover .a-right:after {
   opacity: 1;
   -webkit-transform: rotate(-150deg);
   transform: rotate(-150deg);
 }
 
-::shadow .prev:hover .a-left:before {
+:host::shadow .prev:hover .a-left:before {
   opacity: 1;
   -webkit-transform: rotate(30deg);
   transform: rotate(30deg);
 }
 
-::shadow .prev:hover .a-left:after {
+:host::shadow .prev:hover .a-left:after {
   opacity: 1;
   -webkit-transform: rotate(150deg);
   transform: rotate(150deg);
 }
 
-::shadow .next.active .a-right:before,
-::shadow .next.active .a-right:after {
+:host::shadow .next.active .a-right:before,
+:host::shadow .next.active .a-right:after {
   -webkit-transform: rotate(-90deg) scale(.75);
   transform: rotate(-90deg) scale(.75);
 }
 
-::shadow .prev.active .a-left:before,
-::shadow .prev.active .a-left:after {
+:host::shadow .prev.active .a-left:before,
+:host::shadow .prev.active .a-left:after {
   -webkit-transform: rotate(90deg) scale(.75);
   transform: rotate(90deg) scale(.75);
 }
 
-::shadow .next.active .a-right {
+:host::shadow .next.active .a-right {
   -webkit-transform: translateX(55px);
   transform: translateX(55px);
 }
 
-::shadow .prev.active .a-left {
+:host::shadow .prev.active .a-left {
   -webkit-transform: translateX(-55px);
   transform: translateX(-55px);
 }
@@ -424,23 +424,23 @@ nav ::shadow{
   transform: translateX(0%);
 }
 
-::shadow .next-in {
+:host::shadow .next-in {
   -webkit-animation: next-in .95s both cubic-bezier(.65, .0, .35, 1);
   animation: next-in .95s both cubic-bezier(.65, 0, .35, 1);
 }
 
-::shadow .next-out {
+:host::shadow .next-out {
   -webkit-animation: next-out .85s both cubic-bezier(.65, 0, .35, 1);
   -webkit-animation-delay: .15s;
   animation: next-out .85s both cubic-bezier(.65, 0, .35, 1) .15s;
 }
 
-::shadow .prev-in {
+:host::shadow .prev-in {
   -webkit-animation: prev-in .95s both cubic-bezier(.65, 0, .35, 1);
   animation: prev-in .95s both cubic-bezier(.65, 0, .35, 1);
 }
 
-::shadow .prev-out {
+:host::shadow .prev-out {
   -webkit-animation: prev-out .85s both cubic-bezier(.65, 0, .35, 1);
   -webkit-animation-delay: .15s;
   animation: prev-out .85s both cubic-bezier(.65, 0, .35, 1) .15s;
@@ -552,7 +552,7 @@ nav ::shadow{
   background-color: #D84315;
 }
 
-::shadow .white-text {
+:host::shadow .white-text {
   color: #fff;
 }
 

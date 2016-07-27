@@ -2,6 +2,6 @@
   display: block;
 }
 
-::shadow .advertisement div {
+.advertisement::shadow div {
   margin: 0 auto;
 }
