@@ -49,10 +49,6 @@ class CranberryFeaturedContent {
 
       this.$.request.setAttribute('url', this.get('rest'));
 
-      let derp = this.$.request.getAttribute('url');
-
-      console.log('derp: ', derp);
-
       // Shimmed timestamper.
       if (!Date.now) {
           Date.now = function() { return new Date().getTime(); }
