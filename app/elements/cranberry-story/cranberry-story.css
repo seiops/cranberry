@@ -107,13 +107,17 @@ div.content-wrapper {
 
 /* The minimum and maximum widths will need to be adjusted based on the new break points element */
 div.story-content {
-  @apply(--layout-flex);
-  min-width: 700px;
+  @apply(--layout-flex-4);
+  @apply(--layout-vertical);
 }
 
 div.right-rail {
   @apply(--layout-flex);
-  min-width: 300px;
-  max-width: 320px;
+  @apply(--layout-vertical);
+  @apply(--layout-center);
   margin: 10px;
+}
+
+div.right-rail > * {
+  margin: 12px;
 }
