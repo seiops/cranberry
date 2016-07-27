@@ -9,10 +9,6 @@ class cranberryShortcode {
             type: Object
           }
         };
-        this.computeRatio = function(url, ratio) {
-          let ratioString = 'a' + ratio;
-          return url.replace('p1', ratioString + '_p1');
-        };
     }
 
     // Attached function to handle all data passed to shortcode Element
@@ -105,7 +101,7 @@ class cranberryShortcode {
         shortcodeEl = document.createElement('iron-image');
         let caption = document.createElement('p');
         caption.classList.add('ut-text-small-dim');
-        shortcodeEl.src = 'http://www.standard.net' + (shortcode.key === 'image' ? this.computeRatio(foundObject.url, '16-9') : foundObject.url);
+        shortcodeEl.src = 'http://www.standard.net' + (shortcode.key === 'image' ? foundObject.exlarge : foundObject.url);
         caption.appendChild(document.createTextNode(foundObject.caption));
         shortcodeEl.appendChild(caption);
       }
@@ -155,7 +151,7 @@ class cranberryShortcode {
 
         foundObject.forEach(function(value, index) {
           let obj = {};
-          obj.url = 'http://www.standard.net' + myElement.computeRatio(value.url, '16-9');
+          obj.url = 'http://www.standard.net' + value.exlarge;
           images.push(obj);
         });
 
@@ -261,7 +257,7 @@ class cranberryShortcode {
 
       // Append shortcodeEl
       if (shortcode.key === 'leadimage') {
-        document.querySelector('#storyMedia').querySelector('iron-image').src = 'http://www.standard.net/' + this.computeRatio(foundObject.url, '16-9');
+        document.querySelector('#storyMedia').querySelector('iron-image').src = 'http://www.standard.net/' + foundObject.exlarge;
       } else {
         Polymer.dom(this.$.shortcode).appendChild(shortcodeEl);
       }
