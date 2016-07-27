@@ -26,6 +26,7 @@ class CranberryBase {
   }
 
   attached() {
+    console.dir(app);
     // let storage = JSON.parse(localStorage.getItem(this.$.localStorage.name));
     // if (storage) {
     //   if (storage.darkThemeEnabled) {
@@ -146,7 +147,15 @@ class CranberryBase {
     }
   }
 
-  _isPopular(selected) {
+_isPopular(selected) {
+    if (selected === 2) {
+      return true;
+    } else {
+      return false;
+    }
+}
+
+  _isFeatured(selected) {
     if (selected === 2) {
       return true;
     } else {
@@ -154,12 +163,22 @@ class CranberryBase {
     }
   }
 
-    _isFeatured(selected) {
-    if (selected === 2) {
-      return true;
-    } else {
-      return false;
+  _siteTitle (route) {
+    let path = route.path;
+    let section = '';
+
+    let sectionPath = path.search('section');
+
+    if (sectionPath > 0) {
+      console.log('section');
+      section = path.replace('\/section\/','');
+    }else if (path === '/') {
+      section = 'Home';
+    }else {
+      section = path.replace(/\//g, '');
     }
+
+    return section;
   }
 
   // Change theme

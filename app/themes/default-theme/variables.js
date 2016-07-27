@@ -17,10 +17,14 @@ var primaryColorName = 'blue',
 
 module.exports = {
   global: {
+    logo: '/images/logo.png',
+    location: '/images/location.jpg',
     primaryColorName: primaryColorName,
     accentColorName: accentColorName,
     themeMode: themeMode
   },
+
+  // Location settings
 
   // Web Application Manifest - manifest.json
   manifest: {

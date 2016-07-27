@@ -45,9 +45,18 @@ class CranberryContentList {
     let params = this.get('params');
 
     if (params.length !== 0 && params.desiredCount) {
-      this.$.request.url = this.rest;
+      // Shimmed timestamper.
+      if (!Date.now) {
+          Date.now = function() { return new Date().getTime(); }
+      }
 
-      this.$.request.params = params;
+      var timeStamp = Math.floor(Date.now() / 1000);
+
+      // this.$.request.setAttribute('callback-key', 'cb' + timeStamp);
+
+      this.$.request.setAttribute('url', this.rest);
+
+      this.$.request.setAttribute('params', params);
 
       this.$.request.generateRequest();
     }
@@ -59,8 +68,8 @@ class CranberryContentList {
     this._updateParams();
   }
 
-  _checkItem (item, index) {
-    let modulus = index % 2;
+  _checkInStreamAd (item, index) {
+    let modulus = index % 6;
 
     if (index > 0 && modulus === 0) {
       return true;
@@ -69,7 +78,20 @@ class CranberryContentList {
     }
   }
 
-  _handleResponse (data) {
+  _checkLeaderboardAd (item, index) {
+    let modulus = index % 10;
+
+    if (index > 0 && modulus === 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  _handleResponse (data,data2,data3) {
+    console.dir(data);
+    console.dir(data2);
+    console.dir(data3);
     let result = JSON.parse(data.detail.Result);
 
     this.set('items', result);
@@ -99,6 +121,9 @@ class CranberryContentList {
     }
   }
 
+  _siteTitle (route) {
+    console.dir(route);
+  }
   _trimText (text) {
     let trunc = text;
 

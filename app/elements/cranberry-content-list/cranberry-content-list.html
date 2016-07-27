@@ -1,18 +1,23 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../bower_components/iron-icons/social-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/communication-icons.html">
 
 <dom-module id="cranberry-content-list">
   <template>
     <style>
       @import "cranberry-content-list/cranberry-content-list";
     </style>
-    <byutv-jsonp on-response="_handleResponse" id="request"></byutv-jsonp>
+    <iron-media-query query="(max-width:1370px)" query-matches="{{leaderboard}}"></iron-media-query>
+    <byutv-jsonp on-response="_handleResponse" id="request" ></byutv-jsonp>
     <div class="content-cards">
       <template is="dom-repeat" items="{{items}}" initial-count="3">
-        <template is="dom-if" if="[[_checkItem(item, index)]]">
+        <template is="dom-if" if="[[_checkInStreamAd(item, index)]]">
           <a href="#">
-            <paper-card class="advertisement" elevation="0">
+            <paper-card class="stream-advertisement" elevation="0">
               <div class="card-content">
                 <iron-image src="http://lorempixel.com/300/250"></iron-image>
               </div>
@@ -25,12 +30,13 @@
             <a href="/story/[[item.itemId]]">
               <paper-card heading="[[item.title]]" fade-image preload-image image="http://www.standard.net/[[item.mediaAssets.images.0.large]]" elevation="1" class="story">
                 <div class="card-content">
+                  <span class="story-date">[[item.updated]]</span>
                   <span>[[_trimText(item.preview)]]</span>
                 </div>
                 <div class="card-actions">
                   <div class="card-info">
-                    <span class="story-tag">[[item.sectionInformation.primarySection]]</span>
-                    <span class="story-date">[[item.updated]]</span>
+                    <div class="story-tag">[[item.sectionInformation.primarySection]]</div>
+                    <div class="story-comments">[[item.socialInformation.comments]] &nbsp;<iron-icon icon="communication:chat-bubble"></iron-icon></div>
                   </div>
                 </div>
               </paper-card>
@@ -51,6 +57,13 @@
               </paper-card>
             </a>
           </template>
+        </template>
+        <template is="dom-if" if="[[_checkLeaderboardAd(item, index)]]">
+        <div hidden$="{{leaderboard}}" class="leaderboard-advertisement-wrapper">
+          <div class="leaderboard-advertisement">
+            <iron-image src="http://lorempixel.com/970/250"></iron-image>
+          </div>
+          </div>
         </template>
       </template>
     </div>

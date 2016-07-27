@@ -9,6 +9,9 @@
   };
 
   /* postcss-bem-linter: ignore */
+  --paper-slide-height: auto;
+
+  /* postcss-bem-linter: ignore */
   --paper-card-content: {
     @apply(--layout-flex);
     @apply(--paper-font-body1);
@@ -44,9 +47,11 @@ div.featured-content {
 }
 
 div.featured-main {
-  @apply(--layout-flex-9);
+  @apply(--layout-flex-8);
   @apply(--layout-justified);
   @apply(--layout-vertical);
+
+  min-height: 300px;
 }
 
 div.featured-main > a {
@@ -61,8 +66,17 @@ div.featured-main > a > paper-card {
   @apply(--layout-vertical);
 }
 
+a > paper-card ::content div.title-text {
+  background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(0,0,0,0.9));
+  width: calc(100% - 32px);
+}
+
 div.featured-list {
-  @apply(--layout-flex-3);
+  @apply(--layout-flex-4);
   @apply(--layout-justified);
   @apply(--layout-vertical);
+}
+
+div.featured-list paper-card {
+    min-height: 200px;
 }

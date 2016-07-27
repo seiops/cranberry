@@ -32,6 +32,7 @@ module.exports = function ($, gulp, merge, order) { return function () {
       .pipe($.replace('"bower_components/', '"libercus/default/bower_components/'))
       .pipe($.replace('"elements/', '"libercus/default/elements/'))
       .pipe($.replace('"images/', '"libercus/default/images/'))
+      .pipe($.replace('"/images/', '"/libercus/default/images/'))
       .pipe($.replace('"scripts/', '"libercus/default/scripts/'))
       .pipe($.replace('"themes/', '"libercus/default/themes/'))
       .pipe(gulp.dest('deploy/elements'));

@@ -44,7 +44,8 @@
     "polymer": "^1.4.0",
     "start-google-analytics-tracker": "StartPolymer/start-google-analytics-tracker#1.1.0",
     "paper-slider": "PolymerElements/paper-slider#^1.0.11",
-    "iron-fit-behavior": "^1.2.3"
+    "iron-fit-behavior": "^1.2.3",
+    "l2t-paper-slider": "^1.1.8"
   },
   "devDependencies": {
     "web-component-tester": "4.2.0"

@@ -34,6 +34,7 @@ class CranberryFeaturedContent {
   // Public methods.
   attached () {
     app.logger ('<\cranberry-featured-content\> attached');
+    this.updateStyles();
   }
 
   ready () {
@@ -45,7 +46,21 @@ class CranberryFeaturedContent {
     let params = this.get('params');
 
     if (params.length !== 0 && params.desiredCount) {
-      this.$.request.url = this.rest;
+
+      this.$.request.setAttribute('url', this.get('rest'));
+
+      let derp = this.$.request.getAttribute('url');
+
+      console.log('derp: ', derp);
+
+      // Shimmed timestamper.
+      if (!Date.now) {
+          Date.now = function() { return new Date().getTime(); }
+      }
+
+      var timeStamp = Math.floor(Date.now() / 1000);
+
+      this.$.request.setAttribute('callback-value', 'cb' + timeStamp);
 
       this.$.request.params = params;
 
@@ -71,10 +86,16 @@ class CranberryFeaturedContent {
     }
   }
 
-  _handleResponse (data) {
-    let restResponse = JSON.parse(data.detail.Result);
+  _handleResponse () {
+    app.logger ('<\cranberry-featured-content\> response received');
+  }
 
-    this.set('items', restResponse);
+  _handleLoad (data) {
+    let response = this.get('response');
+
+    let responseItems = JSON.parse(response.Result);
+
+    this.set('items', responseItems);
   }
 
   _updateParams () {

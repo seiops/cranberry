@@ -20,6 +20,10 @@
 <link rel="import" href="../../bower_components/iron-form/iron-form.html">
 <link rel="import" href="../../bower_components/iron-form-element-behavior/iron-form-element-behavior.html">
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/communication-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/social-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/image-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/maps-icons.html">
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../../bower_components/iron-localstorage/iron-localstorage.html">
 <link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
@@ -31,6 +35,7 @@
 <link rel="import" href="../../bower_components/neon-animation/neon-animation.html">
 
 <!-- Paper elements -->
+<link rel="import" href="../../bower_components/l2t-paper-slider/l2t-paper-slider.html">
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../../bower_components/paper-drawer-panel/paper-drawer-panel.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
@@ -53,53 +58,50 @@
 <link rel="import" href="../cranberry-featured-content/cranberry-featured-content.html">
 <link rel="import" href="../cranberry-gallery/cranberry-gallery.html">
 <link rel="import" href="../cranberry-section/cranberry-section.html">
+<link rel="import" href="../cranberry-styles/cranberry-styles.html">
 <link rel="import" href="../cranberry-story/cranberry-story.html">
 <link rel="import" href="../gigya-sharebar/gigya-sharebar.html">
 <!-- <link rel="import" href="../google-dfp/google-dfp.html"> -->
 
 <dom-module id="cranberry-base">
   <template>
+    <!-- include shared styles and theme stylesheet -->
     <style include="shared-styles">
       @import "theme.css";
     </style>
 
-    <!-- Local browser storage -->
+    <!-- local browser storage -->
     <!-- <iron-localstorage id="localStorage" name="{$ config.appNameId $}"
       value="{{storage}}"
       on-iron-localstorage-load-empty="initializeDefaultStorage">
     </iron-localstorage> -->
 
-    <!-- app-route routing -->
+    <!-- app path routing -->
     {% include "cranberry-base/views/routes.html" %}
 
-    <app-drawer-layout>
-
-      <app-drawer opened>
-        <div class="Drawer-wrapper">
-          {% include "cranberry-base/views/drawer.html" %}
-        </div>
-      </app-drawer>
+    <app-drawer-layout responsive-width="1280px">
+      <!-- side navigation drawer -->
+      {% include "cranberry-base/views/drawer.html" %}
 
       <app-header-layout>
-        <!-- app-header layout -->
+        <!-- header toolbar -->
         {% include "cranberry-base/views/header.html" %}
 
-        <!-- Content area -->
+        <!-- content area -->
         {% include "cranberry-base/views/pages.html" %}
-
       </app-header-layout>
 
     </app-drawer-layout>
 
-    <iron-media-query query="min-width: 600px" query-matches="{{wide}}"></iron-media-query>
-    <iron-media-query full query="print" query-matches="{{print}}"></iron-media-query>
-
-    <paper-toast id="confirmToast" class="Toast" duration="10000">
+    <paper-toast id="confirmToast" class="Toast" duration="8000">
       <span class="Toast-button" role="button" tabindex="0" on-tap="onConfirmToastTap">OK</span>
     </paper-toast>
 
     <paper-toast id="infoToast" class="Toast" duration="8000"></paper-toast>
 
   </template>
+
+  <!-- include base js module -->
   <script src="cranberry-base.js"></script>
+
 </dom-module>
