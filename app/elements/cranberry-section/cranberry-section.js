@@ -6,8 +6,7 @@ class CranberrySection {
       fullRoute: Object,
       routeData: Object,
       section: {
-        type: String,
-        value: 'news'
+        type: String
       },
       selected: {
         type: Number,
@@ -24,10 +23,9 @@ class CranberrySection {
     this._checkTabs();
   }
 
-  ready() {
-    app.logger('\<cranberry-section\> ready');
-  }
-
+  // ready() {
+  //   app.logger('\<cranberry-section\> ready');
+  // }
 
   // Private methods
   _checkItem(item,index) {
@@ -89,19 +87,23 @@ class CranberrySection {
   }
 
   _routeChange(route, section) {
-    let currentSection = this.get('section');
+    let hidden = this.hidden;
 
-    if (route === '/') {
-      if (currentSection !== 'news') {
-        this.set('section', 'news');
-      }
-    } else {
+    if (hidden === false) {
       let currentSection = this.get('section');
 
-      if (currentSection !== section) {
-        app.logger('\<cranberry-section\> section changed to ' + section);
+      if (route === '/') {
+        if (currentSection !== 'news') {
+          this.set('section', 'news');
+        }
+      } else {
+        let currentSection = this.get('section');
 
-        this.set('section', section);
+        if (currentSection !== section) {
+          app.logger('\<cranberry-section\> section changed to ' + section);
+
+          this.set('section', section);
+        }
       }
     }
   }

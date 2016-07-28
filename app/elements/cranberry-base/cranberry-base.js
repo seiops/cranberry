@@ -159,7 +159,6 @@ _isPopular(selected) {
     let sectionPath = path.search('section');
 
     if (sectionPath > 0) {
-      console.log('section');
       section = path.replace('\/section\/','');
     }else if (path === '/') {
       section = 'Home';

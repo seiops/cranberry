@@ -14,6 +14,11 @@ class CranberryFeaturedContent {
         value: [],
         observer: '_changeParams'
       },
+      request: Object,
+      response: {
+        type: Object,
+        observer: '_parseResponse'
+      },
       rest: {
         type: String,
         value: 'http://sedev.libercus.net/rest.json'
@@ -34,12 +39,11 @@ class CranberryFeaturedContent {
   // Public methods.
   attached () {
     app.logger ('<\cranberry-featured-content\> attached');
-    this.updateStyles();
   }
 
-  ready () {
-    app.logger('\<cranberry-featured-content\> ready');
-  }
+  // ready () {
+  //   app.logger('\<cranberry-featured-content\> ready');
+  // }
 
   // Private methods.
   _changeParams () {
@@ -48,15 +52,6 @@ class CranberryFeaturedContent {
     if (params.length !== 0 && params.desiredCount) {
 
       this.$.request.setAttribute('url', this.get('rest'));
-
-      // Shimmed timestamper.
-      if (!Date.now) {
-          Date.now = function() { return new Date().getTime(); }
-      }
-
-      var timeStamp = Math.floor(Date.now() / 1000);
-
-      this.$.request.setAttribute('callback-value', 'cb' + timeStamp);
 
       this.$.request.params = params;
 
@@ -86,24 +81,30 @@ class CranberryFeaturedContent {
     }
   }
 
-  _handleResponse (data) {
-    app.logger ('<\cranberry-featured-content\> response received');
-    console.log('data diff');
-    console.dir(data);
-
-    let response = data.detail;
-
-    let responseItems = JSON.parse(response.Result);
-
-    this.set('items', responseItems);
+  _handleLoad () {
+    app.logger ('<\cranberry-featured-content\> load received');
   }
 
-  _handleLoad () {}
+  _handleResponse () {
+    app.logger ('<\cranberry-featured-content\> response received');
+  }
+
+  _parseResponse (response) {
+    var result  = JSON.parse(response.Result);
+
+    this.set('items', result);
+  }
 
   _updateParams () {
-    this.$.request.abortRequest();
+    let currentRequest = this.get('request');
 
-    this.set('items',[]);
+    if (typeof currentRequest !== 'undefined' && currentRequest.loading === true) {
+      app.logger ('<\cranberry-featured-content\> aborting previous request');
+      console.dir(currentRequest);
+      this.$.request.abortRequest(currentRequest);
+    }
+
+    this.set('items', []);
 
     let jsonp = {};
 

@@ -35,11 +35,13 @@ class CranberryStory {
     // Public methods.
     attached () {
       app.logger('\<cranberry-story\> attached');
+
+      console.dir(this);
     }
 
-    ready () {
-      app.logger('\<cranberry-story\> ready');
-    }
+    // ready () {
+    //   app.logger('\<cranberry-story\> ready');
+    // }
 
     // Private methods.
 
@@ -115,8 +117,6 @@ class CranberryStory {
       app.logger('\<cranberry-story\> json response received');
 
       let result = JSON.parse(json.detail.Result);
-
-      console.dir(this);
 
       this.set('story', result);
     }
