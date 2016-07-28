@@ -2,6 +2,7 @@
 <link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
 <link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
 <link rel="import" href="../../bower_components/iron-icons/social-icons.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../cranberry-shortcode/cranberry-shortcode.html">
 <link rel="import" href="../gigya-sharebar/gigya-sharebar.html">
 <link rel="import" href="../gigya-comments/gigya-comments.html">
@@ -63,13 +64,17 @@
       <!-- Story Content Area -->
       <div class="content-wrapper">
         <!-- Contains story paragraphs -->
-        <div class="story-content" id="storyContentArea"></div>
+        <div class="story-content">
+          <div id="storyContentArea"></div>
+        </div>
         <!-- Contains Right Rail -->
         <div class="right-rail">
-          <iron-image src="http://www.placehold.it/300x250&amp;text=AD_300x250"></iron-image>
-          <iron-image src="http://www.placehold.it/300x550&amp;text=Popular"></iron-image>
-          <iron-image src="http://www.placehold.it/300x250&amp;text=AD_300x250"></iron-image>
-          <iron-image src="http://www.placehold.it/300x550&amp;text=Popular"></iron-image>
+          <div>
+            <iron-image src="http://www.placehold.it/300x250&amp;text=AD_300x250"></iron-image>
+            <iron-image src="http://www.placehold.it/300x550&amp;text=Popular"></iron-image>
+            <iron-image src="http://www.placehold.it/300x250&amp;text=AD_300x250"></iron-image>
+            <iron-image src="http://www.placehold.it/300x550&amp;text=Popular"></iron-image>
+          </div>
         </div>
       </div>
 
