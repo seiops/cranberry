@@ -129,7 +129,8 @@ Typography mixins are from file on URL https://github.com/PolymerElements/paper-
 
   --paper-font-caption: {
     @apply(--paper-font-common-base);
-    @apply(--paper-font-common-nowrap);
+    /* Disable NO word wrapping on comments text */
+    /*@apply(--paper-font-common-nowrap);*/
     font-size: 12px;
     font-weight: 400;
     letter-spacing: 0.011em;
