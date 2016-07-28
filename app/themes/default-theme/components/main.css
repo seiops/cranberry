@@ -16,12 +16,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     color: var(--primary-text-color);
 
     @media (--md-viewport) {
-      @apply(--paper-font-body2);
       padding: 0;
     }
 
     @media (--lg-viewport) {
-      @apply(--paper-font-body2);
       padding: 16px 64px;
     }
 
