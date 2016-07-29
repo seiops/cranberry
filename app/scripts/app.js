@@ -91,6 +91,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     // logger('\[Cranberry Core\]\: dom-change');
   });
 
+  // Temp scroll to top function on route change
+  app.addEventListener('route-changed', function() {
+    window.scrollTo(0,0);
+  });
+
   // See https://github.com/Polymer/polymer/issues/1381
   window.addEventListener('WebComponentsReady', () => {
     /* imports are loaded and elements have been registered */
