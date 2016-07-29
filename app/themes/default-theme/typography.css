@@ -139,6 +139,18 @@ Typography mixins are from file on URL https://github.com/PolymerElements/paper-
     color: rgba(0, 0, 0, 0.54);
   };
 
+  --paper-font-caption2: {
+    @apply(--paper-font-common-base);
+    /* Disable NO word wrapping on comments text */
+    /*@apply(--paper-font-common-nowrap);*/
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.011em;
+    line-height: 19px;
+    text-transform: uppercase;
+    color: var(--accent-color);
+  };
+
   --paper-font-menu: {
     @apply(--paper-font-common-base);
     @apply(--paper-font-common-nowrap);

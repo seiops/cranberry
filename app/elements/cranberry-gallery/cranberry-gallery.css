@@ -71,6 +71,10 @@ p.caption-text {
   @apply(--paper-font-caption);
 }
 
+p.time-stamp {
+  @apply(--paper-font-caption2);
+}
+
 p.body-text {
   @apply(--paper-font-body1);
 }

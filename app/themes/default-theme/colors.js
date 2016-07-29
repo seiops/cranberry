@@ -327,5 +327,7 @@ module.exports = {
   'light-secondary-opacity': '.7',
   'light-primary-opacity': '1',
 
-  'standard-dark-blue': '#012638'
+  'standard-dark-blue': '#012638',
+  'standard-light-blue': '#005A90',
+  'standard-accent-color': '#5bc1a5'
 };

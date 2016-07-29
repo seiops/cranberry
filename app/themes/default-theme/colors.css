@@ -325,4 +325,6 @@ Colors are from file on URL https://github.com/PolymerElements/paper-styles/blob
   --light-primary-opacity: 1;
 
   --standard-dark-blue: #012638;
+  --standard-light-blue: #005A90;
+  --standard-accent-color: #5bc1a5;
 }

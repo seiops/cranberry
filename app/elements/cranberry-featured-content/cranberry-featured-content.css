@@ -45,7 +45,7 @@ paper-card div.card-info span.content-tag {
 }
 
 paper-card div.card-info span.content-date {
-  @apply(--paper-font-caption);
+  @apply(--paper-font-caption2);
 }
 
 paper-card div.card-info {
