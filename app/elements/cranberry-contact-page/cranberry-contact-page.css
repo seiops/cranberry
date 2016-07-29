@@ -22,6 +22,7 @@ paper-button.rounded-button {
   position: relative;
   display: block;
   width: 100%;
+  margin-bottom: 100px;
 }
 
 .main-image iron-image {
