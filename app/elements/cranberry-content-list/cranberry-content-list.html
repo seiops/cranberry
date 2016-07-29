@@ -24,12 +24,12 @@
       <template is="dom-repeat" items="{{items}}" initial-count="3">
         <template is="dom-if" if="[[_checkInStreamAd(item, index)]]">
           <a>
-          <paper-card class="stream-advertisement" elevation="0">
-            <div class="card-content">
-              <google-dfp section="[[sections]]" ad-pos="Middle_of_Stream" ad-size="[[300, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
-            </div>
-          </paper-card>
-        </a>
+            <paper-card class="stream-advertisement" elevation="0">
+              <div class="card-content">
+                <google-dfp section="[[sections]]" ad-pos="Middle_of_Stream" ad-size="[[300, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+              </div>
+            </paper-card>
+          </a>
         </template>
         <!-- Need to rework this for array selectors -->
         <template is="dom-if" if="[[_isStory(item.contentType)]]">
