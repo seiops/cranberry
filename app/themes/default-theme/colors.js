@@ -327,7 +327,15 @@ module.exports = {
   'light-secondary-opacity': '.7',
   'light-primary-opacity': '1',
 
-  'standard-dark-blue': '#012638',
-  'standard-light-blue': '#005A90',
-  'standard-accent-color': '#5bc1a5'
+  /* Custom Standard Examiner Color Palette */
+  /* Main Colors */
+  'paper-Standard-Examiner-100': '#005A90',
+  'paper-Standard-Examiner-500': '#012638',
+  'paper-Standard-Examiner-700': '#000d1f',
+  /* Accent Colors */
+  'paper-Standard-Examiner-accent-a100': '#75dbbf',
+  'paper-Standard-Examiner-accent-a200': '#5bc1a5',
+  'paper-Standard-Examiner-accent-a400': '#42a88c',
+  'paper-Standard-Examiner-accent-a700': '#288e72'
+
 };

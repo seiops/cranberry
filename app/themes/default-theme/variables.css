@@ -52,15 +52,15 @@ for further information on custom CSS properties.
   --error-color: var(--paper-deep-orange-a700);                     /* User input errors */
 
   /* Primary colors */
-  --primary-color: var(--paper-$(primaryColorName)-500);            /* Header bar */
-  --light-primary-color: var(--standard-light-blue);
-  --dark-primary-color: var(--standard-dark-blue);
+  --primary-color: var(--paper-$(accentColorName)-a200);            /* Header bar */
+  --light-primary-color: var(--paper-$(primaryColorName)-100);
+  --dark-primary-color: var(--paper-$(primaryColorName)-500);
   --text-primary-color: #fff;                                       /* Text / Icons */
   --text-light-primary-color: var(--paper-grey-900);
   --text-dark-primary-color: #fff;
 
   /* Accent colors */
-  --accent-color: var(--standard-accent-color);             /* Focus / Links / Switches */
+  --accent-color: var(--paper-$(accentColorName)-a200);             /* Focus / Links / Switches */
   --light-accent-color: var(--paper-$(accentColorName)-a100);
   --dark-accent-color: var(--paper-$(accentColorName)-a400);
   --darker-accent-color: var(--paper-$(accentColorName)-a700);

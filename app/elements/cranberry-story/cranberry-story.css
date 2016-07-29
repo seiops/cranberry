@@ -56,7 +56,7 @@ p.caption-text {
 }
 
 p.time-stamp {
-  @apply(--paper-font-caption2);
+  color: var(--primary-color);
 }
 
 p.main-image-caption {
