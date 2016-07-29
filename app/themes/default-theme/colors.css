@@ -323,4 +323,6 @@ Colors are from file on URL https://github.com/PolymerElements/paper-styles/blob
   --light-disabled-opacity: 0.3; /* or hint text or icon */
   --light-secondary-opacity: 0.7;
   --light-primary-opacity: 1;
+
+  --standard-dark-blue: #012638;
 }

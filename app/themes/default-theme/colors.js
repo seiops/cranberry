@@ -325,5 +325,7 @@ module.exports = {
   'light-divider-opacity': '.12',
   'light-disabled-opacity': '.3', /* or hint text or icon */
   'light-secondary-opacity': '.7',
-  'light-primary-opacity': '1'
+  'light-primary-opacity': '1',
+
+  'standard-dark-blue': '#012638'
 };

@@ -7,18 +7,16 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 
-var primaryColorName = 'blue',
-    accentColorName  = 'green',
-    themeMode        = 'light', // or dark
+var themeMode        = 'light', // or dark
 
     colors           = require('./colors'),
-    primaryColor     = colors['paper-' + primaryColorName + '-500'],
-    darkPrimaryColor = colors['paper-' + primaryColorName + '-700'];
+    primaryColor     = colors['standard-dark-blue'],
+    darkPrimaryColor = colors['standard-dark-blue'];
 
 module.exports = {
   global: {
-    primaryColorName: primaryColorName,
-    accentColorName: accentColorName,
+    // primaryColorName: primaryColorName,
+    // accentColorName: accentColorName,
     themeMode: themeMode
   },
 

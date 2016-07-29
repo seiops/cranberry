@@ -24,7 +24,7 @@ for further information on custom CSS properties.
      https://www.google.com/design/spec/style/color.html#color-themes */
 
   /* Light theme */
-  --light-theme-primary-background-color: var(--paper-grey-50);     /* Content background */
+  --light-theme-primary-background-color: var(--standard-dark-blue);     /* Content background */
   --light-theme-secondary-background-color: var(--paper-grey-100);  /* Main / Drawer background */
   --light-theme-tertiary-background-color: #fff;                    /* Cards / Dialogs background */
   --light-theme-primary-text-color: rgba(0, 0, 0, 0.87);
