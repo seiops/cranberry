@@ -5,6 +5,7 @@
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../../bower_components/iron-icons/social-icons.html">
 <link rel="import" href="../../bower_components/iron-icons/communication-icons.html">
+<link rel="import" href="../../bower_components/google-dfp/google-dfp.html">
 
 <dom-module id="cranberry-content-list">
   <template>
@@ -22,13 +23,13 @@
     <div class="content-cards">
       <template is="dom-repeat" items="{{items}}" initial-count="3">
         <template is="dom-if" if="[[_checkInStreamAd(item, index)]]">
-          <a href="#">
-            <paper-card class="stream-advertisement" elevation="0">
-              <div class="card-content">
-                <iron-image src="http://lorempixel.com/300/250"></iron-image>
-              </div>
-            </paper-card>
-          </a>
+          <a>
+          <paper-card class="stream-advertisement" elevation="0">
+            <div class="card-content">
+              <google-dfp section="[[sections]]" ad-pos="Middle_of_Stream" ad-size="[[300, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+            </div>
+          </paper-card>
+        </a>
         </template>
         <!-- Need to rework this for array selectors -->
         <template is="dom-if" if="[[_isStory(item.contentType)]]">
@@ -65,10 +66,10 @@
           </template>
         </template>
         <template is="dom-if" if="[[_checkLeaderboardAd(item, index)]]">
-        <div hidden$="{{leaderboard}}" class="leaderboard-advertisement-wrapper">
-          <div class="leaderboard-advertisement">
-            <iron-image src="http://lorempixel.com/970/250"></iron-image>
-          </div>
+          <div class="leaderboard-advertisement-wrapper">
+            <div class="leaderboard-advertisement">
+              <google-dfp section="[[sections]]" ad-pos="leaderboard" ad-size="[[728, 90],[970,90]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+            </div>
           </div>
         </template>
       </template>

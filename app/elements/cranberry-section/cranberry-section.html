@@ -1,5 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../google-dfp/google-dfp.html">
 
 <dom-module id="cranberry-section">
   <template>
@@ -20,9 +21,9 @@
     <app-route route="{{route}}" pattern="/:section" data="{{routeData}}"></app-route>
 
     <div class="header-advertisement">
-        <!-- <google-dfp route="[[fullRoute]]" ad-pos="leaderboard_top" ad-size="[728, 90]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp> -->
-        <!-- <img src="http://lorempixel.com/970/90/"> -->
+        <google-dfp section="[[section]]" ad-pos="leaderboard" ad-size="[[728, 90],[970, 90],[970, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
     </div>
+
     <cranberry-featured-content type="story_gallery" sections="[[section]]" count="3" start="1"></cranberry-featured-content>
 
     <paper-toolbar>
@@ -36,7 +37,7 @@
     </paper-toolbar>
 
     <template is="dom-if" if="[[_isLatest(selected)]]">
-      <cranberry-content-list type="story_gallery" sections="[[section]]" count="40" start="1"></cranberry-content-list>
+      <cranberry-content-list type="story_gallery" sections="[[section]]" section="[[section]]" count="40" start="1"></cranberry-content-list>
     </template>
 
     <template is="dom-if" if="[[_isLocal(selected)]]">
