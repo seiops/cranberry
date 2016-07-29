@@ -44,7 +44,10 @@
     "polymer": "^1.4.0",
     "start-google-analytics-tracker": "StartPolymer/start-google-analytics-tracker#1.1.0",
     "paper-slider": "PolymerElements/paper-slider#^1.0.11",
-    "iron-fit-behavior": "^1.2.3"
+    "iron-fit-behavior": "^1.2.3",
+    "gold-phone-input": "^1.0.9",
+    "re-captcha": "^1.1.1",
+    "iron-icons": "^1.1.3"
   },
   "devDependencies": {
     "web-component-tester": "4.2.0"

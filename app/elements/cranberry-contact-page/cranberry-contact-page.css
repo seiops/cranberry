@@ -1,0 +1,238 @@
+:host {
+  display: block;
+}
+
+/* Font Styles */
+.caption-text {
+  @apply(--paper-font-caption);
+}
+
+paper-button.rounded-button {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  min-width: 50px;
+  min-height: 50px;
+  max-width: 50px;
+  max-height: 50px;
+}
+
+/* Main image/header styles */
+.main-image {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.main-image iron-image {
+  display: flex;
+  justify-content: center;
+  max-height: 700px;
+  width: 100%;
+}
+
+.main-image .header-title {
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+  @apply(--paper-font-display1);
+  color: var(--text-primary-color);
+}
+
+/* Contact Card Styles */
+.contact-us-headline {
+  text-align: center;
+}
+
+.contact-us-headline h3 {
+  @apply(--paper-font-headline);
+}
+
+.contact-us-headline p {
+  @apply(--paper-font-subhead);
+}
+
+.contact-us-headline h3,
+.contact-us-headline p {
+  margin: 0;
+}
+
+.contact-area-container {
+  @apply(--layout-horizontal);
+  @apply(--layout-wrap);
+  padding: 30px;
+}
+
+.contact-card-wrapper {
+  @apply(--layout-vertical);
+  @apply(--layout-center-justified);
+  margin: 0 auto;
+  padding: 0 40px 0;
+}
+
+.contact-card-header-info {
+    @apply(--layout-vertical);
+}
+
+.contact-card-header-info h3 {
+  @apply(--paper-font-subhead);
+}
+
+.contact-card-header-info p {
+  @apply(--paper-font-body1);
+}
+
+.contact-card-header-info h3,
+.contact-card-header-info p {
+  margin: 0;
+}
+
+.contact-card {
+  @apply(--layout-horizontal);
+  @apply(--layout-start-justified);
+  @apply(--layout-center);
+  margin: 20px 0;
+}
+
+.contact-card paper-button.rounded-button {
+  margin-right: 20px;
+}
+
+.contact-card .contact-card-info {
+  @apply(--layout-vertical);
+}
+
+.contact-card .contact-card-info h3,
+.contact-card .contact-card-info p {
+  margin: 0;
+}
+
+.form-container {
+  @apply(--layout-flex);
+}
+
+/* Social Integration Styles */
+.social-buttons-container {
+  @apply(--layout-horizontal);
+  @apply(--layout-around-justified);
+  @apply(--layout-center);
+  @apply(--layout-wrap);
+  background-color: var(--accent-color);
+  min-height: 150px;
+}
+
+.social-buttons-container paper-button {
+  @apply(--layout-flex);
+  background-color: var(--light-accent-color);
+  margin: 20px;
+}
+
+/* Help Section */
+.help-section {
+  @apply(--layout-vertical);
+}
+
+.help-header {
+  text-align: center;
+  margin: 40px 0;
+}
+
+.help-header h3 {
+  @apply(--paper-font-headline);
+}
+
+.help-header p {
+  @apply(--paper-font-subhead);
+}
+
+.help-header h3,
+.help-header p {
+  margin: 0;
+}
+
+.help-card-container {
+  @apply(--layout-horizontal);
+  @apply(--layout-around-justified);
+  @apply(--layout-center);
+  @apply(--layout-wrap);
+}
+
+.help-card {
+  @apply(--layout-vertical);
+  @apply(--layout-flex);
+  @apply(--layout-center);
+  max-width: 150px;
+  min-width: 150px;
+  margin: 10px;
+}
+
+.help-card p {
+  @apply(--paper-font-subhead);
+  margin: 0;
+}
+
+.help-card p.phone {
+  @apply(--paper-font-body1);
+  margin: 0;
+}
+
+/* Staff Members */
+.staff-cards {
+  @apply(--layout-vertical);
+  @apply(--layout-around-justified);
+  @apply(--layout-center);
+  background-color: var(--primary-background-color);
+  margin-top: 40px;
+  padding-top: 40px;
+}
+
+.staff-cards h3 {
+    @apply(--paper-font-headline);
+}
+
+.staff-cards p {
+  @apply(--paper-font-subhead);
+}
+
+.staff-cards h3,
+.staff-cards p {
+  margin: 0;
+}
+
+/* Important links */
+.important-links {
+  text-align: center;
+  padding: 40px 0;
+  background-color: var(--secondary-background-color);
+}
+
+.important-links-header {
+  @apply(--layout-vertial);
+  margin-bottom: 40px;
+}
+
+.important-links-header h3 {
+    @apply(--paper-font-headline);
+}
+
+.important-links-header p {
+  @apply(--paper-font-subhead);
+}
+
+.important-links-header h3,
+.important-links-header p {
+  margin: 0;
+}
+
+.important-links-container {
+  @apply(--layout-horizontal);
+  @apply(--layout-around-justified);
+  @apply(--layout-center);
+  @apply(--layout-wrap);
+}
+
+.important-links-container paper-button {
+  min-width: 150px;
+  margin: 10px;
+  @apply(--paper-font-subhead);
+}
