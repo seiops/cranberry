@@ -324,6 +324,9 @@ Colors are from file on URL https://github.com/PolymerElements/paper-styles/blob
   --light-secondary-opacity: 0.7;
   --light-primary-opacity: 1;
 
+  /* Custom Global Colors */
+  --paper-error-red: #ce181e;
+
   /* Custom Standard Examiner Color Palette */
   /* Main Colors */
   --paper-Standard-Examiner-100: #005A90;

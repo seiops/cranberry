@@ -327,6 +327,9 @@ module.exports = {
   'light-secondary-opacity': '.7',
   'light-primary-opacity': '1',
 
+  /* Custom Global Colors */
+  'paper-error-red': '#ce181e',
+  
   /* Custom Standard Examiner Color Palette */
   /* Main Colors */
   'paper-Standard-Examiner-100': '#005A90',

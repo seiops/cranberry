@@ -127,6 +127,11 @@ Typography mixins are from file on URL https://github.com/PolymerElements/paper-
     color: rgba(0, 0, 0, 0.87);
   };
 
+  --paper-font-error: {
+    @apply(--paper-font-body1);
+    color: var(--paper-error-red);
+  }
+
   --paper-font-caption: {
     @apply(--paper-font-common-base);
     /* Disable NO word wrapping on comments text */

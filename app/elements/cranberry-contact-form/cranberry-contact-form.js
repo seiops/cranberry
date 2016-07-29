@@ -19,6 +19,8 @@ class cranberryContactForm {
     // Submit button behavior
     this.handleSubmit = function(event) {
       let form = this.$$('form');
+      let request = this.$.request;
+      
       // Check form for validity
       let validForm = form.validate();
       // if the form is in a valid state then submit
