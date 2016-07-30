@@ -4,15 +4,11 @@ class cranberryStaffList {
     this.properties = {
       items: {
         type: Object,
-        value: [],
-        observer: 'itemsChanged'
+        value: []
       }
     };
   }
 
-  itemsChanged(newValue) {
-    console.info(newValue);
-  }
   _computeStaffImage(imageObject) {
     if (typeof imageObject.small !== 'undefined') {
       return 'http://www.standard.net/' + imageObject.small;
