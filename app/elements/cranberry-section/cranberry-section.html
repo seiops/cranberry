@@ -2,6 +2,7 @@
 <link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../google-dfp/google-dfp.html">
+<link rel="import" href="../tout-element/tout-element.html">
 
 <dom-module id="cranberry-section">
   <template>
@@ -51,6 +52,7 @@
     <template is="dom-if" if="[[_isFeatured(selected)]]">
       <cranberry-content-list type="story_gallery" sections="[[section]]" count="15" start="1"></cranberry-content-list>
     </template>
+    <tout-element></tout-element>
   </template>
   <script src="cranberry-section.js"></script>
 </dom-module>
