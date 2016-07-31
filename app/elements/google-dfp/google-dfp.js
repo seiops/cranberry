@@ -6,6 +6,9 @@ class GoogleDFP {
                 type: String,
                 observer: '_sectionChanged'
             },
+            sectionParent: {
+                type: String
+            },
             adSize: {
                 type: Array
             },
@@ -35,6 +38,13 @@ class GoogleDFP {
             let adSubGrouping = this.get('adSubGrouping');
             let adSize = this.get('adSize');
             let position = this.get('adPos');
+            let sectionParent = this.get('sectionParent');
+            let adSection = section;
+
+            if (typeof sectionParent !== 'undefined' && sectionParent.length > 0) {
+                console.log('parent found');
+                adSection = sectionParent + '/' + section;
+            }
 
             window.slots = window.slots || {};
             if (Polymer.dom(this.root).querySelector('.advertisement').firstChild) {
@@ -46,7 +56,7 @@ class GoogleDFP {
                 googletag.pubads().setTargeting('placement', 'development');
                 googletag.enableServices();
 
-                let dfpURL = adGroup + '/' + adGrouping + '/' + adSubGrouping + '/' + parentSection + '/' + position;
+                let dfpURL = adGroup + '/' + adGrouping + '/' + adSubGrouping + '/' + adSection + '/' + position;
 
                 window.slots[idModifier] = googletag.defineSlot(dfpURL, adSize, idModifier).addService(googletag.pubads(
 

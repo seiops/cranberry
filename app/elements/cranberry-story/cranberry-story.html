@@ -5,6 +5,7 @@
 <link rel="import" href="../cranberry-shortcode/cranberry-shortcode.html">
 <link rel="import" href="../gigya-comments/gigya-comments.html">
 <link rel="import" href="../gigya-sharebar/gigya-sharebar.html">
+<link rel="import" href="../google-dfp/google-dfp.html">
 
 <dom-module id="cranberry-story">
 
@@ -25,7 +26,7 @@
       <!-- Top Ad -->
       <div class="ut-center">
         <!-- Placeholder element for leaderboard ad. -->
-        <google-dfp route="{{fullRoute}}" ad-pos="leaderboard_bottom" ad-size="[728, 90]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+        <google-dfp section="[[story.sectionInformation.sectionName]]" section-parent="[[story.sectionInformation.sectionParentName]]" ad-pos="leaderboard_bottom" ad-size="[[728, 90]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
       </div>
 
       <!-- Headline -->

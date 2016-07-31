@@ -60,38 +60,46 @@ class CranberryStory {
     }
 
     _computeBylineURL(url) {
-        if (typeof url === 'undefined') {
-            return 'http://imgsrc.me/250x400/9c9c9c/000000/Image Unavailable?showDimensions=0&font=arial';
-        } else {
-            return 'http://www.standard.net' + url;
+        if (this.hidden === false) {
+            if (typeof url === 'undefined') {
+                return 'http://imgsrc.me/250x400/9c9c9c/000000/Image Unavailable?showDimensions=0&font=arial';
+            } else {
+                return 'http://www.standard.net' + url;
+            }
         }
     }
 
     _displayContent() {
-        let story = this.get('story');
-        let paragraphs = story.paragraphs;
-        let contentArea = this.$.storyContentArea;
+        if (this.hidden === false) {
+            let storyId = this.get('storyId');
 
-        if (typeof paragraphs !== 'undefined') {
-            // Create a document fragment to append all elements to
-            let fragment = document.createDocumentFragment();
+            if (typeof storyId !== 'undefined' && storyId !== 0) {
+                let story = this.get('story');
+                let paragraphs = story.paragraphs;
+                let contentArea = this.$.storyContentArea;
 
-            paragraphs.forEach(function(value, index) {
-                if (value.shortcode) {
-                    let shortcodeEl = document.createElement('cranberry-shortcode');
+                if (typeof paragraphs !== 'undefined') {
+                    // Create a document fragment to append all elements to
+                    let fragment = document.createDocumentFragment();
 
-                    shortcodeEl.set('shortcodeObject', value);
-                    shortcodeEl.set('storyObject', story);
-                    fragment.appendChild(shortcodeEl);
-                } else {
-                    let paragraphEl = document.createElement('p');
-                    let node = document.createTextNode(value.text);
+                    paragraphs.forEach(function(value, index) {
+                        if (value.shortcode) {
+                            let shortcodeEl = document.createElement('cranberry-shortcode');
 
-                    paragraphEl.appendChild(node);
-                    fragment.appendChild(paragraphEl);
+                            shortcodeEl.set('shortcodeObject', value);
+                            shortcodeEl.set('storyObject', story);
+                            fragment.appendChild(shortcodeEl);
+                        } else {
+                            let paragraphEl = document.createElement('p');
+                            let node = document.createTextNode(value.text);
+
+                            paragraphEl.appendChild(node);
+                            fragment.appendChild(paragraphEl);
+                        }
+                    });
+                    contentArea.appendChild(fragment);
                 }
-            });
-            contentArea.appendChild(fragment);
+            }
         }
     }
 
@@ -115,12 +123,16 @@ class CranberryStory {
     }
 
     _storyIdChanged() {
-        let storyId = this.get('storyId');
+        this.async(function() {
+            if (this.hidden === false) {
+                let storyId = this.get('storyId');
 
-        if (storyId !== 0) {
-            app.logger('\<cranberry-story\> storyId set to ' + storyId);
-            this._updateStoryId(storyId);
-        }
+                if (typeof storyId !== 'undefined' && storyId !== 0) {
+                    app.logger('\<cranberry-story\> storyId set to ' + storyId);
+                    this._updateStoryId(storyId);
+                }
+            }
+        });
     }
 
     _updateStoryId(storyid) {

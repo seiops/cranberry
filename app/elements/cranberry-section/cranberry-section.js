@@ -3,7 +3,6 @@ class CranberrySection {
         this.is = 'cranberry-section';
         this.properties = {
             route: Object,
-            fullRoute: Object,
             routeData: Object,
             section: {
                 type: String
@@ -14,7 +13,7 @@ class CranberrySection {
             }
         };
 
-        this.observers = ['_routeChange(fullRoute.path, routeData.section)'];
+        this.observers = ['_routeChange(routeData.section)'];
     }
 
     attached() {
@@ -80,37 +79,28 @@ class CranberrySection {
         }
     }
 
-    _routeChange(route, section) {
+    _routeChange(section) {
         let hidden = this.hidden;
-        let active = this.active;
 
         if (hidden === false) {
             let currentSection = this.get('section');
 
-            if (route === '/') {
-                if (currentSection !== 'news') {
-                    this.set('section', 'news');
-                }
-            } else {
-                let currentSection = this.get('section');
-
-                if (currentSection !== section) {
-                    app.logger('\<cranberry-section\> section changed -> ' + section);
-                    this.set('section', section);
-                }
+            if (typeof section !== 'undefined' && section.length > 0 && section !== 'section') {
+                app.logger('\<cranberry-section\> section changed -> ' + section);
+                this.set('section', section);
             }
-            //
-            // console.log('peeeeenis');
-            // this.async(function() {
-            //     let sectionMeta = document.querySelector('iron-meta#metaSection');
-            //     let currentSection = this.get('section');
-            //
-            //     sectionMeta.setAttribute('value', currentSection);
-            //     console.dir(currentSection);
-            //     console.dir(sectionMeta);
-            //     console.log('meta done');
-            // });
         }
+        //
+        // console.log('peeeeenis');
+        // this.async(function() {
+        //     let sectionMeta = document.querySelector('iron-meta#metaSection');
+        //     let currentSection = this.get('section');
+        //
+        //     sectionMeta.setAttribute('value', currentSection);
+        //     console.dir(currentSection);
+        //     console.dir(sectionMeta);
+        //     console.log('meta done');
+        // });
     }
 }
 // Public methods.
