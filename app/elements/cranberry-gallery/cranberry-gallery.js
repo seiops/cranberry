@@ -47,9 +47,9 @@ class CranberryGallery {
     app.logger('\<cranberry-gallery\> attached');
   }
 
-  ready() {
-    app.logger('\<cranberry-gallery\> ready');
-  }
+  // ready() {
+  //   app.logger('\<cranberry-gallery\> ready');
+  // }
 
   // Private methods.
   _buyImage() {

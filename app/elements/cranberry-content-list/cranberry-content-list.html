@@ -1,30 +1,32 @@
-<!--
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
-
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../bower_components/iron-icons/social-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/communication-icons.html">
+<link rel="import" href="../google-dfp/google-dfp.html">
 
 <dom-module id="cranberry-content-list">
   <template>
     <style>
       @import "cranberry-content-list/cranberry-content-list";
     </style>
-    <byutv-jsonp on-response="_handleResponse" id="request"></byutv-jsonp>
+    <iron-media-query query="(max-width:1370px)" query-matches="{{leaderboard}}"></iron-media-query>
+    <byutv-jsonp
+      on-response="_handleResponse"
+      on-load="_handleLoad"
+      last-response="{{response}}"
+      last-request="{{request}}"
+      last-error="{{error}}"
+      id="request">
     <div class="content-cards">
       <template is="dom-repeat" items="{{items}}" initial-count="3">
-        <template is="dom-if" if="[[_checkItem(item, index)]]">
-          <a href="#">
-            <paper-card class="advertisement" elevation="0">
+        <template is="dom-if" if="[[_checkInStreamAd(item, index)]]">
+          <a>
+            <paper-card class="stream-advertisement" elevation="0">
               <div class="card-content">
-                <iron-image src="http://lorempixel.com/300/250"></iron-image>
+                <google-dfp section="[[sections]]" ad-pos="Middle_of_Stream" ad-size="[[300, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
               </div>
             </paper-card>
           </a>
@@ -35,12 +37,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <a href="/story/[[item.itemId]]">
               <paper-card heading="[[item.title]]" fade-image preload-image image="http://www.standard.net/[[item.mediaAssets.images.0.large]]" elevation="1" class="story">
                 <div class="card-content">
+                  <span class="story-date">[[item.updated]]</span>
                   <span>[[_trimText(item.preview)]]</span>
                 </div>
                 <div class="card-actions">
                   <div class="card-info">
-                    <span class="story-tag">[[item.sectionInformation.primarySection]]</span>
-                    <span class="story-date">[[item.updated]]</span>
+                    <div class="story-tag">[[item.sectionInformation.primarySection]]</div>
+                    <div class="story-comments">[[item.socialInformation.comments]] &nbsp;<iron-icon icon="communication:chat-bubble"></iron-icon></div>
                   </div>
                 </div>
               </paper-card>
@@ -61,6 +64,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               </paper-card>
             </a>
           </template>
+        </template>
+        <template is="dom-if" if="[[_checkLeaderboardAd(item, index)]]">
+          <div class="leaderboard-advertisement-wrapper">
+            <div class="leaderboard-advertisement">
+              <google-dfp section="[[sections]]" ad-pos="leaderboard" ad-size="[[728, 90],[970,90]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+            </div>
+          </div>
         </template>
       </template>
     </div>

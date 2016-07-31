@@ -1,70 +1,93 @@
-<!-- Drawer Scroll Header Panel -->
-<app-toolbar class="Drawer-header">
-  <!-- <span class="Drawer-title">{$ siteName $}</span> -->
-<paper-icon-button id="paperToggle" class="Main-headerButton" icon="menu" paper-drawer-toggle></paper-icon-button><iron-image class="Drawer-logo" preload src="/libercus/default/images/logo.png" fade></iron-image>
-</app-toolbar>
-<!-- Drawer Content -->
-<div class="Drawer-content">
-<!-- Navigation -->
-<iron-image src="/libercus/default/images/location.jpg" style="width:256px; height:200px; background-color: lightgray;" preload sizing="cover" fade></iron-image>
-<nav class="Drawer-widget">
-  <nav class="Drawer-widget">
-  <paper-search></paper-search>
-  <paper-menu class="Navigation Navigation--menu list" attr-for-selected="data-route" selected="[[route.path]]">
-    <a class="Navigation-link" data-route="/" href="/">
-      <iron-icon class="Navigation-icon" icon="dashboard"></iron-icon>
-      <span class="Navigation-text">Home</span>
-    </a>
-    <a class="Navigation-link" data-route="/section/news" href="/section/news">
-      <iron-icon class="Navigation-icon" icon="apps"></iron-icon>
-      <span class="Navigation-text">News</span>
-    </a>
-    <a class="Navigation-link" data-route="/section/opinion" href="/section/opinion">
-      <iron-icon class="Navigation-icon" icon="theaters"></iron-icon>
-      <span class="Navigation-text">Opinion</span>
-    </a>
-    <a class="Navigation-link" data-route="/section/announcements" href="/section/announcements">
-      <iron-icon class="Navigation-icon" icon="mail"></iron-icon>
-      <span class="Navigation-text">Announcements</span>
-    </a>
-    <a class="Navigation-link" data-route="/section/sports" href="/section/sports">
-      <iron-icon class="Navigation-icon" icon="mail"></iron-icon>
-      <span class="Navigation-text">Sports</span>
-    </a>
-    <a class="Navigation-link" data-route="/section/entertainment" href="/section/entertainment">
-      <iron-icon class="Navigation-icon" icon="subject"></iron-icon>
-      <span class="Navigation-text">Entertainment</span>
-    </a>
-    <a class="Navigation-link" data-route="/section/entertainment" href="/section/lifestyle">
-      <iron-icon class="Navigation-icon" icon="lock"></iron-icon>
-      <span class="Navigation-text">Lifestyle</span>
-    </a>
-    <a class="Navigation-link" data-route="story-content" href="/story-content/201201010002">
-      <iron-icon class="Navigation-icon" icon="dashboard"></iron-icon>
-      <span class="Navigation-text">Story Shortcode Example</span>
-    </a>
-  </paper-menu>
-</nav>
-<span class="u-spacer"></span>
-<div class="Drawer-widget Drawer-widget--bottom">
-  <paper-menu class="Navigation Navigation--menu list" attr-for-selected="data-route" selected="[[data.page]]">
-    <a class="Navigation-link" data-route="settings" href="/settings" rel="nofollow">
-      <iron-icon class="Navigation-icon" icon="settings"></iron-icon>
-      <span class="Navigation-text">Site Settings</span>
-    </a>
-  </paper-menu>
-  <div class="Navigation">
-      <a class="Navigation-link" data-route="contact" href="/contact">
-        <iron-icon class="Navigation-icon" icon="announcement"></iron-icon>
-        <span class="Navigation-text">Contact</span>
+<!-- App-toolbar header panel -->
+<app-drawer id="drawer" swipe-open>
+  <!-- Drawer Content -->
+  <div class="Drawer-content">
+    <app-toolbar class="Drawer-header">
+
+    </app-toolbar>
+    <!-- Navigation -->
+    <div class="Drawer-info">
+
+      <a data-route="/" href="/">
+        <iron-image class="Drawer-logo" preload src="{$ theme.global.logo $}" fade></iron-image>
       </a>
-      <a class="Navigation-link" data-route="help" href="/help">
-        <iron-icon class="Navigation-icon" icon="help"></iron-icon>
-        <span class="Navigation-text">Help</span>
-      </a>
+
+      <iron-image class="Drawer-location" src="{$ theme.global.location $}" preload sizing="cover" fade></iron-image>
+
     </div>
+    <nav class="Drawer-widget">
+
+      <paper-menu class="Navigation Navigation--menu list" attr-for-selected="data-route" selected="[[route.path]]">
+
+        <a class="Navigation-link" data-route="/" href="/">
+          <iron-icon class="Navigation-icon" icon="home"></iron-icon>
+          <span class="Navigation-text">Home</span>
+        </a>
+
+        <a class="Navigation-link" data-route="/section/news" href="/section/news">
+          <iron-icon class="Navigation-icon" icon="chrome-reader-mode"></iron-icon>
+          <span class="Navigation-text">News</span>
+        </a>
+
+        <a class="Navigation-link" data-route="/section/opinion" href="/section/opinion">
+          <iron-icon class="Navigation-icon" icon="communication:chat-bubble"></iron-icon>
+          <span class="Navigation-text">Opinion</span>
+        </a>
+
+        <a class="Navigation-link" data-route="/section/announcements" href="/section/announcements">
+          <iron-icon class="Navigation-icon" icon="star"></iron-icon>
+          <span class="Navigation-text">Announcements</span>
+        </a>
+
+        <a class="Navigation-link" data-route="/section/sports" href="/section/sports">
+          <iron-icon class="Navigation-icon" icon="maps:directions-run"></iron-icon>
+          <span class="Navigation-text">Sports</span>
+        </a>
+
+        <a class="Navigation-link" data-route="/section/entertainment" href="/section/entertainment">
+          <iron-icon class="Navigation-icon" icon="image:palette"></iron-icon>
+          <span class="Navigation-text">Entertainment</span>
+        </a>
+
+        <a class="Navigation-link" data-route="/section/entertainment" href="/section/lifestyle">
+          <iron-icon class="Navigation-icon" icon="maps:local-cafe"></iron-icon>
+          <span class="Navigation-text">Lifestyle</span>
+        </a>
+
+      </paper-menu>
+
+    </nav>
+
+    <span class="u-spacer"></span>
+
+    <div class="Drawer-widget Drawer-widget--bottom">
+
+      <paper-menu class="Navigation Navigation--menu list" attr-for-selected="data-route" selected="[[data.page]]">
+
+        <a class="Navigation-link" data-route="settings" href="/settings" rel="nofollow">
+          <iron-icon class="Navigation-icon" icon="settings"></iron-icon>
+          <span class="Navigation-text">Site Settings</span>
+        </a>
+
+      </paper-menu>
+
+      <div class="Navigation">
+
+        <a class="Navigation-link" data-route="styles" href="/styles">
+          <iron-icon class="Navigation-icon" icon="aspect-ratio"></iron-icon>
+          <span class="Navigation-text">Styles</span>
+        </a>
+
+      </div>
+
+    </div>
+
+    <div class="Drawer-widget Drawer-widget--footer">
+
+      <span>{$ config.appVersion $}</span>
+
+    </div>
+
   </div>
-  <div class="Drawer-widget Drawer-widget--footer">
-    <span>{$ config.appVersion $}</span>
-  </div>
-</div>
+
+</app-drawer>

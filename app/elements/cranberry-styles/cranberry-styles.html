@@ -1,0 +1,100 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-styles/color.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+
+<dom-module id="cranberry-styles">
+  <template>
+    <style include="shared-styles">
+      @import "cranberry-styles/cranberry-styles"
+    </style>
+      <!-- Carbon page routing -->
+    <h1>Theme Specific Styles</h1>
+    <p class="primary-color">Primary color</p>
+    <p class="accent-color">Accent color</p>
+    <section id="typography">
+      <h2>Typography Styles</h2>
+      <p>
+        Default paragraph style.
+      </p>
+      <p>
+        Grumpy wizards make toxic brew for the evil Queen and Jack.
+      </p>
+      <section class="redlines paragraph">
+        <div class="paper-font-headline">Headline</div>
+        <div class="paper-font-title">Title</div>
+        <div class="paper-font-subhead">Subhead</div>
+        <div class="paper-font-body1">Body 1</div>
+        <div class="paper-font-body2">Body 2</div>
+        <div class="paper-font-caption">Caption</div>
+        <div class="paper-font-menu">Menu</div>
+        <div class="paper-font-button">Button</div>
+        <div class="paper-font-display1">Display 1</div>
+        <div class="paper-font-display2">Display 2</div>
+        <div class="paper-font-display3">Display 3</div>
+        <div class="paper-font-display4">Display 4</div>
+      </section>
+
+      <h3>Paragraph Styles</h3>
+
+      <h4>Paragraph Body 1</h4>
+      <section class="paper-font-body1 redlines">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi
+          tincidunt dui sit amet mi auctor, ac gravida magna aliquam. Fusce quis
+          purus elementum, tempus nisi vel, volutpat nulla. Vestibulum mollis
+          dictum tellus, vulputate porttitor arcu. Curabitur imperdiet risus id
+          egestas accumsan. Donec lectus felis, dignissim id iaculis sit amet,
+          faucibus in leo.
+        </p>
+        <p>
+          Mauris id urna ac ante ultrices commodo a imperdiet elit. Vivamus
+          interdum neque magna, eget dapibus est auctor et. Donec accumsan
+          libero nec augue scelerisque, ac egestas ante tincidunt. Proin
+          sollicitudin, mi eget sagittis mollis, arcu orci scelerisque turpis, a
+          sollicitudin tellus quam non sapien.
+        </p>
+      </section>
+
+      <h4>Paragraph Body 2</h4>
+      <section class="paper-font-body2 redlines">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi
+          tincidunt dui sit amet mi auctor, ac gravida magna aliquam. Fusce quis
+          purus elementum, tempus nisi vel, volutpat nulla. Vestibulum mollis
+          dictum tellus, vulputate porttitor arcu. Curabitur imperdiet risus id
+          egestas accumsan. Donec lectus felis, dignissim id iaculis sit amet,
+          faucibus in leo.
+        </p>
+        <p>
+          Mauris id urna ac ante ultrices commodo a imperdiet elit. Vivamus
+          interdum neque magna, eget dapibus est auctor et. Donec accumsan
+          libero nec augue scelerisque, ac egestas ante tincidunt. Proin
+          sollicitudin, mi eget sagittis mollis, arcu orci scelerisque turpis, a
+          sollicitudin tellus quam non sapien.
+        </p>
+      </section>
+    </section>
+
+    <section id="shadow">
+      <h2>shadow.html</h2>
+      <div class="shadow shadow-2dp">2dp</div>
+      <div class="shadow shadow-3dp">3dp</div>
+      <div class="shadow shadow-4dp">4dp</div>
+      <div class="shadow shadow-6dp">6dp</div>
+      <div class="shadow shadow-8dp">8dp</div>
+      <div class="shadow shadow-12dp">12dp</div>
+      <div class="shadow shadow-16dp">16dp</div>
+    </section>
+  </template>
+  <script src="cranberry-styles.js"></script>
+
+</dom-module>
