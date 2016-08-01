@@ -101,7 +101,7 @@ paper-card.story div.card-info {
   @apply(--layout-justified);
 }
 
-paper-card.story div.card-info span.story-tag {
+paper-card.story div.card-info div.story-tag {
   @apply(--paper-font-button);
   background-color: var(--accent-color);
   color: var(--text-accent-color);
@@ -110,6 +110,6 @@ paper-card.story div.card-info span.story-tag {
   text-transform: uppercase;
 }
 
-paper-card.story div.card-info span.story-date {
+paper-card.story div.card-info div.story-date {
   @apply(--paper-font-caption2);
 }
