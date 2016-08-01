@@ -52,9 +52,9 @@ for further information on custom CSS properties.
   --error-color: var(--paper-deep-orange-a700);                     /* User input errors */
 
   /* Primary colors */
-  --primary-color: var(--paper-$(primaryColorName)-500);            /* Header bar */
+  --primary-color: var(--paper-$(accentColorName)-a200);            /* Header bar */
   --light-primary-color: var(--paper-$(primaryColorName)-100);
-  --dark-primary-color: var(--paper-$(primaryColorName)-700);
+  --dark-primary-color: var(--paper-$(primaryColorName)-500);
   --text-primary-color: #fff;                                       /* Text / Icons */
   --text-light-primary-color: var(--paper-grey-900);
   --text-dark-primary-color: #fff;
@@ -68,6 +68,7 @@ for further information on custom CSS properties.
   --text-light-accent-color: var(--paper-grey-900);
   --text-dark-accent-color: #fff;
   --text-dark: #333;
+  --soft-grey: #999;
 
   /* Toggle button colors
      https://www.google.com/design/spec/components/selection-controls.html#selection-controls-switch */

@@ -1,13 +1,3 @@
-/*
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
-*/
-
 :host {
   display: block;
 
@@ -16,7 +6,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     color: var(--light-theme-secondary-text-color);
     font-size: 12px;
     font-weight: 400;
-  }
+  };
+
+  /* postcss-bem-linter: ignore */
+  --paper-slide-height: auto;
 
   /* postcss-bem-linter: ignore */
   --paper-card-content: {
@@ -28,6 +21,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   /* postcss-bem-linter: ignore */
   --paper-card-header-image-text: {
+    @apply(--paper-font-headline);
     color: var(--text-accent-color);
     font-size: 24px;
     text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
@@ -35,11 +29,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 }
 
 paper-card div.card-info span.content-tag {
+  @apply(--paper-font-button);
   background-color: var(--accent-color);
   color: var(--text-accent-color);
   padding-left: 6px;
   padding-right: 6px;
   text-transform: uppercase;
+}
+
+paper-card div.card-info span.content-date {
+  @apply(--paper-font-caption2);
 }
 
 paper-card div.card-info {
@@ -49,13 +48,16 @@ paper-card div.card-info {
 
 div.featured-content {
   @apply(--layout-horizontal);
-  margin-bottom: 24px;
+
+  margin-bottom: 16px;
 }
 
 div.featured-main {
-  @apply(--layout-flex-9);
+  @apply(--layout-flex-8);
   @apply(--layout-justified);
   @apply(--layout-vertical);
+
+  min-height: 300px;
 }
 
 div.featured-main > a {
@@ -70,8 +72,17 @@ div.featured-main > a > paper-card {
   @apply(--layout-vertical);
 }
 
+a > paper-card ::content div.title-text {
+  background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(0,0,0,0.9));
+  width: calc(100% - 32px);
+}
+
 div.featured-list {
-  @apply(--layout-flex-3);
+  @apply(--layout-flex-4);
   @apply(--layout-justified);
   @apply(--layout-vertical);
+}
+
+div.featured-list paper-card {
+    min-height: 200px;
 }

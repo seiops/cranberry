@@ -1,6 +1,7 @@
 #commentsButton {
-  background: rgba(0, 0, 0, 0.40);
-  color: #fff;
+  background: var(--dark-theme-primary-background-color);
+  color: var(--text-dark-primary-color);
+  @apply(--paper-font-button);
   width: 181px;
   height: 45px;
   margin-bottom: 25px;

@@ -1,0 +1,29 @@
+<link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+
+<dom-module id="cranberry-staff-list">
+  <template>
+    <style>
+      @import "cranberry-staff-list/cranberry-staff-list";
+    </style>
+    <byutv-jsonp auto on-response="_handleResponse" url="http://sedev.libercus.net/rest.json" params='{"request":"congero", "desiredContent":"staff", "desiredStaff":"1"}' id="request"></byutv-jsonp>
+    <div class="card-container">
+      <template is="dom-repeat" items="{{items}}">
+        <paper-card image="{{_computeStaffImage(item.image)}}">
+          <div class="card-content">
+            <div class="content-container">
+              <div class="content">
+                <p class="remove-margin name">{{item.title}}</p>
+                <p class="remove-margin caption-text">{{item.categoryName}}</p>
+              </div>
+              <!-- Button disabled currently -->
+              <paper-icon-button disabled icon="icons:more-vert"></paper-icon-button>
+            </div>
+          </div>
+        </paper-card>
+      </template>
+    </div>
+  </template>
+  <script src="cranberry-staff-list.js"></script>
+</dom-module>

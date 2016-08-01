@@ -49,62 +49,73 @@ Typography mixins are from file on URL https://github.com/PolymerElements/paper-
     @apply(--paper-font-common-base);
     @apply(--paper-font-common-nowrap);
 
-    font-size: 56px;
+    font-size: 12px;
     font-weight: 400;
     letter-spacing: -0.026em;
-    line-height: 60px;
+    line-height: normal;
   };
 
   --paper-font-display2: {
     @apply(--paper-font-common-base);
 
-    font-size: 45px;
-    font-weight: 400;
+    font-size: 18px;
+    font-weight: 700;
     letter-spacing: -0.018em;
-    line-height: 48px;
+    line-height: 24px;
   };
 
   --paper-font-display1: {
     @apply(--paper-font-common-base);
 
-    font-size: 34px;
-    font-weight: 400;
+    font-size: 44px;
+    font-weight: 900;
     letter-spacing: -0.01em;
-    line-height: 40px;
+    line-height: 60px;
+  };
+
+  --paper-font-headline2: {
+    @apply(--paper-font-common-base);
+
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: -0.012em;
+    line-height: normal;
   };
 
   --paper-font-headline: {
     @apply(--paper-font-common-base);
 
     font-size: 24px;
-    font-weight: 400;
+    font-weight: 900;
     letter-spacing: -0.012em;
-    line-height: 32px;
+    line-height: normal;
   };
 
   --paper-font-title: {
     @apply(--paper-font-common-base);
     @apply(--paper-font-common-nowrap);
 
-    font-size: 20px;
-    font-weight: 500;
-    line-height: 28px;
+    font-size: 32px;
+    font-weight: 900;
+    line-height: 42px;
   };
 
   --paper-font-subhead: {
     @apply(--paper-font-common-base);
 
     font-size: 16px;
-    font-weight: 400;
-    line-height: 24px;
+    font-weight: 500;
+    line-height: 23px;
+    color: rbga(0, 0, 0, 0.87);
   };
 
   --paper-font-body2: {
     @apply(--paper-font-common-base);
 
     font-size: 14px;
-    font-weight: 500;
-    line-height: 24px;
+    font-weight: 400;
+    line-height: normal;
+    text-transform: uppercase;
   };
 
   --paper-font-body1: {
@@ -113,15 +124,36 @@ Typography mixins are from file on URL https://github.com/PolymerElements/paper-
     font-size: 14px;
     font-weight: 400;
     line-height: 20px;
+    color: rgba(0, 0, 0, 0.87);
   };
+
+  --paper-font-error: {
+    @apply(--paper-font-body1);
+    color: var(--paper-error-red);
+  }
 
   --paper-font-caption: {
     @apply(--paper-font-common-base);
-    @apply(--paper-font-common-nowrap);
+    /* Disable NO word wrapping on comments text */
+    /*@apply(--paper-font-common-nowrap);*/
     font-size: 12px;
     font-weight: 400;
     letter-spacing: 0.011em;
-    line-height: 24px;
+    line-height: 19px;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.54);
+  };
+
+  --paper-font-caption2: {
+    @apply(--paper-font-common-base);
+    /* Disable NO word wrapping on comments text */
+    /*@apply(--paper-font-common-nowrap);*/
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.011em;
+    line-height: 19px;
+    text-transform: uppercase;
+    color: var(--accent-color);
   };
 
   --paper-font-menu: {
@@ -134,6 +166,17 @@ Typography mixins are from file on URL https://github.com/PolymerElements/paper-
   };
 
   --paper-font-button: {
+    @apply(--paper-font-common-base);
+    @apply(--paper-font-common-nowrap);
+
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.018em;
+    line-height: 24px;
+    text-transform: uppercase;
+  };
+
+  --paper-font-button2: {
     @apply(--paper-font-common-base);
     @apply(--paper-font-common-nowrap);
 

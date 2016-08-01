@@ -1,0 +1,135 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/communication-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/maps-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/editor-icons.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../cranberry-contact-form/cranberry-contact-form.html">
+<link rel="import" href="../cranberry-map/cranberry-map.html">
+<link rel="import" href="../cranberry-staff-list/cranberry-staff-list.html">
+
+<dom-module id="cranberry-contact-page">
+  <template>
+    <style>
+      @import "cranberry-contact-page/cranberry-contact-page";
+    </style>
+    <paper-material class="Page-paper" elevation="1">
+      <!-- MAIN IMAGE -->
+      <div class="main-image">
+        <!-- TODO: Need proper image here with correct 16:9 aspect ratio -->
+        <iron-image src="../cranberry-contact-page/images/SEBuilding.JPG"></iron-image>
+        <h3 class="header-title">Welcome to the Standard-Examiner</h3>
+      </div>
+
+      <!-- Contact card and form -->
+      <div class="contact-us-headline">
+        <h3>Contact Us Today</h3>
+        <p>We are happy to talk with you</p>
+      </div>
+      <div class="contact-area-container">
+        <div class="contact-card-wrapper layout vertical">
+          <div class="contact-card-header-info">
+            <h3>Contact Us</h3>
+            <p class="caption-text">Monday-Friday 5:30a.m.-5:00p.m.</p>
+            <p class="caption-text">Saturday-Sunday 5:00a.m.-10:00a.m.</p>
+          </div>
+          <div class="contact-card">
+            <paper-button class="rounded-button" raised><iron-icon icon="communication:phone"></iron-icon></paper-button>
+            <div class="contact-card-info">
+              <h3>PHONE</h3>
+              <p class="caption-text">801.625.4200 or 800.651.2105</p>
+            </div>
+          </div>
+          <div class="contact-card">
+            <paper-button class="rounded-button" raised><iron-icon icon="communication:email"></iron-icon></paper-button>
+            <div class="contact-card-info">
+              <h3>EMAIL</h3>
+              <p class="caption-text">INFO@STANDARD.NET</p>
+            </div>
+          </div>
+          <div class="contact-card">
+            <paper-button class="rounded-button" raised><iron-icon icon="maps:add-location"></iron-icon></paper-button>
+            <div class="contact-card-info">
+              <h3>ADDRESS</h3>
+              <p class="caption-text">332 Standard Way</p>
+              <p class="caption-text">P.O. Box 12790</p>
+              <p class="caption-text">Ogden, UT 84412</p>
+            </div>
+          </div>
+        </div>
+        <div class="form-container">
+          <cranberry-contact-form recipient="mjohnstone@standard.net"></cranberry-contact-form>
+        </div>
+      </div>
+
+      <!-- Social Integration -->
+      <div class="social-buttons-container">
+        <!-- TODO: Add Social Icons for each of the paper-buttons below -->
+        <paper-button class="rounded-button" raised>f</paper-button>
+        <paper-button class="rounded-button" raised>i</paper-button>
+        <paper-button class="rounded-button" raised>t</paper-button>
+        <paper-button class="rounded-button" raised>tum</paper-button>
+        <paper-button class="rounded-button" raised>l</paper-button>
+      </div>
+
+      <!-- Google Map -->
+      <cranberry-map latitude="41.2584591" longitude="-111.9936357"></cranberry-map>
+
+      <!-- Need help -->
+      <div class="help-section">
+        <div class="help-header">
+          <h3>Need Help?</h3>
+          <p>Information here and copy here</p>
+        </div>
+        <div class="help-card-container">
+          <div class="help-card">
+            <iron-icon icon="icons:shopping-basket"></iron-icon>
+            <p>Retail Advertising</p>
+            <p class="phone">(801)625-4488</p>
+          </div>
+          <div class="help-card">
+            <iron-icon icon="icons:find-in-page"></iron-icon>
+            <p>Classifieds</p>
+            <p class="phone">(801)625-4488</p>
+          </div>
+          <div class="help-card">
+            <iron-icon icon="icons:card-membership"></iron-icon>
+            <p>Member Services</p>
+            <p class="phone">(801)625-4488</p>
+          </div>
+          <div class="help-card">
+            <iron-icon icon="icons:chrome-reader-mode"></iron-icon>
+            <p>Commercial Print</p>
+            <p class="phone">(801)625-4488</p>
+          </div>
+          <div class="help-card">
+            <iron-icon icon="icons:lightbulb-outline"></iron-icon>
+            <p>Submit A News Tip</p>
+            <p class="phone">(801)625-4488</p>
+          </div>
+        </div>
+      </div>
+      <div class="staff-cards">
+        <h3>Meet Our Team</h3>
+        <p>Newsroom</p>
+        <cranberry-staff-list></cranberry-staff-list>
+      </div>
+      <div class="important-links">
+        <div class="important-links-header">
+          <h3>Important Links</h3>
+          <p>We are happy to help you.</p>
+        </div>
+        <div class="important-links-container">
+          <!-- TODO: Setup linking structure for these buttons -->
+          <paper-button raised>More+</paper-button>
+          <paper-button raised>Careers</paper-button>
+          <paper-button raised>SE Cares</paper-button>
+          <paper-button raised>RSS Feeds</paper-button>
+          <paper-button raised>SE Events</paper-button>
+        </div>
+      </div>
+    </paper-material>
+  </template>
+  <script src="cranberry-contact-page.js"></script>
+
+</dom-module>

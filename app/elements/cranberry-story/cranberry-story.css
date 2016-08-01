@@ -1,3 +1,7 @@
+:host {
+  background-color: var(--primary-background-color);
+}
+
 /* Utilities classes */
 .ut-center {
   text-align: center;
@@ -20,17 +24,17 @@
   border-radius: 50%;
 }
 
-iron-image[desktop-layout] {
+div.story-media iron-image[desktop-layout] {
   width: 100%;
   height: 645px;
 }
 
-iron-image[tablet-layout] {
+div.story-media iron-image[tablet-layout] {
   width: 100%;
   height: 308px;
 }
 
-iron-image[mobile-layout] {
+div.story-media iron-image[mobile-layout] {
   width: 100%;
   height: 240px;
 }
@@ -40,23 +44,43 @@ div {
   padding-bottom: 5px;
 }
 
-#storyMedia {
+/* Story Headline */
+h1.story-title {
+  @apply(--paper-font-display1);
+  margin-bottom: 0;
+}
+
+/* Publish Date / Image Caption */
+p.caption-text {
+  @apply(--paper-font-caption);
+}
+
+p.time-stamp {
+  color: var(--primary-color);
+}
+
+p.main-image-caption {
+  margin: 30px 0 20px 0;
+}
+
+div.story-media {
   position: relative;
   padding-bottom: 0;
   line-height: normal;
   font-size: 0;
 }
 
-#mainImageCaption {
-  line-height: normal;
-  margin: 20px 0 20px 0;
-  color: rgba(0, 0, 0, 0.60);
+div.body-text {
+  @apply(--paper-font-body1);
 }
+
+/* Social Icon styles */
 .ut-small-icon-margin {
   margin: 10px 14px 0 0;
 }
+
 #commentButton {
-  background: #005A90;
+  background: var(--dark-primary-color);
 }
 
 #twitterButton {
@@ -72,27 +96,45 @@ div {
   margin-right: 7px;
 }
 
-#storyTitle {
-  line-height: normal;
-  margin: 0;
+/* Byline styles */
+.by-line-wrapper {
+    @apply(--layout-horizontal);
 }
 
-#storyPublish {
-  color: #5bc1a5;
-}
-
-#storyByline {
-  @apply(--layout-horizontal);
-}
-
-#byLineInfo {
+.by-line-info {
   @apply(--layout-vertical);
+  @apply(--paper-font-caption);
 }
 
-#byLineInfo p {
+.by-line-info p {
   margin: 0 0 0 10px;
 }
 
-#storyContentArea p {
-  color: rgba(0, 0, 0, 0.87);
+div.content-wrapper {
+  @apply(--layout-around-justified);
+  @apply(--layout-horizontal);
+  @apply(--layout-wrap);
+}
+
+/* The minimum and maximum widths will need to be adjusted based on the new break points element */
+div.story-content {
+  @apply(--layout-flex-4);
+}
+
+div.story-content div {
+  @apply(--layout-vertical);
+  max-width: 100%;
+}
+
+div.right-rail {
+  @apply(--layout-flex);
+}
+
+div.right-rail div {
+  @apply(--layout-vertical);
+  @apply(--layout-center);
+}
+
+div.right-rail div > * {
+  margin: 12px;
 }

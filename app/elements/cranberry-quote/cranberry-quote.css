@@ -1,28 +1,23 @@
 :host {
   display: block;
+  position: relative;
 }
 
 blockquote span {
+  @apply(--paper-font-caption);
   position: absolute;
   bottom: 0;
   right: 15%;
-  font-size: 14px;
-  color: #999;
+  color: var(--dark-theme-primary-background-color);
 }
 
 blockquote {
+  @apply(--paper-font-subhead);
   position: relative;
   margin: 0 auto;
   max-width: 600px;
   padding: 30px 60px;
   text-align: center;
-  font-size: 30px;
-  line-height: 30px;
-}
-
-blockquote[mobile-layout] {
-  font-size: 20px;
-  line-height: 20px;
 }
 
 blockquote[mobile-layout]:before,
@@ -41,16 +36,16 @@ blockquote:before, blockquote:after {
 }
 
 blockquote:before {
+  color: var(--accent-color);
   font-family: "Arial-Bold";
-  color: #50bd9f;
   top: 0;
   left: 0;
   content: "\201C";
 }
 
 blockquote:after {
+  color: var(--accent-color);
   font-family: "Arial-Bold";
-  color: #50bd9f;
   bottom: 0;
   right: 0;
   content: "\201D";

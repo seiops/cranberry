@@ -2,21 +2,23 @@
   display: block;
   text-align: center;
   width: 100%;
+  margin-bottom: 14px;
 }
 
-::shadow iron-image {
+div#shortcode::shadow iron-image {
   --iron-image-width: 100%;
+  max-width: 600px;
 }
 
-::shadow .ut-text-small-dim {
-  font-size: .9em;
-  color: #999;
-}
-
-::shadow .ut-smaller-width {
+:host::shadow .ut-smaller-width {
   width: 90%;
+  margin: 0 auto;
 }
 
-::shadow .ut-height {
+:host::shadow .ut-height {
   height: 600px;
+}
+
+::shadow p.caption-text {
+  @apply(--paper-font-caption);
 }

@@ -1,3 +1,6 @@
+div {
+  margin-bottom: 14px;
+}
 /* Utilities classes */
 .ut-center {
   text-align: center;
@@ -23,16 +26,13 @@
   margin-bottom: 25px;
 }
 
-.ut-center {
-  text-align: center;
-}
-
 /* Gallery Container styles*/
 .gallery-container {
   position: relative;
   width: 100%;
   height: 100%;
 }
+
 /* Button Styles */
 .flex-absolute {
   @apply(--layout-horizontal);
@@ -41,6 +41,7 @@
   bottom: -25px;
   right: 5%;
   z-index: 10;
+  margin-bottom: 0;
 }
 
 .flex-absolute.share-buttons {
@@ -60,9 +61,27 @@
   height: 50px;
 }
 
+/* Gallery Headline */
+h1.gallery-title {
+  @apply(--paper-font-display1);
+  margin-bottom: 0;
+}
+
+p.caption-text {
+  @apply(--paper-font-caption);
+}
+
+p.time-stamp {
+  @apply(--paper-font-caption2);
+}
+
+p.body-text {
+  @apply(--paper-font-body1);
+}
+
 paper-button {
-  background: #005A90;
-  color: #fff;
+  background: var(--dark-primary-color);
+  color: var(--text-dark-accent-color);
 }
 
 paper-button#buyButton {
@@ -79,8 +98,8 @@ paper-button#buyButton {
 }
 
 .flex-absolute.tag-links paper-button {
-  background-color: #50bd9f;
-  color: #fff;
+  background-color: var(--accent-color);
+  color: var(--text-dark-accent-color);
   border-radius: 0;
   margin: 0;
 }
@@ -93,7 +112,7 @@ paper-button#buyButton {
 /* Paper dialog modal styles */
 paper-dialog {
   z-index: 99999999999 !important;
-  background-color: #000;
+  background-color: var(--dark-theme-primary-background-color);
   width: 100%;
   height: 100%;
   margin: 0;
@@ -105,7 +124,7 @@ paper-dialog > * {
 }
 
 paper-dialog paper-button {
-  background-color: #999;
+  background-color: var(--dark-theme-primary-background-color);
   display: block;
   margin: 0 auto;
   width: 50px;

@@ -1,0 +1,56 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../google-dfp/google-dfp.html">
+
+<dom-module id="cranberry-section">
+  <template>
+    <style include="shared-styles">
+      @import "theme.css";
+    </style>
+    <style>
+      @import "cranberry-section/cranberry-section";
+    </style>
+
+    <iron-media-query query="(max-width: 320px)" query-matches="{{small}}"></iron-media-query>
+    <iron-media-query query="(min-width: 321px) and (max-width: 720px)" query-matches="{{smallMedium}}"></iron-media-query>
+    <iron-media-query query="(min-width: 721px) and (max-width: 840px)" query-matches="{{medium}}"></iron-media-query>
+    <iron-media-query query="(min-width: 841px) and (max-width:960px)" query-matches="{{mediumLarge}}"></iron-media-query>
+    <iron-media-query query="(min-width: 961px) and (max-width:1280px)" query-matches="{{large}}"></iron-media-query>
+    <iron-media-query query="(min-width: 1281px)" query-matches="{{extraLarge}}"></iron-media-query>
+
+    <app-route route="{{route}}" pattern="/:section" data="{{routeData}}"></app-route>
+
+    <div class="header-advertisement">
+        <google-dfp section="[[loadSection]]" ad-pos="leaderboard" ad-size="[[728, 90],[970, 90],[970, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+    </div>
+
+    <cranberry-featured-content type="story_gallery" sections="[[loadSection]]" count="3" start="1"></cranberry-featured-content>
+
+    <paper-toolbar>
+      <div hidden$="{{!desktop}}"><paper-search-bar placeholder="SEARCH" on-paper-search-search="search"></paper-search-bar></div>
+      <paper-tabs id="tabs" selected="{{selected}}">
+        <paper-tab>LATEST</paper-tab>
+        <paper-tab>LOCAL</paper-tab>
+        <!-- <paper-tab>POPULAR</paper-tab> -->
+        <paper-tab>FEATURED</paper-tab>tabs
+      </paper-tabs>
+    </paper-toolbar>
+
+    <template is="dom-if" if="[[_isLatest(selected)]]">
+      <cranberry-content-list type="story_gallery" sections="[[loadSection]]" section="[[section]]" count="40" start="1"></cranberry-content-list>
+    </template>
+
+    <template is="dom-if" if="[[_isLocal(selected)]]">
+      <cranberry-content-list type="story_gallery" sections="[[loadSection]]" count="40" start="1"></cranberry-content-list>
+    </template>
+
+  <!-- <template is="dom-if" if="[[_isPopular(selected)]]">
+      <cranberry-content-list type="story_gallery" sections="news" count="10" start="1"></cranberry-content-list></div>
+    </template> -->
+
+    <template is="dom-if" if="[[_isFeatured(selected)]]">
+      <cranberry-content-list type="story_gallery" sections="[[loadSection]]" count="40" start="1"></cranberry-content-list>
+    </template>
+  </template>
+  <script src="cranberry-section.js"></script>
+</dom-module>

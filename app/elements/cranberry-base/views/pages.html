@@ -1,0 +1,26 @@
+<iron-pages class="Main-content" attr-for-selected="data-route" selected="{{data.page}}" default-selected="">
+  <div data-route="">
+    {% include "cranberry-base/views/pages/home.html" %}
+  </div>
+  <div data-route="gallery">
+    {% include "cranberry-base/views/pages/gallery.html" %}
+  </div>
+  <div data-route="section">
+    {% include "cranberry-base/views/pages/section.html" %}
+  </div>
+  <div data-route="jail-mugs">
+    {% include "cranberry-base/views/pages/jail-mugs.html" %}
+  </div>
+  <div data-route="policy">
+    {% include "cranberry-base/views/pages/policy.html" %}
+  </div>
+  <div data-route="story">
+    {% include "cranberry-base/views/pages/story.html" %}
+  </div>
+  <div data-route="terms">
+    {% include "cranberry-base/views/pages/terms.html" %}
+  </div>
+  <div data-route="styles">
+    {% include "cranberry-base/views/pages/styles.html" %}
+  </div>
+</iron-pages>

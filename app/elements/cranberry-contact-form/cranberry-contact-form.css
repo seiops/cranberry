@@ -1,0 +1,16 @@
+:host {
+  display: block;
+}
+
+.output {
+  @apply(--paper-font-error);
+}
+
+paper-input,
+paper-textarea {
+  margin-bottom: 10px;
+}
+
+paper-button {
+  @apply(--paper-font-button);
+}

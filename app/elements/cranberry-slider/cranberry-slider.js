@@ -12,13 +12,34 @@ class cranberrySlider {
       },
       animationEvent: {
         value: function() {
-          return this.whichEvent("animation");
+          return this.whichEvent('animation');
         }
       },
       transitionEvent: {
         value: function() {
-          return this.whichEvent("transition");
+          return this.whichEvent('transition');
         }
+      },
+      infoEl: {
+        type: Object
+      },
+      autostart: {
+        type: Boolean
+      },
+      arrows: {
+        type: Boolean
+      },
+      bullets: {
+        type: Boolean
+      },
+      info: {
+        type: Boolean
+      },
+      caption: {
+        type: Boolean
+      },
+      modal: {
+        type: Boolean
       },
       images: {
         type: Array,
@@ -66,7 +87,7 @@ class cranberrySlider {
       this.ended = false;
       this.callback = back || null;
       if (url.match(/\.(mp4|webm)/i)) {
-        this.vid.setAttribute("src", url);
+        this.vid.setAttribute('src', url);
         setTimeout(function () {
           self.end(true);
         }, 2000);
@@ -83,10 +104,10 @@ class cranberrySlider {
 
   whichEvent(name) {
     var t,
-      el = document.createElement("fakeelement");
+      el = document.createElement('fakeelement');
     var animations = {
-      "animation": name + "end",
-      "WebkitAnimation": "webkit" + (name.charAt(0).toUpperCase() + name.slice(1)) + "End"
+      'animation': name + 'end',
+      'WebkitAnimation': 'webkit' + (name.charAt(0).toUpperCase() + name.slice(1)) + 'End'
     }
     for (t in animations) {
       if (el.style[t] !== undefined) {
@@ -101,11 +122,11 @@ class cranberrySlider {
     this.loading = false,
     this.callback = null,
     this.ended = false,
-    this.vid = document.createElement("video");
-    this.vid.addEventListener("loadeddata", function () {
+    this.vid = document.createElement('video');
+    this.vid.addEventListener('loadeddata', function () {
       self.end(true);
     });
-    this.vid.addEventListener("error", function () {
+    this.vid.addEventListener('error', function () {
       self.end(false);
     });
     this.im.onload = function () {
@@ -129,16 +150,16 @@ class cranberrySlider {
     this.set('items', items);
   }
 
-  clearSiblings(el, index) {
-    var siblings = [].slice.call(el.bullets.children).filter(function (v) {
-        return v !== el.bullets.children[index]
-      }),
-      i, l;
-    for (i = 0, l = siblings.length; i < l; i++) {
-      siblings[i].className = "";
-    }
-    el.bullets.children[index].className = "active";
-  }
+  // clearSiblings(el, index) {
+  //   var siblings = [].slice.call(el.bullets.children).filter(function (v) {
+  //       return v !== el.bullets.children[index]
+  //     }),
+  //     i, l;
+  //   for (i = 0, l = siblings.length; i < l; i++) {
+  //     siblings[i].className = '';
+  //   }
+  //   Polymer.dom(el.bullets).children[index].classList.add('active');
+  // }
 
   checkSrc(el, index) {
     let items = this.get('items');
@@ -148,45 +169,45 @@ class cranberrySlider {
     let loader = this.get('loader');
     if (src.match(/\.(jpg|jpeg|png|gif)$/)) {
       el.video = null;
-      loader.style.backgroundImage = "url(" + src + ")";
+      loader.style.backgroundImage = 'url(' + src + ')';
       return loader;
     }
     if (src.match(/\.(mp4|webm)$/)) {
-      loader.style.backgroundImage = "none";
-      video = document.createElement("video");
+      loader.style.backgroundImage = 'none';
+      video = document.createElement('video');
 
       if (video.canPlayType && video.canPlayType('video/webm').replace(/no/, '')) {
-        src = src.replace(/\.(mp4|webm)$/i, ".webm");
+        src = src.replace(/\.(mp4|webm)$/i, '.webm');
       } else {
         if (video.canPlayType && video.canPlayType('video/mp4').replace(/no/, '')) {
-          src = src.replace(/\.(mp4|webm)$/i, ".mp4");
+          src = src.replace(/\.(mp4|webm)$/i, '.mp4');
         } else {
           return false;
         }
       }
 
-      video.setAttribute("src", src);
-      video.setAttribute("type", "video/" + src.replace(/(.*)\.(mp4|webm)$/i, "$2"));
+      video.setAttribute('src', src);
+      video.setAttribute('type', 'video/' + src.replace(/(.*)\.(mp4|webm)$/i, '$2'));
 
-      loader.addEventListener("click", function () {
+      loader.addEventListener('click', function () {
         video.paused || video.ended ? video.play() : video.pause();
       });
-      video.addEventListener("play", function () {
+      video.addEventListener('play', function () {
         if (!this.parentNode) return;
         restartTimer(this.parentNode);
-        this.parentNode.classList.add("playing");
-        this.parentNode.classList.remove("paused");
+        Polymer.dom(this.parentNode).classList.add('playing');
+        Polymer.dom(this.parentNode).classList.remove('paused');
       });
-      video.addEventListener("pause", function () {
+      video.addEventListener('pause', function () {
         if (!this.parentNode) return;
         clearTimer(this.parentNode);
-        this.parentNode.classList.remove("playing");
-        this.parentNode.classList.add("paused");
+        Polymer.dom(this.parentNode).classList.remove('playing');
+        Polymer.dom(this.parentNode).classList.add('paused');
       });
-      video.addEventListener("error", function () {
-        var type = src.match(/\.mp4$/i) ? ".webm" : ".mp4";
-        video.setAttribute("type", "video/" + type.replace(".", ""));
-        video.setAttribute("src", src.replace(/\.(mp4|webm)$/i, type));
+      video.addEventListener('error', function () {
+        var type = src.match(/\.mp4$/i) ? '.webm' : '.mp4';
+        video.setAttribute('type', 'video/' + type.replace('.', ''));
+        video.setAttribute('src', src.replace(/\.(mp4|webm)$/i, type));
       });
       el.video = video;
       loader.appendChild(video);
@@ -196,14 +217,14 @@ class cranberrySlider {
 
   clearTimer(el) {
     if (el.timer) clearTimeout(el.timer);
-    el.classList.remove("hidden");
+    Polymer.dom(el).classList.remove('hidden');
   }
 
   restartTimer(el) {
     if (!this.isMobile) {
       clearTimer(el);
       el.timer = setTimeout(function () {
-        el.classList.add("hidden");
+        Polymer.dom(el).classList.add('hidden');
       }, 1250);
     }
   }
@@ -221,15 +242,34 @@ class cranberrySlider {
       let current = this.get('current');
       let loader = this.get('loader');
       if (status) {
-        loader.addEventListener("mousemove", this.move);
-        loader.addEventListener("mouseleave", this.leave);
+        loader.addEventListener('mousemove', this.move);
+        loader.addEventListener('mouseleave', this.leave);
       } else {
-        loader.removeEventListener("mousemove", this.move);
-        loader.removeEventListener("mouseleave", this.leave);
-        current.removeEventListener("mousemove", this.move);
-        current.removeEventListener("mouseleave", this.leave);
+        loader.removeEventListener('mousemove', this.move);
+        loader.removeEventListener('mouseleave', this.leave);
+        current.removeEventListener('mousemove', this.move);
+        current.removeEventListener('mouseleave', this.leave);
       }
     }
+  }
+
+  removeAndAddClasses(el, addClasses) {
+    let currentClassArr = el.classList;
+    let classString = '';
+
+    currentClassArr.forEach(function(value, index) {
+      if (value !== 'style-scope' && value !== 'cranberry-slider') {
+        classString += value + ' ';
+      }
+    });
+
+    el.classList.remove(classString);
+
+    addClasses.forEach(function(value, index) {
+      el.classList.add(value);
+    });
+
+    return el;
   }
 
   loadingEnd(el, index) {
@@ -245,17 +285,17 @@ class cranberrySlider {
       loader.className = "current ready cranberry-slider";
       current.className = "loader cranberry-slider";
       if (nav) {
-        nav.next.className = "next";
-        nav.prev.className = "prev";
+        Polymer.dom(nav.next).classList.remove('active');
+        Polymer.dom(nav.prev).classList.remove('active');
       }
       if (items[index].portrait) {
-        loader.classList.add("portrait");
+        loader.classList.add('portrait');
       }
       if (self.video) {
-        loader.classList.add("controls");
-        loader.classList.add("video");
+        loader.classList.add('controls');
+        loader.classList.add('video');
         if (self.isMobile) {
-          loader.classList.add("paused");
+          loader.classList.add('paused');
         } else {
           self.video.play();
         }
@@ -263,7 +303,7 @@ class cranberrySlider {
       } else {
         self.videoEvents(el, false);
       }
-      toggle = self.get('loader');
+      toggle = loader;
       self.set('loader', current);
       self.set('current', toggle);
       self.set('index', index);
@@ -272,33 +312,36 @@ class cranberrySlider {
   }
 
   endLoading(el, index, dir) {
-    var self = this;
+    let self = this;
     let loader = this.get('loader');
     let items = this.get('items');
     let current = this.get('current');
+    let info = this.get('infoEl');
 
+    let infoOn = this.get('info');
+    let bullets = this.get('bullets');
+    let caption = this.get('caption');
 
     loader.innerHTML = items[index].html;
     this.checkSrc(el, index);
     loader.addEventListener(this.animationEvent, this.loadingEnd(this, index));
     window.requestAnimationFrame(function () {
-      loader.classList.add(dir + "-in");
-      current.classList.add(dir + "-out");
+      loader.classList.add(dir + '-in');
+      current.classList.add(dir + '-out');
     });
 
-    if (el.bullets) {
+    if (bullets && typeof bullets !== 'undefined') {
       this.clearSiblings(el, index);
     }
-    if (el.info) {
-      el.info.text.innerHTML = (index + 1) + " / " + items.length;
+    if (infoOn && typeof infoOn !== 'undefined') {
+      info.querySelector('.text').innerHTML = (index + 1) + ' / ' + items.length;
     }
-    if (typeof el.info !== 'undefined') {
-      if (el.info.caption) {
-        el.info.caption.innerHTML = '<iron-icon icon="image:panorama"></iron-icon>' + this.images[index].caption;
-      }
+
+    if (caption && typeof caption !== 'undefined') {
+      info.querySelector('.caption').innerHTML = '<iron-icon icon="image:panorama"></iron-icon>' + this.images[index].caption;
     }
     if (items[index].portrait) {
-      loader.classList.add("portrait");
+      loader.classList.add('portrait');
     }
   }
 
@@ -315,12 +358,12 @@ class cranberrySlider {
     let items = this.get('items');
     let transitioning = this.get('transitioning');
 
-    var ldr = document.createElement("div");
+    var ldr = document.createElement('div');
     var loader = new this.Loader();
-    ldr.className = "ldr";
+    ldr.classList.add('ldr');
     current.appendChild(ldr);
 
-    dir = dir || "next";
+    dir = dir || 'next';
     if (transitioning === true) return;
     if (index < 0) {
       this.set('index', items.length - 1);
@@ -328,10 +371,10 @@ class cranberrySlider {
     if (index >= items.length) this.set('index', 0);
     this.set('transitioning', true);
     if (items[index].loaded !== true) {
-      current.classList.remove("ready");
+      current.classList.remove('ready');
       current.offsetHeight;
       window.requestAnimationFrame(function () {
-        current.classList.add("loading");
+        current.classList.add('loading');
         loader.run(items[index].src, function (img) {
           if (img.height > img.width) {
             items[index].portrait = true;
@@ -342,7 +385,7 @@ class cranberrySlider {
           current.addEventListener(self.get('transitionEvent'), self.endGoTo(self, index, dir));
           window.requestAnimationFrame(function () {
             setTimeout(function () {
-              current.classList.add("unload");
+              current.classList.add('unload');
             }, 100);
 
           });
@@ -359,7 +402,7 @@ class cranberrySlider {
 
   events(el) {
     el.position = {};
-    el.addEventListener("keydown", function (event) {
+    el.addEventListener('keydown', function (event) {
       var key = event.which;
       if (key == 37 || key == 39) {
         event.preventDefault();
@@ -375,17 +418,17 @@ class cranberrySlider {
   applyBullets(el) {
     let items = this.get('items');
     if (el.bullets) return;
-    el.bullets = document.createElement("div");
-    el.bullets.className = "bullets";
-    var span = document.createElement("button"),
+    el.bullets = document.createElement('div');
+    Polymer.dom(el.bullets).classList.add('bullets');
+    var span = document.createElement('button'),
       child;
     for (var i = 0, l = items.length; i < l; i++) {
       child = span.cloneNode(true);
-      child.setAttribute("data-index", i);
-      child.addEventListener("click", function () {
-        var index = this.getAttribute("data-index");
+      child.setAttribute('data-index', i);
+      child.addEventListener('click', function () {
+        var index = this.getAttribute('data-index');
         let sliderIndex = this.get('index');
-        this.goTo(el, index, index > sliderIndex ? "next" : "prev");
+        this.goTo(el, index, index > sliderIndex ? 'next' : 'prev');
       });
       el.bullets.appendChild(child);
     }
@@ -394,38 +437,46 @@ class cranberrySlider {
   }
 
   applyInfo(el) {
-    el.info = document.createElement("div");
-    el.info.className = "info";
-    el.info.text = document.createElement("span");
-    if (el.getAttribute('shownextprev') === "true") {
-      el.info.next = document.createElement("button"),
-        el.info.prev = document.createElement("button");
-      el.info.next.innerHTML = "next";
-      el.info.prev.innerHTML = "prev";
-      el.info.appendChild(el.info.next);
-      el.info.appendChild(el.info.prev);
-      el.info.next.addEventListener("click", function () {
+    this.set('info', true);
+    let info = document.createElement('div');
+    Polymer.dom(info).classList.add('info');
+    let text = document.createElement('span');
+    text.classList.add('text');
+    if (Boolean(el.getAttribute('shownextprev'))) {
+      let next = document.createElement('button');
+      let prev = document.createElement('button');
+
+      next.textContent = 'next';
+      prev.textConent = 'prev';
+
+      next.addEventListener('click', function () {
         el.next();
       });
-      el.info.prev.addEventListener("click", function () {
+
+      next.addEventListener('click', function () {
         el.prev();
       });
+      info.appendChild(next);
+      info.appendChild(prev);
     }
-    el.info.text.innerHTML = "";
-    el.info.appendChild(el.info.text);
 
-    if (el.getAttribute('caption') === "true") {
-      el.info.caption = document.createElement('p');
-      if (el.getAttribute('modal') === "true") {
-        el.info.caption.classList = 'white-text';
-        el.info.classList += ' white-text';
+    text.textContent = '';
+    info.appendChild(text);
+
+    if (this.get('caption')) {
+      let caption = document.createElement('p');
+      Polymer.dom(caption).classList.add('caption');
+      if (this.get('modal')) {
+        Polymer.dom(caption).classList.add('white-text');
+        Polymer.dom(info).classList.add('white-text');
       }
-      el.info.caption.innerHTML = '';
-      el.info.appendChild(el.info.caption);
+      caption.textContent = '';
+      info.appendChild(caption);
     }
     let container = this.get('container');
 
-    el.appendChild(el.info);
+    el.appendChild(info);
+    this.set('infoEl', info);
   }
 
   applyArrows(el) {
@@ -435,20 +486,20 @@ class cranberrySlider {
     this.set('nav', div);
     let nav = this.get('nav');
 
-    nav.innerHTML = "<button class='next active'><em class='a-right'></em></button><button class='prev active'><em class='a-left'></em></button>";
-    nav.next = nav.querySelector(".next");
-    nav.prev = nav.querySelector(".prev");
-    nav.next.addEventListener("click", function (event) {
+    nav.innerHTML = '<button class="next active"><em class="a-right"></em></button><button class="prev active"><em class="a-left"></em></button>';
+    nav.next = nav.querySelector('.next');
+    nav.prev = nav.querySelector('.prev');
+    nav.next.addEventListener('click', function (event) {
       el.next();
     });
-    nav.prev.addEventListener("click", function (event) {
+    nav.prev.addEventListener('click', function (event) {
       el.prev();
     });
-    container.addEventListener("touchstart", function (event) {
+    container.addEventListener('touchstart', function (event) {
       el.position.x = event.touches[0].clientX;
       el.position.y = event.touches[0].clientY;
     });
-    container.addEventListener("touchmove", function (event) {
+    container.addEventListener('touchmove', function (event) {
       if (!el.position.x || !el.position.y) {
         return;
       }
@@ -476,74 +527,76 @@ class cranberrySlider {
   }
 
   checkStart(el) {
-    var start = el.getAttribute("autostart");
-    if (start === "true") {
-      this.goTo(el, 0, "next");
+    let start = this.get('autostart');
+    if (start) {
+      this.goTo(el, 0, 'next');
     }
   }
 
   checkInfo(el) {
-    var info = el.getAttribute("info");
-    if (info === true) {
+    let info = this.get('info');
+
+    if (info) {
       this.applyInfo(el);
     }
   }
 
   checkArrows(el) {
-    var arrows = el.getAttribute("arrows");
+    let arrows = this.get('arrows');
     let items = this.get('items');
 
-    if (arrows != false && items.length > 1) {
+    if (arrows && items.length > 1) {
       this.applyArrows(el);
     }
   }
 
   checkBullets(el) {
-    var bullets = el.getAttribute("bullets");
+    let bullets = this.get('bullets');
+    console.info(bullets);
     let container = this.get('container');
-    if (typeof bullets === "string" && bullets == "true") {
+    if (bullets) {
       this.applyBullets(el);
-      container.classList.add("with-bullets");
+      Polymer.dom(container).classList.add('with-bullets');
     } else {
-      container.classList.remove("with-bullets");
+      Polymer.dom(container).classList.remove('with-bullets');
     }
   }
 
   checkHeight(el) {
-    var height = el.getAttribute("height");
+    var height = el.getAttribute('height');
     let container = this.get('container');
 
-    if (typeof height === "string") {
+    if (typeof height === 'string') {
       if (height.match(/^x([0-9]{1,3})%$/)) {
-        container.classList.add("proportional");
-        container.style.paddingBottom = height.replace("x", "");
+        Polymer.dom(container).classList.add('proportional');
+        container.style.paddingBottom = height.replace('x', '');
       } else {
         container.style.height = height;
       }
     } else {
-      container.classList.add("proportional");
+      Polymer.dom(container).classList.add('proportional');
     }
   }
 
   checkColor(el) {
-    var color = el.getAttribute("color");
+    var color = el.getAttribute('color');
     let container = this.get('container');
 
-    if (typeof color === "string" && color.match(/^(teal|red|blue|pink|purple|grey|orange)$/)) {
-      container.className = container.className.replace(/c\-[a-z]/, "").trim();
-      container.classList.add("c-" + color);
+    if (typeof color === 'string' && color.match(/^(teal|red|blue|pink|purple|grey|orange)$/)) {
+      container.className = container.className.replace(/c\-[a-z]/, '').trim();
+      Polymer.dom(container).classList.add('c-' + color);
     } else {
-      container.className = container.className.replace(/c\-[a-z]/, "").trim();
+      container.className = container.className.replace(/c\-[a-z]/, '').trim();
     }
   }
 
   checkPreImg(el) {
-    var image = el.getAttribute("pre-image");
+    var image = el.getAttribute('pre-image');
     let current = this.get('current');
 
-    if (typeof image === "string") {
-      current.style.backgroundImage = "url(" + image + ")";
-      current.classList.add("first");
+    if (typeof image === 'string') {
+      current.style.backgroundImage = 'url(' + image + ')';
+      current.classList.add('first');
     }
   }
 
@@ -551,10 +604,10 @@ class cranberrySlider {
     let container = this.get('container');
 
     if (this.isMobile) {
-      container.classList.add("mobile");
+      Polymer.dom(container).classList.add('mobile');
     }
     if (this.isiPhone) {
-      container.classList.add("iphone");
+      Polymer.dom(container).classList.add('iphone');
     }
   }
 
@@ -570,7 +623,7 @@ class cranberrySlider {
         continue;
       }
     }
-    return text.join(" ");
+    return text.join(' ');
   }
 
   init(el) {
@@ -578,7 +631,7 @@ class cranberrySlider {
     this.set('current', this.querySelector('.current'));
     this.set('loader', this.querySelector('.loader'));
     this.set('container', this.querySelector('.slider'));
-    el.class = "slider";
+    el.class = 'slider';
 
     let info = this.querySelector('.info');
     let nextPrev = this.querySelector('.nextPrev');
@@ -603,7 +656,7 @@ class cranberrySlider {
   }
 
   firstRun() {
-    this.goTo(this, 0, "next");
+    this.goTo(this, 0, 'next');
   }
 
   nextEnd(el) {
@@ -612,7 +665,7 @@ class cranberrySlider {
     var button = nav.next;
 
     button.removeEventListener(el.transitionEvent, el.nextEnd);
-    el.goTo(el, index + 1, "next");
+    el.goTo(el, index + 1, 'next');
   }
 
   next() {
@@ -620,7 +673,7 @@ class cranberrySlider {
       self = this;
 
     el.addEventListener(self.transitionEvent, this.nextEnd(this));
-    el.className = "next active";
+    Polymer.dom(el).classList.add('active');
   }
 
   prevEnd(el) {
@@ -629,7 +682,7 @@ class cranberrySlider {
     var button = nav.prev;
 
     button.removeEventListener(el.transitionEvent, el.prevEnd);
-    el.goTo(el, index - 1, "prev");
+    el.goTo(el, index - 1, 'prev');
   }
 
   prev() {
@@ -637,11 +690,11 @@ class cranberrySlider {
       self = this;
 
     el.addEventListener(self.transitionEvent, this.prevEnd(this));
-    el.className = "prev active";
+    Polymer.dom(el).classList.add('active');
   }
 
   color(color) {
-    this.setAttribute("color", color);
+    this.setAttribute('color', color);
   }
 
 }

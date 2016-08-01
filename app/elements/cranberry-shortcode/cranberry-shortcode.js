@@ -9,10 +9,6 @@ class cranberryShortcode {
             type: Object
           }
         };
-        this.computeRatio = function(url, ratio) {
-          let ratioString = 'a' + ratio;
-          return url.replace('p1', ratioString + '_p1');
-        };
     }
 
     // Attached function to handle all data passed to shortcode Element
@@ -102,12 +98,16 @@ class cranberryShortcode {
 
       // Create shortcode for images. Except for leadimages
       if (type === 'image' && shortcode.key !== 'leadimage') {
-        shortcodeEl = document.createElement('iron-image');
+        let container = document.createElement('div');
+        let image = document.createElement('iron-image');
         let caption = document.createElement('p');
-        caption.classList.add('ut-text-small-dim');
-        shortcodeEl.src = 'http://www.standard.net' + (shortcode.key === 'image' ? this.computeRatio(foundObject.url, '16-9') : foundObject.url);
+        caption.classList.add('caption-text');
+        image.src = 'http://www.standard.net' + (shortcode.key === 'image' ? foundObject.large : foundObject.url);
         caption.appendChild(document.createTextNode(foundObject.caption));
-        shortcodeEl.appendChild(caption);
+        image.appendChild(caption);
+        container.appendChild(image);
+        container.appendChild(caption);
+        shortcodeEl = container;
       }
 
       // Create shortcode for PDF's and Audio
@@ -125,7 +125,7 @@ class cranberryShortcode {
           shortcodeEl.style = 'margin: 0 auto;';
           shortcodeEl.title = foundObject.title;
 
-          this.$.shortcode.classList += ' .ut-smaller-width';
+          Polymer.dom(this.$.shortcode).classList.add('ut-smaller-width')
         }
       }
 
@@ -155,7 +155,7 @@ class cranberryShortcode {
 
         foundObject.forEach(function(value, index) {
           let obj = {};
-          obj.url = 'http://www.standard.net' + myElement.computeRatio(value.url, '16-9');
+          obj.url = 'http://www.standard.net' + value.exlarge;
           images.push(obj);
         });
 
@@ -218,57 +218,50 @@ class cranberryShortcode {
             }
           }
         });
-        let card = document.createElement('paper-card');
+
         let slider = document.createElement('cranberry-slider');
         let wrapper = document.createElement('cranberry-slider-wrapper');
 
-        wrapper.set('isShortcode', true);
         wrapper.set('links', links);
         wrapper.set('featuredTitle', featured.title);
 
-        slider.setAttribute('autostart', 'true');
-        slider.setAttribute('arrows', 'true');
-        slider.setAttribute('bullets', 'false');
-        slider.setAttribute('info', 'true');
-        slider.setAttribute('caption', 'true');
+        slider.set('autostart', true);
+        slider.set('arrows', true);
+        slider.set('bullets', false);
+        slider.set('info', true);
+        slider.set('caption', true);
         slider.set('images', featured.mediaAssets.images);
 
 
         Polymer.dom(wrapper).appendChild(slider);
-        Polymer.dom(card).appendChild(wrapper);
 
-
-        shortcodeEl = card;
+        shortcodeEl = wrapper;
 
       }
 
       // Create SingleGallery shortcode
       if (type === 'singlegallery') {
-        let card = document.createElement('paper-card');
         let slider = document.createElement('cranberry-slider');
         let wrapper = document.createElement('cranberry-slider-wrapper');
 
-        wrapper.set('isShortcode', true);
         wrapper.set('featuredTitle', foundObject.title);
 
-        slider.setAttribute('autostart', 'true');
-        slider.setAttribute('arrows', 'true');
-        slider.setAttribute('bullets', 'false');
-        slider.setAttribute('info', 'true');
-        slider.setAttribute('caption', 'true');
+        slider.set('autostart', true);
+        slider.set('arrows', true);
+        slider.set('bullets', false);
+        slider.set('info', true);
+        slider.set('caption', true);
+
         slider.set('images', foundObject.mediaAssets.images);
 
-
         Polymer.dom(wrapper).appendChild(slider);
-        Polymer.dom(card).appendChild(wrapper);
 
-
-        shortcodeEl = card;
+        shortcodeEl = wrapper;
       }
 
       // Append shortcodeEl
       if (shortcode.key === 'leadimage') {
-        document.querySelector('#storyMedia').querySelector('iron-image').src = 'http://www.standard.net/' + this.computeRatio(foundObject.url, '16-9');
+        document.querySelector('#mainImage').src = 'http://www.standard.net/' + foundObject.exlarge;
       } else {
         Polymer.dom(this.$.shortcode).appendChild(shortcodeEl);
       }

@@ -1,0 +1,45 @@
+:host {
+  display: block;
+  max-width: 100%;
+}
+
+.card-container {
+  @apply(--layout-horizontal);
+  @apply(--layout-around-justified);
+  @apply(--layout-center);
+  @apply(--layout-wrap);
+}
+
+paper-card {
+  max-width: 200px;
+  margin: 20px;
+}
+
+paper-card div.card-content {
+  padding: 10px 5px;
+}
+
+paper-card::shadow iron-image {
+  max-height: 200px;
+}
+
+paper-card p.name {
+  @apply(--paper-font-subhead);
+}
+
+paper-card p.caption-text {
+  @apply(--paper-font-display3);
+}
+
+.remove-margin {
+  margin: 0;
+}
+
+.content-container {
+  @apply(--layout-horizontal);
+}
+
+.content {
+  @apply(--layout-flex);
+  @apply(--layout-vertical);
+}

@@ -255,18 +255,19 @@ nav :host::shadow{
 }
 
 :host::shadow .info {
+  @apply(--paper-font-caption);
   display: block;
   height: 30px;
   position: absolute;
   width: 100%;
   bottom: -60px;
-  font-family: inherit;
-  font-size: inherit;
   color: rgba(0, 0, 0, 0.4);
 }
 
 :host::shadow .info p iron-icon {
   padding: 0 10px 0 0;
+  width: 16px;
+  height: 16px;
 }
 
 :host::shadow .info span {
@@ -278,7 +279,7 @@ nav :host::shadow{
   padding: 0 0 0 10px;
 }
 
-:host::shadow .info button :host::shadow {
+:host::shadow .info button ::shadow {
   float: right;
   border: none;
   background-color: transparent;

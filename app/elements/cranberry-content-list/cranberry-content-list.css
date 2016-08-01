@@ -1,13 +1,3 @@
-/*
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
-*/
-
 :host {
   display: block;
 
@@ -22,7 +12,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     color: var(--light-theme-secondary-text-color);
     font-size: 12px;
     font-weight: 400;
-  }
+  };
 
   /* postcss-bem-linter: ignore */
   --paper-card-content: {
@@ -43,20 +33,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   /* postcss-bem-linter: ignore */
   --paper-card-header-image-text: {
     color: var(--text-accent-color);
-    font-size: 20px;
+    @apply(--paper-font-headline);
     text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
   };
 
   /* postcss-bem-linter: ignore */
   --paper-card-header-text: {
-    font-size: 20px;
+    @apply(--paper-font-headline);
   };
 }
 
 div.content-cards {
-  @apply(--layout-center-justified);
+  @apply(--layout-around-justified);
   @apply(--layout-horizontal);
   @apply(--layout-wrap);
+
+  min-height: 800px;
 }
 
 div.content-cards > a {
@@ -64,7 +56,7 @@ div.content-cards > a {
   @apply(--layout-vertical);
 
   margin: 12px;
-  max-width: 350px;
+  max-width: 400px;
   text-decoration: none;
 }
 
@@ -73,7 +65,7 @@ div.content-cards > a > paper-card {
   @apply(--layout-vertical);
 }
 
-paper-card.advertisement {
+paper-card.stream-advertisement {
   @apply(--layout-horizontal);
   @apply(--layout-center);
 
@@ -85,16 +77,39 @@ paper-card.advertisement {
     padding: 0;
   };
 }
+div.leaderboard-advertisement-wrapper {
+  @apply(--layout-center);
+  @apply(--layout-horizontal);
+  @apply(--layout-justified);
+  @apply(--layout-flex-12);
+  /* flex: 0 0 100%; */
+}
 
+div.leaderboard-advertisement {
+  @apply(--layout-vertical);
+  @apply(--layout-center);
+  @apply(--layout-flex);
+  background-color: transparent;
+  text-align: center;
+}
+paper-card.story ::content div.title-text {
+  background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(0,0,0,0.9));
+  width: calc(100% -24px);
+}
 paper-card.story div.card-info {
   @apply(--layout-horizontal);
   @apply(--layout-justified);
 }
 
 paper-card.story div.card-info span.story-tag {
+  @apply(--paper-font-button);
   background-color: var(--accent-color);
   color: var(--text-accent-color);
   padding-left: 6px;
   padding-right: 6px;
   text-transform: uppercase;
+}
+
+paper-card.story div.card-info span.story-date {
+  @apply(--paper-font-caption2);
 }

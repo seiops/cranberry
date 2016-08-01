@@ -8,8 +8,9 @@
 }
 
 paper-material {
-  background-color: #fff;
+  background-color: var(--primary-background-color);
 }
+
 paper-material {
   line-height: normal;
   padding: 10px;
@@ -18,11 +19,11 @@ paper-material {
 }
 
 paper-material .gig-button-text {
-  color: black;
+  color: var(--secondary-text-color);
 }
 
-::shadow #shareButton {
+:host::shadow #shareButton {
   width: 56px;
   height: 56px;
-  background: #5bc1a5;
+  background: var(--accent-color);
 }

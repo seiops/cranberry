@@ -7,8 +7,9 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 
-var primaryColorName = 'blue',
-    accentColorName  = 'green',
+var config = require('../../metadata/general'),
+    primaryColorName = config.siteName,
+    accentColorName  = config.siteName + '-accent',
     themeMode        = 'light', // or dark
 
     colors           = require('./colors'),
@@ -17,10 +18,14 @@ var primaryColorName = 'blue',
 
 module.exports = {
   global: {
+    logo: '/images/logo.png',
+    location: '/images/location.jpg',
     primaryColorName: primaryColorName,
     accentColorName: accentColorName,
     themeMode: themeMode
   },
+
+  // Location settings
 
   // Web Application Manifest - manifest.json
   manifest: {

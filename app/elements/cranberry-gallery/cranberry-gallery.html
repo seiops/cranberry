@@ -1,49 +1,52 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
 <link rel="import" href="../../bower_components/iron-icons/social-icons.html">
 <link rel="import" href="../../bower_components/iron-icons/editor-icons.html">
-<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
-<link rel="import" href="../gigya-sharebar/gigya-sharebar.html">
-<link rel="import" href="../gigya-comments/gigya-comments.html">
 <link rel="import" href="../cranberry-slider/cranberry-slider.html">
+<link rel="import" href="../gigya-comments/gigya-comments.html">
+<link rel="import" href="../gigya-sharebar/gigya-sharebar.html">
 
 <dom-module id="cranberry-gallery">
   <template>
-    <style is="custom-style">
+    <style>
       @import "cranberry-gallery/cranberry-gallery";
     </style>
 
     <paper-dialog id="modal" modal>
       <div class="gallery-container">
-        <cranberry-slider id="modalSlider" images="{{gallery.mediaAssets.images}}" autostart="true" arrows="true" bullets="false" info="true" caption="true" modal="true"></cranberry-slider>
+        <cranberry-slider id="modalSlider" images="{{gallery.mediaAssets.images}}" autostart arrows info caption modal></cranberry-slider>
         <paper-button id="modalClose" raised>Close</paper-button>
       </div>
     </paper-dialog>
 
-    <byutv-jsonp auto url="http://sedev.libercus.net/rest.json" params='{"request": "gallery", "desiredItemID": "3401"}' on-response="handleResponse" debounce-duration="300" id="request"></byutv-jsonp>
+    <app-route route="{{route}}" pattern="/:id" data="{{routeData}}"></app-route>
+    <byutv-jsonp on-response="_handleResponse" id="request"></byutv-jsonp>
 
     <div class="ut-center">
-      <iron-image src="http://www.placehold.it/970x250&text=AD_970x250"></iron-image>
+      <google-dfp route="{{route}}" ad-pos="leaderboard_bottom" ad-size="[728, 90]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
     </div>
 
     <div class="gallery-container">
+
       <div class="flex-absolute tag-links">
         <paper-button raised>{{tags.1}}</paper-button>
       </div>
+
       <div class="flex-absolute expand-link">
         <paper-button raised id="modalOpen" class="rounded-button"><iron-icon icon="icons:fullscreen"></iron-icon></paper-button>
       </div>
-      <cranberry-slider id="mainSlider" images="{{gallery.mediaAssets.images}}" autostart="true" arrows="true" bullets="false" info="true" caption="true">
+      <cranberry-slider id="mainSlider" images="{{gallery.mediaAssets.images}}" autostart arrows info caption>
         <div class="flex-absolute share-buttons">
           <paper-button raised id="buyButton" class="rounded-button"><iron-icon icon="editor:attach-money"></iron-icon></paper-button>
           <gigya-sharebar share-buttons-id="gigya-share-buttons-gallery"></gigya-sharebar>
         </div>
       </cranberry-slider>
-    </div>
 
-
-    <p>{{gallery.FullText}}</p>
+    <h1 class="gallery-title">{{gallery.title}}</h1>
+    <p class="time-stamp"> {{gallery.updated}} </p>
+    <p class="body-text">{{gallery.FullText}}</p>
 
     <div class="ut-grid ut-margin-bottom">
       <div class="flex-3 ut-center" id="images">
@@ -52,8 +55,7 @@
         </template>
       </div>
       <div class="flex ut-center">
-        <google-dfp route="{{route}}" adpos="bottom_of_stream" adsize="[[300,250],[300,600]]" adgroup="{$ config.dfpAdStructure.adGroupID $}" adgrouping="{$ config.dfpAdStructure.adGrouping $}" adsubgrouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
-        <img src="http://www.placehold.it/300x600&text=Related"/>
+        <google-dfp route="{{route}}" ad-pos="bottom_of_stream" adsize="[[300,250],[300,600]]" adgroup="{$ config.dfpAdStructure.adGroupID $}" adgrouping="{$ config.dfpAdStructure.adGrouping $}" adsubgrouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
       </div>
     </div>
 
