@@ -352,11 +352,21 @@ class cranberrySlider {
   }
 
   goTo(el, index, dir) {
-    this.fire('goTo', {"index": index});
     var self = this;
     let current = this.get('current');
     let items = this.get('items');
     let transitioning = this.get('transitioning');
+
+    if (index < 0) {
+      this.set('index', items.length - 1);
+      index = items.length - 1;
+    }
+    if (index >= items.length) {
+      this.set('index', 0);
+      index = 0;
+    }
+
+    this.fire('goTo', {"index": index});
 
     var ldr = document.createElement('div');
     var loader = new this.Loader();
@@ -365,10 +375,6 @@ class cranberrySlider {
 
     dir = dir || 'next';
     if (transitioning === true) return;
-    if (index < 0) {
-      this.set('index', items.length - 1);
-    }
-    if (index >= items.length) this.set('index', 0);
     this.set('transitioning', true);
     if (items[index].loaded !== true) {
       current.classList.remove('ready');
@@ -552,7 +558,6 @@ class cranberrySlider {
 
   checkBullets(el) {
     let bullets = this.get('bullets');
-    console.info(bullets);
     let container = this.get('container');
     if (bullets) {
       this.applyBullets(el);
@@ -627,32 +632,34 @@ class cranberrySlider {
   }
 
   init(el) {
-    this.set('figure', this.querySelector('figure'));
-    this.set('current', this.querySelector('.current'));
-    this.set('loader', this.querySelector('.loader'));
-    this.set('container', this.querySelector('.slider'));
-    el.class = 'slider';
+    if (typeof this.get('images') !== 'undefined') {
+      this.set('figure', this.querySelector('figure'));
+      this.set('current', this.querySelector('.current'));
+      this.set('loader', this.querySelector('.loader'));
+      this.set('container', this.querySelector('.slider'));
+      el.class = 'slider';
 
-    let info = this.querySelector('.info');
-    let nextPrev = this.querySelector('.nextPrev');
+      let info = this.querySelector('.info');
+      let nextPrev = this.querySelector('.nextPrev');
 
-    if (info) {
-      this.removeChild(info);
+      if (info) {
+        this.removeChild(info);
+      }
+
+      // Run the remainder of funtions
+      this.updateItems(el);
+      if (!nextPrev) {
+        this.checkArrows(el);
+      }
+      this.checkBullets(el);
+      this.checkInfo(el);
+      this.checkHeight(el);
+      this.checkPreImg(el);
+      this.events(el);
+      this.checkStart(el);
+      this.checkColor(el);
+      this.checkMobile(el);
     }
-
-    // Run the remainder of funtions
-    this.updateItems(el);
-    if (!nextPrev) {
-      this.checkArrows(el);
-    }
-    this.checkBullets(el);
-    this.checkInfo(el);
-    this.checkHeight(el);
-    this.checkPreImg(el);
-    this.events(el);
-    this.checkStart(el);
-    this.checkColor(el);
-    this.checkMobile(el);
   }
 
   firstRun() {
