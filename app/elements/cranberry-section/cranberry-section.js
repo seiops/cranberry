@@ -86,7 +86,6 @@ class CranberrySection {
         this.async(function() {
             let hidden = this.hidden;
 
-            console.log('hidden?', hidden);
             if (!hidden) {
                 if (typeof section !== 'undefined' && section.length > 0 && section !== ('section' || 'story')) {
                     this.set('loadSection', section);
