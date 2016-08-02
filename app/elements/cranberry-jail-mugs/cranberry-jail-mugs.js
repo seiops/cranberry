@@ -188,7 +188,9 @@ class cranberryJailMugs {
     // Return images from JSON response
     let images = [];
     content.forEach(function(value, index) {
-      images.push(value.mugShot);
+      if (typeof value.mugShot !== 'undefined') {
+        images.push(value.mugShot);
+      }
     });
     return images;
   }
