@@ -206,7 +206,7 @@ class cranberryJailMugs {
 
   _loadNewCards(e) {
     // Establish a "start" value based on the button clicked forward 8 back 8 depending.
-    let direction = e.srcElement.id;
+    let direction = e.target.id;
     let move = 0;
     if (direction === "next") {
       move = 8;
