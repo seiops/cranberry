@@ -10,42 +10,36 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 /** @define Drawer */
 
 .Drawer {
-  @nest &-wrapper {
-    background-color: var(--primary-background-color);
-    height: 100%;
+  @nest &-logo {
+    @apply(--layout-flex);
+    @apply(--layout-center);
+    @apply(--layout-vertical);
+    position: absolute;
+    bottom: 24px;
+    left: 0;
+    right: 0;
+    z-index: 2;
   }
 
-  @nest &-logo {
-    margin-left: 24px;
+  @nest &-location {
+    @apply(--layout-flex);
+    z-index: 1;
   }
 
   @nest &-content {
+    @apply(--layout-flex);
     @apply(--layout-vertical);
-    @apply(--paper-font-body2);
+    @apply(--paper-font-body1);
 
-    background-color: var(--primary-background-color);
+    background-color: var(--secondary-background-color);
     color: var(--primary-text-color);
     height: 100%;
     overflow: auto;
-
-    @media (--md-viewport) {
-      background-color: var(--secondary-background-color);
-      border-right: 1px solid var(--divider-color);
-      color: var(--secondary-text-color);
-    }
   }
 
   @nest &-header {
-    background-color: var(--primary-background-color);
-    border-bottom: 1px solid var(--divider-color);
+    background-color: var(--dark-primary-color);
     color: var(--primary-text-color);
-
-    @media (--md-viewport) {
-      background-color: var(--dark-primary-color);
-      border: 0 !important;
-      box-shadow: 0 0 4px rgba(0, 0, 0, 0.14), 0 4px 8px rgba(0, 0, 0, 0.28);
-      color: var(--text-dark-primary-color);
-    }
   }
 
   @nest &-link {
@@ -53,22 +47,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     text-decoration: none;
   }
 
-  @nest &-title {
-    @apply(--paper-font-headline);
+  @nest &-info {
+    @apply(--layout-flex);
+    @apply(--layout-vertical);
+
+    max-height: 150px;
+    position: relative;
   }
 
   @nest &-widget {
-    padding: 8px 0;
 
     @nest &--bottom {
       border-top: 1px solid var(--divider-color);
     }
 
     @nest &--footer {
+      padding: 8px 24px;
       @apply(--paper-font-caption);
-
       border-top: 1px solid var(--divider-color);
-      padding-left: 24px;
     }
   }
 }

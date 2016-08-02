@@ -1,111 +1,115 @@
 class CranberrySection {
-  beforeRegister() {
-    this.is = 'cranberry-section';
-    this.properties = {
-      route: Object,
-      fullRoute: Object,
-      routeData: Object,
-      section: {
-        type: String,
-        value: 'news'
-      },
-      selected: {
-        type: Number,
-        value: 0
-      }
-    };
-    this.observers = ['_routeChange(fullRoute.path, routeData.section)'];
-  }
+    beforeRegister() {
+        this.is = 'cranberry-section';
+        this.properties = {
+            route: Object,
+            routeData: Object,
+            section: {
+                type: String
+            },
+            loadSection: {
+                type: String
+            },
+            selected: {
+                type: Number,
+                value: 0
+            }
+        };
 
-  // Public methods.
-  attached() {
-    app.logger('\<cranberry-section\> attached');
-
-    this._checkTabs();
-  }
-
-  ready() {
-    app.logger('\<cranberry-section\> ready');
-  }
-
-
-  // Private methods
-  _checkItem(item,index) {
-    let modulus = index % 2;
-
-    if (index > 0 && modulus === 0) {
-      return true;
-    } else {
-      return false;
+        this.observers = ['_routeChange(routeData.section)'];
     }
-  }
 
-  _checkTabs() {
-    let tabs = this.$.tabs;
-
-    tabs.addEventListener('iron-select', function() {
-        this.set('selected', tabs.selected);
-    });
-  }
-
-  _equal(a, b) {
-    if (a === b) {
-      return true;
-    } else {
-      return false;
+    attached() {
+        app.logger('\<cranberry-section\> attached');
+        this._checkTabs();
     }
-  }
 
-  _isLatest(selected) {
-    if (selected === 0) {
-      return true;
-    } else {
-      return false;
+    _checkItem(item, index) {
+        let modulus = index % 2;
+
+        if (index > 0 && modulus === 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
-  }
 
-  _isLocal(selected) {
-    if (selected === 1) {
-      return true;
-    } else {
-      return false;
+    _checkTabs() {
+        let tabs = this.$.tabs;
+
+        tabs.addEventListener('iron-select', function() {
+            this.set('selected', tabs.selected);
+        });
     }
-  }
 
-  _isPopular(selected) {
-    if (selected === 2) {
-      return true;
-    } else {
-      return false;
+    _equal(a, b) {
+        if (a === b) {
+            return true;
+        } else {
+            return false;
+        }
     }
-  }
 
-  _isFeatured(selected) {
-    if (selected === 2) {
-      return true;
-    } else {
-      return false;
+    _isLatest(selected) {
+        if (selected === 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
-  }
 
-  _routeChange(route, section) {
-    let currentSection = this.get('section');
-
-    if (route === '/') {
-      if (currentSection !== 'news') {
-        this.set('section', 'news');
-      }
-    } else {
-      let currentSection = this.get('section');
-
-      if (currentSection !== section) {
-        app.logger('\<cranberry-section\> section changed to ' + section);
-
-        this.set('section', section);
-      }
+    _isLocal(selected) {
+        if (selected === 1) {
+            return true;
+        } else {
+            return false;
+        }
     }
-  }
 
+    _isPopular(selected) {
+        if (selected === 2) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    _isFeatured(selected) {
+        if (selected === 2) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    _routeChange(section) {
+        this.async(function() {
+            let hidden = this.hidden;
+
+            if (!hidden) {
+                if (typeof section !== 'undefined' && section.length > 0 && section !== ('section' || 'story')) {
+                    this.set('loadSection', section);
+                } else {
+                    this.set('loadSection', 'news');
+                }
+            }
+        });
+        //
+        // console.log('peeeeenis');
+        // this.async(function() {
+        //     let sectionMeta = document.querySelector('iron-meta#metaSection');
+        //     let currentSection = this.get('section');
+        //
+        //     sectionMeta.setAttribute('value', currentSection);
+        //     console.dir(currentSection);
+        //     console.dir(sectionMeta);
+        //     console.log('meta done');
+        // });
+    }
 }
-
+// Public methods.
+// ready() {
+//   app.logger('\<cranberry-section\> ready');
+// }
+// Private methods
 Polymer(CranberrySection);

@@ -1,16 +1,24 @@
-<app-header reveals effects="waterfall">
-  <app-toolbar>
+<app-header id="header" reveals effects="waterfall" fixed="[[smallScreen]]" condenses="[[!smallScreen]]" reveals="[[!smallScreen]]">
+  <app-toolbar class="Main-headerToolbar">
       <!-- Main Toolbar -->
-      <div class="Main-headerTopBar top">
+      <div class="Main-headerTopBar">
+        <paper-icon-button class="Main-headerButton" icon="menu" drawer-toggle></paper-icon-button>
         <!-- Hidden container examples -->
-        <div hidden$="{{!_equal(data.page, '')}}">{{data.page}}</div>
-        <div hidden$="{{!_equal(data.page, 'story-content')}}">{{data.page}}</div>
-        <div hidden$="{{!_equal(data.page, 'policy')}}">{{data.page}}</div>
-        <div hidden$="{{!_equal(data.page, 'section')}}">{{data.page}}</div>
-        <span class="u-spacer"></span>
-        <paper-icon-button class="Main-headerButton" icon="search"></paper-icon-button>
-        <paper-icon-button class="Main-headerButton" icon="account-balance-wallet" title="Wallet"></paper-icon-button>
-        <paper-icon-button class="Main-headerButton" icon="account-circle" title="Wallet"></paper-icon-button>
+        <div class="Main-siteTitle">
+          <div>[[_siteTitle(route)]]</div>
+          <div hidden$="{{!_equal(data.page, '')}}"></div>
+          <div hidden$="{{!_equal(data.page, 'story')}}"></div>
+          <div hidden$="{{!_equal(data.page, 'gallery')}}"></div>
+          <div hidden$="{{!_equal(data.page, 'policy')}}"></div>
+          <div hidden$="{{!_equal(data.page, 'section')}}"></div>
+        </div>
+        <div class="Main-siteLogo">
+          <iron-image preload src="{$ theme.global.logo $}" fade hidden$="[[!smallScreen]]"></iron-image>
+        </div>
+        <div class="Main-siteButtons">
+          <paper-icon-button class="Main-headerButton" icon="search"></paper-icon-button>
+          <paper-icon-button class="Main-headerButton" icon="account-circle" title="Wallet"></paper-icon-button>
+        </div>
       </div>
   </app-toolbar>
 </app-header>

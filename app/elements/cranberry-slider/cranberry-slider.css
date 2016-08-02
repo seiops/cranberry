@@ -65,7 +65,7 @@ loader {
   background-size: auto;
 }
 
-.current ::shadow .ldr {
+.current :host::shadow .ldr {
   position: absolute;
   width: 100%;
   height: 10px;
@@ -102,7 +102,7 @@ loader {
   display: none;
 }
 
-.controls:before ::shadow {
+.controls:before :host::shadow {
   content: " ";
   width: 100%;
   height: 100%;
@@ -172,7 +172,7 @@ figure {
   background: linear-gradient(to right, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0) 100%) rgba(0, 0, 0, 0);
 }
 
-nav ::shadow{
+nav :host::shadow{
   position: static;
   z-index: 20;
   width: 1px;
@@ -407,17 +407,17 @@ nav ::shadow{
   transform: translateX(-55px);
 }
 
-.current.ready::shadow .ldr {
+.current.ready:host::shadow .ldr {
   visibility: hidden;
 }
 
-.current.loading::shadow .ldr {
+.current.loading:host::shadow .ldr {
   visibility: visible;
   -webkit-transform: translateX(-15%);
   transform: translateX(-15%);
 }
 
-.current.unload::shadow .ldr {
+.current.unload:host::shadow .ldr {
   -webkit-transition-duration: .4s;
   transition-duration: .3s;
   -webkit-transform: translateX(0%);

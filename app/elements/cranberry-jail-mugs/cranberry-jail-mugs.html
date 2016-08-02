@@ -1,0 +1,81 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../cranberry-slider/cranberry-slider.html">
+<link rel="import" href="../google-dfp/google-dfp.html">
+
+<dom-module id="cranberry-jail-mugs">
+  <template>
+    <style>
+      @import "cranberry-jail-mugs/cranberry-jail-mugs";
+    </style>
+
+    <byutv-jsonp on-response="_handleResponse" debounce-duration="300" id="request"></byutv-jsonp>
+    <byutv-jsonp on-response="_handleSlides" debounce-duration="300" id="secondRequest"></byutv-jsonp>
+
+    <app-route route="{{route}}" pattern="/:id" data="{{routeData}}"></app-route>
+
+    <div class="ad-container">
+      <google-dfp id="topAd" section="[[loadSection]]" ad-pos="leaderboard" ad-size="[[728, 90],[970, 90],[970, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+    </div>
+
+    <h1 class="headline">Jail mugs for {{currentHeadline}}</h1>
+    <div class="disclaimer">
+      <p>The information presented here as a public service is gathered from public data compiled by local county sheriff's offices. The booking mug shots and related information are from arrest records in the order and at the time the data was collected. Those appearing here have not been convicted of the arrest charge and are presumed innocent. Do not rely on this site to determine any person's actual criminal record.</p>
+    </div>
+
+    <div class="mug-container">
+      <div class="flex-absolute tag-links">
+        <paper-button raised>Jail Mugs</paper-button>
+      </div>
+      <cranberry-slider id="mugSlider" autostart arrows></cranberry-slider>
+      <div class="flex-absolute share-buttons">
+        <gigya-sharebar share-buttons-id="gigya-share-buttons-jail-mugs"></gigya-sharebar>
+      </div>
+    </div>
+
+    <div class="slider-description">
+      <div class="info">
+        <span>{{currentIndex}} / {{currentMaxIndex}}</span>
+      </div>
+      <h3>{{currentMugName}}</h3>
+      <p>Charges:</p>
+      <template is="dom-repeat" items="{{currentCharges}}">
+        <p>{{item}}</p>
+      </template>
+    </div>
+
+    <div class="main-content">
+      <div class="card-container">
+        <template is="dom-repeat" items={{cardsJson}}>
+          <a href="/jail-mugs/{{item.bookingDate}}">
+            <paper-card image="http://www.standard.net/[[item.image.medium]]">
+              <div class="card-content">
+                <div class="content-container">
+                  <div class="content">
+                    <p class="card-body">Jailings on [[item.bookingDateFormatted]]
+                  </div>
+                  <!-- Button disabled currently -->
+                  <paper-icon-button disabled icon="icons:more-vert"></paper-icon-button>
+                </div>
+              </div>
+            </paper-card>
+          </a>
+        </template>
+      </div>
+      <div class="ad-container">
+        <google-dfp section="[[loadSection]]" ad-pos="Middle_of_Stream" ad-size="[[300, 600]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+      </div>
+    </div>
+
+    <div class="pagination-container">
+      <paper-button id="prev" class="prev-button" raised hidden$="{{!showPrev}}">Previous</paper-button>
+      <paper-button id="next" raised>Next</paper-button>
+    </div>
+
+
+  </template>
+  <script src="cranberry-jail-mugs.js"></script>
+</dom-module>

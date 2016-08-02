@@ -6,34 +6,34 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
-
 var config = require('../../metadata/general'),
     primaryColorName = config.siteName,
-    accentColorName  = config.siteName + '-accent',
-    themeMode        = 'light', // or dark
-
-    colors           = require('./colors'),
-    primaryColor     = colors['paper-' + primaryColorName + '-500'],
+    accentColorName = config.siteName + '-accent',
+    themeMode = 'light',
+    colors = require('./colors'),
+    primaryColor = colors['paper-' + primaryColorName + '-500'],
     darkPrimaryColor = colors['paper-' + primaryColorName + '-700'];
 
+// or dark
 module.exports = {
-  global: {
-    primaryColorName: primaryColorName,
-    accentColorName: accentColorName,
-    themeMode: themeMode
-  },
-
-  // Web Application Manifest - manifest.json
-  manifest: {
-    'theme_color': darkPrimaryColor,
-    'background_color': primaryColor
-  },
-
-  // HTML Metadata in head of index.html
-  metadata: {
-    // Chrome for Android theme color
-    chromeThemeColor: darkPrimaryColor,
-    // Tile color for Win8
-    msapplicationTileColor: primaryColor
-  }
+    global: {
+        logo: '../../images/logo.png',
+        location: '../../images/location.jpg',
+        primaryColorName: primaryColorName,
+        accentColorName: accentColorName,
+        themeMode: themeMode
+    },
+    // Location settings
+    // Web Application Manifest - manifest.json
+    manifest: {
+        'theme_color': darkPrimaryColor,
+        'background_color': primaryColor
+    },
+    // HTML Metadata in head of index.html
+    metadata: {
+        // Chrome for Android theme color
+        chromeThemeColor: darkPrimaryColor,
+        // Tile color for Win8
+        msapplicationTileColor: primaryColor
+    }
 };

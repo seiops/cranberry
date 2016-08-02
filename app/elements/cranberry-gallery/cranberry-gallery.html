@@ -1,12 +1,12 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
 <link rel="import" href="../../bower_components/iron-icons/social-icons.html">
 <link rel="import" href="../../bower_components/iron-icons/editor-icons.html">
-<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
-<link rel="import" href="../gigya-sharebar/gigya-sharebar.html">
-<link rel="import" href="../gigya-comments/gigya-comments.html">
 <link rel="import" href="../cranberry-slider/cranberry-slider.html">
+<link rel="import" href="../gigya-comments/gigya-comments.html">
+<link rel="import" href="../gigya-sharebar/gigya-sharebar.html">
 
 <dom-module id="cranberry-gallery">
   <template>
@@ -29,9 +29,11 @@
     </div>
 
     <div class="gallery-container">
+
       <div class="flex-absolute tag-links">
         <paper-button raised>{{tags.1}}</paper-button>
       </div>
+
       <div class="flex-absolute expand-link">
         <paper-button raised id="modalOpen" class="rounded-button"><iron-icon icon="icons:fullscreen"></iron-icon></paper-button>
       </div>
@@ -41,7 +43,6 @@
           <gigya-sharebar share-buttons-id="gigya-share-buttons-gallery"></gigya-sharebar>
         </div>
       </cranberry-slider>
-    </div>
 
     <h1 class="gallery-title">{{gallery.title}}</h1>
     <p class="time-stamp"> {{gallery.updated}} </p>
