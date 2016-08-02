@@ -53,14 +53,15 @@ class cranberryJailMugs {
           let hidden = this.hidden;
 
           if (!hidden) {
+            // Set location to undefined to trigger the same value being placed in as a new value ** Ad refresh**
             this.set('loadSection', undefined);
             this.set('loadSection', 'police_fire/jailmugs');
-            this.$.topAd.fire('section-changed');
           }
       });
       let routePath = newValue.path.replace('/', '');
       let firstRun = this.get('firstRun');
 
+      // Check if the element has gone through once yet.
       if (!firstRun) {
         if (routePath === '') {
           this._buildCardRequest();
@@ -68,6 +69,7 @@ class cranberryJailMugs {
           this._buildSliderRequest(routePath);
         }
       } else {
+        // If it hasnt ran through once run both requests
         this.set('firstRun', false)
         this._buildCardRequest();
         this._buildSliderRequest(routePath);
@@ -77,6 +79,7 @@ class cranberryJailMugs {
   }
 
   _buildCardRequest(start) {
+    // Generate Request to build the cards at the bottom of the page
     let request = this.$.request;
     let url = 'http://sedev.libercus.net/rest.json';
     let params = {
@@ -86,6 +89,7 @@ class cranberryJailMugs {
       'desiredSortOrder': '-publishdate_priority_-contentmodified'
     };
 
+    // Add start to the desiredStart parameter
     if (typeof start !== 'undefined') {
       params.desiredStart = start;
     }
@@ -96,7 +100,6 @@ class cranberryJailMugs {
   }
 
   _handleResponse(json) {
-    console.info('From new Handle');
     let result = JSON.parse(json.detail.Result);
 
     this.set('cardsJson', result);
@@ -116,6 +119,7 @@ class cranberryJailMugs {
   }
 
   _buildSliderRequest(date) {
+    // Generate request for image slider JSON
     let route = this.get('route');
     let routePath = route.path.replace('/', '');
     if (routePath !== '') {
@@ -141,31 +145,38 @@ class cranberryJailMugs {
   }
 
   onSliderJsonChanged(newValue) {
+    // Setup the images array
     let images = this._setupImages(newValue);
     let slider = this.$.mugSlider;
     let self = this;
     let addEvent = this.get('addSliderEvent');
+    let currentMaxIndex = this.get('currentMaxIndex');
 
+    // If this event isnt already on the element then add it
     if (!addEvent) {
       slider.addEventListener('goTo', function(e) {
         let index = e.detail.index;
         let displayIndex = index + 1;
         let currentRecord = newValue[index];
         let charges = self._computeChargesArray(currentRecord.charge.split(','));
+        // Change mug shot caption and indexes on page
         self.set('currentMugName', currentRecord.title);
         self.set('currentCharges', charges);
         self.set('currentIndex', displayIndex);
         // You can also refresh the ads from here by following what is in onRouteChanged
       });
     }
-
+    // Updat slider event, headline, and max index
     this.set('addSliderEvent', false);
     this.set('currentHeadline', newValue[0].bookingDateFormatted);
-    this.set('currentMaxIndex', newValue.length);
+    if (newValue.length !== currentMaxIndex) {
+      this.set('currentMaxIndex', newValue.length);
+    }
     slider.set('images', images);
   }
 
   _checkPrevButton(start) {
+    // Function to show or hide the previous button based on the current start value
     if (start === 1) {
       this.set('showPrev', false);
     } else {
@@ -194,6 +205,7 @@ class cranberryJailMugs {
   }
 
   _loadNewCards(e) {
+    // Establish a "start" value based on the button clicked forward 8 back 8 depending.
     let direction = e.srcElement.id;
     let move = 0;
     if (direction === "next") {
@@ -207,6 +219,7 @@ class cranberryJailMugs {
 
     this.set('start', totalMove);
 
+    // Genereate new card request based on new start value
     this._buildCardRequest(totalMove);
   }
 }
