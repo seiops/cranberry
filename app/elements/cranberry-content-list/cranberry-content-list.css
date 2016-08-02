@@ -9,6 +9,7 @@
 
   /* postcss-bem-linter: ignore */
   --paper-card-actions: {
+    flex: 1 1 auto;
     color: var(--light-theme-secondary-text-color);
     font-size: 12px;
     font-weight: 400;
@@ -16,7 +17,7 @@
 
   /* postcss-bem-linter: ignore */
   --paper-card-content: {
-    @apply(--layout-flex);
+    flex: 1 1 auto;
     @apply(--paper-font-body1);
 
     color: var(--light-theme-primary-text-color);
@@ -52,46 +53,48 @@ div.content-cards {
 }
 
 div.content-cards > a {
-  @apply(--layout-flex);
   @apply(--layout-vertical);
+  flex: 1 1 auto;
 
   margin: 12px;
-  max-width: 400px;
+  max-width: 370px;
   text-decoration: none;
 }
 
 div.content-cards > a > paper-card {
-  @apply(--layout-flex);
+  flex: 1 1 auto;
   @apply(--layout-vertical);
 }
 
-paper-card.stream-advertisement {
+div.stream-advertisement-wrapper {
   @apply(--layout-horizontal);
   @apply(--layout-center);
-
-  background-color: transparent;
-  text-align: center;
-
-  /* postcss-bem-linter: ignore */
-  --paper-card-content: {
-    padding: 0;
-  };
+  flex: 1 1 auto;
+  max-width: 370px;
 }
+
+div.stream-advertisement {
+  background-color: transparent;
+  margin: 0 auto;
+}
+
 div.leaderboard-advertisement-wrapper {
   @apply(--layout-center);
   @apply(--layout-horizontal);
   @apply(--layout-justified);
-  @apply(--layout-flex-12);
-  /* flex: 0 0 100%; */
+  /*@apply(--layout-flex-12);*/
+   flex: 0 0 100%;
 }
 
 div.leaderboard-advertisement {
   @apply(--layout-vertical);
   @apply(--layout-center);
-  @apply(--layout-flex);
+
+  flex: 1 1 auto;
   background-color: transparent;
   text-align: center;
 }
+
 paper-card.story ::content div.title-text {
   background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(0,0,0,0.9));
   width: calc(100% -24px);
@@ -101,7 +104,7 @@ paper-card.story div.card-info {
   @apply(--layout-justified);
 }
 
-paper-card.story div.card-info span.story-tag {
+paper-card.story div.card-info div.story-tag {
   @apply(--paper-font-button);
   background-color: var(--accent-color);
   color: var(--text-accent-color);
@@ -110,6 +113,6 @@ paper-card.story div.card-info span.story-tag {
   text-transform: uppercase;
 }
 
-paper-card.story div.card-info span.story-date {
+paper-card.story div.card-info div.story-date {
   @apply(--paper-font-caption2);
 }

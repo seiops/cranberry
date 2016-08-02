@@ -37,11 +37,11 @@
     </paper-toolbar>
 
     <template is="dom-if" if="[[_isLatest(selected)]]">
-      <cranberry-content-list type="story_gallery" sections="[[loadSection]]" section="[[section]]" count="40" start="1"></cranberry-content-list>
+      <cranberry-content-list type="story_gallery" sections="[[loadSection]]" section="[[section]]" count="20" start="1"></cranberry-content-list>
     </template>
 
     <template is="dom-if" if="[[_isLocal(selected)]]">
-      <cranberry-content-list type="story_gallery" sections="[[loadSection]]" count="40" start="1"></cranberry-content-list>
+      <cranberry-content-list type="story_gallery" sections="[[loadSection]]" count="20" start="1"></cranberry-content-list>
     </template>
 
   <!-- <template is="dom-if" if="[[_isPopular(selected)]]">
@@ -49,7 +49,7 @@
     </template> -->
 
     <template is="dom-if" if="[[_isFeatured(selected)]]">
-      <cranberry-content-list type="story_gallery" sections="[[loadSection]]" count="40" start="1"></cranberry-content-list>
+      <cranberry-content-list type="story_gallery" sections="[[loadSection]]" count="20" start="1"></cranberry-content-list>
     </template>
   </template>
   <script src="cranberry-section.js"></script>

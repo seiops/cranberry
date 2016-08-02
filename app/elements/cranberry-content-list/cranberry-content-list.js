@@ -57,23 +57,27 @@ class CranberryContentList {
         });
     }
 
-    _checkInStreamAd(item, index) {
-        let modulus = index % 6;
-
-        if (index > 0 && modulus === 0) {
+    _checkInStreamAd(index) {
+        if (index === 2 || index === 13) {
             return true;
         } else {
-            return false;
+            return;
         }
     }
 
-    _checkLeaderboardAd(item, index) {
-        let modulus = index % 10;
-
-        if (index > 0 && modulus === 0) {
+    _checkNativeAd(index) {
+        if (index === 2 || index === 17) {
             return true;
         } else {
-            return false;
+            return;
+        }
+    }
+
+    _checkLeaderboardAd(index) {
+        if (index === 9 || index === 19) {
+            return true;
+        } else {
+            return;
         }
     }
 
@@ -89,7 +93,7 @@ class CranberryContentList {
         if (typeof image !== 'undefined' && image.length > 0) {
             return true;
         } else {
-            return false;
+            return;
         }
     }
 
@@ -97,7 +101,7 @@ class CranberryContentList {
         if (typeof preview !== 'undefined' && preview.length > 0) {
             return true;
         } else {
-            return false;
+            return;
         }
     }
 
@@ -105,7 +109,7 @@ class CranberryContentList {
         if (item === 'Story') {
             return true;
         } else {
-            return false;
+            return;
         }
     }
 

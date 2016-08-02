@@ -22,14 +22,19 @@
       id="request">
     <div class="content-cards">
       <template is="dom-repeat" items="{{items}}" initial-count="3">
-        <template is="dom-if" if="[[_checkInStreamAd(item, index)]]">
-          <a>
-            <paper-card class="stream-advertisement" elevation="0">
-              <div class="card-content">
+        <template is="dom-if" if="[[_checkInStreamAd(index)]]">
+          <div class="stream-advertisement-wrapper">
+            <div class="stream-advertisement">
                 <google-dfp section="[[sections]]" ad-pos="Middle_of_Stream" ad-size="[[300, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
-              </div>
-            </paper-card>
-          </a>
+            </div>
+          </div>
+        </template>
+        <template is="dom-if" if="[[_checkNativeAd(index)]]">
+          <div class="stream-advertisement-wrapper">
+            <div class="stream-advertisement">
+                <google-dfp section="[[sections]]" ad-pos="Middle_of_Stream" ad-size="[[300, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+            </div>
+          </div>
         </template>
         <!-- Need to rework this for array selectors -->
         <template is="dom-if" if="[[_isStory(item.contentType)]]">
@@ -43,7 +48,7 @@
                 <div class="card-actions">
                   <div class="card-info">
                     <div class="story-tag">[[item.sectionInformation.primarySection]]</div>
-                    <div class="story-comments">[[item.socialInformation.comments]] &nbsp;<iron-icon icon="communication:chat-bubble"></iron-icon></div>
+                  <div class="story-comments">[[item.socialInformation.comments]] &nbsp;<iron-icon icon="communication:chat-bubble"></iron-icon></div>
                   </div>
                 </div>
               </paper-card>
@@ -65,7 +70,7 @@
             </a>
           </template>
         </template>
-        <template is="dom-if" if="[[_checkLeaderboardAd(item, index)]]">
+        <template is="dom-if" if="[[_checkLeaderboardAd(index)]]">
           <div class="leaderboard-advertisement-wrapper">
             <div class="leaderboard-advertisement">
               <google-dfp section="[[sections]]" ad-pos="leaderboard" ad-size="[[728, 90],[970,90]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>

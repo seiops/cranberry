@@ -1,6 +1,9 @@
 :host {
   display: block;
 
+  --paper-card {
+    @apply(-layout-flex);
+  }
   /* postcss-bem-linter: ignore */
   --paper-card-actions: {
     color: var(--light-theme-secondary-text-color);

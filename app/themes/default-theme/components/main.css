@@ -17,12 +17,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     max-width: 1600px;
 
     @media (--md-viewport) {
-      @apply(--paper-font-body2);
       padding: 0;
     }
 
     @media (--md-viewport) {
-      @apply(--paper-font-body2);
       padding: 16px 64px;
     }
 
@@ -72,18 +70,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   @nest &-siteTitle {
     @apply(--paper-font-body2);
     @apply(--layout-start);
-
-    text-transform: capitalize;
   }
 
   @nest &-siteButtons {
     @apply(--paper-font-body2);
     @apply(--layout-horizontal);
     @apply(--layout-end);
-
-    @media (--md-viewport) {
-      @apply(--paper-font-body1);
-    }
   }
 
   @nest &-siteLogo {
