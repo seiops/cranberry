@@ -5,10 +5,10 @@
     <style>
       @import "tout-element/tout-element";
     </style>
-    <div>
-      <p> This is a tout </p>
-      <div id="tout-slot-b50c2b" class="tout-sdk tout-slot" style="width: 600px;"></div>
-    </div>
+      {{storyTail}}
+      <meta property="tout:article:id" content="{{storyTail}}">
+      <p> This is a tout {{placement}}</p>
+      <div id="tout-slot-b50c2b" class$="tout-sdk tout-slot [[placement]]" style="width: 600px;"></div>
   </template>
 
   <script src="tout-element.js"></script>

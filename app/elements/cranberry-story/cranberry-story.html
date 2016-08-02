@@ -7,6 +7,7 @@
 <link rel="import" href="../gigya-comments/gigya-comments.html">
 <link rel="import" href="../gigya-sharebar/gigya-sharebar.html">
 <link rel="import" href="../google-dfp/google-dfp.html">
+<link rel="import" href="../tout-element/tout-element.html">
 
 <dom-module id="cranberry-story">
 
@@ -61,7 +62,7 @@
           <p>{{story.byline.jobtitle}}</p>
         </div>
       </div>
-
+      <tout-element placement="tout-mid-article" slot="mid-article" route="{{route}}" hidden="{{hidden}}"></tout-element>
       <!-- Story Content Area -->
       <div class="content-wrapper">
         <!-- Contains story paragraphs -->
