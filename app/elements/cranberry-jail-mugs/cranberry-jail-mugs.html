@@ -4,6 +4,7 @@
 <link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
 <link rel="import" href="../../bower_components/paper-material/paper-material.html">
 <link rel="import" href="../cranberry-slider/cranberry-slider.html">
+<link rel="import" href="../google-dfp/google-dfp.html">
 
 <dom-module id="cranberry-jail-mugs">
   <template>
@@ -11,13 +12,13 @@
       @import "cranberry-jail-mugs/cranberry-jail-mugs";
     </style>
 
-    <byutv-jsonp auto url="http://sedev.libercus.net/rest.json" params='{"request": "congero", "desiredContent": "jailmugs", "desiredCount": "8", "desiredSortOrder": "-publishdate_priority_-contentmodified"}' on-response="_handleResponse" debounce-duration="300" id="request"></byutv-jsonp>
+    <byutv-jsonp on-response="_handleResponse" debounce-duration="300" id="request"></byutv-jsonp>
     <byutv-jsonp on-response="_handleSlides" debounce-duration="300" id="secondRequest"></byutv-jsonp>
 
     <app-route route="{{route}}" pattern="/:id" data="{{routeData}}"></app-route>
 
-    <div style="text-align:center;">
-      <iron-image src="http://www.placehold.it/970x250&text=AD_970x250"></iron-image>
+    <div class="ad-container">
+      <google-dfp id="topAd" section="[[loadSection]]" ad-pos="leaderboard" ad-size="[[728, 90],[970, 90],[970, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
     </div>
 
     <h1 class="headline">Jail mugs for {{currentHeadline}}</h1>
@@ -64,8 +65,8 @@
           </a>
         </template>
       </div>
-      <div class="ad">
-        <iron-image src="http://www.placehold.it/300x600&text=AD_300x600"></iron-image>
+      <div class="ad-container">
+        <google-dfp section="[[loadSection]]" ad-pos="Middle_of_Stream" ad-size="[[300, 600]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
       </div>
     </div>
 

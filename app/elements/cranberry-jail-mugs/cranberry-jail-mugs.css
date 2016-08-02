@@ -10,13 +10,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 :host {
   display: block;
-  --paper-card-header-color: #333;
-  --paper-card-header-image-text: {
-    color: #fff;
-  };
-  --paper-card-header-text: {
-    margin-top: 24px;
-  };
+}
+
+.ad-container {
+  text-align: center;
 }
 
 .headline {
@@ -99,6 +96,15 @@ paper-card {
 
 paper-card div.card-content {
   padding: 10px 5px;
+}
+
+paper-card div.content-container {
+  @apply(--layout-horizontal);
+}
+
+paper-card div.content {
+  @apply(--layout-flex);
+  @apply(--layout-vertical);
 }
 
 paper-card::shadow iron-image {
