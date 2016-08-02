@@ -53,13 +53,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       // skeleton.remove();
 
       if (webComponentsSupported) {
-        console.log('imports supported');
         // Emulate WebComponentsReady event for browsers supporting Web Components natively
         // (Chrome, Opera, Vivaldi)
         document.dispatchEvent(
           new CustomEvent('WebComponentsReady', {bubbles: true})
         );
-        console.log('dispatched event');
       }
     };
 
@@ -69,10 +67,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     // crbug.com/504944 - readyState never goes to complete until Chrome 46.
     // crbug.com/505279 - Resource Timing API is not available until Chrome 46.
     if (elementsBaseBundle.import && elementsBaseBundle.import.readyState === 'complete') {
-      console.log('import loaded');
       onImportLoaded();
     } else {
-      console.log('import else');
       elementsBaseBundle.addEventListener('load', onImportLoaded);
     }
   }
@@ -103,7 +99,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   // See https://github.com/Polymer/polymer/issues/1381
   window.addEventListener('WebComponentsReady', () => {
     /* imports are loaded and elements have been registered */
-    console.log('imports loaded');
   });
 
   window.addEventListener('service-worker-error', e => {
@@ -127,7 +122,4 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       logger(e.detail);
     }
   });
-
-
-
 })(document);
