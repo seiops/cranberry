@@ -19,135 +19,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   };
 }
 
-h1 {
-  font-size: 38px;
-  line-height: normal;
+.headline {
+  @apply(--paper-font-display1);
+  text-align: center;
 }
 
 .disclaimer {
-  text-align: center;
-  color: rgba(0, 0, 0, 0.6);
-}
-
-a {
-  text-decoration: none;
-}
-
-paper-card.story {
-  @apply(--layout-flex);
-  max-width: 370px;
-  margin: 8px;
-  --paper-card-content: {
-    font-weight: 400;
-    padding: 12px;
-    line-height: 24px;
-    color: #333;
-  };
-}
-
-paper-card.advertisement {
-  width: 300px;
-  min-height: 250px;
-  margin: 8px;
-}
-
-.content-cards {
-  @apply(--layout-horizontal);
+  @apply(--paper-font-body1);
   @apply(--layout-center-justified);
-  @apply(--layout-wrap);
-}
-
-paper-card .story-tag {
-  background-color: #40C2A9;
-  color: #ffffff;
-  font-size: 12px;
-  position: absolute;
-  text-transform: uppercase;
-  top: 0;
-  padding: 4px 8px;
-}
-
-paper-card ::shadow iron-image {
-  display: block;
-}
-
-paper-card {
-  min-height: 1px;
-}
-
-cranberry-slider::shadow figure {
-  max-height: 675px;
-  max-width: 1200px;
-}
-
-.slider-description {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 30px;
-}
-
-paper-material {
-  padding: 10px;
-  text-align: center;
-  min-width: 30%;
-}
-
-paper-material h3 {
-  text-decoration: underline;
-}
-
-paper-material p {
-  margin: 5px;
-}
-
-paper-material .info {
-  position: absolute;
-  top: 0;
-  left: 0;
-  color: rgba(0, 0, 0, 0.4);
-}
-
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: #fff;
-}
-
-h3.card-header {
-  text-align: center;
-}
-
-.pagination-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  margin-top: 50px;
-}
-
-.pagination-container paper-button {
-  width: 300px;
-  background: #005A90;
-  color: #fff;
-}
-
-.content-area {
-  position: relative;
-  min-height: 500px;
-}
-
-.card-overlay {
-  height: auto;
+  @apply(--layout-center);
+  padding: 0 25px 25px;
 }
 
 /* Gallery Container styles*/
@@ -158,6 +39,87 @@ h3.card-header {
   height: 100%;
   max-height: 675px;
   margin: 0 auto;
+}
+
+cranberry-slider {
+    margin: 0;
+}
+
+cranberry-slider::shadow figure {
+  max-height: 675px;
+  max-width: 1200px;
+}
+
+/* Caption Styles */
+.slider-description {
+  @apply(--layout-vertical);
+  @apply(--layout-center);
+  @apply(--layout-center-justified);
+  margin-top: 25px;
+}
+
+.slider-description h3 {
+  @apply(--paper-font-display2);
+}
+
+.slider-description p {
+  @apply(--paper-font-subhead);
+  margin: 0;
+}
+
+.main-content {
+  @apply(--layout-horizontal);
+  @apply(--layout-center-justified);
+  @apply(--layout-wrap);
+  margin-top: 25px;
+}
+
+.ad {
+  min-width: 300px;
+  max-width: 300px;
+}
+
+.card-container {
+  @apply(--layout-flex-4);
+  @apply(--layout-horizontal);
+  @apply(--layout-center);
+  @apply(--layout-center-justified);
+  @apply(--layout-wrap);
+}
+
+.card-container a {
+  @apply(--paper-font-subhead);
+  color: var(--light-theme-primary-text-color);
+}
+
+paper-card {
+  max-width: 250px;
+  margin: 0 20px 20px;
+}
+
+paper-card div.card-content {
+  padding: 10px 5px;
+}
+
+paper-card::shadow iron-image {
+  max-height: 200px;
+}
+
+paper-card p.card-body {
+  @apply(--paper-font-subhead);
+}
+
+.pagination-container {
+  @apply(--layout-horizontal);
+  @apply(--layout-center);
+  @apply(--layout-center-justified);
+  margin-top: 50px;
+}
+
+.pagination-container paper-button.prev-button {
+  background: var(--dark-primary-color);
+  @apply(--paper-font-button);
+  color: var(--text-primary-color);
 }
 
 /* Button Styles */
@@ -181,26 +143,9 @@ h3.card-header {
   height: 30px;
 }
 
-.flex-absolute.expand-link {
-  top: 20px;
-  right: 25px;
-  height: 50px;
-}
-
-paper-button {
-  background: #005A90;
-  color: #fff;
-}
-
-paper-button#buyButton {
-  bottom: -5px;
-  margin-right: 25px;
-}
-
-.rounded-button {
-  border-radius: 50%;
+.flex-absolute.tag-links paper-button {
+  background-color: var(--accent-color);
+  color: var(--text-dark-accent-color);
+  border-radius: 0;
   margin: 0;
-  min-width: 1px;
-  height: 50px;
-  width: 50px;
 }
