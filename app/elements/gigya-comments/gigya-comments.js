@@ -4,20 +4,25 @@ class gigyaComments {
     this.properties = {
       commentsId: {
         type: String
+      },
+      commentsUniqueId: {
+        type: String
       }
-    }
+    };
+    this.observers = ['_checkParams(commentsId, commentsUniqueId)'];
   }
 
-  ready() {
+  _checkParams(id, uniqueId) {
     let self = this;
     let checkGigya = function () {
       setTimeout(function () {
         if (typeof gigya !== 'undefined') {
           var params = {
             categoryID: 'Default',
-            streamID: '',
+            streamID: uniqueId,
+            streamURL: window.location.href,
             version: 2,
-            containerID: self.get('commentsId'),
+            containerID: id,
             cid: '',
             enabledShareProviders: 'facebook,twitter,yahoo,linkedin',
             width: '100%'
