@@ -6,34 +6,38 @@ class gigyaComments {
         type: String
       },
       commentsUniqueId: {
-        type: String
+        type: Number,
+        value: '0'
       }
     };
     this.observers = ['_checkParams(commentsId, commentsUniqueId)'];
   }
 
   _checkParams(id, uniqueId) {
-    let self = this;
-    let checkGigya = function () {
-      setTimeout(function () {
-        if (typeof gigya !== 'undefined') {
-          var params = {
-            categoryID: 'Default',
-            streamID: uniqueId,
-            streamURL: window.location.href,
-            version: 2,
-            containerID: id,
-            cid: '',
-            enabledShareProviders: 'facebook,twitter,yahoo,linkedin',
-            width: '100%'
-          };
-          gigya.comments.showCommentsUI(params);
-        } else {
-          checkGigya();
-        }
-      },1000);
+    if (id !== '' && uniqueId !== 0) {
+      let streamId = uniqueId.toString();
+      let self = this;
+      let checkGigya = function () {
+        setTimeout(function () {
+          if (typeof gigya !== 'undefined') {
+            var params = {
+              categoryID: 'Default',
+              streamID: streamId,
+              streamURL: window.location.href,
+              version: 2,
+              containerID: id,
+              cid: '',
+              enabledShareProviders: 'facebook,twitter,yahoo,linkedin',
+              width: '100%'
+            };
+            gigya.comments.showCommentsUI(params);
+          } else {
+            checkGigya();
+          }
+        },1000);
+      }
+      checkGigya();
     }
-    checkGigya();
   }
 }
 Polymer(gigyaComments);
