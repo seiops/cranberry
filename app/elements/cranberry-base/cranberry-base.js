@@ -87,6 +87,10 @@ class CranberryBase {
         }
     }
 
+    openModal() {
+      this.$.modal.open();
+    }
+
     _isLocal(selected) {
         if (selected === 1) {
             return true;
@@ -115,9 +119,13 @@ class CranberryBase {
         let path = route.path;
         let section = '';
         let sectionPath = path.search('section');
+        let storyPath = path.search('story');
+        let galleryPath = path.search('gallery');
 
         if (sectionPath > 0) {
             section = path.replace('\/section\/', '');
+        } else if (storyPath > 0 || galleryPath > 0) {
+            section = '';
         } else if (path === '/') {
             section = 'Home';
         } else {
