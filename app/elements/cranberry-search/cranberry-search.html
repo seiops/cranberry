@@ -1,0 +1,48 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
+<link rel="import" href="../../bower_components/iron-image/social-image.html">
+
+<dom-module id="cranberry-search">
+  <template>
+    <style>
+      @import "cranberry-search/cranberry-search";
+    </style>
+
+    <app-route route="{{route}}" pattern="/:section" data="{{routeData}}"></app-route>
+
+    <byutv-jsonp
+      on-response="_handleResponse"
+      callback-key="callback"
+      callback-value="_handleResponse"
+      cache
+      id="request">
+
+    <paper-material elevation=1><paper-search-bar id="search" placeholder="{{displayQuery}}" on-paper-search-search="search" hide-filter-button></paper-search-bar></paper-material>
+
+    <div id="loader" class="loading" hidden$="{{!isSearching}}">
+      <p>Finding Stories Containg "{{displayQuery}}"...</p>
+      <paper-spinner active="{{isSearching}}"></paper-spinner>
+    </div>
+    <div id="searchContent" hidden$="{{isSearching}}">
+      <template is="dom-repeat" items="{{items}}">
+        <div>
+          <h2 class="story-headline">{{item.title}}</h2>
+          <div class="story-content">
+            <template is="dom-if" if="[[!_hasImage(item.mediaAssets.images.0.small)]]">
+              <iron-image src="http://www.standard.net{{item.mediaAssets.images.0.small}}" style="background-color: lightgray;" preload></iron-image>
+            </template>
+            <p class="story-description">{{item.preview}}</p>
+          </div>
+
+          <hr/>
+      </template>
+    </div>
+
+    <div class="pagination-container">
+      <paper-button id="prev" class="prev-button" raised hidden$="{{!isPrev}}">Previous</paper-button>
+      <paper-button id="next" raised hidden$="{{!isNext}}">Next</paper-button>
+    </div>
+
+  </template>
+  <script src="cranberry-search.js"></script>
+</dom-module>

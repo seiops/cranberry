@@ -1,0 +1,38 @@
+:host {
+  display: block;
+}
+
+h2.story-headline {
+  @apply(--paper-font-headline);
+}
+
+div.story-content {
+  @apply(--layout-horizontal);
+  @apply(--layout-around-justified);
+  @apply(--layout-wrap);
+}
+
+div.story-content p {
+  @apply(--layout-flex-4);
+  @apply(--paper-font-subhead);
+  padding: 0 25px 25px 25px;
+  margin: 0;
+}
+
+.pagination-container {
+  @apply(--layout-horizontal);
+  @apply(--layout-center);
+  @apply(--layout-center-justified);
+  margin-top: 50px;
+}
+
+.pagination-container paper-button.prev-button {
+  background: var(--dark-primary-color);
+  @apply(--paper-font-button);
+  color: var(--text-primary-color);
+}
+
+.loading {
+  margin-top: 100px;
+  text-align: center;
+}
