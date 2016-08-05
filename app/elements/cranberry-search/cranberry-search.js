@@ -3,8 +3,7 @@ class cranberrySearch {
     this.is = 'cranberry-search';
     this.properties = {
       route: {
-        type: Object,
-        observer: 'onRouteChanged'
+        type: Object
       },
       queryString: {
         type: String
@@ -13,13 +12,18 @@ class cranberrySearch {
         type: String,
         value: 'Search'
       },
+      response: {
+        type: Object,
+        observer: '_parseResponse'
+      },
+      request: Object,
       items: {
         type: Object
       },
       start: {
         type: Number,
         value: 1,
-        observer: 'onStartChanged'
+        observer: '_onStartChanged'
       },
       isNext: {
         Boolean,
@@ -31,41 +35,64 @@ class cranberrySearch {
       },
       isSearching: {
         type: Boolean,
-        value: false
+        value: true
+      },
+      loadSection: {
+        type: String,
+        value: 'news'
       },
       hidden: {
         type: Boolean
       }
     };
     this.listeners = {
-      'next.tap': 'paginate',
-      'prev.tap': 'paginate'
+      'next.tap': '_paginate',
+      'prev.tap': '_paginate'
     };
-    this.observers = ['requestSearch(queryString)',
-                      'clearResults(hidden)']
+    this.observers = ['_requestSearch(queryString)',
+                      '_clearResults(hidden)',
+                      '_onRouteChanged(route)']
   }
 
-  clearResults(hidden) {
+  _clearResults(hidden) {
     console.info('Search is now hidden: ' + hidden);
     if (hidden === true) {
+
+      this._checkCurrentRequest();
+
       let results = this.$.searchContent;
 
       if (Polymer.dom(results).firstChild) {
         this._resetParams();
       }
+    } else {
+      this.async(function() {
+        let queryString = this.get('queryString');
+        console.info(queryString);
+        this._requestSearch(queryString);
+      });
     }
   }
 
   _resetParams() {
     // Run through a reset of all params for the search page
+    this.set('route', {});
     this.set('items', []);
     this.set('isPrev', false);
     this.set('isNext', true);
     this.set('start', 1);
     this.set('displayQuery', 'Search');
+    this.$.search._clear();
   }
 
-  paginate(e) {
+  _paginate(e) {
+    let hidden = this.get('hidden');
+    // Reload the ads
+    if (!hidden || typeof hidden === 'undefined') {
+      // Set location to undefined to trigger the same value being placed in as a new value ** Ad refresh**
+      this.set('loadSection', undefined);
+      this.set('loadSection', 'news');
+    }
     // Pagination function
     // Establish direction
     let direction = e.target.id;
@@ -89,67 +116,88 @@ class cranberrySearch {
     let query = this.get('queryString');
 
     // Genereate new card request based on new start value
-    this.requestSearch(query, totalMove);
+    this._requestSearch(query, totalMove);
 
     window.scrollTo(0,0);
   }
 
-  requestSearch(queryString, move) {
-    this.set('isSearching', true);
-    console.info("BUILD SEARCH!!!!");
-    console.info(queryString);
-    let params = {};
+  _requestSearch(queryString, move) {
+    if (queryString !== '' && typeof queryString !== 'undefined') {
+      this.set('isSearching', true);
+      // Set the display string for the query to display to the user
+      this.set('displayQuery', queryString.replace(/\+/g, ' '));
+      // Establish the JSONP parameters
+      let params = {};
 
-    params.request = 'search';
-    params.desiredCount = 20;
-    params.query = queryString;
+      params.request = 'search';
+      params.desiredCount = 20;
+      params.query = queryString;
 
-    if (typeof move !== 'undefined') {
-      params.desiredStart = move;
+      if (typeof move !== 'undefined') {
+        params.desiredStart = move;
+      }
+
+      let request = this.$.request;
+
+      request.setAttribute('url', 'http://sestgcore.libercus.net/rest.json');
+      request.params = params;
+      request.generateRequest();
     }
-
-    this.$.request.setAttribute('url', 'http://sestgcore.libercus.net/rest.json');
-    this.$.request.params = params;
-    this.$.request.generateRequest();
   }
 
-  onRouteChanged(newValue) {
+  _onRouteChanged(newValue) {
+    let hidden = this.get('hidden');
     // Check if route.path is valid
     if (newValue.path !== null && typeof newValue.path !== 'undefined') {
       let queryString = newValue.path.replace('/', '');
       this.set('queryString', queryString);
-      this.set('displayQuery', queryString.replace(/\+/g, ' '));
+
+      if (!hidden || typeof hidden === 'undefined') {
+        // Set location to undefined to trigger the same value being placed in as a new value ** Ad refresh**
+        this.set('loadSection', undefined);
+        this.set('loadSection', 'news');
+      }
     }
   }
 
-  onStartChanged(newValue) {
+  _onStartChanged(newValue) {
     if (newValue > 1) {
       this.set('isPrev', true);
     }
   }
 
-  _handleResponse(response) {
-    var result = JSON.parse(response.detail.Result);
-
-    console.info(result);
-
-    if (result.length !== 19) {
-      this.set('isNext', false);
-    }
-
-    this.set('items', result);
-    this.set('isSearching', false);
+  _handleLoad() {
+      app.logger('<\cranberry-search\> load received');
   }
 
-  search() {
-    // Establish the query string
-    let searchBar = this.$.search;
-    // Replace all spaces with a plus sign
-    let query = searchBar.query.replace(/ /g, '+');
+  _handleResponse() {
+      app.logger('<\cranberry-search\> response received');
+  }
 
-    // Change the app location to match search and the query string
-    let appLocation = document.querySelector('app-location');
-    appLocation.set('path', '/search/' + query);
+  _parseResponse(response) {
+      console.info('Parsing response!');
+      var result = JSON.parse(response.Result);
+
+      if (result.length !== 20) {
+        this.set('isNext', false);
+      }
+
+      this.set('items', result);
+      this.set('isSearching', false);
+  }
+
+  _search() {
+    this._checkCurrentRequest();
+    this.async(function() {
+      // Establish the query string
+      let searchBar = this.$.search;
+      // Replace all spaces with a plus sign
+      let query = searchBar.query.replace(/ /g, '+');
+
+      // Change the app location to match search and the query string
+      let appLocation = document.querySelector('app-location');
+      appLocation.set('path', '/search/' + query);
+    });
   }
 
   _hasImage(image) {
@@ -158,6 +206,14 @@ class cranberrySearch {
       } else {
           return;
       }
+  }
+
+  _checkCurrentRequest() {
+    let request = this.$.request;
+
+    if (request.loading === true) {
+      request.abortRequest();
+    }
   }
 }
 Polymer(cranberrySearch);
