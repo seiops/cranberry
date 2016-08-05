@@ -106,7 +106,7 @@ Typography mixins are from file on URL https://github.com/PolymerElements/paper-
     font-size: 16px;
     font-weight: 500;
     line-height: 23px;
-    color: rbga(0, 0, 0, 0.87);
+    color: rgba(0, 0, 0, 0.87);
   };
 
   --paper-font-body2: {
