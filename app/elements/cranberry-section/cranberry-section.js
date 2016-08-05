@@ -106,6 +106,17 @@ class CranberrySection {
         //     console.log('meta done');
         // });
     }
+
+    search() {
+      // Establish the query string
+      let searchBar = this.$.search;
+      // Replace all spaces with a plus sign
+      let query = searchBar.query.replace(/ /g, '+');
+
+      // Change the app location to match search and the query string
+      let appLocation = document.querySelector('app-location');
+      appLocation.set('path', '/search/' + query);
+    }
 }
 // Public methods.
 // ready() {

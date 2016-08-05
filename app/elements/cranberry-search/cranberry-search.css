@@ -1,0 +1,80 @@
+:host {
+  display: block;
+}
+
+h2.story-headline {
+  @apply(--paper-font-headline);
+}
+
+div.ad-container {
+  text-align: center;
+}
+
+div.main-content {
+  @apply(--layout-horizontal);
+  @apply(--layout-center-justified);
+  @apply(--layout-wrap);
+  margin-top: 25px;
+}
+
+div.vertical-container {
+  @apply(--layout-vertical);
+  @apply(--layout-flex-4);
+  padding: 20px;
+}
+
+div.right-rail div.ad-container {
+  padding: 20px;
+  min-width: 300px;
+  max-width: 300px;
+}
+
+div.search-container {
+  @apply(--layout-flex-4);
+  @apply(--layout-horizontal);
+  @apply(--layout-center);
+  @apply(--layout-center-justified);
+  @apply(--layout-wrap);
+}
+
+div.search-container a {
+  text-decoration: none;
+  color: inherit;
+  width: 100%;
+}
+
+div.story-content {
+  @apply(--layout-horizontal);
+  @apply(--layout-around-justified);
+  @apply(--layout-wrap);
+}
+
+div.story-content p {
+  @apply(--layout-flex-4);
+  @apply(--paper-font-subhead);
+  padding: 0 25px 25px 25px;
+  margin: 0;
+}
+
+div.story-content iron-image {
+  width: 200px;
+  height: 112px;
+}
+
+.pagination-container {
+  @apply(--layout-horizontal);
+  @apply(--layout-center);
+  @apply(--layout-center-justified);
+  margin-top: 50px;
+}
+
+.pagination-container paper-button.prev-button {
+  background: var(--dark-primary-color);
+  @apply(--paper-font-button);
+  color: var(--text-primary-color);
+}
+
+.loading {
+  margin-top: 100px;
+  text-align: center;
+}
