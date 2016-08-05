@@ -11,6 +11,7 @@
   --paper-card-actions: {
     flex: 1 1 auto;
     color: var(--light-theme-secondary-text-color);
+    background-color: var(--tertiary-background-color);
     font-size: 12px;
     font-weight: 400;
   };
@@ -19,7 +20,7 @@
   --paper-card-content: {
     flex: 1 1 auto;
     @apply(--paper-font-body1);
-
+    background-color: var(--tertiary-background-color);
     color: var(--light-theme-primary-text-color);
   };
 
@@ -35,7 +36,7 @@
   --paper-card-header-image-text: {
     color: var(--text-accent-color);
     @apply(--paper-font-headline2);
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+    text-shadow: 0px 0px 10px rgba(0,0,0,1);
   };
 
   /* postcss-bem-linter: ignore */
@@ -99,18 +100,27 @@ paper-card.story ::content div.title-text {
   background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(0,0,0,0.9));
   width: calc(100% -24px);
 }
+
 paper-card.story div.card-info {
   @apply(--layout-horizontal);
   @apply(--layout-justified);
+  @apply(--layout-center);
 }
 
 paper-card.story div.card-info div.story-tag {
-  @apply(--paper-font-button);
-  background-color: var(--accent-color);
-  color: var(--text-accent-color);
-  padding-left: 6px;
-  padding-right: 6px;
+  @apply(--paper-font-caption);
+  color: var(--accent-color);
   text-transform: uppercase;
+}
+
+paper-card.story div.card-info div.story-comments {
+  @apply(--paper-font-caption);
+  color: var(--accent-color);
+}
+
+/* Flip The Comments Icon */
+paper-card.story div.card-info div.story-comments iron-icon {
+  transform: scaleX(-1);
 }
 
 paper-card.story div.card-info div.story-date {

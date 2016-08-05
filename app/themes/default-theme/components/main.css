@@ -9,11 +9,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 /** @define Main */
 .Main {
-  background-color: var(--secondary-background-color);
-
   @nest &-content {
     @apply(--paper-font-body1);
     color: var(--primary-text-color);
+    background-color: var(--primary-background-color);
     max-width: 1600px;
 
     @media (--md-viewport) {

@@ -76,10 +76,10 @@ Typography mixins are from file on URL https://github.com/PolymerElements/paper-
   --paper-font-headline2: {
     @apply(--paper-font-common-base);
 
-    font-size: 20px;
-    font-weight: 900;
+    font-size: 24px;
+    font-weight: 700;
     letter-spacing: -0.012em;
-    line-height: normal;
+    line-height: 28px;
   };
 
   --paper-font-headline: {
