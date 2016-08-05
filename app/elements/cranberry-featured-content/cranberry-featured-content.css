@@ -33,8 +33,8 @@
 
 paper-card div.card-info span.content-tag {
   @apply(--paper-font-caption);
+  @apply(--paper-font-common-uppercase);
   color: var(--accent-color);
-  text-transform: uppercase;
 }
 
 paper-card div.card-info span.content-date {

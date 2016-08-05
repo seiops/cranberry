@@ -109,8 +109,8 @@ paper-card.story div.card-info {
 
 paper-card.story div.card-info div.story-tag {
   @apply(--paper-font-caption);
+  @apply(--paper-font-common-uppercase);
   color: var(--accent-color);
-  text-transform: uppercase;
 }
 
 paper-card.story div.card-info div.story-comments {
