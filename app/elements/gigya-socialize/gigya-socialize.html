@@ -23,29 +23,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <style>
       @import "gigya-socialize/gigya-socialize";
     </style>
-    <script type="text/javascript" src="https://cdns.gigya.com/JS/gigya.js?apikey={$ config.gigya.apiKey $}"></script>
-    <byutv-jsonp on-response="handleResponse" debounce-duration="300" id="request"></byutv-jsonp>
-    <form is="iron-form" action="/" id="form">
-      <paper-input name="loginID" label="Username" required auto-validate error-message="You must provide a username." allowed-pattern="[\@\.A-zA-Z0-9]" auto-complete></paper-input>
-      <paper-input name="password" label="Password" type="password" required auto-validate error-message="You must provide a password."></paper-input>
-      <paper-button onclick="_submit(event)">Submit</paper-button>
-      <paper-button onclick="_reset(event)">Reset</paper-button>
-      <div class="output"></div>
-    </form>
-    <script>
-
-      function _submit(event) {
-        document.getElementById('form').submit();
-      }
-
-      function _reset(event) {
-        var form = Polymer.dom(event).localTarget.parentElement;
-        form.reset();
-        form.querySelector('.output').innerHTML = '';
-      }
-
-    </script>
+    <byutv-jsonp on-response="_handleResponse" debounce-duration="300" id="request"></byutv-jsonp>
+    <template is="dom-if" if="[[loggedIn]]">
+      [[user.age]]
+      USER IS YES
+      <paper-button on-tap="_handleLogout">Logout</paper-button>
+    </template>
+    <template is="dom-if" if="[[!loggedIn]]">
+      <form is="iron-form" action="/" id="loginForm">
+        <paper-input name="loginID" label="Username" required auto-validate error-message="You must provide a username." allowed-pattern="[\@\.A-zA-Z0-9]" auto-complete></paper-input>
+        <paper-input name="password" label="Password" type="password" required auto-validate error-message="You must provide a password."></paper-input>
+        <paper-button on-tap="_handleLogin">Submit</paper-button>
+        <paper-button on-tap="_handleReset">Reset</paper-button>
+        <paper-button on-tap="_handleLoginSocial" provider="facebook">Facebook</paper-button>
+        <paper-button on-tap="_handleLoginSocial" provider="twitter">Twitter</paper-button>
+        <div class="output"></div>
+      </form>
+    </template>
   </template>
   <script src="gigya-socialize.js"></script>
-
 </dom-module>

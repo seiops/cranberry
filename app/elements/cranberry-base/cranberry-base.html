@@ -57,7 +57,7 @@
 <link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
 
 <!-- Cranberry elements -->
-<!-- <link rel="import" href="../gigya-socialize/gigya-socialize.html"> -->
+<link rel="import" href="../gigya-socialize/gigya-socialize.html">
 <link rel="import" href="../cranberry-content-list/cranberry-content-list.html">
 <link rel="import" href="../cranberry-featured-content/cranberry-featured-content.html">
 <link rel="import" href="../cranberry-gallery/cranberry-gallery.html">
@@ -106,16 +106,13 @@
     <paper-toast id="infoToast" class="Toast" duration="8000"></paper-toast>
 
     <paper-dialog id="modal" modal>
-      <h2>Header</h2>
-      <paper-dialog-scrollable>
-        Lorem ipsum...
-      </paper-dialog-scrollable>
+      <gigya-socialize user="{{user}}"></gigya-socialize>
       <div class="buttons">
         <paper-button dialog-dismiss>Cancel</paper-button>
         <paper-button dialog-confirm autofocus>Accept</paper-button>
       </div>
     </paper-dialog>
-    
+
   </template>
 
   <!-- include base js module -->

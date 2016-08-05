@@ -9,21 +9,15 @@ class CranberryBase {
                 type: Object
             },
             route: Object,
-            section: String
+            section: String,
+            user: Object
         };
     }
 
-    ready() {
-        // Let the world know we're ready to receive data
-        // https://github.com/Polymer/polymer/issues/2653
-        this.fire('upgraded');
-        this.set('upgraded', true);
+    _userChange(user) {
+      console.log('user change');
+      console.dir(user);
     }
-
-    _sectionTail(section) {
-        this.set('section', section);
-    }
-
     attached() {
         let storage = JSON.parse(localStorage.getItem(this.$.localStorage.name));
 
@@ -36,6 +30,17 @@ class CranberryBase {
                 this.changeAccentColor(storage.accentColor);
             }
         }
+    }
+
+    ready() {
+        // Let the world know we're ready to receive data
+        // https://github.com/Polymer/polymer/issues/2653
+        this.fire('upgraded');
+        this.set('upgraded', true);
+    }
+
+    _sectionTail(section) {
+        this.set('section', section);
     }
 
     initializeDefaultStorage() {
