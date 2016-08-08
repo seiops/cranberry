@@ -35,7 +35,7 @@ Typography mixins are from file on URL https://github.com/PolymerElements/paper-
 
   --paper-font-common-uppercase: {
     text-transform: uppercase;
-  }
+  };
 
   /* Material Font Styles */
 
