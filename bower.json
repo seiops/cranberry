@@ -49,7 +49,10 @@
     "polymer": "^1.6.1",
     "re-captcha": "^1.1.1",
     "start-google-analytics-tracker": "StartPolymer/start-google-analytics-tracker#^1.1.1",
-    "paper-dialog": "^1.1.0"
+    "paper-dialog": "^1.1.0",
+    "gold-password-input": "^1.1.4",
+    "vaadin-date-picker": "^1.1.2",
+    "moment-js": "^0.4.0"
   },
   "devDependencies": {
     "web-component-tester": "4.2.0"

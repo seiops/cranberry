@@ -17,6 +17,15 @@ class GigyaSocialize {
         type: Object,
         value: {},
         notify: true
+      },
+      account: {
+        type: Object,
+        value: {},
+        notify: true
+      },
+      userSelected: {
+        type: Number,
+        value: 0
       }
     };
   }
@@ -74,6 +83,105 @@ class GigyaSocialize {
     gigya.socialize.getUserInfo(params);
   }
 
+  _handleChangePassword(event) {
+    app.logger('\<gigya-socialize\> handle change password');
+
+    let form = Polymer.dom(event).localTarget.parentElement;
+
+    let validate = form.validate();
+
+    if(validate){
+      let params = {};
+
+      params.password = form.oldPassword.value;
+      params.newPassword = form.newPassword.value;
+
+      let derp = form.newPassword.validate();
+      console.dir(derp);
+
+      params.callback = this._changedPassword;
+
+      gigya.accounts.setAccountInfo(params);
+    }
+  }
+
+  _handleUpdateProfile(event) {
+    app.logger('\<gigya-socialize\> handle update profile');
+
+    let form = Polymer.dom(event).localTarget.parentElement;
+
+    let validate = form.validate();
+
+    if (validate){
+      let params = {};
+
+      console.dir(form.gender);
+
+      params.profile = {
+        firstName: form.firstName.value,
+        lastName: form.lastName.value,
+        email: form.email.value,
+        gender: form.gender.value,
+        birthDay: form.birthDay.value,
+        birthMonth: form.birthMonth.value,
+        birthYear: form.birthYear.value,
+        zip: form.zip.value
+      };
+
+      console.dir(params);
+
+      params.context = this;
+      params.callback = this._updateProfile;
+
+      gigya.accounts.setAccountInfo(params);
+    }
+  }
+  _userProfile(selected) {
+      if (selected === 0) {
+          return true;
+      } else {
+          return false;
+      }
+  }
+
+  _userMembership(selected) {
+      if (selected === 1) {
+          return true;
+      } else {
+          return false;
+      }
+  }
+
+  _userNewsletters(selected) {
+      if (selected === 2) {
+          return true;
+      } else {
+          return false;
+      }
+  }
+
+  _isFeatured(selected) {
+      if (selected === 2) {
+          return true;
+      } else {
+          return false;
+      }
+  }
+
+  _updateProfile(data) {
+    console.log('_updateProfile');
+    console.dir(data);
+        data.context._checkUser();
+  }
+  _changedPassword(data) {
+    console.log('_changedPassword');
+    console.dir(data);
+  }
+
+  _showAccountSettings() {
+    this.set('userSelected', 3);
+  }
+
   _handleLogin(event) {
     app.logger('\<gigya-socialize\> handle login');
 
@@ -123,20 +231,50 @@ class GigyaSocialize {
     }
   }
 
+  _loadAccount(account) {
+    app.logger('\<gigya-socialize\> account loaded');
+    let el = account.context;
+    console.dir(account);
+    el.set('account', account);
+    gigya.socialize.refreshUI();
+  }
+
+  openModal() {
+    this.$.userModal.open();
+  }
+
+  _computeBirthday(user) {
+    let birthday = user.birthYear + '-' + user.birthMonth + '-' + user.birthDay;
+    console.log('birthday is', birthday);
+    return birthday;
+  }
   _loadUser(user) {
     let el = user.context;
 
     if (typeof user.UID !== 'undefined') {
-      app.logger('\<gigya-socialize\> user logged in');
+      app.logger('\<gigya-socialize\> user loaded');
       console.dir(user);
       el.set('loggedIn', true);
       el.set('user', user.user);
 
-      gigya.socialize.refreshUI();
+      let params = {
+        callback: el._loadAccount,
+        context: el
+      };
+
+      gigya.accounts.getAccountInfo(params);
     } else {
       app.logger('\<gigya-socialize\> anonymous user');
       console.dir(user);
     }
+  }
+
+  _equal(a, b) {
+      if (a === b) {
+          return true;
+      } else {
+          return false;
+      }
   }
 
   _logoutUser(response) {

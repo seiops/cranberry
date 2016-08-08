@@ -31,6 +31,9 @@
 <link rel="import" href="../../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/iron-meta/iron-meta.html">
+<link rel="import" href="../../bower_components/iron-validatable-behavior/iron-validatable-behavior.html">
+<link rel="import" href="../../bower_components/iron-validator-behavior/iron-validator-behavior.html">
+<link rel="import" href="../../bower_components/gold-password-input/gold-password-input.html">
 
 <!-- Animation elements -->
 <link rel="import" href="../../bower_components/neon-animation/neon-animation.html">
@@ -41,7 +44,9 @@
 <!-- Paper elements -->
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
 <link rel="import" href="../../bower_components/paper-drawer-panel/paper-drawer-panel.html">
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../../bower_components/paper-material/paper-material.html">
@@ -105,13 +110,7 @@
 
     <paper-toast id="infoToast" class="Toast" duration="8000"></paper-toast>
 
-    <paper-dialog id="modal" modal>
-      <gigya-socialize user="{{user}}"></gigya-socialize>
-      <div class="buttons">
-        <paper-button dialog-dismiss>Cancel</paper-button>
-        <paper-button dialog-confirm autofocus>Accept</paper-button>
-      </div>
-    </paper-dialog>
+    <gigya-socialize user="{{user}}"></gigya-socialize>
 
   </template>
 

@@ -92,8 +92,11 @@ class CranberryBase {
         }
     }
 
-    openModal() {
-      this.$.modal.open();
+    openUserModal() {
+      let el = Polymer.dom(this.root).querySelector('gigya-socialize');
+
+      console.dir(el);
+      el.openModal();
     }
 
     _isLocal(selected) {

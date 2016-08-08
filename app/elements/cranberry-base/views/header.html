@@ -5,7 +5,7 @@
         <paper-icon-button class="Main-headerButton" icon="menu" drawer-toggle></paper-icon-button>
         <!-- Hidden container examples -->
         <div class="Main-siteTitle">
-          <div>[[_siteTitle(route)]]</div>Age<div>[[user.age]]</div>
+          <div>[[_siteTitle(route)]]</div>
           <div hidden$="{{!_equal(data.page, '')}}"></div>
           <div hidden$="{{!_equal(data.page, 'story')}}"></div>
           <div hidden$="{{!_equal(data.page, 'gallery')}}"></div>
@@ -17,7 +17,7 @@
         </div>
         <div class="Main-siteButtons">
           <paper-icon-button class="Main-headerButton" icon="search"></paper-icon-button>
-          <paper-icon-button class="Main-headerButton" icon="account-circle" on-tap="openModal"></paper-icon-button>
+          <paper-icon-button class="Main-headerButton" icon="account-circle" on-tap="openUserModal"></paper-icon-button>
         </div>
       </div>
   </app-toolbar>
