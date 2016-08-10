@@ -63,7 +63,7 @@ class GigyaSocialize {
 
     setTimeout(function() {
       if (typeof gigya !== 'undefined' && typeof gigya.socialize !== 'undefined' && typeof gigya.socialize.getUserInfo === 'function') {
-        el._checkUser();
+        el.checkUser();
 
         return;
       } else {
@@ -72,7 +72,7 @@ class GigyaSocialize {
     }, 50);
   }
 
-  _checkUser() {
+  checkUser() {
     app.logger('\<gigya-socialize\> check user');
 
     let params = {
@@ -83,59 +83,6 @@ class GigyaSocialize {
     gigya.socialize.getUserInfo(params);
   }
 
-  _handleChangePassword(event) {
-    app.logger('\<gigya-socialize\> handle change password');
-
-    let form = Polymer.dom(event).localTarget.parentElement;
-
-    let validate = form.validate();
-
-    if(validate){
-      let params = {};
-
-      params.password = form.oldPassword.value;
-      params.newPassword = form.newPassword.value;
-
-      let derp = form.newPassword.validate();
-      console.dir(derp);
-
-      params.callback = this._changedPassword;
-
-      gigya.accounts.setAccountInfo(params);
-    }
-  }
-
-  _handleUpdateProfile(event) {
-    app.logger('\<gigya-socialize\> handle update profile');
-
-    let form = Polymer.dom(event).localTarget.parentElement;
-
-    let validate = form.validate();
-
-    if (validate){
-      let params = {};
-
-      console.dir(form.gender);
-
-      params.profile = {
-        firstName: form.firstName.value,
-        lastName: form.lastName.value,
-        email: form.email.value,
-        gender: form.gender.value,
-        birthDay: form.birthDay.value,
-        birthMonth: form.birthMonth.value,
-        birthYear: form.birthYear.value,
-        zip: form.zip.value
-      };
-
-      console.dir(params);
-
-      params.context = this;
-      params.callback = this._updateProfile;
-
-      gigya.accounts.setAccountInfo(params);
-    }
-  }
   _userProfile(selected) {
       if (selected === 0) {
           return true;
@@ -166,16 +113,6 @@ class GigyaSocialize {
       } else {
           return false;
       }
-  }
-
-  _updateProfile(data) {
-    console.log('_updateProfile');
-    console.dir(data);
-        data.context._checkUser();
-  }
-  _changedPassword(data) {
-    console.log('_changedPassword');
-    console.dir(data);
   }
 
   _showAccountSettings() {
@@ -225,7 +162,7 @@ class GigyaSocialize {
     if (typeof detail !== undefined && detail.errorCode === 0) {
       this._setUserCookie(detail.sessionInfo.cookieName, detail.sessionInfo.cookieValue, 365);
 
-      this._checkUser();
+      this.checkUser();
     } else if (detail.errorCode !== 0 ) {
       this._handleError(detail);
     }
@@ -243,11 +180,6 @@ class GigyaSocialize {
     this.$.userModal.open();
   }
 
-  _computeBirthday(user) {
-    let birthday = user.birthYear + '-' + user.birthMonth + '-' + user.birthDay;
-    console.log('birthday is', birthday);
-    return birthday;
-  }
   _loadUser(user) {
     let el = user.context;
 
@@ -259,7 +191,8 @@ class GigyaSocialize {
 
       let params = {
         callback: el._loadAccount,
-        context: el
+        context: el,
+        include: 'all'
       };
 
       gigya.accounts.getAccountInfo(params);
