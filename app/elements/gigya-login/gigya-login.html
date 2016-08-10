@@ -1,0 +1,64 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-form/iron-form.html">
+<link rel="import" href="../../bower_components/iron-form-element-behavior/iron-form-element-behavior.html">
+<link rel="import" href="../../bower_components/iron-validatable-behavior/iron-validatable-behavior.html">
+<link rel="import" href="../../bower_components/iron-validator-behavior/iron-validator-behavior.html">
+<link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+
+<dom-module id="gigya-login">
+  <template>
+    <style include="shared-styles">
+    @import "theme.css";
+    @import "gigya-login/gigya-login";
+    </style>
+    <byutv-jsonp on-response="_handleResponse" debounce-duration="300" id="request"></byutv-jsonp>
+    <h2>Login</h2>
+    <div class="user-login">
+      <div class="social-login">
+        <div class="social-login-info">
+          Log in faster with an existing online account.
+        </div>
+        <div class="social-login-providers">
+          <paper-button on-tap="_handleLoginSocial" provider="facebook">Facebook</paper-button>
+          <paper-button on-tap="_handleLoginSocial" provider="twitter">Twitter</paper-button>
+          <paper-button on-tap="_handleLoginSocial" provider="linkedin">Linked In</paper-button>
+          <paper-button on-tap="_handleLoginSocial" provider="google">Google</paper-button>
+        </div>
+      </div>
+      <div class="site-login">
+        <div class="site-login-info">
+          Log in with your Standard-Examiner account.
+        </div>
+        <div class="social-login-form">
+          <form is="iron-form" action="/" id="loginForm">
+            <paper-input class="focus-target" name="loginID" label="Username" required auto-validate error-message="A username is required." allowed-pattern="[\@\.A-zA-Z0-9]" auto-complete></paper-input>
+            <paper-input name="password" label="Password" type="password" required auto-validate error-message="A password is required."></paper-input>
+            <div class="form-buttons">
+              <paper-button on-tap="_register" id="register">Register</paper-button>
+              <paper-button on-tap="_handleLogin" id="submit">Login</paper-button>
+              <paper-button on-tap="_handleReset" id="reset">Reset</paper-button>
+              <paper-spinner id="spinner"></paper-spinner>
+            </div>
+            <div class="output"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </template>
+  <script src="gigya-login.js"></script>
+</dom-module>
