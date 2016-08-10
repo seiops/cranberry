@@ -28,6 +28,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../gigya-update-profile/gigya-update-profile.html">
 <link rel="import" href="../gigya-change-password/gigya-change-password.html">
+<link rel="import" href="../gigya-login/gigya-login.html">
+<link rel="import" href="../gigya-register/gigya-register.html">
 
 
 <dom-module id="gigya-socialize">
@@ -37,8 +39,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     @import "gigya-socialize/gigya-socialize";
 
     </style>
-    <byutv-jsonp on-response="_handleResponse" debounce-duration="300" id="request"></byutv-jsonp>
-    <paper-dialog id="userModal" modal always-on-top>
+    <paper-dialog id="userModal" vertical-offset="50" position-target="cranberry-base">
       <paper-dialog-scrollable>
         <template is="dom-if" if="[[user.isLoggedIn]]">
           <paper-toolbar>
@@ -95,16 +96,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </div>
         </template>
         <template is="dom-if" if="[[!user.isLoggedIn]]">
+          <paper-toolbar>
+            <paper-tabs id="guestTabs" selected="{{guestSelected}}" autoselect>
+              <paper-tab>Login</paper-tab>
+              <paper-tab>Register</paper-tab>
+              <paper-tab>Forgot Password</paper-tab>
+            </paper-tabs>
+          </paper-toolbar>
           <div class="user-content">
-            <form is="iron-form" action="/" id="loginForm">
-              <paper-input name="loginID" label="Username" required auto-validate error-message="You must provide a username." allowed-pattern="[\@\.A-zA-Z0-9]" auto-complete></paper-input>
-              <paper-input name="password" label="Password" type="password" required auto-validate error-message="You must provide a password."></paper-input>
-              <paper-button on-tap="_handleLogin">Submit</paper-button>
-              <paper-button on-tap="_handleReset">Reset</paper-button>
-              <paper-button on-tap="_handleLoginSocial" provider="facebook">Facebook</paper-button>
-              <paper-button on-tap="_handleLoginSocial" provider="twitter">Twitter</paper-button>
-              <div class="output"></div>
-            </form>
+            <div hidden$="{{!_equal(guestSelected, 0)}}">
+              <gigya-login></gigya-login>
+            </div>
+            <div hidden$="{{!_equal(guestSelected, 1)}}">
+              <gigya-register></gigya-register>
+            </div>
+            <div hidden$="{{!_equal(guestSelected, 2)}}">
+              Forgot Password
+            </div>
           </div>
         </template>
         <div class="buttons">
