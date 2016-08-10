@@ -9,10 +9,6 @@ class GigyaSocialize {
       items: {
         type: Object
       },
-      loggedIn: {
-        type: Boolean,
-        value: false
-      },
       user: {
         type: Object,
         value: {},
@@ -186,7 +182,7 @@ class GigyaSocialize {
     if (typeof user.UID !== 'undefined') {
       app.logger('\<gigya-socialize\> user loaded');
       console.dir(user);
-      el.set('loggedIn', true);
+
       el.set('user', user.user);
 
       let params = {
@@ -211,9 +207,11 @@ class GigyaSocialize {
   }
 
   _logoutUser(response) {
+    app.logger('\<gigya-socialize\> logged out');
+    console.dir(response);
+
     let el = response.context;
 
-    el.set('loggedIn', false);
     el.set('user', {});
 
     gigya.socialize.refreshUI();

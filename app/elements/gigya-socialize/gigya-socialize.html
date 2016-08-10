@@ -40,7 +40,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <byutv-jsonp on-response="_handleResponse" debounce-duration="300" id="request"></byutv-jsonp>
     <paper-dialog id="userModal" modal always-on-top>
       <paper-dialog-scrollable>
-        <template is="dom-if" if="[[loggedIn]]">
+        <template is="dom-if" if="[[user.isLoggedIn]]">
           <paper-toolbar>
             <paper-icon-button icon="arrow-back" dialog-confirm></paper-icon-button>
             <div class="user-title">[[user.firstName]] [[user.lastName]]</div>
@@ -65,7 +65,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                   </div>
                   <div class="user-name">[[user.firstName]] [[user.lastName]]</div>
                   <div class="user-created">
-                    Member since
+                    Member on since
                     <moment-js date="[[account.created]]" format="MMMM Do, YYYY"></moment-js>
                   </div>
                   <div class="user-settings">
@@ -94,7 +94,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             </div>
           </div>
         </template>
-        <template is="dom-if" if="[[!loggedIn]]">
+        <template is="dom-if" if="[[!user.isLoggedIn]]">
           <div class="user-content">
             <form is="iron-form" action="/" id="loginForm">
               <paper-input name="loginID" label="Username" required auto-validate error-message="You must provide a username." allowed-pattern="[\@\.A-zA-Z0-9]" auto-complete></paper-input>
