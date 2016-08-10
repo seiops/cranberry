@@ -32,7 +32,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     @import "theme.css";
     @import "gigya-update-profile/gigya-update-profile";
     </style>
-    <h3>Update Profile</h3>
+    <h3 class="focus-target">Update Profile</h3>
     <form is="iron-form" action="/" id="updateProfileForm">
       <div>
         <paper-input name="firstName" label="First Name" required auto-validate error-message="You must provide a first name." allowed-pattern="[A-zA-Z0-9]" value="[[user.firstName]]"></paper-input>
@@ -191,8 +191,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <label>Zip</label>
         <input is="iron-input" name="zip" bind-value="[[user.zip]]" allowed-pattern="[0-9]">
       </paper-input-container>
-      <paper-button on-tap="_handleUpdateProfile" id="submit">Submit</paper-button>
-      <paper-button on-tap="_handleReset" id="reset">Reset</paper-button>
+      <div class="form-buttons">
+        <paper-button on-tap="_handleUpdateProfile" id="submit">Submit</paper-button>
+        <paper-spinner id="spinner"></paper-spinner>
+        <paper-button on-tap="_handleReset" id="reset">Reset</paper-button>
+      </div>
     </form>
   </template>
   <script src="gigya-update-profile.js"></script>

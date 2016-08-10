@@ -85,3 +85,8 @@ iron-image.user-mugshot {
 .focus-target {
   outline: none;
 }
+
+div.form-buttons {
+  @apply(--layout-horizontal);
+  @apply(--layout-center);
+}

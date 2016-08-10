@@ -53,7 +53,7 @@ class GigyaUpdateProfile {
   _handleReset(event) {
     app.logger('\<gigya-update-profile\> reset form');
 
-    let form = Polymer.dom(event).localTarget.parentElement;
+    let form = Polymer.dom(event).localTarget.parentElement.parentElement;
 
     form.reset();
   }
@@ -61,7 +61,7 @@ class GigyaUpdateProfile {
   _handleUpdateProfile(event) {
     app.logger('\<gigya-update-profile\> handle update profile');
 
-    let form = Polymer.dom(event).localTarget.parentElement;
+    let form = Polymer.dom(event).localTarget.parentElement.parentElement;
 
     form.submit();
   }
@@ -75,6 +75,7 @@ class GigyaUpdateProfile {
   _submit() {
     app.logger('\<gigya-update-profile\> submit gigya');
 
+    this.$.spinner.active = true;
     let form = Polymer.dom(this.root).querySelector('#updateProfileForm');
 
     let params = {
@@ -114,7 +115,9 @@ class GigyaUpdateProfile {
       el._processError(data.errorCode);
     }
 
+    el.$.spinner.active = false;
     el._enableForm();
+
   }
 }
 
