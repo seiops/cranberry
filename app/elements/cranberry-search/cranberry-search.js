@@ -25,6 +25,9 @@ class cranberrySearch {
         value: 1,
         observer: '_onStartChanged'
       },
+      totalResults: {
+        type: Number
+      },
       isNext: {
         Boolean,
         value: true
@@ -55,7 +58,6 @@ class cranberrySearch {
   }
 
   _clearResults(hidden) {
-    console.info('Search is now hidden: ' + hidden);
     if (hidden === true) {
 
       this._checkCurrentRequest();
@@ -68,7 +70,6 @@ class cranberrySearch {
     } else {
       this.async(function() {
         let queryString = this.get('queryString');
-        console.info(queryString);
         this._requestSearch(queryString);
       });
     }
@@ -82,7 +83,7 @@ class cranberrySearch {
     this.set('isNext', true);
     this.set('start', 1);
     this.set('displayQuery', 'Search');
-    this.$.search._clear();
+    // this.$.searchRe._clear();
   }
 
   _paginate(e) {
@@ -137,7 +138,7 @@ class cranberrySearch {
         params.desiredStart = move;
       }
 
-      let request = this.$.request;
+      let request = this.$.searchRequest;
 
       request.setAttribute('url', 'http://sestgcore.libercus.net/rest.json');
       request.params = params;
@@ -183,21 +184,8 @@ class cranberrySearch {
       }
 
       this.set('items', result);
+      this.set('totalResults', parseInt(result[0].totalResults));
       this.set('isSearching', false);
-  }
-
-  _search() {
-    this._checkCurrentRequest();
-    this.async(function() {
-      // Establish the query string
-      let searchBar = this.$.search;
-      // Replace all spaces with a plus sign
-      let query = searchBar.query.replace(/ /g, '+');
-
-      // Change the app location to match search and the query string
-      let appLocation = document.querySelector('app-location');
-      appLocation.set('path', '/search/' + query);
-    });
   }
 
   _hasImage(image) {
@@ -209,7 +197,7 @@ class cranberrySearch {
   }
 
   _checkCurrentRequest() {
-    let request = this.$.request;
+    let request = this.$.searchRequest;
 
     if (request.loading === true) {
       request.abortRequest();

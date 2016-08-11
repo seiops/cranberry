@@ -11,6 +11,9 @@ class CranberryBase {
             route: Object,
             section: String
         };
+        this.listeners = {
+          'searchIcon.tap': '_focusSearch'
+        };
     }
 
     ready() {
@@ -231,6 +234,18 @@ class CranberryBase {
         this.updateStyles(
 
         );
+    }
+
+    _focusSearch() {
+      let drawer = this.$.drawer;
+
+      if (!drawer.opened) {
+        // If the drawer is closed open it
+        this.$.drawer.open();
+      }
+      let drawerBar = this.$.drawerSearch;
+      drawerBar.scaleElement();
+      drawerBar.$.input.focus();
     }
 }
 // Change accent color
