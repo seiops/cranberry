@@ -238,14 +238,17 @@ class CranberryBase {
 
     _focusSearch() {
       let drawer = this.$.drawer;
+      let drawerBar = this.$.drawerSearch;
 
       if (!drawer.opened) {
         // If the drawer is closed open it
         this.$.drawer.open();
+        // Timeout function to ensure the input is not hidden anymore
+        setTimeout(function () {drawerBar.$.input.focus()}, 250);
+      } else {
+        drawerBar.scaleElement();
+        drawerBar.$.input.focus()
       }
-      let drawerBar = this.$.drawerSearch;
-      drawerBar.scaleElement();
-      drawerBar.$.input.focus();
     }
 }
 // Change accent color
