@@ -49,3 +49,40 @@ div.social-login-providers {
 div.site-login {
   @apply(--layout-flex-6);
 }
+
+div.user-messages {
+  flex: 1 1 auto;
+  @apply(--layout-vertical);
+  @apply(--layout-center);
+}
+
+div.notice {
+  @apply(--layout-vertical);
+  @apply(--layout-center);
+  margin-bottom: 24px;
+}
+
+div.notice.error {
+  background-color: red;
+  color: #fff;
+}
+
+div.notice.warning {
+  background-color: yellow;
+  color: #000;
+}
+
+div.notice.success {
+  background-color: green;
+  color: #000;
+}
+
+div.notice-info {
+  @apply(--layout-horizontal);
+  @apply(--layout-center);
+}
+
+div.notice-action {
+  @apply(--layout-vertical);
+  @apply(--layout-center);
+}

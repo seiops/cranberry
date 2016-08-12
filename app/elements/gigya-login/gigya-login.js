@@ -1,6 +1,16 @@
 class GigyaLogin {
   beforeRegister() {
     this.is = 'gigya-login';
+    this.properties = {
+      notices: {
+        type: Object,
+        value: []
+      },
+      verify: {
+        type: Object,
+        value: {}
+      }
+    };
   }
 
   attached() {
@@ -19,6 +29,13 @@ class GigyaLogin {
     });
   }
 
+  _checkUser() {
+    let base = Polymer.dom(document).querySelector('cranberry-base');
+    let socialize = base.querySelector('gigya-socialize');
+
+    socialize.checkUser();
+  }
+
   _disableForm() {
     app.logger('\<gigya-login\> disable form');
 
@@ -31,18 +48,10 @@ class GigyaLogin {
     this.$.submit.disabled = false;
   }
 
-  _handleReset(event) {
-    app.logger('\<gigya-login\> reset form');
-
-    let form = Polymer.dom(event).localTarget.parentElement.parentElement;
-
-    form.reset();
-  }
-
   _handleLogin(event) {
     app.logger('\<gigya-login\> handle login');
 
-    let form = Polymer.dom(event).localTarget.parentElement.parentElement;
+    let form = Polymer.dom(this.root).querySelector('#loginForm');
 
     form.submit();
   }
@@ -57,44 +66,175 @@ class GigyaLogin {
     let socialize = base.querySelector('gigya-socialize');
 
     let params = {
-        provider: provider,
-        callback: this._handleResponse,
-        context: this
+      provider: provider,
+      callback: this._handleResponse,
+      context: this
     };
 
     gigya.accounts.socialLogin(params);
   }
 
-  _processError(code) {
-    app.logger('\<gigya-login\> error');
-    if(code.errorCode === 206002) {
-      console.log('unverified');
-      let params = {
-        callback: this._consoleLog,
-        context: this,
-        UID: code.UID,
-        regToken: code.regToken
-      };
-      console.dir(params);
-      gigya.accounts.resendVerificationCode(params);
-    }
-  }
-
-  _consoleLog(data) {
-    console.dir(data);
-  }
-
-  _register() {
+  _handleRegister() {
     let base = Polymer.dom(document).querySelector('cranberry-base');
     let socialize = base.querySelector('gigya-socialize');
 
     socialize.set('guestSelected', 1);
   }
 
+  _handleReset(event) {
+    app.logger('\<gigya-login\> reset form');
+
+    this.set('notices', []);
+
+    let form = Polymer.dom(this.root).querySelector('#loginForm');
+
+    form.reset();
+  }
+
+  _handleResponse(response) {
+    let detail = {};
+
+    if (typeof response.detail !== 'undefined') {
+      detail = response.detail;
+    } else {
+      detail = response;
+    }
+
+    let el = this;
+
+    if (typeof detail.context !== 'undefined') {
+      el = detail.context;
+    }
+
+    if (typeof detail !== 'undefined') {
+      if (detail.loginProvider === 'site' && detail.errorCode === 0) {
+        this._setUserCookie(detail.sessionInfo.cookieName, detail.sessionInfo.cookieValue, 365);
+      }
+      if ((detail.loginProvider === 'site' && detail.errorCode === 0) || (detail.loginProvider !== 'site' && detail.errorCode === '0')) {
+        el._checkUser();
+        el.$.spinner.active = false;
+        el._handleReset();
+        el._enableForm();
+      } else if ((detail.loginProvider === 'site' && detail.errorCode !== 0) || (detail.loginProvider !== 'site' && detail.errorCode !== '0')) {
+        let form = el.querySelector('#loginForm');
+        form.password.value = '';
+        this._processError(detail);
+      }
+    } else {
+      console.error('Unhandled form error');
+    }
+  }
+
+  _processError(code) {
+    app.logger('\<gigya-login\> error');
+
+    let notice = {};
+
+    let errorCode = code.errorCode;
+
+    switch(errorCode) {
+      case 206001:
+        notice.type = 'error';
+        notice.message = 'Account pending finalized registration.'
+        break;
+      case 206002:
+        notice.type = 'warning';
+        notice.message = 'Your account requires e-mail verification.';
+        notice.verify = true;
+        notice.code = code.errorCode;
+        let verify = {
+          UID: code.UID,
+          regToken: code.regToken
+        };
+        this.set('verify', verify);
+        break;
+      case 401020:
+        notice.type = 'error';
+        notice.message = 'Too many failed CAPTCHA attempts.';
+        break;
+      case 401021:
+        notice.type = 'error';
+        notice.message = 'Incorrect CAPTCHA code.';
+        break;
+      case 401030:
+        notice.type = 'error';
+        notice.message = 'You are attempting to use an old password to login.';
+        break;
+      case 401041:
+        notice.type = 'error';
+        notice.message = 'This account has been disabled.';
+        break;
+      case 403042:
+        notice.type = 'error';
+        notice.message = 'Invalid username or password.';
+        break;
+      case 403043:
+        notice.type = 'error';
+        notice.message = 'Login identifier exists.';
+        break;
+      case 403044:
+        notice.type = 'error';
+        notice.message = 'User under the age of 13.';
+        break;
+      case 403100:
+        notice.type = 'warning';
+        notice.message = 'Password change required.';
+        break;
+      case 403120:
+        notice.type = 'error';
+        notice.message = 'Account temporarily locked out.';
+        break;
+      default:
+        notice.type = 'error';
+        notice.message = 'Unknown error.';
+        console.dir(code);
+      break;
+    }
+
+    this.push('notices', notice);
+
+    this.$.spinner.active = false;
+
+    this._enableForm();
+  }
+
+  _resendVerification() {
+    this.set('notices', []);
+
+    let verify = this.get('verify');
+
+    let params = {
+      callback: this._verificationSent,
+      context: this,
+      UID: verify.UID,
+      regToken: verify.regToken
+    };
+
+    let optionalEmail = this.$$('#verifyEmail').value;
+
+    if (optionalEmail.length > 0) {
+      params.email = optionalEmail;
+    }
+
+    gigya.accounts.resendVerificationCode(params);
+  }
+
+  _setUserCookie(cname, cvalue, exdays) {
+    let d = new Date();
+
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+
+    let expires = "expires=" + d.toUTCString();
+
+    document.cookie = cname + "=" + cvalue + "; " + expires + "; path=/";
+  }
+
   _submit() {
     app.logger('\<gigya-login\> submit gigya');
 
+    this.set('notices', []);
     this.$.spinner.active = true;
+
     let form = Polymer.dom(this.root).querySelector('#loginForm');
     let request = Polymer.dom(this.root).querySelector('#request');
 
@@ -111,52 +251,14 @@ class GigyaLogin {
     request.generateRequest();
   }
 
-  _checkUser() {
-    let base = Polymer.dom(document).querySelector('cranberry-base');
-    let socialize = base.querySelector('gigya-socialize');
+  _verificationSent(data) {
+    let notice = {};
 
-    socialize.checkUser();
-  }
+    notice.type = 'success';
+    notice.message = 'Verification e-mail sent';
+    notice.code = 0;
 
-  _handleResponse(response) {
-    let detail = {};
-
-    if (typeof response.detail !== 'undefined') {
-      detail = response.detail;
-    } else {
-      detail = response;
-    }
-
-    if(typeof detail !== 'undefined') {
-      if (detail.loginProvider === 'site' && detail.errorCode === 0) {
-        this._setUserCookie(detail.sessionInfo.cookieName, detail.sessionInfo.cookieValue, 365);
-      }
-      if ((detail.loginProvider === 'site' && detail.errorCode === 0) || (detail.loginProvider !== 'site' && detail.errorCode === '0')) {
-        let el = this;
-
-        if (typeof detail.context !== 'undefined') {
-          el = detail.context;
-        }
-
-        el.$.spinner.active = false;
-        el._enableForm();
-        el._checkUser();
-      } else if ((detail.loginProvider === 'site' && detail.errorCode !== 0) || (detail.loginProvider !== 'site' && detail.errorCode !== '0')) {
-        this._processError(detail);
-      }
-    } else {
-      console.error('unhandled form error');
-    }
-  }
-
-  _setUserCookie(cname, cvalue, exdays) {
-    let d = new Date();
-
-    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-
-    let expires = "expires=" + d.toUTCString();
-
-    document.cookie = cname + "=" + cvalue + "; " + expires + "; path=/";
+    data.context.push('notices', notice);
   }
 }
 
