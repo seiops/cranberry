@@ -28,6 +28,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../gigya-update-profile/gigya-update-profile.html">
 <link rel="import" href="../gigya-change-password/gigya-change-password.html">
+<link rel="import" href="../gigya-forgot-password/gigya-forgot-password.html">
 <link rel="import" href="../gigya-login/gigya-login.html">
 <link rel="import" href="../gigya-register/gigya-register.html">
 
@@ -111,7 +112,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               <gigya-register></gigya-register>
             </div>
             <div hidden$="{{!_equal(guestSelected, 2)}}">
-              Forgot Password
+              <gigya-forgot-password></gigya-forgot-password>
             </div>
           </div>
         </template>
