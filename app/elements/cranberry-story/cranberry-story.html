@@ -38,8 +38,8 @@
       <div class="story-media">
         <iron-image id="mainImage" desktop-layout$="{{desktop}}" tablet-layout$="{{tablet}}" mobile-layout$="{{mobile}}" sizing="cover" src="http://www.standard.net{{story.mediaAssets.images.0.url}}"></iron-image>
         <div class="ut-rowFlex ut-absolute">
-          <paper-fab mini src="images/FacebookLogo_29.png" id="facebookButton" class="ut-small-icon-margin"></paper-fab>
-          <paper-fab mini src="images/TwitterLogo_white.png" title="Share on Twitter" id="twitterButton" class="ut-small-icon-margin" twitter-name="{$ config.socialNaming.twitter $}"></paper-fab>
+          <paper-fab mini src="../../../images/social/FacebookLogo_29.png" id="facebookButton" class="ut-small-icon-margin"></paper-fab>
+          <paper-fab mini src="../../../images/social/TwitterLogo_white.png" title="Share on Twitter" id="twitterButton" class="ut-small-icon-margin" twitter-name="{$ config.socialNaming.twitter $}"></paper-fab>
           <paper-fab mini icon="communication:chat-bubble" title="Comments" id="commentButton" class="ut-small-icon-margin" on-tap="_scrollToComments"></paper-fab>
           <gigya-sharebar share-buttons-id="gigya-share-buttons-story"></gigya-sharebar>
         </div>
