@@ -86,3 +86,10 @@ div.featured-list {
 div.featured-list paper-card {
     min-height: 200px;
 }
+
+paper-card div.icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: var(--accent-color);
+}

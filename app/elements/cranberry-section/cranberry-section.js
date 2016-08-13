@@ -13,6 +13,10 @@ class CranberrySection {
             selected: {
                 type: Number,
                 value: 0
+            },
+            galleries: {
+              type: Boolean,
+              value: false
             }
         };
 
@@ -80,6 +84,16 @@ class CranberrySection {
         } else {
             return false;
         }
+    }
+
+    _isGalleries(galleries) {
+      console.info(galleries);
+
+      if (galleries) {
+        return 'gallery';
+      } else {
+        return 'story_gallery'
+      }
     }
 
     _routeChange(section) {

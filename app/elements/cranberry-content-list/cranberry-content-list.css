@@ -126,3 +126,25 @@ paper-card.story div.card-info div.story-comments iron-icon {
 paper-card.story div.card-info div.story-date {
   @apply(--paper-font-caption2);
 }
+
+paper-card.gallery div.card-info span.content-tag {
+  @apply(--paper-font-caption);
+  @apply(--paper-font-common-uppercase);
+  color: var(--accent-color);
+}
+
+paper-card.gallery div.card-info span.content-date {
+  @apply(--paper-font-caption2);
+}
+
+paper-card.gallery div.card-info {
+  @apply(--layout-horizontal);
+  @apply(--layout-justified);
+}
+
+paper-card.gallery div.icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: var(--accent-color);
+}

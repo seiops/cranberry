@@ -4,6 +4,7 @@
 <link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../../bower_components/iron-icons/social-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/image-icons.html">
 <link rel="import" href="../../bower_components/iron-icons/communication-icons.html">
 <link rel="import" href="../google-dfp/google-dfp.html">
 
@@ -76,6 +77,21 @@
               <google-dfp section="[[sections]]" ad-pos="leaderboard" ad-size="[[728, 90],[970,90]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
             </div>
           </div>
+        </template>
+        <template is="dom-if" if="[[_isGallery(item.contentType)]]">
+          <a href="/photo-gallery/[[item.itemId]]">
+            <paper-card class="gallery" heading="[[item.title]]" image="http://www.standard.net/[[item.mediaAssets.images.0.exlarge]]" elevation="1">
+              <div class="icon">
+                <iron-icon icon="image:photo-camera"></iron-icon>
+              </div>
+              <div class="card-actions">
+                <div class="card-info">
+                  <span class="content-tag">[[item.sectionInformation.sectionName]]</span>
+                  <span class="content-date">[[item.updated]]</span>
+                </div>
+              </div>
+            </paper-card>
+          </a>
         </template>
       </template>
     </div>
