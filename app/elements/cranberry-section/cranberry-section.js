@@ -95,7 +95,6 @@ class CranberrySection {
             }
         });
         //
-        // console.log('peeeeenis');
         // this.async(function() {
         //     let sectionMeta = document.querySelector('iron-meta#metaSection');
         //     let currentSection = this.get('section');
