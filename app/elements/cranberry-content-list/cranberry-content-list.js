@@ -114,9 +114,7 @@ class CranberryContentList {
     }
 
     _isGallery(item) {
-      console.info('Checking Gallery:::: ' + item);
         if (item === 'Gallery') {
-            console.info('Returning true!');
             return true;
         } else {
             return;
@@ -127,7 +125,6 @@ class CranberryContentList {
         var result = JSON.parse(response.Result);
 
         this.set('items', result);
-        console.info(result);
     }
 
     _trimText(text) {

@@ -119,9 +119,7 @@ class CranberryFeaturedContent {
     }
 
     _isGallery(item) {
-      console.info('Checking Gallery:::: ' + item);
         if (item === 'Gallery') {
-            console.info('Returning true!');
             return true;
         } else {
             return;

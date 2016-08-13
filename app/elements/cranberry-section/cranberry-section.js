@@ -87,8 +87,6 @@ class CranberrySection {
     }
 
     _isGalleries(galleries) {
-      console.info(galleries);
-
       if (galleries) {
         return 'gallery';
       } else {
