@@ -109,22 +109,6 @@ class CranberryFeaturedContent {
         jsonp.desiredCount = this.get('count');
         this.set('params', jsonp);
     }
-
-    _isStory(item) {
-        if (item === 'Story') {
-            return true;
-        } else {
-            return;
-        }
-    }
-
-    _isGallery(item) {
-        if (item === 'Gallery') {
-            return true;
-        } else {
-            return;
-        }
-    }
 }
 // Public methods.
 // ready () {

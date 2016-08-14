@@ -1,12 +1,12 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
-<link rel="import" href="../../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../../bower_components/iron-icons/social-icons.html">
 <link rel="import" href="../../bower_components/iron-icons/image-icons.html">
 <link rel="import" href="../../bower_components/iron-icons/communication-icons.html">
 <link rel="import" href="../google-dfp/google-dfp.html">
+<link rel="import" href="../cranberry-content-card/cranberry-content-card.html">
 
 <dom-module id="cranberry-content-list">
   <template>
@@ -37,40 +37,6 @@
             </div>
           </div>
         </template>
-        <!-- Need to rework this for array selectors -->
-        <template is="dom-if" if="[[_isStory(item.contentType)]]">
-          <template is="dom-if" if="[[_hasImage(item.mediaAssets.images.0.url)]]">
-            <a href="/story/[[item.itemId]]">
-              <paper-card heading="[[item.title]]" fade-image preload-image image="http://www.standard.net/[[item.mediaAssets.images.0.large]]" elevation="1" class="story">
-                <div class="card-content">
-                  <span class="story-date">[[item.updated]]</span>
-                  <span>[[_trimText(item.preview)]]</span>
-                </div>
-                <div class="card-actions">
-                  <div class="card-info">
-                    <div class="story-tag">[[item.sectionInformation.primarySection]]</div>
-                  <div class="story-comments">[[item.socialInformation.comments]] &nbsp;<iron-icon icon="communication:chat"></iron-icon></div>
-                  </div>
-                </div>
-              </paper-card>
-            </a>
-          </template>
-          <template is="dom-if" if="[[!_hasImage(item.mediaAssets.images.0.url)]]">
-            <a href="/story/[[item.itemId]]">
-              <paper-card heading="[[item.title]]" elevation="1" class="story">
-                <div class="card-content">
-                  <span>[[_trimText(item.preview)]]</span>
-                </div>
-                <div class="card-actions">
-                  <div class="card-info">
-                    <span class="story-tag">[[item.sectionInformation.primarySection]]</span>
-                    <span class="story-date">[[item.updated]]</span>
-                  </div>
-                </div>
-              </paper-card>
-            </a>
-          </template>
-        </template>
         <template is="dom-if" if="[[_checkLeaderboardAd(index)]]">
           <div class="leaderboard-advertisement-wrapper">
             <div class="leaderboard-advertisement">
@@ -78,21 +44,7 @@
             </div>
           </div>
         </template>
-        <template is="dom-if" if="[[_isGallery(item.contentType)]]">
-          <a href="/photo-gallery/[[item.itemId]]">
-            <paper-card class="gallery" heading="[[item.title]]" image="http://www.standard.net/[[item.mediaAssets.images.0.exlarge]]" elevation="1">
-              <div class="icon">
-                <iron-icon icon="image:photo-camera"></iron-icon>
-              </div>
-              <div class="card-actions">
-                <div class="card-info">
-                  <span class="content-tag">[[item.sectionInformation.sectionName]]</span>
-                  <span class="content-date">[[item.updated]]</span>
-                </div>
-              </div>
-            </paper-card>
-          </a>
-        </template>
+        <cranberry-content-card item="[[item]]" content></cranberry-content-card>
       </template>
     </div>
   </template>

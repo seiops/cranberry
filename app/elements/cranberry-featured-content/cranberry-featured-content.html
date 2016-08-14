@@ -1,7 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
 <link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
-<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../cranberry-content-card/cranberry-content-card.html">
 
 <dom-module id="cranberry-featured-content">
   <template>
@@ -24,187 +24,21 @@
     <div hidden$="{{slider}}">
       <div class="featured-content">
         <div class="featured-main">
-          <template is="dom-if" if="[[_isStory(items.0.contentType)]]">
-            <a href="/story/[[items.0.itemId]]">
-              <paper-card heading="[[items.0.title]]" image="http://www.standard.net/[[items.0.mediaAssets.images.0.exlarge]]" elevation="1">
-                <div class="card-actions">
-                  <div class="card-info">
-                    <span class="content-tag">[[items.0.sectionInformation.primarySection]]</span>
-                    <span class="content-date">[[items.0.updated]]</span>
-                  </div>
-                </div>
-              </paper-card>
-            </a>
-          </template>
-          <template is="dom-if" if="[[_isGallery(items.0.contentType)]]">
-            <a href="/photo-gallery/[[items.0.itemId]]">
-              <paper-card heading="[[items.0.title]]" image="http://www.standard.net/[[items.0.mediaAssets.images.0.exlarge]]" elevation="1">
-                <div class="icon">
-                  <iron-icon icon="image:photo-camera"></iron-icon>
-                </div>
-                <div class="card-actions">
-                  <div class="card-info">
-                    <span class="content-tag">[[items.0.sectionInformation.sectionName]]</span>
-                    <span class="content-date">[[items.0.updated]]</span>
-                  </div>
-                </div>
-              </paper-card>
-            </a>
-          </template>
+          <cranberry-content-card item="[[items.0]]" featured main></cranberry-content-card>
         </div>
         <div class="featured-list">
-          <template is="dom-if" if="[[_isStory(items.1.contentType)]]">
-            <a href="/story/[[items.1.itemId]]">
-              <paper-card heading="[[items.1.title]]" image="http://www.standard.net/[[items.1.mediaAssets.images.0.exlarge]]" elevation="1">
-                <div class="card-actions">
-                  <div class="card-info">
-                    <span class="content-tag">[[items.1.sectionInformation.primarySection]]</span>
-                    <span class="content-date">[[items.1.updated]]</span>
-                  </div>
-                </div>
-              </paper-card>
-            </a>
-          </template>
-          <template is="dom-if" if="[[_isGallery(items.1.contentType)]]">
-            <a href="/photo-gallery/[[items.1.itemId]]">
-              <paper-card heading="[[items.1.title]]" image="http://www.standard.net/[[items.1.mediaAssets.images.0.exlarge]]" elevation="1">
-                <div class="icon">
-                  <iron-icon icon="image:photo-camera"></iron-icon>
-                </div>
-                <div class="card-actions">
-                  <div class="card-info">
-                    <span class="content-tag">[[items.1.sectionInformation.sectionName]]</span>
-                    <span class="content-date">[[items.1.updated]]</span>
-                  </div>
-                </div>
-              </paper-card>
-            </a>
-          </template>
-          <template is="dom-if" if="[[_isStory(items.2.contentType)]]">
-            <a href="/story/[[items.2.itemId]]">
-              <paper-card heading="[[items.2.title]]" image="http://www.standard.net/[[items.2.mediaAssets.images.0.exlarge]]" elevation="1">
-                <div class="card-actions">
-                  <div class="card-info">
-                    <span class="content-tag">[[items.2.sectionInformation.primarySection]]</span>
-                    <span class="content-date">[[items.2.updated]]</span>
-                  </div>
-                </div>
-              </paper-card>
-            </a>
-          </template>
-          <template is="dom-if" if="[[_isGallery(items.2.contentType)]]">
-            <a href="/photo-gallery/[[items.2.itemId]]">
-              <paper-card heading="[[items.2.title]]" image="http://www.standard.net/[[items.2.mediaAssets.images.0.exlarge]]" elevation="1">
-                <div class="icon">
-                  <iron-icon icon="image:photo-camera"></iron-icon>
-                </div>
-                <div class="card-actions">
-                  <div class="card-info">
-                    <span class="content-tag">[[items.2.sectionInformation.sectionName]]</span>
-                    <span class="content-date">[[items.2.updated]]</span>
-                  </div>
-                </div>
-              </paper-card>
-            </a>
-          </template>
+          <cranberry-content-card item="[[items.1]]" featured list></cranberry-content-card>
+          <cranberry-content-card item="[[items.2]]" featured list></cranberry-content-card>
         </div>
       </div>
     </div>
     <div hidden$="{{!slider}}">
         <l2t-paper-slider total-slides="3">
-          <paper-slide>
-            <template is="dom-if" if="[[_isStory(items.0.contentType)]]">
-              <paper-card heading="[[items.0.title]]" image="http://www.standard.net/[[items.0.mediaAssets.images.0.medium]]" elevation="1">
-                <div class="card-content">
-                  [[items.0.title]]
-                </div>
-                <div class="card-actions">
-                  <div class="card-info">
-                    <span class="content-tag">[[items.0.sectionInformation.primarySection]]</span>
-                    <span class="content-date">[[items.0.updated]]</span>
-                  </div>
-                </div>
-              </paper-card>
-            </template>
-            <template is="dom-if" if="[[_isGallery(items.0.contentType)]]">
-              <paper-card heading="[[items.0.title]]" image="http://www.standard.net/[[items.0.mediaAssets.images.0.medium]]" elevation="1">
-                <div class="icon">
-                  <iron-icon icon="image:photo-camera"></iron-icon>
-                </div>
-                <div class="card-content">
-                  [[items.0.title]]
-                </div>
-                <div class="card-actions">
-                  <div class="card-info">
-                    <span class="content-tag">[[items.0.sectionInformation.sectionName]]</span>
-                    <span class="content-date">[[items.0.updated]]</span>
-                  </div>
-                </div>
-              </paper-card>
-            </template>
-          </paper-slide>
-          <paper-slide>
-            <template is="dom-if" if="[[_isStory(items.1.contentType)]]">
-              <paper-card heading="[[items.1.title]]" image="http://www.standard.net/[[items.1.mediaAssets.images.0.medium]]" elevation="1">
-                <div class="card-content">
-                  [[items.0.title]]
-                </div>
-                <div class="card-actions">
-                  <div class="card-info">
-                    <span class="content-tag">[[items.1.sectionInformation.primarySection]]</span>
-                    <span class="content-date">[[items.1.updated]]</span>
-                  </div>
-                </div>
-              </paper-card>
-            </template>
-            <template is="dom-if" if="[[_isGallery(items.1.contentType)]]">
-              <paper-card heading="[[items.1.title]]" image="http://www.standard.net/[[items.1.mediaAssets.images.0.medium]]" elevation="1">
-                <div class="icon">
-                  <iron-icon icon="image:photo-camera"></iron-icon>
-                </div>
-                <div class="card-content">
-                  [[items.0.title]]
-                </div>
-                <div class="card-actions">
-                  <div class="card-info">
-                    <span class="content-tag">[[items.1.sectionInformation.sectionName]]</span>
-                    <span class="content-date">[[items.1.updated]]</span>
-                  </div>
-                </div>
-              </paper-card>
-            </template>
-          </paper-slide>
-          <paper-slide>
-            <template is="dom-if" if="[[_isStory(items.2.contentType)]]">
-              <paper-card heading="[[items.2.title]]" image="http://www.standard.net/[[items.2.mediaAssets.images.0.medium]]" elevation="1">
-                <div class="card-content">
-                  [[items.0.title]]
-                </div>
-                <div class="card-actions">
-                  <div class="card-info">
-                    <span class="content-tag">[[items.2.sectionInformation.primarySection]]</span>
-                    <span class="content-date">[[items.2.updated]]</span>
-                  </div>
-                </div>
-              </paper-card>
-            </template>
-            <template is="dom-if" if="[[_isGallery(items.2.contentType)]]">
-              <paper-card heading="[[items.2.title]]" image="http://www.standard.net/[[items.0.mediaAssets.images.0.medium]]" elevation="1">
-                <div class="icon">
-                  <iron-icon icon="image:photo-camera"></iron-icon>
-                </div>
-                <div class="card-content">
-                  [[items.0.title]]
-                </div>
-                <div class="card-actions">
-                  <div class="card-info">
-                    <span class="content-tag">[[items.2.sectionInformation.sectionName]]</span>
-                    <span class="content-date">[[items.2.updated]]</span>
-                  </div>
-                </div>
-              </paper-card>
-            </template>
-          </paper-slide>
+          <template is="dom-repeat" items="{{items}}">
+            <paper-slide>
+              <cranberry-content-card item="[[item]]" featured slider></cranberry-content-card>
+            </paper-slide>
+          </template>
         </l2t-paper-slider>
     </div>
   </template>
