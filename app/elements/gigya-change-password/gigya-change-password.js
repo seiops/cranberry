@@ -2,6 +2,10 @@ class GigyaChangePassword {
   beforeRegister() {
     this.is = 'gigya-change-password';
     this.properties = {
+      notices: {
+        type: Object,
+        value: []
+      },
       user: {
         type: Object,
         value: {},
@@ -33,10 +37,18 @@ class GigyaChangePassword {
 
     if (data.errorCode === 0) {
       app.logger('\<gigya-change-password\> password updated');
+
+      let notice = {
+        type: 'success',
+        message: 'Your password has been changed.'
+      };
+
+      el.push('notices', notice);
+      el._handleReset();
     } else {
       console.error('\<gigya-change-password\> gigya error -> ' + data.errorDetails);
 
-      el._processError(data.errorCode);
+      el._processError(data);
     }
 
     el._enableForm();
@@ -57,36 +69,76 @@ class GigyaChangePassword {
   _handleChangePassword(event) {
     app.logger('\<gigya-change-password\> handle change password');
 
-    let form = Polymer.dom(event).localTarget.parentElement;
+    let form = Polymer.dom(this.root).querySelector('#changePasswordForm');
 
-    form.submit();
+    this.debounce('submit', function() {
+      form.submit();
+    }, 100);
   }
 
   _handleReset(event) {
-    let form = Polymer.dom(event).localTarget.parentElement;
+    let form = Polymer.dom(this.root).querySelector('#changePasswordForm');
 
-    form.reset();
+    this.debounce('reset', function() {
+      form.reset();
+    }, 100);
   }
 
+  // process error code from API
   _processError(code) {
-    app.logger('\<gigya-update-profile\> process error');
+    app.logger('\<gigya-change-password\> error');
 
-    console.log(code);
+    console.dir(code);
+
+    let notice = {};
+
+    let errorCode = code.errorCode;
+    notice.code = errorCode;
+
+    switch(errorCode) {
+      case 400006:
+        notice.type = 'error';
+        notice.message = 'New password cannot be the same as your current password.';
+        break;
+      case 401030:
+        notice.type = 'error';
+        notice.message = 'You are attempting to use an old password as your current password.';
+        break;
+      case 403042:
+        notice.type = 'error';
+        notice.message = 'Invalid password.';
+        break;
+      default:
+        notice.type = 'error';
+        notice.message = 'Unhandled error.';
+        console.dir(code);
+      break;
+    }
+
+    this.push('notices', notice);
+
+    this.$.spinner.active = false;
+
+    this._enableForm();
   }
 
   _submit() {
-    app.logger('\<gigya-change-password\> submit gigya');
+    this.async(function(){
+      app.logger('\<gigya-change-password\> submit gigya');
 
-    let form = Polymer.dom(this.root).querySelector('#changePasswordForm');
+      this.set('notices', []);
 
-    let params = {
-      callback: this._changePasswordCallback,
-      context: this,
-      newPassword: form.newPassword.value,
-      password: form.oldPassword.value
-    };
+      let form = Polymer.dom(this.root).querySelector('#changePasswordForm');
 
-    gigya.accounts.setAccountInfo(params);
+      let params = {
+        callback: this._changePasswordCallback,
+        context: this,
+        newPassword: form.password.value,
+        password: form.oldPassword.value
+      };
+
+      gigya.accounts.setAccountInfo(params);
+    });
   }
 }
 
