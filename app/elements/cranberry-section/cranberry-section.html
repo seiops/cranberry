@@ -1,6 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../google-dfp/google-dfp.html">
+<link rel="import" href="../cranberry-search-bar/cranberry-search-bar.html">
 
 <dom-module id="cranberry-section">
   <template>
@@ -22,10 +22,10 @@
         <google-dfp section="[[loadSection]]" ad-pos="leaderboard" ad-size="[[728, 90],[970, 90],[970, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
     </div>
 
-    <cranberry-featured-content type="story_gallery" sections="[[loadSection]]" count="3" start="1"></cranberry-featured-content>
+    <cranberry-featured-content type="[[_isGalleries(galleries)]]" sections="[[loadSection]]" count="3" start="1"></cranberry-featured-content>
 
     <paper-toolbar>
-      <div hidden$="{{!desktop}}"><paper-search-bar id="search" placeholder="SEARCH" on-paper-search-search="search"></paper-search-bar></div>
+      <div hidden$="{{!desktop}}"><cranberry-search-bar no-label></cranberry-search-bar></div>
       <paper-tabs id="tabs" selected="{{selected}}">
         <paper-tab>LATEST</paper-tab>
         <paper-tab>LOCAL</paper-tab>
@@ -35,11 +35,11 @@
     </paper-toolbar>
 
     <template is="dom-if" if="[[_isLatest(selected)]]">
-      <cranberry-content-list type="story_gallery" sections="[[loadSection]]" section="[[section]]" count="20" start="1"></cranberry-content-list>
+      <cranberry-content-list type="[[_isGalleries(galleries)]]" sections="[[loadSection]]" section="[[section]]" count="20" start="1"></cranberry-content-list>
     </template>
 
     <template is="dom-if" if="[[_isLocal(selected)]]">
-      <cranberry-content-list type="story_gallery" sections="[[loadSection]]" count="20" start="1"></cranberry-content-list>
+      <cranberry-content-list type="[[_isGalleries(galleries)]]" sections="[[loadSection]]" count="20" start="1"></cranberry-content-list>
     </template>
 
   <!-- <template is="dom-if" if="[[_isPopular(selected)]]">
@@ -47,7 +47,7 @@
     </template> -->
 
     <template is="dom-if" if="[[_isFeatured(selected)]]">
-      <cranberry-content-list type="story_gallery" sections="[[loadSection]]" count="20" start="1"></cranberry-content-list>
+      <cranberry-content-list type="[[_isGalleries(galleries)]]" sections="[[loadSection]]" count="20" start="1"></cranberry-content-list>
     </template>
   </template>
   <script src="cranberry-section.js"></script>

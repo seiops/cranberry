@@ -89,24 +89,8 @@ class CranberryContentList {
         app.logger('<\cranberry-content-list\> response received');
     }
 
-    _hasImage(image) {
-        if (typeof image !== 'undefined' && image.length > 0) {
-            return true;
-        } else {
-            return;
-        }
-    }
-
     _hasPreview(preview) {
         if (typeof preview !== 'undefined' && preview.length > 0) {
-            return true;
-        } else {
-            return;
-        }
-    }
-
-    _isStory(item) {
-        if (item === 'Story') {
             return true;
         } else {
             return;
@@ -117,18 +101,6 @@ class CranberryContentList {
         var result = JSON.parse(response.Result);
 
         this.set('items', result);
-    }
-
-    _trimText(text) {
-        let trunc = text;
-
-        if (trunc.length > 125) {
-            trunc = trunc.substring(0, 125);
-            trunc = trunc.replace(/\w+$/, '');
-            trunc += '...';
-        }
-
-        return trunc;
     }
 
     _updateParams() {

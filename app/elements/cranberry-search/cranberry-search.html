@@ -1,6 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
 <link rel="import" href="../google-dfp/google-dfp.html">
+<link rel="import" href="../cranberry-search-bar/cranberry-search-bar.html">
 
 <dom-module id="cranberry-search">
   <template>
@@ -16,7 +17,7 @@
       last-response="{{response}}"
       last-request="{{request}}"
       last-error="{{error}}"
-      id="request">
+      id="searchRequest">
     </byutv-jsonp>
 
     <div class="ad-container">
@@ -27,7 +28,7 @@
       <div class="main-content">
         <div class="vertical-container">
           <paper-material elevation=2>
-            <paper-search-bar id="search" placeholder="{{displayQuery}}" on-paper-search-search="_search" hide-filter-button></paper-search-bar>
+            <cranberry-search-bar></cranberry-search-bar>
           </paper-material>
           <!-- Overlay spinner for user notification of loading -->
           <div id="loader" class="loading" hidden$="[[!isSearching]]">
@@ -36,6 +37,10 @@
           </div>
           <!-- Main content area for search results. -->
           <div id="searchContent" class="search-container" hidden$="[[isSearching]]">
+            <div class="search-header-container">
+              <h1 class="result-header">Results for: [[displayQuery]]</h1>
+              <p class="total-results">About: [[totalResults]] results</p>
+            </div>
             <template is="dom-repeat" items="{{items}}">
               <a href="/story/[[item.itemId]]">
                 <h2 class="story-headline">[[item.title]]</h2>

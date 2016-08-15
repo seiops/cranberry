@@ -1,49 +1,8 @@
 :host {
   display: block;
 
-  --paper-card {
-    @apply(-layout-flex);
-  }
-  /* postcss-bem-linter: ignore */
-  --paper-card-actions: {
-    color: var(--light-theme-secondary-text-color);
-    font-size: 12px;
-    font-weight: 400;
-  };
-
   /* postcss-bem-linter: ignore */
   --paper-slide-height: auto;
-
-  /* postcss-bem-linter: ignore */
-  --paper-card-content: {
-    @apply(--layout-flex);
-    @apply(--paper-font-body1);
-
-    color: var(--light-theme-primary-text-color);
-  };
-
-  /* postcss-bem-linter: ignore */
-  --paper-card-header-image-text: {
-    @apply(--paper-font-headline);
-    color: var(--text-accent-color);
-    font-size: 24px;
-    text-shadow: 0px 0px 10px rgba(0,0,0,1);
-  };
-}
-
-paper-card div.card-info span.content-tag {
-  @apply(--paper-font-caption);
-  @apply(--paper-font-common-uppercase);
-  color: var(--accent-color);
-}
-
-paper-card div.card-info span.content-date {
-  @apply(--paper-font-caption2);
-}
-
-paper-card div.card-info {
-  @apply(--layout-horizontal);
-  @apply(--layout-justified);
 }
 
 div.featured-content {
@@ -60,29 +19,13 @@ div.featured-main {
   min-height: 300px;
 }
 
-div.featured-main > a {
+div.featured-main cranberry-content-card {
   @apply(--layout-flex);
   @apply(--layout-vertical);
-
-  text-decoration: none;
-}
-
-div.featured-main > a > paper-card {
-  @apply(--layout-flex);
-  @apply(--layout-vertical);
-}
-
-a > paper-card ::content div.title-text {
-  background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(0,0,0,0.9));
-  width: calc(100% - 32px);
 }
 
 div.featured-list {
   @apply(--layout-flex-4);
   @apply(--layout-justified);
   @apply(--layout-vertical);
-}
-
-div.featured-list paper-card {
-    min-height: 200px;
 }

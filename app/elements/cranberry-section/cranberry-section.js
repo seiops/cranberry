@@ -13,6 +13,10 @@ class CranberrySection {
             selected: {
                 type: Number,
                 value: 0
+            },
+            galleries: {
+              type: Boolean,
+              value: false
             }
         };
 
@@ -82,6 +86,14 @@ class CranberrySection {
         }
     }
 
+    _isGalleries(galleries) {
+      if (galleries) {
+        return 'gallery';
+      } else {
+        return 'story_gallery'
+      }
+    }
+
     _routeChange(section) {
       this.async(function() {
           let hidden = this.hidden;
@@ -94,17 +106,6 @@ class CranberrySection {
               }
           }
       });
-    }
-
-    search() {
-      // Establish the query string
-      let searchBar = this.$.search;
-      // Replace all spaces with a plus sign
-      let query = searchBar.query.replace(/ /g, '+');
-
-      // Change the app location to match search and the query string
-      let appLocation = document.querySelector('app-location');
-      appLocation.set('path', '/search/' + query);
     }
 }
 // Public methods.

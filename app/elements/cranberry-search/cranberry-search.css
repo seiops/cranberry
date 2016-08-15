@@ -29,6 +29,22 @@ div.right-rail div.ad-container {
   max-width: 300px;
 }
 
+div.search-header-container {
+  width: 100%;
+  margin-top: 20px;
+}
+
+h1.result-header {
+  @apply(--paper-font-headline);
+  margin: 0;
+}
+
+p.total-results {
+  @apply(--paper-font-caption);
+  color: var(--accent-color);
+  margin: 0;
+}
+
 div.search-container {
   @apply(--layout-flex-4);
   @apply(--layout-horizontal);
