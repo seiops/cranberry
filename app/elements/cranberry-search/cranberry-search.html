@@ -1,0 +1,67 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
+<link rel="import" href="../google-dfp/google-dfp.html">
+
+<dom-module id="cranberry-search">
+  <template>
+    <style>
+      @import "cranberry-search/cranberry-search";
+    </style>
+
+    <app-route route="{{route}}" pattern="/:section" data="{{routeData}}"></app-route>
+
+    <byutv-jsonp
+      on-response="_handleResponse"
+      on-load="_handleLoad"
+      last-response="{{response}}"
+      last-request="{{request}}"
+      last-error="{{error}}"
+      id="request">
+    </byutv-jsonp>
+
+    <div class="ad-container">
+      <google-dfp section="[[loadSection]]" ad-pos="leaderboard" ad-size="[[728, 90],[970, 90],[970, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+    </div>
+
+    <paper-material elevation=1>
+      <div class="main-content">
+        <div class="vertical-container">
+          <paper-material elevation=2>
+            <paper-search-bar id="search" placeholder="{{displayQuery}}" on-paper-search-search="_search" hide-filter-button></paper-search-bar>
+          </paper-material>
+          <!-- Overlay spinner for user notification of loading -->
+          <div id="loader" class="loading" hidden$="[[!isSearching]]">
+            <p>Finding Stories Containing "[[displayQuery]]"...</p>
+            <paper-spinner active="[[isSearching]]"></paper-spinner>
+          </div>
+          <!-- Main content area for search results. -->
+          <div id="searchContent" class="search-container" hidden$="[[isSearching]]">
+            <template is="dom-repeat" items="{{items}}">
+              <a href="/story/[[item.itemId]]">
+                <h2 class="story-headline">[[item.title]]</h2>
+                <div class="story-content">
+                  <template is="dom-if" if="[[_hasImage(item.mediaAssets.images.0.small)]]">
+                    <iron-image src="http://www.standard.net[[item.mediaAssets.images.0.small]]" style="background-color: lightgray;" preload></iron-image>
+                  </template>
+                  <p class="story-description">[[item.preview]]</p>
+                </div>
+              </a>
+              <hr/>
+            </template>
+          </div>
+          <div class="pagination-container">
+            <paper-button id="prev" class="prev-button" raised hidden$="{{!isPrev}}">Previous</paper-button>
+            <paper-button id="next" raised hidden$="{{!isNext}}">Next</paper-button>
+          </div>
+        </div>
+      <div class="right-rail">
+        <div class="ad-container">
+          <google-dfp section="[[loadSection]]" ad-pos="Middle_of_Stream" ad-size="[[300, 600]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+        </div>
+      </div>
+    </div>
+      </paper-material>
+
+  </template>
+  <script src="cranberry-search.js"></script>
+</dom-module>

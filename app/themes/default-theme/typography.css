@@ -33,6 +33,10 @@ Typography mixins are from file on URL https://github.com/PolymerElements/paper-
     text-overflow: ellipsis;
   };
 
+  --paper-font-common-uppercase: {
+    text-transform: uppercase;
+  };
+
   /* Material Font Styles */
 
   --paper-font-display4: {
@@ -76,10 +80,10 @@ Typography mixins are from file on URL https://github.com/PolymerElements/paper-
   --paper-font-headline2: {
     @apply(--paper-font-common-base);
 
-    font-size: 20px;
-    font-weight: 900;
+    font-size: 24px;
+    font-weight: 700;
     letter-spacing: -0.012em;
-    line-height: normal;
+    line-height: 28px;
   };
 
   --paper-font-headline: {
@@ -106,16 +110,16 @@ Typography mixins are from file on URL https://github.com/PolymerElements/paper-
     font-size: 16px;
     font-weight: 500;
     line-height: 23px;
-    color: rbga(0, 0, 0, 0.87);
+    color: rgba(0, 0, 0, 0.87);
   };
 
   --paper-font-body2: {
     @apply(--paper-font-common-base);
+    @apply(--paper-font-common-uppercase);
 
     font-size: 14px;
     font-weight: 400;
     line-height: normal;
-    text-transform: uppercase;
   };
 
   --paper-font-body1: {
@@ -140,7 +144,6 @@ Typography mixins are from file on URL https://github.com/PolymerElements/paper-
     font-weight: 400;
     letter-spacing: 0.011em;
     line-height: 19px;
-    text-transform: uppercase;
     color: rgba(0, 0, 0, 0.54);
   };
 
@@ -168,23 +171,21 @@ Typography mixins are from file on URL https://github.com/PolymerElements/paper-
   --paper-font-button: {
     @apply(--paper-font-common-base);
     @apply(--paper-font-common-nowrap);
-
+    @apply(--paper-font-common-uppercase);
     font-size: 10px;
     font-weight: 500;
     letter-spacing: 0.018em;
     line-height: 24px;
-    text-transform: uppercase;
   };
 
   --paper-font-button2: {
     @apply(--paper-font-common-base);
     @apply(--paper-font-common-nowrap);
-
+    @apply(--paper-font-common-uppercase);
     font-size: 14px;
     font-weight: 500;
     letter-spacing: 0.018em;
     line-height: 24px;
-    text-transform: uppercase;
   };
 
   --paper-font-code2: {

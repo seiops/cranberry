@@ -27,17 +27,14 @@
     @apply(--paper-font-headline);
     color: var(--text-accent-color);
     font-size: 24px;
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+    text-shadow: 0px 0px 10px rgba(0,0,0,1);
   };
 }
 
 paper-card div.card-info span.content-tag {
-  @apply(--paper-font-button);
-  background-color: var(--accent-color);
-  color: var(--text-accent-color);
-  padding-left: 6px;
-  padding-right: 6px;
-  text-transform: uppercase;
+  @apply(--paper-font-caption);
+  @apply(--paper-font-common-uppercase);
+  color: var(--accent-color);
 }
 
 paper-card div.card-info span.content-date {

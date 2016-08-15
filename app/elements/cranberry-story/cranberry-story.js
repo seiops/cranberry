@@ -78,6 +78,11 @@ class CranberryStory {
                 let paragraphs = story.paragraphs;
                 let contentArea = this.$.storyContentArea;
 
+                // Remove all children of the content area to prevent old paragraphs showing
+                while(contentArea.firstChild) {
+                  contentArea.removeChild(contentArea.firstChild);
+                }
+
                 if (typeof paragraphs !== 'undefined') {
                     // Create a document fragment to append all elements to
                     let fragment = document.createDocumentFragment();
