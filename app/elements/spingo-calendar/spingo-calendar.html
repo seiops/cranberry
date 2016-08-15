@@ -10,6 +10,16 @@
   <script>
     var SpinGo = { config: {
           radius: 25,
+          onNavigation: function(data) {
+            // user has entered a new route
+            console.info('User entered new route');
+            console.info(data);
+            data.leaving.then(function() {
+              // user has left the route
+              console.info('User left the route');
+              console.info(data);
+            });
+          }
       } };
   </script>
     <script src="http://snet.spingo.com/embed.js" async="true"></script>

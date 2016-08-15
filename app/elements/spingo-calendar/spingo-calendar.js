@@ -14,7 +14,6 @@ class spingoCalendar {
     window.FastClick = {};
     window.sgMobileRedirect = {};
     window.SpinGo = {};
-
   }
 }
 Polymer(spingoCalendar);
