@@ -83,28 +83,17 @@ class CranberrySection {
     }
 
     _routeChange(section) {
-        this.async(function() {
-            let hidden = this.hidden;
+      this.async(function() {
+          let hidden = this.hidden;
 
-            if (!hidden) {
-                if (typeof section !== 'undefined' && section.length > 0 && section !== ('section' || 'story')) {
-                    this.set('loadSection', section);
-                } else {
-                    this.set('loadSection', 'news');
-                }
-            }
-        });
-        //
-        // console.log('peeeeenis');
-        // this.async(function() {
-        //     let sectionMeta = document.querySelector('iron-meta#metaSection');
-        //     let currentSection = this.get('section');
-        //
-        //     sectionMeta.setAttribute('value', currentSection);
-        //     console.dir(currentSection);
-        //     console.dir(sectionMeta);
-        //     console.log('meta done');
-        // });
+          if (!hidden) {
+              if (typeof section !== 'undefined' && section.length > 0 && section !== ('section' || 'story')) {
+                  this.set('loadSection', section);
+              } else {
+                  this.set('loadSection', 'news');
+              }
+          }
+      });
     }
 }
 // Public methods.
