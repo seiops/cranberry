@@ -1,58 +1,36 @@
-<!--
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
-
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/iron-form/iron-form.html">
-<link rel="import" href="../../bower_components/iron-form-element-behavior/iron-form-element-behavior.html">
-<link rel="import" href="../../bower_components/iron-validatable-behavior/iron-validatable-behavior.html">
-<link rel="import" href="../../bower_components/iron-validator-behavior/iron-validator-behavior.html">
-<link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
-<link rel="import" href="../../bower_components/iron-input/iron-input.html">
-<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html">
-<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
-<link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
-<link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/paper-material/paper-material.html">
 <link rel="import" href="../../bower_components/moment-js/moment-js.html">
 <link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
 <link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/iron-data-table/iron-data-table.html">
 <link rel="import" href="../gigya-update-profile/gigya-update-profile.html">
 <link rel="import" href="../gigya-change-password/gigya-change-password.html">
 <link rel="import" href="../gigya-forgot-password/gigya-forgot-password.html">
 <link rel="import" href="../gigya-login/gigya-login.html">
 <link rel="import" href="../gigya-register/gigya-register.html">
 
-
 <dom-module id="gigya-socialize">
   <template>
     <style include="shared-styles">
     @import "theme.css";
     @import "gigya-socialize/gigya-socialize";
-
     </style>
-    <paper-dialog id="userModal" vertical-offset="50" position-target="cranberry-base">
+    <paper-dialog id="userModal" modal>
       <paper-dialog-scrollable>
         <template is="dom-if" if="[[user.isLoggedIn]]">
           <paper-toolbar>
             <paper-icon-button icon="arrow-back" dialog-confirm></paper-icon-button>
-            <div class="user-title">[[user.firstName]] [[user.lastName]]</div>
+            <div class="user-title" hidden$="[[!user.isLoggedIn]]">[[user.firstName]] [[user.lastName]]</div>
           </paper-toolbar>
           <paper-toolbar>
             <paper-tabs id="accountTabs" selected="{{userSelected}}" autoselect>
               <paper-tab>My Profile</paper-tab>
-              <paper-tab>Membership</paper-tab>
-              <paper-tab>Newsletters</paper-tab>
+              <paper-tab disabled>Membership</paper-tab>
+              <paper-tab disabled>Newsletters</paper-tab>
               <paper-tab>Settings</paper-tab>
+              <paper-tab>Password</paper-tab>
             </paper-tabs>
           </paper-toolbar>
           <div class="user-content">
@@ -61,38 +39,50 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 <div class="user-info">
                   <div class="user-photo">
                     <div hidden$="[[!user.photoURL]]">
-                      <iron-image class="user-mugshot" preload src="[[user.photoURL]]" fade></iron-image>
+                      <iron-image class="user" preload src="[[user.photoURL]]" fade></iron-image>
                     </div>
                     <div hidden$="[[user.photoURL]]"></div>
                   </div>
                   <div class="user-name">[[user.firstName]] [[user.lastName]]</div>
                   <div class="user-created">
-                    Member on since
+                    Member since
                     <moment-js date="[[account.created]]" format="MMMM Do, YYYY"></moment-js>
                   </div>
                   <div class="user-settings">
                     <paper-button on-tap="_showAccountSettings" raised>Account Settings</paper-button>
                     <paper-button on-tap="_handleLogout" raised>Logout</paper-buttofn>
                   </div>
+                  <!-- <iron-data-table items="[[account.identities]]">
+                    <data-table-column name="Provider">
+                      <template>[[item.provider]]</template>
+                    </data-table-column>
+                    <data-table-column name="Last Name">
+                      <template>[[item.firstName]]</template>
+                    </data-table-column>
+                    <data-table-column name="Last Name">
+                      <template>[[item.lastName]]</template>
+                    </data-table-column>
+                    <data-table-column name="Email">
+                      <template>[[item.email]]</template>
+                    </data-table-column>
+                  </iron-data-table> -->
                   <div class="user-tabs">
                     <paper-tabs id="profileTabs" selected="{{profileSelected}}" autoselect>
-                      <paper-tab>My Comments</paper-tab>
-                      <paper-tab>My Photos</paper-tab>
-                      <paper-tab>My Stories</paper-tab>
+                      <paper-tab disabled>My Comments</paper-tab>
+                      <paper-tab disabled>My Photos</paper-tab>
+                      <paper-tab disabled>My Stories</paper-tab>
                     </paper-tabs>
                   </div>
                 </div>
               </paper-material>
             </div>
-            <div hidden$="{{!_equal(userSelected, 1)}}">
-              User Membership
-            </div>
-            <div hidden$="{{!_equal(userSelected, 2)}}">
-              User Newsletters
-            </div>
+            <div hidden$="{{!_equal(userSelected, 1)}}"></div>
+            <div hidden$="{{!_equal(userSelected, 2)}}"></div>
             <div hidden$="{{!_equal(userSelected, 3)}}">
-              <gigya-change-password user="[[user]]"></gigya-change-password>
               <gigya-update-profile user="[[user]]" account="[[account]]"></gigya-update-profile>
+            </div>
+            <div hidden$="{{!_equal(userSelected, 4)}}">
+              <gigya-change-password user="[[user]]"></gigya-change-password>
             </div>
           </div>
         </template>
@@ -116,9 +106,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             </div>
           </div>
         </template>
-        <div class="buttons">
-          <!-- <paper-button dialog-dismiss>Close</paper-button> -->
-        </div>
       </paper-dialog-scrollable>
     </paper-dialog>
   </template>

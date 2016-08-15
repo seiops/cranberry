@@ -1,20 +1,18 @@
 class GigyaSocialize {
+  // element registration
   beforeRegister() {
     this.is = 'gigya-socialize';
     this.properties = {
-      formError: {
-        type: String,
-        observer: '_formError'
-      },
-      items: {
-        type: Object
-      },
-      user: {
+      account: {
         type: Object,
         value: {},
         notify: true
       },
-      account: {
+      guestSelected: {
+        type: Number,
+        value: 0
+      },
+      user: {
         type: Object,
         value: {},
         notify: true
@@ -22,14 +20,13 @@ class GigyaSocialize {
       userSelected: {
         type: Number,
         value: 0
-      },
-      guestSelected: {
-        type: Number,
-        value: 0
       }
     };
   }
 
+  // public methods
+
+  // attached to document
   attached() {
     app.logger('\<gigya-socialize\> attached');
 
@@ -38,6 +35,26 @@ class GigyaSocialize {
     });
   }
 
+  // check Gigya user
+  checkUser() {
+    app.logger('\<gigya-socialize\> check user');
+
+    let params = {
+      callback: this._loadUser,
+      context: this
+    };
+
+    gigya.socialize.getUserInfo(params);
+  }
+
+  // open modal window
+  openModal() {
+    this.$.userModal.toggle();
+  }
+
+  // private methods
+
+  // check if Gigya API is loaded
   _checkGigya() {
     let el = this;
 
@@ -52,81 +69,45 @@ class GigyaSocialize {
     }, 50);
   }
 
-  checkUser() {
-    app.logger('\<gigya-socialize\> check user');
-
-    let params = {
-      callback: this._loadUser,
-      context: this
-    };
-
-    gigya.socialize.getUserInfo(params);
+  _equal(a, b) {
+    if (a === b) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
-  _userProfile(selected) {
-      if (selected === 0) {
-          return true;
-      } else {
-          return false;
-      }
-  }
-
-  _userMembership(selected) {
-      if (selected === 1) {
-          return true;
-      } else {
-          return false;
-      }
-  }
-
-  _userNewsletters(selected) {
-      if (selected === 2) {
-          return true;
-      } else {
-          return false;
-      }
-  }
-
-  _isFeatured(selected) {
-      if (selected === 2) {
-          return true;
-      } else {
-          return false;
-      }
-  }
-
-  _showAccountSettings() {
-    this.set('userSelected', 3);
-  }
-
+  // logout from Gigya API
   _handleLogout() {
     app.logger('\<gigya-socialize\> handle logout');
 
     let params = {
-      callback: this._logoutUser,
+      callback: this._logoutUserCallback,
       context: this
     };
 
     gigya.accounts.logout(params);
   }
 
+  // load Gigya account information
   _loadAccount(account) {
     app.logger('\<gigya-socialize\> account loaded');
-    let el = account.context;
+
     console.dir(account);
+
+    let el = account.context;
     el.set('account', account);
+
     gigya.socialize.refreshUI();
   }
 
-  openModal() {
-    this.$.userModal.open();
-  }
-
+  // load Gigya user information
   _loadUser(user) {
     let el = user.context;
 
     if (typeof user.UID !== 'undefined') {
       app.logger('\<gigya-socialize\> user loaded');
+
       console.dir(user);
 
       el.set('user', user.user);
@@ -140,27 +121,26 @@ class GigyaSocialize {
       gigya.accounts.getAccountInfo(params);
     } else {
       app.logger('\<gigya-socialize\> anonymous user');
+
       console.dir(user);
     }
   }
 
-  _equal(a, b) {
-      if (a === b) {
-          return true;
-      } else {
-          return false;
-      }
-  }
-
-  _logoutUser(response) {
+  // callback from Gigya logout API
+  _logoutUserCallback(response) {
     app.logger('\<gigya-socialize\> logged out');
+
     console.dir(response);
 
     let el = response.context;
-
     el.set('user', {});
 
     gigya.socialize.refreshUI();
+  }
+
+  // show profile update form
+  _showAccountSettings() {
+    this.set('userSelected', 3);
   }
 }
 
