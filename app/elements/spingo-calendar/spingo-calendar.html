@@ -1,0 +1,17 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="spingo-calendar">
+  <template>
+    <style>
+      @import "spingo-calendar/spingo-calendar";
+    </style>
+    <div id="spingo-container"></div>
+  </template>
+  <script>
+    var SpinGo = { config: {
+          radius: 25,
+      } };
+  </script>
+    <script src="http://snet.spingo.com/embed.js" async="true"></script>
+    <script src="spingo-calendar.js"></script>
+</dom-module>
