@@ -71,10 +71,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     @apply(--layout-start);
   }
 
+  @nest &-siteButtons a {
+    cursor: pointer;
+  }
+
   @nest &-siteButtons {
     @apply(--paper-font-body2);
     @apply(--layout-horizontal);
-    @apply(--layout-end);
+    @apply(--layout-center);
+    /*@apply(--layout-end);*/
   }
 
   @nest &-siteLogo {

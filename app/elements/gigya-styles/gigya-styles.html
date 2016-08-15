@@ -1,0 +1,106 @@
+<dom-module id="gigya-styles">
+  <template>
+    <style>
+    a {
+      color: var(--accent-color);
+    }
+
+    a:hover {
+      cursor:pointer;
+    }
+
+    h2 {
+      margin-bottom: 24px;
+    }
+
+    div.form-buttons {
+      @apply(--layout-horizontal);
+      @apply(--layout-end-justified);
+      @apply(--layout-center);
+    }
+
+    div.form-links {
+      @apply(--layout-vertical);
+    }
+
+    div.form-links > div {
+      margin-top: 12px;
+    }
+
+    div.form-links, div.form-input {
+      margin-bottom: 24px;
+    }
+
+    div.social-login-info {
+      margin-bottom: 24px;
+    }
+
+    div.social-login-providers {
+      @apply(--layout-vertical);
+      @apply(--layout-center);
+    }
+
+    div.social-login-providers paper-button {
+      @apply(--layout-horizontal);
+      @apply(--layout-start-justified);
+      @apply(--paper-font-body1);
+      color: #fff;
+      font-weight: 600;
+      margin-bottom: 12px;
+      text-transform: none;
+      width: 200px;
+    }
+
+    paper-button {
+      @apply(--paper-font-button);
+    }
+
+    paper-button[provider="facebook"] {
+      background-color: #3964A3;
+    }
+
+    paper-button[provider="twitter"] {
+      background-color: #05B8F6;
+    }
+
+    paper-button[provider="linkedin"] {
+      background-color: #0884C5;
+    }
+
+    paper-button[provider="google"] {
+      color: #000 !important;
+    }
+
+    div.notice {
+      @apply(--layout-vertical);
+      @apply(--layout-center);
+      margin-bottom: 24px;
+    }
+
+    div.notice.error {
+      color: #ff0000;
+      font-weight: 600;
+    }
+
+    div.notice-action {
+      @apply(--layout-vertical);
+      @apply(--layout-center);
+    }
+
+    div.notice-info {
+      @apply(--layout-horizontal);
+      @apply(--layout-center);
+    }
+
+    div.user-messages {
+      flex: 1 1 auto;
+      @apply(--layout-vertical);
+      @apply(--layout-center);
+    }
+
+    .focus-target {
+      outline: none;
+    }
+    </style>
+  </template>
+</dom-module>

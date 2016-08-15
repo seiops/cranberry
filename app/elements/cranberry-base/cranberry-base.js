@@ -9,21 +9,15 @@ class CranberryBase {
                 type: Object
             },
             route: Object,
-            section: String
+            section: String,
+            user: Object
         };
     }
 
-    ready() {
-        // Let the world know we're ready to receive data
-        // https://github.com/Polymer/polymer/issues/2653
-        this.fire('upgraded');
-        this.set('upgraded', true);
+    _userChange(user) {
+      console.log('user change');
+      console.dir(user);
     }
-
-    _sectionTail(section) {
-        this.set('section', section);
-    }
-
     attached() {
         let storage = JSON.parse(localStorage.getItem(this.$.localStorage.name));
 
@@ -36,6 +30,17 @@ class CranberryBase {
                 this.changeAccentColor(storage.accentColor);
             }
         }
+    }
+
+    ready() {
+        // Let the world know we're ready to receive data
+        // https://github.com/Polymer/polymer/issues/2653
+        this.fire('upgraded');
+        this.set('upgraded', true);
+    }
+
+    _sectionTail(section) {
+        this.set('section', section);
     }
 
     initializeDefaultStorage() {
@@ -87,6 +92,13 @@ class CranberryBase {
         }
     }
 
+    openUserModal() {
+      let el = Polymer.dom(this.root).querySelector('gigya-socialize');
+
+      console.dir(el);
+      el.openModal();
+    }
+
     _isLocal(selected) {
         if (selected === 1) {
             return true;
@@ -115,9 +127,13 @@ class CranberryBase {
         let path = route.path;
         let section = '';
         let sectionPath = path.search('section');
+        let storyPath = path.search('story');
+        let galleryPath = path.search('gallery');
 
         if (sectionPath > 0) {
             section = path.replace('\/section\/', '');
+        } else if (storyPath > 0 || galleryPath > 0) {
+            section = '';
         } else if (path === '/') {
             section = 'Home';
         } else {

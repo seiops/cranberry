@@ -7,7 +7,7 @@
     "awesome-slider": "*",
     "byutv-jsonp": "^1.2.0",
     "font-roboto": "StartPolymer/font-empty#1.1.0",
-    "gold-phone-input": "PolymerElements/gold-phone-input#^1.0.9",
+    "gold-phone-input": "^1.1.0",
     "google-map": "^1.1.10",
     "google-youtube": "^1.2.1",
     "iron-ajax": "PolymerElements/iron-ajax#^1.4.3",
@@ -48,7 +48,13 @@
     "platinum-sw": "PolymerElements/platinum-sw#^1.3.0",
     "polymer": "^1.6.1",
     "re-captcha": "^1.1.1",
-    "start-google-analytics-tracker": "StartPolymer/start-google-analytics-tracker#^1.1.1"
+    "start-google-analytics-tracker": "StartPolymer/start-google-analytics-tracker#^1.1.1",
+    "paper-dialog": "^1.1.0",
+    "gold-password-input": "^1.1.4",
+    "moment-js": "^0.4.0",
+    "gold-email-input": "^1.0.7",
+    "gold-zip-input": "^1.0.6",
+    "iron-data-table": "^1.0.1"
   },
   "devDependencies": {
     "web-component-tester": "4.2.0"

@@ -1,0 +1,70 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-form/iron-form.html">
+<link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../gigya-styles/gigya-styles.html">
+
+<dom-module id="gigya-login">
+  <template>
+    <style include="shared-styles">
+      @import "theme.css";
+      @import "gigya-login/gigya-login";
+    </style>
+    <style include="gigya-styles"></style>
+    <byutv-jsonp on-response="_handleResponse" debounce-duration="300" id="request"></byutv-jsonp>
+    <h2>Login</h2>
+    <div class="user-messages">
+      <template is="dom-repeat" items="{{notices}}">
+        <div class$="notice {{item.type}}">
+          <div class="notice-info">
+            <div class="notice-message">{{item.message}}</div>
+            <div hidden>{{item.code}}</div>
+          </div>
+          <div class="notice-action" hidden$="{{!item.verify}}">
+            <paper-input id="verifyEmail" name="verificationEmail" label="E-mail" auto-validate allowed-pattern="[\@\.A-zA-Z0-9]" placeholder="Optional"></paper-input>
+            <paper-button on-tap="_resendVerification">Resend Verification</paper-button>
+          </div>
+        </div>
+      </template>
+    </div>
+    <div class="user-login">
+      <div class="social-login">
+        <div class="social-login-info">
+          Log in faster with an existing online account.
+        </div>
+        <div class="social-login-providers">
+          <paper-button on-tap="_handleLoginSocial" provider="facebook" raised>Facebook</paper-button>
+          <paper-button on-tap="_handleLoginSocial" provider="twitter" raised>Twitter</paper-button>
+          <paper-button on-tap="_handleLoginSocial" provider="linkedin" raised>Linked In</paper-button>
+          <paper-button on-tap="_handleLoginSocial" provider="google" raised>Google</paper-button>
+        </div>
+      </div>
+      <div class="site-login">
+        <div class="site-login-info">
+          Log in with your Standard-Examiner account.
+        </div>
+        <div class="social-login-form">
+          <form is="iron-form" action="/" id="loginForm">
+            <div class="form-input">
+              <paper-input class="focus-target" name="loginID" label="Username" required auto-validate error-message="A username is required." allowed-pattern="[\@\.A-zA-Z0-9]" auto-complete></paper-input>
+              <paper-input name="password" label="Password" type="password" required auto-validate error-message="A password is required."></paper-input>
+            </div>
+            <div class="form-links">
+              <a on-tap="_handleForgotPassword" id="forgot">Forgot Password?</a>
+              <a on-tap="_handleRegister" id="register">Create New Account</a>
+            </div>
+            <div class="form-buttons">
+              <paper-spinner id="spinner"></paper-spinner>
+              <paper-button on-tap="_handleLogin" id="submit">Login</paper-button>
+              <!-- <paper-button on-tap="_handleReset" id="reset">Reset</paper-button> -->
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </template>
+  <script src="gigya-login.js"></script>
+</dom-module>
