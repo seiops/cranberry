@@ -1,30 +1,12 @@
-<!--
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
-
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-form/iron-form.html">
-<link rel="import" href="../../bower_components/iron-form-element-behavior/iron-form-element-behavior.html">
-<link rel="import" href="../../bower_components/iron-validatable-behavior/iron-validatable-behavior.html">
-<link rel="import" href="../../bower_components/iron-validator-behavior/iron-validator-behavior.html">
-<link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
 <link rel="import" href="../../bower_components/iron-input/iron-input.html">
-<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
-<link rel="import" href="../../bower_components/paper-material/paper-material.html">
-<link rel="import" href="../../bower_components/gold-password-input/gold-password-input.html">
-<link rel="import" href="../../bower_components/moment-js/moment-js.html">
+<link rel="import" href="../../bower_components/gold-email-input/gold-email-input.html">
+<link rel="import" href="../gigya-styles/gigya-styles.html">
 
 <dom-module id="gigya-update-profile">
   <template>
@@ -32,171 +14,192 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     @import "theme.css";
     @import "gigya-update-profile/gigya-update-profile";
     </style>
-    <h3 class="focus-target">Update Profile</h3>
-    <form is="iron-form" action="/" id="updateProfileForm">
-      <div>
-        <paper-input name="firstName" label="First Name" required auto-validate error-message="You must provide a first name." allowed-pattern="[A-zA-Z0-9]" value="[[user.firstName]]"></paper-input>
-        <paper-input name="lastName" label="Last Name" required auto-validate error-message="You must provide a last name." allowed-pattern="[A-zA-Z0-9]" value="[[user.lastName]]"></paper-input>
-        <paper-input name="username" label="Username" required auto-validate error-message="You must provide a username." allowed-pattern="[A-zA-Z0-9]" value="[[account.loginIDs.username]]"></paper-input>
-        <paper-input name="email" label="Email" required auto-validate error-message="You must provide an email address." allowed-pattern="[\@\.A-zA-Z0-9]" value="[[user.email]]"></paper-input>
-        <input is="iron-input" name="gender" value$="[[gender.attributes.gender.value]]" hidden>
-        <paper-dropdown-menu label="Gender" selected-item="{{gender}}">
-          <paper-listbox class="dropdown-content" selected="[[user.gender]]" attr-for-selected="gender">
-            <paper-item gender="m">Male</paper-item>
-            <paper-item gender="f">Female</paper-item>
-          </paper-listbox>
-        </paper-dropdown-menu>
+    <style include="gigya-styles"></style>
+    <h2>Update Profile</h2>
+    <div class="user-header-links">
+      <paper-button on-tap="_showChangePassword" raised>Change Password</paper-button>
+    </div>
+    <div class="update-profile">
+      <div class="register-messages">
+        <template is="dom-repeat" items="{{notices}}">
+          <div class$="notice {{item.type}}">
+            <div class="notice-info">
+              <div class="notice-message">{{item.message}}</div>
+              <div hidden>{{item.code}}</div>
+            </div>
+          </div>
+        </template>
       </div>
-      <div>
-        <input is="iron-input" name="birthMonth" value$="[[birthMonth.attributes.month.value]]" hidden>
-        <paper-dropdown-menu label="Birth Month" selected-item="{{birthMonth}}">
-          <paper-listbox class="dropdown-content" selected="[[user.birthMonth]]" attr-for-selected="month">
-            <paper-item month=""></paper-item>
-            <paper-item month="1">January</paper-item>
-            <paper-item month="2">February</paper-item>
-            <paper-item month="3">March</paper-item>
-            <paper-item month="4">April</paper-item>
-            <paper-item month="5">May</paper-item>
-            <paper-item month="6">June</paper-item>
-            <paper-item month="7">July</paper-item>
-            <paper-item month="8">August</paper-item>
-            <paper-item month="9">September</paper-item>
-            <paper-item month="10">October</paper-item>
-            <paper-item month="11">November</paper-item>
-            <paper-item month="12">December</paper-item>
-          </paper-listbox>
-        </paper-dropdown-menu>
-        <input is="iron-input" name="birthDay" value$="[[birthDay.attributes.day.value]]" hidden>
-        <paper-dropdown-menu label="Birth Day" selected-item="{{birthDay}}">
-          <paper-listbox class="dropdown-content" selected="[[user.birthDay]]" attr-for-selected="day">
-            <paper-item day=""></paper-item>
-            <paper-item day="1">1</paper-item>
-            <paper-item day="2">2</paper-item>
-            <paper-item day="3">3</paper-item>
-            <paper-item day="4">4</paper-item>
-            <paper-item day="5">5</paper-item>
-            <paper-item day="6">6</paper-item>
-            <paper-item day="7">7</paper-item>
-            <paper-item day="8">8</paper-item>
-            <paper-item day="9">9</paper-item>
-            <paper-item day="10">10</paper-item>
-            <paper-item day="11">11</paper-item>
-            <paper-item day="12">12</paper-item>
-            <paper-item day="13">13</paper-item>
-            <paper-item day="14">14</paper-item>
-            <paper-item day="15">15</paper-item>
-            <paper-item day="16">16</paper-item>
-            <paper-item day="17">17</paper-item>
-            <paper-item day="18">18</paper-item>
-            <paper-item day="19">19</paper-item>
-            <paper-item day="20">20</paper-item>
-            <paper-item day="21">21</paper-item>
-            <paper-item day="22">22</paper-item>
-            <paper-item day="23">23</paper-item>
-            <paper-item day="24">24</paper-item>
-            <paper-item day="25">25</paper-item>
-            <paper-item day="26">26</paper-item>
-            <paper-item day="27">27</paper-item>
-            <paper-item day="28">28</paper-item>
-            <paper-item day="29">29</paper-item>
-            <paper-item day="30">30</paper-item>
-            <paper-item day="31">31</paper-item>
-          </paper-listbox>
-        </paper-dropdown-menu>
-        <input is="iron-input" name="birthYear" value$="[[birthYear.attributes.year.value]]" hidden>
-        <paper-dropdown-menu label="Birth Year" selected-item="{{birthYear}}">
-          <paper-listbox class="dropdown-content" selected="[[user.birthYear]]" attr-for-selected="year">
-            <paper-item year=""></paper-item>
-            <paper-item year="1940">1940</paper-item>
-            <paper-item year="1941">1941</paper-item>
-            <paper-item year="1942">1942</paper-item>
-            <paper-item year="1943">1943</paper-item>
-            <paper-item year="1944">1944</paper-item>
-            <paper-item year="1945">1945</paper-item>
-            <paper-item year="1946">1946</paper-item>
-            <paper-item year="1947">1947</paper-item>
-            <paper-item year="1948">1948</paper-item>
-            <paper-item year="1949">1949</paper-item>
-            <paper-item year="1950">1950</paper-item>
-            <paper-item year="1951">1951</paper-item>
-            <paper-item year="1952">1952</paper-item>
-            <paper-item year="1953">1953</paper-item>
-            <paper-item year="1954">1954</paper-item>
-            <paper-item year="1955">1955</paper-item>
-            <paper-item year="1956">1956</paper-item>
-            <paper-item year="1957">1957</paper-item>
-            <paper-item year="1958">1958</paper-item>
-            <paper-item year="1959">1959</paper-item>
-            <paper-item year="1960">1960</paper-item>
-            <paper-item year="1961">1961</paper-item>
-            <paper-item year="1962">1962</paper-item>
-            <paper-item year="1963">1963</paper-item>
-            <paper-item year="1964">1964</paper-item>
-            <paper-item year="1965">1965</paper-item>
-            <paper-item year="1966">1966</paper-item>
-            <paper-item year="1967">1967</paper-item>
-            <paper-item year="1968">1968</paper-item>
-            <paper-item year="1969">1969</paper-item>
-            <paper-item year="1970">1970</paper-item>
-            <paper-item year="1971">1971</paper-item>
-            <paper-item year="1972">1972</paper-item>
-            <paper-item year="1973">1973</paper-item>
-            <paper-item year="1974">1974</paper-item>
-            <paper-item year="1975">1975</paper-item>
-            <paper-item year="1976">1976</paper-item>
-            <paper-item year="1977">1977</paper-item>
-            <paper-item year="1978">1978</paper-item>
-            <paper-item year="1979">1979</paper-item>
-            <paper-item year="1980">1980</paper-item>
-            <paper-item year="1981">1981</paper-item>
-            <paper-item year="1982">1982</paper-item>
-            <paper-item year="1983">1983</paper-item>
-            <paper-item year="1984">1984</paper-item>
-            <paper-item year="1985">1985</paper-item>
-            <paper-item year="1986">1986</paper-item>
-            <paper-item year="1987">1987</paper-item>
-            <paper-item year="1988">1988</paper-item>
-            <paper-item year="1989">1989</paper-item>
-            <paper-item year="1990">1990</paper-item>
-            <paper-item year="1991">1991</paper-item>
-            <paper-item year="1992">1992</paper-item>
-            <paper-item year="1993">1993</paper-item>
-            <paper-item year="1994">1994</paper-item>
-            <paper-item year="1995">1995</paper-item>
-            <paper-item year="1996">1996</paper-item>
-            <paper-item year="1997">1997</paper-item>
-            <paper-item year="1998">1998</paper-item>
-            <paper-item year="1999">1999</paper-item>
-            <paper-item year="2000">2000</paper-item>
-            <paper-item year="2001">2001</paper-item>
-            <paper-item year="2002">2002</paper-item>
-            <paper-item year="2003">2003</paper-item>
-            <paper-item year="2004">2004</paper-item>
-            <paper-item year="2005">2005</paper-item>
-            <paper-item year="2006">2006</paper-item>
-            <paper-item year="2007">2007</paper-item>
-            <paper-item year="2008">2008</paper-item>
-            <paper-item year="2009">2009</paper-item>
-            <paper-item year="2010">2010</paper-item>
-            <paper-item year="2011">2011</paper-item>
-            <paper-item year="2012">2012</paper-item>
-            <paper-item year="2013">2013</paper-item>
-            <paper-item year="2014">2014</paper-item>
-            <paper-item year="2015">2015</paper-item>
-            <paper-item year="2016">2016</paper-item>
-          </paper-listbox>
-        </paper-dropdown-menu>
+      <div class="update-profile-form">
+        <form is="iron-form" action="/" id="updateProfileForm">
+          <div class="form-input">
+            <div>
+              <gold-email-input name="email" label="Email *" required auto-validate error-message="A valid email address is required." value="[[user.email]]"></gold-email-input>
+              <paper-input name="username" label="Username *" required auto-validate error-message="You must provide a username." allowed-pattern="[A-zA-Z0-9]" value="[[account.loginIDs.username]]"></paper-input>
+              <paper-input name="firstName" label="First Name" allowed-pattern="[A-zA-Z]" value="[[user.firstName]]"></paper-input>
+              <paper-input name="lastName" label="Last Name" allowed-pattern="[A-zA-Z]" value="[[user.lastName]]"></paper-input>
+              <!-- <paper-input name="email" label="Email" required auto-validate error-message="You must provide an email address." allowed-pattern="[\@\.A-zA-Z0-9]" value="[[user.email]]"></paper-input> -->
+              <input is="iron-input" name="gender" value$="[[gender.attributes.gender.value]]" hidden>
+              <paper-dropdown-menu label="Gender" selected-item="{{gender}}">
+                <paper-listbox class="dropdown-content" selected="[[user.gender]]" attr-for-selected="gender">
+                  <paper-item gender="m">Male</paper-item>
+                  <paper-item gender="f">Female</paper-item>
+                </paper-listbox>
+              </paper-dropdown-menu>
+            </div>
+            <div>
+              <input is="iron-input" name="birthMonth" value$="[[birthMonth.attributes.month.value]]" hidden>
+              <paper-dropdown-menu label="Birth Month" selected-item="{{birthMonth}}">
+                <paper-listbox class="dropdown-content" selected="[[user.birthMonth]]" attr-for-selected="month">
+                  <paper-item month=""></paper-item>
+                  <paper-item month="1">January</paper-item>
+                  <paper-item month="2">February</paper-item>
+                  <paper-item month="3">March</paper-item>
+                  <paper-item month="4">April</paper-item>
+                  <paper-item month="5">May</paper-item>
+                  <paper-item month="6">June</paper-item>
+                  <paper-item month="7">July</paper-item>
+                  <paper-item month="8">August</paper-item>
+                  <paper-item month="9">September</paper-item>
+                  <paper-item month="10">October</paper-item>
+                  <paper-item month="11">November</paper-item>
+                  <paper-item month="12">December</paper-item>
+                </paper-listbox>
+              </paper-dropdown-menu>
+              <input is="iron-input" name="birthDay" value$="[[birthDay.attributes.day.value]]" hidden>
+              <paper-dropdown-menu label="Birth Day" selected-item="{{birthDay}}">
+                <paper-listbox class="dropdown-content" selected="[[user.birthDay]]" attr-for-selected="day">
+                  <paper-item day=""></paper-item>
+                  <paper-item day="1">1</paper-item>
+                  <paper-item day="2">2</paper-item>
+                  <paper-item day="3">3</paper-item>
+                  <paper-item day="4">4</paper-item>
+                  <paper-item day="5">5</paper-item>
+                  <paper-item day="6">6</paper-item>
+                  <paper-item day="7">7</paper-item>
+                  <paper-item day="8">8</paper-item>
+                  <paper-item day="9">9</paper-item>
+                  <paper-item day="10">10</paper-item>
+                  <paper-item day="11">11</paper-item>
+                  <paper-item day="12">12</paper-item>
+                  <paper-item day="13">13</paper-item>
+                  <paper-item day="14">14</paper-item>
+                  <paper-item day="15">15</paper-item>
+                  <paper-item day="16">16</paper-item>
+                  <paper-item day="17">17</paper-item>
+                  <paper-item day="18">18</paper-item>
+                  <paper-item day="19">19</paper-item>
+                  <paper-item day="20">20</paper-item>
+                  <paper-item day="21">21</paper-item>
+                  <paper-item day="22">22</paper-item>
+                  <paper-item day="23">23</paper-item>
+                  <paper-item day="24">24</paper-item>
+                  <paper-item day="25">25</paper-item>
+                  <paper-item day="26">26</paper-item>
+                  <paper-item day="27">27</paper-item>
+                  <paper-item day="28">28</paper-item>
+                  <paper-item day="29">29</paper-item>
+                  <paper-item day="30">30</paper-item>
+                  <paper-item day="31">31</paper-item>
+                </paper-listbox>
+              </paper-dropdown-menu>
+              <input is="iron-input" name="birthYear" value$="[[birthYear.attributes.year.value]]" hidden>
+              <paper-dropdown-menu label="Birth Year" selected-item="{{birthYear}}">
+                <paper-listbox class="dropdown-content" selected="[[user.birthYear]]" attr-for-selected="year">
+                  <paper-item year=""></paper-item>
+                  <paper-item year="1940">1940</paper-item>
+                  <paper-item year="1941">1941</paper-item>
+                  <paper-item year="1942">1942</paper-item>
+                  <paper-item year="1943">1943</paper-item>
+                  <paper-item year="1944">1944</paper-item>
+                  <paper-item year="1945">1945</paper-item>
+                  <paper-item year="1946">1946</paper-item>
+                  <paper-item year="1947">1947</paper-item>
+                  <paper-item year="1948">1948</paper-item>
+                  <paper-item year="1949">1949</paper-item>
+                  <paper-item year="1950">1950</paper-item>
+                  <paper-item year="1951">1951</paper-item>
+                  <paper-item year="1952">1952</paper-item>
+                  <paper-item year="1953">1953</paper-item>
+                  <paper-item year="1954">1954</paper-item>
+                  <paper-item year="1955">1955</paper-item>
+                  <paper-item year="1956">1956</paper-item>
+                  <paper-item year="1957">1957</paper-item>
+                  <paper-item year="1958">1958</paper-item>
+                  <paper-item year="1959">1959</paper-item>
+                  <paper-item year="1960">1960</paper-item>
+                  <paper-item year="1961">1961</paper-item>
+                  <paper-item year="1962">1962</paper-item>
+                  <paper-item year="1963">1963</paper-item>
+                  <paper-item year="1964">1964</paper-item>
+                  <paper-item year="1965">1965</paper-item>
+                  <paper-item year="1966">1966</paper-item>
+                  <paper-item year="1967">1967</paper-item>
+                  <paper-item year="1968">1968</paper-item>
+                  <paper-item year="1969">1969</paper-item>
+                  <paper-item year="1970">1970</paper-item>
+                  <paper-item year="1971">1971</paper-item>
+                  <paper-item year="1972">1972</paper-item>
+                  <paper-item year="1973">1973</paper-item>
+                  <paper-item year="1974">1974</paper-item>
+                  <paper-item year="1975">1975</paper-item>
+                  <paper-item year="1976">1976</paper-item>
+                  <paper-item year="1977">1977</paper-item>
+                  <paper-item year="1978">1978</paper-item>
+                  <paper-item year="1979">1979</paper-item>
+                  <paper-item year="1980">1980</paper-item>
+                  <paper-item year="1981">1981</paper-item>
+                  <paper-item year="1982">1982</paper-item>
+                  <paper-item year="1983">1983</paper-item>
+                  <paper-item year="1984">1984</paper-item>
+                  <paper-item year="1985">1985</paper-item>
+                  <paper-item year="1986">1986</paper-item>
+                  <paper-item year="1987">1987</paper-item>
+                  <paper-item year="1988">1988</paper-item>
+                  <paper-item year="1989">1989</paper-item>
+                  <paper-item year="1990">1990</paper-item>
+                  <paper-item year="1991">1991</paper-item>
+                  <paper-item year="1992">1992</paper-item>
+                  <paper-item year="1993">1993</paper-item>
+                  <paper-item year="1994">1994</paper-item>
+                  <paper-item year="1995">1995</paper-item>
+                  <paper-item year="1996">1996</paper-item>
+                  <paper-item year="1997">1997</paper-item>
+                  <paper-item year="1998">1998</paper-item>
+                  <paper-item year="1999">1999</paper-item>
+                  <paper-item year="2000">2000</paper-item>
+                  <paper-item year="2001">2001</paper-item>
+                  <paper-item year="2002">2002</paper-item>
+                  <paper-item year="2003">2003</paper-item>
+                  <paper-item year="2004">2004</paper-item>
+                  <paper-item year="2005">2005</paper-item>
+                  <paper-item year="2006">2006</paper-item>
+                  <paper-item year="2007">2007</paper-item>
+                  <paper-item year="2008">2008</paper-item>
+                  <paper-item year="2009">2009</paper-item>
+                  <paper-item year="2010">2010</paper-item>
+                  <paper-item year="2011">2011</paper-item>
+                  <paper-item year="2012">2012</paper-item>
+                  <paper-item year="2013">2013</paper-item>
+                  <paper-item year="2014">2014</paper-item>
+                  <paper-item year="2015">2015</paper-item>
+                  <paper-item year="2016">2016</paper-item>
+                </paper-listbox>
+              </paper-dropdown-menu>
+            </div>
+            <paper-input name="zip" label="Zipcode" value="[[user.zip]]" auto-validate allowed-pattern="[0-9]">
+          </div>
+          <div class="form-links">
+            <div>* indicates required field</div>
+          </div>
+          <div class="form-buttons">
+            <paper-spinner id="spinner"></paper-spinner>
+            <paper-button on-tap="_handleUpdateProfile" id="submit">Save Account Information</paper-button>
+            <!-- <paper-button on-tap="_handleReset" id="reset">Reset</paper-button> -->
+          </div>
+        </form>
       </div>
-      <paper-input-container>
-        <label>Zip</label>
-        <input is="iron-input" name="zip" bind-value="[[user.zip]]" allowed-pattern="[0-9]">
-      </paper-input-container>
-      <div class="form-buttons">
-        <paper-button on-tap="_handleUpdateProfile" id="submit">Submit</paper-button>
-        <paper-spinner id="spinner"></paper-spinner>
-        <paper-button on-tap="_handleReset" id="reset">Reset</paper-button>
-      </div>
-    </form>
+    </div>
   </template>
   <script src="gigya-update-profile.js"></script>
 </dom-module>

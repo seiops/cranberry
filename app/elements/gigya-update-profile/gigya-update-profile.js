@@ -1,18 +1,24 @@
 class GigyaUpdateProfile {
+  // element registration
   beforeRegister() {
     this.is = 'gigya-update-profile';
     this.properties = {
-      user: {
+      account: {
         type: Object,
         value: {}
       },
-      account: {
+      notices: {
+        type: Object,
+        value: []
+      },
+      user: {
         type: Object,
         value: {}
       }
     };
   }
 
+  // public methods
   attached() {
     app.logger('\<gigya-update-profile\> attached');
 
@@ -29,7 +35,8 @@ class GigyaUpdateProfile {
 
     });
   }
-
+  
+  // private methods
   _computeBirthday(user) {
     app.logger('\<gigya-update-profile\> compute birthday');
 
@@ -53,7 +60,7 @@ class GigyaUpdateProfile {
   _handleReset(event) {
     app.logger('\<gigya-update-profile\> reset form');
 
-    let form = Polymer.dom(event).localTarget.parentElement.parentElement;
+    let form = Polymer.dom(this.root).querySelector('#updateProfileForm');
 
     form.reset();
   }
@@ -61,21 +68,57 @@ class GigyaUpdateProfile {
   _handleUpdateProfile(event) {
     app.logger('\<gigya-update-profile\> handle update profile');
 
-    let form = Polymer.dom(event).localTarget.parentElement.parentElement;
+    let form = Polymer.dom(this.root).querySelector('#updateProfileForm');
 
     form.submit();
   }
 
-  _processError(code) {
-    app.logger('\<gigya-update-profile\> process error');
+  // process error code from API
+  _processError(error) {
+    app.logger('\<gigya-update-profile\> API response error');
 
-    console.log(code);
+    let notice = {};
+
+    let errorCode = error.errorCode;
+    notice.code = errorCode;
+
+    switch(errorCode) {
+      case 400003:
+        notice.type = 'error';
+        notice.message = 'Username already in use.';
+        break;
+      case 403043:
+        notice.type = 'error';
+        notice.message = 'Email already in use.';
+        break;
+      default:
+        notice.type = 'error';
+        notice.message = 'Unhandled error -> ' + error.errorMessage;
+        console.dir(error);
+        break;
+    }
+
+    this.push('notices', notice);
+
+    this.$.spinner.active = false;
+
+    this._enableForm();
+  }
+
+  _showChangePassword() {
+    let base = Polymer.dom(document).querySelector('cranberry-base');
+    let socialize = base.querySelector('gigya-socialize');
+
+    socialize.set('userSelected', 4);
   }
 
   _submit() {
     app.logger('\<gigya-update-profile\> submit gigya');
 
+    this.set('notices', []);
+
     this.$.spinner.active = true;
+
     let form = Polymer.dom(this.root).querySelector('#updateProfileForm');
 
     let params = {
@@ -109,10 +152,17 @@ class GigyaUpdateProfile {
       let socialize = base.querySelector('gigya-socialize');
 
       socialize.checkUser();
+
+      let notice = {
+        type: 'success',
+        message: 'Profile updated successfully.'
+      };
+
+      el.push('notices', notice);
     } else {
       console.error('\<gigya-update-profile\> gigya error -> ' + data.errorMessage);
 
-      el._processError(data.errorCode);
+      el._processError(data);
     }
 
     el.$.spinner.active = false;
