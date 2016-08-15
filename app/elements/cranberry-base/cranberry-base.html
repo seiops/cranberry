@@ -34,6 +34,8 @@
 <link rel="import" href="../../bower_components/iron-validatable-behavior/iron-validatable-behavior.html">
 <link rel="import" href="../../bower_components/iron-validator-behavior/iron-validator-behavior.html">
 <link rel="import" href="../../bower_components/gold-password-input/gold-password-input.html">
+<link rel="import" href="../../bower_components/gold-email-input/gold-email-input.html">
+<link rel="import" href="../../bower_components/iron-data-table/iron-data-table.html">
 
 <!-- Animation elements -->
 <link rel="import" href="../../bower_components/neon-animation/neon-animation.html">
@@ -85,6 +87,9 @@
       @import "theme.css";
     </style>
 
+    <!-- Gigya socialize/accounts integration -->
+    <gigya-socialize user="{{user}}"></gigya-socialize>
+
     <!-- local browser storage -->
     <iron-localstorage id="localStorage" name="{$ config.appNameId $}"
       value="{{storage}}"
@@ -114,8 +119,6 @@
     </paper-toast>
 
     <paper-toast id="infoToast" class="Toast" duration="8000"></paper-toast>
-
-    <gigya-socialize user="{{user}}"></gigya-socialize>
 
   </template>
 
