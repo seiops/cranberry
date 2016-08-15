@@ -1,4 +1,5 @@
 class GigyaLogin {
+  // before element registration
   beforeRegister() {
     this.is = 'gigya-login';
     this.properties = {
@@ -13,6 +14,7 @@ class GigyaLogin {
     };
   }
 
+  // attached to document
   attached() {
     app.logger('\<gigya-login\> attached');
 
@@ -29,6 +31,7 @@ class GigyaLogin {
     });
   }
 
+  // internal method calling gigya-socialize method
   _checkUser() {
     let base = Polymer.dom(document).querySelector('cranberry-base');
     let socialize = base.querySelector('gigya-socialize');
@@ -36,26 +39,32 @@ class GigyaLogin {
     socialize.checkUser();
   }
 
+  // disable form elements
   _disableForm() {
     app.logger('\<gigya-login\> disable form');
 
     this.$.submit.disabled = true;
   }
 
+  // enable form elements
   _enableForm() {
     app.logger('\<gigya-login\> enable form');
 
     this.$.submit.disabled = false;
   }
 
+  // handle login form click
   _handleLogin(event) {
     app.logger('\<gigya-login\> handle login');
 
     let form = Polymer.dom(this.root).querySelector('#loginForm');
 
-    form.submit();
+    this.debounce('submit', function() {
+      form.submit();
+    }, 100);
   }
 
+  // handle social login button click
   _handleLoginSocial(event) {
     this._disableForm();
     this.$.spinner.active = true;
@@ -74,6 +83,15 @@ class GigyaLogin {
     gigya.accounts.socialLogin(params);
   }
 
+  // handle forgot password link click
+  _handleForgotPassword() {
+    let base = Polymer.dom(document).querySelector('cranberry-base');
+    let socialize = base.querySelector('gigya-socialize');
+
+    socialize.set('guestSelected', 2);
+  }
+
+  // handle register link click
   _handleRegister() {
     let base = Polymer.dom(document).querySelector('cranberry-base');
     let socialize = base.querySelector('gigya-socialize');
@@ -81,16 +99,19 @@ class GigyaLogin {
     socialize.set('guestSelected', 1);
   }
 
+  // handle reset form, clear notices
   _handleReset(event) {
     app.logger('\<gigya-login\> reset form');
 
-    this.set('notices', []);
-
     let form = Polymer.dom(this.root).querySelector('#loginForm');
 
-    form.reset();
+    this.debounce('reset', function() {
+      this.set('notices', []);
+      form.reset();
+    }, 100);
   }
 
+  // handle Gigya API response
   _handleResponse(response) {
     let detail = {};
 
@@ -125,12 +146,14 @@ class GigyaLogin {
     }
   }
 
+  // process error code from API
   _processError(code) {
     app.logger('\<gigya-login\> error');
 
     let notice = {};
 
     let errorCode = code.errorCode;
+    notice.code = errorCode;
 
     switch(errorCode) {
       case 206001:
@@ -141,7 +164,7 @@ class GigyaLogin {
         notice.type = 'warning';
         notice.message = 'Your account requires e-mail verification.';
         notice.verify = true;
-        notice.code = code.errorCode;
+
         let verify = {
           UID: code.UID,
           regToken: code.regToken
@@ -186,7 +209,7 @@ class GigyaLogin {
         break;
       default:
         notice.type = 'error';
-        notice.message = 'Unknown error.';
+        notice.message = 'Unhandled error.';
         console.dir(code);
       break;
     }
@@ -198,6 +221,7 @@ class GigyaLogin {
     this._enableForm();
   }
 
+  // resend verification code with optional e-mail address
   _resendVerification() {
     this.set('notices', []);
 
@@ -219,6 +243,7 @@ class GigyaLogin {
     gigya.accounts.resendVerificationCode(params);
   }
 
+  // set cookie for Gigya, this enables the autologin functionality
   _setUserCookie(cname, cvalue, exdays) {
     let d = new Date();
 
@@ -229,28 +254,32 @@ class GigyaLogin {
     document.cookie = cname + "=" + cvalue + "; " + expires + "; path=/";
   }
 
+  // submit login form data
   _submit() {
-    app.logger('\<gigya-login\> submit gigya');
+    this.async(function(){
+      app.logger('\<gigya-login\> submit gigya');
 
-    this.set('notices', []);
-    this.$.spinner.active = true;
+      this.set('notices', []);
+      this.$.spinner.active = true;
 
-    let form = Polymer.dom(this.root).querySelector('#loginForm');
-    let request = Polymer.dom(this.root).querySelector('#request');
+      let form = Polymer.dom(this.root).querySelector('#loginForm');
+      let request = Polymer.dom(this.root).querySelector('#request');
 
-    let params = {};
+      let params = {};
 
-    params.apiKey = '3_6UHHWrJ4LmAOWWdgqP0UWqk-2InoMn5NH8Lo1aOfcmFl6zAS4u_-IxvC3mbGAxch';
-    params.format = 'jsonp';
-    params.loginID = loginForm.loginID.value;
-    params.password = loginForm.password.value;
+      params.apiKey = '3_6UHHWrJ4LmAOWWdgqP0UWqk-2InoMn5NH8Lo1aOfcmFl6zAS4u_-IxvC3mbGAxch';
+      params.format = 'jsonp';
+      params.loginID = loginForm.loginID.value;
+      params.password = loginForm.password.value;
 
-    request.params = params;
-    request.url = 'https://accounts.us1.gigya.com/accounts.login';
+      request.params = params;
+      request.url = 'https://accounts.us1.gigya.com/accounts.login';
 
-    request.generateRequest();
+      request.generateRequest();
+    });
   }
 
+  // callback for verification e-mail, adds notice
   _verificationSent(data) {
     let notice = {};
 

@@ -1,21 +1,19 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-form/iron-form.html">
-<link rel="import" href="../../bower_components/iron-form-element-behavior/iron-form-element-behavior.html">
-<link rel="import" href="../../bower_components/iron-validatable-behavior/iron-validatable-behavior.html">
-<link rel="import" href="../../bower_components/iron-validator-behavior/iron-validator-behavior.html">
 <link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../gigya-styles/gigya-styles.html">
 
 <dom-module id="gigya-login">
   <template>
     <style include="shared-styles">
-    @import "theme.css";
-    @import "gigya-login/gigya-login";
+      @import "theme.css";
+      @import "gigya-login/gigya-login";
     </style>
+    <style include="gigya-styles"></style>
     <byutv-jsonp on-response="_handleResponse" debounce-duration="300" id="request"></byutv-jsonp>
     <h2>Login</h2>
     <div class="user-messages">
@@ -38,10 +36,10 @@
           Log in faster with an existing online account.
         </div>
         <div class="social-login-providers">
-          <paper-button on-tap="_handleLoginSocial" provider="facebook">Facebook</paper-button>
-          <paper-button on-tap="_handleLoginSocial" provider="twitter">Twitter</paper-button>
-          <paper-button on-tap="_handleLoginSocial" provider="linkedin">Linked In</paper-button>
-          <paper-button on-tap="_handleLoginSocial" provider="google">Google</paper-button>
+          <paper-button on-tap="_handleLoginSocial" provider="facebook" raised>Facebook</paper-button>
+          <paper-button on-tap="_handleLoginSocial" provider="twitter" raised>Twitter</paper-button>
+          <paper-button on-tap="_handleLoginSocial" provider="linkedin" raised>Linked In</paper-button>
+          <paper-button on-tap="_handleLoginSocial" provider="google" raised>Google</paper-button>
         </div>
       </div>
       <div class="site-login">
@@ -50,15 +48,19 @@
         </div>
         <div class="social-login-form">
           <form is="iron-form" action="/" id="loginForm">
-            <paper-input class="focus-target" name="loginID" label="Username" required auto-validate error-message="A username is required." allowed-pattern="[\@\.A-zA-Z0-9]" auto-complete></paper-input>
-            <paper-input name="password" label="Password" type="password" required auto-validate error-message="A password is required."></paper-input>
-            <div class="form-buttons">
-              <paper-button on-tap="_handleRegister" id="register">Register</paper-button>
-              <paper-button on-tap="_handleLogin" id="submit">Login</paper-button>
-              <paper-button on-tap="_handleReset" id="reset">Reset</paper-button>
-              <paper-spinner id="spinner"></paper-spinner>
+            <div class="form-input">
+              <paper-input class="focus-target" name="loginID" label="Username" required auto-validate error-message="A username is required." allowed-pattern="[\@\.A-zA-Z0-9]" auto-complete></paper-input>
+              <paper-input name="password" label="Password" type="password" required auto-validate error-message="A password is required."></paper-input>
             </div>
-            <div class="output"></div>
+            <div class="form-links">
+              <a on-tap="_handleForgotPassword" id="forgot">Forgot Password?</a>
+              <a on-tap="_handleRegister" id="register">Create New Account</a>
+            </div>
+            <div class="form-buttons">
+              <paper-spinner id="spinner"></paper-spinner>
+              <paper-button on-tap="_handleLogin" id="submit">Login</paper-button>
+              <!-- <paper-button on-tap="_handleReset" id="reset">Reset</paper-button> -->
+            </div>
           </form>
         </div>
       </div>
