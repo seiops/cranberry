@@ -172,7 +172,7 @@ Typography mixins are from file on URL https://github.com/PolymerElements/paper-
     @apply(--paper-font-common-base);
     @apply(--paper-font-common-nowrap);
     @apply(--paper-font-common-uppercase);
-    font-size: 10px;
+    font-size: 14px;
     font-weight: 500;
     letter-spacing: 0.018em;
     line-height: 24px;
@@ -182,7 +182,7 @@ Typography mixins are from file on URL https://github.com/PolymerElements/paper-
     @apply(--paper-font-common-base);
     @apply(--paper-font-common-nowrap);
     @apply(--paper-font-common-uppercase);
-    font-size: 14px;
+    font-size: 10px;
     font-weight: 500;
     letter-spacing: 0.018em;
     line-height: 24px;
