@@ -1,38 +1,73 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-form/iron-form.html">
-<link rel="import" href="../../bower_components/iron-form-element-behavior/iron-form-element-behavior.html">
-<link rel="import" href="../../bower_components/iron-validatable-behavior/iron-validatable-behavior.html">
-<link rel="import" href="../../bower_components/iron-validator-behavior/iron-validator-behavior.html">
-<link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
 <link rel="import" href="../../bower_components/iron-input/iron-input.html">
-<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/gold-password-input/gold-password-input.html">
+<link rel="import" href="../../bower_components/gold-email-input/gold-email-input.html">
+<link rel="import" href="../gigya-styles/gigya-styles.html">
 
 <dom-module id="gigya-register">
   <template>
     <style include="shared-styles">
-    @import "theme.css";
-    @import "gigya-register/gigya-register";
+      @import "theme.css";
+      @import "gigya-register/gigya-register";
     </style>
-    <h2 class="focus-target">Register</h2>
-    <form is="iron-form" action="/" id="registerForm">
-      <div>
-        <paper-input name="email" label="Email" required auto-validate error-message="E-mail address is required and must be valid." allowed-pattern="[\@\.A-zA-Z0-9]" value="[[user.email]]"></paper-input>
-        <paper-input name="username" label="Username" required auto-validate error-message="A username is required" allowed-pattern="[A-zA-Z0-9]" value="[[account.loginIDs.username]]"></paper-input>
-        <gold-password-input name="password" validator="gold-password-input-validator" label="Password" auto-validate required reveal strength-meter error-message="The password is required and must only contains letters and digits."></gold-password-input>
-        <gold-password-input name="confirmPassword" validator="gold-password-input-validator" label="Confirm Password" auto-validate required reveal strength-meter error-message="The password is required and must only contains letters and digits."></gold-password-input>
+    <style include="gigya-styles"></style>
+    <h2>Register</h2>
+    <div class="user-register">
+      <div class="social-login" hidden$="[[!showForm]]">
+        <div class="social-login-info">
+          Register with an existing online account.
+        </div>
+        <div class="social-login-providers">
+          <paper-button on-tap="_handleLoginSocial" provider="facebook" raised>Facebook</paper-button>
+          <paper-button on-tap="_handleLoginSocial" provider="twitter" raised>Twitter</paper-button>
+          <paper-button on-tap="_handleLoginSocial" provider="linkedin" raised>Linked In</paper-button>
+          <paper-button on-tap="_handleLoginSocial" provider="google" raised>Google</paper-button>
+        </div>
       </div>
-      <div class="form-buttons">
-        <paper-button on-tap="_handleRegister" id="submit">Submit</paper-button>
-        <paper-button on-tap="_handleReset" id="reset">Reset</paper-button>
-        <paper-spinner id="spinner"></paper-spinner>
+      <div class="register-site">
+        <div class="register-messages">
+          <template is="dom-repeat" items="{{notices}}">
+            <div class$="notice {{item.type}}">
+              <div class="notice-info">
+                <div class="notice-message">{{item.message}}</div>
+                <div hidden>{{item.code}}</div>
+              </div>
+            </div>
+          </template>
+        </div>
+        <div class="register-site-info" hidden$="[[!showForm]]">
+          Sign up through standard.net.
+        </div>
+        <div class="register-form" hidden$="[[!showForm]]">
+          <form is="iron-form" action="/" id="registerForm">
+            <div class="form-input">
+              <gold-email-input name="email" label="Email *" required auto-validate error-message="A valid email address is required."></gold-email-input>
+              <!-- <paper-input name="email" label="Email" required auto-validate error-message="A valid e-mail address is required." allowed-pattern="[\@\.A-zA-Z0-9]"></paper-input> -->
+              <paper-input name="username" label="Username *" required auto-validate error-message="A username is required." allowed-pattern="[A-zA-Z0-9]"></paper-input>
+              <gold-password-input name="password"  label="Password *" minlength="6" maxlength="24" validator="gold-password-input-validator" auto-validate required reveal strength-meter error-message="A password between 6-24 characters is required."></gold-password-input>
+              <!-- <gold-password-input name="confirmPassword" validator="gold-password-input-validator" label="Confirm Password" auto-validate required reveal strength-meter error-message="A password containing only letters and digits is required."></gold-password-input> -->
+              <paper-checkbox name="updates">Sign up for news updates</paper-checkbox>
+              <paper-checkbox name="terms" required error-message="You must agree to the site terms of use.">I agree to the Terms of Use for Standard.net *</paper-checkbox>
+            </div>
+            <div class="form-links">
+              <div>* indicates required field</div>
+              <div>Already have an account? <a on-tap="_handleLogin" id="login">Login</a></div>
+              <!-- <paper-button on-tap="_handleReset" id="reset">Reset</paper-button> -->
+            </div>
+            <div class="form-buttons">
+              <paper-spinner id="spinner"></paper-spinner>
+              <paper-button on-tap="_handleRegister" id="submit">Sign Up</paper-button>
+              <!-- <paper-button on-tap="_handleReset" id="reset">Reset</paper-button> -->
+            </div>
+          </form>
+        </div>
       </div>
-    </form>
+    </div>
     <gold-password-input-validator pattern="[A-zA-Z0-9]*"></gold-password-input-validator>
   </template>
   <script src="gigya-register.js"></script>

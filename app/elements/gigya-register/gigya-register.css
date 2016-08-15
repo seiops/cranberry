@@ -1,30 +1,49 @@
-/*
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
-*/
-
 :host {
   display: block;
   --paper-button: {
     @apply(--paper-font-button);
   };
 }
-/*
- This class is used when we manage the focus start point (like when a new page
- is loaded). We typically move the focus start point to the first header in the
- page and don't want a focus ring to display. Instead the next time the user
- presses tab the focus ring will appear on the nearest, focusable element.
-*/
-.focus-target {
-  outline: none;
+
+div.register-site, div.social-login {
+  @apply(--layout-flex-6);
+  @media (--sm-viewport) {
+    @apply(--layout-flex-12);
+  }
 }
 
-div.form-buttons {
+div.register-site {
+  padding-left: 12px;
+  @media (--sm-viewport) {
+    padding-left: 0;
+  }
+}
+
+div.register-site-info {
+  margin-bottom: 24px;
+}
+
+div.social-login {
+  padding-right: 12px;
+  @media (--sm-viewport) {
+    padding-right: 0;
+  }
+  margin-bottom: 24px;
+}
+
+gold-password-input {
+  margin-bottom: 24px;
+}
+
+paper-checkbox {
+  margin-top: 12px;
+}
+
+div.user-register {
+  flex: 1 1 auto;
   @apply(--layout-horizontal);
-  @apply(--layout-center);
+  @apply(--layout-top);
+  @media (--sm-viewport) {
+    @apply(--layout-vertical);
+  }
 }
