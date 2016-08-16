@@ -262,8 +262,7 @@ class CranberryBase {
         // Timeout function to ensure the input is not hidden anymore
         setTimeout(function () {drawerBar.$.input.focus()}, 250);
       } else {
-        drawerBar.scaleElement();
-        drawerBar.$.input.focus()
+        drawerBar.$.input.focus();
       }
     }
 }

@@ -79,11 +79,11 @@ class CranberrySection {
     }
 
     _isFeatured(selected) {
-        if (selected === 2) {
-            return true;
-        } else {
-            return false;
-        }
+      if (selected === 2) {
+          return true;
+      } else {
+          return false;
+      }
     }
 
     _isGalleries(galleries) {
@@ -92,6 +92,7 @@ class CranberrySection {
       } else {
         return 'story_gallery'
       }
+
     }
 
     _routeChange(section) {

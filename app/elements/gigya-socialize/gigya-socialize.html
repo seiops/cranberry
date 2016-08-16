@@ -21,7 +21,7 @@
       <paper-dialog-scrollable>
         <template is="dom-if" if="[[user.isLoggedIn]]">
           <paper-toolbar>
-            <paper-icon-button icon="arrow-back" dialog-confirm></paper-icon-button>
+            <paper-icon-button icon="close" dialog-confirm></paper-icon-button>
             <div class="user-title" hidden$="[[!user.isLoggedIn]]">[[user.firstName]] [[user.lastName]]</div>
           </paper-toolbar>
           <paper-toolbar>
@@ -87,12 +87,13 @@
           </div>
         </template>
         <template is="dom-if" if="[[!user.isLoggedIn]]">
-          <paper-toolbar>
+          <paper-toolbar class="user-toolbar">
             <paper-tabs id="guestTabs" selected="{{guestSelected}}" autoselect>
               <paper-tab>Login</paper-tab>
               <paper-tab>Register</paper-tab>
               <paper-tab>Forgot Password</paper-tab>
             </paper-tabs>
+            <paper-icon-button icon="close" dialog-confirm></paper-icon-button>
           </paper-toolbar>
           <div class="user-content">
             <div hidden$="{{!_equal(guestSelected, 0)}}">

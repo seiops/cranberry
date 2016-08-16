@@ -27,7 +27,6 @@ class gigyaComments {
               version: 2,
               containerID: id,
               cid: '',
-              enabledShareProviders: 'facebook,twitter,yahoo,linkedin',
               width: '100%'
             };
             gigya.comments.showCommentsUI(params);
