@@ -9,12 +9,9 @@
       @import "cranberry-section/cranberry-section";
     </style>
 
-    <iron-media-query query="(max-width: 320px)" query-matches="{{small}}"></iron-media-query>
-    <iron-media-query query="(min-width: 321px) and (max-width: 720px)" query-matches="{{smallMedium}}"></iron-media-query>
-    <iron-media-query query="(min-width: 721px) and (max-width: 840px)" query-matches="{{medium}}"></iron-media-query>
-    <iron-media-query query="(min-width: 841px) and (max-width:960px)" query-matches="{{mediumLarge}}"></iron-media-query>
-    <iron-media-query query="(min-width: 961px) and (max-width:1280px)" query-matches="{{large}}"></iron-media-query>
-    <iron-media-query query="(min-width: 1281px)" query-matches="{{extraLarge}}"></iron-media-query>
+    <iron-media-query query="(min-width: 960px)" query-matches="{{desktop}}"></iron-media-query>
+    <iron-media-query query="(min-width: 720px) and (max-width:959px)" query-matches="{{tablet}}"></iron-media-query>
+    <iron-media-query query="(max-width:719px)" query-matches="{{mobile}}"></iron-media-query>
 
     <app-route route="{{route}}" pattern="/:section" data="{{routeData}}"></app-route>
 
@@ -25,7 +22,7 @@
     <cranberry-featured-content type="[[_isGalleries(galleries)]]" sections="[[loadSection]]" count="3" start="1"></cranberry-featured-content>
     <paper-material elevation="1">
       <paper-toolbar>
-        <div hidden$="{{small}}">
+        <div hidden$="{{mobile}}">
           <cranberry-search-bar class="Drawer-search" id="tabSearch" label="SEARCH"></cranberry-search-bar>
         </div>
         <paper-tabs id="tabs" selected="{{selected}}">
