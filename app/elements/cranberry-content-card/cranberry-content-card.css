@@ -75,6 +75,13 @@
   };
 }
 
+:host[list] {
+  /* postcss-bem-linter: ignore */
+  --paper-card-header-image: {
+    opacity: 0.8;
+  };
+}
+
 :host[content] > a {
   @apply(--layout-vertical);
   flex: 1 1 auto;
