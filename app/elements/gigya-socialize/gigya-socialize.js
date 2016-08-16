@@ -110,8 +110,6 @@ class GigyaSocialize {
     if (typeof user.UID !== 'undefined') {
       app.logger('\<gigya-socialize\> user loaded');
 
-      console.dir(user);
-
       el.set('user', user.user);
 
       let params = {
@@ -123,9 +121,9 @@ class GigyaSocialize {
       gigya.accounts.getAccountInfo(params);
     } else {
       app.logger('\<gigya-socialize\> anonymous user');
-
-      console.dir(user);
     }
+
+    console.dir(user);
   }
 
   // callback from Gigya logout API
