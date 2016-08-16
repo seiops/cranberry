@@ -51,8 +51,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   @nest &-info {
     @apply(--layout-flex);
     @apply(--layout-vertical);
-
-    max-height: 150px;
+    min-height: 100px;
+    max-height: 200px;
     position: relative;
   }
 
