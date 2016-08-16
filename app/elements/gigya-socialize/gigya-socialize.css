@@ -38,6 +38,11 @@ div.user-settings {
   margin-bottom: 24px;
 }
 
+div.user-toolbar {
+  @apply(--layout-horizontal);
+  @apply(--layout-center);
+}
+
 paper-toolbar.user-toolbar paper-icon-button {
   @apply(--layout-flex-end);
 }

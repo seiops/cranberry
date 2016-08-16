@@ -21,8 +21,11 @@
       <paper-dialog-scrollable>
         <template is="dom-if" if="[[user.isLoggedIn]]">
           <paper-toolbar>
-            <paper-icon-button icon="close" dialog-confirm></paper-icon-button>
-            <div class="user-title" hidden$="[[!user.isLoggedIn]]">[[user.firstName]] [[user.lastName]]</div>
+            <div class="user-toolbar">
+              <paper-icon-button icon="arrow-back" dialog-dismiss></paper-icon-button>
+              <div class="user-title" hidden$="[[!user.isLoggedIn]]">[[user.firstName]] [[user.lastName]]</div>
+            </div>
+            <paper-icon-button icon="close" dialog-dismiss></paper-icon-button>
           </paper-toolbar>
           <paper-toolbar>
             <paper-tabs id="accountTabs" selected="{{userSelected}}" autoselect>
@@ -39,7 +42,7 @@
                 <div class="user-info">
                   <div class="user-photo">
                     <div hidden$="[[!user.photoURL]]">
-                      <iron-image class="user" preload src="[[user.photoURL]]" fade></iron-image>
+                      <iron-image class="user-mugshot" preload src="[[user.photoURL]]" fade></iron-image>
                     </div>
                     <div hidden$="[[user.photoURL]]"></div>
                   </div>
