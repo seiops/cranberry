@@ -10,21 +10,12 @@
     <style include="shared-styles">
       @import "cranberry-search-bar/cranberry-search-bar";
     </style>
-    <iron-a11y-keys id="a11y" target="[[target]]" keys="enter"
-                    on-keys-pressed="_search"></iron-a11y-keys>
-    <!-- <paper-input-container>
-      <iron-icon icon="search" prefix></iron-icon>
-      <label>Search</label>
-      <input is="iron-input" id="input" bind-value="{{query}}" placeholder="{{placeHolder}}">
-      <paper-icon-button suffix icon="clear" alt="clear" title="clear" on-tap="_clearInput" hidden$="{{!showClear}}">
-    </paper-input-container> -->
-    <form is="iron-form" action="/" id="registerForm">
-    <paper-input type="search" label="{{label}}" id="input" value="{{query}}">
-      <iron-icon icon="search" prefix></iron-icon>
-    </paper-input>
-  </form>
-
+    <iron-a11y-keys id="a11y" target="[[target]]" keys="enter" on-keys-pressed="_search"></iron-a11y-keys>
+    <form is="iron-form" action="/" id="searchForm">
+      <paper-input type="search" label="{{label}}" id="input" value="{{query}}">
+        <iron-icon icon="search" prefix></iron-icon>
+      </paper-input>
+    </form>
   </template>
   <script src="cranberry-search-bar.js"></script>
-
 </dom-module>
