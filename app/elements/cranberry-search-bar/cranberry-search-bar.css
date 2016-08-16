@@ -1,37 +1,29 @@
 :host {
-  background: var(--background-color, white);
   display: block;
-  padding: 0 16px;
-  @apply(--layout-horizontal);
-  @apply(--layout-center);
 
+  /* postcss-bem-linter: ignore */
+  --paper-icon-button: {
+    padding: 0;
+    width: 24px;
+    height: 24px;
+  };
 
   /* postcss-bem-linter: ignore */
   --paper-input-container: {
-    @apply(--layout-horizontal);
-    @apply(--layout-center);
-
-    width: 100%;
+    padding: 0;
   };
 
   /* postcss-bem-linter: ignore */
   --paper-input-container-input: {
-    width: 100%;
+    padding-left: 18px;
   };
 
+  /* postcss-bem-linter: ignore */
   --paper-input-container-label: {
+    @apply(--paper-font-body1);
     color: var(--disabled-text-color);
-  };
-
-  /* postcss-bem-linter: ignore */
-  --paper-input-container-label-floating: {
-    @apply(--paper-font-headline);
-    color: var(--primary-text-color);
-  };
-
-  /* postcss-bem-linter: ignore */
-  --paper-input-container-label-focus: {
-    color: var(--primary-text-color);
+    font-weight: 500;
+    margin-left: 24px;
   };
 
   /* postcss-bem-linter: ignore */
@@ -41,20 +33,7 @@
 
   /* postcss-bem-linter: ignore */
   --paper-input-suffix: {
-    color: var(--disabled-text-color);
+    color: var(--accent-color);
+    display: inline;
   };
-}
-
-:host paper-material {
-  background-color: #fff;
-}
-
-:host paper-input-container paper-icon-button {
-  padding: 0;
-  height: 24px;
-  width: 24px;
-}
-
-:host paper-input-container::shadow div.input-content {
-  width: 100%;
 }

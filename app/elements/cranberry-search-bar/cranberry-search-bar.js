@@ -1,7 +1,4 @@
 class cranberrySearchBar {
-  get behaviors() {
-      return [Polymer.NeonAnimationRunnerBehavior];
-  }
   beforeRegister() {
     this.is = 'cranberry-search-bar';
     this.properties = {
@@ -13,30 +10,9 @@ class cranberrySearchBar {
       showClear: {
         type: Boolean,
         value: false
-      },
-      noLabel: {
-        type: Boolean
-      },
-      placeHolder: {
-        type: String,
-        value: ''
-      },
-      animationConfig: {
-        type: Object,
-        value: function() {
-          return {
-            'myAwesomeThing': {
-              name: 'scale-up-animation',
-              node: this,
-              timing: {delay: 100, duration: 100}
-            }
-          }
-        }
       }
-
     };
-    this.observers = ['_setPlaceholder(noLabel)'];
-    this.listeners = {'neon-animation-finish': '_onNeonAnimationFinish'};
+    // this.observers = ['_setPlaceholder(noLabel)'];
   }
   _onNeonAnimationFinish() {
     //Abstract add here if needed
@@ -49,13 +25,6 @@ class cranberrySearchBar {
       request.abortRequest();
     }
   }
-
-  _setPlaceholder(noLabel) {
-      if (noLabel) {
-        this.set('placeHolder', 'Search');
-      }
-  }
-
   _search() {
     this._checkQueryStatus();
     // Get the query string
@@ -81,8 +50,6 @@ class cranberrySearchBar {
     }
   }
 
-  scaleElement() {
-    this.playAnimation('myAwesomeThing');
-  }
+
 }
 Polymer(cranberrySearchBar);
