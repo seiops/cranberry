@@ -32,6 +32,13 @@ class GigyaSocialize {
 
     this.async(function() {
       this._checkGigya();
+
+      let el = this;
+
+      gigya.accounts.addEventHandlers({
+        context: this,
+        onLogout: el._logoutUser
+       });
     });
   }
 
@@ -81,12 +88,7 @@ class GigyaSocialize {
   _handleLogout() {
     app.logger('\<gigya-socialize\> handle logout');
 
-    let params = {
-      callback: this._logoutUserCallback,
-      context: this
-    };
-
-    gigya.accounts.logout(params);
+    gigya.accounts.logout();
   }
 
   // load Gigya account information
@@ -127,12 +129,10 @@ class GigyaSocialize {
   }
 
   // callback from Gigya logout API
-  _logoutUserCallback(response) {
+  _logoutUser(data) {
     app.logger('\<gigya-socialize\> logged out');
 
-    console.dir(response);
-
-    let el = response.context;
+    let el = data.context;
     el.set('user', {});
 
     gigya.socialize.refreshUI();
