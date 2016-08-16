@@ -75,6 +75,20 @@
   };
 }
 
+:host[content] > a {
+  @apply(--layout-vertical);
+  flex: 1 1 auto;
+
+  margin: 12px;
+  max-width: 370px;
+  text-decoration: none;
+}
+
+:host[content] > a > paper-card {
+  flex: 1 1 auto;
+  @apply(--layout-vertical);
+}
+
 /* Story Card Styles */
 paper-card.story ::content div.title-text {
   background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(0,0,0,0.9));
@@ -84,7 +98,6 @@ paper-card.story ::content div.title-text {
 paper-card.story div.card-info {
   @apply(--layout-horizontal);
   @apply(--layout-justified);
-  @apply(--layout-center);
 }
 
 paper-card.story div.card-info div.story-tag {
@@ -108,6 +121,11 @@ paper-card.story div.card-info div.story-date {
 }
 
 /* Gallery Card Styles */
+paper-card.gallery div.card-info {
+  @apply(--layout-horizontal);
+  @apply(--layout-justified);
+}
+
 paper-card.gallery div.card-info span.content-tag {
   @apply(--paper-font-caption);
   @apply(--paper-font-common-uppercase);
