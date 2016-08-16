@@ -1,7 +1,7 @@
 module.exports = {
   appName: 'Cranberry',
   appShortName: 'CRAN',
-  title: 'SNG Cranberry',
+  title: 'Stadard Examiner',
   description: 'SNG Web Core',
   charset: 'utf-8',
   lang: 'en',
@@ -9,5 +9,6 @@ module.exports = {
   applicationName: 'CRAN',
   // Add to homescreen for Safari on iOS
   appleMobileWebAppTitle: 'CRAN',
-  siteName: 'Standard-Examiner'
+  siteName: 'Standard-Examiner',
+  myCaptureUrl: 'http://standard.mycapture.com/mycapture/remoteimage.asp'
 };
