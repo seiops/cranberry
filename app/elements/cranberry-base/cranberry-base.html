@@ -90,6 +90,12 @@
       @import "theme.css";
     </style>
 
+    <!-- base media queries -->
+    <iron-media-query query="(min-width: 1280px)" query-matches="{{logo}}"></iron-media-query>
+    <iron-media-query query="(min-width: 960px)" query-matches="{{desktop}}"></iron-media-query>
+    <iron-media-query query="(min-width: 720px) and (max-width:959px)" query-matches="{{tablet}}"></iron-media-query>
+    <iron-media-query query="(max-width: 719px)" query-matches="{{mobile}}"></iron-media-query>
+
     <!-- Gigya socialize/accounts integration -->
     <gigya-socialize user="{{user}}"></gigya-socialize>
 
