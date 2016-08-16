@@ -70,7 +70,11 @@ class GoogleDFP {
 
     _sectionChanged(section) {
         if (typeof section !== 'undefined') {
+          if(section === 'galleries') {
+            this._buildAd('news');
+          } else {
             this._buildAd(section);
+          }
         }
     }
 
