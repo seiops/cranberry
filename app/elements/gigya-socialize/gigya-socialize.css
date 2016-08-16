@@ -38,8 +38,17 @@ div.user-settings {
   margin-bottom: 24px;
 }
 
+paper-toolbar.user-toolbar paper-icon-button {
+  @apply(--layout-flex-end);
+}
+
 div.user-title {
   @apply(--paper-font-display2);
+}
+
+paper-toolbar ::content #topBar {
+  @apply(--layout-horizontal);
+  @apply(--layout-justified);
 }
 
 iron-image.user ::content img {
