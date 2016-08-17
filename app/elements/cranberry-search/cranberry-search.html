@@ -46,7 +46,7 @@
                 <h2 class="story-headline">[[item.title]]</h2>
                 <div class="story-content">
                   <template is="dom-if" if="[[_hasImage(item.mediaAssets.images.0.small)]]">
-                    <iron-image src="http://www.standard.net[[item.mediaAssets.images.0.small]]" style="background-color: lightgray;" preload></iron-image>
+                    <iron-image src="{$ config.baseDomain $}[[item.mediaAssets.images.0.small]]" style="background-color: lightgray;" preload></iron-image>
                   </template>
                   <p class="story-description">[[item.preview]]</p>
                 </div>
