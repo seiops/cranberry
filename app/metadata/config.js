@@ -67,27 +67,27 @@ module.exports = {
         phone: '801.625.4225'
       }
     ],
-    footerLinks: {
-      item: {
+    footerLinks: [
+      {
         label: 'More+',
         link: 'more.standard.net'
       },
-      item: {
+      {
         label: 'Careers',
         link: 'careers.standard.net	'
       },
-      item: {
+      {
         label: 'SE Cares',
         link: 'cares.standard.net'
       },
-      item: {
+      {
         label: 'RSS Feeds',
         link: '/rss'
       },
-      item: {
+      {
         label: 'SE Events',
         link: 'events.standard.net'
       }
-    }
+    ]
   }
 };

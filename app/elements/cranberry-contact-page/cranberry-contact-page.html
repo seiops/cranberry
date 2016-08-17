@@ -72,7 +72,7 @@
       </div>
 
       <!-- Google Map -->
-      <cranberry-map latitude="{$ config.contactInformation.map.latitude $}" longitude="{$ config.contactInformation.map.longitude $}"></cranberry-map>
+      <cranberry-map latitude="41.2584591" longitude="-111.9936357"></cranberry-map>
 
       <!-- Need help -->
       <div class="help-section">
@@ -81,31 +81,13 @@
           <p>Information here and copy here</p>
         </div>
         <div class="help-card-container">
-          <div class="help-card">
-            <iron-icon icon="{$ config.contactInformation.needHelp[0].logo $}"></iron-icon>
-            <p>{$ config.contactInformation.needHelp[0].label $}</p>
-            <p class="phone">{$ config.contactInformation.needHelp[0].phone $}</p>
-          </div>
-          <div class="help-card">
-            <iron-icon icon="icons:find-in-page"></iron-icon>
-            <p>Classifieds</p>
-            <p class="phone">(801)625-4488</p>
-          </div>
-          <div class="help-card">
-            <iron-icon icon="icons:card-membership"></iron-icon>
-            <p>Member Services</p>
-            <p class="phone">(801)625-4488</p>
-          </div>
-          <div class="help-card">
-            <iron-icon icon="icons:chrome-reader-mode"></iron-icon>
-            <p>Commercial Print</p>
-            <p class="phone">(801)625-4488</p>
-          </div>
-          <div class="help-card">
-            <iron-icon icon="icons:lightbulb-outline"></iron-icon>
-            <p>Submit A News Tip</p>
-            <p class="phone">(801)625-4488</p>
-          </div>
+          <template is="dom-repeat" items="{{needHelp}}">
+            <div class="help-card">
+              <iron-icon icon="{{item.logo}}"></iron-icon>
+              <p>{{item.label}}</p>
+              <p class="phone">{{item.phone}}</p>
+            </div>
+          </template>
         </div>
       </div>
       <div class="staff-cards">
@@ -119,16 +101,14 @@
           <p>We are happy to help you.</p>
         </div>
         <div class="important-links-container">
-          <!-- TODO: Setup linking structure for these buttons -->
-          <paper-button raised>More+</paper-button>
-          <paper-button raised>Careers</paper-button>
-          <paper-button raised>SE Cares</paper-button>
-          <paper-button raised>RSS Feeds</paper-button>
-          <paper-button raised>SE Events</paper-button>
+          <template is="dom-repeat" items="{{footerLinks}}">
+            <a href="{{item.link}}"><paper-button raised>{{item.label}}</paper-button></a>
+          </template>
         </div>
       </div>
     </paper-material>
   </template>
+
   <script src="cranberry-contact-page.js"></script>
 
 </dom-module>
