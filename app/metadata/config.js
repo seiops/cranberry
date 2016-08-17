@@ -2,7 +2,7 @@ module.exports = {
   // URL Structure
   baseUrl: '/',
   baseDomain: 'http://www.standard.net',
-  baseEndpointUrl: 'http://sedevore.libercus.net/rest.json',
+  baseEndpointUrl: 'http://sedevcore.libercus.net/rest.json',
   appVersion: 'poop',
   baseCanonicalUrl: 'https://github.com/seiops/cranberry/',
   // General Namings
@@ -28,6 +28,7 @@ module.exports = {
   // Contact Page Config
   contactInformation: {
     contactFormRecipient: 'memberservices@standard.net',
+    formSubmitUrl: 'http://sedevcore.libercus.net/contact-form',
     hours: {
       week: '6:30 a.m. - 5:00 p.m',
       weekend: '6:30 a.m. - 10:00 a.m'
