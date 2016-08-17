@@ -9,8 +9,7 @@ class CranberryStory {
                 }
             },
             rest: {
-                type: String,
-                value: 'http://sedev.libercus.net/rest.json'
+                type: String
             },
             routeData: Object,
             story: {
@@ -27,6 +26,9 @@ class CranberryStory {
             params: {
                 type: Object,
                 value: {}
+            },
+            baseUrl: {
+              type: String
             }
         };
 
@@ -75,6 +77,7 @@ class CranberryStory {
 
             if (typeof storyId !== 'undefined' && storyId !== 0) {
                 let story = this.get('story');
+                let baseUrl = this.get('baseUrl');
                 let paragraphs = story.paragraphs;
                 let contentArea = this.$.storyContentArea;
 
@@ -93,6 +96,7 @@ class CranberryStory {
 
                             shortcodeEl.set('shortcodeObject', value);
                             shortcodeEl.set('storyObject', story);
+                            shortcodeEl.set('baseUrl', baseUrl);
                             fragment.appendChild(shortcodeEl);
                         } else {
                             let paragraphEl = document.createElement('p');
