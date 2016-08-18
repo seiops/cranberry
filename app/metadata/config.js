@@ -8,6 +8,7 @@ module.exports = {
   myCaptureUrl: 'http://standard.mycapture.com/mycapture/remoteimage.asp',
   // General Namings
   title: 'Standard-Examiner',
+  urlTitle: 'Standard.net',
   // Gigya
   gigya: {
     apiKey: '3_6UHHWrJ4LmAOWWdgqP0UWqk-2InoMn5NH8Lo1aOfcmFl6zAS4u_-IxvC3mbGAxch'
@@ -25,7 +26,8 @@ module.exports = {
   // Social Networks
   socialNaming: {
     twitter: 'StandardEx',
-    facebook: 'standardexaminer'
+    facebook: 'standardexaminer',
+    facebookId: '1389242281298280'
   },
   // Contact Page Config
   contactInformation: {

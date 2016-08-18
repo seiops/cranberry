@@ -97,7 +97,7 @@
           </paper-toolbar>
           <div class="user-content">
             <div hidden$="{{!_equal(guestSelected, 0)}}">
-              <gigya-login></gigya-login>
+              <gigya-login api-key="{$ config.gigya.apiKey $}"></gigya-login>
             </div>
             <div hidden$="{{!_equal(guestSelected, 1)}}">
               <gigya-register></gigya-register>
