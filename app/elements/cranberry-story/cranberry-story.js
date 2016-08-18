@@ -62,11 +62,13 @@ class CranberryStory {
     }
 
     _computeBylineURL(url) {
+      let baseUrl = this.get('baseUrl');
+
         if (this.hidden === false) {
             if (typeof url === 'undefined') {
                 return 'http://imgsrc.me/250x400/9c9c9c/000000/Image Unavailable?showDimensions=0&font=arial';
             } else {
-                return 'http://www.standard.net' + url;
+                return baseUrl + url;
             }
         }
     }

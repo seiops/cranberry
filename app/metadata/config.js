@@ -5,6 +5,7 @@ module.exports = {
   baseEndpointUrl: 'http://sedevcore.libercus.net/rest.json',
   appVersion: 'poop',
   baseCanonicalUrl: 'https://github.com/seiops/cranberry/',
+  myCaptureUrl: 'http://standard.mycapture.com/mycapture/remoteimage.asp',
   // General Namings
   title: 'Standard-Examiner',
   // Gigya
@@ -23,7 +24,8 @@ module.exports = {
   },
   // Social Networks
   socialNaming: {
-    twitter: 'StandardEx'
+    twitter: 'StandardEx',
+    facebook: 'standardexaminer'
   },
   // Contact Page Config
   contactInformation: {
