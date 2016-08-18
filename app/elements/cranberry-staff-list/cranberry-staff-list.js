@@ -29,12 +29,14 @@ class cranberryStaffList {
   }
 
   _onRouteChanged(newValue) {
-    this.async(function() {
-        app.logger('\<cranberry-staff-list\> route changed -\> ' + newValue.path);
-        if (typeof newValue !== 'undefined' && newValue.path === '/contact') {
-          this._updateParams();
-        }
-    });
+    if (typeof newValue !== 'undefined') {
+      this.async(function() {
+          app.logger('\<cranberry-staff-list\> route changed -\> ' + newValue.path);
+          if (typeof newValue !== 'undefined' && newValue.path === '/contact') {
+            this._updateParams();
+          }
+      });
+    }
   }
 
   _updateParams() {
