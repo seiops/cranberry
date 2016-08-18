@@ -1,0 +1,72 @@
+:host {
+  display: block;
+  /* min-height to maxout page height */
+  min-height: 100vh;
+}
+
+div.archive-container {
+  @apply(--layout-horizontal);
+  @apply(--layout-wrap);
+  @apply(--layout-around-justified);
+}
+
+div.archive-container paper-card.archive-card {
+  @apply(--layout-vertical);
+  @apply(--layout-center);
+
+  margin: 8px;
+  max-width: 300px;
+}
+
+div.archive-container paper-card.archive-card div.archive-tag {
+  @apply(--paper-font-caption);
+  @apply(--paper-font-common-uppercase);
+
+  position: absolute;
+  left: 0;
+  color: #fff;
+  background: var(--accent-color);
+  padding: 4px;
+}
+
+div.archive-container paper-card.archive-card div.card-content {
+  @apply(--layout-vertical);
+  @apply(--layout-center);
+  @apply(--layout-center-justified);
+
+  padding: 10px;
+}
+
+div.archive-container paper-card.archive-card div.card-content .card-description {
+  @apply(--paper-font-body1);
+}
+
+div.archive-container paper-card.archive-card div.card-content .card-headline {
+  @apply(--paper-font-title);
+  margin: 0;
+}
+
+div.archive-container paper-card.archive-card div.card-content .card-dates {
+    @apply(--paper-font-body1);
+    margin: 0;
+}
+
+div.archive-container paper-card.archive-card div.action-panel {
+    @apply(--layout-horizontal);
+    @apply(--layout-center);
+    @apply(--layout-center-justified);
+
+    min-height: 50px;
+}
+
+div.archive-container paper-card.archive-card paper-button.card-action {
+  background-color: var(--accent-color);
+  margin-bottom: 10px;
+  position: absolute;
+  bottom: 0;
+}
+
+div.archive-container paper-card.archive-card paper-button.card-action a {
+  text-decoration: none;
+  color: #fff;
+}
