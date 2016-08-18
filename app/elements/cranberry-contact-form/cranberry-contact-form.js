@@ -20,12 +20,12 @@ class cranberryContactForm {
     this.handleSubmit = function(event) {
       let form = this.$$('form');
       let request = this.$.request;
-      
+
       // Check form for validity
       let validForm = form.validate();
       // if the form is in a valid state then submit
       if (validForm) {
-        request.url = "http://sedevcore.libercus.net/contact-form"
+        request.url = (window.location.hostname === 'localhost' ? '' : window.location.protocol +  window.location.host + '/contact-form');
 
         var params = {};
 

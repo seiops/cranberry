@@ -16,7 +16,7 @@
 
     <paper-dialog id="modal" modal>
       <div class="gallery-container">
-        <cranberry-slider id="modalSlider" images="{{gallery.mediaAssets.images}}" autostart arrows info caption modal></cranberry-slider>
+        <cranberry-slider id="modalSlider" base-url="{$ config.baseDomain $}" images="{{gallery.mediaAssets.images}}" autostart arrows info caption modal></cranberry-slider>
         <paper-button id="modalClose" raised>Close</paper-button>
       </div>
     </paper-dialog>
@@ -37,7 +37,7 @@
       <div class="flex-absolute expand-link">
         <paper-button raised id="modalOpen" class="rounded-button"><iron-icon icon="icons:fullscreen"></iron-icon></paper-button>
       </div>
-      <cranberry-slider id="mainSlider" images="{{gallery.mediaAssets.images}}" autostart arrows info caption>
+      <cranberry-slider id="mainSlider" base-url="{$ config.baseDomain $}" images="{{gallery.mediaAssets.images}}" autostart arrows info caption>
         <div class="flex-absolute share-buttons">
           <paper-button raised id="buyButton" class="rounded-button"><iron-icon icon="editor:attach-money"></iron-icon></paper-button>
           <gigya-sharebar share-buttons-id="gigya-share-buttons-gallery"></gigya-sharebar>
@@ -51,7 +51,7 @@
     <div class="ut-grid ut-margin-bottom">
       <div class="flex-3 ut-center" id="images">
         <template is="dom-repeat" items="{{gallery.mediaAssets.images}}">
-          <iron-image src$="http://www.standard.net{{item.small}}" sizing="cover" data-index$="{{index}}" style="background-color: lightgray;" preload></iron-image>
+          <iron-image src$="{$ config.baseDomain $}{{item.small}}" sizing="cover" data-index$="{{index}}" style="background-color: lightgray;" preload></iron-image>
         </template>
       </div>
       <div class="flex ut-center">

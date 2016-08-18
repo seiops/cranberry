@@ -18,7 +18,7 @@
       <div class="main-image">
         <!-- TODO: Need proper image here with correct 16:9 aspect ratio -->
         <iron-image src="../../../images/SEBuilding.JPG"></iron-image>
-        <h3 class="header-title">Welcome to the Standard-Examiner</h3>
+        <h3 class="header-title">Welcome to the {$ config.title $}</h3>
       </div>
 
       <!-- Contact card and form -->
@@ -30,35 +30,34 @@
         <div class="contact-card-wrapper layout vertical">
           <div class="contact-card-header-info">
             <h3>Contact Us</h3>
-            <p class="caption-text">Monday-Friday 5:30a.m.-5:00p.m.</p>
-            <p class="caption-text">Saturday-Sunday 5:00a.m.-10:00a.m.</p>
+            <p class="caption-text">Monday-Friday {$ config.contactInformation.hours.week $}</p>
+            <p class="caption-text">Saturday-Sunday {$ config.contactInformation.hours.weekend $}</p>
           </div>
           <div class="contact-card">
             <paper-button class="rounded-button" raised><iron-icon icon="communication:phone"></iron-icon></paper-button>
             <div class="contact-card-info">
               <h3>PHONE</h3>
-              <p class="caption-text">801.625.4200 or 800.651.2105</p>
+              <p class="caption-text">{$ config.contactInformation.phone $}</p>
             </div>
           </div>
           <div class="contact-card">
             <paper-button class="rounded-button" raised><iron-icon icon="communication:email"></iron-icon></paper-button>
             <div class="contact-card-info">
               <h3>EMAIL</h3>
-              <p class="caption-text">INFO@STANDARD.NET</p>
+              <p class="caption-text">{$ config.contactInformation.email $}</p>
             </div>
           </div>
           <div class="contact-card">
             <paper-button class="rounded-button" raised><iron-icon icon="maps:add-location"></iron-icon></paper-button>
             <div class="contact-card-info">
               <h3>ADDRESS</h3>
-              <p class="caption-text">332 Standard Way</p>
-              <p class="caption-text">P.O. Box 12790</p>
-              <p class="caption-text">Ogden, UT 84412</p>
+              <p class="caption-text">{$ config.contactInformation.address.unitNumber $} {$ config.contactInformation.address.street $}</p>
+              <p class="caption-text">{$ config.contactInformation.address.city $}, {$ config.contactInformation.address.state $} {$ config.contactInformation.address.zip $}</p>
             </div>
           </div>
         </div>
         <div class="form-container">
-          <cranberry-contact-form recipient="mjohnstone@standard.net"></cranberry-contact-form>
+          <cranberry-contact-form recipient="{$ config.contactInformation.contactFormRecipient $}"></cranberry-contact-form>
         </div>
       </div>
 
@@ -82,37 +81,19 @@
           <p>Information here and copy here</p>
         </div>
         <div class="help-card-container">
-          <div class="help-card">
-            <iron-icon icon="icons:shopping-basket"></iron-icon>
-            <p>Retail Advertising</p>
-            <p class="phone">(801)625-4488</p>
-          </div>
-          <div class="help-card">
-            <iron-icon icon="icons:find-in-page"></iron-icon>
-            <p>Classifieds</p>
-            <p class="phone">(801)625-4488</p>
-          </div>
-          <div class="help-card">
-            <iron-icon icon="icons:card-membership"></iron-icon>
-            <p>Member Services</p>
-            <p class="phone">(801)625-4488</p>
-          </div>
-          <div class="help-card">
-            <iron-icon icon="icons:chrome-reader-mode"></iron-icon>
-            <p>Commercial Print</p>
-            <p class="phone">(801)625-4488</p>
-          </div>
-          <div class="help-card">
-            <iron-icon icon="icons:lightbulb-outline"></iron-icon>
-            <p>Submit A News Tip</p>
-            <p class="phone">(801)625-4488</p>
-          </div>
+          <template is="dom-repeat" items="{{needHelp}}">
+            <div class="help-card">
+              <iron-icon icon="{{item.logo}}"></iron-icon>
+              <p>{{item.label}}</p>
+              <p class="phone">{{item.phone}}</p>
+            </div>
+          </template>
         </div>
       </div>
       <div class="staff-cards">
         <h3>Meet Our Team</h3>
         <p>Newsroom</p>
-        <cranberry-staff-list></cranberry-staff-list>
+        <cranberry-staff-list rest="{$ config.baseEndpointUrl $}" route="[[route]]" base-url="{$ config.baseDomain $}"></cranberry-staff-list>
       </div>
       <div class="important-links">
         <div class="important-links-header">
@@ -120,16 +101,14 @@
           <p>We are happy to help you.</p>
         </div>
         <div class="important-links-container">
-          <!-- TODO: Setup linking structure for these buttons -->
-          <paper-button raised>More+</paper-button>
-          <paper-button raised>Careers</paper-button>
-          <paper-button raised>SE Cares</paper-button>
-          <paper-button raised>RSS Feeds</paper-button>
-          <paper-button raised>SE Events</paper-button>
+          <template is="dom-repeat" items="{{footerLinks}}">
+            <a href="{{item.link}}"><paper-button raised>{{item.label}}</paper-button></a>
+          </template>
         </div>
       </div>
     </paper-material>
   </template>
+
   <script src="cranberry-contact-page.js"></script>
 
 </dom-module>

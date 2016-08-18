@@ -57,6 +57,5 @@ class cranberrySearchBar {
     let form = this.querySelector('form');
     form.reset();
   }
-
 }
 Polymer(cranberrySearchBar);

@@ -9,8 +9,7 @@ class CranberryStory {
                 }
             },
             rest: {
-                type: String,
-                value: 'http://sedev.libercus.net/rest.json'
+                type: String
             },
             routeData: Object,
             story: {
@@ -27,6 +26,9 @@ class CranberryStory {
             params: {
                 type: Object,
                 value: {}
+            },
+            baseUrl: {
+              type: String
             }
         };
 
@@ -60,11 +62,13 @@ class CranberryStory {
     }
 
     _computeBylineURL(url) {
+      let baseUrl = this.get('baseUrl');
+
         if (this.hidden === false) {
             if (typeof url === 'undefined') {
                 return 'http://imgsrc.me/250x400/9c9c9c/000000/Image Unavailable?showDimensions=0&font=arial';
             } else {
-                return 'http://www.standard.net' + url;
+                return baseUrl + url;
             }
         }
     }
@@ -75,6 +79,7 @@ class CranberryStory {
 
             if (typeof storyId !== 'undefined' && storyId !== 0) {
                 let story = this.get('story');
+                let baseUrl = this.get('baseUrl');
                 let paragraphs = story.paragraphs;
                 let contentArea = this.$.storyContentArea;
 
@@ -93,6 +98,7 @@ class CranberryStory {
 
                             shortcodeEl.set('shortcodeObject', value);
                             shortcodeEl.set('storyObject', story);
+                            shortcodeEl.set('baseUrl', baseUrl);
                             fragment.appendChild(shortcodeEl);
                         } else {
                             let paragraphEl = document.createElement('p');
