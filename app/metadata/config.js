@@ -32,7 +32,6 @@ module.exports = {
   // Contact Page Config
   contactInformation: {
     contactFormRecipient: 'memberservices@standard.net',
-    formSubmitUrl: 'http://sedevcore.libercus.net/contact-form',
     hours: {
       week: '6:30 a.m. - 5:00 p.m',
       weekend: '6:30 a.m. - 10:00 a.m'
