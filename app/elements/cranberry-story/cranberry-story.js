@@ -102,9 +102,8 @@ class CranberryStory {
                             fragment.appendChild(shortcodeEl);
                         } else {
                             let paragraphEl = document.createElement('p');
-                            let node = document.createTextNode(value.text);
-
-                            paragraphEl.appendChild(node);
+                            paragraphEl.innerHTML = value.text;
+                            
                             fragment.appendChild(paragraphEl);
                         }
                     });
