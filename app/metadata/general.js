@@ -9,6 +9,5 @@ module.exports = {
   applicationName: 'CRAN',
   // Add to homescreen for Safari on iOS
   appleMobileWebAppTitle: 'CRAN',
-  siteName: 'Standard-Examiner',
-  myCaptureUrl: 'http://standard.mycapture.com/mycapture/remoteimage.asp'
+  siteName: 'Standard-Examiner'
 };
