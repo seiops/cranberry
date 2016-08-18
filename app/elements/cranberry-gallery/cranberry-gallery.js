@@ -29,6 +29,9 @@ class CranberryGallery {
       routeData: Object,
       tags: {
         type: Array
+      },
+      myCaptureUrl: {
+        type: String
       }
     };
     this.listeners = {
@@ -51,7 +54,7 @@ class CranberryGallery {
 
   // Private methods.
   _buyImage() {
-    let slider = this.$.querySelector('cranberry-slider');
+    let slider = this.querySelector('cranberry-slider');
     let images = slider.items;
     let currentIndex = slider.index;
     let currentImage = images[currentIndex].src;
