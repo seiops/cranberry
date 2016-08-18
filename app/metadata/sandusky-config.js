@@ -1,35 +1,41 @@
 module.exports = {
   // URL Structure
   baseUrl: '/',
-  baseDomain: 'http://www.standard.net',
-  baseEndpointUrl: 'http://sedevcore.libercus.net/rest.json',
+  baseDomain: 'http://www.sanduskyregister.com',
+  baseEndpointUrl: 'http://srdevcore.libercus.net/rest.json',
   appVersion: '<0.1',
   baseCanonicalUrl: 'https://github.com/seiops/cranberry/',
+  // Needs Changed
   myCaptureUrl: 'http://standard.mycapture.com/mycapture/remoteimage.asp',
   // General Namings
-  title: 'Standard-Examiner',
-  urlTitle: 'Standard.net',
+  title: 'Sandusky Register',
+  urlTitle: 'SanduskyRegister.com',
   // Gigya
   gigya: {
+    // Needs Changed
     apiKey: '3_6UHHWrJ4LmAOWWdgqP0UWqk-2InoMn5NH8Lo1aOfcmFl6zAS4u_-IxvC3mbGAxch'
   },
   // Google
   google: {
+    //Need Changed
     analytics: 'UA-746696-1',
+    //Need Changed
     maps: 'AIzaSyCzTR5CRaS7xrcH_jLFnh8OC5kfhyakXDY'
   },
   dfpAdStructure: {
     adGroupID: 30103046,
-    adGrouping: 'Ogden_Publisher',
-    adSubGrouping: 'Standard_Examiner'
+    adGrouping: 'Tandem',
+    adSubGrouping: 'Sandusky'
   },
   // Social Networks
   socialNaming: {
-    twitter: 'StandardEx',
-    facebook: 'standardexaminer',
+    twitter: 'sanduskyregister',
+    facebook: 'sanduskyregistr',
+    // Needs Changed
     facebookId: '1389242281298280'
   },
   // Contact Page Config
+  // Entire contact information needs changed
   contactInformation: {
     contactFormRecipient: 'memberservices@standard.net',
     hours: {
