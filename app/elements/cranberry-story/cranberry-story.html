@@ -4,6 +4,7 @@
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
 <link rel="import" href="../cranberry-shortcode/cranberry-shortcode.html">
+<link rel="import" href="../youneeq-content/youneeq-content.html">
 <link rel="import" href="../gigya-comments/gigya-comments.html">
 <link rel="import" href="../gigya-sharebar/gigya-sharebar.html">
 <link rel="import" href="../google-dfp/google-dfp.html">
@@ -131,9 +132,7 @@
 
       <!-- Youneeq Content Area -->
       <div class="ut-center">
-        <div style="width:100%; height:350px; background:lightgray;">
-          Youneeq
-        </div>
+        <youneeq-content user="[[user]]" story="[[story]]" domain="{$ config.baseDomain $}"></youneeq-content>
       </div>
 
       <!-- Last Ad -->

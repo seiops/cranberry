@@ -1,0 +1,45 @@
+:host {
+  display: block;
+}
+
+h2.youneeq-header {
+  @apply(--paper-font-headline);
+  text-align: left;
+  border-bottom: 4px solid var(--accent-color);
+  margin-bottom: 0;
+}
+
+div.youneeq-container {
+  @apply(--layout-horizontal);
+  @apply(--layout-around-justified);
+  @apply(--layout-wrap);
+}
+
+div.youneeq-container a {
+  @apply(--paper-font-body1);
+  text-decoration: none;
+}
+
+div.youneeq-content-item {
+  flex: 1 1 auto;
+  max-width: 300px;
+  margin: 12px;
+}
+
+div.youneeq-content-item iron-image {
+  height: 200px;
+  width: 300px;
+}
+
+div.youneeq-content-item h3.youneeq-content-item-title {
+  margin: 0;
+}
+
+div.youneeq-content-item[mobile] {
+  @apply(--layout-horizontal);
+  @apply(--layout-start-justified);
+}
+
+div.youneeq-content-item[mobile] iron-image {
+  height: 65px;
+}

@@ -1,0 +1,39 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+
+<dom-module id="youneeq-content">
+  <template>
+    <style>
+      @import "youneeq-content/youneeq-content";
+    </style>
+    <iron-media-query
+      query="(max-width:640px)"
+      query-matches="{{mobile}}">
+    </iron-media-query>
+
+    <byutv-jsonp
+      on-response="_handleResponse"
+      on-load="_handleLoad"
+      last-response="{{response}}"
+      last-request="{{request}}"
+      last-error="{{error}}"
+      id="request"></byutv-jsonp>
+
+    <h2 class="youneeq-header" hidden$="{{!hasItems}}">Recommended for you:</h2>
+    <div class="youneeq-container">
+      <template is="dom-repeat" items="{{items}}">
+        <a href="{{item.url}}">
+          <div class="youneeq-content-item" mobile$="{{mobile}}">
+            <iron-image src="{{_checkImage(item.image)}}" sizing="cover"></iron-image>
+            <h3 class="youneeq-content-item-title">{{item.title}}</h3>
+          </div>
+        </a>
+      </template>
+    </div>
+  </template>
+
+    <script src="http://api.youneeq.ca/scripts/detect_timezone.js"></script>
+    <script src="youneeq-content.js"></script>
+
+</dom-module>

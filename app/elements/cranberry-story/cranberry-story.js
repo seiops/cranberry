@@ -29,6 +29,9 @@ class CranberryStory {
             },
             baseUrl: {
               type: String
+            },
+            user: {
+              type: Object
             }
         };
 
@@ -103,7 +106,7 @@ class CranberryStory {
                         } else {
                             let paragraphEl = document.createElement('p');
                             paragraphEl.innerHTML = value.text;
-                            
+
                             fragment.appendChild(paragraphEl);
                         }
                     });
