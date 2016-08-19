@@ -41,6 +41,12 @@ class GoogleDFP {
             let adSection = section.replace(' ', '_').replace('-', '_');
             let sectionParent = this.get('sectionParent');
 
+            // Logical statement to make default section news if no section is provided
+            // This is mainly a provision for gallery pages that do not have a section by default
+            if (typeof adSection === 'undefined' || adSection.length === 0) {
+                adSection = 'news';
+            }
+
             if (typeof sectionParent !== 'undefined' && sectionParent.length > 0) {
                 let parent = sectionParent.replace(' ', '_').replace('-', '_');
 
