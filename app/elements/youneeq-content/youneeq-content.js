@@ -114,7 +114,7 @@ class youneeqContent {
     observe[0] = observeObj;
 
     suggestObj.type = 'node';
-    suggestObj.count = 3;
+    suggestObj.count = 5;
     suggestObj.categories = [];
     suggestObj.is_panel_detailed = true;
     suggestObj.isAllClientDomains = false;
@@ -126,13 +126,13 @@ class youneeqContent {
     pagehit.tz_off = utcOffset;
     pagehit.tz_name = timeZoneName;
 
-    fullObject.domain = this.get('domain');
+    // fullObject.domain = this.get('domain');
     // For Localhost Testing uncomment below; comment out above line.
-    // fullObject.domain = 'localhost';
+    fullObject.domain = 'localhost';
     fullObject.observe = observe;
     fullObject.suggest = suggest;
     // For Localhost Testing uncomment this
-    // fullObject.alt_href = 'http://sedev.libercus.net/News/2016/08/18/Ogden-s-STEM-school-makes-its-debut-with-enthusiasm.html';
+    fullObject.alt_href = 'http://sedev.libercus.net/News/2016/08/18/Ogden-s-STEM-school-makes-its-debut-with-enthusiasm.html';
     fullObject.page_hit = pagehit;
     fullObject.bof_profile = this.get('youneeqId');
     fullObject.href = window.location.href;
@@ -176,6 +176,12 @@ class youneeqContent {
       return domain + image;
     } else {
       return image;
+    }
+  }
+
+  _index(index) {
+    if (index === 3) {
+      return true;
     }
   }
 

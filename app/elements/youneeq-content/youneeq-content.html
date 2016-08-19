@@ -1,6 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
 <link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../google-dfp/google-dfp.html">
 
 <dom-module id="youneeq-content">
   <template>
@@ -23,6 +24,18 @@
     <h2 class="youneeq-header" hidden$="{{!hasItems}}">Recommended for you:</h2>
     <div class="youneeq-container">
       <template is="dom-repeat" items="{{items}}">
+        <template is="dom-if" if="{{_index(index)}}">
+          <div>
+            <google-dfp
+              section="[[content.sectionInformation.sectionName]]"
+              section-parent="[[content.sectionInformation.sectionParentName]]"
+              ad-pos="Bottom_of_stream" ad-size="[[300, 250]]"
+              ad-group="{$ config.dfpAdStructure.adGroupID $}"
+              ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
+              ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}">
+            </google-dfp>
+          </div>
+        </template>
         <a href="{{item.url}}">
           <div class="youneeq-content-item" mobile$="{{mobile}}">
             <iron-image src="{{_checkImage(item.image)}}" sizing="cover"></iron-image>
