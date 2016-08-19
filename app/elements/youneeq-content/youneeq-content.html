@@ -22,7 +22,7 @@
       id="request"></byutv-jsonp>
 
     <h2 class="youneeq-header" hidden$="{{!hasItems}}">Recommended for you:</h2>
-    <div class="youneeq-container">
+    <div class="youneeq-container" mobile$="{{mobile}}">
       <template is="dom-repeat" items="{{items}}">
         <template is="dom-if" if="{{_index(index)}}">
           <div>
@@ -37,7 +37,7 @@
           </div>
         </template>
         <a href="{{item.url}}">
-          <div class="youneeq-content-item" mobile$="{{mobile}}">
+          <div class="youneeq-content-item">
             <iron-image src="{{_checkImage(item.image)}}" sizing="cover"></iron-image>
             <h3 class="youneeq-content-item-title">{{item.title}}</h3>
           </div>

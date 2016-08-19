@@ -20,9 +20,10 @@ div.youneeq-container a {
   text-decoration: none;
 }
 
-div.youneeq-content-item {
+div.youneeq-container > * {
   flex: 1 1 auto;
   max-width: 300px;
+  height: 250px;
   margin: 12px;
 }
 
@@ -35,11 +36,16 @@ div.youneeq-content-item h3.youneeq-content-item-title {
   margin: 0;
 }
 
-div.youneeq-content-item[mobile] {
+div.youneeq-container[mobile] > a {
+  height: 65px;
+}
+
+div.youneeq-container[mobile] div.youneeq-content-item {
   @apply(--layout-horizontal);
   @apply(--layout-start-justified);
 }
 
-div.youneeq-content-item[mobile] iron-image {
+div.youneeq-container[mobile] div.youneeq-content-item iron-image {
   height: 65px;
+  max-width:
 }
