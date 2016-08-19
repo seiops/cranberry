@@ -5,9 +5,9 @@ class youneeqContent {
       user: {
         type: Object
       },
-      story: {
+      content: {
         type: Object,
-        observer: '_onStoryChanged'
+        observer: '_onContentChanged'
       },
       youneeqId: {
         type: String,
@@ -66,7 +66,7 @@ class youneeqContent {
       });
   }
 
-  _onStoryChanged(newValue) {
+  _onContentChanged(newValue) {
     let el = this;
 
     this.async(function() {
@@ -89,7 +89,7 @@ class youneeqContent {
     }, 50);
   }
 
-  _yqInit(story) {
+  _yqInit(content) {
     let user = this.get('user');
     let el = this;
 
@@ -104,12 +104,12 @@ class youneeqContent {
     let timeZoneName = timeZone.timezone.olson_tz;
 
     observeObj.type = 'node';
-    observeObj.name = story.itemId;
-    observeObj.title = story.title;
-    observeObj.categories = [story.sectionInformation.section];
-    observeObj.description = story.preview;
-    observeObj.image = story.mediaAssets.images[0].exlarge;
-    observeObj.create_date = story.published;
+    observeObj.name = content.itemId;
+    observeObj.title = content.title;
+    observeObj.categories = [content.sectionInformation.section];
+    observeObj.description = content.preview;
+    observeObj.image = content.mediaAssets.images[0].exlarge;
+    observeObj.create_date = content.published;
 
     observe[0] = observeObj;
 
