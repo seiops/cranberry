@@ -81,6 +81,14 @@ class CranberryContentList {
         }
     }
 
+    _checkTopComments(index) {
+      if (index === 1) {
+        return true;
+      } else {
+        return;
+      }
+    }
+
     _handleLoad() {
         app.logger('<\cranberry-content-list\> load received');
     }

@@ -7,6 +7,7 @@
 <link rel="import" href="../../bower_components/iron-icons/communication-icons.html">
 <link rel="import" href="../google-dfp/google-dfp.html">
 <link rel="import" href="../cranberry-content-card/cranberry-content-card.html">
+<link rel="import" href="../gigya-top-comments/gigya-top-comments.html">
 
 <dom-module id="cranberry-content-list">
   <template>
@@ -23,6 +24,13 @@
       id="request">
     <div class="content-cards">
       <template is="dom-repeat" items="{{items}}" initial-count="3">
+        <template is="dom-if" if="[[_checkTopComments(index)]]">
+          <div class="comments-widget-wrapper">
+            <div class="comments-widget">
+              <gigya-top-comments count="5" age="90"></gigya-top-comments>
+            </div>
+          </div>
+        </template>
         <template is="dom-if" if="[[_checkInStreamAd(index)]]">
           <div class="stream-advertisement-wrapper">
             <div class="stream-advertisement">
