@@ -6,6 +6,7 @@
 <link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../../bower_components/iron-data-table/iron-data-table.html">
 <link rel="import" href="../gigya-update-profile/gigya-update-profile.html">
+<link rel="import" href="../gigya-user-comments/gigya-user-comments.html">
 <link rel="import" href="../gigya-change-password/gigya-change-password.html">
 <link rel="import" href="../gigya-forgot-password/gigya-forgot-password.html">
 <link rel="import" href="../gigya-login/gigya-login.html">
@@ -71,16 +72,31 @@
                   </iron-data-table> -->
                   <div class="user-tabs">
                     <paper-tabs id="profileTabs" selected="{{profileSelected}}" autoselect>
-                      <paper-tab disabled>My Comments</paper-tab>
+                      <paper-tab>My Comments</paper-tab>
                       <paper-tab disabled>My Photos</paper-tab>
                       <paper-tab disabled>My Stories</paper-tab>
                     </paper-tabs>
                   </div>
                 </div>
               </paper-material>
+              <div class="profile-tabs">
+                <div hidden$="{{!_equal(profileSelected, 0)}}">
+                  <gigya-user-comments></gigya-user-comments>
+                </div>
+                <div hidden$="{{!_equal(profileSelected, 1)}}">
+                  My Photos
+                </div>
+                <div hidden$="{{!_equal(profileSelected, 2)}}">
+                  My Stories
+                </div>
+              </div>
             </div>
-            <div hidden$="{{!_equal(userSelected, 1)}}"></div>
-            <div hidden$="{{!_equal(userSelected, 2)}}"></div>
+            <div hidden$="{{!_equal(userSelected, 1)}}">
+              My Membership
+            </div>
+            <div hidden$="{{!_equal(userSelected, 2)}}">
+              Newsletters
+            </div>
             <div hidden$="{{!_equal(userSelected, 3)}}">
               <gigya-update-profile user="[[user]]" account="[[account]]"></gigya-update-profile>
             </div>

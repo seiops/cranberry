@@ -12,6 +12,10 @@ class GigyaSocialize {
         type: Number,
         value: 0
       },
+      profileSelected: {
+        type: Number,
+        value: 0
+      },
       user: {
         type: Object,
         value: {},
