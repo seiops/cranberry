@@ -1,0 +1,10 @@
+:host[content] {
+  display: block;
+}
+
+paper-material.comments-notice {
+  @apply(--layout-vertical);
+  @apply(--layout-center);
+  flex: 1 1 100%;
+  padding: 24px;
+}
