@@ -1,0 +1,193 @@
+:host[content] {
+  display: block;
+
+  /* postcss-bem-linter: ignore */
+  --paper-card: {
+    min-height: 250px;
+    min-width: 300px;
+  };
+
+  /* postcss-bem-linter: ignore */
+  --paper-card-actions: {
+    flex: 1 1 auto;
+    color: var(--light-theme-secondary-text-color);
+    background-color: var(--tertiary-background-color);
+    font-size: 12px;
+    font-weight: 400;
+  };
+
+  /* postcss-bem-linter: ignore */
+  --paper-card-content: {
+    flex: 1 1 auto;
+    @apply(--paper-font-body1);
+    background-color: var(--tertiary-background-color);
+    color: var(--light-theme-primary-text-color);
+  };
+
+  /* postcss-bem-linter: ignore */
+  --paper-card-header-color: var(--text-dark);
+
+  /* postcss-bem-linter: ignore */
+  --paper-card-header-image: {
+    opacity: 0.8;
+  };
+
+  /* postcss-bem-linter: ignore */
+  --paper-card-header-image-text: {
+    color: var(--text-accent-color);
+    @apply(--paper-font-headline2);
+    text-shadow: 0px 0px 10px rgba(0,0,0,1);
+  };
+
+  /* postcss-bem-linter: ignore */
+  --paper-card-header-text: {
+    @apply(--paper-font-headline);
+  };
+}
+
+:host[featured] {
+  display: block;
+
+  --paper-card {
+    @apply(-layout-flex);
+  }
+  /* postcss-bem-linter: ignore */
+  --paper-card-actions: {
+    color: var(--light-theme-secondary-text-color);
+    font-size: 12px;
+    font-weight: 400;
+  };
+
+  /* postcss-bem-linter: ignore */
+  --paper-card-content: {
+    @apply(--layout-flex);
+    @apply(--paper-font-body1);
+
+    color: var(--light-theme-primary-text-color);
+  };
+
+  /* postcss-bem-linter: ignore */
+  --paper-card-header-image-text: {
+    @apply(--paper-font-headline);
+    color: var(--text-accent-color);
+    font-size: 24px;
+    text-shadow: 0px 0px 10px rgba(0,0,0,1);
+  };
+}
+
+:host[list] {
+  /* postcss-bem-linter: ignore */
+  --paper-card-header-image: {
+    opacity: 0.8;
+  };
+}
+
+:host[content] > a {
+  @apply(--layout-vertical);
+  flex: 1 1 auto;
+
+  margin: 12px;
+  max-width: 370px;
+  text-decoration: none;
+}
+
+:host[content] > a > paper-card {
+  flex: 1 1 auto;
+  @apply(--layout-vertical);
+}
+
+/* Story Card Styles */
+paper-card.story ::content div.title-text {
+  background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(0,0,0,0.9));
+  width: calc(100% -24px);
+}
+
+paper-card.story div.card-info {
+  @apply(--layout-horizontal);
+  @apply(--layout-justified);
+}
+
+paper-card.story div.card-info div.story-tag {
+  @apply(--paper-font-caption);
+  @apply(--paper-font-common-uppercase);
+  color: var(--accent-color);
+}
+
+paper-card.story div.card-info div.story-comments {
+  @apply(--paper-font-caption);
+  color: var(--accent-color);
+}
+
+/* Flip The Comments Icon */
+paper-card.story div.card-info div.story-comments iron-icon {
+  transform: scaleX(-1);
+}
+
+paper-card.story div.card-info div.story-date {
+  @apply(--paper-font-caption2);
+}
+
+/* Gallery Card Styles */
+paper-card.gallery div.card-info {
+  @apply(--layout-horizontal);
+  @apply(--layout-justified);
+}
+
+paper-card.gallery div.card-info span.content-tag {
+  @apply(--paper-font-caption);
+  @apply(--paper-font-common-uppercase);
+  color: var(--accent-color);
+}
+
+paper-card.gallery div.card-info span.content-date {
+  @apply(--paper-font-caption2);
+}
+
+paper-card.gallery div.card-info {
+  @apply(--layout-horizontal);
+  @apply(--layout-justified);
+}
+
+paper-card.gallery div.icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: var(--accent-color);
+}
+
+/* Featured Card Styles */
+paper-card.featured div.card-info {
+  @apply(--layout-horizontal);
+  @apply(--layout-justified);
+}
+
+paper-card.featured div.card-info span.content-tag {
+  @apply(--paper-font-caption);
+  @apply(--paper-font-common-uppercase);
+  color: var(--accent-color);
+}
+
+paper-card.featured div.card-info span.content-date {
+  @apply(--paper-font-caption2);
+}
+
+a.main {
+  @apply(--layout-flex);
+  @apply(--layout-vertical);
+
+  text-decoration: none;
+}
+
+a.main paper-card {
+  @apply(--layout-flex);
+  @apply(--layout-vertical);
+}
+
+a.main > paper-card ::content div.title-text {
+  background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(0,0,0,0.9));
+  width: calc(100% - 32px);
+}
+
+paper-card.list {
+  min-height: 200px;
+}

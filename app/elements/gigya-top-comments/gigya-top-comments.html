@@ -1,0 +1,18 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="gigya-top-comments">
+  <template>
+    <style>
+      @import "gigya-top-comments/gigya-top-comments";
+    </style>
+
+    <h3>Most commented stories:</h3>
+    <template is="dom-repeat" items="{{items}}" initial-count="3">
+      <div class="comment-row">
+        Row
+      </div>
+    </template>
+
+  </template>
+    <script src="gigya-top-comments.js"></script>
+</dom-module>
