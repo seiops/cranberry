@@ -16,7 +16,7 @@
           <iron-image preload src="{$ theme.global.logo $}" fade hidden$="[[logo]]"></iron-image>
         </div>
         <div class="Main-siteButtons">
-          <paper-icon-button class="Main-headerButton" icon="search" id="searchIcon"></paper-icon-button>
+          <paper-icon-button class="Main-headerButton" icon="search" on-tap="_focusSearch"></paper-icon-button>
           <div hidden$="[[!user.thumbnailURL]]">
             <a class="link" on-tap="openUserModal"><iron-image width="24" height="24" style="padding:8px;border-radius:48px" preload src="[[user.thumbnailURL]]" fade sizing="cover"></iron-image></a>
           </div>
