@@ -1,12 +1,12 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-material/paper-material.html">
-<link rel="import" href="../../bower_components/moment-js/moment-js.html">
 <link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
 <link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
-<link rel="import" href="../../bower_components/iron-data-table/iron-data-table.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
 <link rel="import" href="../gigya-update-profile/gigya-update-profile.html">
 <link rel="import" href="../gigya-user-comments/gigya-user-comments.html">
+<link rel="import" href="../gigya-user-card/gigya-user-card.html">
 <link rel="import" href="../gigya-change-password/gigya-change-password.html">
 <link rel="import" href="../gigya-forgot-password/gigya-forgot-password.html">
 <link rel="import" href="../gigya-login/gigya-login.html">
@@ -24,7 +24,7 @@
           <paper-toolbar>
             <div class="user-toolbar">
               <paper-icon-button icon="arrow-back" dialog-dismiss></paper-icon-button>
-              <div class="user-title" hidden$="[[!user.isLoggedIn]]">[[user.firstName]] [[user.lastName]]</div>
+              <div class="user-title">[[user.firstName]] [[user.lastName]]</div>
             </div>
             <paper-icon-button icon="close" dialog-dismiss></paper-icon-button>
           </paper-toolbar>
@@ -39,37 +39,13 @@
           </paper-toolbar>
           <div class="user-content">
             <div hidden$="{{!_equal(userSelected, 0)}}">
-              <paper-material elevation="1">
+              <paper-material>
                 <div class="user-info">
-                  <div class="user-photo">
-                    <div hidden$="[[!user.photoURL]]">
-                      <iron-image class="user-mugshot" preload src="[[user.photoURL]]" fade></iron-image>
-                    </div>
-                    <div hidden$="[[user.photoURL]]"></div>
-                  </div>
-                  <div class="user-name">[[user.firstName]] [[user.lastName]]</div>
-                  <div class="user-created">
-                    Member since
-                    <moment-js date="[[account.created]]" format="MMMM Do, YYYY"></moment-js>
-                  </div>
+                  <gigya-user-card user="[[user]]"></gigya-user-card>
                   <div class="user-settings">
                     <paper-button on-tap="_showAccountSettings" raised>Account Settings</paper-button>
                     <paper-button on-tap="_handleLogout" raised>Logout</paper-buttofn>
                   </div>
-                  <!-- <iron-data-table items="[[account.identities]]">
-                    <data-table-column name="Provider">
-                      <template>[[item.provider]]</template>
-                    </data-table-column>
-                    <data-table-column name="Last Name">
-                      <template>[[item.firstName]]</template>
-                    </data-table-column>
-                    <data-table-column name="Last Name">
-                      <template>[[item.lastName]]</template>
-                    </data-table-column>
-                    <data-table-column name="Email">
-                      <template>[[item.email]]</template>
-                    </data-table-column>
-                  </iron-data-table> -->
                   <div class="user-tabs">
                     <paper-tabs id="profileTabs" selected="{{profileSelected}}" autoselect>
                       <paper-tab>My Comments</paper-tab>
@@ -89,7 +65,7 @@
                 <div hidden$="{{!_equal(profileSelected, 2)}}">
                   My Stories
                 </div>
-              </div>
+            </div>
             </div>
             <div hidden$="{{!_equal(userSelected, 1)}}">
               My Membership
