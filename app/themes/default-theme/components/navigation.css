@@ -22,7 +22,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     @apply(--layout-horizontal);
     @apply(--layout-center);
 
-    color: currentColor;
+    color: var(--primary-text-color);
     min-height: 48px;
     padding-left: 24px;
     padding-right: 24px;
@@ -42,7 +42,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   /* postcss-bem-linter: ignore */
   --paper-menu-selected-item: {
-    color: var(--accent-color);
+    color: #fff;
+    background-color: var(--dark-primary-color);
   };
 
   /* postcss-bem-linter: ignore */

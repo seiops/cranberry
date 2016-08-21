@@ -12,11 +12,6 @@ div.content-cards {
 
 div.content-cards > cranberry-content-card {
   @apply(--layout-vertical);
-  flex: 1 1 auto;
-
-  margin: 12px;
-  max-width: 370px;
-  text-decoration: none;
 }
 
 div.stream-advertisement-wrapper {

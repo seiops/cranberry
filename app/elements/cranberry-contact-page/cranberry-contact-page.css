@@ -1,5 +1,11 @@
 :host {
   display: block;
+
+  --paper-material-background: #fff;
+}
+
+paper-material {
+  background: #ffffff;
 }
 
 /* Font Styles */

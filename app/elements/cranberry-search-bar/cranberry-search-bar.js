@@ -4,8 +4,7 @@ class cranberrySearchBar {
     this.properties = {
       query: {
         type: String,
-        value: '',
-        observer: '_onQueryChanged'
+        value: ''
       },
       showClear: {
         type: Boolean,
@@ -14,9 +13,23 @@ class cranberrySearchBar {
     };
     // this.observers = ['_setPlaceholder(noLabel)'];
   }
+  attached() {
+    this.async(function() {
+      let el = this;
+      let form = Polymer.dom(this.root).querySelector('#searchForm');
+
+      form.addEventListener('iron-form-submit', function() {
+        app.logger('\<cranberry-search-bar\> search submit event');
+
+        el._search();
+      });
+    });
+  }
+
   _onNeonAnimationFinish() {
     //Abstract add here if needed
   }
+
   _checkQueryStatus() {
     // Get the search request BYUTV element
     let request = document.querySelector('#searchRequest');
@@ -25,31 +38,25 @@ class cranberrySearchBar {
       request.abortRequest();
     }
   }
+
   _search() {
     this._checkQueryStatus();
     // Get the query string
     let query = this.get('query');
+    this.async(function() {
+      // Change the app location to match search and the query string
+      let appLocation = document.querySelector('app-location');
+      appLocation.set('path', '/search/' + query.replace(/ /g, '+'));
 
-    // Change the app location to match search and the query string
-    let appLocation = document.querySelector('app-location');
-    appLocation.set('path', '/search/' + query.replace(/ /g, '+'));
+      this._clearInput();
+    });
 
-    this._clearInput();
   }
 
   _clearInput() {
-    this.set('query', '');
-    this.$.input.value = '';
+    let form = this.querySelector('form');
+    form.reset();
   }
-
-  _onQueryChanged(newValue) {
-    if (newValue !== '' && typeof newValue !== 'undefined') {
-      this.set('showClear', true);
-    } else {
-      this.set('showClear', false);
-    }
-  }
-
 
 }
 Polymer(cranberrySearchBar);
