@@ -16,8 +16,9 @@ class cranberryCalendar {
         let calendar = document.createElement('spingo-calendar');
         calendar.id = 'spingoCalendar';
         calendarContainer.appendChild(calendar);
+      } else {
+        this.$$('#spingoCalendar').remove();
       }
-
     }
   }
 }
