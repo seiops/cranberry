@@ -16,21 +16,22 @@ class CranberryGallery {
           request: 'gallery'
         }
       },
-      mycapture: {
-        type: String,
-        value: 'http://standard.mycapture.com/mycapture/remoteimage.asp'
+      myCaptureUrl: {
+        type: String
       },
       params: {
         type: Object,
         value: {}
       },
       rest: {
-        type: String,
-        value: 'http://sedev.libercus.net/rest.json'
+        type: String
       },
       routeData: Object,
       tags: {
         type: Array
+      },
+      myCaptureUrl: {
+        type: String
       }
     };
     this.listeners = {
@@ -53,14 +54,14 @@ class CranberryGallery {
 
   // Private methods.
   _buyImage() {
-    let slider = this.$.querySelector('cranberry-slider');
+    let slider = this.querySelector('cranberry-slider');
     let images = slider.items;
     let currentIndex = slider.index;
     let currentImage = images[currentIndex].src;
-    let mycapture = this.get('mycapture');
+    let myCapture = this.get('myCaptureUrl');
 
     let capture = {
-        sDomain: mycapture,
+        sDomain: myCapture,
         setImgParams: function () {
             var sImg = currentImage;
             capture.sImage = "?image=" + encodeURIComponent(sImg); // formatted sImg for preview

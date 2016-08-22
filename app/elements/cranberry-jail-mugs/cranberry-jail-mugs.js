@@ -39,6 +39,9 @@ class cranberryJailMugs {
       sliderJson: {
         type: Object,
         observer: 'onSliderJsonChanged'
+      },
+      rest: {
+        type: String
       }
     };
     this.listeners = {
@@ -81,7 +84,7 @@ class cranberryJailMugs {
   _buildCardRequest(start) {
     // Generate Request to build the cards at the bottom of the page
     let request = this.$.request;
-    let url = 'http://sedev.libercus.net/rest.json';
+    let url = this.get('rest');
     let params = {
       'request': 'congero',
       'desiredContent': 'jailmugs',
@@ -126,7 +129,7 @@ class cranberryJailMugs {
       date = routePath;
     }
     let request = this.$.secondRequest;
-    let url = 'http://sedev.libercus.net/rest.json';
+    let url = this.get('rest');
     let params = {
       'request': 'congero',
       'desiredContent': 'jailmugsind',

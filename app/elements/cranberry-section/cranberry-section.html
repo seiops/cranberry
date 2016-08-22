@@ -25,7 +25,7 @@
         <google-dfp section="[[loadSection]]" ad-pos="leaderboard" ad-size="[[728, 90],[970, 90],[970, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
     </div>
 
-    <cranberry-featured-content type="[[_isGalleries(galleries)]]" sections="[[loadSection]]" count="3" start="1"></cranberry-featured-content>
+    <cranberry-featured-content rest="{$ config.baseEndpointUrl $}" type="[[_isGalleries(galleries)]]" sections="[[loadSection]]" count="3" start="1"></cranberry-featured-content>
     <paper-material elevation="1">
       <paper-toolbar>
         <div hidden$="{{mobile}}">
@@ -41,11 +41,11 @@
     </paper-material>
 
     <template is="dom-if" if="[[_isLatest(selected)]]">
-      <cranberry-content-list type="[[_isGalleries(galleries)]]" sections="[[loadSection]]" section="[[section]]" count="20" start="1"></cranberry-content-list>
+      <cranberry-content-list rest="{$ config.baseEndpointUrl $}" type="[[_isGalleries(galleries)]]" sections="[[loadSection]]" section="[[section]]" count="20" start="1"></cranberry-content-list>
     </template>
 
     <template is="dom-if" if="[[_isLocal(selected)]]">
-      <cranberry-content-list type="[[_isGalleries(galleries)]]" sections="[[loadSection]]" count="20" start="1"></cranberry-content-list>
+      <cranberry-content-list rest="{$ config.baseEndpointUrl $}" type="[[_isGalleries(galleries)]]" sections="[[loadSection]]" count="20" start="1"></cranberry-content-list>
     </template>
 
   <!-- <template is="dom-if" if="[[_isPopular(selected)]]">
@@ -53,7 +53,7 @@
     </template> -->
 
     <template is="dom-if" if="[[_isFeatured(selected)]]">
-      <cranberry-content-list type="[[_isGalleries(galleries)]]" sections="[[loadSection]]" count="20" start="1"></cranberry-content-list>
+      <cranberry-content-list rest="{$ config.baseEndpointUrl $}" type="[[_isGalleries(galleries)]]" sections="[[loadSection]]" count="20" start="1"></cranberry-content-list>
     </template>
   </template>
   <script src="cranberry-section.js"></script>

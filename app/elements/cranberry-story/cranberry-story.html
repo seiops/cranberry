@@ -4,6 +4,7 @@
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
 <link rel="import" href="../cranberry-shortcode/cranberry-shortcode.html">
+<link rel="import" href="../youneeq-content/youneeq-content.html">
 <link rel="import" href="../gigya-comments/gigya-comments.html">
 <link rel="import" href="../gigya-sharebar/gigya-sharebar.html">
 <link rel="import" href="../google-dfp/google-dfp.html">
@@ -36,10 +37,10 @@
 
       <!-- Story Media -->
       <div class="story-media">
-        <iron-image id="mainImage" desktop-layout$="{{desktop}}" tablet-layout$="{{tablet}}" mobile-layout$="{{mobile}}" sizing="cover" src="http://www.standard.net{{story.mediaAssets.images.0.url}}"></iron-image>
+        <iron-image id="mainImage" desktop-layout$="{{desktop}}" tablet-layout$="{{tablet}}" mobile-layout$="{{mobile}}" sizing="cover" src="{$ config.baseDomain $}{{story.mediaAssets.images.0.exlarge}}"></iron-image>
         <div class="ut-rowFlex ut-absolute">
-          <paper-fab mini src="../../../images/social/FacebookLogo_29.png" id="facebookButton" class="ut-small-icon-margin"></paper-fab>
-          <paper-fab mini src="../../../images/social/TwitterLogo_white.png" title="Share on Twitter" id="twitterButton" class="ut-small-icon-margin" twitter-name="{$ config.socialNaming.twitter $}"></paper-fab>
+          <paper-fab mini src="../../../images/social/FacebookLogo_29.png" id="facebookButton" class="ut-small-icon-margin" social-name="{$ config.socialNaming.facebook $}"></paper-fab>
+          <paper-fab mini src="../../../images/social/TwitterLogo_white.png" title="Share on Twitter" id="twitterButton" class="ut-small-icon-margin" social-name="{$ config.socialNaming.twitter $}"></paper-fab>
           <paper-fab mini icon="communication:chat-bubble" title="Comments" id="commentButton" class="ut-small-icon-margin" on-tap="_scrollToComments"></paper-fab>
           <gigya-sharebar share-buttons-id="gigya-share-buttons-story"></gigya-sharebar>
         </div>
@@ -131,9 +132,7 @@
 
       <!-- Youneeq Content Area -->
       <div class="ut-center">
-        <div style="width:100%; height:350px; background:lightgray;">
-          Youneeq
-        </div>
+        <youneeq-content user="[[user]]" content="[[story]]" domain="{$ config.baseDomain $}"></youneeq-content>
       </div>
 
       <!-- Last Ad -->

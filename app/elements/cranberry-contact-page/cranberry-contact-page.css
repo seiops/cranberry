@@ -238,6 +238,10 @@ paper-button.rounded-button {
   @apply(--layout-wrap);
 }
 
+.important-links-container a {
+  text-decoration: none;
+}
+
 .important-links-container paper-button {
   min-width: 150px;
   margin: 10px;

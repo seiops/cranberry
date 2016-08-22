@@ -13,7 +13,7 @@
       <template is="dom-if" if="[[_isStory(item.contentType)]]">
         <template is="dom-if" if="[[_hasImage(item.mediaAssets.images.0.url)]]">
           <a href="/story/[[item.itemId]]">
-            <paper-card heading="[[item.title]]" fade-image preload-image image="http://www.standard.net/[[item.mediaAssets.images.0.large]]" elevation="1" class="story">
+            <paper-card heading="[[item.title]]" fade-image preload-image image="{$ config.baseDomain $}/[[item.mediaAssets.images.0.large]]" elevation="1" class="story">
               <div class="card-content">
                 <span class="story-date">[[item.updated]]</span>
                 <span>[[_trimText(item.preview)]]</span>
@@ -45,7 +45,7 @@
       </template>
       <template is="dom-if" if="[[_isGallery(item.contentType)]]">
         <a href="/photo-gallery/[[item.itemId]]">
-          <paper-card class="gallery" heading="[[item.title]]" image="http://www.standard.net/[[item.mediaAssets.images.0.exlarge]]" elevation="1">
+          <paper-card class="gallery" heading="[[item.title]]" image="{$ config.baseDomain $}/[[item.mediaAssets.images.0.exlarge]]" elevation="1">
             <div class="icon">
               <iron-icon icon="image:photo-camera"></iron-icon>
             </div>
@@ -66,7 +66,7 @@
 
         <template is="dom-if" if="[[main]]">
           <a class="main" href="/story/[[item.itemId]]">
-            <paper-card class="featured main" heading="[[item.title]]" image="http://www.standard.net/[[item.mediaAssets.images.0.exlarge]]" elevation="1">
+            <paper-card class="featured main" heading="[[item.title]]" image="{$ config.baseDomain $}/[[item.mediaAssets.images.0.exlarge]]" elevation="1">
               <div class="card-actions">
                 <div class="card-info">
                   <span class="content-tag">[[item.sectionInformation.primarySection]]</span>
@@ -79,7 +79,7 @@
 
         <template is="dom-if" if="[[list]]">
           <a class="list" href="/story/[[item.itemId]]">
-            <paper-card class="featured list" heading="[[item.title]]" image="http://www.standard.net/[[item.mediaAssets.images.0.exlarge]]" elevation="1">
+            <paper-card class="featured list" heading="[[item.title]]" image="{$ config.baseDomain $}/[[item.mediaAssets.images.0.exlarge]]" elevation="1">
               <div class="card-actions">
                 <div class="card-info">
                   <span class="content-tag">[[item.sectionInformation.primarySection]]</span>
@@ -93,7 +93,7 @@
       <template is="dom-if" if="[[_isGallery(item.contentType)]]">
         <template is="dom-if" if="[[main]]">
           <a class="main" href="/photo-gallery/[[item.itemId]]">
-            <paper-card class="featured main gallery" heading="[[item.title]]" image="http://www.standard.net/[[item.mediaAssets.images.0.exlarge]]" elevation="1">
+            <paper-card class="featured main gallery" heading="[[item.title]]" image="{$ config.baseDomain $}/[[item.mediaAssets.images.0.exlarge]]" elevation="1">
               <div class="icon">
                 <iron-icon icon="image:photo-camera"></iron-icon>
               </div>
@@ -109,7 +109,7 @@
 
         <template is="dom-if" if="[[list]]">
           <a class="list" href="/photo-gallery/[[item.itemId]]">
-            <paper-card class="featured list gallery" heading="[[item.title]]" image="http://www.standard.net/[[item.mediaAssets.images.0.exlarge]]" elevation="1">
+            <paper-card class="featured list gallery" heading="[[item.title]]" image="{$ config.baseDomain $}/[[item.mediaAssets.images.0.exlarge]]" elevation="1">
               <div class="icon">
                 <iron-icon icon="image:photo-camera"></iron-icon>
               </div>
@@ -125,7 +125,7 @@
       </template>
       <template is="dom-if" if="[[slider]]">
         <template is="dom-if" if="[[_isStory(item.contentType)]]">
-          <paper-card heading="[[item.title]]" image="http://www.standard.net/[[item.mediaAssets.images.0.medium]]" elevation="1">
+          <paper-card heading="[[item.title]]" image="{$ config.baseDomain $}/[[item.mediaAssets.images.0.medium]]" elevation="1">
               <div class="card-content">
                 [[item.title]]
               </div>
@@ -138,7 +138,7 @@
             </paper-card>
           </template>
           <template is="dom-if" if="[[_isGallery(item.contentType)]]">
-            <paper-card class="gallery" heading="[[item.title]]" image="http://www.standard.net/[[item.mediaAssets.images.0.medium]]" elevation="1">
+            <paper-card class="gallery" heading="[[item.title]]" image="{$ config.baseDomain $}/[[item.mediaAssets.images.0.medium]]" elevation="1">
                 <div class="icon">
                   <iron-icon icon="image:photo-camera"></iron-icon>
                 </div>

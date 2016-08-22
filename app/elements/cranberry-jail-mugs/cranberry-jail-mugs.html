@@ -30,7 +30,7 @@
       <div class="flex-absolute tag-links">
         <paper-button raised>Jail Mugs</paper-button>
       </div>
-      <cranberry-slider id="mugSlider" autostart arrows></cranberry-slider>
+      <cranberry-slider id="mugSlider" base-url="{$ config.baseDomain $}" autostart arrows></cranberry-slider>
       <div class="flex-absolute share-buttons">
         <gigya-sharebar share-buttons-id="gigya-share-buttons-jail-mugs"></gigya-sharebar>
       </div>
@@ -51,7 +51,7 @@
       <div class="card-container">
         <template is="dom-repeat" items={{cardsJson}}>
           <a href="/jail-mugs/{{item.bookingDate}}">
-            <paper-card image="http://www.standard.net/[[item.image.medium]]">
+            <paper-card image="{$ config.baseDomain $}/[[item.image.medium]]">
               <div class="card-content">
                 <div class="content-container">
                   <div class="content">

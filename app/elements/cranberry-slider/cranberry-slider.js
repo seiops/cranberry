@@ -69,6 +69,9 @@ class cranberrySlider {
       },
       transitioning: {
         type: Boolean
+      },
+      baseUrl: {
+        type: String
       }
     }
   }
@@ -139,10 +142,11 @@ class cranberrySlider {
 
   updateItems(el) {
     let items = [];
+    let baseUrl = this.get('baseUrl');
 
     el.images.forEach(function(value, index) {
       items.push({
-        src: 'http://www.standard.net' + value.exlarge,
+        src: baseUrl + value.exlarge,
         html: '',
         loaded: false
       });

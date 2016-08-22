@@ -20,8 +20,7 @@ class CranberryContentList {
                 observer: '_parseResponse'
             },
             rest: {
-                type: String,
-                value: 'http://sedev.libercus.net/rest.json'
+                type: String
             },
             sections: {
                 type: String,

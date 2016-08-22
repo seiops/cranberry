@@ -16,7 +16,7 @@
 
     <paper-dialog id="modal" modal>
       <div class="gallery-container">
-        <cranberry-slider id="modalSlider" images="{{gallery.mediaAssets.images}}" autostart arrows info caption modal></cranberry-slider>
+        <cranberry-slider id="modalSlider" base-url="{$ config.baseDomain $}" images="{{gallery.mediaAssets.images}}" autostart arrows info caption modal></cranberry-slider>
         <paper-button id="modalClose" raised>Close</paper-button>
       </div>
     </paper-dialog>
@@ -25,7 +25,7 @@
     <byutv-jsonp on-response="_handleResponse" id="request"></byutv-jsonp>
 
     <div class="ut-center">
-      <google-dfp route="{{route}}" ad-pos="leaderboard_bottom" ad-size="[728, 90]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+      <google-dfp section="[[gallery.sectionInformation.sectionName]]" section-parent="[[gallery.sectionInformation.sectionParentName]]" ad-pos="leaderboard_bottom" ad-size="[[728, 90],[970, 90],[970, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
     </div>
 
     <div class="gallery-container">
@@ -37,7 +37,7 @@
       <div class="flex-absolute expand-link">
         <paper-button raised id="modalOpen" class="rounded-button"><iron-icon icon="icons:fullscreen"></iron-icon></paper-button>
       </div>
-      <cranberry-slider id="mainSlider" images="{{gallery.mediaAssets.images}}" autostart arrows info caption>
+      <cranberry-slider id="mainSlider" base-url="{$ config.baseDomain $}" images="{{gallery.mediaAssets.images}}" autostart arrows info caption>
         <div class="flex-absolute share-buttons">
           <paper-button raised id="buyButton" class="rounded-button"><iron-icon icon="editor:attach-money"></iron-icon></paper-button>
           <gigya-sharebar share-buttons-id="gigya-share-buttons-gallery"></gigya-sharebar>
@@ -51,11 +51,11 @@
     <div class="ut-grid ut-margin-bottom">
       <div class="flex-3 ut-center" id="images">
         <template is="dom-repeat" items="{{gallery.mediaAssets.images}}">
-          <iron-image src$="http://www.standard.net{{item.small}}" sizing="cover" data-index$="{{index}}" style="background-color: lightgray;" preload></iron-image>
+          <iron-image src$="{$ config.baseDomain $}{{item.small}}" sizing="cover" data-index$="{{index}}" style="background-color: lightgray;" preload></iron-image>
         </template>
       </div>
       <div class="flex ut-center">
-        <google-dfp route="{{route}}" ad-pos="bottom_of_stream" adsize="[[300,250],[300,600]]" adgroup="{$ config.dfpAdStructure.adGroupID $}" adgrouping="{$ config.dfpAdStructure.adGrouping $}" adsubgrouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+        <google-dfp section="[[gallery.sectionInformation.sectionName]]" section-parent="[[gallery.sectionInformation.sectionParentName]]" ad-pos="top_of_stream" ad-size="[[300, 250],[300, 600]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
       </div>
     </div>
 
@@ -65,8 +65,13 @@
       <gigya-comments comments-id="gallery-comments" comments-unique-id="{{galleryId}}"></gigya-comments>
     </div>
 
+    <!-- Youneeq Content Area -->
     <div class="ut-center">
-      <iron-image src="http://www.placehold.it/970x250&text=AD_970x250"></iron-image>
+      <youneeq-content user="[[user]]" content="[[gallery]]" domain="{$ config.baseDomain $}"></youneeq-content>
+    </div>
+
+    <div class="ut-center">
+      <google-dfp section="[[gallery.sectionInformation.sectionName]]" section-parent="[[gallery.sectionInformation.sectionParentName]]" ad-pos="leaderboard_bottom" ad-size="[[728, 90],[970, 90],[970, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
     </div>
 
   </template>

@@ -46,6 +46,9 @@ class cranberrySearch {
       },
       hidden: {
         type: Boolean
+      },
+      rest: {
+        type: String
       }
     };
     this.listeners = {
@@ -140,7 +143,7 @@ class cranberrySearch {
 
       let request = this.$.searchRequest;
 
-      request.setAttribute('url', 'http://sestgcore.libercus.net/rest.json');
+      request.setAttribute('url', this.get('rest'));
       request.params = params;
       request.generateRequest();
     }

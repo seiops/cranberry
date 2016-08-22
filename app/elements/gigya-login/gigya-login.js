@@ -10,6 +10,9 @@ class GigyaLogin {
       verify: {
         type: Object,
         value: {}
+      },
+      apiKey: {
+        type: String
       }
     };
   }
@@ -266,8 +269,9 @@ class GigyaLogin {
       let request = Polymer.dom(this.root).querySelector('#request');
 
       let params = {};
+      let apiKey = this.get('apiKey');
 
-      params.apiKey = '3_6UHHWrJ4LmAOWWdgqP0UWqk-2InoMn5NH8Lo1aOfcmFl6zAS4u_-IxvC3mbGAxch';
+      params.apiKey = apiKey;
       params.format = 'jsonp';
       params.loginID = loginForm.loginID.value;
       params.password = loginForm.password.value;
