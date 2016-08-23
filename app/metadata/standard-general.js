@@ -1,7 +1,7 @@
 module.exports = {
   appName: 'Cranberry',
   appShortName: 'CRAN',
-  title: 'Stadard Examiner',
+  title: 'Standard Examiner',
   description: 'SNG Web Core',
   charset: 'utf-8',
   lang: 'en',
