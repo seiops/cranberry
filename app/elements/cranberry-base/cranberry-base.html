@@ -89,14 +89,12 @@
         <!-- content area -->
         {% include "cranberry-base/views/pages.html" %}
       </app-header-layout>
+      <paper-toast id="confirmToast" class="Toast" duration="4000">
+        <span class="Toast-button" role="button" tabindex="0" on-tap="onConfirmToastTap">OK</span>
+      </paper-toast>
 
+      <paper-toast id="infoToast" class="Toast" duration="4000" always-on-top></paper-toast>
     </app-drawer-layout>
-
-    <paper-toast id="confirmToast" class="Toast" duration="8000">
-      <span class="Toast-button" role="button" tabindex="0" on-tap="onConfirmToastTap">OK</span>
-    </paper-toast>
-
-    <paper-toast id="infoToast" class="Toast" duration="8000"></paper-toast>
 
   </template>
 
