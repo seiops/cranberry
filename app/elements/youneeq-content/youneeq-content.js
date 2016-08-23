@@ -108,7 +108,9 @@ class youneeqContent {
     observeObj.title = content.title;
     observeObj.categories = [content.sectionInformation.section];
     observeObj.description = content.preview;
-    observeObj.image = content.mediaAssets.images[0].exlarge;
+    if (Object.keys(content.mediaAssets).length > 0) {
+      observeObj.image = content.mediaAssets.images[0].exlarge;
+    }
     observeObj.create_date = content.published;
 
     observe[0] = observeObj;
