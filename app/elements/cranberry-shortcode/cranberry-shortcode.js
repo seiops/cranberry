@@ -64,7 +64,12 @@ class cranberryShortcode {
         case 'twitteruser':
           this._createShortcode({}, 'twitter', shortcode);
           break;
+        case 'leadyoutube':
         case 'youtube':
+          if (shortcode.key === 'leadyoutube') {
+            let storyEl = document.querySelector('cranberry-story');
+            storyEl.set('hasLeadShortcode', true);
+          }
           foundObject = this._findAsset(story.mediaAssets.videos, 'title', shortcode.value);
           this._createShortcode(foundObject, 'youtube', shortcode);
           break;
@@ -193,7 +198,7 @@ class cranberryShortcode {
         let videoAttribute = document.createAttribute('video-id');
         videoAttribute.value = foundObject.url;
         shortcodeEl.setAttributeNode(videoAttribute);
-        shortcodeEl.height = '400px';
+        shortcodeEl.height = '100%';
         shortcodeEl.width = '100%';
       }
 
@@ -267,8 +272,11 @@ class cranberryShortcode {
       }
 
       // Append shortcodeEl
+      let story = document.querySelector('cranberry-story');
       if (shortcode.key === 'leadimage') {
-        document.querySelector('#mainImage').src = baseUrl + foundObject.exlarge;
+        story.querySelector('#mainImage').src = baseUrl + foundObject.exlarge;
+      } else if (shortcode.key === 'leadyoutube') {
+        story.querySelector('#leadShortcode').appendChild(shortcodeEl);
       } else {
         Polymer.dom(this.$.shortcode).appendChild(shortcodeEl);
       }

@@ -22,3 +22,7 @@ div#shortcode::shadow iron-image {
 ::shadow p.caption-text {
   @apply(--paper-font-caption);
 }
+
+div#shortcode::shadow google-youtube {
+  height: 400px;
+}

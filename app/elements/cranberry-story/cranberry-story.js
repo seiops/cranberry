@@ -32,6 +32,10 @@ class CranberryStory {
             },
             user: {
               type: Object
+            },
+            hasLeadShortcode: {
+              type: Boolean,
+              value: false
             }
         };
 
@@ -47,11 +51,44 @@ class CranberryStory {
         let storyId = this.get('storyId');
 
         this.set('story', {});
+        this._destroyContent();
+
         if (params.length !== 0 && storyId !== 0) {
             this.$.request.url = this.rest;
             this.$.request.params = params;
             this.$.request.generateRequest();
         }
+    }
+
+    _destroyContent() {
+      let contentArea = this.$.storyContentArea;
+      let leadMediaArea = this.$.leadShortcode;
+      let image = this.$.mainImage;
+
+      // Remove all children of the content area to prevent old paragraphs showing
+      while(contentArea.firstChild) {
+        contentArea.removeChild(contentArea.firstChild);
+      }
+
+      // Remove all children of the media area to prevent old media items from showing
+      while(leadMediaArea.firstChild) {
+        leadMediaArea.removeChild(leadMediaArea.firstChild);
+      }
+
+      // Remove source on main image
+      mainImage.src = '';
+
+      // Set lead shortcode back to false
+      this.set('hasLeadShortcode', false);
+    }
+
+    _checkMedia(mediaItems) {
+      if (typeof mediaItems !== 'undefined') {
+        let hasShortcode = this.get('hasLeadShortcode');
+        if (Object.keys(mediaItems).length === 0 && !hasShortcode) {
+          return true;
+        }
+      }
     }
 
     _checkParams() {
@@ -85,11 +122,6 @@ class CranberryStory {
                 let baseUrl = this.get('baseUrl');
                 let paragraphs = story.paragraphs;
                 let contentArea = this.$.storyContentArea;
-
-                // Remove all children of the content area to prevent old paragraphs showing
-                while(contentArea.firstChild) {
-                  contentArea.removeChild(contentArea.firstChild);
-                }
 
                 if (typeof paragraphs !== 'undefined') {
                     // Create a document fragment to append all elements to
