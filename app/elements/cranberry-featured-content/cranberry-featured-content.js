@@ -106,7 +106,7 @@ class CranberryFeaturedContent {
         jsonp.desiredSection = this.get('sections');
         jsonp.desiredContent = this.get('type');
         jsonp.desiredCount = this.get('count');
-        jsonp.desiredDeliver = 'imageOnly';
+        jsonp.desiredDelivery = 'imagesOnly';
         this.set('params', jsonp);
     }
 }
