@@ -29,7 +29,7 @@
         </template>
         <template is="dom-if" if="[[!_hasImage(item.mediaAssets.images.0.url)]]">
           <a href="/story/[[item.itemId]]">
-            <paper-card heading="[[item.title]]" elevation="1" class="story">
+            <paper-card heading="[[item.title]]" elevation="1" class="story no-image">
               <div class="card-content">
                 <span>[[_trimText(item.preview)]]</span>
               </div>

@@ -101,6 +101,11 @@ paper-card.gallery ::content div.title-text {
   width: calc(100% - 24px);
 }
 
+paper-card.no-image ::content div.title-text {
+  background: none;
+  background-color: var(--tertiary-background-color);
+}
+
 paper-card.story div.card-info {
   @apply(--layout-horizontal);
   @apply(--layout-justified);
