@@ -12,8 +12,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 /* https://www.google.com/design/spec/components/snackbars-toasts.html#snackbars-toasts-specs */
 
 .Toast {
+  @apply(--layout-vertical);
+  @apply(--layout-center);
   @apply(--paper-font-body1);
 
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 0;
+  color: #fff;
+  margin: 0;
+  width: 100%;
   @nest &-button {
     @apply(--paper-font-button);
 
