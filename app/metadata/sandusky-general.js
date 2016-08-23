@@ -9,5 +9,6 @@ module.exports = {
   applicationName: 'CRAN',
   // Add to homescreen for Safari on iOS
   appleMobileWebAppTitle: 'CRAN',
-  siteName: 'Sandusky-Register'
+  siteName: 'Sandusky-Register',
+  fileName: 'sandusky'
 };

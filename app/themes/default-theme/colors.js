@@ -330,7 +330,7 @@ module.exports = {
   /* Custom Global Colors */
   'paper-error-red': '#ce181e',
   'paper-page-background': '#f9f9f9',
-  
+
   /* Custom Standard Examiner Color Palette */
   /* Main Colors */
   'paper-Standard-Examiner-100': '#005A90',
@@ -340,6 +340,17 @@ module.exports = {
   'paper-Standard-Examiner-accent-a100': '#75dbbf',
   'paper-Standard-Examiner-accent-a200': '#5bc1a5',
   'paper-Standard-Examiner-accent-a400': '#42a88c',
-  'paper-Standard-Examiner-accent-a700': '#288e72'
+  'paper-Standard-Examiner-accent-a700': '#288e72',
+
+  /* Custom Sandusky Register Color Palette */
+  /* Main Colors */
+  'paper-Sandusky-Register-100': '#3d80b3',
+  'paper-Sandusky-Register-500': '#336699',
+  'paper-Sandusky-Register-700': '#1a4d80',
+  /* Accent Colors */
+  'paper-Sandusky-Register-accent-a100': '#80b3e6',
+  'paper-Sandusky-Register-accent-a200': '#6699cc',
+  'paper-Sandusky-Register-accent-a400': '#4d80b3',
+  'paper-Sandusky-Register-accent-a700': '#336699'
 
 };
