@@ -19,6 +19,10 @@
       <cranberry-search-bar class="Drawer-search" id="drawerSearch"></cranberry-search-bar>
 
       <paper-menu class="Navigation Navigation--menu list" attr-for-selected="data-route" selected="[[route.path]]">
+        <a class="Navigation-link" data-route="/" href="/">
+          <iron-icon class="Navigation-icon" icon="home"></iron-icon>
+          <span class="Navigation-text">Home</span>
+        </a>
         <!-- Static above taxonomy links -->
         <a class="Navigation-link" data-route="/section/obituary" href="/section/obituary">
           <iron-icon class="Navigation-icon" icon="link"></iron-icon>
@@ -36,11 +40,6 @@
         </a>
 
         <!-- Core Taxonomy -->
-        <a class="Navigation-link" data-route="/" href="/">
-          <iron-icon class="Navigation-icon" icon="home"></iron-icon>
-          <span class="Navigation-text">Home</span>
-        </a>
-
         <a class="Navigation-link" data-route="/section/news" href="/section/news">
           <iron-icon class="Navigation-icon" icon="chrome-reader-mode"></iron-icon>
           <span class="Navigation-text">News</span>
@@ -66,12 +65,12 @@
           <span class="Navigation-text">Entertainment</span>
         </a>
 
-        <a class="Navigation-link" data-route="/section/entertainment" href="/section/lifestyle">
+        <a class="Navigation-link" data-route="/section/lifestyle" href="/section/lifestyle">
           <iron-icon class="Navigation-icon" icon="maps:local-cafe"></iron-icon>
           <span class="Navigation-text">Lifestyle</span>
         </a>
 
-        <a class="Navigation-link" data-route="/jail-mugs" href="/jail-mugs">
+        <!-- <a class="Navigation-link" data-route="/jail-mugs" href="/jail-mugs">
           <iron-icon class="Navigation-icon" icon="icons:lock"></iron-icon>
           <span class="Navigation-text">Jail Mugs</span>
         </a>
@@ -84,7 +83,7 @@
         <a class="Navigation-link" data-route="/archive" href="/archive">
           <iron-icon class="Navigation-icon" icon="hardware:keyboard"></iron-icon>
           <span class="Navigation-text">Archive</span>
-        </a>
+        </a> -->
 
         <!-- Below Taxonomy Links -->
         <a class="Navigation-link" data-route="/tags/decision-2016" href="/tags/decision-2016">
