@@ -17,6 +17,10 @@ class CranberrySection {
             galleries: {
               type: Boolean,
               value: false
+            },
+            tags: {
+              type: Boolean,
+              value: false
             }
         };
 
@@ -98,6 +102,7 @@ class CranberrySection {
     _routeChange(section) {
       this.async(function() {
           let hidden = this.hidden;
+          let tags = this.get('tags');
 
           if (!hidden) {
               if (typeof section !== 'undefined' && section.length > 0 && section !== ('section' || 'story')) {

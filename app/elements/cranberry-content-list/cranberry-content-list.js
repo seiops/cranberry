@@ -31,6 +31,10 @@ class CranberryContentList {
             },
             type: {
                 type: String
+            },
+            tags: {
+              type: Boolean,
+              value: false
             }
         };
     }
@@ -112,6 +116,7 @@ class CranberryContentList {
 
     _updateParams() {
         let currentRequest = this.get('request');
+        let tags = this.get('tags');
 
         if (typeof currentRequest !== 'undefined' && currentRequest.loading === true) {
             app.logger('<\cranberry-content-list\> aborting previous request');
@@ -123,7 +128,11 @@ class CranberryContentList {
         let jsonp = {};
 
         jsonp.request = 'content-list';
-        jsonp.desiredSection = this.get('sections');
+        if (typeof tags !== 'undefined' && tags) {
+          jsonp.desiredTags = this.get('sections');
+        } else {
+          jsonp.desiredSection = this.get('sections');
+        }
         jsonp.desiredContent = this.get('type');
         jsonp.desiredCount = this.get('count');
         this.set('params', jsonp);
