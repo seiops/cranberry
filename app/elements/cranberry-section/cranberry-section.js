@@ -21,6 +21,9 @@ class CranberrySection {
             tags: {
               type: Boolean,
               value: false
+            },
+            tag: {
+              type: String
             }
         };
 
@@ -110,7 +113,12 @@ class CranberrySection {
               } else {
                   this.set('loadSection', 'news');
               }
+
+              if (tags) {
+                this.set('tag', section);
+              }
           }
+
       });
     }
 }

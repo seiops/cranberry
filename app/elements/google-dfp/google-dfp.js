@@ -23,6 +23,9 @@ class GoogleDFP {
             },
             adSubGrouping: {
                 type: String
+            },
+            tags: {
+              type: String
             }
         };
     }
@@ -40,6 +43,7 @@ class GoogleDFP {
             let position = this.get('adPos');
             let adSection = section.replace(' ', '_').replace('-', '_');
             let sectionParent = this.get('sectionParent');
+            let tags = this.get('tags');
 
             // Logical statement to make default section news if no section is provided
             // This is mainly a provision for gallery pages that do not have a section by default
@@ -61,6 +65,7 @@ class GoogleDFP {
             googletag.cmd.push(function() {
                 googletag.pubads().setTargeting('section', parentSection);
                 googletag.pubads().setTargeting('placement', 'development');
+                googletag.pubads().setTargeting('content', tags);
                 googletag.enableServices();
 
                 let dfpURL = adGroup + '/' + adGrouping + '/' + adSubGrouping + '/' + adSection + '/' + position;

@@ -32,6 +32,9 @@ class CranberryContentList {
             type: {
                 type: String
             },
+            tag: {
+              type: String
+            },
             tags: {
               type: Boolean,
               value: false
