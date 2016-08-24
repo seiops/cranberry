@@ -94,6 +94,32 @@
   @apply(--layout-vertical);
 }
 
+/* Global Card Styles */
+paper-card div.card-info {
+  @apply(--layout-horizontal);
+  @apply(--layout-justified);
+}
+
+paper-card div.card-info span.content-tag {
+  @apply(--paper-font-caption);
+  @apply(--paper-font-common-uppercase);
+  color: var(--accent-color);
+}
+
+paper-card div.card-info span.content-comments {
+  @apply(--paper-font-caption);
+  color: var(--accent-color);
+}
+
+/* Flip The Comments Icon */
+paper-card div.card-info div.story-comments iron-icon {
+  transform: scaleX(-1);
+}
+
+paper-card div.card-info div.story-date {
+  @apply(--paper-font-caption2);
+}
+
 /* Story Card Styles */
 paper-card.story ::content div.title-text,
 paper-card.gallery ::content div.title-text {
@@ -101,62 +127,22 @@ paper-card.gallery ::content div.title-text {
   width: calc(100% - 24px);
 }
 
+/* No Image Styles */
 paper-card.no-image ::content div.title-text {
   background: none;
   background-color: var(--tertiary-background-color);
 }
 
-paper-card.story div.card-info {
-  @apply(--layout-horizontal);
-  @apply(--layout-justified);
-}
-
-paper-card.story div.card-info div.story-tag {
-  @apply(--paper-font-caption);
-  @apply(--paper-font-common-uppercase);
-  color: var(--accent-color);
-}
-
-paper-card.story div.card-info div.story-comments {
-  @apply(--paper-font-caption);
-  color: var(--accent-color);
-}
-
-/* Flip The Comments Icon */
-paper-card.story div.card-info div.story-comments iron-icon {
-  transform: scaleX(-1);
-}
-
-paper-card.story div.card-info div.story-date {
-  @apply(--paper-font-caption2);
-}
-
 /* Gallery Card Styles */
-paper-card.gallery div.card-info {
-  @apply(--layout-horizontal);
-  @apply(--layout-justified);
-}
-
-paper-card.gallery div.card-info span.content-tag {
-  @apply(--paper-font-caption);
-  @apply(--paper-font-common-uppercase);
-  color: var(--accent-color);
-}
-
-paper-card.gallery div.card-info span.content-date {
-  @apply(--paper-font-caption2);
-}
-
-paper-card.gallery div.card-info {
-  @apply(--layout-horizontal);
-  @apply(--layout-justified);
-}
-
 paper-card.gallery div.icon {
   position: absolute;
   top: 0;
   right: 0;
   color: var(--accent-color);
+}
+
+paper-card.gallery div.card-info span.content-date {
+  @apply(--paper-font-caption2);
 }
 
 /* Featured Card Styles */
