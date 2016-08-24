@@ -19,6 +19,23 @@
       <cranberry-search-bar class="Drawer-search" id="drawerSearch"></cranberry-search-bar>
 
       <paper-menu class="Navigation Navigation--menu list" attr-for-selected="data-route" selected="[[route.path]]">
+        <!-- Static above taxonomy links -->
+        <a class="Navigation-link" data-route="/section/obituary" href="/section/obituary">
+          <iron-icon class="Navigation-icon" icon="link"></iron-icon>
+          <span class="Navigation-text">Obituaries</span>
+        </a>
+
+        <a class="Navigation-link" data-route="/elogin" href="/elogin">
+          <iron-icon class="Navigation-icon" icon="important-devices"></iron-icon>
+          <span class="Navigation-text">E-Paper</span>
+        </a>
+
+        <a class="Navigation-link" data-route="/galleries" href="/galleries">
+          <iron-icon class="Navigation-icon" icon="image:collections"></iron-icon>
+          <span class="Navigation-text">Galleries</span>
+        </a>
+
+        <!-- Core Taxonomy -->
         <a class="Navigation-link" data-route="/" href="/">
           <iron-icon class="Navigation-icon" icon="home"></iron-icon>
           <span class="Navigation-text">Home</span>
@@ -59,11 +76,6 @@
           <span class="Navigation-text">Jail Mugs</span>
         </a>
 
-        <a class="Navigation-link" data-route="/galleries" href="/galleries">
-          <iron-icon class="Navigation-icon" icon="image:collections"></iron-icon>
-          <span class="Navigation-text">Galleries</span>
-        </a>
-
         <a class="Navigation-link" data-route="/contact" href="/contact">
           <iron-icon class="Navigation-icon" icon="icons:mail"></iron-icon>
           <span class="Navigation-text">Contact Us</span>
@@ -74,6 +86,31 @@
           <span class="Navigation-text">Archive</span>
         </a>
 
+        <!-- Below Taxonomy Links -->
+        <a class="Navigation-link" data-route="/tags/decision-2016" href="/tags/decision-2016">
+          <iron-icon class="Navigation-icon" icon="thumbs-up-down"></iron-icon>
+          <span class="Navigation-text">Decision 2016</span>
+        </a>
+
+        <a class="Navigation-link" data-route="/tags/c25k" href="/tags/c25k">
+          <iron-icon class="Navigation-icon" icon="maps:directions-run"></iron-icon>
+          <span class="Navigation-text">Fit Challenge</span>
+        </a>
+
+        <a class="Navigation-link" data-route="/games" href="/games">
+          <iron-icon class="Navigation-icon" icon="av:games"></iron-icon>
+          <span class="Navigation-text">Games + Puzzles </span>
+        </a>
+
+        <a class="Navigation-link" data-route="/section/law-enforcement" href="/section/law-enforcement">
+          <iron-icon class="Navigation-icon" icon="gavel"></iron-icon>
+          <span class="Navigation-text">Law Enforcement</span>
+        </a>
+
+        <a class="Navigation-link" data-route="/tags/cedar%20point" href="/tags/cedar%20point">
+          <iron-icon class="Navigation-icon" icon="image:nature-people"></iron-icon>
+          <span class="Navigation-text">Cedar Point</span>
+        </a>
       </paper-menu>
 
     </nav>
