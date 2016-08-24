@@ -94,7 +94,7 @@ module.exports = {
         link: 'more.sanduskyregister.com'
       },
       {
-        label: 'Today\'s Ads',
+        label: 'Todays Ads',
         link: 'local.sanduskyregister.com/ads'
       },
       {
