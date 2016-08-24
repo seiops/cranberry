@@ -34,7 +34,7 @@ paper-button.rounded-button {
 .main-image iron-image {
   display: flex;
   justify-content: center;
-  max-height: 700px;
+  height: 700px;
   width: 100%;
 }
 
