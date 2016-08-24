@@ -17,7 +17,7 @@
       <!-- MAIN IMAGE -->
       <div class="main-image">
         <!-- TODO: Need proper image here with correct 16:9 aspect ratio -->
-        <iron-image src="../../../images/SEBuilding.JPG"></iron-image>
+        <iron-image src="{$ config.contactInformation.contactImage $}"></iron-image>
         <h3 class="header-title">Welcome to the {$ config.title $}</h3>
       </div>
 
@@ -72,7 +72,7 @@
       </div>
 
       <!-- Google Map -->
-      <cranberry-map latitude="41.2584591" longitude="-111.9936357"></cranberry-map>
+      <cranberry-map latitude="{$ config.contactInformation.map.latitude $}" longitude="{$ config.contactInformation.map.longitude $}" zoom="17"></cranberry-map>
 
       <!-- Need help -->
       <div class="help-section">

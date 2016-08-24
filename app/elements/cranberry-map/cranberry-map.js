@@ -7,6 +7,9 @@ class cranberryMap {
         value: function() {
           return getMapAPI();
         }
+      },
+      zoom: {
+        type: Number
       }
     }
   }

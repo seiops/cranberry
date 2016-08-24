@@ -37,66 +37,77 @@ module.exports = {
   // Contact Page Config
   // Entire contact information needs changed
   contactInformation: {
-    contactFormRecipient: 'memberservices@standard.net',
+    contactFormRecipient: 'circulation@sanduskyregister.com',
+    contactImage: '../../images/contact/sandusky/contact.jpg',
     hours: {
-      week: '6:30 a.m. - 5:00 p.m',
-      weekend: '6:30 a.m. - 10:00 a.m'
+      week: '8:00 a.m. - 5:00 p.m',
+      weekend: 'Closed'
     },
-    phone: '801.625.4200 | 800.651.2105',
-    email: 'memberservices@standard.net',
+    phone: '419-625-5500',
+    email: 'circulation@sanduskyregister.com',
     address: {
-      unitNumber: '332',
-      street: 'Standard Way',
-      city: 'Ogden',
-      state: 'UT',
-      zip: '84404'
+      unitNumber: '314',
+      street: 'West Market Street',
+      city: 'Sandusky',
+      state: 'OH',
+      zip: '44870'
     },
     map: {
-      latitude: '41.2584591',
-      longitude: '-111.9936357'
+      latitude: '41.4552814',
+      longitude: '-82.7158251'
     },
     needHelp: [
       {
         logo: 'icons:shopping-basket',
         label: 'Retail Advertising',
-        phone: '801.625.4333'
+        phone: '419-502-2121'
       },
       {
         logo: 'icons:find-in-page',
         label: 'Classifieds',
-        phone: '801.625.4488'
+        phone: '419-502-2120'
       },
       {
         logo: 'icons:card-membership',
         label: 'Member Services',
-        phone: '801.625.4400'
+        phone: '419-625-5500'
       },
       {
         logo: 'icons:lightbulb-outline',
         label: 'News Tip',
-        phone: '801.625.4225'
+        phone: '419-502-2060'
+      },
+      {
+        logo: 'icons:chrome-reader-mode',
+        label: 'Newsroom',
+        phone: '419-502-2060'
+      },
+      {
+        logo: 'hardware:laptop',
+        label: 'Web Dept.',
+        phone: '419-609-5861'
       }
     ],
     footerLinks: [
       {
         label: 'More+',
-        link: 'more.standard.net'
+        link: 'more.sanduskyregister.com'
       },
       {
-        label: 'Careers',
-        link: 'careers.standard.net	'
+        label: 'Today\'s Ads',
+        link: 'local.sanduskyregister.com/ads'
       },
       {
-        label: 'SE Cares',
-        link: 'cares.standard.net'
+        label: 'Local Guide',
+        link: 'local.sanduskyregister.com'
       },
       {
-        label: 'RSS Feeds',
-        link: '/rss'
+        label: 'Job Network',
+        link: 'sanduskyregister.thejobnetwork.com'
       },
       {
-        label: 'SE Events',
-        link: 'events.standard.net'
+        label: 'Member Rewards',
+        link: 'sanduskyregister.clickitrewards.com'
       }
     ]
   }
