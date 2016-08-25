@@ -27,6 +27,10 @@
             <paper-input id="verifyEmail" name="verificationEmail" label="E-mail" auto-validate allowed-pattern="[\@\.A-zA-Z0-9]" placeholder="Optional"></paper-input>
             <paper-button on-tap="_resendVerification">Resend Verification</paper-button>
           </div>
+          <div class="notice-action" hidden$="{{!item.finalize}}">
+            <gigya-finalize-register user="{{tmpUser}}" token="{{regToken}}"></gigya-finalize-register>
+            <paper-button on-tap="_finalizeRegistration">Finalize Registration</paper-button>
+          </div>
         </div>
       </template>
     </div>
