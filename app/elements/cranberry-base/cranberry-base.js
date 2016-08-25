@@ -128,13 +128,16 @@ class CranberryBase {
     let sectionPath = path.search('section');
     let storyPath = path.search('story');
     let galleryPath = path.search('gallery');
+    let calendarPath = path.search('calendar');
 
     if (sectionPath > 0) {
       section = path.replace('\/section\/', '');
+    } else if (calendarPath > 0) {
+      section = 'calendar';
     } else if (storyPath > 0 || galleryPath > 0) {
       section = '';
     } else if (path === '/') {
-      section = 'Home';
+      section = 'home';
     } else {
       section = path.replace(/\//g, '');
     }
