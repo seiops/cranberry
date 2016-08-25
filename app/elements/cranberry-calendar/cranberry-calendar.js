@@ -29,7 +29,7 @@ class CranberryCalendar {
 
   // inject script asynchronously
   _injectScript() {
-    app.logger('\<cranberry-calendar\> injecting script');
+    app.logger('\<cranberry-calendar\> generating config and loading script');
 
     let SpinGo = (window.SpinGo = window.SpinGo || {});
     let radiusConfig = this.get('radius');
@@ -45,16 +45,9 @@ class CranberryCalendar {
       }
     };
 
-    let embed = document.createElement('script');
-    embed.src = 'http://snet.spingo.com/embed.js';
-    embed.async = true;
+    let loader = document.querySelector('cranberry-script-loader');
 
-    let script = document.getElementsByTagName('script')[0];
-    let parent = script.parentNode;
-
-    parent.insertBefore(embed, script);
-
-    this.set('loaded', true);
+    loader.loadScript('http://snet.spingo.com/embed.js');
   }
 
   // detect route and visibility
