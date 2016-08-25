@@ -1,4 +1,5 @@
 class CranberryCalendar {
+  // element registration
   beforeRegister() {
     this.is = 'cranberry-calendar';
     this.properties = {
@@ -17,24 +18,18 @@ class CranberryCalendar {
     };
   }
 
-_visibility() {
-  let hidden = this.hidden;
-  let route = this.get('route');
-  console.dir(route);
-  console.log(hidden);
-  console.log('visibility');
-}
+  // public methods
 
+  // attached to document
   attached() {
     app.logger('\<cranberry-calendar\> attached');
-    this.async(function(){
-
-      this._visibility();
-    });
   }
 
+  // private methods
+
+  // inject script asynchronously
   _injectScript() {
-    console.log('injecting script');
+    app.logger('\<cranberry-calendar\> injecting script');
 
     let SpinGo = (window.SpinGo = window.SpinGo || {});
     let radiusConfig = this.get('radius');
@@ -62,6 +57,7 @@ _visibility() {
     this.set('loaded', true);
   }
 
+  // detect route and visibility
   _routeChange(section) {
     app.logger('\<cranberry-calendar\> route change');
 
@@ -74,9 +70,9 @@ _visibility() {
           if(loaded === false){
             this._injectScript();
           } else {
-            console.log('hide calendar');
+            // reload calendar-ui method supplied by SpinGo
+            angular.bootstrap(document.documentElement, ['sgCalendarUI']);
           }
-
         }
     });
   }
