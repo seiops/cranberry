@@ -42,6 +42,7 @@
 <link rel="import" href="../gigya-socialize/gigya-socialize.html">
 
 <!-- Cranberry elements -->
+<link rel="import" href="../cranberry-script-loader/cranberry-script-loader.html">
 <link rel="import" href="../cranberry-contact-page/cranberry-contact-page.html">
 <link rel="import" href="../cranberry-gallery/cranberry-gallery.html">
 <link rel="import" href="../cranberry-story/cranberry-story.html">
@@ -67,6 +68,9 @@
     <iron-media-query query="(min-width: 720px) and (max-width:959px)" query-matches="{{tablet}}"></iron-media-query>
     <iron-media-query query="(max-width: 719px)" query-matches="{{mobile}}"></iron-media-query>
 
+    <!-- Script loader -->
+    <cranberry-script-loader></cranberry-script-loader>
+
     <!-- Gigya socialize/accounts integration -->
     <gigya-socialize user="{{user}}"></gigya-socialize>
 
@@ -78,7 +82,6 @@
 
     <!-- app path routing -->
     {% include "cranberry-base/views/routes.html" %}
-    <iron-meta id="metaSection" key="section" value="{{section}}"></iron-meta>
 
     <app-drawer-layout responsive-width="1280px">
       <!-- side navigation drawer -->
