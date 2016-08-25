@@ -12,7 +12,7 @@ module.exports = {
   urlTitle: 'SanduskyRegister.com',
   // Gigya
   gigya: {
-    // Needs Changed from dev key to prod key
+    // Needs changed from dev key to prod key
     apiKey: '3_-_C60jYrQF4iB2Td_pfAznNCYppxxQt8-hXq-ZB4KUgp_X32Dme6ewgK9LjQqSgG'
   },
   // Google
@@ -29,8 +29,7 @@ module.exports = {
   socialNaming: {
     twitter: 'sanduskyregister',
     facebook: 'sanduskyregistr',
-    // Needs Changed
-    facebookId: '1389242281298280'
+    facebookId: '259812604228072'
   },
   // Contact Page Config
   // Entire contact information needs changed
