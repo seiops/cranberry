@@ -12,15 +12,13 @@ module.exports = {
   urlTitle: 'SanduskyRegister.com',
   // Gigya
   gigya: {
-    // Needs Changed
-    apiKey: '3_6UHHWrJ4LmAOWWdgqP0UWqk-2InoMn5NH8Lo1aOfcmFl6zAS4u_-IxvC3mbGAxch'
+    // Needs Changed from dev key to prod key
+    apiKey: '3_-_C60jYrQF4iB2Td_pfAznNCYppxxQt8-hXq-ZB4KUgp_X32Dme6ewgK9LjQqSgG'
   },
   // Google
   google: {
-    //Need Changed
-    analytics: 'UA-746696-1',
-    //Need Changed
-    maps: 'AIzaSyCzTR5CRaS7xrcH_jLFnh8OC5kfhyakXDY'
+    analytics: 'UA-4700830-1',
+    maps: 'AIzaSyASMEaZRw3O-fhuvscitnQ8k2YJ3kJn_ZA'
   },
   dfpAdStructure: {
     adGroupID: 30103046,
@@ -117,28 +115,28 @@ module.exports = {
       description: 'The ePaper is designd for digital users who prefer the experience of the printed edition. This archive is updated daily with the most recent edition.',
       dates: '2014-09-01 - Present',
       link: '/ePaper',
-      image: '../../images/archive/sandusky/ipad_epaper.png'
+      image: '../images/archive/sandusky/ipad_epaper.png'
     },
     {
       label: 'ePaper Archive',
       description: 'Coming Soon - The ePaper Archive is a deeper repository of printed editions, formatted for those users who prefer the print experience on a digital device.',
       dates: '2004-08-11 - 2014-08-31',
       link: '#',
-      image: '../../images/archive/sandusky/e-paper_archive_image.png'
+      image: '../images/archive/sandusky/e-paper_archive_image.png'
     },
     {
       label: 'Site Search',
       description: 'Search the Standard-Examiner site for the stories, photos, videos and people that you are looking for.',
       dates: '2012-0-01 - Present',
       link: '/search',
-      image: '../../images/archive/sandusky/search_image.png'
+      image: '../images/archive/sandusky/search_image.png'
     },
     {
       label: 'Text Archive',
       description: 'The Standard-Examiner Text Archive is an additional search tool that allows you to do more advanced searching. This archive contains only story text, and no photos or videos.',
       dates: '2001-05-22 - Present',
       link: '/news-archive',
-      image: '../../images/archive/sandusky/text_archive_image.png'
+      image: '../images/archive/sandusky/text_archive_image.png'
     }
   ]
 };

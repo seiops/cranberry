@@ -12,15 +12,13 @@ module.exports = {
   urlTitle: 'SanduskyRegister.com',
   // Gigya
   gigya: {
-    // Needs Changed
-    apiKey: '3_6UHHWrJ4LmAOWWdgqP0UWqk-2InoMn5NH8Lo1aOfcmFl6zAS4u_-IxvC3mbGAxch'
+    // Needs Changed from dev key to prod key
+    apiKey: '3_-_C60jYrQF4iB2Td_pfAznNCYppxxQt8-hXq-ZB4KUgp_X32Dme6ewgK9LjQqSgG'
   },
   // Google
   google: {
-    //Need Changed
-    analytics: 'UA-746696-1',
-    //Need Changed
-    maps: 'AIzaSyCzTR5CRaS7xrcH_jLFnh8OC5kfhyakXDY'
+    analytics: 'UA-4700830-1',
+    maps: 'AIzaSyASMEaZRw3O-fhuvscitnQ8k2YJ3kJn_ZA'
   },
   dfpAdStructure: {
     adGroupID: 30103046,
