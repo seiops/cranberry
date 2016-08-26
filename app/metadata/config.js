@@ -2,7 +2,7 @@ module.exports = {
   // URL Structure
   baseUrl: '/',
   baseDomain: 'http://www.standard.net',
-  baseEndpointUrl: 'http://sedevcore.libercus.net/rest.json',
+  baseEndpointUrl: 'http://srdevcore.libercus.net/rest.json',
   appVersion: '<0.1',
   baseCanonicalUrl: 'https://github.com/seiops/cranberry/',
   myCaptureUrl: 'http://standard.mycapture.com/mycapture/remoteimage.asp',
