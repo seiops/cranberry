@@ -31,7 +31,7 @@ class GigyaUserComments {
   }
 
   // private methods
-  
+
   // check if Gigya API is loaded
   _checkGigya() {
     let el = this;
