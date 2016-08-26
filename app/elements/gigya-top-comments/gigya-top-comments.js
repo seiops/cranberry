@@ -56,6 +56,8 @@ class GigyaTopComments {
   }
 
   _commentsCallback(response) {
+    app.logger('\<gigya-top-comments\> response');
+    
     console.dir(response);
   }
 }
