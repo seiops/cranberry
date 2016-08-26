@@ -61,7 +61,6 @@ class GigyaUserComments {
     let el = response.context;
     el.set('comments', response.comments);
     el.set('commentCount', response.commentCount);
-    console.dir(response);
   }
 
   // make request to Gigya Comments API
@@ -79,6 +78,15 @@ class GigyaUserComments {
       limit: count,
       start: start
     });
+  }
+
+  // redirect to compatible URL for redirect
+  _viewContent(ev) {
+    let el = Polymer.dom(ev).localTarget;
+    let url = el.getAttribute('destination');
+    let link = 'http://' + window.location.hostname + url;
+
+    window.location = link;
   }
 }
 Polymer(GigyaUserComments);
