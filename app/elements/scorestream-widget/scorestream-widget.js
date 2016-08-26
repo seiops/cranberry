@@ -35,9 +35,6 @@ class scorestreamWidget {
           type: Object,
           observer: '_parseResponse'
       },
-      items: {
-        type: Object
-      },
       masterSwitch: {
         type: Boolean,
         value: false
@@ -65,16 +62,19 @@ class scorestreamWidget {
   _parseResponse(response) {
     var result = JSON.parse(response.Result);
 
+    // If the response is not empty and it has scoreboards set values
     if (Object.keys(result).length > 0 && typeof result.scoreboards !== 'undefined') {
       this.set('masterSwitch', result.masterSwitch);
       this.set('scoreboardSwitch', result.scoreboards[0].scoreboardOn);
       this.set('widgetId', result.scoreboards[0].horizontalId);
     } else {
+      // Otherwise turn the whole thing off
       this.set('isOff', true);
     }
   }
 
   _turnOnOff(masterSwitch, scoreboardSwitch) {
+    // Function to set individual board on or off depending on response
     if(masterSwitch) {
       this.set('isOff', true);
     } else {
@@ -87,6 +87,7 @@ class scorestreamWidget {
   }
 
   _changeVisibility(off) {
+    // Function to hide board if off
     if (off) {
       this.hidden = true;
     } else {
@@ -101,13 +102,13 @@ class scorestreamWidget {
 
       if (!hidden) {
         if (typeof route.section !== 'undefined') {
-          let tags = this.get('tags');
           let section = route.section;
           let path = route.path;
 
           let request = this.$.request;
           let params = {};
 
+          // Wipe current setup
           this.set('widgetId', '');
           this.set('widgetUrl', '');
 
@@ -115,7 +116,6 @@ class scorestreamWidget {
           params.desiredContent = 'scorestream';
           request.setAttribute('url', this.get('rest'));
 
-          console.info(route);
           // If homepage
           if (section === '') {
             params.desiredTeam = 'Home Scoreboard';
@@ -131,6 +131,7 @@ class scorestreamWidget {
   }
 
   _updateUrl(newValue) {
+    // Update the URL if the widgetId isn't blank
     if (newValue !== '') {
       let scoreStreamUrl = this.get('scoreStreamUrl');
 
