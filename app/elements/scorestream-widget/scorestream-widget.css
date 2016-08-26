@@ -1,0 +1,8 @@
+:host {
+  display: block;
+  margin: 12px 0;
+}
+
+div.scorestream-container iframe {
+  width: 100%;
+}
