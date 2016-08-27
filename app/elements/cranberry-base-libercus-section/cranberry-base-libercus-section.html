@@ -42,20 +42,9 @@
 <link rel="import" href="../gigya-socialize/gigya-socialize.html">
 
 <!-- Cranberry elements -->
-<link rel="import" href="../cranberry-script-loader/cranberry-script-loader.html">
-<link rel="import" href="../cranberry-contact-page/cranberry-contact-page.html">
-<link rel="import" href="../cranberry-gallery/cranberry-gallery.html">
-<link rel="import" href="../cranberry-story/cranberry-story.html">
-<link rel="import" href="../cranberry-section/cranberry-section.html">
-<link rel="import" href="../cranberry-story/cranberry-story.html">
-<link rel="import" href="../cranberry-styles/cranberry-styles.html">
-<link rel="import" href="../cranberry-search/cranberry-search.html">
-<link rel="import" href="../cranberry-search-bar/cranberry-search-bar.html">
-<link rel="import" href="../cranberry-archive-page/cranberry-archive-page.html">
-<link rel="import" href="../cranberry-calendar/cranberry-calendar.html">
 <link rel="import" href="../cranberry-nativo-story/cranberry-nativo-story.html">
 
-<dom-module id="cranberry-base">
+<dom-module id="cranberry-base-libercus-section">
   <template>
     <!-- include shared styles and theme stylesheet -->
     <style include="shared-styles">
@@ -68,9 +57,6 @@
     <iron-media-query query="(min-width: 720px) and (max-width:959px)" query-matches="{{tablet}}"></iron-media-query>
     <iron-media-query query="(max-width: 719px)" query-matches="{{mobile}}"></iron-media-query>
 
-    <!-- Script loader -->
-    <cranberry-script-loader></cranberry-script-loader>
-
     <!-- Gigya socialize/accounts integration -->
     <gigya-socialize user="{{user}}"></gigya-socialize>
 
@@ -80,19 +66,19 @@
       on-iron-localstorage-load-empty="initializeDefaultStorage">
     </iron-localstorage>
 
-    <!-- app path routing -->
-    {% include "cranberry-base/views/routes.html" %}
-
     <app-drawer-layout responsive-width="1280px">
       <!-- side navigation drawer -->
-      {% include "cranberry-base/views/drawer.html" %}
+      {% include "cranberry-base-libercus-section/views/drawer.html" %}
 
       <app-header-layout>
         <!-- header toolbar -->
         {% include "cranberry-base/views/header.html" %}
 
         <!-- content area -->
-        {% include "cranberry-base/views/pages.html" %}
+        <section class="Page" tabindex="-1">
+          <cranberry-nativo-story></cranberry-nativo-story>
+        </section>
+
       </app-header-layout>
       <paper-toast id="confirmToast" class="Toast" duration="4000">
         <span class="Toast-button" role="button" tabindex="0" on-tap="onConfirmToastTap">OK</span>
@@ -102,7 +88,8 @@
     </app-drawer-layout>
 
   </template>
+
   <!-- include base js module -->
-  <script src="cranberry-base.js"></script>
+  <script src="cranberry-base-libercus-section.js"></script>
 
 </dom-module>

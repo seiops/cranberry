@@ -1,0 +1,49 @@
+:host {
+  display: block;
+  --paper-button: {
+    @apply(--paper-font-button);
+  };
+}
+
+div.register-site, div.social-login {
+  @apply(--layout-flex-6);
+  @media (--sm-viewport) {
+    @apply(--layout-flex-12);
+  }
+}
+
+div.register-site {
+  padding-left: 12px;
+  @media (--sm-viewport) {
+    padding-left: 0;
+  }
+}
+
+div.register-site-info {
+  margin-bottom: 24px;
+}
+
+div.social-login {
+  padding-right: 12px;
+  @media (--sm-viewport) {
+    padding-right: 0;
+  }
+  margin-bottom: 24px;
+}
+
+gold-password-input {
+  margin-bottom: 24px;
+}
+
+paper-checkbox {
+  margin-top: 12px;
+}
+
+div.user-register {
+  flex: 1 1 auto;
+  @apply(--layout-horizontal);
+  @apply(--layout-top);
+  @media (--sm-viewport) {
+    @apply(--layout-vertical);
+  }
+}

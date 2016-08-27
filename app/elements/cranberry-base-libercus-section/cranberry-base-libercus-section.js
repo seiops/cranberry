@@ -1,7 +1,7 @@
-class CranberryBase {
+class CranberryBaseLibercusSection {
   // element registration
   beforeRegister() {
-    this.is = 'cranberry-base';
+    this.is = 'cranberry-base-libercus-section';
     this.properties = {
       data: Object,
       upgraded: Boolean,
@@ -128,16 +128,13 @@ class CranberryBase {
     let sectionPath = path.search('section');
     let storyPath = path.search('story');
     let galleryPath = path.search('gallery');
-    let calendarPath = path.search('calendar');
 
     if (sectionPath > 0) {
       section = path.replace('\/section\/', '');
-    } else if (calendarPath > 0) {
-      section = 'calendar';
     } else if (storyPath > 0 || galleryPath > 0) {
       section = '';
     } else if (path === '/') {
-      section = 'home';
+      section = 'Home';
     } else {
       section = path.replace(/\//g, '');
     }
@@ -263,5 +260,5 @@ class CranberryBase {
 }
 // Change accent color
 Polymer(
-  CranberryBase
+  CranberryBaseLibercusSection
 );

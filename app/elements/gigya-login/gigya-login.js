@@ -3,16 +3,23 @@ class GigyaLogin {
   beforeRegister() {
     this.is = 'gigya-login';
     this.properties = {
+      apiKey: {
+        type: String
+      },
       notices: {
         type: Object,
         value: []
       },
-      verify: {
+      regToken: {
+        type: String
+      },
+      tmpUser: {
         type: Object,
         value: {}
       },
-      apiKey: {
-        type: String
+      verify: {
+        type: Object,
+        value: {}
       }
     };
   }
@@ -35,10 +42,11 @@ class GigyaLogin {
   }
 
   // internal method calling gigya-socialize method
-  _checkUser() {
+  _checkUser(s) {
     let base = Polymer.dom(document).querySelector('cranberry-base');
     let socialize = base.querySelector('gigya-socialize');
 
+    console.dir(s);
     socialize.checkUser();
   }
 
@@ -142,7 +150,7 @@ class GigyaLogin {
       } else if ((detail.loginProvider === 'site' && detail.errorCode !== 0) || (detail.loginProvider !== 'site' && detail.errorCode !== '0')) {
         let form = el.querySelector('#loginForm');
         form.password.value = '';
-        this._processError(detail);
+        el._processError(detail);
       }
     } else {
       console.error('Unhandled form error');
@@ -155,13 +163,23 @@ class GigyaLogin {
 
     let notice = {};
 
-    let errorCode = code.errorCode;
+    let errorCode = parseInt(code.errorCode);
     notice.code = errorCode;
 
     switch(errorCode) {
       case 206001:
-        notice.type = 'error';
+        notice.type = 'success';
         notice.message = 'Account pending finalized registration.'
+        notice.finalize = true;
+
+        this.set('tmpUser', code.profile);
+        this.set('regToken', code.regToken);
+        console.log('user code 2');
+        let derp = this.get('tmpUser');
+        console.dir(derp);
+        // let el = this;
+        // gigya.accounts.finalizeRegistration({callback: el._checkUser, regToken: code.regToken});
+
         break;
       case 206002:
         notice.type = 'warning';
@@ -214,7 +232,7 @@ class GigyaLogin {
         notice.type = 'error';
         notice.message = 'Unhandled error.';
         console.dir(code);
-      break;
+        break;
     }
 
     this.push('notices', notice);

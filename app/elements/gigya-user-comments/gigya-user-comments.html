@@ -1,22 +1,28 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/moment-js/moment-js.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
 
 <dom-module id="gigya-user-comments">
   <template>
     <style>
       @import "gigya-user-comments/gigya-user-comments";
     </style>
-
-    <template is="dom-if" if="[[!_checkComments(commentCount)]]">
-      <paper-material class="comments-notice" elevation="1">
-        You have not made any comments to display.
+    <div class="user-comments">
+      <paper-material class="user-comments" elevation="1">
+        <h3>[[commentCount]] Comment(s)</h3>
+        <div hidden$="[[_checkComments(commentCount)]]">
+          You have not made any comments to display.
+        </div>
+        <template is="dom-repeat" items="{{comments}}" initial-count="3">
+          <div class="comment-row">
+            <div class="comment-text">[[item.commentText]]</div>
+            <div class="comment-timestamp"><moment-js date="[[item.timestamp]]" from-now></moment-js></div>
+          </div>
+          <paper-button on-tap="_viewContent" destination$="[[item.streamId]]">View</paper-button>
+        </template>
       </paper-material>
-    </template>
-    <template is="dom-repeat" items="{{comments}}" initial-count="3">
-      <div class="comment-row">
-        Row
-      </div>
-    </template>
-
+    </div>
   </template>
     <script src="gigya-user-comments.js"></script>
 </dom-module>

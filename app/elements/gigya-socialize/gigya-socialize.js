@@ -114,6 +114,9 @@ class GigyaSocialize {
     if (typeof user.UID !== 'undefined') {
       app.logger('\<gigya-socialize\> user loaded');
 
+      app.$.infoToast.text = 'Logged in, loading user information.';
+      app.$.infoToast.show();
+
       el.set('user', user.user);
 
       let params = {
@@ -133,6 +136,9 @@ class GigyaSocialize {
   // callback from Gigya logout API
   _logoutUser(data) {
     app.logger('\<gigya-socialize\> logged out');
+
+    app.$.infoToast.text = 'Logged out.';
+    app.$.infoToast.show();
 
     let el = data.context;
     el.set('user', {});

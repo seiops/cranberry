@@ -41,6 +41,14 @@ class GigyaTopComments {
     }, 50);
   }
 
+  // Gigya API callback
+  _commentsCallback(response) {
+    app.logger('\<gigya-top-comments\> response');
+
+    console.dir(response);
+  }
+
+  // request top comments from Gigya API
   _getComments() {
     let el = this;
 
@@ -53,10 +61,6 @@ class GigyaTopComments {
       limit: count,
       maxStreamAge: age
      });
-  }
-
-  _commentsCallback(response) {
-    console.dir(response);
   }
 }
 Polymer(GigyaTopComments);

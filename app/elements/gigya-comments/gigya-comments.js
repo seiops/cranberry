@@ -5,27 +5,43 @@ class gigyaComments {
       commentsId: {
         type: String
       },
-      commentsUniqueId: {
-        type: Number,
-        value: '0'
+      streamId: {
+        type: String,
+        value: '',
+        observer: '_updateComments'
       }
     };
-    this.observers = ['_checkParams(commentsId, commentsUniqueId)'];
   }
 
-  _checkParams(id, uniqueId) {
-    if (id !== '' && uniqueId !== 0) {
-      let streamId = uniqueId.toString();
-      let self = this;
-      let checkGigya = function () {
-        setTimeout(function () {
+  _timeId() {
+    if (!Date.now) {
+      Date.now = function() {
+        return new Date().getTime();
+      }
+    }
+
+    let timeStamp = Math.floor(Date.now() / 1000);
+
+    return timeStamp;
+  }
+
+  _updateComments(id) {
+    if (typeof id !== 'undefined' && id.length > 0) {
+      let time = this._timeId();
+
+      this.set('containerId', time);
+
+      let streamId = this.get('streamId');
+
+      let checkGigya = function() {
+        setTimeout(function() {
           if (typeof gigya !== 'undefined') {
             var params = {
-              categoryID: 'Default',
+              categoryID: '3946962',
               streamID: streamId,
               streamURL: window.location.href,
               version: 2,
-              containerID: id,
+              containerID: time,
               cid: '',
               width: '100%'
             };
@@ -33,8 +49,9 @@ class gigyaComments {
           } else {
             checkGigya();
           }
-        },1000);
+        }, 1000);
       }
+
       checkGigya();
     }
   }

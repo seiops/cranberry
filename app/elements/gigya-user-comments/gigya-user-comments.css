@@ -2,9 +2,24 @@
   display: block;
 }
 
-paper-material.comments-notice {
+paper-material.user-comments {
   @apply(--layout-vertical);
-  @apply(--layout-center);
-  flex: 1 1 100%;
-  padding: 24px;
+  padding: 0 24px 24px;
+}
+
+div.comment-row {
+  @apply(--layout-horizontal);
+  padding-top: 24px;
+  padding-bottom: 24px;
+  width: 100%;
+  border-top: 1px solid var(--accent-color);
+}
+
+div.comment-text {
+  @apply(--layout-flex);
+  margin-right: 24px;
+}
+
+div.comment-timestamp {
+  @apply(--layout-end);
 }
