@@ -61,7 +61,8 @@ class gigyaSharebar {
               ],
               containerID: shareDiv,
               noButtonBorders: true,
-              showAlwaysShare: 'unchecked'
+              showAlwaysShare: 'unchecked',
+              layout:'vertical'
           };
 
           gigya.socialize.showShareBarUI(params);
