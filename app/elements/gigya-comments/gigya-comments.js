@@ -9,8 +9,12 @@ class gigyaComments {
         type: String,
         value: '',
         observer: '_updateComments'
+      },
+      content: {
+        type: Object
       }
     };
+    this.observers = ['_updateComments(streamId, content)'];
   }
 
   _timeId() {
@@ -25,7 +29,7 @@ class gigyaComments {
     return timeStamp;
   }
 
-  _updateComments(id) {
+  _updateComments(id, content) {
     if (typeof id !== 'undefined' && id.length > 0) {
       let time = this._timeId();
 
@@ -43,7 +47,8 @@ class gigyaComments {
               version: 2,
               containerID: time,
               cid: '',
-              width: '100%'
+              width: '100%',
+              streamTitle: 'content.title'
             };
             gigya.comments.showCommentsUI(params);
           } else {
