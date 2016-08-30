@@ -140,6 +140,7 @@ paper-card.gallery div.icon {
   top: 0;
   right: 0;
   color: var(--accent-color);
+  padding: 16px;
 }
 
 paper-card.gallery div.card-info span.content-date {
