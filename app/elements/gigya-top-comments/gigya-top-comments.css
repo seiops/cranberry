@@ -6,7 +6,7 @@
   /* postcss-bem-linter: ignore */
   --paper-card-header-text: {
     @apply(--paper-font-display2);
-    padding: 0;
+    padding: 0 0 0 12px;
     margin: 16px 16px 0 0;
     border-bottom: 4px solid var(--accent-color);
   };

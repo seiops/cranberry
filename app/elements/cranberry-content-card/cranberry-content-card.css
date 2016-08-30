@@ -9,7 +9,8 @@
 
   /* postcss-bem-linter: ignore */
   --paper-card-actions: {
-    flex: 1 1 auto;
+    /* Removed flex on actions to have all action bars be the same height for demo purposes. */
+    /* flex: 1 1 auto; */
     color: var(--light-theme-secondary-text-color);
     background-color: var(--tertiary-background-color);
     font-size: 12px;
