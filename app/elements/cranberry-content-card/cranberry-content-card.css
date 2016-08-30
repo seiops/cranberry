@@ -74,9 +74,8 @@
 
   /* postcss-bem-linter: ignore */
   --paper-card-header-image-text: {
-    @apply(--paper-font-headline);
     color: var(--text-accent-color);
-    font-size: 24px;
+    @apply(--paper-font-headline2);
     text-shadow: 0px 0px 10px rgba(0,0,0,1);
   };
 }
