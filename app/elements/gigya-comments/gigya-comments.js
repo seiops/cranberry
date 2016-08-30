@@ -48,7 +48,7 @@ class gigyaComments {
               containerID: time,
               cid: '',
               width: '100%',
-              streamTitle: 'content.title'
+              streamTitle: content.title
             };
             gigya.comments.showCommentsUI(params);
           } else {

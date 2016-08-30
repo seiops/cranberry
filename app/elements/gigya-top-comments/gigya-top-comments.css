@@ -1,3 +1,62 @@
-:host[content] {
+:host {
   display: block;
+  min-height: 250px;
+  min-width: 300px;
+
+  /* postcss-bem-linter: ignore */
+  --paper-card-header-text: {
+    @apply(--paper-font-display2);
+    padding: 0;
+    margin: 16px 16px 0 0;
+    border-bottom: 4px solid var(--accent-color);
+  };
 };
+
+div.wrapper {
+  @apply(--layout-vertical);
+  flex: 1 1 auto;
+
+  margin: 12px;
+  max-width: 370px;
+  text-decoration: none;
+}
+
+div.wrapper paper-card {
+  flex: 1 1 auto;
+  @apply(--layout-vertical);
+}
+
+h3.item-title {
+  @apply(--paper-font-subhead);
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+div.card-content {
+  @apply(--layout-vertical);
+  padding: 16px 16px 16px 0;
+}
+
+paper-card div.card-content div.content-comments {
+  @apply(--paper-font-caption);
+  color: var(--accent-color);
+  margin: 0 0 0 12px;
+  min-width: 45px;
+}
+
+/* Flip The Comments Icon */
+paper-card div.card-content div.content-comments iron-icon {
+  transform: scaleX(-1);
+}
+
+div.item {
+  @apply(--layout-horizontal);
+  @apply(--layout-center);
+}
+
+hr.break {
+  width: 100%;
+}

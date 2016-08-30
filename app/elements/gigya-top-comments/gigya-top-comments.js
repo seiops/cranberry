@@ -10,6 +10,9 @@ class GigyaTopComments {
       age: {
         type: Number,
         value: 5
+      },
+      items: {
+        type: Array
       }
     };
   }
@@ -46,6 +49,8 @@ class GigyaTopComments {
     app.logger('\<gigya-top-comments\> response');
 
     console.dir(response);
+
+    this.originalParams.context.set('items', response.streams);
   }
 
   // request top comments from Gigya API
@@ -61,6 +66,14 @@ class GigyaTopComments {
       limit: count,
       maxStreamAge: age
      });
+  }
+
+  _isLast(index) {
+    let count = this.get('count');
+    
+    if (index === count - 1) {
+      return true;
+    }
   }
 }
 Polymer(GigyaTopComments);

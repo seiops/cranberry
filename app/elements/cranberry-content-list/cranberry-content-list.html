@@ -25,11 +25,7 @@
     <div class="content-cards">
       <template is="dom-repeat" items="{{items}}" initial-count="3">
         <template is="dom-if" if="[[_checkTopComments(index)]]">
-          <div class="comments-widget-wrapper">
-            <div class="comments-widget">
-              <gigya-top-comments count="5" age="90"></gigya-top-comments>
-            </div>
-          </div>
+          <gigya-top-comments count="5" age="90"></gigya-top-comments>
         </template>
         <template is="dom-if" if="[[_checkInStreamAd(index)]]">
           <div class="stream-advertisement-wrapper">

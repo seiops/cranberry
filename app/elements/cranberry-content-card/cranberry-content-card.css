@@ -112,7 +112,7 @@ paper-card div.card-info div.content-comments {
 }
 
 /* Flip The Comments Icon */
-paper-card div.card-info div.story-comments iron-icon {
+paper-card div.card-info div.content-comments iron-icon {
   transform: scaleX(-1);
 }
 

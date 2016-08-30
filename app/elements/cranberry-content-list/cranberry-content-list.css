@@ -43,3 +43,7 @@ div.leaderboard-advertisement {
   background-color: transparent;
   text-align: center;
 }
+
+div.content-cards > gigya-top-comments {
+  @apply(--layout-vertical);
+}

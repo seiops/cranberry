@@ -1,4 +1,5 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
 
 <dom-module id="gigya-top-comments">
   <template>
@@ -6,12 +7,25 @@
       @import "gigya-top-comments/gigya-top-comments";
     </style>
 
-    <h3>Most commented stories:</h3>
-    <template is="dom-repeat" items="{{items}}" initial-count="3">
-      <div class="comment-row">
-        Row
-      </div>
-    </template>
+    <div class="wrapper">
+      <paper-card heading="Most commented stories:" elevation="1">
+        <div class="card-content">
+          <template is="dom-repeat" items="{{items}}">
+            <a href="[[item.streamURL]]">
+              <div class="item">
+                <div class="content-comments">
+                  <span>[[item.approvedCommentCount]] &nbsp;</span><iron-icon icon="communication:chat"></iron-icon>
+                </div>
+                <h3 class="item-title">[[item.streamTitle]]</h3>
+              </div>
+            </a>
+            <hr class="break" hidden$="{{_isLast(index)}}" />
+          </template>
+        </div>
+      </paper-card>
+    </div>
+
+
 
   </template>
     <script src="gigya-top-comments.js"></script>
