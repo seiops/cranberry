@@ -23,7 +23,7 @@
     <app-route route="{{route}}" pattern="/:section" data="{{routeData}}"></app-route>
 
     <div class="header-advertisement">
-        <google-dfp section="[[loadSection]]" tags="[[tag]]" ad-pos="leaderboard" ad-size="[[728, 90],[970, 90],[970, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+        <google-dfp section="[[loadSection]]" tags="[[tag]]" ad-pos="leaderboard" ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
     </div>
 
     <scorestream-widget rest="{$ config.baseEndpointUrl $}" route="{{routeData}}" section="[[loadSection]]" hidden$="[[hidden]]"></scorestream-widget>
