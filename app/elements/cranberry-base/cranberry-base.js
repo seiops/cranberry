@@ -129,6 +129,8 @@ class CranberryBase {
     let storyPath = path.search('story');
     let galleryPath = path.search('gallery');
     let calendarPath = path.search('calendar');
+    let searchPath = path.search('search');
+    let tagsPath = path.search('tags');
 
     if (sectionPath > 0) {
       section = path.replace('\/section\/', '');
@@ -138,6 +140,14 @@ class CranberryBase {
       section = '';
     } else if (path === '/') {
       section = 'home';
+    } else if (tagsPath > 0){
+      let newPath = path.replace(/\/tags\//g, '');
+      newPath = newPath.replace(/\-/g, ' ');
+      section = newPath;
+    } else if (searchPath > 0){
+      let newPath = path.replace(/\/search\//g, '');
+      newPath = newPath.replace(/\+/g, ' ');
+      section = newPath;
     } else {
       section = path.replace(/\//g, '');
     }
