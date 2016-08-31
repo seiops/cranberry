@@ -130,7 +130,7 @@ class CranberryGallery {
     // Assign restResponse to data bound object gallery
     this.set('gallery', result);
 
-    if (typeof result.tags !== 'undefined') {
+    if (typeof result.tags !== 'undefined' && result.tags.length > 0) {
       // Set tags variable to the tags response
       this.set('tags', result.tags.split(','));
       this.set('noTags', false);
