@@ -7,8 +7,7 @@ class gigyaComments {
       },
       streamId: {
         type: String,
-        value: '',
-        observer: '_updateComments'
+        value: ''
       },
       content: {
         type: Object
