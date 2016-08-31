@@ -132,7 +132,9 @@ div.story-content div {
 }
 
 div.right-rail {
-  flex: 1 1 300px;
+  flex: 1 1 auto;
+  max-width: 300px;
+  margin-right: 12px;
 }
 
 div.right-rail div {
@@ -142,4 +144,13 @@ div.right-rail div {
 
 div.right-rail div > * {
   margin: 12px;
+}
+
+div.right-rail gigya-top-comments {
+  min-height: 0;
+  min-width: 0;
+}
+
+div.right-rail gigya-top-comments::shadow div.wrapper {
+  margin: 0;
 }

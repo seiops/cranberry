@@ -1,111 +1,98 @@
 module.exports = {
   // URL Structure
   baseUrl: '/',
-  baseDomain: 'http://www.sanduskyregister.com',
-  baseEndpointUrl: 'http://srdevcore.libercus.net/rest.json',
+  baseDomain: 'http://www.standard.net',
+  baseEndpointUrl: 'http://sedevcore.libercus.net/rest.json',
   appVersion: '<0.1',
   baseCanonicalUrl: 'https://github.com/seiops/cranberry/',
-  // Needs Changed
   myCaptureUrl: 'http://standard.mycapture.com/mycapture/remoteimage.asp',
   // General Namings
-  title: 'Sandusky Register',
-  urlTitle: 'SanduskyRegister.com',
+  title: 'Standard-Examiner',
+  urlTitle: 'Standard.net',
   // Gigya
   gigya: {
-    // Needs changed from dev key to prod key
-    apiKey: '3_-_C60jYrQF4iB2Td_pfAznNCYppxxQt8-hXq-ZB4KUgp_X32Dme6ewgK9LjQqSgG',
-    siteName: 'sanduskyregister.com'
+    apiKey: '3_6UHHWrJ4LmAOWWdgqP0UWqk-2InoMn5NH8Lo1aOfcmFl6zAS4u_-IxvC3mbGAxch',
+    siteName: 'standard.net'
   },
   // Google
   google: {
-    analytics: 'UA-4700830-1',
-    maps: 'AIzaSyASMEaZRw3O-fhuvscitnQ8k2YJ3kJn_ZA'
+    analytics: 'UA-746696-1',
+    maps: 'AIzaSyCzTR5CRaS7xrcH_jLFnh8OC5kfhyakXDY'
   },
   dfpAdStructure: {
     adGroupID: 30103046,
-    adGrouping: 'Tandem',
-    adSubGrouping: 'Sandusky'
+    adGrouping: 'Ogden_Publisher',
+    adSubGrouping: 'Standard_Examiner'
   },
   // Social Networks
   socialNaming: {
-    twitter: 'sanduskyregister',
-    facebook: 'sanduskyregistr',
-    facebookId: '259812604228072'
+    twitter: 'StandardEx',
+    facebook: 'standardexaminer',
+    facebookId: '1389242281298280'
   },
   // Contact Page Config
-  // Entire contact information needs changed
   contactInformation: {
-    contactFormRecipient: 'circulation@sanduskyregister.com',
-    contactImage: '../../images/contact/sandusky/contact.jpg',
+    contactFormRecipient: 'memberservices@standard.net',
+    contactImage: '../../images/contact/standard/contact.jpg',
     hours: {
-      week: '8:00 a.m. - 5:00 p.m',
-      weekend: 'Closed'
+      week: '6:30 a.m. - 5:00 p.m',
+      weekend: '6:30 a.m. - 10:00 a.m'
     },
-    phone: '419-625-5500',
-    email: 'circulation@sanduskyregister.com',
+    phone: '801.625.4200 | 800.651.2105',
+    email: 'memberservices@standard.net',
     address: {
-      unitNumber: '314',
-      street: 'West Market Street',
-      city: 'Sandusky',
-      state: 'OH',
-      zip: '44870'
+      unitNumber: '332',
+      street: 'Standard Way',
+      city: 'Ogden',
+      state: 'UT',
+      zip: '84404'
     },
     map: {
-      latitude: '41.4552814',
-      longitude: '-82.7158251'
+      latitude: '41.2584591',
+      longitude: '-111.9936357'
     },
     needHelp: [
       {
         logo: 'icons:shopping-basket',
         label: 'Retail Advertising',
-        phone: '419-502-2121'
+        phone: '801.625.4333'
       },
       {
         logo: 'icons:find-in-page',
         label: 'Classifieds',
-        phone: '419-502-2120'
+        phone: '801.625.4488'
       },
       {
         logo: 'icons:card-membership',
         label: 'Member Services',
-        phone: '419-625-5500'
+        phone: '801.625.4400'
       },
       {
         logo: 'icons:lightbulb-outline',
         label: 'News Tip',
-        phone: '419-502-2060'
-      },
-      {
-        logo: 'icons:chrome-reader-mode',
-        label: 'Newsroom',
-        phone: '419-502-2060'
-      },
-      {
-        logo: 'hardware:laptop',
-        label: 'Web Dept.',
-        phone: '419-609-5861'
+        phone: '801.625.4225'
       }
     ],
     footerLinks: [
       {
         label: 'More+',
-        link: 'more.sanduskyregister.com'
+        link: 'more.standard.net'
       },
       {
-        label: 'Todays Ads',
-        link: 'local.sanduskyregister.com/ads'
+        label: 'Careers',
+        link: 'careers.standard.net	'
       },
       {
-        label: 'Local Guide',
-        link: 'local.sanduskyregister.com'
+        label: 'SE Cares',
+        link: 'cares.standard.net'
       },
       {
-        label: 'Job Network',
-        link: 'sanduskyregister.thejobnetwork.com'
+        label: 'RSS Feeds',
+        link: '/rss'
       },
       {
-        label: 'Member Rewards',
-        link: 'sanduskyregister.clickitrewards.com'
+        label: 'SE Events',
+        link: 'events.standard.net'
       }
     ]
   },
@@ -114,29 +101,29 @@ module.exports = {
       label: 'ePaper',
       description: 'The ePaper is designd for digital users who prefer the experience of the printed edition. This archive is updated daily with the most recent edition.',
       dates: '2014-09-01 - Present',
-      link: '/ePaper',
-      image: '../images/archive/sandusky/ipad_epaper.png'
+      link: '/digital',
+      image: '../../images/archive/standard/ipad_epaper.png'
     },
     {
       label: 'ePaper Archive',
       description: 'Coming Soon - The ePaper Archive is a deeper repository of printed editions, formatted for those users who prefer the print experience on a digital device.',
       dates: '2004-08-11 - 2014-08-31',
       link: '#',
-      image: '../images/archive/sandusky/e-paper_archive_image.png'
+      image: '../../images/archive/standard/e-paper_archive_image.png'
     },
     {
       label: 'Site Search',
       description: 'Search the Standard-Examiner site for the stories, photos, videos and people that you are looking for.',
       dates: '2012-0-01 - Present',
       link: '/search',
-      image: '../images/archive/sandusky/search_image.png'
+      image: '../../images/archive/standard/search_image.png'
     },
     {
       label: 'Text Archive',
       description: 'The Standard-Examiner Text Archive is an additional search tool that allows you to do more advanced searching. This archive contains only story text, and no photos or videos.',
       dates: '2001-05-22 - Present',
       link: '/news-archive',
-      image: '../images/archive/sandusky/text_archive_image.png'
+      image: '../../images/archive/standard/text_archive_image.png'
     }
   ]
 };

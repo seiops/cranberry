@@ -30,15 +30,13 @@ class CranberryGallery {
       tags: {
         type: Array
       },
+      noTags: {
+        type: Boolean,
+        value: true
+      },
       myCaptureUrl: {
         type: String
       }
-    };
-    this.listeners = {
-      'buyButton.tap': '_buyImage',
-      'images.tap': '_goToSlide',
-      'modalOpen.tap': '_openModal',
-      'modalClose.tap': '_closeModal'
     };
     this.observers = ['_checkParams(routeData.id)'];
   }
@@ -132,8 +130,11 @@ class CranberryGallery {
     // Assign restResponse to data bound object gallery
     this.set('gallery', result);
 
-    // Set tags variable to the tags response
-    this.set('tags', result.tags.split(','));
+    if (typeof result.tags !== 'undefined') {
+      // Set tags variable to the tags response
+      this.set('tags', result.tags.split(','));
+      this.set('noTags', false);
+    }
   }
 
   _onRouteChanged (newValue, oldValue) {
@@ -172,6 +173,7 @@ class CranberryGallery {
 
   // Update story id in request parameters.
   _updateGalleryId (galleryid) {
+    this.set('tags', []);
     this.set('jsonp.desiredItemID', galleryid);
 
     let request = this.get('jsonp');

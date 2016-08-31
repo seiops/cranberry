@@ -7,6 +7,8 @@
 <link rel="import" href="../cranberry-slider/cranberry-slider.html">
 <link rel="import" href="../gigya-comments/gigya-comments.html">
 <link rel="import" href="../gigya-sharebar/gigya-sharebar.html">
+<link rel="import" href="../google-dfp/google-dfp.html">
+<link rel="import" href="../cranberry-related-content/cranberry-related-content.html">
 
 <dom-module id="cranberry-gallery">
   <template>
@@ -30,50 +32,44 @@
 
     <div class="gallery-container">
 
-      <div class="flex-absolute tag-links">
+      <div class="flex-absolute tag-links" hidden$="{{noTags}}">
         <paper-button raised>{{tags.1}}</paper-button>
       </div>
 
       <div class="flex-absolute expand-link">
-        <paper-button raised id="modalOpen" class="rounded-button"><iron-icon icon="icons:fullscreen"></iron-icon></paper-button>
+        <paper-button raised id="modalOpen" class="rounded-button" on-tap="_openModal"><iron-icon icon="icons:fullscreen"></iron-icon></paper-button>
       </div>
       <cranberry-slider id="mainSlider" base-url="{$ config.baseDomain $}" images="{{gallery.mediaAssets.images}}" autostart arrows info caption>
         <div class="flex-absolute share-buttons">
-          <paper-button raised id="buyButton" class="rounded-button"><iron-icon icon="editor:attach-money"></iron-icon></paper-button>
+          <paper-button raised id="buyButton" class="rounded-button" on-tap="_buyImage"><iron-icon icon="editor:attach-money"></iron-icon></paper-button>
           <gigya-sharebar share-buttons-id="gigya-share-buttons-gallery"></gigya-sharebar>
         </div>
       </cranberry-slider>
 
-    <h1 class="gallery-title">{{gallery.title}}</h1>
-    <p class="time-stamp"> {{gallery.updated}} </p>
-    <p class="body-text">{{gallery.FullText}}</p>
+      <h1 class="gallery-title">{{gallery.title}}</h1>
+      <p class="time-stamp"> {{gallery.updated}} </p>
+      <p class="body-text">{{gallery.FullText}}</p>
+    </div>
 
-    <div class="ut-grid ut-margin-bottom">
-      <div class="flex-3 ut-center" id="images">
+    <div class="content-container">
+      <div class="photo-grid">
         <template is="dom-repeat" items="{{gallery.mediaAssets.images}}">
-          <iron-image src$="{$ config.baseDomain $}{{item.small}}" sizing="cover" data-index$="{{index}}" style="background-color: lightgray;" preload></iron-image>
+          <iron-image src$="{$ config.baseDomain $}{{item.small}}" sizing="cover" data-index$="{{index}}" style="background-color: lightgray;" preload on-tap="_goToSlide"></iron-image>
         </template>
       </div>
-      <div class="flex ut-center">
+      <div class="right-rail">
         <google-dfp section="[[gallery.sectionInformation.sectionName]]" section-parent="[[gallery.sectionInformation.sectionParentName]]" tags="[[gallery.tags]]" ad-pos="Top_of_Stream" ad-size="[[300, 250],[300, 600]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+        <cranberry-related-content related-items="[[gallery.relatedContent]]" story></cranberry-related-content>
+        <cranberry-related-content related-items="[[gallery.relatedContent]]" gallery></cranberry-related-content>
       </div>
     </div>
 
-    <div class="ut-center">
+    <div class="footer-container ut-center">
       <google-dfp section="[[gallery.sectionInformation.sectionName]]" section-parent="[[gallery.sectionInformation.sectionParentName]]" tags="[[gallery.tags]]" ad-pos="Middle_of_stream" ad-size="[[728, 90],[970, 90],[970, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
-    </div>
-
-    <!-- Youneeq Content Area -->
-    <div class="ut-center">
+      <!-- Youneeq Content Area -->
       <youneeq-content user="[[user]]" content="[[gallery]]" domain="{$ config.baseDomain $}"></youneeq-content>
-    </div>
-
-    <!-- Comments -->
-    <div class="ut-center">
-      <gigya-comments stream-id="[[gallery.genericLink]]"></gigya-comments>
-    </div>
-
-    <div class="ut-center">
+      <!-- Comments -->
+      <gigya-comments stream-id="[[gallery.genericLink]]" content="[[gallery]]"></gigya-comments>
       <google-dfp section="[[gallery.sectionInformation.sectionName]]" section-parent="[[gallery.sectionInformation.sectionParentName]]" tags="[[gallery.tags]]" ad-pos="Last_of_Stream" ad-size="[[728, 90],[970, 90],[970, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
     </div>
 

@@ -145,3 +145,32 @@ paper-dialog cranberry-slider {
   max-width: 1200px;
   padding: 0;
 }
+
+div.right-rail gigya-top-comments::shadow div.wrapper {
+  margin: 0;
+}
+
+/* New Gallery Styles */
+div.content-container {
+  @apply(--layout-horizontal);
+  @apply(--layout-around-justified);
+  @apply(--layout-wrap);
+}
+
+div.photo-grid {
+  @apply(--layout-flex);
+  min-width: 800px;
+}
+
+div.photo-grid iron-image {
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+  margin-right: 4px;
+}
+
+div.right-rail {
+  @apply(--layout-column);
+  width: 300px;
+  margin-left: 12px;
+}

@@ -1,7 +1,7 @@
 module.exports = {
   appName: 'Cranberry',
   appShortName: 'CRAN',
-  title: 'Sandusky Register',
+  title: 'Standard Examiner',
   description: 'SNG Web Core',
   charset: 'utf-8',
   lang: 'en',
@@ -9,6 +9,6 @@ module.exports = {
   applicationName: 'CRAN',
   // Add to homescreen for Safari on iOS
   appleMobileWebAppTitle: 'CRAN',
-  siteName: 'Sandusky-Register',
-  fileName: 'sandusky'
+  siteName: 'Standard-Examiner',
+  fileName: 'standard'
 };
