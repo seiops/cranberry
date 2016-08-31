@@ -88,7 +88,7 @@ class CranberryContentList {
     }
 
     _checkLeaderboardAd(index) {
-        if (index === 10 || index === 20) {
+        if (index === 9 || index === 19) {
             return true;
         } else {
             return;
