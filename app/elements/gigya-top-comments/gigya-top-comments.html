@@ -7,7 +7,7 @@
       @import "gigya-top-comments/gigya-top-comments";
     </style>
 
-    <div class="wrapper">
+    <div class="wrapper" hidden$="{{hideComments}}">
       <paper-card heading="Most commented stories:" elevation="1">
         <div class="card-content">
           <template is="dom-repeat" items="{{items}}">

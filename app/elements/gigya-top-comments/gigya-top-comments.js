@@ -12,7 +12,12 @@ class GigyaTopComments {
         value: 5
       },
       items: {
-        type: Array
+        type: Array,
+        observer: '_itemsChanged'
+      },
+      hideComments: {
+        type: Boolean,
+        value: false
       }
     };
   }
@@ -44,6 +49,12 @@ class GigyaTopComments {
     }, 50);
   }
 
+  _itemsChanged(items) {
+    if (items.length === 0) {
+      this.set('hideComments', true);
+    }
+  }
+
   // Gigya API callback
   _commentsCallback(response) {
     app.logger('\<gigya-top-comments\> response');
@@ -70,7 +81,7 @@ class GigyaTopComments {
 
   _isLast(index) {
     let count = this.get('count');
-    
+
     if (index === count - 1) {
       return true;
     }
