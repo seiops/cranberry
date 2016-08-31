@@ -1,5 +1,5 @@
 #commentsButton {
-  background: var(--dark-theme-primary-background-color);
+  background: var(--accent-color);
   color: var(--text-dark-primary-color);
   @apply(--paper-font-button);
   width: 181px;
