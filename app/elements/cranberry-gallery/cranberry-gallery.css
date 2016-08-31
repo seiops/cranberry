@@ -26,6 +26,14 @@ div {
   margin-bottom: 25px;
 }
 
+.flex-3 {
+  @apply(--layout-flex-3);
+}
+
+.flex {
+  @apply(--layout-flex);
+}
+
 /* Gallery Container styles*/
 .gallery-container {
   position: relative;

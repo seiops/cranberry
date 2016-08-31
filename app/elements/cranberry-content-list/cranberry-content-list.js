@@ -71,6 +71,14 @@ class CranberryContentList {
         }
     }
 
+    _checkAdPos(index, desiredIndex) {
+      if (index === desiredIndex) {
+        return true;
+      } else {
+        return;
+      }
+    }
+
     _checkNativeAd(index) {
         if (index === 2 || index === 17) {
             return true;
@@ -80,7 +88,7 @@ class CranberryContentList {
     }
 
     _checkLeaderboardAd(index) {
-        if (index === 9 || index === 19) {
+        if (index === 10 || index === 20) {
             return true;
         } else {
             return;

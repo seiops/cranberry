@@ -30,7 +30,12 @@
         <template is="dom-if" if="[[_checkInStreamAd(index)]]">
           <div class="stream-advertisement-wrapper">
             <div class="stream-advertisement">
-                <google-dfp section="[[sections]]" tags="[[tag]]" ad-pos="Middle_of_Stream" ad-size="[[300, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+              <template is="dom-if" if="[[_checkAdPos(index,2)]]">
+                <google-dfp section="[[sections]]" tags="[[tag]]" ad-pos="Top_Of_Stream" ad-size="[[300, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+              </template>
+              <template is="dom-if" if="[[_checkAdPos(index,13)]]">
+                <google-dfp section="[[sections]]" tags="[[tag]]" ad-pos="Bottom_Of_Stream" ad-size="[[300, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+              </template>
             </div>
           </div>
         </template>
@@ -44,7 +49,12 @@
         <template is="dom-if" if="[[_checkLeaderboardAd(index)]]">
           <div class="leaderboard-advertisement-wrapper">
             <div class="leaderboard-advertisement">
-              <google-dfp section="[[sections]]" tags="[[tag]]" ad-pos="leaderboard" ad-size="[[728, 90],[970,90]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+              <template is="dom-if" if="[[_checkAdPos(index,10)]]">
+                <google-dfp section="[[sections]]" tags="[[tag]]" ad-pos="Middle_Of_Stream" ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+              </template>
+              <template is="dom-if" if="[[_checkAdPos(index,20)]]">
+                <google-dfp section="[[sections]]" tags="[[tag]]" ad-pos="Last_Of_Stream" ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+              </template>
             </div>
           </div>
         </template>
