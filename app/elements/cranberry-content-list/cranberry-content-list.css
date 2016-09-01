@@ -18,7 +18,7 @@ div.stream-advertisement-wrapper {
   @apply(--layout-horizontal);
   @apply(--layout-center);
   flex: 1 1 auto;
-  max-width: 370px;
+  max-width: 300px;
   margin: 12px;
 }
 
