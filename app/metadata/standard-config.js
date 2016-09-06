@@ -30,6 +30,10 @@ module.exports = {
     facebook: 'standardexaminer',
     facebookId: '1389242281298280'
   },
+  // Tout
+  tout: {
+      toutUid: '2f45b0'
+  },
   // Contact Page Config
   contactInformation: {
     contactFormRecipient: 'memberservices@standard.net',

@@ -2,15 +2,19 @@ class cranberryShortcode {
     beforeRegister() {
         this.is = 'cranberry-shortcode';
         this.properties = {
-          storyObject: {
-            type: Object
-          },
-          shortcodeObject: {
-            type: Object
-          },
-          baseUrl: {
-            type: String
-          }
+            storyObject: {
+                type: Object
+            },
+            shortcodeObject: {
+                type: Object
+            },
+            baseUrl: {
+                type: String
+            },
+            toutUid: {
+                type: String,
+                value: ''
+            }
         };
     }
 
@@ -98,6 +102,8 @@ class cranberryShortcode {
           break;
         case 'generator':
           break;
+        case 'toutembed':
+          this._createShortcode(undefined, 'toutEmbed', shortcode);
       }
     }
 
@@ -269,6 +275,23 @@ class cranberryShortcode {
         Polymer.dom(wrapper).appendChild(slider);
 
         shortcodeEl = wrapper;
+      }
+
+      if (type === 'toutEmbed') {
+        let story = document.querySelector('cranberry-story');
+        shortcodeEl = document.createElement('div');
+
+        let tout = document.createElement('div');
+        let toutScript = document.createElement('script');
+        let toutId = 'tout-' + shortcode.value + '-target';
+        let toutUid = this.toutUid;
+
+        tout.id = toutId;
+        toutScript.src = '//player.tout.com/embeds/' + shortcode.value + '.js?content_brand_uid=' + toutUid + '&width=auto&height=auto&autoplay=false&element_id=' + toutId;
+
+        shortcodeEl.appendChild(tout);
+        shortcodeEl.appendChild(toutScript);
+
       }
 
       // Append shortcodeEl

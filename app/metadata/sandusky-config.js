@@ -32,6 +32,10 @@ module.exports = {
     facebook: 'sanduskyregistr',
     facebookId: '259812604228072'
   },
+  // Tout
+  tout: {
+      toutUid: '277e2b'
+  },
   // Contact Page Config
   // Entire contact information needs changed
   contactInformation: {

@@ -22,7 +22,6 @@ class CranberryStory {
                 value: 0,
                 observer: '_storyIdChanged'
             },
-            hidden: Boolean,
             params: {
                 type: Object,
                 value: {}
@@ -33,13 +32,39 @@ class CranberryStory {
             user: {
               type: Object
             },
+            /*
+                * This is needed to ensure that the hidden attribute is being observed properly.
+                * Without this property the hidden value in the observer is always undefined or null.
+                * This is directly linked the reflectToAttribute boolean as well as the default value being set to true.
+                  Although I cannot give a good explaination as to why this occurs this is the only way I could get this to work
+                  comment this out to see the behavior I am describing above; with a console.info(hidden); within the
+                  _hiddenChanged function below.
+                * Without the default value of true a story will not load on direct link. Without the property being set with reflectToAttribute
+                  the story will not load period.
+            */
+            hidden: {
+                type: Boolean,
+                reflectToAttribute: true,
+                value: true
+            },
             hasLeadShortcode: {
               type: Boolean,
               value: false
+            },
+            toutUid: {
+                type: String
             }
         };
 
-        this.observers = ['_checkParams(routeData.id)'];
+        this.observers = ['_checkParams(routeData.id)', '_hiddenChanged(hidden)'];
+    }
+
+    _hiddenChanged(hidden) {
+        this.async(function() {
+            if (hidden) {
+                this._destroyContent();
+            }
+        });
     }
 
     attached() {
@@ -122,6 +147,7 @@ class CranberryStory {
                 let baseUrl = this.get('baseUrl');
                 let paragraphs = story.paragraphs;
                 let contentArea = this.$.storyContentArea;
+                let el = this;
 
                 if (typeof paragraphs !== 'undefined') {
                     // Create a document fragment to append all elements to
@@ -132,6 +158,9 @@ class CranberryStory {
                             let shortcodeEl = document.createElement('cranberry-shortcode');
 
                             shortcodeEl.set('shortcodeObject', value);
+                            if (value.key == 'toutembed') {
+                                shortcodeEl.set('toutUid', el.toutUid);
+                            }
                             shortcodeEl.set('storyObject', story);
                             shortcodeEl.set('baseUrl', baseUrl);
                             fragment.appendChild(shortcodeEl);

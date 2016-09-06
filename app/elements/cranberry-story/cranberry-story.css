@@ -134,7 +134,7 @@ div.story-content div {
 div.right-rail {
   flex: 1 1 auto;
   max-width: 300px;
-  margin-right: 12px;
+  margin-left: 12px;
 }
 
 div.right-rail div {
