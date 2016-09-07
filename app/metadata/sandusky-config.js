@@ -115,6 +115,10 @@ module.exports = {
       {
         label: 'Member Rewards',
         link: 'sanduskyregister.clickitrewards.com'
+      },
+      {
+        label: 'Archive',
+        link: '/archive'
       }
     ]
   },

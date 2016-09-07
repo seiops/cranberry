@@ -32,6 +32,10 @@ module.exports = {
     facebook: 'sanduskyregistr',
     facebookId: '259812604228072'
   },
+  // Tout
+  tout: {
+      toutUid: '277e2b'
+  },
   // Jobs Network
   jobs: {
       affiliateId: '1606',
@@ -111,6 +115,10 @@ module.exports = {
       {
         label: 'Member Rewards',
         link: 'sanduskyregister.clickitrewards.com'
+      },
+      {
+        label: 'Archive',
+        link: '/archive'
       }
     ]
   },
