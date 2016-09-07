@@ -76,9 +76,8 @@ paper-button.rounded-button {
 
 .contact-card-wrapper {
   @apply(--layout-vertical);
-  @apply(--layout-center-justified);
   margin: 0 auto;
-  padding: 0 40px 0;
+  padding: 0 80px 0 20px;
 }
 
 .contact-card-header-info {
