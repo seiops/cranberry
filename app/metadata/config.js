@@ -66,8 +66,8 @@ module.exports = {
       zip: '44870'
     },
     map: {
-      latitude: '41.4552814',
-      longitude: '-82.7158251'
+      latitude: '41.4552555',
+      longitude: '-82.7134733'
     },
     needHelp: [
       {
