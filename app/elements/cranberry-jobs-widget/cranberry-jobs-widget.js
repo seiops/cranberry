@@ -65,7 +65,6 @@ class cranberryJobsWidget {
           }
 
           for (let i = 0; i < index; i++) {
-              console.info(jobs[i]);
               array[i] = jobs[i];
           }
 
