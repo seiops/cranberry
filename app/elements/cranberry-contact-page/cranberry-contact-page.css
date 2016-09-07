@@ -13,7 +13,7 @@ paper-material {
   @apply(--paper-font-caption);
 }
 
-paper-button.rounded-button {
+.rounded-button {
   border-radius: 50%;
   width: 50px;
   height: 50px;
@@ -129,12 +129,19 @@ paper-button.rounded-button {
   @apply(--layout-wrap);
   background-color: var(--accent-color);
   min-height: 150px;
+  padding: 30px;
 }
 
-.social-buttons-container paper-button {
+.social-buttons-container paper-icon-button {
   @apply(--layout-flex);
-  background-color: var(--light-accent-color);
+  border-radius: 50%;
   margin: 20px;
+  padding: 10px;
+  max-width: 20px;
+  max-height: 20px;
+  color: var(--accent-color);
+  background-color: var(--light-accent-color);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
 }
 
 /* Help Section */
