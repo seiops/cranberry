@@ -25,7 +25,9 @@ class cranberryContactForm {
       let validForm = form.validate();
       // if the form is in a valid state then submit
       if (validForm) {
-        request.url = (window.location.hostname === 'localhost' ? '' : window.location.protocol +  window.location.host + '/contact-form');
+        request.url = (window.location.hostname === 'localhost' ? 'http://srdevcore.libercus.net' : window.location.protocol +  window.location.host) + '/contact-form';
+
+        console.info(request.url);
 
         var params = {};
 
@@ -80,7 +82,10 @@ class cranberryContactForm {
   // byutv handle response function
   handleResponse (data) {
     var response = data.detail.Result;
-    this.querySelector('.output').innerHTML = response;
+
+    app.$.infoToast.text = response;
+    app.$.infoToast.show();
+
   }
 }
 

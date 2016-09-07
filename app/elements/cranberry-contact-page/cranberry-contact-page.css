@@ -129,7 +129,7 @@ paper-material {
   @apply(--layout-wrap);
   background-color: var(--accent-color);
   min-height: 150px;
-  padding: 30px;
+  padding: 0 30px;
 }
 
 .social-buttons-container paper-icon-button {
