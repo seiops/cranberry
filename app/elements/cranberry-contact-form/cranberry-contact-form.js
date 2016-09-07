@@ -4,6 +4,10 @@ class cranberryContactForm {
     this.properties = {
       recipient: {
         type: String
+      },
+      submitting: {
+        type: Boolean,
+        value: false
       }
     };
     // Reset button behavior
@@ -20,14 +24,15 @@ class cranberryContactForm {
     this.handleSubmit = function(event) {
       let form = this.$$('form');
       let request = this.$.request;
+      let submit = this.$.submitButton;
 
+      submit.disabled = true;
+      this.set('submitting', true);
       // Check form for validity
       let validForm = form.validate();
       // if the form is in a valid state then submit
       if (validForm) {
         request.url = (window.location.hostname === 'localhost' ? 'http://srdevcore.libercus.net' : window.location.protocol +  window.location.host) + '/contact-form';
-
-        console.info(request.url);
 
         var params = {};
 
@@ -83,8 +88,18 @@ class cranberryContactForm {
   handleResponse (data) {
     var response = data.detail.Result;
 
-    app.$.infoToast.text = response;
-    app.$.infoToast.show();
+    if (response === 'Your message has been sent') {
+      // Message was successfully sent
+      app.$.infoToast.text = 'Thank you for your submission!';
+      app.$.infoToast.show();
+
+      let form = this.$.form;
+      form.reset();
+    }
+
+    this.set('submitting', false);
+    let submit = this.$.submitButton;
+    submit.disabled = false;
 
   }
 }
