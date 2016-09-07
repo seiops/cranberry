@@ -38,10 +38,14 @@ paper-button.rounded-button {
   width: 100%;
 }
 
-.main-image .header-title {
+.main-image .header-title-container {
   position: absolute;
   bottom: 0;
-  left: 10%;
+  width: 100%;
+}
+
+.main-image .header-title-container .header-title {
+  text-align: center;
   @apply(--paper-font-display1);
   color: var(--text-primary-color);
 }
