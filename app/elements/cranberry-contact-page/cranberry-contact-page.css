@@ -176,6 +176,10 @@ paper-button.rounded-button {
   margin: 10px;
 }
 
+.help-card iron-icon {
+  margin: 10px;
+}
+
 .help-card p {
   @apply(--paper-font-subhead);
   margin: 0;
