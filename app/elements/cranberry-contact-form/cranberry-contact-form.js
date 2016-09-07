@@ -10,50 +10,50 @@ class cranberryContactForm {
         value: false
       }
     };
-    // Reset button behavior
-    this.handleReset = function(event) {
-      let form = Polymer.dom(event).localTarget.parentElement;
-      // Reset inputs, checkboxes, and radio buttons
-      form.reset();
-      // Reset the textarea
-      form.querySelector('.output').innerHTML = '';
-      // Fire a change event on the form to re-validate
-      form.fire('change');
-    };
-    // Submit button behavior
-    this.handleSubmit = function(event) {
-      let form = this.$$('form');
-      let request = this.$.request;
-      let submit = this.$.submitButton;
+  }
 
-      submit.disabled = true;
-      this.set('submitting', true);
-      // Check form for validity
-      let validForm = form.validate();
-      // if the form is in a valid state then submit
-      if (validForm) {
-        request.url = (window.location.hostname === 'localhost' ? 'http://srdevcore.libercus.net' : window.location.protocol +  window.location.host) + '/contact-form';
+  _handleSubmit() {
+    let form = this.$.form;
+    let request = this.$.request;
+    let submit = this.$.submitButton;
 
-        var params = {};
+    submit.disabled = true;
+    this.set('submitting', true);
+    // Check form for validity
+    let validForm = form.validate();
+    // if the form is in a valid state then submit
+    if (validForm) {
+      request.url = (window.location.hostname === 'localhost' ? 'http://srdevcore.libercus.net' : window.location.protocol +  window.location.host) + '/contact-form';
 
-        params.request = "submit";
-        params.fullname = form.name.value;
-        params.email = form.email.value;
-        params.address = form.address.value;
-        params.telephone = form.telephone.value;
-        // Send blank string to by-pass captcha from Libercus.
-        params.captcha = '';
-        params.message = form.message.value;
-        // Passed in value for recipient
-        params.recipient = this.recipient;
+      var params = {};
 
-        // Set params on the request
-        request.params = params;
+      params.request = "submit";
+      params.fullname = form.name.value;
+      params.email = form.email.value;
+      params.address = form.address.value;
+      params.telephone = form.telephone.value;
+      // Send blank string to by-pass captcha from Libercus.
+      params.captcha = '';
+      params.message = form.message.value;
+      // Passed in value for recipient
+      params.recipient = this.recipient;
 
-        // Initiate HTTP request
-        request.generateRequest();
-      }
-    };
+      // Set params on the request
+      request.params = params;
+
+      // Initiate HTTP request
+      request.generateRequest();
+    }
+  }
+
+  _handleReset() {
+    let form = this.$.form;
+    // Reset inputs, checkboxes, and radio buttons
+    form.reset();
+    // Reset reCaptcha
+    this.$.recap.reset();
+    // Fire a change event on the form to re-validate
+    form.fire('change');
   }
 
   ready() {
@@ -93,8 +93,7 @@ class cranberryContactForm {
       app.$.infoToast.text = 'Thank you for your submission!';
       app.$.infoToast.show();
 
-      let form = this.$.form;
-      form.reset();
+      this._handleReset();
     }
 
     this.set('submitting', false);
