@@ -52,4 +52,5 @@ div.content-cards > gigya-top-comments {
 div.content-cards > cranberry-jobs-widget {
   @apply(--layout-vertical);
   max-width: 300px;
+  min-width: 300px;
 }
