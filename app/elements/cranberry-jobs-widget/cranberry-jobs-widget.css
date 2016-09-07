@@ -1,0 +1,38 @@
+:host {
+    display: block;
+    margin: 12px;
+}
+
+div.card-tag-container span.card-tag {
+    @apply(--paper-font-caption2);
+    display: inline-block;
+    padding: 5px;
+    background-color: var(--accent-color);
+    color: var(--dark-theme-primary-text-color);
+}
+
+a.item-link {
+    text-decoration: none;
+}
+
+p.item-company-name {
+    @apply(--paper-font-caption);
+    color: var(--accent-color);
+    margin: 0 0;
+}
+
+h3.item-title {
+    @apply(--paper-font-headline);
+    color: var(--light-theme-primary-text-color);
+    margin: 0 0;
+}
+
+p.item-location {
+    @apply(--paper-font-caption);
+    color: var(--accent-color);
+    margin: 0 0;
+}
+
+hr.item-seperator {
+    border: 1px solid var(--accent-color);
+}

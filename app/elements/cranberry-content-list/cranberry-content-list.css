@@ -46,4 +46,10 @@ div.leaderboard-advertisement {
 
 div.content-cards > gigya-top-comments {
   @apply(--layout-vertical);
+  margin: 12px;
+}
+
+div.content-cards > cranberry-jobs-widget {
+  @apply(--layout-vertical);
+  max-width: 300px;
 }

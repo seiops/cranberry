@@ -32,6 +32,11 @@ module.exports = {
     facebook: 'sanduskyregistr',
     facebookId: '259812604228072'
   },
+  // Jobs Network
+  jobs: {
+      affiliateId: '1606',
+      widgetId: '3167'
+  },
   // Contact Page Config
   // Entire contact information needs changed
   contactInformation: {
