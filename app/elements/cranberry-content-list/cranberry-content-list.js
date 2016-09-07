@@ -64,7 +64,7 @@ class CranberryContentList {
     }
 
     _checkInStreamAd(index) {
-        if (index === 2 || index === 13) {
+        if (index === 2 || index === 11) {
             return true;
         } else {
             return;
@@ -80,7 +80,7 @@ class CranberryContentList {
     }
 
     _checkNativeAd(index) {
-        if (index === 2 || index === 17) {
+        if (index === 2 || index === 13) {
             return true;
         } else {
             return;
@@ -88,7 +88,7 @@ class CranberryContentList {
     }
 
     _checkLeaderboardAd(index) {
-        if (index === 9 || index === 19) {
+        if (index === 9) {
             return true;
         } else {
             return;
@@ -96,11 +96,19 @@ class CranberryContentList {
     }
 
     _checkTopComments(index) {
-      if (index === 1) {
+      if (index === 3) {
         return true;
       } else {
         return;
       }
+    }
+
+    _checkJobsWidget(index) {
+        if (index === 11) {
+            return true;
+        } else {
+            return;
+        }
     }
 
     _handleLoad() {

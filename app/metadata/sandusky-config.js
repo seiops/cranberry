@@ -36,6 +36,11 @@ module.exports = {
   tout: {
       toutUid: '277e2b'
   },
+  // Jobs Network
+  jobs: {
+      affiliateId: '1606',
+      widgetId: '3167'
+  },
   // Contact Page Config
   // Entire contact information needs changed
   contactInformation: {
