@@ -15,8 +15,6 @@
 div.wrapper {
   @apply(--layout-vertical);
   flex: 1 1 auto;
-
-  margin: 12px;
   max-width: 300px;
   text-decoration: none;
 }
