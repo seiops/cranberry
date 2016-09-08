@@ -34,6 +34,7 @@ class cranberrySearchBar {
           if (!input.validate()) {
             input.set('invalid', true);
           } else {
+            // This is a bit redundant as we have an allowed-pattern attribute on the input, but leaving here in case we remove that attribute later
             input.set('invalid', false);
           }
         }
