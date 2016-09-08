@@ -13,7 +13,7 @@
     </style>
 
     <form is="iron-form" id="searchForm" disable-native-validation-ui>
-      <paper-input type="search" label="{{label}}" id="input" value="{{query}}" required auto-validate error-message="Please input your search." allowed-pattern="[a-zA-Z0-9 ]">
+      <paper-input is="iron-input" type="search" label="{{label}}" id="input" value="{{query}}" required pattern="[a-zA-Z0-9 ]*" allowed-pattern="[a-zA-Z0-9 ]" error-message="Please input your search.">
         <iron-icon icon="search" prefix></iron-icon>
       </paper-input>
     </form>
