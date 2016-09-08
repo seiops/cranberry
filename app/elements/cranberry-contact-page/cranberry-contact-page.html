@@ -101,10 +101,10 @@
           </template>
         </div>
       </div>
-      <div class="staff-cards">
+      <div class="staff-cards" hidden$="{{noStaff}}">
         <h3>Meet Our Team</h3>
         <p>Newsroom</p>
-        <cranberry-staff-list rest="{$ config.baseEndpointUrl $}" route="[[route]]" base-url="{$ config.baseDomain $}"></cranberry-staff-list>
+        <cranberry-staff-list rest="{$ config.baseEndpointUrl $}" route="[[route]]" base-url="{$ config.baseDomain $}" hidden$="{{hidden}}"></cranberry-staff-list>
       </div>
       <div class="important-links">
         <div class="important-links-header">

@@ -7,6 +7,10 @@ class cranberryContactPage {
       },
       footerLinks: {
         type: Object
+      },
+      noStaff: {
+        type: Boolean,
+        value: false
       }
     }
   }
