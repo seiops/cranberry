@@ -53,6 +53,7 @@ class GigyaTopComments {
     if (items.length === 0) {
       this.set('hideComments', true);
     }
+    this.set('count', items.length);
   }
 
   // Gigya API callback
