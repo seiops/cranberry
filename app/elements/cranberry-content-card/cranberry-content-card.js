@@ -80,5 +80,11 @@ class cranberryContentCard {
       return 'list-card';
     }
   }
+
+  _scrubTag(tag) {
+    let temp = tag.replace('_', ' ');
+
+    return temp;
+  }
 }
 Polymer(cranberryContentCard);
