@@ -88,6 +88,11 @@ div.body-text {
   background: var(--dark-primary-color);
 }
 
+#commentButton::shadow iron-icon {
+  width: 18px;
+  height: 18px;
+}
+
 #twitterButton {
   background: #55acee;
 }
