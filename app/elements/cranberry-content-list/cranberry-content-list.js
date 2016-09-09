@@ -80,7 +80,7 @@ class CranberryContentList {
     }
 
     _checkNativeAd(index) {
-        if (index === 2 || index === 13) {
+        if (index === 2 || index === 15) {
             return true;
         } else {
             return;
