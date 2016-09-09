@@ -16,13 +16,13 @@ a.item-link {
 }
 
 p.item-company-name {
-    @apply(--paper-font-caption);
+    @apply(--paper-font-display4);
     color: var(--accent-color);
     margin: 0 0;
 }
 
 h3.item-title {
-    @apply(--paper-font-headline);
+    @apply(--paper-font-menu);
     color: var(--light-theme-primary-text-color);
     margin: 0 0;
 }
