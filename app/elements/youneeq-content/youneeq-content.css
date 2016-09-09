@@ -47,5 +47,5 @@ div.youneeq-container[mobile] div.youneeq-content-item {
 
 div.youneeq-container[mobile] div.youneeq-content-item iron-image {
   height: 65px;
-  max-width:
+  width: 120px;
 }
