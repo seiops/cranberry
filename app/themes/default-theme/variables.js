@@ -19,7 +19,7 @@ var config = require('../../metadata/general'),
 module.exports = {
     global: {
         logo: '../../images/logos/' + fileName + '/logo.png',
-        location: '../../images/logos/' + fileName + '/location.jpg',
+        location: '../../images/logos/' + fileName + '/location.png',
         primaryColorName: primaryColorName,
         accentColorName: accentColorName,
         themeMode: themeMode
