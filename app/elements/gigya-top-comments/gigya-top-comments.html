@@ -8,7 +8,10 @@
     </style>
 
     <div class="wrapper" hidden$="{{hideComments}}">
-      <paper-card heading="Most commented stories:" elevation="1">
+      <paper-card elevation="1">
+        <div class="card-tag-container">
+          <span class="card-tag">Comments</span>
+        </div>
         <div class="card-content">
           <template is="dom-repeat" items="{{items}}">
             <a href="[[item.streamURL]]">

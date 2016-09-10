@@ -2,15 +2,15 @@
   display: block;
   min-height: 250px;
   min-width: 300px;
-
-  /* postcss-bem-linter: ignore */
-  --paper-card-header-text: {
-    @apply(--paper-font-display2);
-    padding: 0 0 0 12px;
-    margin: 16px 16px 0 0;
-    border-bottom: 4px solid var(--accent-color);
-  };
 };
+
+span.card-tag {
+  @apply(--paper-font-caption2);
+  display: inline-block;
+  padding: 5px;
+  background-color: var(--accent-color);
+  color: var(--dark-theme-primary-text-color);
+}
 
 div.wrapper {
   @apply(--layout-vertical);
@@ -25,7 +25,8 @@ div.wrapper paper-card {
 }
 
 h3.item-title {
-  @apply(--paper-font-subhead);
+  @apply(--paper-font-menu);
+  color: var(--light-theme-primary-text-color);
   margin: 0;
 }
 
@@ -35,19 +36,20 @@ a {
 
 div.card-content {
   @apply(--layout-vertical);
-  padding: 16px 16px 16px 0;
+  padding: 16px 0;
 }
 
 paper-card div.card-content div.content-comments {
-  @apply(--paper-font-caption);
-  color: var(--accent-color);
-  margin: 0 0 0 12px;
-  min-width: 45px;
+  @apply(--paper-font-display4);
+  margin: 0 0 0 16px;
+  min-width: 40px;
 }
 
 /* Flip The Comments Icon */
 paper-card div.card-content div.content-comments iron-icon {
   transform: scaleX(-1);
+  width: 16px;
+  height: 16px;
 }
 
 div.item {
@@ -57,4 +59,8 @@ div.item {
 
 hr.break {
   width: 100%;
+  border: 0;
+  height: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }

@@ -11,6 +11,21 @@ div.card-tag-container span.card-tag {
     color: var(--dark-theme-primary-text-color);
 }
 
+div.card-content {
+  padding: 16px 0;
+}
+
+div.card-content a > * {
+  padding: 0 16px;
+}
+
+div.card-content hr.item-sperator {
+  border: 0;
+  height: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
 a.item-link {
     text-decoration: none;
 }
@@ -31,11 +46,4 @@ p.item-location {
     @apply(--paper-font-caption);
     color: var(--accent-color);
     margin: 0 0;
-}
-
-hr.item-seperator {
-    border: 0;
-    height: 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
