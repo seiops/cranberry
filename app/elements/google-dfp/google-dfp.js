@@ -62,6 +62,14 @@ class GoogleDFP {
                 googletag.destroySlots([window.slots[idModifier]]);
             }
 
+            var mapping = googletag.sizeMapping().
+              addSize([1024, 768], [970, 250]).
+              addSize([980, 690], [728, 90]).
+              addSize([640, 480], [120, 60]).
+              addSize([0, 0], [300, 250]).
+              // Fits browsers of any size smaller than 640 x 480
+              build();
+
             googletag.cmd.push(function() {
                 googletag.pubads().setTargeting('section', parentSection);
                 googletag.pubads().setTargeting('placement', 'development');
@@ -73,7 +81,10 @@ class GoogleDFP {
                 window.slots[idModifier] = googletag.defineSlot(dfpURL, adSize, idModifier).addService(googletag.pubads(
 
                 )).setCollapseEmptyDiv(true);
+
                 slots[idModifier].setTargeting('position', position);
+                slots[idModifier].defineSizeMapping(mapping);
+
                 googletag.display(idModifier);
             });
         });

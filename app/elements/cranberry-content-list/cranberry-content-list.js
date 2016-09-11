@@ -64,7 +64,12 @@ class CranberryContentList {
   _changeSections(section) {
     this.async(function() {
       app.logger('\<cranberry-content-list\> section changed -\> ' + section);
-      this.set('start', 1);
+      let start = this.get('start');
+      if (start > 1) {
+        this.set('start', 1);
+      } else {
+        this._updateParams();
+      }
     });
   }
 
@@ -75,10 +80,8 @@ class CranberryContentList {
       let count = this.get('count');
 
       if (start > count) {
-        console.log('changed count');
         this.set('hidePreviousButton', false);
       } else {
-        console.log('changed count');
         this.set('hidePreviousButton', true);
       }
       this._updateParams();
