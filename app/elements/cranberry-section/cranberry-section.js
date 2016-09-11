@@ -111,7 +111,7 @@ class CranberrySection {
               if (typeof section !== 'undefined' && section.length > 0 && section !== ('section' || 'story')) {
                   this.set('loadSection', section);
               } else {
-                  this.set('loadSection', 'news');
+                  this.set('loadSection', 'homepage');
               }
 
               if (tags) {
