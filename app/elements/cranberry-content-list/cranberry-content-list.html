@@ -22,7 +22,7 @@
       last-request="{{request}}"
       last-error="{{error}}"
       id="request"></byutv-jsonp>
-    <div class="content-cards u-focusTarget">
+    <div class="content-cards">
       <template is="dom-repeat" items="{{items}}" initial-count="3">
         <template is="dom-if" if="[[_checkTopComments(index)]]">
           <gigya-top-comments count="5" age="90"></gigya-top-comments>
