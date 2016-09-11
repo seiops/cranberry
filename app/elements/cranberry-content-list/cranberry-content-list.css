@@ -47,3 +47,14 @@ div.leaderboard-advertisement {
 div.content-cards > gigya-top-comments {
   @apply(--layout-vertical);
 }
+
+div.pagination-wrapper {
+  @apply(--layout-center);
+  @apply(--layout-flex);
+  @apply(--layout-vertical);
+  margin-top: 24px;
+}
+
+div.pagination {
+  @apply(--layout-horizontal);
+}
