@@ -62,13 +62,17 @@ class GoogleDFP {
                 googletag.destroySlots([window.slots[idModifier]]);
             }
 
-            var mapping = googletag.sizeMapping().
-              addSize([1024, 768], [970, 250]).
-              addSize([980, 690], [728, 90]).
-              addSize([640, 480], [120, 60]).
-              addSize([0, 0], [300, 250]).
-              // Fits browsers of any size smaller than 640 x 480
-              build();
+            // var mapping;
+            //
+            // if (position === 'leaderboard') {
+            //   mapping = googletag.sizeMapping().
+            //
+            //     addSize([0, 0], [300, 250]).
+            //     addSize([320, 400], [[320, 50], [300, 50], [300, 250]]).
+            //     addSize([750, 200], [[728, 90], [300, 250]]).
+            //     addSize([1050, 200], [[970, 250], [970, 90],  [728, 90], [320, 250], [320, 50]]).
+            //     build();
+            // }
 
             googletag.cmd.push(function() {
                 googletag.pubads().setTargeting('section', parentSection);
@@ -83,7 +87,7 @@ class GoogleDFP {
                 )).setCollapseEmptyDiv(true);
 
                 slots[idModifier].setTargeting('position', position);
-                slots[idModifier].defineSizeMapping(mapping);
+                // slots[idModifier].defineSizeMapping(mapping);
 
                 googletag.display(idModifier);
             });
