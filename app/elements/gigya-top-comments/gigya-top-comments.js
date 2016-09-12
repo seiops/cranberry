@@ -15,9 +15,9 @@ class GigyaTopComments {
         type: Array,
         observer: '_itemsChanged'
       },
-      hideComments: {
+      hideDefaultMessage: {
         type: Boolean,
-        value: false
+        value: true
       }
     };
   }
@@ -51,7 +51,7 @@ class GigyaTopComments {
 
   _itemsChanged(items) {
     if (items.length === 0) {
-      this.set('hideComments', true);
+      this.set('hideDefaultMessage', false);
     }
     this.set('count', items.length);
   }

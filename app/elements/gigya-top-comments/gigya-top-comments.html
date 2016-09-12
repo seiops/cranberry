@@ -7,7 +7,7 @@
       @import "gigya-top-comments/gigya-top-comments";
     </style>
 
-    <div class="wrapper" hidden$="{{hideComments}}">
+    <div class="wrapper">
       <paper-card elevation="1">
         <div class="card-tag-container">
           <span class="card-tag">Comments</span>
@@ -24,6 +24,9 @@
             </a>
             <hr class="break" hidden$="{{_isLast(index)}}" />
           </template>
+          <div class="no-comments-container" hidden$="{{hideDefaultMessage}}">
+            <h3 class="no-comments-text">No Recent Comments...</h3>
+          </div>
         </div>
       </paper-card>
     </div>

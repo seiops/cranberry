@@ -64,3 +64,14 @@ hr.break {
   border-top: 1px solid rgba(0, 0, 0, 0.3);
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
+
+div.no-comments-container {
+  @apply(--layout-vertical);
+  padding: 16px 0;
+}
+
+h3.no-comments-text {
+  @apply(--paper-font-menu);
+  color: var(--light-theme-primary-text-color);
+  margin: 0 0 0 12px;
+}
