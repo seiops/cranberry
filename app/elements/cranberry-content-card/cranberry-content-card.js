@@ -82,9 +82,14 @@ class cranberryContentCard {
   }
 
   _scrubTag(tag) {
-    let temp = tag.replace('_', ' ');
+    if (typeof tag !== 'undefined' && tag !== '') {
+      let temp = tag.replace('_', ' ');
 
-    return temp;
+      return temp;
+    } else {
+      return '';
+    }
+
   }
 }
 Polymer(cranberryContentCard);
