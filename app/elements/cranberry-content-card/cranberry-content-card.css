@@ -162,6 +162,10 @@ paper-card.featured div.card-info span.content-date {
   @apply(--paper-font-caption2);
 }
 
+paper-card.slider {
+  width: 100%;
+}
+
 a.main {
   @apply(--layout-flex);
   @apply(--layout-vertical);

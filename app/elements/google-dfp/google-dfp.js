@@ -17,7 +17,8 @@ class GoogleDFP {
         };
     }
 
-    _buildAd(section) {
+
+    _buildAd() {
         this.async(function() {
             let advertisement = Polymer.dom(this.root).firstElementChild;
             let idModifier = advertisement.getAttribute('id');
@@ -29,6 +30,7 @@ class GoogleDFP {
             let adSize = this.get('adSize');
             let adSizeMapping = this.get('adSizeMapping');
             let position = this.get('adPos');
+            let section = this.get('section');
             let adSection = section.replace(' ', '_').replace('-', '_');
             let sectionParent = this.get('sectionParent');
             let tags = this.get('tags');
@@ -53,13 +55,11 @@ class GoogleDFP {
             if (typeof adSizeMapping !== 'undefined') {
               var mapping;
 
-              console.log('mapping: ' + adSizeMapping);
-
               if (adSizeMapping === 'leaderboard') {
                 mapping = googletag.sizeMapping().
-                  addSize([0, 0], [300, 50]).
-                  addSize([340, 400], [[320, 50]]).
-                  addSize([750, 200], [[728, 90], [300, 50]]).
+                  addSize([0, 0], [320, 50]).
+                  addSize([400, 400], [[320, 50]]).
+                  addSize([850, 200], [[728, 90], [300, 50]]).
                   addSize([1050, 200], [[970, 250], [970, 90],  [728, 90], [320, 50]]).
                   build();
               }
@@ -89,14 +89,24 @@ class GoogleDFP {
         });
     }
 
-    _sectionChanged(section) {
-        if (typeof section !== 'undefined') {
-          if(section === 'galleries') {
-            this._buildAd('news');
-          } else {
-            this._buildAd(section);
-          }
+    _checkGoogle() {
+      let el = this;
+
+      setTimeout(function() {
+        if (typeof googletag !== 'undefined' && typeof googletag.sizeMapping === 'function') {
+          el._buildAd();
+          return;
+        } else {
+          el._checkGoogle();
         }
+      }, 500);
+    }
+
+    _sectionChanged(section) {
+      if (typeof section === 'undefined') {
+        this.set('section', 'homepage');
+      }
+      this._checkGoogle();
     }
 
     _adCount() {
