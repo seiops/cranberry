@@ -83,6 +83,12 @@
     <!-- app path routing -->
     {% include "cranberry-base/views/routes.html" %}
 
+    <paper-dialog id="globalModal" modal>
+      <paper-dialog-scrollable>
+        <paper-button on-tap="_clearModal" raised>CLOSE</paper-button>
+      </paper-dialog-scrollable>
+    </paper-dialog>
+
     <app-drawer-layout responsive-width="1280px">
       <!-- side navigation drawer -->
       {% include "cranberry-base/views/drawer.html" %}
