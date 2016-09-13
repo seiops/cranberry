@@ -64,9 +64,15 @@ class scorestreamWidget {
 
     // If the response is not empty and it has scoreboards set values
     if (Object.keys(result).length > 0 && typeof result.scoreboards !== 'undefined') {
-      this.set('masterSwitch', result.masterSwitch);
-      this.set('scoreboardSwitch', result.scoreboards[0].scoreboardOn);
-      this.set('widgetId', result.scoreboards[0].horizontalId);
+      let masterSwitch = (result.masterSwitchOn === 'true');
+      let scoreboardSwitch = (result.scoreboards[0].scoreboardOn === 'true');
+
+      this.set('masterSwitch', masterSwitch);
+      this.set('scoreboardSwitch', scoreboardSwitch);
+
+      if (masterSwitch && scoreboardSwitch) {
+        this.set('widgetId', result.scoreboards[0].horizontalId);
+      }
     } else {
       // Otherwise turn the whole thing off
       this.set('isOff', true);
@@ -75,13 +81,13 @@ class scorestreamWidget {
 
   _turnOnOff(masterSwitch, scoreboardSwitch) {
     // Function to set individual board on or off depending on response
-    if(masterSwitch) {
+    if(!masterSwitch) {
       this.set('isOff', true);
     } else {
       if (scoreboardSwitch) {
-        this.set('isOff', true);
-      } else {
         this.set('isOff', false);
+      } else {
+        this.set('isOff', true);
       }
     }
   }
