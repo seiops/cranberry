@@ -1,12 +1,15 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/iron-icons/communication-icons.html">
 <link rel="import" href="../../bower_components/iron-icons/maps-icons.html">
 <link rel="import" href="../../bower_components/iron-icons/editor-icons.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../cranberry-contact-form/cranberry-contact-form.html">
 <link rel="import" href="../cranberry-map/cranberry-map.html">
 <link rel="import" href="../cranberry-staff-list/cranberry-staff-list.html">
+<link rel="import" href="../cranberry-font-awesome/cranberry-font-awesome.html">
 
 <dom-module id="cranberry-contact-page">
   <template>
@@ -18,7 +21,9 @@
       <div class="main-image">
         <!-- TODO: Need proper image here with correct 16:9 aspect ratio -->
         <iron-image src="{$ config.contactInformation.contactImage $}" sizing="cover"></iron-image>
-        <h3 class="header-title">Welcome to the {$ config.title $}</h3>
+        <div class="header-title-container">
+          <h3 class="header-title">Welcome to the {$ config.title $}</h3>
+        </div>
       </div>
 
       <!-- Contact card and form -->
@@ -34,21 +39,21 @@
             <p class="caption-text">Saturday-Sunday {$ config.contactInformation.hours.weekend $}</p>
           </div>
           <div class="contact-card">
-            <paper-button class="rounded-button" raised><iron-icon icon="communication:phone"></iron-icon></paper-button>
+            <paper-button class="rounded-button faux-disabled" raised disabled><iron-icon icon="communication:phone"></iron-icon></paper-button>
             <div class="contact-card-info">
               <h3>PHONE</h3>
               <p class="caption-text">{$ config.contactInformation.phone $}</p>
             </div>
           </div>
           <div class="contact-card">
-            <paper-button class="rounded-button" raised><iron-icon icon="communication:email"></iron-icon></paper-button>
+            <paper-button class="rounded-button faux-disabled" raised disabled><iron-icon icon="communication:email"></iron-icon></paper-button>
             <div class="contact-card-info">
               <h3>EMAIL</h3>
               <p class="caption-text">{$ config.contactInformation.email $}</p>
             </div>
           </div>
           <div class="contact-card">
-            <paper-button class="rounded-button" raised><iron-icon icon="maps:add-location"></iron-icon></paper-button>
+            <paper-button class="rounded-button faux-disabled" raised disabled><iron-icon icon="maps:add-location"></iron-icon></paper-button>
             <div class="contact-card-info">
               <h3>ADDRESS</h3>
               <p class="caption-text">{$ config.contactInformation.address.unitNumber $} {$ config.contactInformation.address.street $}</p>
@@ -63,12 +68,18 @@
 
       <!-- Social Integration -->
       <div class="social-buttons-container">
-        <!-- TODO: Add Social Icons for each of the paper-buttons below -->
-        <paper-button class="rounded-button" raised>f</paper-button>
-        <paper-button class="rounded-button" raised>i</paper-button>
-        <paper-button class="rounded-button" raised>t</paper-button>
-        <paper-button class="rounded-button" raised>tum</paper-button>
-        <paper-button class="rounded-button" raised>l</paper-button>
+        <a href="{$ config.socialUrls.facebook $}" tabindex="-1" target="_blank">
+          <paper-icon-button class="rounded-button" icon="fa:facebook"></paper-icon-button>
+        </a>
+        <a href="{$ config.socialUrls.instagram $}" tabindex="-1" target="_blank">
+          <paper-icon-button class="rounded-button" icon="fa:instagram"></paper-icon-button>
+        </a>
+        <a href="{$ config.socialUrls.twitter $}" tabindex="-1" target="_blank">
+          <paper-icon-button class="rounded-button" icon="fa:twitter"></paper-icon-button>
+        </a>
+        <a href="{$ config.socialUrls.linkedin $}" tabindex="-1" target="_blank">
+          <paper-icon-button class="rounded-button" icon="fa:linkedin"></paper-icon-button>
+        </a>
       </div>
 
       <!-- Google Map -->
@@ -90,10 +101,10 @@
           </template>
         </div>
       </div>
-      <div class="staff-cards">
+      <div class="staff-cards" hidden$="{{noStaff}}">
         <h3>Meet Our Team</h3>
         <p>Newsroom</p>
-        <cranberry-staff-list rest="{$ config.baseEndpointUrl $}" route="[[route]]" base-url="{$ config.baseDomain $}"></cranberry-staff-list>
+        <cranberry-staff-list rest="{$ config.baseEndpointUrl $}" route="[[route]]" base-url="{$ config.baseDomain $}" hidden$="{{hidden}}"></cranberry-staff-list>
       </div>
       <div class="important-links">
         <div class="important-links-header">

@@ -80,5 +80,16 @@ class cranberryContentCard {
       return 'list-card';
     }
   }
+
+  _scrubTag(tag) {
+    if (typeof tag !== 'undefined' && tag !== '') {
+      let temp = tag.replace('_', ' ');
+
+      return temp;
+    } else {
+      return '';
+    }
+
+  }
 }
 Polymer(cranberryContentCard);

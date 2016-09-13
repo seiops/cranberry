@@ -32,6 +32,21 @@ module.exports = {
     facebook: 'sanduskyregistr',
     facebookId: '259812604228072'
   },
+  socialUrls: {
+    facebook: 'https://www.facebook.com/sanduskyregister/',
+    twitter: 'https://twitter.com/sanduskyregistr',
+    instagram: 'https://www.instagram.com/sanduskyregister/',
+    linkedin: 'https://www.linkedin.com/company/sandusky-register'
+  },
+  // Tout
+  tout: {
+      toutUid: '277e2b'
+  },
+  // Jobs Network
+  jobs: {
+      affiliateId: '1606',
+      widgetId: '3167'
+  },
   // Contact Page Config
   // Entire contact information needs changed
   contactInformation: {
@@ -51,8 +66,8 @@ module.exports = {
       zip: '44870'
     },
     map: {
-      latitude: '41.4552814',
-      longitude: '-82.7158251'
+      latitude: '41.4552555',
+      longitude: '-82.7134733'
     },
     needHelp: [
       {
@@ -106,6 +121,10 @@ module.exports = {
       {
         label: 'Member Rewards',
         link: 'sanduskyregister.clickitrewards.com'
+      },
+      {
+        label: 'Archive',
+        link: '/archive'
       }
     ]
   },

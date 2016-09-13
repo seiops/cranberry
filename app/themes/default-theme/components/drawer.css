@@ -26,6 +26,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     z-index: 1;
   }
 
+  @nest &-location ::content div#sizedImgDiv {
+    background-position: 0 100% !important;
+  }
+
   @nest &-content {
     @apply(--layout-flex);
     @apply(--layout-vertical);

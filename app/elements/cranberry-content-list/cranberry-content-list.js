@@ -128,6 +128,14 @@ class CranberryContentList {
     }
   }
 
+  _checkJobsWidget(index) {
+      if (index === 11) {
+          return true;
+      } else {
+          return;
+      }
+  }
+
   _handleLoad() {
     app.logger('<\cranberry-content-list\> load received');
   }

@@ -18,7 +18,14 @@
     <app-route route="{{route}}" pattern="/:id" data="{{routeData}}"></app-route>
 
     <div class="ad-container">
-      <google-dfp id="topAd" section="[[loadSection]]" ad-pos="leaderboard" ad-size="[[728, 90],[970, 90],[970, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+      <google-dfp
+        section="[[loadSection]]"
+        ad-pos="leaderboard"
+        ad-size-mapping="leaderboard"
+        ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
+        ad-group="{$ config.dfpAdStructure.adGroupID $}"
+        ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
+        ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
     </div>
 
     <h1 class="headline">Jail mugs for {{currentHeadline}}</h1>
@@ -66,7 +73,14 @@
         </template>
       </div>
       <div class="ad-container">
-        <google-dfp section="[[loadSection]]" ad-pos="Middle_of_Stream" ad-size="[[300, 600]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+        <google-dfp
+          section="[[loadSection]]"
+          ad-pos="Middle_of_Stream" 
+          ad-size="[[300, 600]]"
+          ad-group="{$ config.dfpAdStructure.adGroupID $}"
+          ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
+          ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}">
+        </google-dfp>
       </div>
     </div>
 

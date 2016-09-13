@@ -9,6 +9,10 @@ class cranberryStaffList {
       rest: {
         type: String
       },
+      error: {
+        type: Object,
+        observer: '_onError'
+      },
       params: {
           type: Object,
           value: [],
@@ -31,10 +35,12 @@ class cranberryStaffList {
   _onRouteChanged(newValue) {
     if (typeof newValue !== 'undefined') {
       this.async(function() {
+        if (!this.hidden) {
           app.logger('\<cranberry-staff-list\> route changed -\> ' + newValue.path);
           if (typeof newValue !== 'undefined' && newValue.path === '/contact') {
             this._updateParams();
           }
+        }
       });
     }
   }
@@ -81,6 +87,13 @@ class cranberryStaffList {
       var result = JSON.parse(response.Result);
 
       this.set('items', result);
+
+      console.info(result);
+      if (result.length === 0) {
+        let contactPage = document.querySelector('cranberry-contact-page');
+
+        contactPage.set('noStaff', true);
+      }
   }
 
   _computeStaffImage(imageObject) {
@@ -91,6 +104,15 @@ class cranberryStaffList {
     } else {
       return 'http://imgsrc.me/200x113/9c9c9c/000000/Image Unavailable?showDimensions=0&font=arial';
     }
+  }
+
+  _onError(event) {
+    event.preventDefault();
+    // Log Error
+    console.error('Error occured on <\cranberry-staff-list\> request! This is more than likely because the site doesn\'t have any staff memebers in the congero DB.');
+    // Set display boolean on contact page to true to hide area.
+    let contactPage = document.querySelector('cranberry-contact-page');
+    contactPage.set('noStaff', true);
   }
 
 }

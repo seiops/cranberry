@@ -88,6 +88,11 @@ div.body-text {
   background: var(--dark-primary-color);
 }
 
+#commentButton::shadow iron-icon {
+  width: 18px;
+  height: 18px;
+}
+
 #twitterButton {
   background: #55acee;
 }
@@ -134,7 +139,7 @@ div.story-content div {
 div.right-rail {
   flex: 1 1 auto;
   max-width: 300px;
-  margin-right: 12px;
+  margin-left: 12px;
 }
 
 div.right-rail div {
@@ -148,7 +153,7 @@ div.right-rail div > * {
 
 div.right-rail gigya-top-comments {
   min-height: 0;
-  min-width: 0;
+  min-width: 300px;
 }
 
 div.right-rail gigya-top-comments::shadow div.wrapper {
