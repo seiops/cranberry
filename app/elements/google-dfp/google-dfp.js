@@ -6,27 +6,14 @@ class GoogleDFP {
                 type: String,
                 observer: '_sectionChanged'
             },
-            sectionParent: {
-                type: String
-            },
-            adSize: {
-                type: Array
-            },
-            adPos: {
-                type: String
-            },
-            adGroup: {
-                type: Number
-            },
-            adGrouping: {
-                type: String
-            },
-            adSubGrouping: {
-                type: String
-            },
-            tags: {
-              type: String
-            }
+            sectionParent: String,
+            adSize: Array,
+            adSizeMapping: String,
+            adPos: String,
+            adGroup: Number,
+            adGrouping: String,
+            adSubGrouping: String,
+            tags: String
         };
     }
 
@@ -40,6 +27,7 @@ class GoogleDFP {
             let adGrouping = this.get('adGrouping');
             let adSubGrouping = this.get('adSubGrouping');
             let adSize = this.get('adSize');
+            let adSizeMapping = this.get('adSizeMapping');
             let position = this.get('adPos');
             let adSection = section.replace(' ', '_').replace('-', '_');
             let sectionParent = this.get('sectionParent');
@@ -62,17 +50,21 @@ class GoogleDFP {
                 googletag.destroySlots([window.slots[idModifier]]);
             }
 
-            // var mapping;
-            //
-            // if (position === 'leaderboard') {
-            //   mapping = googletag.sizeMapping().
-            //
-            //     addSize([0, 0], [300, 250]).
-            //     addSize([320, 400], [[320, 50], [300, 50], [300, 250]]).
-            //     addSize([750, 200], [[728, 90], [300, 250]]).
-            //     addSize([1050, 200], [[970, 250], [970, 90],  [728, 90], [320, 250], [320, 50]]).
-            //     build();
-            // }
+            if (typeof adSizeMapping !== 'undefined') {
+              var mapping;
+
+              console.log('mapping: ' + adSizeMapping);
+
+              if (adSizeMapping === 'leaderboard') {
+                mapping = googletag.sizeMapping().
+                  addSize([0, 0], [300, 50]).
+                  addSize([340, 400], [[320, 50]]).
+                  addSize([750, 200], [[728, 90], [300, 50]]).
+                  addSize([1050, 200], [[970, 250], [970, 90],  [728, 90], [320, 50]]).
+                  build();
+              }
+            }
+
 
             googletag.cmd.push(function() {
                 googletag.pubads().setTargeting('section', parentSection);
@@ -87,7 +79,10 @@ class GoogleDFP {
                 )).setCollapseEmptyDiv(true);
 
                 slots[idModifier].setTargeting('position', position);
-                // slots[idModifier].defineSizeMapping(mapping);
+
+                if (typeof adSizeMapping !== 'undefined') {
+                  slots[idModifier].defineSizeMapping(mapping);
+                }
 
                 googletag.display(idModifier);
             });
