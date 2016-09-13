@@ -72,3 +72,9 @@ paper-dialog#globalModal paper-dialog-scrollable {
   padding-left: 24px;
   padding-right: 24px;
 }
+
+paper-dialog#globalModal paper-dialog-scrollable paper-button.modal-close {
+  background-color: #fff;
+  margin-bottom: 10px;
+  float: right;
+}
