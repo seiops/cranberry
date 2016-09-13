@@ -196,7 +196,9 @@ class CranberryStory {
 
     let result = JSON.parse(json.detail.Result);
 
+    // Set cached story for redisplay
     this.set('cachedStory', result);
+    
     this.set('story', result);
   }
 
