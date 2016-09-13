@@ -17,6 +17,10 @@ class CranberryStory {
           value: {},
           observer: '_displayContent'
       },
+      cachedStory: {
+        type: Object,
+        value: {}
+      },
       storyId: {
           type: Number,
           value: 0,
@@ -60,8 +64,19 @@ class CranberryStory {
 
   _hiddenChanged(hidden) {
     this.async(function() {
+      let storyId = this.get('storyId');
+      let routeId = this.get('routeData.id');
+      let cachedStory = this.get('cachedStory');
+
       if (hidden) {
         this._destroyContent();
+      } else {
+        if (routeId === cachedStory.itemId) {
+          // Destroy current story to flag observer change for cachedStory
+          this.set('story', {});
+          // Set story to cachedStory
+          this.set('story', cachedStory);
+        }
       }
     });
   }
@@ -181,6 +196,7 @@ class CranberryStory {
 
     let result = JSON.parse(json.detail.Result);
 
+    this.set('cachedStory', result);
     this.set('story', result);
   }
 
