@@ -2,6 +2,7 @@ class CranberryGallery {
   beforeRegister() {
     this.is = 'cranberry-gallery';
     this.properties = {
+      baseUrl: String,
       gallery: {
         type: Object
       },
@@ -148,12 +149,35 @@ class CranberryGallery {
   }
 
   _openModal () {
-    this._sliderMove('open');
+    let baseUrl = this.get('baseUrl');
+    let slider = document.createElement('cranberry-slider');
+
+    let images = this.get('gallery.mediaAssets.images');
+
+
+    slider.set('autostart', true);
+    slider.set('arrows', true);
+    slider.set('bullets', false);
+    slider.set('info', true);
+    slider.set('caption', true);
+    slider.set('baseUrl', baseUrl);
+    slider.set('images', images);
+
+    console.dir(slider);
+    // Polymer.dom(wrapper).appendChild(slider);
+    let modal = Polymer.dom(document).querySelector('cranberry-base').querySelector('#globalModal');
+    let modalContent = Polymer.dom(modal).querySelector('paper-dialog-scrollable');
+    modalContent.appendChild(slider);
+    // modal.appendChild(wrapper);
+    modal.updateStyles();
+    modal.open();
+    console.dir(modal);
+    // this._sliderMove('open');
   }
 
   _sliderMove (type) {
     let modal = this.$.modal;
-    let modalSlider = modal.querySelector('#modalSlider');
+    // let modalSlider = modal.querySelector('#modalSlider');
     let mainSlider = this.querySelector('#mainSlider');
     let mainIndex = mainSlider.index;
     let modalIndex = modalSlider.index;
@@ -163,7 +187,7 @@ class CranberryGallery {
       if (type === 'close') {
         mainSlider.goTo(mainSlider, modalIndex);
       } else {
-        modalSlider.goTo(modalSlider, mainIndex);
+        // modalSlider.goTo(modalSlider, mainIndex);
       }
     }
 

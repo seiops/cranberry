@@ -23,41 +23,45 @@
     <app-route route="{{route}}" pattern="/:section" data="{{routeData}}"></app-route>
 
     <div class="header-advertisement">
-        <google-dfp section="[[loadSection]]" tags="[[tag]]" ad-pos="leaderboard" ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+        <google-dfp section="[[loadSection]]" tags="[[tag]]" ad-size-mapping="leaderboard" ad-pos="leaderboard" ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
     </div>
 
     <scorestream-widget rest="{$ config.baseEndpointUrl $}" route="{{routeData}}" section="[[loadSection]]" hidden$="[[hidden]]"></scorestream-widget>
 
     <cranberry-featured-content rest="{$ config.baseEndpointUrl $}" type="[[_isGalleries(galleries)]]" sections="[[loadSection]]" count="3" start="1" tags="{{tags}}"></cranberry-featured-content>
-    <paper-material elevation="1">
-      <paper-toolbar>
-        <div hidden$="{{mobile}}">
-          <cranberry-search-bar class="Drawer-search" id="tabSearch" label="SEARCH"></cranberry-search-bar>
-        </div>
-        <paper-tabs id="tabs" selected="{{selected}}">
-          <paper-tab>LATEST</paper-tab>
-          <paper-tab>LOCAL</paper-tab>
-          <!-- <paper-tab>POPULAR</paper-tab> -->
-          <paper-tab>FEATURED</paper-tab>tabs
-        </paper-tabs>
-      </paper-toolbar>
-    </paper-material>
+
+    <div hidden$="[[_isLatest(selected)]]">
+      <paper-material elevation="1">
+        <paper-toolbar>
+          <div hidden$="{{mobile}}">
+            <cranberry-search-bar class="Drawer-search" id="tabSearch" label="SEARCH"></cranberry-search-bar>
+          </div>
+          <paper-tabs id="tabs" selected="{{selected}}">
+            <paper-tab>LATEST</paper-tab>
+            <!-- <paper-tab>LOCAL</paper-tab>
+            <paper-tab>POPULAR</paper-tab>
+            <paper-tab>FEATURED</paper-tab> -->
+          </paper-tabs>
+        </paper-toolbar>
+      </paper-material>
+    </div>
 
     <template is="dom-if" if="[[_isLatest(selected)]]">
       <cranberry-content-list rest="{$ config.baseEndpointUrl $}" type="[[_isGalleries(galleries)]]" sections="[[loadSection]]" section="[[section]]" count="18" start="1" tags="[[tags]]" tag="[[tag]]"></cranberry-content-list>
     </template>
 
-    <template is="dom-if" if="[[_isLocal(selected)]]">
+    <!-- <template is="dom-if" if="[[_isLocal(selected)]]">
       <cranberry-content-list rest="{$ config.baseEndpointUrl $}" type="[[_isGalleries(galleries)]]" sections="[[loadSection]]" count="18" start="1" tags="[[tags]]" tag="[[tag]]"></cranberry-content-list>
-    </template>
+    </template> -->
 
   <!-- <template is="dom-if" if="[[_isPopular(selected)]]">
       <cranberry-content-list type="story_gallery" sections="news" count="10" start="1"></cranberry-content-list></div>
     </template> -->
 
-    <template is="dom-if" if="[[_isFeatured(selected)]]">
+    <!-- <template is="dom-if" if="[[_isFeatured(selected)]]">
       <cranberry-content-list rest="{$ config.baseEndpointUrl $}" type="[[_isGalleries(galleries)]]" sections="[[loadSection]]" count="18" start="1" tags="[[tags]]" tag="[[tag]]"></cranberry-content-list>
-    </template>
+    </template> -->
+
   </template>
   <script src="cranberry-section.js"></script>
 </dom-module>

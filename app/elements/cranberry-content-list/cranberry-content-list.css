@@ -54,3 +54,14 @@ div.content-cards > cranberry-jobs-widget {
   max-width: 300px;
   min-width: 300px;
 }
+
+div.pagination-wrapper {
+  @apply(--layout-center);
+  @apply(--layout-flex);
+  @apply(--layout-vertical);
+  margin-top: 24px;
+}
+
+div.pagination {
+  @apply(--layout-horizontal);
+}

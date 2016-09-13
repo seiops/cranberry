@@ -76,6 +76,10 @@ class CranberryBase {
 
   changeAccentColor(color) {}
 
+  _clearModal(e) {
+    console.log('This action will destroy this modal element.');
+  }
+
   _equal(a, b) {
     if (a === b) {
       return true;

@@ -60,3 +60,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
   }
 }
+
+paper-dialog#globalModal {
+  background-color: var(--dark-theme-primary-background-color);
+  height: 100%;
+  margin: 0;
+  width: 100%;
+}
+
+paper-dialog#globalModal paper-dialog-scrollable {
+  padding-left: 24px;
+  padding-right: 24px;
+}

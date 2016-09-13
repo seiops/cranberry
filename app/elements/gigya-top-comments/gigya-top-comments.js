@@ -60,7 +60,9 @@ class GigyaTopComments {
   _commentsCallback(response) {
     app.logger('\<gigya-top-comments\> response');
 
-    console.dir(response);
+    if (response.status === 'FAIL') {
+      console.error('\<gigya-top-comments\> api response error -> ' + response.errorMessage);
+    }
 
     this.originalParams.context.set('items', response.streams);
   }

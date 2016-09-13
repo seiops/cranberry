@@ -130,7 +130,10 @@ class GigyaSocialize {
       app.logger('\<gigya-socialize\> anonymous user');
     }
 
-    console.dir(user);
+    if (user.status === 'FAIL') {
+      console.error('\<gigya-socialize\> api response error -> ' + user.errorMessage);
+    }
+
   }
 
   // callback from Gigya logout API
