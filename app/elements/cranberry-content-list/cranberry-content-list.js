@@ -142,7 +142,6 @@ class CranberryContentList {
 
   _handleResponse(res) {
     app.logger('<\cranberry-content-list\> response received');
-    console.dir(res);
   }
 
   _hasPreview(preview) {
@@ -154,9 +153,7 @@ class CranberryContentList {
   }
 
   _parseResponse(response) {
-    console.dir(response);
     var result = JSON.parse(response.Result);
-    console.dir(result);
 
     this.set('items', result);
   }
