@@ -68,7 +68,7 @@ class CranberryFeaturedContent {
     }
 
     _changeResponse() {
-        console.log('response changed');
+        app.logger('<\cranberry-featured-content\> response changed')
     }
 
     _firstItem(item, index) {

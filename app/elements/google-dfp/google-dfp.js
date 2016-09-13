@@ -17,7 +17,8 @@ class GoogleDFP {
         };
     }
 
-    _buildAd(section) {
+
+    _buildAd() {
         this.async(function() {
             let advertisement = Polymer.dom(this.root).firstElementChild;
             let idModifier = advertisement.getAttribute('id');
@@ -29,6 +30,7 @@ class GoogleDFP {
             let adSize = this.get('adSize');
             let adSizeMapping = this.get('adSizeMapping');
             let position = this.get('adPos');
+            let section = this.get('section');
             let adSection = section.replace(' ', '_').replace('-', '_');
             let sectionParent = this.get('sectionParent');
             let tags = this.get('tags');
@@ -87,14 +89,24 @@ class GoogleDFP {
         });
     }
 
-    _sectionChanged(section) {
-        if (typeof section !== 'undefined') {
-          if(section === 'galleries') {
-            this._buildAd('news');
-          } else {
-            this._buildAd(section);
-          }
+    _checkGoogle() {
+      let el = this;
+
+      setTimeout(function() {
+        if (typeof googletag !== 'undefined' && typeof googletag.sizeMapping === 'function') {
+          el._buildAd();
+          return;
+        } else {
+          el._checkGoogle();
         }
+      }, 500);
+    }
+
+    _sectionChanged(section) {
+      if (typeof section === 'undefined') {
+        this.set('section', 'homepage');
+      }
+      this._checkGoogle();
     }
 
     _adCount() {
