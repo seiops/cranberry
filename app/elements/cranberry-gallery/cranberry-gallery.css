@@ -90,7 +90,7 @@ paper-button#buyButton {
 }
 
 /* Paper dialog modal styles */
-paper-dialog {
+/*paper-dialog {
   z-index: 99999999999 !important;
   background-color: var(--dark-theme-primary-background-color);
   width: 100%;
@@ -101,7 +101,7 @@ paper-dialog {
 paper-dialog > * {
   margin: 0;
   padding: 0;
-}
+}*/
 
 paper-dialog paper-button {
   background-color: var(--dark-theme-primary-background-color);
