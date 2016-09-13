@@ -53,13 +53,11 @@ class GoogleDFP {
             if (typeof adSizeMapping !== 'undefined') {
               var mapping;
 
-              console.log('mapping: ' + adSizeMapping);
-
               if (adSizeMapping === 'leaderboard') {
                 mapping = googletag.sizeMapping().
-                  addSize([0, 0], [300, 50]).
-                  addSize([340, 400], [[320, 50]]).
-                  addSize([750, 200], [[728, 90], [300, 50]]).
+                  addSize([0, 0], [320, 50]).
+                  addSize([400, 400], [[320, 50]]).
+                  addSize([850, 200], [[728, 90], [300, 50]]).
                   addSize([1050, 200], [[970, 250], [970, 90],  [728, 90], [320, 50]]).
                   build();
               }
