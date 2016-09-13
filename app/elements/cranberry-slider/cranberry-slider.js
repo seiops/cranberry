@@ -447,7 +447,6 @@ class cranberrySlider {
   }
 
   applyInfo(el) {
-    this.set('info', true);
     let info = document.createElement('div');
     Polymer.dom(info).classList.add('info');
     let text = document.createElement('span');
@@ -485,7 +484,7 @@ class cranberrySlider {
     }
     let container = this.get('container');
 
-    el.appendChild(info);
+    Polymer.dom(el.root).appendChild(info);
     this.set('infoEl', info);
   }
 
@@ -546,6 +545,7 @@ class cranberrySlider {
   checkInfo(el) {
     let info = this.get('info');
 
+    console.info('THIS IS INFO:::::::: ' + info)
     if (info) {
       this.applyInfo(el);
     }
@@ -646,7 +646,7 @@ class cranberrySlider {
       let info = this.querySelector('.info');
       let nextPrev = this.querySelector('.nextPrev');
 
-      if (info) {
+      if (typeof info !== 'undefined' && info !== null) {
         this.removeChild(info);
       }
 

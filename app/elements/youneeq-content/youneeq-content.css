@@ -2,8 +2,8 @@
   display: block;
 }
 
-h2.youneeq-header {
-  @apply(--paper-font-headline);
+h3.youneeq-header {
+  @apply(--paper-font-display2);
   text-align: left;
   border-bottom: 4px solid var(--accent-color);
   margin-bottom: 0;
@@ -37,7 +37,7 @@ div.youneeq-content-item h3.youneeq-content-item-title {
 }
 
 div.youneeq-container[mobile] > a {
-  height: 65px;
+  height: 100%;
 }
 
 div.youneeq-container[mobile] div.youneeq-content-item {
@@ -48,4 +48,6 @@ div.youneeq-container[mobile] div.youneeq-content-item {
 div.youneeq-container[mobile] div.youneeq-content-item iron-image {
   height: 65px;
   width: 120px;
+  min-width: 120px;
+  margin: 0 10px 0 0;
 }
