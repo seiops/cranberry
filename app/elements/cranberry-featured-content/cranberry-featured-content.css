@@ -3,6 +3,17 @@
 
   /* postcss-bem-linter: ignore */
   --paper-slide-height: auto;
+
+  /* postcss-bem-linter: ignore */
+  --paper-slide-dot: var(--light-theme-primary-text-color);
+
+  /* postcss-bem-linter: ignore */
+  --paper-slide-dot-selected: var(--accent-color);;
+
+  /* postcss-bem-linter: ignore */
+  --paper-slide-dot-styles: {
+
+    };
 }
 
 div.featured-content {

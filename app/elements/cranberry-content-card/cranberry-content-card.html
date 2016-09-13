@@ -128,33 +128,37 @@
       </template>
       <template is="dom-if" if="[[slider]]">
         <template is="dom-if" if="[[_isStory(item.contentType)]]">
-          <paper-card heading="[[item.title]]" image="{$ config.baseDomain $}/[[item.mediaAssets.images.0.medium]]" elevation="1">
-              <div class="card-content">
-                [[item.title]]
-              </div>
-              <div class="card-actions">
-                <div class="card-info">
-                  <span class="content-tag">[[_scrubTag(item.sectionInformation.primarySection)]]</span>
-                  <span class="content-date">[[item.updated]]</span>
-                </div>
-              </div>
-            </paper-card>
-          </template>
-          <template is="dom-if" if="[[_isGallery(item.contentType)]]">
-            <paper-card class="gallery" heading="[[item.title]]" image="{$ config.baseDomain $}/[[item.mediaAssets.images.0.medium]]" elevation="1">
-                <div class="icon">
-                  <iron-icon icon="image:photo-camera"></iron-icon>
-                </div>
+          <a class="list" href="/story/[[item.itemId]]">
+            <paper-card class="slider" heading="[[item.title]]" image="{$ config.baseDomain $}/[[item.mediaAssets.images.0.medium]]" elevation="1">
                 <div class="card-content">
                   [[item.title]]
                 </div>
                 <div class="card-actions">
                   <div class="card-info">
-                    <span class="content-tag">[[_scrubTag(item.sectionInformation.sectionName)]]</span>
+                    <span class="content-tag">[[_scrubTag(item.sectionInformation.primarySection)]]</span>
                     <span class="content-date">[[item.updated]]</span>
                   </div>
                 </div>
               </paper-card>
+            </a>
+          </template>
+          <template is="dom-if" if="[[_isGallery(item.contentType)]]">
+            <a class="list" href="/photo-gallery/[[item.itemId]]">
+              <paper-card class="gallery" heading="[[item.title]]" image="{$ config.baseDomain $}/[[item.mediaAssets.images.0.medium]]" elevation="1">
+                  <div class="icon">
+                    <iron-icon icon="image:photo-camera"></iron-icon>
+                  </div>
+                  <div class="card-content">
+                    [[item.title]]
+                  </div>
+                  <div class="card-actions">
+                    <div class="card-info">
+                      <span class="content-tag">[[_scrubTag(item.sectionInformation.sectionName)]]</span>
+                      <span class="content-date">[[item.updated]]</span>
+                    </div>
+                  </div>
+                </paper-card>
+              </a>
             </template>
       </template>
     </template>
