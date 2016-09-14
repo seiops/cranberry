@@ -10,6 +10,9 @@
 <link rel="import" href="../google-dfp/google-dfp.html">
 <link rel="import" href="../cranberry-related-content/cranberry-related-content.html">
 
+
+<link rel="import" href="../cranberry-slider-new/cranberry-slider-new.html">
+
 <dom-module id="cranberry-gallery">
   <template>
     <style>
@@ -19,7 +22,12 @@
     <app-route route="{{route}}" pattern="/:id" data="{{routeData}}"></app-route>
     <byutv-jsonp on-response="_handleResponse" id="request"></byutv-jsonp>
 
-    <div class="header-advertisement">
+    <div class="new-gallery-container">
+      <cranberry-slider-new id="mainSlider" base-url="{$ config.baseDomain $}" items="{{gallery.mediaAssets.images}}">
+    </div>
+
+
+    <!-- <div class="header-advertisement">
       <google-dfp
         section="[[gallery.sectionInformation.sectionName]]"
         section-parent="[[gallery.sectionInformation.sectionParentName]]"
@@ -91,7 +99,7 @@
         ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
         ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}">
       </google-dfp>
-    </div>
+    </div> -->
   </template>
     <script src="cranberry-gallery.js"></script>
 </dom-module>

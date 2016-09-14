@@ -1,5 +1,8 @@
 :host {
   display: block;
+
+  --cranberry-slider-height: 745px;
+  --cranberry-slider-width: 100%;
 }
 
 div.header-advertisement {

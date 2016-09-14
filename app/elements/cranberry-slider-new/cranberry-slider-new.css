@@ -1,0 +1,123 @@
+:host {
+  display: block;
+
+  /* postcss-bem-linter: ignore */
+  --iron-image-placeholder: {
+    background: #2f2f2f;
+  };
+
+  /* postcss-bem-linter: ignore */
+  --iron-image-width: 100%;
+
+  /* postcss-bem-linter: ignore */
+  --iron-image-height: 100%;
+}
+
+div.container {
+  width: var(--cranberry-slider-width, auto);
+  height: var(--cranberry-slider-height, auto);
+}
+
+div.slider {
+  width: var(--cranberry-slider-width, auto);
+  height: calc(var(--cranberry-slider-height) - 100px);
+  background-color: #2f2f2f;
+  /* Relative position for absolute placed items over slider... */
+  position: relative;
+  /* Testing Margin remove later */
+  margin-bottom: 20px;
+}
+
+div.slider iron-image {
+  width: var(--cranberry-slider-width, auto);
+  height: calc(var(--cranberry-slider-height) - 100px);
+}
+
+div.loading-container {
+  @apply(--layout-vertical);
+  @apply(--layout-center-justified);
+  @apply(--layout-self-center);
+  @apply(--layout-center);
+  width: var(--cranberry-slider-width, auto);
+  height: calc(var(--cranberry-slider-height) - 100px);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+div.overlay-previous,
+div.overlay-next {
+  @apply(--layout-horizontal);
+  @apply(--layout-center);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  height: calc(var(--cranberry-slider-height) - 100px);
+  width: 30%;
+  outline: none;
+  cursor: pointer;
+  opacity: 0.3;
+  -webkit-transition: opacity .15s ease-out;
+  transition: opacity .15s ease-out;
+}
+
+div.overlay-previous:hover,
+div.overlay-next:hover {
+  opacity: 1;
+}
+
+div.overlay-previous {
+  left: 0;
+  @apply(--layout-start-justified);
+  background: -moz-linear-gradient(to right, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0) 100%) rgba(0, 0, 0, 0);
+  background: -webkit-linear-gradient(to right, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0) 100%) rgba(0, 0, 0, 0);
+  background: -ms-linear-gradient(to right, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0) 100%) rgba(0, 0, 0, 0);
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0) 100%) rgba(0, 0, 0, 0);
+}
+
+div.overlay-next {
+  @apply(--layout-end-justified);
+  right: 0;
+  background: -moz-linear-gradient(to left, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0) 100%) rgba(0, 0, 0, 0);
+  background: -webkit-linear-gradient(to left, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0) 100%) rgba(0, 0, 0, 0);
+  background: -ms-linear-gradient(to left, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0) 100%) rgba(0, 0, 0, 0);
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0) 100%) rgba(0, 0, 0, 0);
+}
+
+div.overlay-next span {
+  font-size: 6em;
+  margin-right: 2%;
+  color: #999;
+}
+
+div.overlay-previous span {
+  font-size: 6em;
+  margin-left: 2%;
+  color: #999;
+}
+
+
+/* Info Styles */
+div.info {
+  @apply(--paper-font-caption);
+  display: block;
+  padding: 12px 0;
+  width: 100%;
+}
+
+div.info p.caption iron-icon {
+  padding: 0 10px 0 0;
+  width: 16px;
+  height: 16px;
+}
+
+div.info span.index {
+  float: left;
+}
+
+div.info p.caption {
+  display: inline;
+  padding: 0 0 0 10px;
+}

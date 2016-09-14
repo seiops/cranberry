@@ -1,0 +1,33 @@
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
+<!-- <link rel="import" href="../../bower_components/neon-animation/animations/fade-in-animation.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/fade-out-animation.html">
+<link rel="import" href="../../bower_components/neon-animation/neon-animation-runner-behavior.html"> -->
+
+<dom-module id="cranberry-slider-new">
+  <template>
+    <style>
+      @import "cranberry-slider-new/cranberry-slider-new";
+    </style>
+
+    <div class="container">
+      <div class="slider" id="slider">
+        <template is="dom-repeat" items="{{items}}" filter="_computeShow" id="sliderRepeat">
+          <iron-image id="currentImage" preload fade class="slider-item" src="[[baseUrl]][[item.exlarge]]" data-index$="[[index]]" loading="{{imageLoading}}" sizing="contain"></iron-image>
+        </template>
+
+        <div class="overlay-previous"><span on-tap="_showPrevious"><</span></div>
+        <div class="overlay-next"><span on-tap="_showNext">></span></div>
+
+        <div class="loading-container" hidden$="{{!imageLoading}}">
+          <paper-spinner active$="{{imageLoading}}" hidden$="{{!imageLoading}}"></paper-spinner>
+        </div>
+
+        <div class="info">
+          <span class="index">{{requestIndex}} / [[count]]</span><p class="caption"><iron-icon icon="image:panorama"></iron-icon>[[currentImage.caption]]</p>
+        </div>
+      </div>
+    </div>
+
+  </template>
+  <script src="cranberry-slider-new.js"></script>
+</dom-module>
