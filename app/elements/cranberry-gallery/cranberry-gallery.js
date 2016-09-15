@@ -120,7 +120,7 @@ class CranberryGallery {
     let mainSlider = this.querySelector('#mainSlider');
     let imageIndex = Number(e.target.parentElement.dataset.index);
 
-    mainSlider.goTo(mainSlider, imageIndex);
+    mainSlider.goTo(imageIndex);
   }
 
   _handleResponse (data) {

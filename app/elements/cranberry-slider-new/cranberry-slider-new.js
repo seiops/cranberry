@@ -166,5 +166,14 @@ class cranberrySliderNew {
     this.style.height = isNaN(this.height) ? this.height : this.height + 'px';
   }
 
+  goTo(imageIndex) {
+    let count = this.get('count');
+    if (typeof imageIndex !== 'undefined' && imageIndex < count) {
+      this.set('requestIndex', imageIndex);
+      let template = this.$.sliderRepeat;
+      template.render();
+    }
+  }
+
 }
 Polymer(cranberrySliderNew);
