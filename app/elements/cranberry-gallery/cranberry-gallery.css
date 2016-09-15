@@ -99,7 +99,6 @@ div.content-container div.gallery-images-container {
 }
 
 div.content-container div.gallery-container-ad {
-  flex: 1 1 auto;
   max-width: 300px;
 }
 
