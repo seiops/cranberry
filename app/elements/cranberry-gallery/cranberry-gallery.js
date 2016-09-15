@@ -157,7 +157,7 @@ class CranberryGallery {
 
     slider.set('items', images);
     slider.set('baseUrl', baseUrl);
-    // slider.set('height', 745);
+    slider.set('whiteText', true);
 
     console.dir(slider);
     // Polymer.dom(wrapper).appendChild(slider);

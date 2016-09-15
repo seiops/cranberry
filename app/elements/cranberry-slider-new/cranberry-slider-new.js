@@ -47,6 +47,10 @@ class cranberrySliderNew {
         type: Number,
         value: null
       },
+      whiteText: {
+        type: Boolean,
+        value: false
+      },
       // animationConfig: {
       //   value: function() {
       //     return {

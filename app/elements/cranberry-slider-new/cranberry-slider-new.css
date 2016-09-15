@@ -124,6 +124,10 @@ div.info {
   width: 100%;
 }
 
+div.info[white-text] {
+  color: #fff;
+}
+
 div.info p.caption iron-icon {
   padding: 0 10px 0 0;
   width: 16px;

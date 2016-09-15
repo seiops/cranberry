@@ -77,7 +77,14 @@ class CranberryBase {
   changeAccentColor(color) {}
 
   _clearModal(e) {
-    console.log('This action will destroy this modal element.');
+    e.preventDefault();
+
+    let modalContent = Polymer.dom(this.root).querySelector('paper-dialog-scrollable').querySelector('#scrollable').querySelector('.content-area');
+
+    // Remove all children of the content area
+    while(modalContent.firstChild) {
+      modalContent.removeChild(modalContent.firstChild);
+    }
   }
 
   _equal(a, b) {

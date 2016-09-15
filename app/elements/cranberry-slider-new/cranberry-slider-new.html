@@ -16,18 +16,19 @@
           <template is="dom-repeat" items="{{items}}" filter="_computeShow" id="sliderRepeat">
             <iron-image id="currentImage" preload fade class="slider-item" src="[[baseUrl]][[item.exlarge]]" data-index$="[[index]]" loading="{{imageLoading}}" sizing="contain"></iron-image>
           </template>
+          <div class="overlay-previous" on-tap="_showPrevious" mobile-layout$="{{mobileLayout}}"><span><</span></div>
+          <div class="overlay-next" on-tap="_showNext" mobile-layout$="{{mobileLayout}}"><span>></span></div>
+          <!-- For Absolute Placed content -->
+          <content></content>
         </div>
-
-        <div class="overlay-previous" on-tap="_showPrevious" mobile-layout$="{{mobileLayout}}"><span><</span></div>
-        <div class="overlay-next" on-tap="_showNext" mobile-layout$="{{mobileLayout}}"><span>></span></div>
-
         <div class="loading-container" hidden$="{{!imageLoading}}">
           <paper-spinner active$="{{imageLoading}}" hidden$="{{!imageLoading}}"></paper-spinner>
         </div>
       </div>
-      <div class="info">
+      <div class="info" white-text$="{{whiteText}}">
         <span class="index">{{displayIndex}} / [[count]]</span><p class="caption"><iron-icon icon="image:panorama"></iron-icon>[[currentImage.caption]]</p>
       </div>
+
     </div>
 
   </template>

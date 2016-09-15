@@ -82,8 +82,16 @@ paper-dialog#globalModal paper-dialog-scrollable::shadow div#scrollable {
 paper-dialog#globalModal paper-dialog-scrollable::shadow div#scrollable div.content-area {
   @apply(--layout-flex);
   height: 100%;
+  min-height: 100%;
+}
+
+paper-dialog#globalModal paper-dialog-scrollable div.close-button-container {
+  @apply(--layout-horizontal);
+  @apply(--layout-center-justified);
+  flex: 0 0 auto;
 }
 
 paper-dialog#globalModal paper-dialog-scrollable paper-button.modal-close {
   background-color: #fff;
+  margin: 0 auto;
 }
