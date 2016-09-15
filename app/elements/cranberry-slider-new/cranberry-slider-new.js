@@ -27,8 +27,25 @@ class cranberrySliderNew {
         type: Number,
         value: 0
       },
+      displayIndex: {
+        type: Number,
+        value: 1
+      },
       currentImage: {
         type: Object
+      },
+      startX : {
+        type: Number,
+        value: 0
+      },
+      isDraggable: {
+        type: Boolean,
+        value: true
+      },
+      height: {
+        observer: '_heightChanged',
+        type: Number,
+        value: null
       },
       // animationConfig: {
       //   value: function() {
@@ -50,6 +67,40 @@ class cranberrySliderNew {
     this.observers = ['_itemsLoaded(items)'];
   }
 
+  attached() {
+    let image = this.$.mover;
+    let self = this;
+
+    image.addEventListener('touchstart', function (event) {
+      let eventObj = event.changedTouches[0];
+
+      self.set('isDraggable', true);
+      self.set('startX', eventObj.pageX);
+    });
+
+    image.addEventListener('touchmove', function (event) {
+      let startX = self.get('startX');
+      let isDraggable = self.get('isDraggable');
+      let eventObj = event.changedTouches[0];
+      let thisX = eventObj.pageX;
+      let change = Math.abs(startX - thisX);
+
+      if (change >= 150 && isDraggable) {
+        if (thisX < startX) {
+          // Move Forward
+          self.set('startX', 0);
+          self.set('isDraggable', false);
+          self._showNext();
+        } else {
+          // Move Backward
+          self.set('startX', 0);
+          self.set('isDraggable', false);
+          self._showPrevious();
+        }
+      }
+    });
+  }
+
   _itemsLoaded(items) {
     if (typeof items !== 'undefined' && items.length > 0) {
       this.set('count', items.length);
@@ -64,6 +115,7 @@ class cranberrySliderNew {
 
     if (index === requestIndex) {
       this.set('currentImage', item);
+      this.set('displayIndex', index + 1);
       return true;
     } else {
       return false;
@@ -104,7 +156,10 @@ class cranberrySliderNew {
 
     let template = this.$.sliderRepeat;
     template.render();
+  }
 
+  _heightChanged() {
+    this.style.height = isNaN(this.height) ? this.height : this.height + 'px';
   }
 
 }

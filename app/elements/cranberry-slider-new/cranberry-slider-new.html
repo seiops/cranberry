@@ -1,4 +1,5 @@
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
 <!-- <link rel="import" href="../../bower_components/neon-animation/animations/fade-in-animation.html">
 <link rel="import" href="../../bower_components/neon-animation/animations/fade-out-animation.html">
 <link rel="import" href="../../bower_components/neon-animation/neon-animation-runner-behavior.html"> -->
@@ -11,20 +12,21 @@
 
     <div class="container">
       <div class="slider" id="slider">
-        <template is="dom-repeat" items="{{items}}" filter="_computeShow" id="sliderRepeat">
-          <iron-image id="currentImage" preload fade class="slider-item" src="[[baseUrl]][[item.exlarge]]" data-index$="[[index]]" loading="{{imageLoading}}" sizing="contain"></iron-image>
-        </template>
+        <div id="mover" class="mover">
+          <template is="dom-repeat" items="{{items}}" filter="_computeShow" id="sliderRepeat">
+            <iron-image id="currentImage" preload fade class="slider-item" src="[[baseUrl]][[item.exlarge]]" data-index$="[[index]]" loading="{{imageLoading}}" sizing="contain"></iron-image>
+          </template>
+        </div>
 
-        <div class="overlay-previous"><span on-tap="_showPrevious"><</span></div>
-        <div class="overlay-next"><span on-tap="_showNext">></span></div>
+        <div class="overlay-previous" on-tap="_showPrevious" mobile-layout$="{{mobileLayout}}"><span><</span></div>
+        <div class="overlay-next" on-tap="_showNext" mobile-layout$="{{mobileLayout}}"><span>></span></div>
 
         <div class="loading-container" hidden$="{{!imageLoading}}">
           <paper-spinner active$="{{imageLoading}}" hidden$="{{!imageLoading}}"></paper-spinner>
         </div>
-
-        <div class="info">
-          <span class="index">{{requestIndex}} / [[count]]</span><p class="caption"><iron-icon icon="image:panorama"></iron-icon>[[currentImage.caption]]</p>
-        </div>
+      </div>
+      <div class="info">
+        <span class="index">{{displayIndex}} / [[count]]</span><p class="caption"><iron-icon icon="image:panorama"></iron-icon>[[currentImage.caption]]</p>
       </div>
     </div>
 

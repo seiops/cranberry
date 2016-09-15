@@ -22,12 +22,11 @@
     <app-route route="{{route}}" pattern="/:id" data="{{routeData}}"></app-route>
     <byutv-jsonp on-response="_handleResponse" id="request"></byutv-jsonp>
 
-    <div class="new-gallery-container">
-      <cranberry-slider-new id="mainSlider" base-url="{$ config.baseDomain $}" items="{{gallery.mediaAssets.images}}">
-    </div>
+    <iron-media-query query="(min-width: 960px)" query-matches="{{desktop}}"></iron-media-query>
+    <iron-media-query query="(min-width: 720px) and (max-width:959px)" query-matches="{{tablet}}"></iron-media-query>
+    <iron-media-query query="(max-width: 719px)" query-matches="{{mobile}}"></iron-media-query>
 
-
-    <!-- <div class="header-advertisement">
+    <div class="header-advertisement">
       <google-dfp
         section="[[gallery.sectionInformation.sectionName]]"
         section-parent="[[gallery.sectionInformation.sectionParentName]]"
@@ -41,8 +40,12 @@
       </google-dfp>
     </div>
 
-    <div class="gallery-slider-container">
-      <cranberry-slider id="mainSlider" base-url="{$ config.baseDomain $}" images="{{gallery.mediaAssets.images}}" autostart arrows info caption>
+    <div class="gallery-slider-container" desktop-layout$="{{desktop}}" tablet-layout$="{{tablet}}" mobile-layout$="{{mobile}}">
+      <cranberry-slider-new id="mainSlider" base-url="{$ config.baseDomain $}" items="{{gallery.mediaAssets.images}}" mobile-layout$="{{mobile}}"></cranberry-slider-new>
+      <div class="expand-link">
+        <paper-button raised class="rounded-button" on-tap="_openModal"><iron-icon icon="icons:fullscreen"></iron-icon></paper-button>
+      </div>
+      <!-- <cranberry-slider id="mainSlider" base-url="{$ config.baseDomain $}" images="{{gallery.mediaAssets.images}}" autostart arrows info caption>
         <div class="gallery-tag" hidden$="{{noTags}}">
           <span class="content-tag">{{tags.0}}</span>
         </div>
@@ -53,23 +56,23 @@
           <paper-button raised id="buyButton" class="rounded-button" on-tap="_buyImage"><iron-icon icon="editor:attach-money"></iron-icon></paper-button>
           <gigya-sharebar share-buttons-id="gigya-share-buttons-gallery"></gigya-sharebar>
         </div>
-      </cranberry-slider>
+      </cranberry-slider> -->
     </div>
 
     <div class="gallery-description-container">
       <p class="gallery-date">[[gallery.updated]]</p>
       <h2 class="gallery-headline">[[gallery.title]]</h2>
       <p class="gallery-description">[[gallery.FullText]]</p>
+    </div>
 
-      <div class="content-container">
-        <div class="gallery-images-container">
-          <template is="dom-repeat" items="{{gallery.mediaAssets.images}}">
-            <iron-image class="gallery-image" src$="{$ config.baseDomain $}{{item.small}}" sizing="cover" data-index$="{{index}}" style="background-color: lightgray;" preload on-tap="_goToSlide"></iron-image>
-          </template>
-        </div>
-        <div class="gallery-container-ad">
-          <google-dfp section="[[gallery.sectionInformation.sectionName]]" section-parent="[[gallery.sectionInformation.sectionParentName]]" tags="[[gallery.tags]]" ad-pos="Top_of_Stream" ad-size="[[300, 250],[300, 600]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
-        </div>
+    <div class="content-container">
+      <div class="gallery-images-container">
+        <template is="dom-repeat" items="{{gallery.mediaAssets.images}}">
+          <iron-image class="gallery-image" src$="{$ config.baseDomain $}{{item.small}}" sizing="cover" data-index$="{{index}}" style="background-color: lightgray;" preload on-tap="_goToSlide"></iron-image>
+        </template>
+      </div>
+      <div class="gallery-container-ad">
+        <google-dfp section="[[gallery.sectionInformation.sectionName]]" section-parent="[[gallery.sectionInformation.sectionParentName]]" tags="[[gallery.tags]]" ad-pos="Top_of_Stream" ad-size="[[300, 250],[300, 600]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
       </div>
     </div>
 
@@ -99,7 +102,7 @@
         ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
         ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}">
       </google-dfp>
-    </div> -->
+    </div>
   </template>
     <script src="cranberry-gallery.js"></script>
 </dom-module>

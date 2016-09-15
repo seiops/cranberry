@@ -83,9 +83,13 @@
     <!-- app path routing -->
     {% include "cranberry-base/views/routes.html" %}
 
-    <paper-dialog id="globalModal" modal>
+    <paper-dialog id="globalModal" modal auto-fit-on-attach>
       <paper-dialog-scrollable>
-        <paper-button class="modal-close" on-tap="_clearModal" raised dialog-dismiss>CLOSE</paper-button>
+        <div class="content-area">
+        </div>
+        <div class="close-button-container">
+          <paper-button class="modal-close" on-tap="_clearModal" raised dialog-dismiss>CLOSE</paper-button>
+        </div>
       </paper-dialog-scrollable>
     </paper-dialog>
 

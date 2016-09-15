@@ -150,27 +150,26 @@ class CranberryGallery {
 
   _openModal () {
     let baseUrl = this.get('baseUrl');
-    let slider = document.createElement('cranberry-slider');
+    let slider = document.createElement('cranberry-slider-new');
 
     let images = this.get('gallery.mediaAssets.images');
 
 
-    slider.set('autostart', true);
-    slider.set('arrows', true);
-    slider.set('bullets', false);
-    slider.set('info', true);
-    slider.set('caption', true);
+    slider.set('items', images);
     slider.set('baseUrl', baseUrl);
-    slider.set('images', images);
+    // slider.set('height', 745);
 
     console.dir(slider);
     // Polymer.dom(wrapper).appendChild(slider);
     let modal = Polymer.dom(document).querySelector('cranberry-base').querySelector('#globalModal');
-    let modalContent = Polymer.dom(modal).querySelector('paper-dialog-scrollable');
+
+    let modalContent = Polymer.dom(modal).querySelector('paper-dialog-scrollable').querySelector('#scrollable').querySelector('.content-area');
+
+    console.dir(modalContent);
     modalContent.appendChild(slider);
     // modal.appendChild(wrapper);
-    modal.updateStyles();
     modal.open();
+    modal.refit();
     console.dir(modal);
     // this._sliderMove('open');
   }

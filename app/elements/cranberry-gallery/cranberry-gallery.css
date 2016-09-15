@@ -1,9 +1,19 @@
 :host {
   display: block;
-
-  --cranberry-slider-height: 745px;
-  --cranberry-slider-width: 100%;
 }
+
+div.gallery-slider-container[mobile-layout] {
+  height: 345px;
+}
+
+div.gallery-slider-container[tablet-layout] {
+  height: 545px;
+}
+
+div.gallery-slider-container[desktop-layout] {
+  height: 745px;
+}
+
 
 div.header-advertisement {
   @apply(--layout-center-justified);
@@ -73,27 +83,27 @@ div.gallery-description-container p.gallery-description {
 }
 
 /* Bottom Image Styles */
-div.gallery-description-container div.content-container {
+div.content-container {
   @apply(--layout-horizontal);
   @apply(--layout-around-justified);
   @apply(--layout-wrap);
 }
 
-div.gallery-description-container div.content-container div.gallery-images-container {
+div.content-container div.gallery-images-container {
   @apply(--layout-horizontal);
-  @apply(--layout-flex-2);
+  flex: 2 2 300px;
   @apply(--layout-wrap);
   @apply(--layout-center-justified);
   @apply(--layout-self-start);
   min-width: 300px;
 }
 
-div.gallery-description-container div.content-container div.gallery-container-ad {
-  @apply(--layout-flex);
+div.content-container div.gallery-container-ad {
+  flex: 1 1 auto;
   max-width: 300px;
 }
 
-div.gallery-description-container div.content-container div.gallery-images-container iron-image.gallery-image {
+div.content-container div.gallery-images-container iron-image.gallery-image {
   width: 100px;
   height: 100px;
   margin: 0 6px 6px 0;
@@ -109,13 +119,12 @@ div.recommended-container {
 
 div.recommended-container div.youneeq-container {
   @apply(--layout-horizontal);
-  @apply(--layout-flex-2);
+  flex: 2 2 300px;
   margin-right: 50px;
 }
 
 div.recommended-container div.recommended-content-container {
   @apply(--layout-vertical);
-  @apply(--layout-flex);
   max-width: 300px;
 }
 
