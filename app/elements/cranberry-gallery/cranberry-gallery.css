@@ -92,11 +92,10 @@ div.content-container {
 
 div.content-container div.gallery-images-container {
   @apply(--layout-horizontal);
-  flex: 2 2 300px;
   @apply(--layout-wrap);
   @apply(--layout-center-justified);
   @apply(--layout-self-start);
-  min-width: 300px;
+  flex: 2 2 300px;
 }
 
 div.content-container div.gallery-container-ad {
@@ -121,7 +120,8 @@ div.recommended-container {
 div.recommended-container div.youneeq-container {
   @apply(--layout-horizontal);
   flex: 2 2 300px;
-  padding-right: 20px;
+  max-width: 100%;
+  padding: 0 10px;
 }
 
 div.recommended-container div.recommended-content-container {

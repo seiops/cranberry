@@ -24,7 +24,7 @@ div.youneeq-container > * {
   flex: 1 1 auto;
   max-width: 300px;
   height: 250px;
-  margin: 12px;
+  margin: 12px 0;
 }
 
 div.youneeq-content-item iron-image {
