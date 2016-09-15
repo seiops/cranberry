@@ -1,4 +1,4 @@
-<app-header id="header" reveals effects="waterfall" fixed="[[mobile]]" condenses="[[mobile]]" reveals="[[!mobile]]">
+<app-header id="header" reveals effects="waterfall" fixed="[[mobile]]" condenses="[[!mobile]]" reveals="[[!mobile]]">
   <app-toolbar class="Main-headerToolbar">
       <!-- Main Toolbar -->
       <div class="Main-headerTopBar">
@@ -13,7 +13,7 @@
           <div hidden$="{{!_equal(data.page, 'section')}}"></div>
         </div>
         <div class="Main-siteLogo">
-          <iron-image preload src="{$ theme.global.logo $}" fade hidden$="[[logo]]"></iron-image>
+          <iron-image src="{$ theme.global.logo $}" fade hidden$="[[logo]]"></iron-image>
         </div>
         <div class="Main-siteButtons">
           <paper-icon-button class="Main-headerButton" icon="search" on-tap="_focusSearch"></paper-icon-button>
