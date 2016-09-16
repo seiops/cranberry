@@ -31,7 +31,7 @@ paper-button.rounded-button {
 }
 
 /* Absolute positioned icons over gallery content */
-div.gallery-slider-container cranberry-slider-new div.gallery-tag {
+div.gallery-slider-container cranberry-slider div.gallery-tag {
   @apply(--paper-font-button);
   position: absolute;
   top: 0;
@@ -41,18 +41,18 @@ div.gallery-slider-container cranberry-slider-new div.gallery-tag {
   padding: 6px;
 }
 
-div.gallery-slider-container cranberry-slider-new div.expand-link {
+div.gallery-slider-container cranberry-slider div.expand-link {
   position: absolute;
   top: 20px;
   right: 25px;
 }
 
-div.gallery-slider-container cranberry-slider-new div.expand-link paper-button {
+div.gallery-slider-container cranberry-slider div.expand-link paper-button {
   background: var(--dark-primary-color);
   color: var(--text-dark-accent-color);
 }
 
-div.gallery-slider-container cranberry-slider-new div.share-buttons {
+div.gallery-slider-container cranberry-slider div.share-buttons {
   @apply(--layout-horizontal);
   @apply(--layout-around-justified);
   @apply(--layout-flex);
@@ -61,7 +61,7 @@ div.gallery-slider-container cranberry-slider-new div.share-buttons {
   right: 5%;
 }
 
-div.gallery-slider-container cranberry-slider-new div.share-buttons paper-button {
+div.gallery-slider-container cranberry-slider div.share-buttons paper-button {
   background: var(--dark-primary-color);
   color: var(--text-dark-accent-color);
   margin-right: 25px;
