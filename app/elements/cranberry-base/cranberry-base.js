@@ -281,6 +281,16 @@ class CranberryBase {
       drawerBar.$.input.focus();
     }
   }
+
+  // Function to prevent the document from scrolling when modal is open
+  _disableDocumentScrolling() {
+    document.body.style.overflow = 'hidden';
+  }
+
+  // Function to re-enable the document scrolling when modal is closed
+  _restoreDocumentScrolling() {
+    document.body.style.overflow = '';
+  }
 }
 // Change accent color
 Polymer(

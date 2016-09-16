@@ -83,7 +83,7 @@
     <!-- app path routing -->
     {% include "cranberry-base/views/routes.html" %}
 
-    <paper-dialog id="globalModal" modal auto-fit-on-attach>
+    <paper-dialog id="globalModal" modal auto-fit-on-attach on-iron-overlay-opened="_disableDocumentScrolling" on-iron-overlay-closed="_restoreDocumentScrolling">
       <paper-dialog-scrollable>
         <div class="content-area">
         </div>
