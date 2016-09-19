@@ -17,7 +17,7 @@
       last-error="{{error}}"
       id="request"></byutv-jsonp>
 
-    <paper-material class="Page-paper" elevation="1">
+    <paper-material class="Page-paper" elevation="1" hidden$="{{hiddenForever}}">
       <div class="breaking-bar-wrapper">
         <template is="dom-repeat" items="{{items}}" filter="_computeShow" id="repeat">
           <a href="[[_computeUrl(item)]]" class="breaking-item-link">

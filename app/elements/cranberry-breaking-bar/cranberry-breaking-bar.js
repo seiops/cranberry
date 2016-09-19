@@ -59,6 +59,10 @@ class cranberryBreakingBar {
       hideSelectors: {
         type: Boolean,
         value: false
+      },
+      hiddenForever: {
+        type: Boolean,
+        value: false
       }
     };
     this.observers = ['_onSizingChanged(mobile, tablet, desktop)']
@@ -77,14 +81,6 @@ class cranberryBreakingBar {
   timer() {
     let self = document.querySelector('cranberry-breaking-bar');
     self._showNext();
-  }
-  detached() {
-    app.logger('<\cranberry-breaking-bar\> detached');
-    let setTimer = this.get('setTimer');
-
-    if (setTimer) {
-      clearInterval(window.breakingBarTimer);
-    }
   }
 
   _handleLoad() {
@@ -196,7 +192,14 @@ class cranberryBreakingBar {
   }
 
   _closeBar() {
-    this.remove();
+    app.logger('<\cranberry-breaking-bar\> hidden!');
+    let setTimer = this.get('setTimer');
+
+    if (setTimer) {
+      clearInterval(window.breakingBarTimer);
+    }
+
+    this.set('hiddenForever', true);
   }
 
   _onSizingChanged(mobile, tablet, desktop) {

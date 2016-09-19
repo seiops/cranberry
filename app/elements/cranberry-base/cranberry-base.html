@@ -103,7 +103,7 @@
         {% include "cranberry-base/views/header.html" %}
 
         <!-- content area -->
-        <cranberry-breaking-bar rest="{$ config.baseEndpointUrl $}" mobile="{{mobile}}" tablet="{{tablet}}" desktop="{{desktop}}"></cranberry-breaking-bar>
+        <cranberry-breaking-bar rest="{$ config.baseEndpointUrl $}" mobile="[[mobile]]" tablet="[[tablet]]" desktop="[[desktop]]"></cranberry-breaking-bar>
         {% include "cranberry-base/views/pages.html" %}
       </app-header-layout>
       <paper-toast id="confirmToast" class="Toast" duration="4000">
