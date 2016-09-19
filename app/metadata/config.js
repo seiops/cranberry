@@ -13,7 +13,7 @@ module.exports = {
   // Gigya
   gigya: {
     // Needs changed from dev key to prod key
-    apiKey: '3_-_C60jYrQF4iB2Td_pfAznNCYppxxQt8-hXq-ZB4KUgp_X32Dme6ewgK9LjQqSgG',
+    apiKey: '3_CTGaEEb6Ii1B7qdLiQ1UYD8lmE2xI3RxZ7N5CUxWZc2YK-SvMEZRfMjjVQOf2zoQ',
     siteName: 'sanduskyregister.com'
   },
   // Google
