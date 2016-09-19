@@ -77,7 +77,14 @@ class CranberryBase {
   changeAccentColor(color) {}
 
   _clearModal(e) {
-    console.log('This action will destroy this modal element.');
+    e.preventDefault();
+
+    let modalContent = Polymer.dom(this.root).querySelector('paper-dialog-scrollable').querySelector('#scrollable').querySelector('.content-area');
+
+    // Remove all children of the content area
+    while(modalContent.firstChild) {
+      modalContent.removeChild(modalContent.firstChild);
+    }
   }
 
   _equal(a, b) {
@@ -273,6 +280,16 @@ class CranberryBase {
     } else {
       drawerBar.$.input.focus();
     }
+  }
+
+  // Function to prevent the document from scrolling when modal is open
+  _disableDocumentScrolling() {
+    document.body.style.overflow = 'hidden';
+  }
+
+  // Function to re-enable the document scrolling when modal is closed
+  _restoreDocumentScrolling() {
+    document.body.style.overflow = '';
   }
 }
 // Change accent color

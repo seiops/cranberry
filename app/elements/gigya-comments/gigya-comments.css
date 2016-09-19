@@ -1,8 +1,14 @@
-#commentsButton {
+:host {
+  @apply(--layout-vertical);
+  @apply(--layout-center-justified);
+}
+
+paper-button {
+  @apply(--layout-self-center);
+  @apply(--paper-font-button);
   background: var(--accent-color);
   color: var(--text-dark-primary-color);
-  @apply(--paper-font-button);
-  width: 181px;
+  width: 180px;
   height: 45px;
   margin-bottom: 25px;
 }

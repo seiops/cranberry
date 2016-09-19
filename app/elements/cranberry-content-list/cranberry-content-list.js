@@ -89,7 +89,7 @@ class CranberryContentList {
   }
 
   _checkInStreamAd(index) {
-    if (index === 2 || index === 13) {
+    if (index === 2 || index === 11) {
       return true;
     } else {
       return;
@@ -105,7 +105,7 @@ class CranberryContentList {
   }
 
   _checkNativeAd(index) {
-    if (index === 2 || index === 17) {
+    if (index === 2 || index === 15) {
       return true;
     } else {
       return;
@@ -120,8 +120,16 @@ class CranberryContentList {
     }
   }
 
+  _checkJobsWidget(index) {
+      if (index === 11) {
+          return true;
+      } else {
+          return;
+      }
+  }
+
   _checkTopComments(index) {
-    if (index === 1) {
+    if (index === 3) {
       return true;
     } else {
       return;

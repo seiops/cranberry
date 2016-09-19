@@ -47,16 +47,10 @@ class CranberryGallery {
     app.logger('\<cranberry-gallery\> attached');
   }
 
-  // ready() {
-  //   app.logger('\<cranberry-gallery\> ready');
-  // }
-
   // Private methods.
   _buyImage() {
-    let slider = this.querySelector('cranberry-slider');
-    let images = slider.items;
-    let currentIndex = slider.index;
-    let currentImage = images[currentIndex].src;
+    let slider = this.$.mainSlider;
+    let currentImage = slider.querySelector('iron-image').src;
     let myCapture = this.get('myCaptureUrl');
 
     let capture = {
@@ -100,10 +94,6 @@ class CranberryGallery {
     }
   }
 
-  _closeModal () {
-    this._sliderMove('close');
-  }
-
   // Observer method for when the story id changes.
   _galleryIdChanged () {
     let galleryId = this.get('galleryId');
@@ -120,7 +110,7 @@ class CranberryGallery {
     let mainSlider = this.querySelector('#mainSlider');
     let imageIndex = Number(e.target.parentElement.dataset.index);
 
-    mainSlider.goTo(mainSlider, imageIndex);
+    mainSlider.goTo(imageIndex);
   }
 
   _handleResponse (data) {
@@ -155,44 +145,18 @@ class CranberryGallery {
     let images = this.get('gallery.mediaAssets.images');
 
 
-    slider.set('autostart', true);
-    slider.set('arrows', true);
-    slider.set('bullets', false);
-    slider.set('info', true);
-    slider.set('caption', true);
+    slider.set('items', images);
     slider.set('baseUrl', baseUrl);
-    slider.set('images', images);
+    slider.set('whiteText', true);
 
-    console.dir(slider);
-    // Polymer.dom(wrapper).appendChild(slider);
     let modal = Polymer.dom(document).querySelector('cranberry-base').querySelector('#globalModal');
-    let modalContent = Polymer.dom(modal).querySelector('paper-dialog-scrollable');
+
+    let modalContent = Polymer.dom(modal).querySelector('paper-dialog-scrollable').querySelector('#scrollable').querySelector('.content-area');
+
     modalContent.appendChild(slider);
-    // modal.appendChild(wrapper);
-    modal.updateStyles();
+
     modal.open();
-    console.dir(modal);
-    // this._sliderMove('open');
-  }
-
-  _sliderMove (type) {
-    let modal = this.$.modal;
-    // let modalSlider = modal.querySelector('#modalSlider');
-    let mainSlider = this.querySelector('#mainSlider');
-    let mainIndex = mainSlider.index;
-    let modalIndex = modalSlider.index;
-
-    // Move slider for main or modal depending on event
-    if (mainIndex !== modalIndex) {
-      if (type === 'close') {
-        mainSlider.goTo(mainSlider, modalIndex);
-      } else {
-        // modalSlider.goTo(modalSlider, mainIndex);
-      }
-    }
-
-    // Toggle the open/close event
-    modal.toggle();
+    modal.refit();
   }
 
   // Update story id in request parameters.

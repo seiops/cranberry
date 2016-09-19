@@ -128,13 +128,13 @@ class youneeqContent {
     pagehit.tz_off = utcOffset;
     pagehit.tz_name = timeZoneName;
 
-    fullObject.domain = this.get('domain');
+    // fullObject.domain = this.get('domain');
     // For Localhost Testing uncomment below; comment out above line.
-    // fullObject.domain = 'localhost';
+    fullObject.domain = 'localhost';
     fullObject.observe = observe;
     fullObject.suggest = suggest;
     // For Localhost Testing uncomment this
-    // fullObject.alt_href = 'http://sedev.libercus.net/News/2016/08/18/Ogden-s-STEM-school-makes-its-debut-with-enthusiasm.html';
+    fullObject.alt_href = 'http://sedev.libercus.net/News/2016/08/18/Ogden-s-STEM-school-makes-its-debut-with-enthusiasm.html';
     fullObject.page_hit = pagehit;
     fullObject.bof_profile = this.get('youneeqId');
     fullObject.href = window.location.href;

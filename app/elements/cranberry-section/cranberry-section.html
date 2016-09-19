@@ -47,11 +47,11 @@
     </div>
 
     <template is="dom-if" if="[[_isLatest(selected)]]">
-      <cranberry-content-list rest="{$ config.baseEndpointUrl $}" type="[[_isGalleries(galleries)]]" sections="[[loadSection]]" section="[[section]]" count="18" start="1" tags="{{tags}}" tag="[[tag]]"></cranberry-content-list>
+      <cranberry-content-list rest="{$ config.baseEndpointUrl $}" type="[[_isGalleries(galleries)]]" sections="[[loadSection]]" section="[[section]]" count="18" start="1" tags="[[tags]]" tag="[[tag]]"></cranberry-content-list>
     </template>
 
     <!-- <template is="dom-if" if="[[_isLocal(selected)]]">
-      <cranberry-content-list rest="{$ config.baseEndpointUrl $}" type="[[_isGalleries(galleries)]]" sections="[[loadSection]]" count="20" start="1" tags="{{tags}}" tag="[[tag]]"></cranberry-content-list>
+      <cranberry-content-list rest="{$ config.baseEndpointUrl $}" type="[[_isGalleries(galleries)]]" sections="[[loadSection]]" count="18" start="1" tags="[[tags]]" tag="[[tag]]"></cranberry-content-list>
     </template> -->
 
   <!-- <template is="dom-if" if="[[_isPopular(selected)]]">
@@ -59,7 +59,7 @@
     </template> -->
 
     <!-- <template is="dom-if" if="[[_isFeatured(selected)]]">
-      <cranberry-content-list rest="{$ config.baseEndpointUrl $}" type="[[_isGalleries(galleries)]]" sections="[[loadSection]]" count="20" start="1" tags="{{tags}}" tag="[[tag]]"></cranberry-content-list>
+      <cranberry-content-list rest="{$ config.baseEndpointUrl $}" type="[[_isGalleries(galleries)]]" sections="[[loadSection]]" count="18" start="1" tags="[[tags]]" tag="[[tag]]"></cranberry-content-list>
     </template> -->
   </template>
   <script src="cranberry-section.js"></script>
