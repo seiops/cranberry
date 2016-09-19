@@ -54,6 +54,7 @@
 <link rel="import" href="../cranberry-archive-page/cranberry-archive-page.html">
 <link rel="import" href="../cranberry-calendar/cranberry-calendar.html">
 <link rel="import" href="../cranberry-nativo-story/cranberry-nativo-story.html">
+<link rel="import" href="../cranberry-breaking-bar/cranberry-breaking-bar.html">
 
 <dom-module id="cranberry-base">
   <template>
@@ -102,6 +103,7 @@
         {% include "cranberry-base/views/header.html" %}
 
         <!-- content area -->
+        <cranberry-breaking-bar rest="{$ config.baseEndpointUrl $}" mobile="{{mobile}}" tablet="{{tablet}}" desktop="{{desktop}}"></cranberry-breaking-bar>
         {% include "cranberry-base/views/pages.html" %}
       </app-header-layout>
       <paper-toast id="confirmToast" class="Toast" duration="4000">
