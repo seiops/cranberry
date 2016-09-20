@@ -70,6 +70,7 @@ class CranberryStory {
 
       if (hidden) {
         this._destroyContent();
+        this._closeShare();
       } else {
         if (routeId === cachedStory.itemId) {
           // Destroy current story to flag observer change for cachedStory
@@ -119,6 +120,11 @@ class CranberryStory {
 
     // Set lead shortcode back to false
     this.set('hasLeadShortcode', false);
+  }
+
+  _closeShare() {
+    let shareBar = this.querySelector('gigya-sharebar');
+    shareBar.close();
   }
 
   _checkMedia(mediaItems) {
@@ -198,7 +204,7 @@ class CranberryStory {
 
     // Set cached story for redisplay
     this.set('cachedStory', result);
-    
+
     this.set('story', result);
   }
 
