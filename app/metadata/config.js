@@ -88,7 +88,11 @@ module.exports = {
       {
         logo: 'icons:lightbulb-outline',
         label: 'News Tip',
-        phone: '419-502-2060'
+        phone: '419-502-2060',
+        link: true,
+        linkUrl: 'http://srdev.libercus.net/tell-us'
+        // Commented out production url. This site is not ready yet.
+        // linkUrl: 'tellus.sanduskyregister.com'
       },
       {
         logo: 'icons:chrome-reader-mode',

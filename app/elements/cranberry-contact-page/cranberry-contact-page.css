@@ -189,6 +189,10 @@ paper-button.faux-disabled[disabled] {
   margin: 10px;
 }
 
+.help-card.linked {
+  cursor: pointer;
+}
+
 .help-card iron-icon {
   margin: 10px;
 }

@@ -93,11 +93,16 @@
         </div>
         <div class="help-card-container">
           <template is="dom-repeat" items="{{needHelp}}">
-            <div class="help-card">
-              <iron-icon icon="{{item.logo}}"></iron-icon>
-              <p>{{item.label}}</p>
-              <p class="phone">{{item.phone}}</p>
-            </div>
+              <div class="help-card" hidden$="[[item.link]]">
+                <iron-icon icon="{{item.logo}}"></iron-icon>
+                <p>{{item.label}}</p>
+                <p class="phone">{{item.phone}}</p>
+              </div>
+              <div class="help-card linked" on-tap="_openLink" hidden$="[[!item.link]]">
+                <iron-icon icon="{{item.logo}}"></iron-icon>
+                <p>{{item.label}}</p>
+                <p class="phone">{{item.phone}}</p>
+              </div>
           </template>
         </div>
       </div>
