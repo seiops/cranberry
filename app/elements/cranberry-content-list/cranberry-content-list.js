@@ -186,28 +186,37 @@ class CranberryContentList {
     let currentRequest = this.get('request');
     let tags = this.get('tags');
 
-    if (typeof currentRequest !== 'undefined' && currentRequest.loading === true) {
-      app.logger('<\cranberry-content-list\> aborting previous request');
-      this.$.request.abortRequest(currentRequest);
-    }
+      if (typeof currentRequest !== 'undefined' && currentRequest.loading === true) {
+        app.logger('<\cranberry-content-list\> aborting previous request');
+        this.$.request.abortRequest(currentRequest);
+      }
 
-    this.set('items', []);
 
-    let jsonp = {};
+      this.set('items', []);
 
-    jsonp.request = 'content-list';
-    if (typeof tags !== 'undefined' && tags) {
+      let jsonp = {};
       let sections = this.get('sections');
-      sections = sections.replace('-', ' ');
-      jsonp.desiredTags = sections;
-    } else {
-      jsonp.desiredSection = this.get('sections');
-    }
-    jsonp.desiredContent = this.get('type');
-    jsonp.desiredCount = this.get('count');
-    jsonp.desiredStart = this.get('start');
+      let tags = this.get('tags');
 
-    this.set('params', jsonp);
+      jsonp.request = 'content-list';
+
+      if (typeof tags !== 'undefined' && tags) {
+        sections = sections.replace('-', ' ');
+        jsonp.desiredTags = sections;
+      } else {
+        if (sections === 'homepage') {
+          sections = 'news,opinion,announcements,sports,entertainment,lifestyle';
+          jsonp.desiredSortOrder = '-publishdate_-contentmodified';
+        }
+        jsonp.desiredSection = sections;
+      }
+
+      jsonp.desiredContent = this.get('type');
+      jsonp.desiredCount = this.get('count');
+      jsonp.desiredStart = this.get('start');
+
+      this.set('params', jsonp);
+    });
   }
 }
 // Public methods.
