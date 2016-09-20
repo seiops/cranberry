@@ -168,6 +168,8 @@ class cranberryBreakingBar {
   }
 
   _showPrevious() {
+    let setTimer = this.get('setTimer');
+    
     if (setTimer) {
       clearInterval(window.breakingBarTimer);
     }
