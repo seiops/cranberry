@@ -183,8 +183,8 @@ class CranberryContentList {
   }
 
   _updateParams() {
-    let currentRequest = this.get('request');
-    let tags = this.get('tags');
+    this.async(function () {
+      let currentRequest = this.get('request');
 
       if (typeof currentRequest !== 'undefined' && currentRequest.loading === true) {
         app.logger('<\cranberry-content-list\> aborting previous request');
