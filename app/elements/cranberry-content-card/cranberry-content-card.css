@@ -138,8 +138,9 @@ paper-card.gallery div.icon {
   position: absolute;
   top: 0;
   right: 0;
-  color: var(--accent-color);
   padding: 16px;
+  color: #fff;
+  text-shadow: 0px 0px 5px rgba(0,0,0,.5);
 }
 
 paper-card.gallery div.card-info span.content-date {
