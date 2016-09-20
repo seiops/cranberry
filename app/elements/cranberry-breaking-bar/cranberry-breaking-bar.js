@@ -7,8 +7,7 @@ class cranberryBreakingBar {
         observer: '_parseResponse'
       },
       items: {
-        type: Object,
-        observer: '_itemsChanged'
+        type: Object
       },
       tags: {
         type: String,
@@ -168,6 +167,8 @@ class cranberryBreakingBar {
   }
 
   _showPrevious() {
+    let setTimer = this.get('setTimer');
+    
     if (setTimer) {
       clearInterval(window.breakingBarTimer);
     }
