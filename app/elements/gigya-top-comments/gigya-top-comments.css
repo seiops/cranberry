@@ -71,7 +71,7 @@ div.no-comments-container {
 }
 
 h3.no-comments-text {
-  @apply(--paper-font-menu);
-  color: var(--light-theme-primary-text-color);
+  @apply(--paper-font-body2);
+  color: var(--light-theme-secondary-text-color);
   margin: 0 0 0 12px;
 }
