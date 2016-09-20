@@ -22,41 +22,43 @@ class gigyaSharebar {
           app.logger("Finished loading Gigya Sharebar.");
 
           var ua = new gigya.socialize.UserAction();
-              //ua.setLinkBack(window.location.href);
+            console.info('http://srdevcore.libercus.net' + window.location.pathname);
+              ua.setLinkBack('http://srdevcore.libercus.net' + window.location.pathname);
               ua.setTitle("HOME");
 
           var params = {
               userAction: ua,
+              shortURLs: 'never',
               shareButtons:
               [
-                  { // General Share Button
-                      provider:'share',
-                      tooltip:'General Share Button',
-                      userMessage:'default user message'
-                  },
-                  { // Google +1 button
-                      provider:'google-plusone',
-                      tooltip:'Recommend this on Google',
+                  { // Google Plus button
+                      provider:'googleplus',
+                      tooltip:'Share this on Google +',
                       userMessage:'default user message'
                   },
                   { // Facebook Like button
-                      provider:'facebook-like',
-                      tooltip:'Recommend this on Facebook',
+                      provider:'facebook',
+                      tooltip:'Share this on Facebook',
                       action:'recommend',
                       font:'arial'
                   },
-                  { // Twitter Tweet button
-                      provider:'twitter-tweet',
+                  { // Twitter Share button
+                      provider:'twitter',
                       tooltip:'Share on Twitter',
                       defaultText: 'Twitter message'
 
+                  },,
+                  { // Pinterest button
+                      provider: 'pinterest'
                   },
                   { // Email button
                       provider:'email',
                       tooltip:'Email this'
                   },
-                  { // Pinterest button
-                      provider: 'pinterest-pinit'
+                  { // General Share Button
+                      provider:'share',
+                      tooltip:'General Share Button',
+                      userMessage:'default user message'
                   }
               ],
               containerID: shareDiv,
