@@ -23,7 +23,7 @@ class cranberryContactForm {
     let validForm = form.validate();
     // if the form is in a valid state then submit
     if (validForm) {
-      request.url = (window.location.hostname === 'localhost' ? 'http://srdevcore.libercus.net' : window.location.protocol +  window.location.host) + '/contact-form';
+      request.setAttribute('url', window.location.protocol + '//' +  window.location.host + '/contact-form');
 
       var params = {};
 

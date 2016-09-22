@@ -50,7 +50,7 @@
       <div class="story-media" hidden$="{{_checkMedia(story.mediaAssets)}}">
         <div class="media-container" id="mediaContainer"  desktop-layout$="{{desktop}}" tablet-layout$="{{tablet}}" mobile-layout$="{{mobile}}">
           <iron-image id="mainImage" sizing="cover" src="{$ config.baseDomain $}{{story.mediaAssets.images.0.exlarge}}" hidden$="{{hasLeadShortcode}}"></iron-image>
-          <div id="leadShortcode"></div>
+          <div id="leadShortcode" hidden$="[[!hasLeadShortcode]]"></div>
         </div>
         <div class="ut-rowFlex ut-absolute">
           <paper-fab mini src="../../../images/social/FacebookLogo_29.png" id="facebookButton" class="ut-small-icon-margin" social-name="{$ config.socialNaming.facebook $}" hidden></paper-fab>

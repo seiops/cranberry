@@ -13,7 +13,7 @@ module.exports = {
   // Gigya
   gigya: {
     // Needs changed from dev key to prod key
-    apiKey: '3_CTGaEEb6Ii1B7qdLiQ1UYD8lmE2xI3RxZ7N5CUxWZc2YK-SvMEZRfMjjVQOf2zoQ',
+    apiKey: '3_e5ABAMtSLw8p7NjX2d9P1niHwPiHeB7H_qp6Y4f8hhD-JHDUmPYR-dKc1bgpkPC7',
     siteName: 'sanduskyregister.com'
   },
   // Google
@@ -88,7 +88,11 @@ module.exports = {
       {
         logo: 'icons:lightbulb-outline',
         label: 'News Tip',
-        phone: '419-502-2060'
+        phone: '419-502-2060',
+        link: true,
+        linkUrl: 'http://srdev.libercus.net/tell-us'
+        // Commented out production url. This site is not ready yet.
+        // linkUrl: 'tellus.sanduskyregister.com'
       },
       {
         logo: 'icons:chrome-reader-mode',
