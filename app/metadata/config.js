@@ -2,7 +2,7 @@ module.exports = {
   // URL Structure
   baseUrl: '/',
   baseDomain: 'http://www.sanduskyregister.com',
-  baseEndpointUrl: 'http://srdevcore.libercus.net/rest.json',
+  baseEndpointUrl: 'http://srstgcore.libercus.net/rest.json',
   appVersion: '<0.1',
   baseCanonicalUrl: 'https://github.com/seiops/cranberry/',
   // Needs Changed
@@ -13,7 +13,7 @@ module.exports = {
   // Gigya
   gigya: {
     // Needs changed from dev key to prod key
-    apiKey: '3_CTGaEEb6Ii1B7qdLiQ1UYD8lmE2xI3RxZ7N5CUxWZc2YK-SvMEZRfMjjVQOf2zoQ',
+    apiKey: '3_e5ABAMtSLw8p7NjX2d9P1niHwPiHeB7H_qp6Y4f8hhD-JHDUmPYR-dKc1bgpkPC7',
     siteName: 'sanduskyregister.com'
   },
   // Google
