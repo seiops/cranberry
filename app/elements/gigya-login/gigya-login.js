@@ -214,7 +214,7 @@ class GigyaLogin {
         break;
       case 403043:
         notice.type = 'error';
-        notice.message = 'Login identifier exists.';
+        notice.message = 'Login exists as site account. Please login using the username and password form below.';
         break;
       case 403044:
         notice.type = 'error';
@@ -270,7 +270,7 @@ class GigyaLogin {
 
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
 
-    let expires = "expires=" + d.toUTCString();
+    let expires = "expires=" + d.toGMTString();
 
     document.cookie = cname + "=" + cvalue + "; " + expires + "; path=/";
   }
