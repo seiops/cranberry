@@ -162,7 +162,7 @@ class cranberryBreakingBar {
     let template = this.$.repeat;
     template.render();
     if (setTimer) {
-      window.breakingBarTimer = window.setInterval(this.timer, 4000);
+      window.breakingBarTimer = window.setInterval(this.timer, 7000);
     }
   }
 
