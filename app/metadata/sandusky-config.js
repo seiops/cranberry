@@ -93,7 +93,7 @@ module.exports = {
         link: true,
         linkUrl: 'http://srdev.libercus.net/tell-us'
         // Commented out production url. This site is not ready yet.
-        // linkUrl: 'tellus.sanduskyregister.com'
+        // linkUrl: 'http://tellus.sanduskyregister.com'
       },
       {
         logo: 'icons:chrome-reader-mode',
@@ -109,23 +109,23 @@ module.exports = {
     footerLinks: [
       {
         label: 'More+',
-        link: 'more.sanduskyregister.com'
+        link: 'http://more.sanduskyregister.com'
       },
       {
         label: 'Todays Ads',
-        link: 'local.sanduskyregister.com/ads'
+        link: 'http://local.sanduskyregister.com/ads'
       },
       {
         label: 'Local Guide',
-        link: 'local.sanduskyregister.com'
+        link: 'http://local.sanduskyregister.com'
       },
       {
         label: 'Job Network',
-        link: 'sanduskyregister.thejobnetwork.com'
+        link: 'http://sanduskyregister.thejobnetwork.com'
       },
       {
         label: 'Member Rewards',
-        link: 'sanduskyregister.clickitrewards.com'
+        link: 'http://sanduskyregister.clickitrewards.com'
       },
       {
         label: 'Archive',
