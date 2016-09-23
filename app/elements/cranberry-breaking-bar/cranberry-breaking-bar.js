@@ -97,7 +97,7 @@ class cranberryBreakingBar {
 
     if (result.length > 1) {
       this.set('setTimer', true);
-      window.breakingBarTimer = window.setInterval(this.timer, 4000);
+      window.breakingBarTimer = window.setInterval(this.timer, 7000);
     } else {
       this.set('hideSelectors', true);
     }
@@ -168,7 +168,7 @@ class cranberryBreakingBar {
 
   _showPrevious() {
     let setTimer = this.get('setTimer');
-    
+
     if (setTimer) {
       clearInterval(window.breakingBarTimer);
     }
