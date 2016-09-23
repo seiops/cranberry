@@ -150,14 +150,14 @@ module.exports = {
     },
     {
       label: 'Site Search',
-      description: 'Search the Standard-Examiner site for the stories, photos, videos and people that you are looking for.',
+      description: 'Search the Sandusky Register site for the stories, photos, videos and people that you are looking for.',
       dates: '2012-0-01 - Present',
       link: '/search',
       image: '../images/archive/sandusky/search_image.png'
     },
     {
       label: 'Text Archive',
-      description: 'The Standard-Examiner Text Archive is an additional search tool that allows you to do more advanced searching. This archive contains only story text, and no photos or videos.',
+      description: 'The Sandusky Register Text Archive is an additional search tool that allows you to do more advanced searching. This archive contains only story text, and no photos or videos.',
       dates: '2001-05-22 - Present',
       link: '/news-archive',
       image: '../images/archive/sandusky/text_archive_image.png'
