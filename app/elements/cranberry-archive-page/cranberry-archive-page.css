@@ -47,7 +47,7 @@ div.archive-container paper-card.archive-card div.card-content .card-headline {
 }
 
 div.archive-container paper-card.archive-card div.card-content .card-dates {
-    @apply(--paper-font-body1);
+    @apply(--paper-font-caption);
     margin: 0;
 }
 
