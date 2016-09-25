@@ -9,11 +9,6 @@
 
   /* postcss-bem-linter: ignore */
   --paper-slide-dot-selected: var(--accent-color);;
-
-  /* postcss-bem-linter: ignore */
-  --paper-slide-dot-styles: {
-
-    };
 }
 
 div.featured-content {
@@ -39,4 +34,18 @@ div.featured-list {
   @apply(--layout-flex-4);
   @apply(--layout-justified);
   @apply(--layout-vertical);
+}
+
+l2t-paper-slider ::content .slider {
+  margin-bottom: 24px;
+  overflow-x: hidden;
+  overflow-y: visible;
+  padding-bottom: 24px;
+}
+
+l2t-paper-slider ::content .slider__dots {
+  bottom: 0px;
+}
+l2t-paper-slider ::content .slider__slides {
+  background-color: transparent;
 }
