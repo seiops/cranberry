@@ -11,9 +11,12 @@ class gigyaComments {
       },
       content: {
         type: Object
+      },
+      configId: {
+        type: String
       }
     };
-    this.observers = ['_updateComments(streamId, content)'];
+    this.observers = ['_updateComments(streamId, content, configId)'];
   }
 
   _timeId() {
@@ -28,7 +31,7 @@ class gigyaComments {
     return timeStamp;
   }
 
-  _updateComments(id, content) {
+  _updateComments(id, content, configId) {
     if (typeof id !== 'undefined' && id.length > 0) {
       let time = this._timeId();
 
@@ -40,7 +43,7 @@ class gigyaComments {
         setTimeout(function() {
           if (typeof gigya !== 'undefined') {
             var params = {
-              categoryID: '3946962',
+              categoryID: configId,
               streamID: streamId,
               streamURL: window.location.href,
               version: 2,

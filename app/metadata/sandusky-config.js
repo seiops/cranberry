@@ -14,7 +14,8 @@ module.exports = {
   gigya: {
     // Needs changed from dev key to prod key
     apiKey: '3_e5ABAMtSLw8p7NjX2d9P1niHwPiHeB7H_qp6Y4f8hhD-JHDUmPYR-dKc1bgpkPC7',
-    siteName: 'sanduskyregister.com'
+    siteName: 'sanduskyregister.com',
+    commentsId: 'Default'
   },
   // Google
   google: {
