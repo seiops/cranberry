@@ -10,6 +10,7 @@ module.exports = {
   // General Namings
   title: 'Sandusky Register',
   urlTitle: 'SanduskyRegister.com',
+  epaperLink: 'http://digital.olivesoftware.com/Olive/ODE/SanduskyRegister',
   // Gigya
   gigya: {
     // Needs changed from dev key to prod key
