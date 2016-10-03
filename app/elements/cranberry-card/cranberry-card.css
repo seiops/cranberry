@@ -1,0 +1,228 @@
+:host {
+  display: block;
+}
+
+/* IE 10 support for HTML5 hidden attr */
+[hidden] {
+  display: none !important;
+}
+
+/* Card element styles */
+div.card {
+  @apply(--layout-vertical);
+  flex: 1 1 auto;
+  background-color: var(--tertiary-background-color);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  min-height: 250px;
+}
+
+div.card[bp13] {
+  margin: 8px;
+  max-width: 300px;
+  min-width: 300px;
+}
+
+div.card[bp12] {
+  margin: 20px;
+  max-width: 339px;
+  min-width: 300px;
+}
+
+div.card[bp11] {
+  margin: 8px;
+  max-width: 339px;
+  min-width: 300px;
+}
+
+div.card[bp10] {
+  margin: 12px;
+  max-width: 385px;
+  min-width: 300px;
+}
+
+div.card[bp9] {
+  margin: 8px;
+  max-width: 321px;
+  min-width: 300px;
+}
+
+div.card[bp8] {
+  margin: 12px;
+  max-width: 407px;
+  min-width: 348px;
+}
+
+div.card[bp7] {
+  margin: 12px;
+  max-width: 359px;
+  min-width: 300px;
+}
+
+div.card[bp6] {
+  margin: 8px;
+  max-width: 335px;
+  min-width: 300px;
+}
+
+div.card[bp5] {
+  margin: 24px;
+  max-width: 543px;
+  min-width: 504px;
+}
+
+div.card[bp4] {
+  margin: 20px;
+  max-width: 479px;
+  min-width: 360px;
+}
+
+div.card[bp3] {
+  margin: 20px;
+  max-width: 379px;
+  min-width: 300px;
+}
+
+div.card[bp2] {
+  margin: 10px;
+  max-width: 339px;
+  min-width: 300px;
+}
+
+div.card[bp1] {
+  margin: 5px;
+  max-width: 339px;
+  min-width: 300px;
+}
+
+div.css-info {
+  @apply(--layout-vertical);
+  @apply(--layout-center);
+  font-size: 10px;
+}
+
+div.card > paper-material {
+  @apply(--layout-flex);
+  @apply(--layout-vertical);
+
+}
+
+/* Disable text decoration for links in cards */
+div.card > a {
+  @apply(--layout-vertical);
+  flex: 1 1 auto;
+  text-decoration: none;
+}
+
+/* Card header */
+div.card > a > div.card-header {
+  @apply(--paper-card-header);
+
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+  color: var(--text-dark);
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+/* Card header image */
+div.card > a > div.card-header > iron-image {
+  @apply(--paper-card-header-image);
+  --iron-image-width: 100%;
+  display: block;
+  pointer-events: none;
+  width: 100%;
+}
+
+/* Card header title text WITHOUT image */
+div.card > a > div.card-header > div.title-text {
+  @apply(--paper-card-header-text);
+  @apply(--paper-font-headline);
+
+  color: var(--paper-card-header-color, #000);
+  padding: 16px;
+  position: relative;
+  z-index: 3;
+}
+
+div.card > a > div.card-header > div.card-header-overlay {
+  background: radial-gradient(transparent, black);
+  height: 100%;
+  position: absolute;
+  width:100%;
+  z-index: 2;
+}
+/* Card header title text WITH image */
+div.card > a > div.card-header > div.title-text.over-image {
+  @apply(--paper-font-headline2);
+
+  /* Vignette over photos */
+  /*background: radial-gradient(transparent, black);*/
+  color: var(--text-accent-color);
+  bottom: 0px;
+  position: absolute;
+  text-shadow: 0px 0px 10px rgba(0,0,0,1);
+  width: calc(100% - 32px);
+}
+
+/* Card content area */
+div.card > a > div.card-content {
+  @apply(--layout-flex);
+  @apply(--paper-font-body1);
+
+  background-color: var(--tertiary-background-color);
+  color: var(--light-theme-primary-text-color);
+  padding: 16px;
+  position:relative;
+}
+
+/* Content date timestamp */
+div.card > a > div.card-content > div.content-date {
+  @apply(--paper-font-caption2);
+}
+
+/* Card bottom information bar */
+div.card > div.card-info {
+  @apply(--paper-font-common-uppercase);
+  @apply(--layout-horizontal);
+  @apply(--layout-around-justified);
+  @apply(--layout-flex);
+  flex: 1 1 auto;
+  background-color: var(--tertiary-background-color);
+  border-top: 1px solid #e8e8e8;
+  color: var(--accent-color);
+  font-weight: 400;
+  padding: 5px 16px;
+}
+
+div.card > div.card-info > div {
+  @apply(--layout-flex);
+}
+/* Remove styles for links in card information bar */
+div.card > div.card-info > * > a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Flip comment icon direction */
+div.card > div.card-info > * iron-icon {
+  transform: scaleX(-1);
+}
+
+/* Gallery Card Styles */
+.gallery div.icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 16px;
+  color: #fff;
+  text-shadow: 0px 0px 5px rgba(0,0,0,.5);
+}
+
+.gallery div.card-info span.content-date {
+  @apply(--paper-font-caption2);
+}
+
+.slider {
+  width: 100%;
+}
