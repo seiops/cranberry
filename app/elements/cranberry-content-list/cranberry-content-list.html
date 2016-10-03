@@ -7,6 +7,7 @@
 <link rel="import" href="../../bower_components/iron-icons/communication-icons.html">
 <link rel="import" href="../google-dfp/google-dfp.html">
 <link rel="import" href="../cranberry-content-card/cranberry-content-card.html">
+<link rel="import" href="../cranberry-card/cranberry-card.html">
 <link rel="import" href="../gigya-top-comments/gigya-top-comments.html">
 <link rel="import" href="../cranberry-jobs-widget/cranberry-jobs-widget.html">
 
@@ -16,6 +17,19 @@
       @import "cranberry-content-list/cranberry-content-list";
     </style>
     <iron-media-query query="(max-width:1370px)" query-matches="{{leaderboard}}"></iron-media-query>
+    <iron-media-query query="(min-width: 1600px)" query-matches="{{bp13}}"></iron-media-query>
+    <iron-media-query query="(min-width: 1440px) and (max-width:1599px)" query-matches="{{bp12}}"></iron-media-query>
+    <iron-media-query query="(min-width: 1280px) and (max-width:1439px)" query-matches="{{bp11}}"></iron-media-query>
+    <iron-media-query query="(min-width: 1024px) and (max-width:1279px)" query-matches="{{bp10}}"></iron-media-query>
+    <iron-media-query query="(min-width: 960px) and (max-width:1023px)" query-matches="{{bp9}}"></iron-media-query>
+    <iron-media-query query="(min-width: 840px) and (max-width:959px)" query-matches="{{bp8}}"></iron-media-query>
+    <iron-media-query query="(min-width: 720px) and (max-width:839px)" query-matches="{{bp7}}"></iron-media-query>
+    <iron-media-query query="(min-width: 640px) and (max-width:719px)" query-matches="{{bp6}}"></iron-media-query>
+    <iron-media-query query="(min-width: 600px) and (max-width:639px)" query-matches="{{bp5}}"></iron-media-query>
+    <iron-media-query query="(min-width: 480px) and (max-width:599px)" query-matches="{{bp4}}"></iron-media-query>
+    <iron-media-query query="(min-width: 400px) and (max-width:479px)" query-matches="{{bp3}}"></iron-media-query>
+    <iron-media-query query="(min-width: 360px) and (max-width:399px)" query-matches="{{bp2}}"></iron-media-query>
+    <iron-media-query query="(min-width: 320px) and (max-width:359px)" query-matches="{{bp1}}"></iron-media-query>
     <byutv-jsonp
       on-response="_handleResponse"
       on-load="_handleLoad"
@@ -23,47 +37,46 @@
       last-request="{{request}}"
       last-error="{{error}}"
       id="request"></byutv-jsonp>
-    <div class="content-cards">
-      <template is="dom-repeat" items="{{items}}" initial-count="3">
-          <template is="dom-if" if="[[_checkJobsWidget(index)]]">
+      <div class="content-cards-wrapper">
+        <div class="content-cards" bp1$="[[bp1]]" bp2$="[[bp2]]" bp3$="[[bp3]]" bp4$="[[bp4]]" bp5$="[[bp5]]" bp6$="[[bp6]]" bp7$="[[bp7]]" bp8$="[[bp8]]" bp9$="[[bp9]]" bp10$="[[bp10]]" bp11$="[[bp11]]" bp12$="[[bp12]]" bp13$="[[bp13]]">
+        <template is="dom-repeat" items="{{items}}" initial-count="9">
+            <template is="dom-if" if="[[_checkJobsWidget(index)]]">
               <cranberry-jobs-widget affiliate-id="{$ config.jobs.affiliateId $}" widget-id="{$ config.jobs.widgetId $}" hidden$="{{hidden}}"></cranberry-jobs-widget>
-          </template>
-          <template is="dom-if" if="[[_checkTopComments(index)]]">
-            <gigya-top-comments count="5" age="90"></gigya-top-comments>
-          </template>
-          <template is="dom-if" if="[[_checkInStreamAd(index)]]">
-            <div class="stream-advertisement-wrapper">
-              <div class="stream-advertisement">
+            </template>
+            <template is="dom-if" if="[[_checkTopComments(index)]]">
+              <gigya-top-comments count="5" age="90"></gigya-top-comments>
+            </template>
+            <template is="dom-if" if="[[_checkInStreamAd(index)]]">
+              <cranberry-card>
                 <template is="dom-if" if="[[_checkAdPos(index,2)]]">
                   <google-dfp section="[[sections]]" tags="[[tag]]" ad-pos="Top_Of_Stream" ad-size="[[300, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
                 </template>
                 <template is="dom-if" if="[[_checkAdPos(index,11)]]">
                   <google-dfp section="[[sections]]" tags="[[tag]]" ad-pos="Bottom_Of_Stream" ad-size="[[300, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
                 </template>
+              </cranberry-card>
+            </template>
+            <template is="dom-if" if="[[_checkNativeAd(index)]]">
+              <cranberry-card>
+                <google-dfp section="[[sections]]" tags="[[tag]]" ad-pos="Middle_of_Stream" ad-size="[[300, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+              </cranberry-card>
+            </template>
+            <cranberry-card item="[[item]]"></cranberry-card>
+            <!-- <cranberry-content-card item="[[item]]" content></cranberry-content-card> -->
+            <template is="dom-if" if="[[_checkLeaderboardAd(index)]]">
+              <div class="leaderboard-advertisement-wrapper">
+                <div class="leaderboard-advertisement">
+                  <template is="dom-if" if="[[_checkAdPos(index, 8)]]">
+                    <google-dfp section="[[sections]]" tags="[[tag]]" ad-pos="Middle_Of_Stream" ad-size-mapping="leaderboard" ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+                  </template>
+                  <template is="dom-if" if="[[_checkAdPos(index, 17)]]">
+                    <google-dfp section="[[sections]]" tags="[[tag]]" ad-pos="Last_Of_Stream" ad-size-mapping="leaderboard" ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+                  </template>
+                </div>
               </div>
-            </div>
-          </template>
-          <template is="dom-if" if="[[_checkNativeAd(index)]]">
-            <div class="stream-advertisement-wrapper">
-              <div class="stream-advertisement">
-                  <google-dfp section="[[sections]]" tags="[[tag]]" ad-pos="Middle_of_Stream" ad-size="[[300, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
-              </div>
-            </div>
-          </template>
-          <cranberry-content-card item="[[item]]" content></cranberry-content-card>
-          <template is="dom-if" if="[[_checkLeaderboardAd(index)]]">
-            <div class="leaderboard-advertisement-wrapper">
-              <div class="leaderboard-advertisement">
-                <template is="dom-if" if="[[_checkAdPos(index, 8)]]">
-                  <google-dfp section="[[sections]]" tags="[[tag]]" ad-pos="Middle_Of_Stream" ad-size-mapping="leaderboard" ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
-                </template>
-                <template is="dom-if" if="[[_checkAdPos(index, 17)]]">
-                  <google-dfp section="[[sections]]" tags="[[tag]]" ad-pos="Last_Of_Stream" ad-size-mapping="leaderboard" ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
-                </template>
-              </div>
-            </div>
-          </template>
-      </template>
+            </template>
+        </template>
+      </div>
     </div>
     <div class="pagination-wrapper">
       <div class="pagination">
