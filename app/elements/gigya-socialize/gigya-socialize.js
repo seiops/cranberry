@@ -24,6 +24,15 @@ class GigyaSocialize {
       userSelected: {
         type: Number,
         value: 0
+      },
+      route: {
+        type: Object,
+        observer: '_onRouteChanged'
+      },
+      accountVerify: {
+        type: Boolean,
+        value: false,
+        observer: '_verifyAccount'
       }
     };
   }
@@ -158,6 +167,29 @@ class GigyaSocialize {
   // show profile update form
   _showAccountSettings() {
     this.set('userSelected', 3);
+  }
+
+  // Method to check if queryParams has a value of verifyAccount
+  _onRouteChanged(newValue) {
+    if (newValue.__queryParams.verifyAccount === '1') {
+      // Set the boolean accountVerify to true
+      this.set('accountVerify', true);
+
+      // Reset the queryParams value to a blank object to tidy up the URL.
+      let base = Polymer.dom(document).querySelector('cranberry-base');
+      let location = base.querySelector('app-location');
+
+      location.set('queryParams', {});
+    }
+  }
+
+  // Method to check verify param
+  _verifyAccount(verify) {
+    if (typeof verify !== 'undefined' && verify) {
+      // Check the User and open the Modal
+      this.checkUser();
+      this.openModal();
+    }
   }
 
   // Notify resize event for Safari fix
