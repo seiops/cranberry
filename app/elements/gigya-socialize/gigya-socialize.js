@@ -49,7 +49,6 @@ class GigyaSocialize {
   // check Gigya user
   checkUser() {
     app.logger('\<gigya-socialize\> check user');
-
     let params = {
       callback: this._loadUser,
       context: this
@@ -152,6 +151,11 @@ class GigyaSocialize {
   // show profile update form
   _showAccountSettings() {
     this.set('userSelected', 3);
+  }
+
+  // Notify resize event for Safari fix
+  resize() {
+    this.$.userModal.notifyResize();
   }
 }
 

@@ -26,7 +26,11 @@ class GigyaFinalizeRegister {
     this.async(function() {
       let el = this;
       let form = Polymer.dom(this.root).querySelector('#registerFinalizeForm');
+      let base = Polymer.dom(document).querySelector('cranberry-base');
+      let socialize = base.querySelector('gigya-socialize');
 
+      // Fire resize event when this element is attached SAFARI FIX
+      socialize.resize();
       form.addEventListener('iron-form-submit', function() {
         app.logger('\<gigya-finalize-register\> form submit event');
 
@@ -165,6 +169,7 @@ class GigyaFinalizeRegister {
       let form = Polymer.dom(context.root).querySelector('#registerFinalizeForm');
       let token = this.get('token');
 
+      // Set profile details that will be needed for finalizeRegistration to actually work
       let params = {
         callback: context._registerCallback,
         context: context,
@@ -175,10 +180,15 @@ class GigyaFinalizeRegister {
         finalizeRegistration: true,
         password: form.password.value,
         regToken: token,
-        username: form.username.value
+        username: form.username.value,
+        profile: {
+          email: form.email.value,
+          nickname: form.username.value
+        }
       };
 
       gigya.accounts.setAccountInfo(params);
+      // gigya.accounts.finalizeRegistration(params);
   }
 
   // submit initRegistration call for Gigya token
@@ -201,7 +211,6 @@ class GigyaFinalizeRegister {
   // callback for registration from Gigya
   _registerCallback(data) {
     app.logger('\<gigya-finalize-register\> register callback');
-
     console.dir(data);
 
     let el = data.context;
@@ -212,7 +221,14 @@ class GigyaFinalizeRegister {
       let base = Polymer.dom(document).querySelector('cranberry-base');
       let socialize = base.querySelector('gigya-socialize');
 
-      socialize.checkUser();
+      let token = data.requestParams.regToken;
+
+      let params = {
+        callback: socialize.checkUser,
+        context: el,
+        regToken: token
+      };
+      gigya.accounts.finalizeRegistration(params);
     } else {
       console.error('\<gigya-finalize-register\> gigya error -> ' + data.errorMessage);
 

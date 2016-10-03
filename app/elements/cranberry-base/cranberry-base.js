@@ -291,6 +291,25 @@ class CranberryBase {
   _restoreDocumentScrolling() {
     document.body.style.overflow = '';
   }
+
+  // Compute if the thumbnail for the user is present
+  _computeThumbnail(thumbnail) {
+    if (typeof thumbnail !== 'undefined' && thumbnail !== '') {
+      return thumbnail;
+    } else {
+      // Return canned image currently 
+      return 'http://imgsrc.me/250x400/9c9c9c/000000/Image Unavailable?showDimensions=0&font=arial';
+    }
+  }
+
+  // Function to hide or show the default login button or the user button
+  _computeDefaultHide(thumbnail) {
+    if (typeof thumbnail === 'undefined') {
+      return false;
+    } else {
+      return true;
+    }
+  }
 }
 // Change accent color
 Polymer(
