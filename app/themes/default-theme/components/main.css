@@ -82,6 +82,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     /*@apply(--layout-end);*/
   }
 
+  @nest &-siteNav {
+
+  }
+
+  @nest &-siteNav a {
+    color: inherit;
+    margin-right: 12px;
+    text-decoration: none;
+    text-transform: none;
+  }
+
   @nest &-siteLogo {
     @apply(--layout-vertical);
     @apply(--layout-center);
