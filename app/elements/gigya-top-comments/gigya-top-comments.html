@@ -1,5 +1,5 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../cranberry-card/cranberry-card.html">
 
 <dom-module id="gigya-top-comments">
   <template>
@@ -7,32 +7,27 @@
       @import "gigya-top-comments/gigya-top-comments";
     </style>
 
-    <div class="wrapper">
-      <paper-card elevation="1">
-        <div class="card-tag-container">
-          <span class="card-tag">Comments</span>
-        </div>
-        <div class="card-content">
-          <template is="dom-repeat" items="{{items}}">
-            <a href="[[item.streamURL]]">
-              <div class="item">
-                <div class="content-comments">
-                  <span>[[item.approvedCommentCount]] &nbsp;</span><iron-icon icon="communication:chat"></iron-icon>
-                </div>
-                <h3 class="item-title">[[item.streamTitle]]</h3>
+    <cranberry-card>
+      <div class="card-tag-container">
+        <span class="card-tag">Comments</span>
+      </div>
+      <div class="card-content">
+        <template is="dom-repeat" items="{{items}}">
+          <a href="[[item.streamURL]]">
+            <div class="item">
+              <div class="content-comments">
+                <span>[[item.approvedCommentCount]] &nbsp;</span><iron-icon icon="communication:chat"></iron-icon>
               </div>
-            </a>
-            <hr class="break" hidden$="{{_isLast(index)}}" />
-          </template>
-          <div class="no-comments-container" hidden$="{{hideDefaultMessage}}">
-            <h3 class="no-comments-text">No Recent Comments.</h3>
-          </div>
+              <h3 class="item-title">[[item.streamTitle]]</h3>
+            </div>
+          </a>
+          <hr class="break" hidden$="{{_isLast(index)}}" />
+        </template>
+        <div class="no-comments-container" hidden$="{{hideDefaultMessage}}">
+          <h3 class="no-comments-text">No Recent Comments.</h3>
         </div>
-      </paper-card>
-    </div>
-
-
-
-  </template>
+      </div>
+    </cranberry-card>
+    </template>
     <script src="gigya-top-comments.js"></script>
 </dom-module>

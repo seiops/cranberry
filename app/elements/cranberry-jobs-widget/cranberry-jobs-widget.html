@@ -1,5 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
+<link rel="import" href="../cranberry-card/cranberry-card.html">
 
 <dom-module id="cranberry-jobs-widget">
   <template>
@@ -13,23 +14,21 @@
         on-response="_handleResponse"
         debounce-duration="300"></byutv-jsonp>
 
-        <paper-card>
-            <div class="card-tag-container">
-                <span class="card-tag">Jobs</span>
-            </div>
-            <div class="card-content">
-                <template is="dom-repeat" items="{{items}}">
-                    <a href="[[item.JobUrl]]" class="item-link" target="_blank">
-                        <p class="item-company-name">[[item.CompanyName]]</p>
-                        <h3 class="item-title">[[item.Title]]</h3>
-                        <p class="item-location">[[item.Location]]</p>
-                    </a>
-                    <hr class="item-seperator" hidden$="{{_isLastItem(index)}}" />
-                </template>
-            </div>
-        </paper-card>
-
-
+      <cranberry-card>
+          <div class="card-tag-container">
+              <span class="card-tag">Jobs</span>
+          </div>
+          <div class="card-content">
+              <template is="dom-repeat" items="{{items}}">
+                  <a href="[[item.JobUrl]]" class="item-link" target="_blank">
+                      <p class="item-company-name">[[item.CompanyName]]</p>
+                      <h3 class="item-title">[[item.Title]]</h3>
+                      <p class="item-location">[[item.Location]]</p>
+                  </a>
+                  <hr class="item-seperator" hidden$="{{_isLastItem(index)}}" />
+              </template>
+          </div>
+      </cranberry-card>
   </template>
-    <script src="cranberry-jobs-widget.js"></script>
+  <script src="cranberry-jobs-widget.js"></script>
 </dom-module>
