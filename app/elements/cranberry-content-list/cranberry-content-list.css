@@ -1,38 +1,78 @@
 :host {
   display: block;
 }
-
+/*div.content-cards-wrapper {
+  @apply(--layout-center);
+  @apply(--layout-vertical);
+}*/
 div.content-cards {
-  @apply(--layout-around-justified);
   @apply(--layout-horizontal);
+  @apply(--layout-center-justified);
   @apply(--layout-wrap);
 
   min-height: 800px;
+}
+
+div.content-cards[bp1] {
+  margin: 0 5px;
+}
+
+div.content-cards[bp2] {
+  margin: 0 20px;
+}
+
+div.content-cards[bp3] {
+  margin: 0 30px;
+}
+
+div.content-cards[bp4] {
+  margin: 0 40px;
+}
+
+div.content-cards[bp5] {
+  margin: 0 24px;
+}
+
+div.content-cards[bp6] {
+  margin: 0 4px;
+}
+
+div.content-cards[bp7] {
+  margin: 0 36px;
+}
+
+div.content-cards[bp8] {
+  margin: 0 48px;
+}
+
+div.content-cards[bp9] {
+  margin: 0 6px;
+}
+
+div.content-cards[bp10] {
+  margin: 0 26px;
+}
+
+div.content-cards[bp11] {
+  margin: 0 8px;
+}
+
+div.content-cards[bp12] {
+  margin: 0 40px;
+}
+
+div.content-cards[bp13] {
+  margin: 0 10px;
 }
 
 div.content-cards > cranberry-content-card {
   @apply(--layout-vertical);
 }
 
-div.stream-advertisement-wrapper {
-  @apply(--layout-horizontal);
-  @apply(--layout-center);
-  flex: 1 1 auto;
-  max-width: 300px;
-  margin: 12px;
-}
-
-div.stream-advertisement {
-  background-color: transparent;
-  margin: 0 auto;
-}
-
 div.leaderboard-advertisement-wrapper {
   @apply(--layout-center);
-  @apply(--layout-horizontal);
-  @apply(--layout-justified);
-  /*@apply(--layout-flex-12);*/
-   flex: 0 0 100%;
+  @apply(--layout-vertical);
+  width: 100%;
 }
 
 div.leaderboard-advertisement {
@@ -42,17 +82,6 @@ div.leaderboard-advertisement {
   flex: 1 1 auto;
   background-color: transparent;
   text-align: center;
-}
-
-div.content-cards > gigya-top-comments {
-  @apply(--layout-vertical);
-  margin: 12px;
-}
-
-div.content-cards > cranberry-jobs-widget {
-  @apply(--layout-vertical);
-  max-width: 300px;
-  min-width: 300px;
 }
 
 div.pagination-wrapper {
