@@ -41,6 +41,7 @@ class GigyaSocialize {
 
       gigya.accounts.addEventHandlers({
         context: this,
+        onLogin: el._loginUser,
         onLogout: el._logoutUser
        });
     });
@@ -146,6 +147,12 @@ class GigyaSocialize {
     el.set('user', {});
 
     gigya.socialize.refreshUI();
+  }
+
+  _loginUser(eventObj) {
+    if (eventObj.newUser) {
+      this.context.checkUser();
+    }
   }
 
   // show profile update form

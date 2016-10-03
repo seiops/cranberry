@@ -15,7 +15,7 @@ class GigyaChangePassword {
   }
 
   attached() {
-    app.logger('\<gigya-socialize\> attached');
+    app.logger('\<gigya-change-password\> attached');
 
     this.async(function() {
       let el = this;
