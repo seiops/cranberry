@@ -12,13 +12,6 @@ span.card-tag {
   color: var(--dark-theme-primary-text-color);
 }
 
-div.wrapper {
-  @apply(--layout-vertical);
-  flex: 1 1 auto;
-  max-width: 300px;
-  text-decoration: none;
-}
-
 div.wrapper paper-card {
   flex: 1 1 auto;
   @apply(--layout-vertical);
