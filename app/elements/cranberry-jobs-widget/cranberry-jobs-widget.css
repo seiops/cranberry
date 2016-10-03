@@ -1,6 +1,5 @@
 :host {
-    display: block;
-    margin: 12px;
+    display: inline-block;
 }
 
 div.card-tag-container span.card-tag {
