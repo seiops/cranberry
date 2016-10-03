@@ -174,21 +174,27 @@ class GigyaSocialize {
     if (newValue.__queryParams.verifyAccount === '1') {
       // Set the boolean accountVerify to true
       this.set('accountVerify', true);
+    }
+  }
 
+  // Method to reset query params to empty object
+  _resetQueryParams() {
+    this.async(function() {
       // Reset the queryParams value to a blank object to tidy up the URL.
       let base = Polymer.dom(document).querySelector('cranberry-base');
       let location = base.querySelector('app-location');
 
       location.set('queryParams', {});
-    }
+    });
   }
 
   // Method to check verify param
   _verifyAccount(verify) {
     if (typeof verify !== 'undefined' && verify) {
-      // Check the User and open the Modal
+      // Check the User, open the Modal, and clear query params
       this.checkUser();
       this.openModal();
+      this._resetQueryParams();
     }
   }
 
