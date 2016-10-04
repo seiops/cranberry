@@ -166,6 +166,7 @@ class GigyaRegister {
       let context = response.context;
       let form = Polymer.dom(context.root).querySelector('#registerForm');
 
+      // Set profile details that will be needed for finalizeRegistration to actually work
       let params = {
         callback: context._registerCallback,
         context: context,
@@ -176,7 +177,11 @@ class GigyaRegister {
         finalizeRegistration: true,
         password: form.password.value,
         regToken: response.regToken,
-        username: form.username.value
+        username: form.username.value,
+        profile: {
+          email: form.email.value,
+          nickname: form.username.value
+        }
       };
 
       gigya.accounts.register(params);

@@ -17,10 +17,10 @@
         </div>
         <div class="Main-siteButtons">
           <paper-icon-button class="Main-headerButton" icon="search" on-tap="_focusSearch"></paper-icon-button>
-          <div hidden$="[[!user.thumbnailURL]]">
-            <a class="link" on-tap="openUserModal"><iron-image width="24" height="24" style="padding:8px;border-radius:48px" preload src="[[user.thumbnailURL]]" fade sizing="cover"></iron-image></a>
+          <div hidden$="[[!_computeDefaultHide(user.thumbnailURL)]]">
+            <a class="link" on-tap="openUserModal"><iron-image width="24" height="24" style="padding:8px;border-radius:48px" preload src="[[_computeThumbnail(user.thumbnailURL)]]" fade sizing="cover"></iron-image></a>
           </div>
-          <div hidden$="[[user.thumbnailURL]]">
+          <div hidden$="[[_computeDefaultHide(user.thumbnailURL)]]">
             <paper-icon-button class="Main-headerButton" icon="account-circle" on-tap="openUserModal"></paper-icon-button>
           </div>
         </div>
