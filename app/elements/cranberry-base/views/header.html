@@ -16,6 +16,15 @@
           <iron-image src="{$ theme.global.logo $}" fade hidden$="[[logo]]"></iron-image>
         </div>
         <div class="Main-siteButtons">
+          <!-- Move into metadata config once it's confirmed this is working as expected -->
+         <iron-media-query query="(min-width: 1280px)" query-matches="{{showLinks}}"></iron-media-query>
+         <div class="Main-siteNav" hidden$="[[!showLinks]]">
+           <a href="http://www.norwalkreflector.com/?network" target="_blank">Norwalk Reflector</a>
+           <a href="http://local.sanduskyregister.com/ads" target="_blank">Today's Ads</a>
+           <a href="http://local.sanduskyregister.com" target="_blank">Local Guide</a>
+           <a href="http://sanduskyregister.thejobnetwork.com" target="_blank">Job Network</a>
+           <a href="http://sanduskyregister.clickitrewards.com" target="_blank">Member Rewards</a>
+         </div>
           <paper-icon-button class="Main-headerButton" icon="search" on-tap="_focusSearch"></paper-icon-button>
           <div hidden$="[[!_computeDefaultHide(user.thumbnailURL)]]">
             <a class="link" on-tap="openUserModal"><iron-image width="24" height="24" style="padding:8px;border-radius:48px" preload src="[[_computeThumbnail(user.thumbnailURL)]]" fade sizing="cover"></iron-image></a>
