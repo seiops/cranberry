@@ -186,7 +186,7 @@ class GigyaLogin {
         break;
       case 206002:
         notice.type = 'warning';
-        notice.message = 'Your account requires e-mail verification.';
+        notice.message = 'Your account requires e-mail verification. Check your e-mail address to verify your account.';
         notice.verify = true;
 
         let verify = {

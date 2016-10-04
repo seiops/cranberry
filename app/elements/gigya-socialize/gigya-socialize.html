@@ -71,13 +71,14 @@
             <div hidden$="{{!_equal(userSelected, 1)}}">
               My Membership
             </div>
-            <div hidden$="{{!_equal(userSelected, 2)}}">
+            <!-- Newsletter section commented out for future. Reset indexes below if uncommented -->
+            <!-- <div hidden$="{{!_equal(userSelected, 2)}}">
               Newsletters
-            </div>
-            <div hidden$="{{!_equal(userSelected, 3)}}">
+            </div> -->
+            <div hidden$="{{!_equal(userSelected, 2)}}">
               <gigya-update-profile user="[[user]]" account="[[account]]"></gigya-update-profile>
             </div>
-            <div hidden$="{{!_equal(userSelected, 4)}}">
+            <div hidden$="{{!_equal(userSelected, 3)}}">
               <gigya-change-password user="[[user]]"></gigya-change-password>
             </div>
           </div>
