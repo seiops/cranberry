@@ -142,9 +142,12 @@ class CranberryBase {
     let calendarPath = path.search('calendar');
     let searchPath = path.search('search');
     let tagsPath = path.search('tags');
+    let infoPath = path.search('info');
 
     if (sectionPath > 0) {
       section = path.replace('\/section\/', '');
+    } else if (infoPath > 0) {
+      section = path.replace('\/info\/', '');
     } else if (calendarPath > 0) {
       section = 'calendar';
     } else if (storyPath > 0 || galleryPath > 0) {
@@ -297,7 +300,7 @@ class CranberryBase {
     if (typeof thumbnail !== 'undefined' && thumbnail !== '') {
       return thumbnail;
     } else {
-      // Return canned image currently 
+      // Return canned image currently
       return 'http://imgsrc.me/250x400/9c9c9c/000000/Image Unavailable?showDimensions=0&font=arial';
     }
   }

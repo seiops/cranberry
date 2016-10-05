@@ -1,0 +1,43 @@
+:host {
+  display: block;
+}
+
+div.headline-advertisement {
+  text-align: center;
+}
+
+div.weather-container {
+  @apply(--layout-horizontal);
+  @apply(--layout-wrap);
+}
+
+h1.weather-headline {
+  @apply(--paper-font-display1);
+  margin-bottom: 12px;
+}
+
+div.weather-widget-container {
+  @apply(--layout-flex-3);
+  @apply(--layout-vertical);
+}
+
+div.right-rail {
+  @apply(--layout-flex);
+  @apply(--layout-vertical);
+  @apply(--layout-center);
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+
+.no-margin {
+  margin: 0;
+}
+
+/* Style overrides for widget */
+div.weather-container::shadow div.aw-widget-36hour {
+  margin-bottom: 20px;
+}
+
+div.weather-container::shadow div.aw-widget-36hour div.aw-widget-36hour-inner {
+  max-width: 100%;
+}

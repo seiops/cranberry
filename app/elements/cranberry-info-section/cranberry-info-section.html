@@ -1,0 +1,58 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../google-dfp/google-dfp.html">
+
+<dom-module id="cranberry-info-section">
+  <template>
+    <style>
+      @import "cranberry-info-section/cranberry-info-section";
+    </style>
+    <div class="cranberry-info-section">
+      <div class="headline-advertisement" hidden$="{{hideInfo}}">
+        <google-dfp
+          section="forecast"
+          section-parent="info"
+          ad-pos="leaderboard"
+          ad-size-mapping="leaderboard"
+          ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
+          ad-group="{$ config.dfpAdStructure.adGroupID $}"
+          ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
+          ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}">
+        </google-dfp>
+      </div>
+      <h1 class="weather-headline">Weather Forecast</h1>
+      <div class="weather-container">
+        <div class="weather-widget-container">
+          <p class="no-margin">
+            <a class="aw-widget-legal" href="http://www.accuweather.com/en/us/sandusky-oh/44870/current-weather/1167"></a>
+          </p>
+          <div id="awtd1442845125461" class="aw-widget-36hour" data-locationkey="1167" data-unit="f" data-language="en-us" data-useip="false" data-uid="awtd1442845125461" data-editlocation="false">&nbsp;</div>
+        </div>
+        <div class="right-rail">
+          <google-dfp
+            section="forecast"
+            section-parent="info"
+            tags=""
+            ad-pos="Top_of_Stream"
+            ad-size="[[300, 250],[300, 600]]"
+            ad-group="{$ config.dfpAdStructure.adGroupID $}"
+            ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
+            ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}">
+          </google-dfp>
+        </div>
+      </div>
+      <div class="headline-advertisement">
+        <google-dfp
+          section="forecast"
+          section-parent="info"
+          ad-pos="Last_of_Stream"
+          ad-size-mapping="leaderboard"
+          ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
+          ad-group="{$ config.dfpAdStructure.adGroupID $}"
+          ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
+          ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}">
+        </google-dfp>
+      </div>
+    </div>
+  </template>
+    <script src="cranberry-info-section.js"></script>
+</dom-module>
