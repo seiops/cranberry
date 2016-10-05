@@ -142,12 +142,9 @@ class CranberryBase {
     let calendarPath = path.search('calendar');
     let searchPath = path.search('search');
     let tagsPath = path.search('tags');
-    let infoPath = path.search('info');
 
     if (sectionPath > 0) {
       section = path.replace('\/section\/', '');
-    } else if (infoPath > 0) {
-      section = path.replace('\/info\/', '');
     } else if (calendarPath > 0) {
       section = 'calendar';
     } else if (storyPath > 0 || galleryPath > 0) {

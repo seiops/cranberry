@@ -1,16 +1,15 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../google-dfp/google-dfp.html">
 
-<dom-module id="cranberry-info-section">
+<dom-module id="cranberry-static-section">
   <template>
     <style>
-      @import "cranberry-info-section/cranberry-info-section";
+      @import "cranberry-static-section/cranberry-static-section";
     </style>
-    <div class="cranberry-info-section">
-      <div class="headline-advertisement" hidden$="{{hideInfo}}">
+    <div class="cranberry-static-section" hidden$="{{hideWeather}}">
+      <div class="headline-advertisement">
         <google-dfp
-          section="forecast"
-          section-parent="info"
+          section="static"
           ad-pos="leaderboard"
           ad-size-mapping="leaderboard"
           ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
@@ -29,8 +28,7 @@
         </div>
         <div class="right-rail">
           <google-dfp
-            section="forecast"
-            section-parent="info"
+            section="static"
             tags=""
             ad-pos="Top_of_Stream"
             ad-size="[[300, 250],[300, 600]]"
@@ -42,8 +40,7 @@
       </div>
       <div class="headline-advertisement">
         <google-dfp
-          section="forecast"
-          section-parent="info"
+          section="static"
           ad-pos="Last_of_Stream"
           ad-size-mapping="leaderboard"
           ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
@@ -54,5 +51,5 @@
       </div>
     </div>
   </template>
-    <script src="cranberry-info-section.js"></script>
+    <script src="cranberry-static-section.js"></script>
 </dom-module>
