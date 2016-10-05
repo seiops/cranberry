@@ -65,7 +65,7 @@ div.content-cards[bp13] {
   margin: 0 10px;
 }
 
-div.content-cards > cranberry-content-card {
+div.content-cards > cranberry-card {
   @apply(--layout-vertical);
 }
 

@@ -11,6 +11,7 @@
 div.card {
   @apply(--layout-vertical);
   flex: 1 1 auto;
+
   background-color: var(--tertiary-background-color);
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
   min-height: 250px;
@@ -110,13 +111,14 @@ div.card > paper-material {
 div.card > a {
   @apply(--layout-vertical);
   flex: 1 1 auto;
+
   text-decoration: none;
 }
 
 /* Card header */
 div.card > a > div.card-header {
   @apply(--paper-card-header);
-
+  display: block;
   border-top-left-radius: inherit;
   border-top-right-radius: inherit;
   color: var(--text-dark);
@@ -128,17 +130,15 @@ div.card > a > div.card-header {
 /* Card header image */
 div.card > a > div.card-header > iron-image {
   @apply(--paper-card-header-image);
-  --iron-image-width: 100%;
   display: block;
   pointer-events: none;
-  width: 100%;
 }
 
 /* Card header title text WITHOUT image */
 div.card > a > div.card-header > div.title-text {
   @apply(--paper-card-header-text);
   @apply(--paper-font-headline);
-
+  @apply(--layout-flex);
   color: var(--paper-card-header-color, #000);
   padding: 16px;
   position: relative;
@@ -186,8 +186,7 @@ div.card > div.card-info {
   @apply(--paper-font-common-uppercase);
   @apply(--layout-horizontal);
   @apply(--layout-around-justified);
-  @apply(--layout-flex);
-  flex: 1 1 auto;
+
   background-color: var(--tertiary-background-color);
   border-top: 1px solid #e8e8e8;
   color: var(--accent-color);
