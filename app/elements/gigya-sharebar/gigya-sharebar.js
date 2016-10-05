@@ -67,11 +67,12 @@ class gigyaSharebar {
   }
 
   _updateGigya(title, route) {
-    let params = this.get('params');
     let shareDiv = this.get('shareButtonsId');
-
+    let el = this;
+    
     var checkGigya = function () {
       setTimeout(function () {
+        let params = el.get('params');
         if (typeof gigya !== 'undefined') {
           // Gigya callback goes here.
           // Bind to login and logout evenets.
