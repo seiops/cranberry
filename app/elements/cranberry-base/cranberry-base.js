@@ -151,6 +151,8 @@ class CranberryBase {
       section = '';
     } else if (path === '/') {
       section = 'home';
+    } else if (path === '/forecast') {
+      section = 'forecast';
     } else if (tagsPath > 0){
       let newPath = path.replace(/\/tags\//g, '');
       newPath = newPath.replace(/\-/g, ' ');

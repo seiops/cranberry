@@ -17,6 +17,9 @@ class cranberryStaticSection {
       weatherScriptLoaded: {
         type: Boolean,
         value: false
+      },
+      tags: {
+        type: String
       }
     }
     this.observers = ['_setupWeather(hidden, staticSection)']
@@ -31,6 +34,7 @@ class cranberryStaticSection {
 
         loader.loadScript('http://oap.accuweather.com/launch.js');
         this.set('weatherScriptLoaded', true);
+        this.set('tags', 'weather, forecast');
       }
 
       this.set('hideWeather', false);
