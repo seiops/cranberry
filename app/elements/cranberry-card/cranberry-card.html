@@ -41,16 +41,14 @@
         <a href$="[[_computeUrl(item)]]">
           <div class="card-icons"></div>
           <div class="card-header">
-            <div class="card-header-overlay"
-              hidden$="[[!item.mediaAssets.images.0.small]]">
-              Header overlay
-            </div>
+            <div class="card-header-overlay" hidden$="[[!item.mediaAssets.images.0.small]]"></div>
             <iron-image
               alt="[[item.title]]"
               hidden$="[[!item.mediaAssets.images.0.small]]"
               src$="{$ config.baseDomain $}/[[item.mediaAssets.images.0.medium]]"
               preload
-              fade>
+              fade
+              sizing="cover">
             </iron-image>
             <div hidden$="[[!item.title]]" class$="[[_computeHeadingClass(item.mediaAssets.images.0.small)]]">[[item.title]]</div>
           </div>
