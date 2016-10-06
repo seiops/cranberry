@@ -136,6 +136,17 @@ div.card > a > div.card-header {
   z-index: 1;
 }
 
+/* Card header icon bar */
+div.card > a > div.card-header > div.card-icons {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 8px;
+  color: #fff;
+  text-shadow: 0px 0px 5px rgba(0,0,0,.5);
+  z-index: 3;
+}
+
 /* Card header image needs static positioning, parent element is already relatively positioned */
 div.card > a > div.card-header > iron-image {
  position: static !important;
@@ -211,15 +222,6 @@ div.card > div.card-info > * iron-icon {
   transform: scaleX(-1);
 }
 
-/* Gallery Card Styles */
-.gallery div.icon {
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 16px;
-  color: #fff;
-  text-shadow: 0px 0px 5px rgba(0,0,0,.5);
-}
 
 .gallery div.card-info span.content-date {
   @apply(--paper-font-caption2);
