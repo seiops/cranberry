@@ -73,6 +73,7 @@ div.leaderboard-advertisement-wrapper {
   @apply(--layout-center);
   @apply(--layout-vertical);
   width: 100%;
+  margin: 12px 0;
 }
 
 div.leaderboard-advertisement {
