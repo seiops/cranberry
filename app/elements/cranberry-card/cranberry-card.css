@@ -31,20 +31,20 @@ div.card[advertisement] ::content google-dfp {
 
 /* Card breakpoints */
 div.card[breakpoints][bp13]{
-  margin: 8px;
+  margin: 10px;
   max-width: 300px;
   min-width: 300px;
 }
 
 div.card[breakpoints][bp12] {
   margin: 20px;
-  max-width: 339px;
+  max-width: 353px;
   min-width: 300px;
 }
 
 div.card[breakpoints][bp11] {
-  margin: 8px;
-  max-width: 339px;
+  margin: 10px;
+  max-width: 353px;
   min-width: 300px;
 }
 
