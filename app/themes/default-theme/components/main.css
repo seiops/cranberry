@@ -98,4 +98,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     @apply(--layout-center);
     @apply(--layout-flex);
   }
+
+  @nest &-siteNav a {
+    color: inherit;
+    margin-right: 12px;
+    text-decoration: none;
+    text-transform: none;
+  }
 }

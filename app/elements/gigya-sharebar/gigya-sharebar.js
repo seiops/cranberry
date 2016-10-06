@@ -4,66 +4,86 @@ class gigyaSharebar {
     this.properties = {
       shareButtonsId: {
         type: String
+      },
+      title: {
+        type: String,
+        value: ''
+      },
+      route: {
+        type: Object,
+        value: {}
+      },
+      open: {
+        type: Boolean,
+        value: false,
+        reflectToAttribute: true
+      },
+      params: {
+        type: Object,
+        value: function() {
+          let params = {
+            shortURLs: 'never',
+            shareButtons:
+            [
+                { // Google Plus button
+                    provider:'googleplus',
+                    tooltip:'Share this on Google +',
+                    userMessage:'default user message'
+                },
+                { // Facebook Like button
+                    provider:'facebook',
+                    tooltip:'Share this on Facebook',
+                    action:'recommend',
+                    font:'arial'
+                },
+                { // Twitter Share button
+                    provider:'twitter',
+                    tooltip:'Share on Twitter',
+                    defaultText: 'Twitter message'
+
+                },,
+                { // Pinterest button
+                    provider: 'pinterest'
+                },
+                { // Email button
+                    provider:'email',
+                    tooltip:'Email this'
+                },
+                { // General Share Button
+                    provider:'share',
+                    tooltip:'General Share Button',
+                    userMessage:'default user message'
+                }
+            ],
+            noButtonBorders: true,
+            showAlwaysShare: 'unchecked',
+            layout:'vertical'
+          };
+          return params;
+        }
       }
-    }
-    this.listeners = {
-      'shareButton.tap': 'shareButtonHandler'
     };
+    this.observers = ['_updateGigya(title, route)'];
   }
 
-  attached() {
-    let shareDiv = this.shareButtonsId;
-
+  _updateGigya(title, route) {
+    let shareDiv = this.get('shareButtonsId');
+    let el = this;
+    
     var checkGigya = function () {
       setTimeout(function () {
+        let params = el.get('params');
         if (typeof gigya !== 'undefined') {
           // Gigya callback goes here.
           // Bind to login and logout evenets.
           app.logger("Finished loading Gigya Sharebar.");
 
           var ua = new gigya.socialize.UserAction();
-              //ua.setLinkBack(window.location.href);
-              ua.setTitle("HOME");
+              ua.setLinkBack('http://srdevcore.libercus.net' + route.prefix + route.path);
+              ua.setTitle(title);
 
-          var params = {
-              userAction: ua,
-              shareButtons:
-              [
-                  { // General Share Button
-                      provider:'share',
-                      tooltip:'General Share Button',
-                      userMessage:'default user message'
-                  },
-                  { // Google +1 button
-                      provider:'google-plusone',
-                      tooltip:'Recommend this on Google',
-                      userMessage:'default user message'
-                  },
-                  { // Facebook Like button
-                      provider:'facebook-like',
-                      tooltip:'Recommend this on Facebook',
-                      action:'recommend',
-                      font:'arial'
-                  },
-                  { // Twitter Tweet button
-                      provider:'twitter-tweet',
-                      tooltip:'Share on Twitter',
-                      defaultText: 'Twitter message'
-
-                  },
-                  { // Email button
-                      provider:'email',
-                      tooltip:'Email this'
-                  },
-                  { // Pinterest button
-                      provider: 'pinterest-pinit'
-                  }
-              ],
-              containerID: shareDiv,
-              noButtonBorders: true,
-              showAlwaysShare: 'unchecked',
-              layout:'vertical'
-          };
+          params.userAction = ua;
+          params.containerID = shareDiv;
 
           gigya.socialize.showShareBarUI(params);
 
@@ -75,17 +95,22 @@ class gigyaSharebar {
       }, 1000);
     };
     checkGigya();
-
-
-
   }
 
-  shareButtonHandler() {
+  _shareButtonHandler() {
+    let open = this.get('open');
     let buttonDiv = this.querySelector('paper-material');
-    console.info(buttonDiv);
     // Toggle display property on the sharebutton div
     buttonDiv.classList.toggle('ut-hide');
-
+    this.set('open', !open);
   }
+
+  close() {
+    let open = this.get('open');
+    if (open) {
+      this._shareButtonHandler();
+    }
+  }
+
 }
 Polymer(gigyaSharebar);

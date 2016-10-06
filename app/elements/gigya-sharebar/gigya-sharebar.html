@@ -13,7 +13,7 @@
     <meta property="fb:app_id" content="{$ config.socialNaming.facebookId $}" />
     <!-- <script type="text/javascript" src="https://cdns.gigya.com/JS/gigya.js?apikey={$ config.gigya.apiKey $}"></script> -->
 
-    <paper-fab icon="social:share" title="Share" id="shareButton"></paper-fab>
+    <paper-fab icon="social:share" title="Share" id="shareButton" on-tap="_shareButtonHandler"></paper-fab>
 
     <paper-material elevation="5" id$="{{shareButtonsId}}" class="ut-hide"></paper-material>
 

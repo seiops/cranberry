@@ -10,6 +10,7 @@ module.exports = {
   // General Namings
   title: 'Sandusky Register',
   urlTitle: 'SanduskyRegister.com',
+  epaperLink: 'http://digital.olivesoftware.com/Olive/ODE/SanduskyRegister',
   // Gigya
   gigya: {
     // Needs changed from dev key to prod key
@@ -93,7 +94,7 @@ module.exports = {
         link: true,
         linkUrl: 'http://srdev.libercus.net/tell-us'
         // Commented out production url. This site is not ready yet.
-        // linkUrl: 'tellus.sanduskyregister.com'
+        // linkUrl: 'http://tellus.sanduskyregister.com'
       },
       {
         logo: 'icons:chrome-reader-mode',
@@ -109,23 +110,23 @@ module.exports = {
     footerLinks: [
       {
         label: 'More+',
-        link: 'more.sanduskyregister.com'
+        link: 'http://more.sanduskyregister.com'
       },
       {
         label: 'Todays Ads',
-        link: 'local.sanduskyregister.com/ads'
+        link: 'http://local.sanduskyregister.com/ads'
       },
       {
         label: 'Local Guide',
-        link: 'local.sanduskyregister.com'
+        link: 'http://local.sanduskyregister.com'
       },
       {
         label: 'Job Network',
-        link: 'sanduskyregister.thejobnetwork.com'
+        link: 'http://sanduskyregister.thejobnetwork.com'
       },
       {
         label: 'Member Rewards',
-        link: 'sanduskyregister.clickitrewards.com'
+        link: 'http://sanduskyregister.clickitrewards.com'
       },
       {
         label: 'Archive',
@@ -150,14 +151,14 @@ module.exports = {
     },
     {
       label: 'Site Search',
-      description: 'Search the Standard-Examiner site for the stories, photos, videos and people that you are looking for.',
+      description: 'Search the Sandusky Register site for the stories, photos, videos and people that you are looking for.',
       dates: '2012-0-01 - Present',
       link: '/search',
       image: '../images/archive/sandusky/search_image.png'
     },
     {
       label: 'Text Archive',
-      description: 'The Standard-Examiner Text Archive is an additional search tool that allows you to do more advanced searching. This archive contains only story text, and no photos or videos.',
+      description: 'The Sandusky Register Text Archive is an additional search tool that allows you to do more advanced searching. This archive contains only story text, and no photos or videos.',
       dates: '2001-05-22 - Present',
       link: '/news-archive',
       image: '../images/archive/sandusky/text_archive_image.png'

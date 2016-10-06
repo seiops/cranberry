@@ -37,9 +37,14 @@ class CranberryGallery {
       },
       myCaptureUrl: {
         type: String
+      },
+      hidden: {
+          type: Boolean,
+          reflectToAttribute: true,
+          value: true
       }
     };
-    this.observers = ['_checkParams(routeData.id)'];
+    this.observers = ['_checkParams(routeData.id)', '_hiddenChanged(hidden)'];
   }
 
   // Public methods.
@@ -169,6 +174,19 @@ class CranberryGallery {
     this.set('params', request);
 
     this._changeParams();
+  }
+
+  _hiddenChanged(hidden) {
+    this.async(function() {
+      if (hidden) {
+        this._closeShare();
+      }
+    });
+  }
+
+  _closeShare() {
+    let shareBar = this.querySelector('gigya-sharebar');
+    shareBar.close();
   }
 }
 Polymer(CranberryGallery);

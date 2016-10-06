@@ -47,7 +47,7 @@ div.archive-container paper-card.archive-card div.card-content .card-headline {
 }
 
 div.archive-container paper-card.archive-card div.card-content .card-dates {
-    @apply(--paper-font-body1);
+    @apply(--paper-font-caption);
     margin: 0;
 }
 
@@ -61,6 +61,7 @@ div.archive-container paper-card.archive-card div.action-panel {
 
 div.archive-container paper-card.archive-card paper-button.card-action {
   background-color: var(--accent-color);
+  border-radius: 0;
   margin-bottom: 10px;
   position: absolute;
   bottom: 0;

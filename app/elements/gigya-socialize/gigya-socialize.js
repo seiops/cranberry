@@ -24,6 +24,15 @@ class GigyaSocialize {
       userSelected: {
         type: Number,
         value: 0
+      },
+      route: {
+        type: Object,
+        observer: '_onRouteChanged'
+      },
+      accountVerify: {
+        type: Boolean,
+        value: false,
+        observer: '_verifyAccount'
       }
     };
   }
@@ -41,6 +50,7 @@ class GigyaSocialize {
 
       gigya.accounts.addEventHandlers({
         context: this,
+        onLogin: el._loginUser,
         onLogout: el._logoutUser
        });
     });
@@ -49,7 +59,6 @@ class GigyaSocialize {
   // check Gigya user
   checkUser() {
     app.logger('\<gigya-socialize\> check user');
-
     let params = {
       callback: this._loadUser,
       context: this
@@ -149,9 +158,49 @@ class GigyaSocialize {
     gigya.socialize.refreshUI();
   }
 
+  _loginUser(eventObj) {
+    if (eventObj.newUser) {
+      this.context.checkUser();
+    }
+  }
+
   // show profile update form
   _showAccountSettings() {
     this.set('userSelected', 3);
+  }
+
+  // Method to check if queryParams has a value of verifyAccount
+  _onRouteChanged(newValue) {
+    if (newValue.__queryParams.verifyAccount === '1') {
+      // Set the boolean accountVerify to true
+      this.set('accountVerify', true);
+    }
+  }
+
+  // Method to reset query params to empty object
+  _resetQueryParams() {
+    this.async(function() {
+      // Reset the queryParams value to a blank object to tidy up the URL.
+      let base = Polymer.dom(document).querySelector('cranberry-base');
+      let location = base.querySelector('app-location');
+
+      location.set('queryParams', {});
+    });
+  }
+
+  // Method to check verify param
+  _verifyAccount(verify) {
+    if (typeof verify !== 'undefined' && verify) {
+      // Check the User, open the Modal, and clear query params
+      this.checkUser();
+      this.openModal();
+      this._resetQueryParams();
+    }
+  }
+
+  // Notify resize event for Safari fix
+  resize() {
+    this.$.userModal.notifyResize();
   }
 }
 

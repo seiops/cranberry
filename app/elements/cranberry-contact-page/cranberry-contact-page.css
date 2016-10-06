@@ -54,6 +54,7 @@ paper-button.faux-disabled[disabled] {
   text-align: center;
   @apply(--paper-font-display1);
   color: var(--text-primary-color);
+  text-shadow: 0px 0px 5px rgba(0,0,0,.5);
 }
 
 /* Contact Card Styles */

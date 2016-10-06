@@ -151,6 +151,8 @@ class CranberryBase {
       section = '';
     } else if (path === '/') {
       section = 'home';
+    } else if (path === '/forecast') {
+      section = 'forecast';
     } else if (tagsPath > 0){
       let newPath = path.replace(/\/tags\//g, '');
       newPath = newPath.replace(/\-/g, ' ');
@@ -290,6 +292,25 @@ class CranberryBase {
   // Function to re-enable the document scrolling when modal is closed
   _restoreDocumentScrolling() {
     document.body.style.overflow = '';
+  }
+
+  // Compute if the thumbnail for the user is present
+  _computeThumbnail(thumbnail) {
+    if (typeof thumbnail !== 'undefined' && thumbnail !== '') {
+      return thumbnail;
+    } else {
+      // Return canned image currently
+      return 'http://imgsrc.me/250x400/9c9c9c/000000/Image Unavailable?showDimensions=0&font=arial';
+    }
+  }
+
+  // Function to hide or show the default login button or the user button
+  _computeDefaultHide(thumbnail) {
+    if (typeof thumbnail === 'undefined') {
+      return false;
+    } else {
+      return true;
+    }
   }
 }
 // Change accent color

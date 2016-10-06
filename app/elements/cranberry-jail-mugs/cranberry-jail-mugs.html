@@ -39,7 +39,7 @@
       </div>
       <cranberry-slider id="mugSlider" base-url="{$ config.baseDomain $}" autostart arrows></cranberry-slider>
       <div class="flex-absolute share-buttons">
-        <gigya-sharebar share-buttons-id="gigya-share-buttons-jail-mugs"></gigya-sharebar>
+        <gigya-sharebar share-buttons-id="gigya-share-buttons-jail-mugs" title="Jail mugs for [[currentHeadline]]" route="[[route]]"></gigya-sharebar>
       </div>
     </div>
 
@@ -75,7 +75,7 @@
       <div class="ad-container">
         <google-dfp
           section="[[loadSection]]"
-          ad-pos="Middle_of_Stream" 
+          ad-pos="Middle_of_Stream"
           ad-size="[[300, 600]]"
           ad-group="{$ config.dfpAdStructure.adGroupID $}"
           ad-grouping="{$ config.dfpAdStructure.adGrouping $}"

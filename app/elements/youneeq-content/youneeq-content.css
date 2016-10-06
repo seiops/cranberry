@@ -38,6 +38,7 @@ div.youneeq-content-item h3.youneeq-content-item-title {
 
 div.youneeq-container[mobile] > a {
   height: 100%;
+  text-align: start;
 }
 
 div.youneeq-container[mobile] div.youneeq-content-item {

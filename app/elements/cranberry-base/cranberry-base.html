@@ -55,6 +55,7 @@
 <link rel="import" href="../cranberry-calendar/cranberry-calendar.html">
 <link rel="import" href="../cranberry-nativo-story/cranberry-nativo-story.html">
 <link rel="import" href="../cranberry-breaking-bar/cranberry-breaking-bar.html">
+<link rel="import" href="../cranberry-static-section/cranberry-static-section.html">
 
 <dom-module id="cranberry-base">
   <template>
@@ -73,7 +74,7 @@
     <cranberry-script-loader></cranberry-script-loader>
 
     <!-- Gigya socialize/accounts integration -->
-    <gigya-socialize user="{{user}}"></gigya-socialize>
+    <gigya-socialize user="{{user}}" route="[[route]]"></gigya-socialize>
 
     <!-- local browser storage -->
     <iron-localstorage id="localStorage" name="{$ config.appNameId $}"

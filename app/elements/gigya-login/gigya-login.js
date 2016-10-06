@@ -42,11 +42,10 @@ class GigyaLogin {
   }
 
   // internal method calling gigya-socialize method
-  _checkUser(s) {
+  _checkUser() {
     let base = Polymer.dom(document).querySelector('cranberry-base');
     let socialize = base.querySelector('gigya-socialize');
 
-    console.dir(s);
     socialize.checkUser();
   }
 
@@ -124,6 +123,10 @@ class GigyaLogin {
 
   // handle Gigya API response
   _handleResponse(response) {
+    let base = Polymer.dom(document).querySelector('cranberry-base');
+    let socialize = base.querySelector('gigya-socialize');
+    let login = socialize.querySelector('gigya-login');
+
     let detail = {};
 
     if (typeof response.detail !== 'undefined') {
@@ -132,7 +135,7 @@ class GigyaLogin {
       detail = response;
     }
 
-    let el = this;
+    let el = login;
 
     if (typeof detail.context !== 'undefined') {
       el = detail.context;
@@ -140,7 +143,7 @@ class GigyaLogin {
 
     if (typeof detail !== 'undefined') {
       if (detail.loginProvider === 'site' && detail.errorCode === 0) {
-        this._setUserCookie(detail.sessionInfo.cookieName, detail.sessionInfo.cookieValue, 365);
+        el._setUserCookie(detail.sessionInfo.cookieName, detail.sessionInfo.cookieValue, 365);
       }
       if ((detail.loginProvider === 'site' && detail.errorCode === 0) || (detail.loginProvider !== 'site' && detail.errorCode === '0')) {
         el._checkUser();
@@ -183,7 +186,7 @@ class GigyaLogin {
         break;
       case 206002:
         notice.type = 'warning';
-        notice.message = 'Your account requires e-mail verification.';
+        notice.message = 'Your account requires e-mail verification. Check your e-mail address to verify your account.';
         notice.verify = true;
 
         let verify = {
@@ -293,11 +296,14 @@ class GigyaLogin {
       params.format = 'jsonp';
       params.loginID = loginForm.loginID.value;
       params.password = loginForm.password.value;
+      params.callback = this._handleResponse;
 
-      request.params = params;
-      request.url = 'https://accounts.us1.gigya.com/accounts.login';
+      gigya.accounts.login(params);
 
-      request.generateRequest();
+      // request.params = params;
+      // request.url = 'https://accounts.us1.gigya.com/accounts.login';
+      //
+      // request.generateRequest();
     });
   }
 
