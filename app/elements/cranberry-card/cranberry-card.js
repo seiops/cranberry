@@ -42,15 +42,15 @@ class cranberryCard {
   // }
   //
   _trimText(text) {
+    if(typeof text !== 'undefined'){
       let trunc = text;
-
       if (trunc.length > 125) {
           trunc = trunc.substring(0, 125);
           trunc = trunc.replace(/\w+$/, '');
           trunc += '...';
       }
-
       return trunc;
+    }
   }
 
   _checkGallery(type) {
