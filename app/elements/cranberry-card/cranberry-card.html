@@ -24,19 +24,21 @@
     <iron-media-query query="(min-width: 360px) and (max-width:399px)" query-matches="{{bp2}}"></iron-media-query>
     <iron-media-query query="(min-width: 320px) and (max-width:359px)" query-matches="{{bp1}}"></iron-media-query>
     <div class="card" breakpoints$="[[breakpoints]]" advertisement$="[[advertisement]]" bp1$="[[bp1]]" bp2$="[[bp2]]" bp3$="[[bp3]]" bp4$="[[bp4]]" bp5$="[[bp5]]" bp6$="[[bp6]]" bp7$="[[bp7]]" bp8$="[[bp8]]" bp9$="[[bp9]]" bp10$="[[bp10]]" bp11$="[[bp11]]" bp12$="[[bp12]]" bp13$="[[bp13]]">
-      <div class="css-info" bp13$="[[bp13]]" hidden$="[[!bp13]]">1600+, Margin: 10, Padding: 8, Min: 300, Max: 300</div>
-      <div class="css-info" bp12$="[[bp12]]" hidden$="[[!bp12]]">1440-1599, Margin: 40, Padding: 20, Min: 300, Max: 339</div>
-      <div class="css-info" bp11$="[[bp11]]" hidden$="[[!bp11]]">1280-1439, Margin: 8, Padding: 8, Min: 300, Max: 339</div>
-      <div class="css-info" bp10$="[[bp10]]" hidden$="[[!bp10]]">1024-1279, Margin: 26, Padding: 12, Min: 300, Max: 385</div>
-      <div class="css-info" bp9$="[[bp9]]" hidden$="[[!bp9]]">960-1023, Margin: 6, Padding: 8, Min: 300, Max: 321</div>
-      <div class="css-info" bp8$="[[bp8]]" hidden$="[[!bp8]]">840-959, Margin: 48, Padding: 12, Min: 348, Max: 407</div>
-      <div class="css-info" bp7$="[[bp7]]" hidden$="[[!bp7]]">720-839, Margin: 36, Padding: 12, Min: 300, Max: 359</div>
-      <div class="css-info" bp6$="[[bp6]]" hidden$="[[!bp6]]">640-719, Margin: 4, Padding: 8, Min: 300, Max: 335</div>
-      <div class="css-info" bp5$="[[bp5]]" hidden$="[[!bp5]]">600-639, Margin: 24, Padding: 24, Min: 504, Max: 543</div>
-      <div class="css-info" bp4$="[[bp4]]" hidden$="[[!bp4]]">480-599, Margin: 40, Padding: 20, Min: 360, Max: 479</div>
-      <div class="css-info" bp3$="[[bp3]]" hidden$="[[!bp3]]">400-479, Margin: 30, Padding: 20, Min: 300, Max: 379</div>
-      <div class="css-info" bp2$="[[bp2]]" hidden$="[[!bp2]]">360-399, Margin: 20, Padding: 12, Min: 300, Max: 339</div>
-      <div class="css-info" bp1$="[[bp1]]" hidden$="[[!bp1]]">320-359, Margin: 5, Padding: 5, Min: 300, Max: 339</div>
+      <div hidden$="[[featured]]">
+        <div class="css-info" bp13$="[[bp13]]" hidden$="[[!bp13]]">1600+, Margin: 10, Padding: 8, Min: 300, Max: 300</div>
+        <div class="css-info" bp12$="[[bp12]]" hidden$="[[!bp12]]">1440-1599, Margin: 40, Padding: 20, Min: 300, Max: 339</div>
+        <div class="css-info" bp11$="[[bp11]]" hidden$="[[!bp11]]">1280-1439, Margin: 8, Padding: 8, Min: 300, Max: 339</div>
+        <div class="css-info" bp10$="[[bp10]]" hidden$="[[!bp10]]">1024-1279, Margin: 26, Padding: 12, Min: 300, Max: 385</div>
+        <div class="css-info" bp9$="[[bp9]]" hidden$="[[!bp9]]">960-1023, Margin: 6, Padding: 8, Min: 300, Max: 321</div>
+        <div class="css-info" bp8$="[[bp8]]" hidden$="[[!bp8]]">840-959, Margin: 48, Padding: 12, Min: 348, Max: 407</div>
+        <div class="css-info" bp7$="[[bp7]]" hidden$="[[!bp7]]">720-839, Margin: 36, Padding: 12, Min: 300, Max: 359</div>
+        <div class="css-info" bp6$="[[bp6]]" hidden$="[[!bp6]]">640-719, Margin: 4, Padding: 8, Min: 300, Max: 335</div>
+        <div class="css-info" bp5$="[[bp5]]" hidden$="[[!bp5]]">600-639, Margin: 24, Padding: 24, Min: 504, Max: 543</div>
+        <div class="css-info" bp4$="[[bp4]]" hidden$="[[!bp4]]">480-599, Margin: 40, Padding: 20, Min: 360, Max: 479</div>
+        <div class="css-info" bp3$="[[bp3]]" hidden$="[[!bp3]]">400-479, Margin: 30, Padding: 20, Min: 300, Max: 379</div>
+        <div class="css-info" bp2$="[[bp2]]" hidden$="[[!bp2]]">360-399, Margin: 20, Padding: 12, Min: 300, Max: 339</div>
+        <div class="css-info" bp1$="[[bp1]]" hidden$="[[!bp1]]">320-359, Margin: 5, Padding: 5, Min: 300, Max: 339</div>
+      </div>
       <template is="dom-if" if="[[item.contentType]]">
         <a href$="[[_computeUrl(item)]]">
           <div class="card-header">
@@ -52,7 +54,7 @@
             </iron-image>
             <div hidden$="[[!item.title]]" class$="[[_computeHeadingClass(item.mediaAssets.images.0.small)]]">[[item.title]]</div>
           </div>
-          <div class="card-content">
+          <div class="card-content" hidden$="[[featured]]">
               <div class="content-date">[[item.updated]]</div>
               <div class="content-preview">[[item.preview]]</div>
           </div>
