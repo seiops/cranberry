@@ -1,7 +1,5 @@
 :host {
   display: block;
-  min-height: 250px;
-  min-width: 300px;
 };
 
 span.card-tag {
@@ -12,34 +10,28 @@ span.card-tag {
   color: var(--dark-theme-primary-text-color);
 }
 
-div.wrapper paper-card {
-  flex: 1 1 auto;
-  @apply(--layout-vertical);
-}
-
 h3.item-title {
   @apply(--paper-font-menu);
   color: var(--light-theme-primary-text-color);
   margin: 0;
 }
 
-a {
-  text-decoration: none;
-}
-
 div.card-content {
   @apply(--layout-vertical);
-  padding: 16px 0;
+  padding: 16px;
 }
 
-paper-card div.card-content div.content-comments {
-  @apply(--paper-font-display4);
-  margin: 0 0 0 16px;
-  min-width: 40px;
+div.card-content a {
+  color: var(--accent-color);
+    text-decoration: none;
+}
+
+div.content-comments {
+  margin-right: 8px;
 }
 
 /* Flip The Comments Icon */
-paper-card div.card-content div.content-comments iron-icon {
+div.content-comments iron-icon {
   transform: scaleX(-1);
   width: 16px;
   height: 16px;
@@ -60,11 +52,15 @@ hr.break {
 
 div.no-comments-container {
   @apply(--layout-vertical);
-  padding: 16px 0;
+  padding: 16px;
 }
 
 h3.no-comments-text {
   @apply(--paper-font-body2);
   color: var(--light-theme-secondary-text-color);
   margin: 0 0 0 12px;
+}
+
+a h3.item-title {
+  color: var(--light-theme-primary-text-color);
 }
