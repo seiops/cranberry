@@ -34,7 +34,6 @@ div.card[breakpoints][bp13]{
   margin: 8px;
   max-width: 300px;
   min-width: 300px;
-  border:1px red solid;
 }
 
 div.card[breakpoints][bp12] {
