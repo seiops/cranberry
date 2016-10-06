@@ -13,22 +13,9 @@ class cranberryCard {
     }
   }
 
-  ready() {
+  ready() {}
 
-  }
-
-  attached () {
-    // this.async(function () {
-    //   let item = this.get('item');
-    //   console.dir(item);
-    // })
-  }
-
-  _checkImage (src) {
-    if (src.length > 0) {
-      return src
-    }
-  }
+  attached () {}
 
   // _isStory(item) {
   //     if (item === 'Story') {
@@ -66,6 +53,16 @@ class cranberryCard {
       return trunc;
   }
 
+  _checkGallery(type) {
+    console.log('this is the type');
+    console.log(type);
+    if (typeof type !== 'undefined' && type === 'Gallery') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   _computeUrl(item) {
     let prefix = '/';
 
@@ -80,8 +77,6 @@ class cranberryCard {
 
     let url = prefix + '/' + item.itemId;
 
-    console.dir(url);
-
     return url;
   }
 
@@ -91,24 +86,10 @@ class cranberryCard {
     if (image) {
       cssClass += ' over-image';
     }
-    
+
     return cssClass;
   }
 
-  //
-  // _checkMainList() {
-  //   let main = this.get('main');
-  //   let list = this.get('list');
-  //
-  //   if (main) {
-  //     return 'main-card';
-  //   }
-  //
-  //   if (list) {
-  //     return 'list-card';
-  //   }
-  // }
-  //
   _scrubTag(tag) {
     if (typeof tag !== 'undefined' && tag !== '') {
       let temp = tag.replace('_', ' ');
