@@ -9,6 +9,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 /** @define Drawer */
 
+app-drawer ::content #contentContainer {
+  width: 282px;
+}
+
 .Drawer {
   @nest &-logo {
     @apply(--layout-flex);
