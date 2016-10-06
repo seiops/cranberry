@@ -41,13 +41,17 @@
         <div class="content-cards" bp1$="[[bp1]]" bp2$="[[bp2]]" bp3$="[[bp3]]" bp4$="[[bp4]]" bp5$="[[bp5]]" bp6$="[[bp6]]" bp7$="[[bp7]]" bp8$="[[bp8]]" bp9$="[[bp9]]" bp10$="[[bp10]]" bp11$="[[bp11]]" bp12$="[[bp12]]" bp13$="[[bp13]]">
         <template is="dom-repeat" items="{{items}}" initial-count="9">
             <template is="dom-if" if="[[_checkJobsWidget(index)]]">
-              <cranberry-jobs-widget affiliate-id="{$ config.jobs.affiliateId $}" widget-id="{$ config.jobs.widgetId $}" hidden$="{{hidden}}"></cranberry-jobs-widget>
+              <cranberry-card breakpoints>
+                <cranberry-jobs-widget affiliate-id="{$ config.jobs.affiliateId $}" widget-id="{$ config.jobs.widgetId $}" hidden$="{{hidden}}"></cranberry-jobs-widget>
+              </cranberry-card>
             </template>
             <template is="dom-if" if="[[_checkTopComments(index)]]">
-              <gigya-top-comments count="5" age="90"></gigya-top-comments>
+              <cranberry-card breakpoints>
+                <gigya-top-comments count="5" age="90"></gigya-top-comments>
+              </cranberry-card>
             </template>
             <template is="dom-if" if="[[_checkInStreamAd(index)]]">
-              <cranberry-card>
+              <cranberry-card advertisement breakpoints>
                 <template is="dom-if" if="[[_checkAdPos(index,2)]]">
                   <google-dfp section="[[sections]]" tags="[[tag]]" ad-pos="Top_Of_Stream" ad-size="[[300, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
                 </template>
@@ -57,11 +61,11 @@
               </cranberry-card>
             </template>
             <template is="dom-if" if="[[_checkNativeAd(index)]]">
-              <cranberry-card>
+              <cranberry-card advertisement breakpoints>
                 <google-dfp section="[[sections]]" tags="[[tag]]" ad-pos="Middle_of_Stream" ad-size="[[300, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
               </cranberry-card>
             </template>
-            <cranberry-card item="[[item]]"></cranberry-card>
+            <cranberry-card item="[[item]]" breakpoints></cranberry-card>
             <!-- <cranberry-content-card item="[[item]]" content></cranberry-content-card> -->
             <template is="dom-if" if="[[_checkLeaderboardAd(index)]]">
               <div class="leaderboard-advertisement-wrapper">
