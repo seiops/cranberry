@@ -7,7 +7,7 @@
   display: none !important;
 }
 
-/* Card element styles */
+/* Card base styles */
 div.card {
   @apply(--layout-vertical);
   flex: 1 1 auto;
@@ -17,89 +17,98 @@ div.card {
   min-height: 250px;
 }
 
-div.card[bp13] {
+/* Advertisement cards */
+div.card[advertisement] {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+div.card[advertisement] ::content google-dfp {
+  @apply(--layout-horizontal);
+  @apply(--layout-flex);
+  @apply(--layout-center);
+}
+
+/* Card breakpoints */
+div.card[breakpoints][bp13]{
   margin: 8px;
   max-width: 300px;
   min-width: 300px;
+  border:1px red solid;
 }
 
-div.card[bp12] {
+div.card[breakpoints][bp12] {
   margin: 20px;
   max-width: 339px;
   min-width: 300px;
 }
 
-div.card[bp11] {
+div.card[breakpoints][bp11] {
   margin: 8px;
   max-width: 339px;
   min-width: 300px;
 }
 
-div.card[bp10] {
+div.card[breakpoints][bp10] {
   margin: 12px;
   max-width: 385px;
   min-width: 300px;
 }
 
-div.card[bp9] {
+div.card[breakpoints][bp9] {
   margin: 8px;
   max-width: 321px;
   min-width: 300px;
 }
 
-div.card[bp8] {
+div.card[breakpoints][bp8] {
   margin: 12px;
   max-width: 407px;
   min-width: 348px;
 }
 
-div.card[bp7] {
+div.card[breakpoints][bp7] {
   margin: 12px;
   max-width: 359px;
   min-width: 300px;
 }
 
-div.card[bp6] {
+div.card[breakpoints][bp6] {
   margin: 8px;
   max-width: 335px;
   min-width: 300px;
 }
 
-div.card[bp5] {
+div.card[breakpoints][bp5] {
   margin: 24px;
   max-width: 543px;
   min-width: 504px;
 }
 
-div.card[bp4] {
+div.card[breakpoints][bp4] {
   margin: 20px;
   max-width: 479px;
   min-width: 360px;
 }
 
-div.card[bp3] {
+div.card[breakpoints][bp3] {
   margin: 20px;
   max-width: 379px;
   min-width: 300px;
 }
 
-div.card[bp2] {
+div.card[breakpoints][bp2] {
   margin: 10px;
   max-width: 339px;
   min-width: 300px;
 }
 
-div.card[bp1] {
+div.card[breakpoints][bp1] {
   margin: 5px;
   max-width: 339px;
   min-width: 300px;
 }
 
-div.css-info {
-  @apply(--layout-vertical);
-  @apply(--layout-center);
-  font-size: 10px;
-}
 
 div.card > paper-material {
   @apply(--layout-flex);
@@ -145,6 +154,7 @@ div.card > a > div.card-header > div.title-text {
   z-index: 3;
 }
 
+/* Card header overlay WITH images, provides photo vignette */
 div.card > a > div.card-header > div.card-header-overlay {
   background: radial-gradient(transparent, black);
   height: 100%;
@@ -152,12 +162,11 @@ div.card > a > div.card-header > div.card-header-overlay {
   width:100%;
   z-index: 2;
 }
+
 /* Card header title text WITH image */
 div.card > a > div.card-header > div.title-text.over-image {
   @apply(--paper-font-headline2);
 
-  /* Vignette over photos */
-  /*background: radial-gradient(transparent, black);*/
   color: var(--text-accent-color);
   bottom: 0px;
   position: absolute;
@@ -167,7 +176,6 @@ div.card > a > div.card-header > div.title-text.over-image {
 
 /* Card content area */
 div.card > a > div.card-content {
-  /*@apply(--layout-vertical);*/
   @apply(--paper-font-body1);
 
   background-color: var(--tertiary-background-color);
@@ -194,9 +202,6 @@ div.card > div.card-info {
   padding: 5px 16px;
 }
 
-div.card > div.card-info > div {
-  @apply(--layout-flex);
-}
 /* Remove styles for links in card information bar */
 div.card > div.card-info > * > a {
   color: inherit;
@@ -224,4 +229,11 @@ div.card > div.card-info > * iron-icon {
 
 .slider {
   width: 100%;
+}
+
+/* CSS info bar at top of cards */
+div.css-info {
+  @apply(--layout-vertical);
+  @apply(--layout-center);
+  font-size: 10px;
 }
