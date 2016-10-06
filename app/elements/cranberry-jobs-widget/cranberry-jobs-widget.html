@@ -1,6 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
-<link rel="import" href="../cranberry-card/cranberry-card.html">
+
 
 <dom-module id="cranberry-jobs-widget">
   <template>
@@ -14,7 +14,7 @@
         on-response="_handleResponse"
         debounce-duration="300"></byutv-jsonp>
 
-      <cranberry-card>
+
           <div class="card-tag-container">
               <span class="card-tag">Jobs</span>
           </div>
@@ -28,7 +28,7 @@
                   <hr class="item-seperator" hidden$="{{_isLastItem(index)}}" />
               </template>
           </div>
-      </cranberry-card>
+
   </template>
   <script src="cranberry-jobs-widget.js"></script>
 </dom-module>

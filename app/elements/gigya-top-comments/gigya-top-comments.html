@@ -6,28 +6,25 @@
     <style>
       @import "gigya-top-comments/gigya-top-comments";
     </style>
-
-    <cranberry-card>
-      <div class="card-tag-container">
-        <span class="card-tag">Comments</span>
-      </div>
-      <div class="card-content">
-        <template is="dom-repeat" items="{{items}}">
-          <a href="[[item.streamURL]]">
-            <div class="item">
-              <div class="content-comments">
-                <span>[[item.approvedCommentCount]] &nbsp;</span><iron-icon icon="communication:chat"></iron-icon>
-              </div>
-              <h3 class="item-title">[[item.streamTitle]]</h3>
+    <div class="card-tag-container">
+      <span class="card-tag">Comments</span>
+    </div>
+    <div class="card-content">
+      <template is="dom-repeat" items="{{items}}">
+        <a href="[[item.streamURL]]">
+          <div class="item">
+            <div class="content-comments">
+              <span>[[item.approvedCommentCount]] &nbsp;</span><iron-icon icon="communication:chat"></iron-icon>
             </div>
-          </a>
-          <hr class="break" hidden$="{{_isLast(index)}}" />
-        </template>
-        <div class="no-comments-container" hidden$="{{hideDefaultMessage}}">
-          <h3 class="no-comments-text">No Recent Comments.</h3>
-        </div>
+            <h3 class="item-title">[[item.streamTitle]]</h3>
+          </div>
+        </a>
+        <hr class="break" hidden$="{{_isLast(index)}}" />
+      </template>
+      <div class="no-comments-container" hidden$="{{hideDefaultMessage}}">
+        <h3 class="no-comments-text">No Recent Comments.</h3>
       </div>
-    </cranberry-card>
+    </div>
     </template>
     <script src="gigya-top-comments.js"></script>
 </dom-module>
