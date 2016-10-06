@@ -222,11 +222,7 @@ div.card > div.card-info > * iron-icon {
   transform: scaleX(-1);
 }
 
-
-.gallery div.card-info span.content-date {
-  @apply(--paper-font-caption2);
-}
-
+/* Slider style adjustments */
 .slider {
   width: 100%;
 }
