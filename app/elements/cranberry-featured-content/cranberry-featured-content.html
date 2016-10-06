@@ -2,7 +2,7 @@
 <link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
 <link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
 <link rel="import" href="../../bower_components/l2t-paper-slider/l2t-paper-slider.html">
-<link rel="import" href="../cranberry-content-card/cranberry-content-card.html">
+<link rel="import" href="../cranberry-card/cranberry-card.html">
 
 <dom-module id="cranberry-featured-content">
   <template>
@@ -25,11 +25,11 @@
     <div hidden$="{{slider}}">
       <div class="featured-content">
         <div class="featured-main">
-          <cranberry-content-card item="[[items.0]]" featured main></cranberry-content-card>
+          <cranberry-card item="[[items.0]]"></cranberry-card>
         </div>
         <div class="featured-list">
-          <cranberry-content-card item="[[items.1]]" featured list></cranberry-content-card>
-          <cranberry-content-card item="[[items.2]]" featured list></cranberry-content-card>
+          <cranberry-card item="[[items.1]]"></cranberry-card>
+          <cranberry-card item="[[items.2]]"></cranberry-card>
         </div>
       </div>
     </div>
@@ -37,7 +37,7 @@
         <l2t-paper-slider total-slides="3">
           <template is="dom-repeat" items="{{items}}">
             <paper-slide>
-              <cranberry-content-card item="[[item]]" featured slider></cranberry-content-card>
+              <cranberry-card item="[[item]]"></cranberry-content-card>
             </paper-slide>
           </template>
         </l2t-paper-slider>
