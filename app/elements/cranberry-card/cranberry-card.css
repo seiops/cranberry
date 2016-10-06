@@ -138,7 +138,7 @@ div.card > a > div.card-header > iron-image {
 div.card > a > div.card-header > div.title-text {
   @apply(--paper-card-header-text);
   @apply(--paper-font-headline);
-  @apply(--layout-flex);
+  /*@apply(--layout-flex);*/
   color: var(--paper-card-header-color, #000);
   padding: 16px;
   position: relative;
@@ -167,7 +167,7 @@ div.card > a > div.card-header > div.title-text.over-image {
 
 /* Card content area */
 div.card > a > div.card-content {
-  @apply(--layout-flex);
+  /*@apply(--layout-vertical);*/
   @apply(--paper-font-body1);
 
   background-color: var(--tertiary-background-color);
@@ -185,7 +185,7 @@ div.card > a > div.card-content > div.content-date {
 div.card > div.card-info {
   @apply(--paper-font-common-uppercase);
   @apply(--layout-horizontal);
-  @apply(--layout-around-justified);
+  @apply(--layout-justified);
 
   background-color: var(--tertiary-background-color);
   border-top: 1px solid #e8e8e8;
