@@ -22,7 +22,21 @@
       id="request">
     </byutv-jsonp>
     <!-- Need to rework this for array selectors -->
-    <div hidden$="{{slider}}">
+    <iron-media-query query="(max-width:1370px)" query-matches="{{leaderboard}}"></iron-media-query>
+    <iron-media-query query="(min-width: 1600px)" query-matches="{{bp13}}"></iron-media-query>
+    <iron-media-query query="(min-width: 1440px) and (max-width:1599px)" query-matches="{{bp12}}"></iron-media-query>
+    <iron-media-query query="(min-width: 1280px) and (max-width:1439px)" query-matches="{{bp11}}"></iron-media-query>
+    <iron-media-query query="(min-width: 1024px) and (max-width:1279px)" query-matches="{{bp10}}"></iron-media-query>
+    <iron-media-query query="(min-width: 960px) and (max-width:1023px)" query-matches="{{bp9}}"></iron-media-query>
+    <iron-media-query query="(min-width: 840px) and (max-width:959px)" query-matches="{{bp8}}"></iron-media-query>
+    <iron-media-query query="(min-width: 720px) and (max-width:839px)" query-matches="{{bp7}}"></iron-media-query>
+    <iron-media-query query="(min-width: 640px) and (max-width:719px)" query-matches="{{bp6}}"></iron-media-query>
+    <iron-media-query query="(min-width: 600px) and (max-width:639px)" query-matches="{{bp5}}"></iron-media-query>
+    <iron-media-query query="(min-width: 480px) and (max-width:599px)" query-matches="{{bp4}}"></iron-media-query>
+    <iron-media-query query="(min-width: 400px) and (max-width:479px)" query-matches="{{bp3}}"></iron-media-query>
+    <iron-media-query query="(min-width: 360px) and (max-width:399px)" query-matches="{{bp2}}"></iron-media-query>
+    <iron-media-query query="(min-width: 320px) and (max-width:359px)" query-matches="{{bp1}}"></iron-media-query>
+    <div hidden$="{{slider}}" bp1$="[[bp1]]" bp2$="[[bp2]]" bp3$="[[bp3]]" bp4$="[[bp4]]" bp5$="[[bp5]]" bp6$="[[bp6]]" bp7$="[[bp7]]" bp8$="[[bp8]]" bp9$="[[bp9]]" bp10$="[[bp10]]" bp11$="[[bp11]]" bp12$="[[bp12]]" bp13$="[[bp13]]">
       <div class="featured-content">
         <div class="featured-main">
           <cranberry-card item="[[items.0]]"></cranberry-card>
@@ -33,7 +47,7 @@
         </div>
       </div>
     </div>
-    <div hidden$="{{!slider}}">
+    <div hidden$="{{!slider}}" bp1$="[[bp1]]" bp2$="[[bp2]]" bp3$="[[bp3]]" bp4$="[[bp4]]" bp5$="[[bp5]]" bp6$="[[bp6]]" bp7$="[[bp7]]" bp8$="[[bp8]]" bp9$="[[bp9]]" bp10$="[[bp10]]" bp11$="[[bp11]]" bp12$="[[bp12]]" bp13$="[[bp13]]">
         <l2t-paper-slider total-slides="3">
           <template is="dom-repeat" items="{{items}}">
             <paper-slide>
