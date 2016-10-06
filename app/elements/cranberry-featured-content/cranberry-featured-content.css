@@ -25,7 +25,7 @@ div.featured-main {
   min-height: 300px;
 }
 
-div.featured-main cranberry-content-card {
+div.featured-main cranberry-card {
   @apply(--layout-flex);
   @apply(--layout-vertical);
 }
