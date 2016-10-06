@@ -14,7 +14,7 @@ div.card {
 
   background-color: var(--tertiary-background-color);
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
-  min-height: 300px;
+  min-height: 250px;
 }
 
 /* Advertisement cards */
@@ -127,22 +127,22 @@ div.card > a {
 div.card > a > div.card-header {
   @apply(--paper-card-header);
   @apply(--layout-flex);
-  display: block;
+
   border-top-left-radius: inherit;
   border-top-right-radius: inherit;
   color: var(--text-dark);
-  /*overflow: hidden;*/
+  min-height: 150px;
   position: relative;
   z-index: 1;
 }
 
 /* Card header icon bar */
 div.card > a > div.card-header > div.card-icons {
+  color: #fff;
+  padding: 8px;
   position: absolute;
   top: 0;
   right: 0;
-  padding: 8px;
-  color: #fff;
   text-shadow: 0px 0px 5px rgba(0,0,0,.5);
   z-index: 3;
 }
@@ -156,7 +156,7 @@ div.card > a > div.card-header > iron-image {
 div.card > a > div.card-header > div.title-text {
   @apply(--paper-card-header-text);
   @apply(--paper-font-headline);
-  /*@apply(--layout-flex);*/
+
   color: var(--paper-card-header-color, #000);
   padding: 16px;
   position: relative;
@@ -189,13 +189,17 @@ div.card > a > div.card-content {
 
   background-color: var(--tertiary-background-color);
   color: var(--light-theme-primary-text-color);
+  display: block;
   padding: 16px;
-  position:relative;
 }
 
 /* Content date timestamp */
 div.card > a > div.card-content > div.content-date {
   @apply(--paper-font-caption2);
+}
+
+div.card > a > div.card-content > div.content-preview {
+  word-wrap: break-word;
 }
 
 /* Card bottom information bar */
