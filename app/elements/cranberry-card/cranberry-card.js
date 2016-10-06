@@ -54,8 +54,6 @@ class cranberryCard {
   }
 
   _checkGallery(type) {
-    console.log('this is the type');
-    console.log(type);
     if (typeof type !== 'undefined' && type === 'Gallery') {
       return true;
     } else {
