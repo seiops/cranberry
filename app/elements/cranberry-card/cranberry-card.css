@@ -131,16 +131,14 @@ div.card > a > div.card-header {
   border-top-left-radius: inherit;
   border-top-right-radius: inherit;
   color: var(--text-dark);
-  overflow: hidden;
+  /*overflow: hidden;*/
   position: relative;
   z-index: 1;
 }
 
-/* Card header image */
+/* Card header image needs static positioning, parent element is already relatively positioned */
 div.card > a > div.card-header > iron-image {
-  @apply(--paper-card-header-image);
-  display: block;
-  pointer-events: none;
+ position: static !important;
 }
 
 /* Card header title text WITHOUT image */
