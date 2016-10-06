@@ -39,8 +39,8 @@
       <div class="css-info" bp1$="[[bp1]]" hidden$="[[!bp1]]">320-359, Margin: 5, Padding: 5, Min: 300, Max: 339</div>
       <template is="dom-if" if="[[item]]">
         <a href$="[[_computeUrl(item)]]">
-          <div class="card-icons"></div>
           <div class="card-header">
+            <div class="card-icons"><iron-icon icon="image:photo-camera" hidden$="[[!_checkGallery(item.contentType)]]"></iron-icon></div>
             <div class="card-header-overlay" hidden$="[[!item.mediaAssets.images.0.small]]"></div>
             <iron-image
               alt="[[item.title]]"
