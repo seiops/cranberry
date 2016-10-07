@@ -6,8 +6,7 @@ module.exports = {
   appVersion: '<0.1',
   baseCanonicalUrl: 'https://github.com/seiops/cranberry/',
   calendarDomain: 'sanduskyregister',
-  // Needs Changed
-  myCaptureUrl: 'http://standard.mycapture.com/mycapture/remoteimage.asp',
+  myCaptureUrl: 'http://sandusky.mycapture.com/mycapture/remoteimage.asp',
   // General Namings
   title: 'Sandusky Register',
   urlTitle: 'SanduskyRegister.com',
