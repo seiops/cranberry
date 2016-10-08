@@ -87,6 +87,14 @@ class CranberryBase {
     }
   }
 
+  _checkDrawer() {
+    this.async(function() {
+      if (!this.$.drawer.persistent) {
+        this.$.drawer.close();
+      }
+    });
+  }
+
   _equal(a, b) {
     if (a === b) {
       return true;
