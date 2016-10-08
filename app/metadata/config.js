@@ -5,8 +5,8 @@ module.exports = {
   baseEndpointUrl: 'http://srdevcore.libercus.net/rest.json',
   appVersion: '<0.1',
   baseCanonicalUrl: 'https://github.com/seiops/cranberry/',
-  // Needs Changed
-  myCaptureUrl: 'http://standard.mycapture.com/mycapture/remoteimage.asp',
+  calendarDomain: 'sanduskyregister',
+  myCaptureUrl: 'http://sandusky.mycapture.com/mycapture/remoteimage.asp',
   // General Namings
   title: 'Sandusky Register',
   urlTitle: 'SanduskyRegister.com',

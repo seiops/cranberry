@@ -14,6 +14,9 @@ class CranberryCalendar {
       route: {
         type: Object,
         observer: '_routeChange'
+      },
+      calendarDomain: {
+        type: String
       }
     };
   }
@@ -45,9 +48,11 @@ class CranberryCalendar {
       }
     };
 
+    let calendarDomain = this.get('calendarDomain');
+
     let loader = document.querySelector('cranberry-script-loader');
 
-    loader.loadScript('http://snet.spingo.com/embed.js');
+    loader.loadScript('http://' + calendarDomain + '.spingo.com/embed.js');
   }
 
   // detect route and visibility

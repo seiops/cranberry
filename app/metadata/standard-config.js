@@ -5,6 +5,7 @@ module.exports = {
   baseEndpointUrl: 'http://sedevcore.libercus.net/rest.json',
   appVersion: '<0.1',
   baseCanonicalUrl: 'https://github.com/seiops/cranberry/',
+  calendarDomain: 'snet',
   myCaptureUrl: 'http://standard.mycapture.com/mycapture/remoteimage.asp',
   // General Namings
   title: 'Standard-Examiner',

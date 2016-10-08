@@ -38,7 +38,7 @@ class cranberrySearch {
       },
       isSearching: {
         type: Boolean,
-        value: true
+        value: false
       },
       loadSection: {
         type: String,
@@ -49,6 +49,10 @@ class cranberrySearch {
       },
       rest: {
         type: String
+      },
+      noQuery: {
+        type: Boolean,
+        value: true
       }
     };
     this.listeners = {
@@ -127,6 +131,9 @@ class cranberrySearch {
 
   _requestSearch(queryString, move) {
     if (queryString !== '' && typeof queryString !== 'undefined') {
+      console.log('SEARCHING ON');
+      console.log(queryString);
+      this.set('noQuery', false);
       this.set('isSearching', true);
       // Set the display string for the query to display to the user
       this.set('displayQuery', queryString.replace(/\+/g, ' '));
@@ -204,6 +211,34 @@ class cranberrySearch {
 
     if (request.loading === true) {
       request.abortRequest();
+    }
+  }
+
+  _hideResultsArea(searching, noQuery) {
+    if (searching || noQuery) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  _trimText(text, desktop, tablet, mobile) {
+    let truncLength = 125;
+
+    if (mobile) {
+      truncLength = 60;
+    } else if (tablet) {
+      truncLength = 80;
+    }
+
+    if(typeof text !== 'undefined') {
+      let trunc = text;
+      if (trunc.length > truncLength) {
+          trunc = trunc.substring(0, truncLength);
+          trunc = trunc.replace(/\w+$/, '');
+          trunc += '...';
+      }
+      return trunc;
     }
   }
 }

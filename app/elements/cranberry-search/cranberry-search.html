@@ -2,12 +2,17 @@
 <link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
 <link rel="import" href="../google-dfp/google-dfp.html">
 <link rel="import" href="../cranberry-search-bar/cranberry-search-bar.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
 
 <dom-module id="cranberry-search">
   <template>
     <style>
       @import "cranberry-search/cranberry-search";
     </style>
+
+    <iron-media-query query="(min-width: 960px)" query-matches="{{desktop}}"></iron-media-query>
+    <iron-media-query query="(min-width: 720px) and (max-width:959px)" query-matches="{{tablet}}"></iron-media-query>
+    <iron-media-query query="(max-width: 719px)" query-matches="{{mobile}}"></iron-media-query>
 
     <app-route route="{{route}}" pattern="/:section" data="{{routeData}}"></app-route>
 
@@ -27,6 +32,9 @@
     <paper-material elevation=1>
       <div class="main-content">
         <div class="vertical-container">
+          <div class="landing-display" hidden$="[[!noQuery]]">
+            <p class="landing-text">Enter your search below to start:</p>
+          </div>
           <paper-material elevation=2>
             <cranberry-search-bar></cranberry-search-bar>
           </paper-material>
@@ -36,7 +44,7 @@
             <paper-spinner active="[[isSearching]]"></paper-spinner>
           </div>
           <!-- Main content area for search results. -->
-          <div id="searchContent" class="search-container" hidden$="[[isSearching]]">
+          <div id="searchContent" class="search-container" hidden$="[[_hideResultsArea(isSearching, noQuery)]]">
             <div class="search-header-container">
               <h1 class="result-header">Results for: [[displayQuery]]</h1>
               <p class="total-results">About: [[totalResults]] results</p>
@@ -48,13 +56,13 @@
                   <template is="dom-if" if="[[_hasImage(item.mediaAssets.images.0.small)]]">
                     <iron-image src="{$ config.baseDomain $}[[item.mediaAssets.images.0.small]]" style="background-color: lightgray;" preload></iron-image>
                   </template>
-                  <p class="story-description">[[item.preview]]</p>
+                  <p class="story-description">[[_trimText(item.preview, desktop, tablet, mobile)]]</p>
                 </div>
               </a>
-              <hr/>
+              <hr class="break" />
             </template>
           </div>
-          <div class="pagination-container">
+          <div class="pagination-container" hidden$="[[_hideResultsArea(isSearching, noQuery)]]">
             <paper-button id="prev" class="prev-button" raised hidden$="{{!isPrev}}">Previous</paper-button>
             <paper-button id="next" raised hidden$="{{!isNext}}">Next</paper-button>
           </div>

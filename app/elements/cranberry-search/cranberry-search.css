@@ -8,6 +8,7 @@ paper-material {
 
 h2.story-headline {
   @apply(--paper-font-headline);
+  margin-top: 0;
 }
 
 div.ad-container {
@@ -30,7 +31,6 @@ div.vertical-container {
 div.right-rail div.ad-container {
   padding: 20px;
   min-width: 300px;
-  max-width: 300px;
 }
 
 div.search-header-container {
@@ -55,12 +55,15 @@ div.search-container {
   @apply(--layout-center);
   @apply(--layout-center-justified);
   @apply(--layout-wrap);
+
+  min-width: 300px;
 }
 
 div.search-container a {
   text-decoration: none;
   color: inherit;
   width: 100%;
+  padding: 10px 0;
 }
 
 div.story-content {
@@ -77,8 +80,8 @@ div.story-content p {
 }
 
 div.story-content iron-image {
-  width: 200px;
-  height: 112px;
+  width: 150px;
+  height: 84px;
 }
 
 .pagination-container {
@@ -97,4 +100,16 @@ div.story-content iron-image {
 .loading {
   margin-top: 100px;
   text-align: center;
+}
+
+p.landing-text {
+  @apply(--paper-font-caption);
+}
+
+hr.break {
+  width: 100%;
+  border: 0;
+  height: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
