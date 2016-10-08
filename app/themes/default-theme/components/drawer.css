@@ -9,10 +9,43 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 /** @define Drawer */
 
+/* Toolbar styles for blending effect at different breakpoints */
+app-header ::content #backgroundFrontLayer {
+  @media (--header-breakpoint) {
+    background: var(--dark-primary-color) url("/images/logos/sandusky/location.png");
+    background-size: cover;
+    background-position: bottom;
+  }
+  @media (--header-breakpoint-alt) {
+    background-image: none !important;
+    background-color: var(--dark-primary-color) !important;
+  }
+}
+
+/* Base header stylings */
+app-header {
+  background-color: var(--dark-primary-color);
+  @media (--header-breakpoint) {
+    height: 164px;
+  }
+  @media (--header-breakpoint-alt) {
+    height: 64px;
+  }
+  --app-header-background-rear-layer: {
+    background-color: var(--dark-primary-color);
+  };
+}
+
+app-header ::content #contentContainer {
+  @apply(--layout-horizontal);
+  @apply(--layout-end);
+}
+
 app-drawer ::content #contentContainer {
   width: 282px;
 }
 
+/* Drawer styles */
 .Drawer {
   @nest &-logo {
     @apply(--layout-flex);
