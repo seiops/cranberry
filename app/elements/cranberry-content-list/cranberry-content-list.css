@@ -1,10 +1,11 @@
 :host {
   display: block;
+  /* --app-grid-columns: 3;
+  --app-grid-gutter: 10px;
+  --app-grid-expandible-item-columns: 2;
+  --app-grid-item-height: 20vw; */
 }
-/*div.content-cards-wrapper {
-  @apply(--layout-center);
-  @apply(--layout-vertical);
-}*/
+
 div.content-cards {
   @apply(--layout-horizontal);
   @apply(--layout-center-justified);
