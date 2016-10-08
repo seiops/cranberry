@@ -25,6 +25,10 @@ https://github.com/suitcss/suit/blob/master/doc/naming-conventions.md
 /* Max screen widths */
 @custom-media --lg-viewport (min-width: 1600px);
 
+/* Custom header breakpoints for determining cover photo */
+@custom-media --header-breakpoint (max-width: 839px);
+@custom-media --header-breakpoint-alt (min-width: 840px);
+
 /* Grid Breakpoints */
 @custom-media --4-col-grid  (orientation: portrait) and (max-width: 479px);
 @custom-media --8-col-grid  (orientation: portrait) and (min-width: 480px) and (max-width: 839px);
