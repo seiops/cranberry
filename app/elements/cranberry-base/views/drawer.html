@@ -2,13 +2,13 @@
 <app-drawer id="drawer" swipe-open>
   <!-- Drawer Content -->
   <div class="Drawer-content">
-    <div class="Drawer-header">
+    <!-- <div class="Drawer-header" hidden$="[[logo]]">
       &nbsp;
-    </div>
+    </div> -->
     <!-- Navigation -->
-    <div class="Drawer-info">
+    <div class="Drawer-info" hidden$="[[!logo]]">
 
-      <a data-route="/" href="/">
+      <a data-route="/" href="/" on-tap="_checkDrawer">
         <iron-image class="Drawer-logo" src="{$ theme.global.logo $}"></iron-image>
       </a>
 
@@ -19,58 +19,58 @@
       <cranberry-search-bar class="Drawer-search" id="drawerSearch"></cranberry-search-bar>
 
       <paper-menu class="Navigation Navigation--menu list" attr-for-selected="data-route" selected="[[route.path]]">
-        <a class="Navigation-link" data-route="/" href="/">
+        <a class="Navigation-link" data-route="/" href="/" on-tap="_checkDrawer">
           <iron-icon class="Navigation-icon" icon="home"></iron-icon>
           <span class="Navigation-text">Home</span>
         </a>
         <!-- Static above taxonomy links -->
-        <a class="Navigation-link" data-route="/section/obituary" href="/section/obituary">
+        <a class="Navigation-link" data-route="/section/obituary" href="/section/obituary" on-tap="_checkDrawer">
           <iron-icon class="Navigation-icon" icon=""></iron-icon>
           <span class="Navigation-text">Obituaries</span>
         </a>
 
-        <a class="Navigation-link" data-route="" href="{$ config.epaperLink $}" target="_blank">
+        <a class="Navigation-link" data-route="" href="{$ config.epaperLink $}" target="_blank" on-tap="_checkDrawer">
           <iron-icon class="Navigation-icon" icon=""></iron-icon>
           <span class="Navigation-text">E-Paper</span>
         </a>
 
-        <a class="Navigation-link" data-route="/galleries" href="/galleries">
+        <a class="Navigation-link" data-route="/galleries" href="/galleries" on-tap="_checkDrawer">
           <iron-icon class="Navigation-icon" icon=""></iron-icon>
           <span class="Navigation-text">Galleries</span>
         </a>
 
         <!-- Core Taxonomy -->
-        <a class="Navigation-link" data-route="/section/news" href="/section/news">
+        <a class="Navigation-link" data-route="/section/news" href="/section/news" on-tap="_checkDrawer">
           <iron-icon class="Navigation-icon" icon="chrome-reader-mode"></iron-icon>
           <span class="Navigation-text">News</span>
         </a>
 
-        <a class="Navigation-link" data-route="/section/opinion" href="/section/opinion">
+        <a class="Navigation-link" data-route="/section/opinion" href="/section/opinion" on-tap="_checkDrawer">
           <iron-icon class="Navigation-icon" icon="communication:chat-bubble"></iron-icon>
           <span class="Navigation-text">Opinion</span>
         </a>
 
-        <a class="Navigation-link" data-route="/section/announcements" href="/section/announcements">
+        <a class="Navigation-link" data-route="/section/announcements" href="/section/announcements" on-tap="_checkDrawer">
           <iron-icon class="Navigation-icon" icon="star"></iron-icon>
           <span class="Navigation-text">Announcements</span>
         </a>
 
-        <a class="Navigation-link" data-route="/section/sports" href="/section/sports">
+        <a class="Navigation-link" data-route="/section/sports" href="/section/sports" on-tap="_checkDrawer">
           <iron-icon class="Navigation-icon" icon="maps:directions-run"></iron-icon>
           <span class="Navigation-text">Sports</span>
         </a>
 
-        <a class="Navigation-link" data-route="/section/entertainment" href="/section/entertainment">
+        <a class="Navigation-link" data-route="/section/entertainment" href="/section/entertainment" on-tap="_checkDrawer">
           <iron-icon class="Navigation-icon" icon="image:palette"></iron-icon>
           <span class="Navigation-text">Entertainment</span>
         </a>
 
-        <a class="Navigation-link" data-route="/section/lifestyle" href="/section/lifestyle">
+        <a class="Navigation-link" data-route="/section/lifestyle" href="/section/lifestyle" on-tap="_checkDrawer">
           <iron-icon class="Navigation-icon" icon="maps:local-cafe"></iron-icon>
           <span class="Navigation-text">Lifestyle</span>
         </a>
 
-        <a class="Navigation-link" href="http://classifieds.sanduskyregister.com" target="_blank">
+        <a class="Navigation-link" href="http://classifieds.sanduskyregister.com" target="_blank" on-tap="_checkDrawer">
           <iron-icon class="Navigation-icon" icon="icons:view-list"></iron-icon>
           <span class="Navigation-text">Classifieds</span>
         </a>
@@ -86,17 +86,17 @@
         </a> -->
 
         <!-- Below Taxonomy Links -->
-        <a class="Navigation-link" data-route="/tags/decision-2016" href="/tags/decision-2016">
+        <a class="Navigation-link" data-route="/tags/decision-2016" href="/tags/decision-2016" on-tap="_checkDrawer">
           <iron-icon class="Navigation-icon" icon=""></iron-icon>
           <span class="Navigation-text">Decision 2016</span>
         </a>
 
-        <a class="Navigation-link" data-route="/forecast" href="/forecast">
+        <a class="Navigation-link" data-route="/forecast" href="/forecast" on-tap="_checkDrawer">
           <iron-icon class="Navigation-icon" icon=""></iron-icon>
           <span class="Navigation-text">Weather</span>
         </a>
 
-        <a class="Navigation-link" data-route="/tags/c25k" href="/tags/c25k">
+        <a class="Navigation-link" data-route="/tags/c25k" href="/tags/c25k" on-tap="_checkDrawer">
           <iron-icon class="Navigation-icon" icon=""></iron-icon>
           <span class="Navigation-text">Fit Challenge</span>
         </a>
@@ -106,22 +106,22 @@
           <span class="Navigation-text">Games + Puzzles </span>
         </a> -->
 
-        <a class="Navigation-link" data-route="/section/law-enforcement" href="/section/law-enforcement">
+        <a class="Navigation-link" data-route="/section/law-enforcement" href="/section/law-enforcement" on-tap="_checkDrawer">
           <iron-icon class="Navigation-icon" icon=""></iron-icon>
           <span class="Navigation-text">Law Enforcement</span>
         </a>
 
-        <a class="Navigation-link" data-route="/tags/cedar-point" href="/tags/cedar-point">
+        <a class="Navigation-link" data-route="/tags/cedar-point" href="/tags/cedar-point" on-tap="_checkDrawer">
           <iron-icon class="Navigation-icon" icon=""></iron-icon>
           <span class="Navigation-text">Cedar Point</span>
         </a>
 
-        <a class="Navigation-link" data-route="/calendar" href="/calendar">
+        <a class="Navigation-link" data-route="/calendar" href="/calendar" on-tap="_checkDrawer">
           <iron-icon class="Navigation-icon" icon=""></iron-icon>
           <span class="Navigation-text">Calendar</span>
         </a>
 
-        <a class="Navigation-link" data-route="/contact" href="/contact">
+        <a class="Navigation-link" data-route="/contact" href="/contact" on-tap="_checkDrawer">
           <iron-icon class="Navigation-icon" icon=""></iron-icon>
           <span class="Navigation-text">Contact Us</span>
         </a>
