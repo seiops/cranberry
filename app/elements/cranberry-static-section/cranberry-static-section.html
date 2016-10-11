@@ -6,19 +6,21 @@
     <style>
       @import "cranberry-static-section/cranberry-static-section";
     </style>
-    <div class="cranberry-static-section" hidden$="{{hideWeather}}">
-      <div class="headline-advertisement">
-        <google-dfp
-          section="static"
-          tags="[[tags]]"
-          ad-pos="leaderboard"
-          ad-size-mapping="leaderboard"
-          ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
-          ad-group="{$ config.dfpAdStructure.adGroupID $}"
-          ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
-          ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}">
-        </google-dfp>
-      </div>
+    <div class="headline-advertisement">
+      <google-dfp
+        section="static"
+        tags="[[tags]]"
+        ad-pos="leaderboard"
+        ad-size-mapping="leaderboard"
+        ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
+        ad-group="{$ config.dfpAdStructure.adGroupID $}"
+        ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
+        ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}">
+      </google-dfp>
+    </div>
+
+    <!-- Weather Page -->
+    <div class="cranberry-static-section weather" hidden$="{{hideWeather}}">
       <h1 class="weather-headline">Weather Forecast</h1>
       <div class="weather-container">
         <div class="weather-widget-container">
@@ -39,18 +41,57 @@
           </google-dfp>
         </div>
       </div>
-      <div class="headline-advertisement">
-        <google-dfp
-          section="static"
-          tags="[[tags]]"
-          ad-pos="Last_of_Stream"
-          ad-size-mapping="leaderboard"
-          ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
-          ad-group="{$ config.dfpAdStructure.adGroupID $}"
-          ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
-          ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}">
-        </google-dfp>
+    </div>
+    <!-- End of Weather Page -->
+
+    <!-- Advantage Page -->
+    <div class="cranberry-static-section advantage" hidden$="{{hideAdvantage}}">
+      <div class="advantage-container">
+        <div class="advantage-content-container">
+          <div class="image-container">
+            <a href="{$ config.advantageUrl $}" target="_blank"><iron-image class="top-image" src="{{advantageItems.0.url}}" sizing="contain"></iron-image></a>
+          </div>
+          <p>Welcome to the Sandusky Register Advantage, giving you 7-day home delivery, complete e-paper access and reader rewards.</p>
+          <p>Advantage Membership provides great value including:</p>
+          <ul class="advantage-list">
+            <li>7-day or weekend home delivery of award-winning news, headlines and updates delivered directly to your home</li>
+            <li>Unlimited access to our complete e-paper edition online</li>
+            <li>Reader rewards web site providing discounts at select area locations (41 coupons that you can take advantage of, saving you hundreds of dollars if used regularly)</li>
+            <li>Free online access to The Washington Post Premium edition</li>
+          </ul>
+          <div class="image-container">
+            <a href="{$ config.advantageUrl $}" target="_blank" class="button-link"><iron-image class="button-image" src="{{advantageItems.2.url}}" sizing="contain"></iron-image></a>
+          </div>
+          <a href="{$ config.advantageUrl $}" target="_blank">To get the Sandusky Register Advantage, become a member today!</a>
+          <div class="image-container">
+            <a href="{$ config.advantageUrl $}" target="_blank"><iron-image class="bottom-image" src="{{advantageItems.1.url}}" sizing="contain"></iron-image></a>
+          </div>
+        </div>
+        <div class="right-rail">
+          <google-dfp
+            section="static"
+            tags="[[tags]]"
+            ad-pos="Top_of_Stream"
+            ad-size="[[300, 250],[300, 600]]"
+            ad-group="{$ config.dfpAdStructure.adGroupID $}"
+            ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
+            ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}">
+          </google-dfp>
+        </div>
       </div>
+    </div>
+    <!-- End of Advantage Page -->
+    <div class="headline-advertisement">
+      <google-dfp
+        section="static"
+        tags="[[tags]]"
+        ad-pos="Last_of_Stream"
+        ad-size-mapping="leaderboard"
+        ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
+        ad-group="{$ config.dfpAdStructure.adGroupID $}"
+        ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
+        ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}">
+      </google-dfp>
     </div>
   </template>
     <script src="cranberry-static-section.js"></script>

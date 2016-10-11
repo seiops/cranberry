@@ -163,5 +163,21 @@ module.exports = {
       link: '/news-archive',
       image: '../images/archive/sandusky/text_archive_image.png'
     }
-  ]
+  ],
+  advantagePage: [
+    {
+      images: [
+        {
+          url: '../images/advantage/sandusky/advantage.jpg'
+        },
+        {
+          url: '../images/advantage/sandusky/advantage-2.jpg'
+        },
+        {
+          url: '../images/advantage/sandusky/advantage-button.jpg'
+        }
+      ]
+    }
+  ],
+  advantageUrl: 'http://www.sanduskyoffers.com/'
 };

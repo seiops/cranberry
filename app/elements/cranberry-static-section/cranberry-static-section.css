@@ -21,7 +21,7 @@ div.weather-widget-container {
   @apply(--layout-vertical);
 }
 
-div.right-rail {
+div.cranberry-static-section.weather div.right-rail {
   @apply(--layout-flex);
   @apply(--layout-vertical);
   @apply(--layout-center);
@@ -40,4 +40,60 @@ div.weather-container::shadow div.aw-widget-36hour {
 
 div.weather-container::shadow div.aw-widget-36hour div.aw-widget-36hour-inner {
   max-width: 100%;
+}
+
+/* Advantage Styles */
+div.advantage-container {
+  @apply(--layout-horizontal);
+  @apply(--layout-wrap);
+}
+
+div.advantage-content-container {
+  @apply(--layout-flex-3);
+  @apply(--layout-vertical);
+}
+
+div.cranberry-static-section.advantage div.right-rail {
+  @apply(--layout-flex);
+  @apply(--layout-vertical);
+  @apply(--layout-center);
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+
+div.advantage-content-container {
+  @apply(--paper-font-body);
+  text-align: center;
+}
+
+div.advantage-content-container div.image-container {
+  padding: 12px;
+}
+
+div.advantage-content-container iron-image.top-image {
+  width: 320px;
+  height: 190px;
+}
+
+div.advantage-content-container a.button-link {
+  display: block;
+}
+
+div.advantage-content-container iron-image.button-image {
+  width: 100%;
+  max-width: 320px;
+  height: 45px;
+}
+
+div.advantage-content-container iron-image.bottom-image {
+  width: 100%;
+  height: 500px;
+}
+
+div.advantage-content-container ul.advantage-list {
+  list-style-position: inside;
+}
+
+div.advantage-content-container ul.advantage-list li {
+  padding: 12px;
 }

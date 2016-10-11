@@ -14,12 +14,19 @@ class cranberryStaticSection {
         type: Boolean,
         value: true
       },
+      hideAdvantage: {
+        type: Boolean,
+        value: true
+      },
       weatherScriptLoaded: {
         type: Boolean,
         value: false
       },
       tags: {
         type: String
+      },
+      advantageItems: {
+        type: Array
       }
     }
     this.observers = ['_setupWeather(hidden, staticSection)']
@@ -38,6 +45,9 @@ class cranberryStaticSection {
       }
 
       this.set('hideWeather', false);
+    }
+    if (typeof hidden !== 'undefined' && !hidden && typeof staticSection !== 'undefined' && staticSection === 'advantage-member') {
+      this.set('hideAdvantage', false);
     }
   }
 }
