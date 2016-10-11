@@ -18,6 +18,10 @@ class cranberryStaticSection {
         type: Boolean,
         value: true
       },
+      hideGames: {
+        type: Boolean,
+        value: true
+      },
       weatherScriptLoaded: {
         type: Boolean,
         value: false
@@ -48,6 +52,11 @@ class cranberryStaticSection {
     }
     if (typeof hidden !== 'undefined' && !hidden && typeof staticSection !== 'undefined' && staticSection === 'advantage-member') {
       this.set('hideAdvantage', false);
+      this.set('tags', 'advantage');
+    }
+    if (typeof hidden !== 'undefined' && !hidden && typeof staticSection !== 'undefined' && staticSection === 'games-page') {
+      this.set('hideGames', false);
+      this.set('tags', 'games');
     }
   }
 }
