@@ -13,7 +13,11 @@ class GoogleDFP {
             adGroup: Number,
             adGrouping: String,
             adSubGrouping: String,
-            tags: String
+            tags: String,
+            outOfPage: {
+              type: Boolean,
+              value: false
+            }
         };
     }
 
@@ -34,6 +38,7 @@ class GoogleDFP {
             let adSection = section.replace(' ', '_').replace('-', '_');
             let sectionParent = this.get('sectionParent');
             let tags = this.get('tags');
+            let outOfPage = this.get('outOfPage');
 
             // Logical statement to make default section news if no section is provided
             // This is mainly a provision for gallery pages that do not have a section by default
@@ -73,10 +78,13 @@ class GoogleDFP {
                 googletag.enableServices();
 
                 let dfpURL = adGroup + '/' + adGrouping + '/' + adSubGrouping + '/' + adSection + '/' + position;
+                console.log(outOfPage);
+                if (!outOfPage) {
+                  window.slots[idModifier] = googletag.defineSlot(dfpURL, adSize, idModifier).addService(googletag.pubads()).setCollapseEmptyDiv(true);
+                } else {
+                  window.slots[idModifier] = googletag.defineOutOfPageSlot(dfpURL, idModifier).addService(googletag.pubads()).setCollapseEmptyDiv(true);
+                }
 
-                window.slots[idModifier] = googletag.defineSlot(dfpURL, adSize, idModifier).addService(googletag.pubads(
-
-                )).setCollapseEmptyDiv(true);
 
                 slots[idModifier].setTargeting('position', position);
 

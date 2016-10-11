@@ -56,6 +56,7 @@
 <link rel="import" href="../cranberry-nativo-story/cranberry-nativo-story.html">
 <link rel="import" href="../cranberry-breaking-bar/cranberry-breaking-bar.html">
 <link rel="import" href="../cranberry-static-section/cranberry-static-section.html">
+<link rel="import" href="../google-dfp/google-dfp.html">
 
 <dom-module id="cranberry-base">
   <template>
@@ -112,6 +113,35 @@
       </paper-toast>
 
       <paper-toast id="infoToast" class="Toast" duration="4000" always-on-top></paper-toast>
+
+      <google-dfp
+        section="homepage"
+        ad-pos="adhesion"
+        ad-group="{$ config.dfpAdStructure.adGroupID $}"
+        ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
+        ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
+        out-of-page>
+      </google-dfp>
+
+      <google-dfp
+        section="homepage"
+        ad-pos="interstitial"
+        ad-group="{$ config.dfpAdStructure.adGroupID $}"
+        ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
+        ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
+        out-of-page>
+      </google-dfp>
+
+      <!-- <google-dfp
+        section="news"
+        tags=""
+        ad-pos="leaderboard"
+        ad-size-mapping="leaderboard"
+        ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
+        ad-group="{$ config.dfpAdStructure.adGroupID $}"
+        ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
+        ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}">
+      </google-dfp> -->
     </app-drawer-layout>
 
   </template>
