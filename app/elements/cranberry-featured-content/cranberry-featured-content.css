@@ -13,8 +13,7 @@
 
 div.featured-content {
   @apply(--layout-horizontal);
-
-  margin-bottom: 16px;
+  margin: 0 16px 16px;
 }
 
 div.featured-main {
@@ -48,56 +47,4 @@ l2t-paper-slider ::content .slider__dots {
 }
 l2t-paper-slider ::content .slider__slides {
   background-color: transparent;
-}
-
-div[bp1] {
-  margin: 0 5px;
-}
-
-div[bp2] {
-  margin: 0 20px;
-}
-
-div[bp3] {
-  margin: 0 30px;
-}
-
-div[bp4] {
-  margin: 0 40px;
-}
-
-div[bp5] {
-  margin: 0 24px;
-}
-
-div[bp6] {
-  margin: 0 4px;
-}
-
-div[bp7] {
-  margin: 0 36px;
-}
-
-div[bp8] {
-  margin: 0 48px;
-}
-
-div[bp9] {
-  margin: 0 6px;
-}
-
-div[bp10] {
-  margin: 0 26px;
-}
-
-div[bp11] {
-  margin: 0 19px;
-}
-
-div[bp12] {
-  margin: 0 79px;
-}
-
-div[bp13] {
-  margin: 0 19px;
 }
