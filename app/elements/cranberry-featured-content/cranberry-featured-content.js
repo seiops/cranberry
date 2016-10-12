@@ -90,6 +90,8 @@ class CranberryFeaturedContent {
     _parseResponse(response) {
         var result = JSON.parse(response.Result);
 
+        console.dir(result);
+        
         this.set('items', result);
     }
 
@@ -113,14 +115,17 @@ class CranberryFeaturedContent {
           sections = sections.replace('-', ' ');
           // jsonp.desiredTags = sections + ', featured';
         } else {
-          jsonp.desiredSection = this.get('sections');
+          // jsonp.desiredSection = this.get('sections');
           // jsonp.desiredTags = 'featured';
         }
 
         // console.log(jsonp.desiredTags);
-        jsonp.desiredContent = this.get('type');
+
+        // jsonp.desiredContent = this.get('type');
+        jsonp.desiredContent = 'story';
         jsonp.desiredCount = this.get('count');
-        jsonp.desiredDelivery = 'imagesOnly';
+        // jsonp.desiredDelivery = 'imagesOnly';
+        jsonp.desiredDelivery = 'livestream';
         this.set('params', jsonp);
     }
 }
