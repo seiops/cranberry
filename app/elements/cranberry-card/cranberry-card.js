@@ -1,4 +1,4 @@
-class cranberryCard {
+class CranberryCard {
   beforeRegister() {
     this.is = 'cranberry-card';
     this.properties = {
@@ -17,30 +17,6 @@ class cranberryCard {
 
   attached () {}
 
-  // _isStory(item) {
-  //     if (item === 'Story') {
-  //         return true;
-  //     } else {
-  //         return;
-  //     }
-  // }
-  //
-  // _isGallery(item) {
-  //     if (item === 'Gallery') {
-  //         return true;
-  //     } else {
-  //         return;
-  //     }
-  // }
-  //
-  // _hasImage(image) {
-  //     if (typeof image !== 'undefined' && image.length > 0) {
-  //         return true;
-  //     } else {
-  //         return;
-  //     }
-  // }
-  //
   _trimText(text) {
     if(typeof text !== 'undefined'){
       let trunc = text;
@@ -96,7 +72,6 @@ class cranberryCard {
     } else {
       return '';
     }
-
   }
 }
-Polymer(cranberryCard);
+Polymer(CranberryCard);
