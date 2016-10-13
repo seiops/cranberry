@@ -36,25 +36,32 @@
     <iron-media-query query="(min-width: 400px) and (max-width:479px)" query-matches="{{bp3}}"></iron-media-query>
     <iron-media-query query="(min-width: 360px) and (max-width:399px)" query-matches="{{bp2}}"></iron-media-query>
     <iron-media-query query="(min-width: 320px) and (max-width:359px)" query-matches="{{bp1}}"></iron-media-query>
-    <div hidden$="{{slider}}" bp1$="[[bp1]]" bp2$="[[bp2]]" bp3$="[[bp3]]" bp4$="[[bp4]]" bp5$="[[bp5]]" bp6$="[[bp6]]" bp7$="[[bp7]]" bp8$="[[bp8]]" bp9$="[[bp9]]" bp10$="[[bp10]]" bp11$="[[bp11]]" bp12$="[[bp12]]" bp13$="[[bp13]]">
-      <div class="featured-content">
-        <div class="featured-main">
-          <cranberry-card item$="[[items.0]]" featured></cranberry-card>
-        </div>
-        <div class="featured-list">
-          <cranberry-card item$="[[items.1]]" featured></cranberry-card>
-          <cranberry-card item$="[[items.2]]" featured></cranberry-card>
+    <div class="featured-story-content" hidden$="[[livestream]]">
+      <div hidden$="{{slider}}" bp1$="[[bp1]]" bp2$="[[bp2]]" bp3$="[[bp3]]" bp4$="[[bp4]]" bp5$="[[bp5]]" bp6$="[[bp6]]" bp7$="[[bp7]]" bp8$="[[bp8]]" bp9$="[[bp9]]" bp10$="[[bp10]]" bp11$="[[bp11]]" bp12$="[[bp12]]" bp13$="[[bp13]]">
+        <div class="featured-content">
+          <div class="featured-main">
+            <cranberry-card item$="[[items.0]]" featured></cranberry-card>
+          </div>
+          <div class="featured-list">
+            <cranberry-card item$="[[items.1]]" featured></cranberry-card>
+            <cranberry-card item$="[[items.2]]" featured></cranberry-card>
+          </div>
         </div>
       </div>
+      <div hidden$="{{!slider}}" bp1$="[[bp1]]" bp2$="[[bp2]]" bp3$="[[bp3]]" bp4$="[[bp4]]" bp5$="[[bp5]]" bp6$="[[bp6]]" bp7$="[[bp7]]" bp8$="[[bp8]]" bp9$="[[bp9]]" bp10$="[[bp10]]" bp11$="[[bp11]]" bp12$="[[bp12]]" bp13$="[[bp13]]">
+          <l2t-paper-slider total-slides="3">
+            <template is="dom-repeat" items="{{items}}">
+              <paper-slide>
+                <cranberry-card item$="[[item]]" featured></cranberry-card>
+              </paper-slide>
+            </template>
+          </l2t-paper-slider>
+      </div>
     </div>
-    <div hidden$="{{!slider}}" bp1$="[[bp1]]" bp2$="[[bp2]]" bp3$="[[bp3]]" bp4$="[[bp4]]" bp5$="[[bp5]]" bp6$="[[bp6]]" bp7$="[[bp7]]" bp8$="[[bp8]]" bp9$="[[bp9]]" bp10$="[[bp10]]" bp11$="[[bp11]]" bp12$="[[bp12]]" bp13$="[[bp13]]">
-        <l2t-paper-slider total-slides="3">
-          <template is="dom-repeat" items="{{items}}">
-            <paper-slide>
-              <cranberry-card item$="[[item]]" featured></cranberry-card>
-            </paper-slide>
-          </template>
-        </l2t-paper-slider>
+    <div class="livestream-content" hidden$="[[!livestream]]">
+      <div class="livestream">
+        <iframe src="[[_computeLivestreamURL(livestreamItem.url)]]" frameborder="0" scrolling="no" width="620px" height="400px"></iframe>
+      </div>
     </div>
   </template>
   <script src="cranberry-featured-content.js"></script>

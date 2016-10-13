@@ -38,6 +38,13 @@ class CranberryFeaturedContent {
             tags: {
               type: Boolean,
               value: false
+            },
+            livestreamItem: {
+              type: Object
+            },
+            livestream: {
+              type: Boolean,
+              value: false
             }
         };
     }
@@ -88,11 +95,30 @@ class CranberryFeaturedContent {
     }
 
     _parseResponse(response) {
-        var result = JSON.parse(response.Result);
+      var result = JSON.parse(response.Result);
 
-        console.dir(result);
-        
-        this.set('items', result);
+      console.dir(result);
+
+      if (typeof result !== 'undefined' && result.length > 0) {
+        let livestreamResult = result[0];
+        let livestreamMedia = livestreamResult.mediaAssets;
+        let livestreamVideo = {};
+
+        // Check for livestream video being present
+        if (typeof livestreamMedia.videos !== 'undefined') {
+          if (livestreamMedia.videos[0].delivery === '3') {
+            livestreamVideo = livestreamMedia.videos[0];
+          }
+        }
+
+        // Check livestream object length for livestream item
+        if (Object.keys(livestreamVideo).length > 0) {
+          this.set('livestreamItem', result[0].mediaAssets.videos[0]);
+          this.set('livestream', true);
+        } else {
+          this.set('items', result);
+        }
+      }
     }
 
     _updateParams() {
@@ -115,18 +141,23 @@ class CranberryFeaturedContent {
           sections = sections.replace('-', ' ');
           // jsonp.desiredTags = sections + ', featured';
         } else {
-          // jsonp.desiredSection = this.get('sections');
+          jsonp.desiredSection = this.get('sections');
           // jsonp.desiredTags = 'featured';
         }
 
         // console.log(jsonp.desiredTags);
-
-        // jsonp.desiredContent = this.get('type');
-        jsonp.desiredContent = 'story';
+        jsonp.desiredContent = this.get('type');
         jsonp.desiredCount = this.get('count');
-        // jsonp.desiredDelivery = 'imagesOnly';
-        jsonp.desiredDelivery = 'livestream';
+        jsonp.desiredDelivery = 'imagesOnly';
         this.set('params', jsonp);
+    }
+
+    _computeLivestreamURL(url) {
+      if (typeof url !== 'undefined' && url.length > 0) {
+        return url + '/player?width=640&amp;height=360&amp;autoPlay=false&amp;mute=false';
+      } else {
+        return '';
+      }
     }
 }
 // Public methods.

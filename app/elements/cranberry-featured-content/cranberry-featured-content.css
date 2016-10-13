@@ -101,3 +101,13 @@ div[bp12] {
 div[bp13] {
   margin: 0 19px;
 }
+
+div.livestream {
+  @apply(--layout-horizontal);
+  @apply(--layout-center);
+  @apply(--layout-center-justified);
+
+  margin-bottom: 16px;
+  padding: 20px;
+  background: #333 url("../../images/livestream/background.jpg");
+}
