@@ -78,7 +78,7 @@ class GoogleDFP {
                 googletag.enableServices();
 
                 let dfpURL = adGroup + '/' + adGrouping + '/' + adSubGrouping + '/' + adSection + '/' + position;
-                console.log(outOfPage);
+
                 if (!outOfPage) {
                   window.slots[idModifier] = googletag.defineSlot(dfpURL, adSize, idModifier).addService(googletag.pubads()).setCollapseEmptyDiv(true);
                 } else {
