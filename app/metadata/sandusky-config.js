@@ -11,6 +11,7 @@ module.exports = {
   title: 'Sandusky Register',
   urlTitle: 'SanduskyRegister.com',
   epaperLink: 'http://digital.olivesoftware.com/Olive/ODE/SanduskyRegister',
+  ludiPortal: 'sanduskyregister',
   // Gigya
   gigya: {
     // Needs changed from dev key to prod key
@@ -163,5 +164,21 @@ module.exports = {
       link: '/news-archive',
       image: '../images/archive/sandusky/text_archive_image.png'
     }
-  ]
+  ],
+  advantagePage: [
+    {
+      images: [
+        {
+          url: '../images/advantage/sandusky/advantage.jpg'
+        },
+        {
+          url: '../images/advantage/sandusky/advantage-2.jpg'
+        },
+        {
+          url: '../images/advantage/sandusky/advantage-button.jpg'
+        }
+      ]
+    }
+  ],
+  advantageUrl: 'http://www.sanduskyoffers.com/'
 };

@@ -6,6 +6,11 @@ div.headline-advertisement {
   text-align: center;
 }
 
+div.cranberry-static-section {
+  padding-top: 12px;
+}
+
+
 div.weather-container {
   @apply(--layout-horizontal);
   @apply(--layout-wrap);
