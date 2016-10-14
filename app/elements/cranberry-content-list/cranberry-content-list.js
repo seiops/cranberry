@@ -49,6 +49,16 @@ class CranberryContentList {
 
   attached() {
     app.logger('\<cranberry-content-list\> attached');
+
+    this._updateGridStyles = this._updateGridStyles || function() {
+      this.updateStyles();
+    }.bind(this);
+
+    window.addEventListener('resize', this._updateGridStyles);
+  }
+
+  detached() {
+    window.removeEventListener('resize', this._updateGridStyles);
   }
 
   _changeParams() {

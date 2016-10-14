@@ -1,73 +1,72 @@
 :host {
   display: block;
-  /* --app-grid-columns: 3;
-  --app-grid-gutter: 10px;
-  --app-grid-expandible-item-columns: 2;
-  --app-grid-item-height: 20vw; */
+  --app-grid-columns: 1;
+  --app-grid-gutter: 16px;
+  --app-grid-expandible-item-columns: 1;
 }
 
+/* Development app grid */
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+.item {
+  /*border: 1px solid blue;*/
+  list-style: none;
+  min-height: 250px;
+}
+
+.expandable {
+  @apply(--app-grid-expandible-item);
+}
+
+.item.expandable {
+  background-color: transparent;
+  min-height: 0;
+}
+
+@media (min-width: 1580px) {
+  :host {
+    --app-grid-columns: 4;
+    --app-grid-expandible-item-columns: 4;
+  }
+}
+
+@media (max-width: 1579px) {
+  :host {
+    --app-grid-columns: 3;
+    --app-grid-expandible-item-columns: 3;
+  }
+}
+
+@media (max-width: 987px) {
+  :host {
+    --app-grid-columns: 2;
+    --app-grid-expandible-item-columns: 2;
+  }
+}
+
+@media (max-width: 675px) {
+  :host {
+    --app-grid-columns: 1;
+    --app-grid-expandible-item-columns: 1;
+  }
+}
+
+/* Content cards and breakpoints */
 div.content-cards {
-  @apply(--layout-horizontal);
+  /*@apply(--layout-horizontal);
   @apply(--layout-center-justified);
-  @apply(--layout-wrap);
+  @apply(--layout-wrap);*/
 
-  min-height: 800px;
+  min-height: 100%;
 }
 
-div.content-cards[bp1] {
-  margin: 0 5px;
-}
-
-div.content-cards[bp2] {
-  margin: 0 20px;
-}
-
-div.content-cards[bp3] {
-  margin: 0 30px;
-}
-
-div.content-cards[bp4] {
-  margin: 0 40px;
-}
-
-div.content-cards[bp5] {
-  margin: 0 24px;
-}
-
-div.content-cards[bp6] {
-  margin: 0 4px;
-}
-
-div.content-cards[bp7] {
-  margin: 0 36px;
-}
-
-div.content-cards[bp8] {
-  margin: 0 48px;
-}
-
-div.content-cards[bp9] {
-  margin: 0 6px;
-}
-
-div.content-cards[bp10] {
-  margin: 0 26px;
-}
-
-div.content-cards[bp11] {
-  margin: 0 19px;
-}
-
-div.content-cards[bp12] {
-  margin: 0 79px;
-}
-
-div.content-cards[bp13] {
-  margin: 0 19px;
-}
-
-div.content-cards > cranberry-card {
+cranberry-card {
+  @apply(--layout-flex);
   @apply(--layout-vertical);
+  /*border:1px solid red;*/
 }
 
 div.leaderboard-advertisement-wrapper {
