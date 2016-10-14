@@ -127,7 +127,7 @@ class CranberryFeaturedContent {
 
         if (typeof currentRequest !== 'undefined' && currentRequest.loading === true) {
             app.logger('<\cranberry-featured-content\> aborting previous request');
-            console.dir(currentRequest);
+
             this.$.request.abortRequest(currentRequest);
         }
 
