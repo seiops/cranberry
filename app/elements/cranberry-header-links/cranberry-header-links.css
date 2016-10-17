@@ -19,6 +19,7 @@
     @apply(--layout-center-justified);
     background-color: var(--dark-primary-color);
     color: var(--text-primary-color);
+    white-space: nowrap;
   };
 
   /* postcss-bem-linter: ignore */
