@@ -80,22 +80,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   }
 
   @nest &-siteNav a {
+    @apply(--paper-font-body2);
     color: inherit;
     margin-right: 12px;
     text-decoration: none;
-    text-transform: none;
   }
 
   @nest &-siteLogo {
     @apply(--layout-vertical);
     @apply(--layout-center);
     @apply(--layout-flex);
-  }
-
-  @nest &-siteNav a {
-    color: inherit;
-    margin-right: 12px;
-    text-decoration: none;
-    text-transform: none;
   }
 }
