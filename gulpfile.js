@@ -290,6 +290,9 @@ gulp.task('download:analytics', require(task('download-analytics'))($, gulp));
 // Download newest script gpt.js from Google for DFP
 gulp.task('download:dfp', require(task('download-dfp'))($, gulp));
 
+// Download newest script gpt.js from Google for DFP
+gulp.task('download:autotrack', require(task('download-autotrack'))($, gulp));
+
 // Fix paths before revision task
 gulp.task('fix-paths-before-revision', require(task('fix-paths'))($, gulp, merge, 'before'));
 
@@ -332,7 +335,7 @@ gulp.task('default', ['clean'], function(cb) {
 // Initializing app
 gulp.task('init', function(cb) {
   runSequence(
-    ['download:analytics', 'download:dfp', 'download:fonts'],
+    ['download:analytics', 'download:dfp', 'download:fonts', 'download:autotrack'],
     cb);
 });
 
