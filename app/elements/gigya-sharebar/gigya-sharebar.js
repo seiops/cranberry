@@ -57,7 +57,8 @@ class gigyaSharebar {
             ],
             noButtonBorders: true,
             showAlwaysShare: 'unchecked',
-            layout:'vertical'
+            layout:'vertical',
+            deviceType: 'mobile'
           };
           return params;
         }
@@ -69,7 +70,7 @@ class gigyaSharebar {
   _updateGigya(title, route) {
     let shareDiv = this.get('shareButtonsId');
     let el = this;
-    
+
     var checkGigya = function () {
       setTimeout(function () {
         let params = el.get('params');
