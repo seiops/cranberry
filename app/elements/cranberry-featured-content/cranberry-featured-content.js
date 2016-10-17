@@ -97,8 +97,6 @@ class CranberryFeaturedContent {
     _parseResponse(response) {
       var result = JSON.parse(response.Result);
 
-      console.dir(result);
-
       if (typeof result !== 'undefined' && result.length > 0) {
         let livestreamResult = result[0];
         let livestreamMedia = livestreamResult.mediaAssets;
