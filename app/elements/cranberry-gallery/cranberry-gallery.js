@@ -122,9 +122,29 @@ class CranberryGallery {
     app.logger('\<cranberry-gallery\> json response received');
 
     let result = JSON.parse(data.detail.Result);
+    let gaData = {};
+
+    // Data settings for pageview
+    gaData.dimension6 = 'Gallery';
+
+    if (typeof result.byline !== 'undefined') {
+      gaData.dimension1 = result.byline;
+    }
+
+    if (typeof result.published !== 'undefined') {
+      gaData.dimension3 = result.published;
+    }
+
+    if (typeof result.tags !== 'undefined') {
+      gaData.dimension8 = result.tags;
+    }
+
+    // Send pageview event with iron-signals
+    this.fire('iron-signal', {name: 'track-page', data: { path: '/photo-gallery/' + result.itemId, gaData } });
 
     // Assign restResponse to data bound object gallery
     this.set('gallery', result);
+
 
     if (typeof result.tags !== 'undefined' && result.tags.length > 0) {
       // Set tags variable to the tags response
