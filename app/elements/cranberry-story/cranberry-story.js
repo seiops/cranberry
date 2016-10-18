@@ -116,14 +116,16 @@ class CranberryStory {
     }
 
     // Remove source on main image
-    mainImage.src = '';
+    if (typeof image !== 'undefined') {
+      image.src = '';
+    }
 
     // Set lead shortcode back to false
     this.set('hasLeadShortcode', false);
   }
 
   _closeShare() {
-    let shareBar = this.querySelector('gigya-sharebar');
+    let shareBar = Polymer.dom(this.root).querySelector('gigya-sharebar');
     shareBar.close();
   }
 
@@ -231,7 +233,7 @@ class CranberryStory {
   }
 
   _scrollToComments() {
-    let commentsDiv = this.querySelector('#commentsButton');
+    let commentsDiv = Polymer.dom(this.root).querySelector('#commentsButton');
 
     commentsDiv.scrollIntoView(true);
   }
