@@ -9,7 +9,7 @@
   /* postcss-bem-linter: ignore */
   --paper-menu-button-content: {
     background-color: var(--dark-primary-color);
-    box-shadow: none;
+    
     border-radius: 0;
   };
 
