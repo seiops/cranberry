@@ -4,6 +4,10 @@ class CranberryGoogleAnalytics {
     this.is = 'cranberry-google-analytics';
     this.properties = {
       trackingId: String,
+      user: {
+        type: Object,
+        value: {}
+      },
       userId: {
           type: String,
           notify: true
@@ -53,19 +57,28 @@ class CranberryGoogleAnalytics {
   }
 
   trackPage(e) {
-      //Use set param, this way if we then send a subsequent event on the page it will be correctly associated with the same page
+    let el = this;
 
-      if (typeof e !== 'undefined' && typeof e.detail.path !== 'undefined') {
-          ga('set', 'page', e.detail.path);
-      }
+    setTimeout(function() {
+      if (typeof ga !== 'undefined') {
+        //Use set param, this way if we then send a subsequent event on the page it will be correctly associated with the same page
 
-      if(typeof e.detail.data !== 'undefined') {
-        app.logger('\<cranberry-google-analytics\> pageview sent with data');
-        ga('send', 'pageview', e.detail.data);
+        if (typeof e !== 'undefined' && typeof e.detail.path !== 'undefined') {
+            ga('set', 'page', e.detail.path);
+        }
+
+        if(typeof e.detail.data !== 'undefined') {
+          app.logger('\<cranberry-google-analytics\> pageview sent with data');
+          ga('send', 'pageview', e.detail.data);
+        } else {
+          app.logger('\<cranberry-google-analytics\> pageview sent');
+          ga('send', 'pageview');
+        }
+        return;
       } else {
-        app.logger('\<cranberry-google-analytics\> pageview sent');
-        ga('send', 'pageview');
+        el.trackPage(e);
       }
+    }, 50);
   }
 
   userIDChanged(e) {

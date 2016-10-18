@@ -25,6 +25,9 @@ module.exports = function($, gulp, merge, order) {
       baseBundleJs = gulp.src('deploy/elements/base-bundle.*.js').pipe($.replace(
         '("../bower_components/platinum-sw/bootstrap/',
         '("bootstrap/'
+      )).pipe($.replace(
+        '"scripts/',
+        '"libercus/default/scripts/'
       )).pipe(gulp.dest('deploy/elements'));
 
       indexElement = gulp.src('deploy/index.html').pipe($.replace(
