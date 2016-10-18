@@ -152,7 +152,7 @@ class youneeqContent {
     request.generateRequest();
   }
 
-  _handleLoad() {
+  _handleLoad(l) {
       app.logger('<\youneeq-content\> load received');
   }
 
@@ -161,14 +161,18 @@ class youneeqContent {
   }
 
   _parseResponse(suggestions) {
-    let nodes = suggestions.suggest.node;
+    if (suggestions.suggest !== null){
+      let nodes = suggestions.suggest.node;
 
-    // Leaving this for ease of testing when pushed to different environments
-    console.dir(nodes);
+      // Leaving this for ease of testing when pushed to different environments
+      console.dir(nodes);
 
-    this.set('items', nodes);
-    if (nodes.length !== 0) {
-      this.set('hasItems', true);
+      this.set('items', nodes);
+      if (nodes.length !== 0) {
+        this.set('hasItems', true);
+      }
+    } else {
+      app.logger('<\youneeq-content\> no suggested content');
     }
   }
 
