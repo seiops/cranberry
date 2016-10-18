@@ -38,20 +38,22 @@ class CranberryCard {
   }
 
   _computeUrl(item) {
-    let prefix = '/';
+    if(typeof item !== 'undefined' && typeof item.contentType !== 'undefined'){
+      let prefix = '/';
 
-    switch(item.contentType) {
-      case 'Story':
-      prefix += 'story';
-      break;
-      case 'Gallery':
-      prefix += 'photo-gallery';
-      break;
+      switch(item.contentType) {
+        case 'Story':
+        prefix += 'story';
+        break;
+        case 'Gallery':
+        prefix += 'photo-gallery';
+        break;
+      }
+
+      let url = prefix + '/' + item.itemId;
+
+      return url;
     }
-
-    let url = prefix + '/' + item.itemId;
-
-    return url;
   }
 
   _computeHeadingClass (image) {

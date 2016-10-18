@@ -21,7 +21,7 @@ module.exports = {
   },
   // Google
   google: {
-    analytics: 'UA-4700830-1',
+    analytics: 'UA-61183098-4',
     maps: 'AIzaSyASMEaZRw3O-fhuvscitnQ8k2YJ3kJn_ZA'
   },
   dfpAdStructure: {

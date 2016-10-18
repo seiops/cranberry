@@ -164,35 +164,57 @@ class CranberryStory {
 
       if (typeof storyId !== 'undefined' && storyId !== 0) {
         let story = this.get('story');
-        let baseUrl = this.get('baseUrl');
-        let paragraphs = story.paragraphs;
-        let contentArea = this.$.storyContentArea;
-        let el = this;
+        if (typeof story.published !== 'undefined'){
+          let data = {};
+          let baseUrl = this.get('baseUrl');
+          let paragraphs = story.paragraphs;
+          let contentArea = this.$.storyContentArea;
+          let el = this;
 
-        if (typeof paragraphs !== 'undefined') {
-          // Create a document fragment to append all elements to
-          let fragment = document.createDocumentFragment();
+          if (typeof paragraphs !== 'undefined') {
+            // Create a document fragment to append all elements to
+            let fragment = document.createDocumentFragment();
 
-          paragraphs.forEach(function(value, index) {
-            if (value.shortcode) {
-              let shortcodeEl = document.createElement('cranberry-shortcode');
+            paragraphs.forEach(function(value, index) {
+              if (value.shortcode) {
+                let shortcodeEl = document.createElement('cranberry-shortcode');
 
-              shortcodeEl.set('shortcodeObject', value);
-              if (value.key == 'toutembed') {
-                  shortcodeEl.set('toutUid', el.toutUid);
+                shortcodeEl.set('shortcodeObject', value);
+                if (value.key == 'toutembed') {
+                    shortcodeEl.set('toutUid', el.toutUid);
+                }
+                shortcodeEl.set('storyObject', story);
+                shortcodeEl.set('baseUrl', baseUrl);
+                fragment.appendChild(shortcodeEl);
+              } else {
+                let paragraphEl = document.createElement('p');
+                paragraphEl.innerHTML = value.text;
+
+                fragment.appendChild(paragraphEl);
               }
-              shortcodeEl.set('storyObject', story);
-              shortcodeEl.set('baseUrl', baseUrl);
-              fragment.appendChild(shortcodeEl);
-            } else {
-              let paragraphEl = document.createElement('p');
-              paragraphEl.innerHTML = value.text;
+            });
+            contentArea.appendChild(fragment);
+          }
 
-              fragment.appendChild(paragraphEl);
-            }
-          });
-          contentArea.appendChild(fragment);
+          // Data settings for pageview
+          data.dimension6 = 'Story';
+
+          if (typeof story.byline.inputByline !== 'undefined') {
+            data.dimension1 = story.byline.inputByline;
+          }
+
+          if (typeof story.published !== 'undefined') {
+            data.dimension3 = story.published;
+          }
+
+          if (typeof story.tags !== 'undefined') {
+            data.dimension8 = story.tags;
+          }
+
+          // Send pageview event with iron-signals
+          this.fire('iron-signal', {name: 'track-page', data: { path: '/story/' + storyId, data } });
         }
+
       }
     }
   }
@@ -221,6 +243,7 @@ class CranberryStory {
 
         if (typeof storyId !== 'undefined' && storyId !== 0) {
           app.logger('\<cranberry-story\> storyId set to ' + storyId);
+
           this._updateStoryId(storyId);
         }
       }

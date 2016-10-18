@@ -41,6 +41,9 @@
 <!-- Gigya elements -->
 <link rel="import" href="../gigya-socialize/gigya-socialize.html">
 
+<!-- Analytics elements -->
+<link rel="import" href="../cranberry-google-analytics/cranberry-google-analytics.html">
+
 <!-- Cranberry elements -->
 <link rel="import" href="../cranberry-script-loader/cranberry-script-loader.html">
 <link rel="import" href="../cranberry-contact-page/cranberry-contact-page.html">
@@ -74,6 +77,9 @@
 
     <!-- Script loader -->
     <cranberry-script-loader></cranberry-script-loader>
+
+    <!-- Google Analytics -->
+    <cranberry-google-analytics tracking-id="{$ config.google.analytics $}"></cranberry-google-analytics>
 
     <!-- Gigya socialize/accounts integration -->
     <gigya-socialize user="{{user}}" route="[[route]]"></gigya-socialize>
