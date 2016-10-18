@@ -1,56 +1,56 @@
-<iron-pages class="Main-content" attr-for-selected="data-route" selected="{{data.page}}" default-selected="">
-  <div data-route="">
+<iron-lazy-pages class="Main-content" attr-for-selected="data-route" selected="{{data.page}}" default-selected="">
+  <template is="iron-lazy-page" data-route="">
     {% include "cranberry-base/views/pages/home.html" %}
-  </div>
-  <div data-route="story">
+  </template>
+  <template is="iron-lazy-page" data-route="story">
     {% include "cranberry-base/views/pages/story.html" %}
-  </div>
-  <div data-route="photo-gallery">
+  </template>
+  <template is="iron-lazy-page" data-route="photo-gallery">
     {% include "cranberry-base/views/pages/gallery.html" %}
-  </div>
-  <div data-route="galleries">
+  </template>
+  <template is="iron-lazy-page" data-route="galleries">
     {% include "cranberry-base/views/pages/galleries.html" %}
-  </div>
-  <div data-route="section">
+  </template>
+  <template is="iron-lazy-page" data-route="section">
     {% include "cranberry-base/views/pages/section.html" %}
-  </div>
-  <div data-route="tags">
+  </template>
+  <template is="iron-lazy-page" data-route="tags">
     {% include "cranberry-base/views/pages/tags.html" %}
-  </div>
-  <div data-route="search">
+  </template>
+  <template is="iron-lazy-page" data-route="search">
     {% include "cranberry-base/views/pages/search.html" %}
-  </div>
-  <div data-route="jail-mugs">
+  </template>
+  <template is="iron-lazy-page" data-route="jail-mugs">
     {% include "cranberry-base/views/pages/jail-mugs.html" %}
-  </div>
-  <div data-route="contact">
+  </template>
+  <template is="iron-lazy-page" data-route="contact">
     {% include "cranberry-base/views/pages/contact.html" %}
-  </div>
-  <div data-route="archive">
+  </template>
+  <template is="iron-lazy-page" data-route="archive">
     {% include "cranberry-base/views/pages/archive.html" %}
-  </div>
-  <div data-route="promoted">
+  </template>
+  <template is="iron-lazy-page" data-route="promoted">
     {% include "cranberry-base/views/pages/promoted.html" %}
-  </div>
-  <div data-route="calendar">
+  </template>
+  <template is="iron-lazy-page" data-route="calendar">
     {% include "cranberry-base/views/pages/calendar.html" %}
-  </div>
-  <div data-route="policy">
+  </template>
+  <template is="iron-lazy-page" data-route="policy">
     {% include "cranberry-base/views/pages/policy.html" %}
-  </div>
-  <div data-route="terms">
+  </template>
+  <template is="iron-lazy-page" data-route="terms">
     {% include "cranberry-base/views/pages/terms.html" %}
-  </div>
-  <div data-route="styles">
+  </template>
+  <template is="iron-lazy-page" data-route="styles">
     {% include "cranberry-base/views/pages/styles.html" %}
-  </div>
-  <div data-route="forecast">
+  </template>
+  <template is="iron-lazy-page" data-route="forecast">
     {% include "cranberry-base/views/pages/weather.html" %}
-  </div>
-  <div data-route="advantage-member">
+  </template>
+  <template is="iron-lazy-page" data-route="advantage-member">
     {% include "cranberry-base/views/pages/advantage.html" %}
-  </div>
-  <div data-route="games-page">
+  </template>
+  <template is="iron-lazy-page" data-route="games-page">
     {% include "cranberry-base/views/pages/games.html" %}
-  </div>
-</iron-pages>
+  </template>
+</iron-lazy-pages>
