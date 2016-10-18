@@ -33,34 +33,52 @@ class gigyaComments {
 
   _updateComments(id, content, configId) {
     if (typeof id !== 'undefined' && id.length > 0) {
+      let el = this;
       let time = this._timeId();
-
       this.set('containerId', time);
-
       let streamId = this.get('streamId');
 
-      let checkGigya = function() {
-        setTimeout(function() {
-          if (typeof gigya !== 'undefined') {
-            var params = {
-              categoryID: configId,
-              streamID: streamId,
-              streamURL: window.location.href,
-              version: 2,
-              containerID: time,
-              cid: '',
-              width: '100%',
-              streamTitle: content.title
-            };
-            gigya.comments.showCommentsUI(params);
-          } else {
-            checkGigya();
-          }
-        }, 1000);
-      }
+      // Context needs to be the gigya socialize element for logout handling
+      let params = {
+        context: Polymer.dom(document).querySelector('gigya-socialize'),
+        categoryID: configId,
+        streamID: streamId,
+        streamURL: window.location.href,
+        version: 2,
+        containerID: time,
+        cid: '',
+        width: '100%',
+        streamTitle: content.title,
+        useSiteLogin: true,
+        onSiteLoginClicked: this._onSiteLoginHandler
+      };
 
-      checkGigya();
+      this._checkGigya();
+
+      this.async(function() {
+        gigya.comments.showCommentsUI(params);
+      });
     }
   }
+
+  // check if Gigya API is loaded
+  _checkGigya() {
+    let el = this;
+
+    setTimeout(function() {
+      if (typeof gigya !== 'undefined' && typeof gigya.socialize !== 'undefined' && typeof gigya.socialize.getUserInfo === 'function') {
+        return;
+      } else {
+        el._checkGigya();
+      }
+    }, 50);
+  }
+
+  _onSiteLoginHandler(event) {
+    let app = Polymer.dom(document).querySelector('cranberry-base');
+
+    app.openUserModal();
+  }
 }
+
 Polymer(gigyaComments);
