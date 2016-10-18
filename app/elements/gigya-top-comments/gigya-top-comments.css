@@ -1,5 +1,6 @@
 :host {
-  display: block;
+  @apply(--layout-vertical);
+  max-width: 100%;
 };
 
 span.card-tag {
@@ -14,6 +15,7 @@ h3.item-title {
   @apply(--paper-font-menu);
   color: var(--light-theme-primary-text-color);
   margin: 0;
+  max-width: 85%;
 }
 
 div.card-content {
@@ -59,8 +61,4 @@ h3.no-comments-text {
   @apply(--paper-font-body2);
   color: var(--light-theme-secondary-text-color);
   margin: 0 0 0 12px;
-}
-
-a h3.item-title {
-  color: var(--light-theme-primary-text-color);
 }
