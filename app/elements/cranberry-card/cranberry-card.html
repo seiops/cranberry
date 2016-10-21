@@ -1,0 +1,44 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+
+<dom-module id="cranberry-card">
+  <template>
+    <style include="shared-styles">
+      @import "theme.css";
+      @import "cranberry-card/cranberry-card";
+    </style>
+    <div class="card" advertisement$="[[advertisement]]">
+      <template is="dom-if" if="[[item.contentType]]">
+        <a href$="[[_computeUrl(item)]]">
+          <div class="card-header">
+            <div class="card-icons"><iron-icon icon="image:photo-camera" hidden$="[[!_checkGallery(item.contentType)]]"></iron-icon></div>
+            <div class="card-header-overlay" hidden$="[[!item.mediaAssets.images.0.small]]"></div>
+            <iron-image
+              alt="[[item.title]]"
+              hidden$="[[!item.mediaAssets.images.0.small]]"
+              src$="{$ config.baseDomain $}/[[item.mediaAssets.images.0.medium]]"
+              preload
+              fade
+              sizing="cover">
+            </iron-image>
+            <div hidden$="[[!item.title]]" class$="[[_computeHeadingClass(item.mediaAssets.images.0.small)]]">[[item.title]]</div>
+          </div>
+          <div class="card-content" hidden$="[[featured]]">
+              <div class="content-date">[[item.updated]]</div>
+              <div class="content-preview">[[item.preview]]</div>
+          </div>
+        </a>
+        <div class="card-info">
+          <div class="content-tag"><a href$="/section/[[item.sectionInformation.primarySectionLabel]]">[[_scrubTag(item.sectionInformation.primarySection)]]</a></div>
+          <div class="content-comments"><a href$="[[_computeUrl(item)]]#comments">[[item.socialInformation.comments]] &nbsp;<iron-icon icon="communication:chat"></iron-icon></a></div>
+        </div>
+      </template>
+      <content></content>
+    </div>
+    <!-- Temporary Fix to ensure Nativos ads come in properly -->
+    </template>
+    <script src="cranberry-card.js"></script>
+</dom-module>

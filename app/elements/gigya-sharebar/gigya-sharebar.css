@@ -16,6 +16,9 @@ paper-material {
   padding: 10px;
   position: absolute;
   right: 0;
+  z-index: 999;
+  margin-top: 10px;
+  max-width: 200px;
 }
 
 paper-material .gig-button-text {

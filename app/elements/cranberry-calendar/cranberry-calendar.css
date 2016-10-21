@@ -1,0 +1,14 @@
+:host {
+  display: block;
+}
+
+div#spingo-container {
+  display: inline-block;
+  height: 755px;
+}
+
+paper-material {
+  background-color: #fff;
+  min-height: 1000px;
+  padding: 24px;
+}

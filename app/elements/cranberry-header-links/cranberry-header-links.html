@@ -1,0 +1,40 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-menu-button/paper-menu-button.html">
+
+<dom-module id="cranberry-header-links">
+  <template>
+    <style>
+      @import "cranberry-header-links/cranberry-header-links";
+    </style>
+    <iron-media-query query="(min-width: 1280px)" query-matches="{{showLinks}}"></iron-media-query>
+
+    <div class="link-list" hidden$="[[!showLinks]]">
+      <a href="http://www.norwalkreflector.com/?network" target="_blank">Norwalk Reflector</a>
+      <a href="http://local.sanduskyregister.com/ads" target="_blank">Today's Ads</a>
+      <a href="http://local.sanduskyregister.com" target="_blank">Local Guide</a>
+      <a href="http://sanduskyregister.thejobnetwork.com" target="_blank">Job Network</a>
+      <a href="http://sanduskyregister.clickitrewards.com" target="_blank">Member Rewards</a>
+    </div>
+    <paper-menu-button no-overlap close-on-activate dynamic-align vertical-align="bottom" horizontal-offset="-70">
+      <paper-icon-button icon="apps" class="dropdown-trigger" hidden$="{{showLinks}}"></paper-icon-button>
+      <paper-menu class="dropdown-content">
+        <a href="http://www.norwalkreflector.com/?network" target="_blank">
+          <paper-item>Norwalk Reflector</paper-item>
+        </a>
+        <a href="http://local.sanduskyregister.com/ads" target="_blank">
+          <paper-item>Today's Ads</paper-item>
+        </a>
+        <a href="http://local.sanduskyregister.com" target="_blank">
+          <paper-item>Local Guide</paper-item>
+        </a>
+        <a href="http://sanduskyregister.thejobnetwork.com" target="_blank">
+          <paper-item>Job Network</paper-item>
+        </a>
+        <a href="http://sanduskyregister.clickitrewards.com" target="_blank">
+          <paper-item>Member Rewards</paper-item>
+        </a>
+      </paper-menu>
+    </paper-menu-button>
+  </template>
+    <script src="cranberry-header-links.js"></script>
+</dom-module>

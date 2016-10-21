@@ -2,6 +2,7 @@ class CranberryGallery {
   beforeRegister() {
     this.is = 'cranberry-gallery';
     this.properties = {
+      baseUrl: String,
       gallery: {
         type: Object
       },
@@ -16,30 +17,34 @@ class CranberryGallery {
           request: 'gallery'
         }
       },
-      mycapture: {
-        type: String,
-        value: 'http://standard.mycapture.com/mycapture/remoteimage.asp'
+      myCaptureUrl: {
+        type: String
       },
       params: {
         type: Object,
         value: {}
       },
       rest: {
-        type: String,
-        value: 'http://sedev.libercus.net/rest.json'
+        type: String
       },
       routeData: Object,
       tags: {
         type: Array
+      },
+      noTags: {
+        type: Boolean,
+        value: true
+      },
+      myCaptureUrl: {
+        type: String
+      },
+      hidden: {
+          type: Boolean,
+          reflectToAttribute: true,
+          value: true
       }
     };
-    this.listeners = {
-      'buyButton.tap': '_buyImage',
-      'images.tap': '_goToSlide',
-      'modalOpen.tap': '_openModal',
-      'modalClose.tap': '_closeModal'
-    };
-    this.observers = ['_checkParams(routeData.id)'];
+    this.observers = ['_checkParams(routeData.id)', '_hiddenChanged(hidden)'];
   }
 
   // Public methods.
@@ -47,20 +52,14 @@ class CranberryGallery {
     app.logger('\<cranberry-gallery\> attached');
   }
 
-  // ready() {
-  //   app.logger('\<cranberry-gallery\> ready');
-  // }
-
   // Private methods.
   _buyImage() {
-    let slider = this.$.querySelector('cranberry-slider');
-    let images = slider.items;
-    let currentIndex = slider.index;
-    let currentImage = images[currentIndex].src;
-    let mycapture = this.get('mycapture');
+    let slider = this.$.mainSlider;
+    let currentImage = slider.querySelector('iron-image').src;
+    let myCapture = this.get('myCaptureUrl');
 
     let capture = {
-        sDomain: mycapture,
+        sDomain: myCapture,
         setImgParams: function () {
             var sImg = currentImage;
             capture.sImage = "?image=" + encodeURIComponent(sImg); // formatted sImg for preview
@@ -100,10 +99,6 @@ class CranberryGallery {
     }
   }
 
-  _closeModal () {
-    this._sliderMove('close');
-  }
-
   // Observer method for when the story id changes.
   _galleryIdChanged () {
     let galleryId = this.get('galleryId');
@@ -120,19 +115,42 @@ class CranberryGallery {
     let mainSlider = this.querySelector('#mainSlider');
     let imageIndex = Number(e.target.parentElement.dataset.index);
 
-    mainSlider.goTo(mainSlider, imageIndex);
+    mainSlider.goTo(imageIndex);
   }
 
   _handleResponse (data) {
     app.logger('\<cranberry-gallery\> json response received');
 
     let result = JSON.parse(data.detail.Result);
+    let gaData = {};
+
+    // Data settings for pageview
+    gaData.dimension6 = 'Gallery';
+
+    if (typeof result.byline !== 'undefined') {
+      gaData.dimension1 = result.byline;
+    }
+
+    if (typeof result.published !== 'undefined') {
+      gaData.dimension3 = result.published;
+    }
+
+    if (typeof result.tags !== 'undefined') {
+      gaData.dimension8 = result.tags;
+    }
+
+    // Send pageview event with iron-signals
+    this.fire('iron-signal', {name: 'track-page', data: { path: '/photo-gallery/' + result.itemId, gaData } });
 
     // Assign restResponse to data bound object gallery
     this.set('gallery', result);
 
-    // Set tags variable to the tags response
-    this.set('tags', result.tags.split(','));
+
+    if (typeof result.tags !== 'undefined' && result.tags.length > 0) {
+      // Set tags variable to the tags response
+      this.set('tags', result.tags.split(','));
+      this.set('noTags', false);
+    }
   }
 
   _onRouteChanged (newValue, oldValue) {
@@ -146,31 +164,29 @@ class CranberryGallery {
   }
 
   _openModal () {
-    this._sliderMove('open');
-  }
+    let baseUrl = this.get('baseUrl');
+    let slider = document.createElement('cranberry-slider');
 
-  _sliderMove (type) {
-    let modal = this.$.modal;
-    let modalSlider = modal.querySelector('#modalSlider');
-    let mainSlider = this.querySelector('#mainSlider');
-    let mainIndex = mainSlider.index;
-    let modalIndex = modalSlider.index;
+    let images = this.get('gallery.mediaAssets.images');
 
-    // Move slider for main or modal depending on event
-    if (mainIndex !== modalIndex) {
-      if (type === 'close') {
-        mainSlider.goTo(mainSlider, modalIndex);
-      } else {
-        modalSlider.goTo(modalSlider, mainIndex);
-      }
-    }
 
-    // Toggle the open/close event
-    modal.toggle();
+    slider.set('items', images);
+    slider.set('baseUrl', baseUrl);
+    slider.set('whiteText', true);
+
+    let modal = Polymer.dom(document).querySelector('cranberry-base').querySelector('#globalModal');
+
+    let modalContent = Polymer.dom(modal).querySelector('paper-dialog-scrollable').querySelector('#scrollable').querySelector('.content-area');
+
+    modalContent.appendChild(slider);
+
+    modal.open();
+    modal.refit();
   }
 
   // Update story id in request parameters.
   _updateGalleryId (galleryid) {
+    this.set('tags', []);
     this.set('jsonp.desiredItemID', galleryid);
 
     let request = this.get('jsonp');
@@ -178,6 +194,19 @@ class CranberryGallery {
     this.set('params', request);
 
     this._changeParams();
+  }
+
+  _hiddenChanged(hidden) {
+    this.async(function() {
+      if (hidden) {
+        this._closeShare();
+      }
+    });
+  }
+
+  _closeShare() {
+    let shareBar = this.querySelector('gigya-sharebar');
+    shareBar.close();
   }
 }
 Polymer(CranberryGallery);

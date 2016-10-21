@@ -1,0 +1,29 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<dom-module id="cranberry-archive-page">
+  <template>
+    <style>
+      @import "cranberry-archive-page/cranberry-archive-page";
+    </style>
+    <div class="archive-container">
+      <template is="dom-repeat" items="{{items}}">
+        <paper-card class="archive-card" image="[[item.image]]" elevation="1">
+          <div class="archive-tag">
+            [[item.label]]
+          </div>
+          <div class="card-content">
+            <h2 class="card-headline">[[item.label]]</h2>
+            <p class="card-dates">[[item.dates]]</p>
+            <p class="card-description"> [[item.description]] </p>
+          </div>
+          <div class="action-panel">
+            <paper-button raised class="card-action"><a href="[[item.link]]">View Archive</a></paper-button>
+          </div>
+        </paper-card>
+      </templates>
+    </div>
+  </template>
+    <script src="cranberry-archive-page.js"></script>
+</dom-module>

@@ -2,13 +2,14 @@
   display: block;
 
   --paper-tabs: {
-    @apply(--layout-around-justified);
+    @apply(--layout-center-justified);
     @apply(--layout-flex);
   };
 
   --paper-toolbar: {
-    background-color: var(--dark-primary-color);
-    color: var(--text-dark-primary-color);
+    background-color: #F2F2F4;
+    color: var(--text-light-primary-color);
+    @apply(--layout-center);
   };
 
   --paper-tabs-selection-bar-color: var(--accent-color);
@@ -18,4 +19,9 @@ div.header-advertisement {
   @apply(--layout-center-justified);
   @apply(--layout-horizontal);
   padding: 0 16px 16px;
+}
+
+cranberry-search-bar#tabSearch ::content paper-input ::content .unfocused-line,
+cranberry-search-bar#tabSearch ::content paper-input ::content .focused-line {
+  background-color: transparent;
 }

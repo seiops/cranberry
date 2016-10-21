@@ -1,0 +1,48 @@
+:host {
+    display: inline-block;
+}
+
+div.card-tag-container span.card-tag {
+    @apply(--paper-font-caption2);
+    display: inline-block;
+    padding: 5px;
+    background-color: var(--accent-color);
+    color: var(--dark-theme-primary-text-color);
+}
+
+div.card-content {
+  padding: 16px 0;
+}
+
+div.card-content a > * {
+  padding: 0 16px;
+}
+
+div.card-content hr.item-sperator {
+  border: 0;
+  height: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+a.item-link {
+    text-decoration: none;
+}
+
+p.item-company-name {
+    @apply(--paper-font-display4);
+    color: var(--accent-color);
+    margin: 0 0;
+}
+
+h3.item-title {
+    @apply(--paper-font-menu);
+    color: var(--light-theme-primary-text-color);
+    margin: 0 0;
+}
+
+p.item-location {
+    @apply(--paper-font-caption);
+    color: var(--accent-color);
+    margin: 0 0;
+}

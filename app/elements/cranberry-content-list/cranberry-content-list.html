@@ -1,83 +1,131 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
-<link rel="import" href="../../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../../bower_components/iron-icons/social-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/image-icons.html">
 <link rel="import" href="../../bower_components/iron-icons/communication-icons.html">
+<link rel="import" href="../../bower_components/app-layout/app-grid/app-grid-style.html">
 <link rel="import" href="../google-dfp/google-dfp.html">
+<link rel="import" href="../cranberry-card/cranberry-card.html">
+<link rel="import" href="../gigya-top-comments/gigya-top-comments.html">
+<link rel="import" href="../cranberry-jobs-widget/cranberry-jobs-widget.html">
 
 <dom-module id="cranberry-content-list">
   <template>
-    <style>
+    <style include="app-grid-style">
       @import "cranberry-content-list/cranberry-content-list";
     </style>
-    <iron-media-query query="(max-width:1370px)" query-matches="{{leaderboard}}"></iron-media-query>
     <byutv-jsonp
       on-response="_handleResponse"
       on-load="_handleLoad"
       last-response="{{response}}"
       last-request="{{request}}"
       last-error="{{error}}"
-      id="request">
-    <div class="content-cards">
-      <template is="dom-repeat" items="{{items}}" initial-count="3">
-        <template is="dom-if" if="[[_checkInStreamAd(index)]]">
-          <div class="stream-advertisement-wrapper">
-            <div class="stream-advertisement">
-                <google-dfp section="[[sections]]" ad-pos="Middle_of_Stream" ad-size="[[300, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
-            </div>
-          </div>
-        </template>
-        <template is="dom-if" if="[[_checkNativeAd(index)]]">
-          <div class="stream-advertisement-wrapper">
-            <div class="stream-advertisement">
-                <google-dfp section="[[sections]]" ad-pos="Middle_of_Stream" ad-size="[[300, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
-            </div>
-          </div>
-        </template>
-        <!-- Need to rework this for array selectors -->
-        <template is="dom-if" if="[[_isStory(item.contentType)]]">
-          <template is="dom-if" if="[[_hasImage(item.mediaAssets.images.0.url)]]">
-            <a href="/story/[[item.itemId]]">
-              <paper-card heading="[[item.title]]" fade-image preload-image image="http://www.standard.net/[[item.mediaAssets.images.0.large]]" elevation="1" class="story">
-                <div class="card-content">
-                  <span class="story-date">[[item.updated]]</span>
-                  <span>[[_trimText(item.preview)]]</span>
+      id="request"></byutv-jsonp>
+      <div class="content-cards-wrapper">
+        <div class="content-cards">
+          <ul class="app-grid">
+            <template items="[[items]]" is="dom-repeat">
+                <template is="dom-if" if="[[_checkJobsWidget(index)]]">
+                  <li class="item">
+                    <cranberry-card>
+                      <cranberry-jobs-widget affiliate-id="{$ config.jobs.affiliateId $}" widget-id="{$ config.jobs.widgetId $}" hidden$="{{hidden}}"></cranberry-jobs-widget>
+                    </cranberry-card>
+                  </li>
+                </template>
+                <template is="dom-if" if="[[_checkTopComments(index)]]">
+                  <li class="item">
+                    <cranberry-card>
+                      <gigya-top-comments count="5" age="90"></gigya-top-comments>
+                    </cranberry-card>
+                  </li>
+                </template>
+                <template is="dom-if" if="[[_checkInStreamAd(index)]]">
+                  <li class="item">
+                    <cranberry-card advertisement>
+                      <template is="dom-if" if="[[_checkAdPos(index,2)]]">
+                        <google-dfp section="[[sections]]" tags="[[tag]]" ad-pos="Top_Of_Stream" ad-size="[[300, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+                      </template>
+                      <template is="dom-if" if="[[_checkAdPos(index,11)]]">
+                        <google-dfp section="[[sections]]" tags="[[tag]]" ad-pos="Bottom_Of_Stream" ad-size="[[300, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+                      </template>
+                    </cranberry-card>
+                  </li>
+                </template>
+                <template is="dom-if" if="[[_checkNativeAd(index)]]">
+                  <li class="item">
+                    <cranberry-card advertisement>
+                      <google-dfp section="[[sections]]" tags="[[tag]]" ad-pos="Middle_of_Stream" ad-size="[[300, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+                    </cranberry-card>
+                  </li>
+                </template>
+                <li class="item">
+                  <cranberry-card item="[[item]]"></cranberry-card>
+                </li>
+                <template is="dom-if" if="[[_checkLeaderboardAd(index)]]">
+                  <li class="item expandable">
+                    <div class="leaderboard-advertisement-wrapper">
+                      <div class="leaderboard-advertisement">
+                        <template is="dom-if" if="[[_checkAdPos(index, 8)]]">
+                          <google-dfp section="[[sections]]" tags="[[tag]]" ad-pos="Middle_Of_Stream" ad-size-mapping="leaderboard" ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+                        </template>
+                        <template is="dom-if" if="[[_checkAdPos(index, 17)]]">
+                          <google-dfp section="[[sections]]" tags="[[tag]]" ad-pos="Last_Of_Stream" ad-size-mapping="leaderboard" ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+                        </template>
+                      </div>
+                    </div>
+                  </li>
+                </template>
+            </template>
+          </ul>
+        <!-- <template is="dom-repeat" items="{{items}}" initial-count="9">
+            <template is="dom-if" if="[[_checkJobsWidget(index)]]">
+              <cranberry-card breakpoints>
+                <cranberry-jobs-widget affiliate-id="{$ config.jobs.affiliateId $}" widget-id="{$ config.jobs.widgetId $}" hidden$="{{hidden}}"></cranberry-jobs-widget>
+              </cranberry-card>
+            </template>
+            <template is="dom-if" if="[[_checkTopComments(index)]]">
+              <cranberry-card breakpoints>
+                <gigya-top-comments count="5" age="90"></gigya-top-comments>
+              </cranberry-card>
+            </template>
+            <template is="dom-if" if="[[_checkInStreamAd(index)]]">
+              <cranberry-card advertisement breakpoints>
+                <template is="dom-if" if="[[_checkAdPos(index,2)]]">
+                  <google-dfp section="[[sections]]" tags="[[tag]]" ad-pos="Top_Of_Stream" ad-size="[[300, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+                </template>
+                <template is="dom-if" if="[[_checkAdPos(index,11)]]">
+                  <google-dfp section="[[sections]]" tags="[[tag]]" ad-pos="Bottom_Of_Stream" ad-size="[[300, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+                </template>
+              </cranberry-card>
+            </template>
+            <template is="dom-if" if="[[_checkNativeAd(index)]]">
+              <cranberry-card advertisement breakpoints>
+                <google-dfp section="[[sections]]" tags="[[tag]]" ad-pos="Middle_of_Stream" ad-size="[[300, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+              </cranberry-card>
+            </template>
+            <cranberry-card item="[[item]]" breakpoints></cranberry-card>
+            <template is="dom-if" if="[[_checkLeaderboardAd(index)]]">
+              <div class="leaderboard-advertisement-wrapper">
+                <div class="leaderboard-advertisement">
+                  <template is="dom-if" if="[[_checkAdPos(index, 8)]]">
+                    <google-dfp section="[[sections]]" tags="[[tag]]" ad-pos="Middle_Of_Stream" ad-size-mapping="leaderboard" ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+                  </template>
+                  <template is="dom-if" if="[[_checkAdPos(index, 17)]]">
+                    <google-dfp section="[[sections]]" tags="[[tag]]" ad-pos="Last_Of_Stream" ad-size-mapping="leaderboard" ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+                  </template>
                 </div>
-                <div class="card-actions">
-                  <div class="card-info">
-                    <div class="story-tag">[[item.sectionInformation.primarySection]]</div>
-                  <div class="story-comments">[[item.socialInformation.comments]] &nbsp;<iron-icon icon="communication:chat-bubble"></iron-icon></div>
-                  </div>
-                </div>
-              </paper-card>
-            </a>
-          </template>
-          <template is="dom-if" if="[[!_hasImage(item.mediaAssets.images.0.url)]]">
-            <a href="/story/[[item.itemId]]">
-              <paper-card heading="[[item.title]]" elevation="1" class="story">
-                <div class="card-content">
-                  <span>[[_trimText(item.preview)]]</span>
-                </div>
-                <div class="card-actions">
-                  <div class="card-info">
-                    <span class="story-tag">[[item.sectionInformation.primarySection]]</span>
-                    <span class="story-date">[[item.updated]]</span>
-                  </div>
-                </div>
-              </paper-card>
-            </a>
-          </template>
-        </template>
-        <template is="dom-if" if="[[_checkLeaderboardAd(index)]]">
-          <div class="leaderboard-advertisement-wrapper">
-            <div class="leaderboard-advertisement">
-              <google-dfp section="[[sections]]" ad-pos="leaderboard" ad-size="[[728, 90],[970,90]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
-            </div>
-          </div>
-        </template>
-      </template>
+              </div>
+            </template>
+        </template> -->
+      </div>
+    </div>
+    <div class="pagination-wrapper">
+      <div class="pagination">
+        <paper-button on-tap="_showPrevious" hidden$="[[hidePreviousButton]]" raised>Previous</paper-button>
+        <paper-button on-tap="_showNext" raised>Next</paper-button>
+      </div>
     </div>
   </template>
   <script src="cranberry-content-list.js"></script>

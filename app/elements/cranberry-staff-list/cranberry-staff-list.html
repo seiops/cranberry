@@ -7,7 +7,15 @@
     <style>
       @import "cranberry-staff-list/cranberry-staff-list";
     </style>
-    <byutv-jsonp auto on-response="_handleResponse" url="http://sedev.libercus.net/rest.json" params='{"request":"congero", "desiredContent":"staff", "desiredStaff":"1"}' id="request"></byutv-jsonp>
+
+    <byutv-jsonp
+      on-response="_handleResponse"
+      on-load="_handleLoad"
+      last-response="{{response}}"
+      last-request="{{request}}"
+      last-error="{{error}}"
+      id="request"></byutv-jsonp>
+
     <div class="card-container">
       <template is="dom-repeat" items="{{items}}">
         <paper-card image="{{_computeStaffImage(item.image)}}">

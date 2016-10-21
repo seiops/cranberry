@@ -9,6 +9,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 var config = require('../../metadata/general'),
     primaryColorName = config.siteName,
     accentColorName = config.siteName + '-accent',
+    fileName = config.fileName,
     themeMode = 'light',
     colors = require('./colors'),
     primaryColor = colors['paper-' + primaryColorName + '-500'],
@@ -17,8 +18,8 @@ var config = require('../../metadata/general'),
 // or dark
 module.exports = {
     global: {
-        logo: '../../images/logo.png',
-        location: '../../images/location.jpg',
+        logo: '../../images/logos/' + fileName + '/logo.png',
+        location: '../../images/logos/' + fileName + '/location.png',
         primaryColorName: primaryColorName,
         accentColorName: accentColorName,
         themeMode: themeMode

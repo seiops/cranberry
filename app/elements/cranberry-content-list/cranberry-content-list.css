@@ -1,89 +1,79 @@
 :host {
   display: block;
-
-  /* postcss-bem-linter: ignore */
-  --paper-card: {
-    min-height: 250px;
-    min-width: 300px;
-  };
-
-  /* postcss-bem-linter: ignore */
-  --paper-card-actions: {
-    flex: 1 1 auto;
-    color: var(--light-theme-secondary-text-color);
-    font-size: 12px;
-    font-weight: 400;
-  };
-
-  /* postcss-bem-linter: ignore */
-  --paper-card-content: {
-    flex: 1 1 auto;
-    @apply(--paper-font-body1);
-
-    color: var(--light-theme-primary-text-color);
-  };
-
-  /* postcss-bem-linter: ignore */
-  --paper-card-header-color: var(--text-dark);
-
-  /* postcss-bem-linter: ignore */
-  --paper-card-header-image: {
-    opacity: 0.8;
-  };
-
-  /* postcss-bem-linter: ignore */
-  --paper-card-header-image-text: {
-    color: var(--text-accent-color);
-    @apply(--paper-font-headline);
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
-  };
-
-  /* postcss-bem-linter: ignore */
-  --paper-card-header-text: {
-    @apply(--paper-font-headline);
-  };
+  --app-grid-columns: 1;
+  --app-grid-gutter: 16px;
+  --app-grid-expandible-item-columns: 1;
 }
 
-div.content-cards {
-  @apply(--layout-around-justified);
-  @apply(--layout-horizontal);
-  @apply(--layout-wrap);
-
-  min-height: 800px;
+/* Development app grid */
+ul {
+  list-style: none;
+  padding: 0;
 }
 
-div.content-cards > a {
-  @apply(--layout-vertical);
-  flex: 1 1 auto;
-
-  margin: 12px;
-  max-width: 370px;
-  text-decoration: none;
+.item {
+  /*border: 1px solid blue;*/
+  list-style: none;
+  min-height: 250px;
 }
 
-div.content-cards > a > paper-card {
-  flex: 1 1 auto;
-  @apply(--layout-vertical);
+.expandable {
+  @apply(--app-grid-expandible-item);
 }
 
-div.stream-advertisement-wrapper {
-  @apply(--layout-horizontal);
-  @apply(--layout-center);
-  flex: 1 1 auto;
-  max-width: 370px;
-}
-
-div.stream-advertisement {
+.item.expandable {
   background-color: transparent;
-  margin: 0 auto;
+  min-height: 0;
+}
+
+@media (min-width: 1580px) {
+  :host {
+    --app-grid-columns: 4;
+    --app-grid-expandible-item-columns: 4;
+  }
+}
+
+@media (max-width: 1579px) {
+  :host {
+    --app-grid-columns: 3;
+    --app-grid-expandible-item-columns: 3;
+  }
+}
+
+@media (max-width: 987px) {
+  :host {
+    --app-grid-columns: 2;
+    --app-grid-expandible-item-columns: 2;
+  }
+}
+
+@media (max-width: 675px) {
+  :host {
+    --app-grid-columns: 1;
+    --app-grid-expandible-item-columns: 1;
+  }
+}
+
+/* Content cards and breakpoints */
+div.content-cards {
+  /*@apply(--layout-horizontal);
+  @apply(--layout-center-justified);
+  @apply(--layout-wrap);*/
+
+  min-height: 100%;
+}
+
+cranberry-card {
+  @apply(--layout-flex);
+  @apply(--layout-vertical);
+  /*border:1px solid red;*/
 }
 
 div.leaderboard-advertisement-wrapper {
   @apply(--layout-center);
-  @apply(--layout-horizontal);
-  @apply(--layout-justified);
-  /*@apply(--layout-flex-12);*/
-   flex: 0 0 100%;
+  @apply(--layout-vertical);
+  width: 100%;
+  margin: 12px 0;
 }
 
 div.leaderboard-advertisement {
@@ -95,24 +85,13 @@ div.leaderboard-advertisement {
   text-align: center;
 }
 
-paper-card.story ::content div.title-text {
-  background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(0,0,0,0.9));
-  width: calc(100% -24px);
+div.pagination-wrapper {
+  @apply(--layout-center);
+  @apply(--layout-flex);
+  @apply(--layout-vertical);
+  margin-top: 24px;
 }
-paper-card.story div.card-info {
+
+div.pagination {
   @apply(--layout-horizontal);
-  @apply(--layout-justified);
-}
-
-paper-card.story div.card-info div.story-tag {
-  @apply(--paper-font-button);
-  background-color: var(--accent-color);
-  color: var(--text-accent-color);
-  padding-left: 6px;
-  padding-right: 6px;
-  text-transform: uppercase;
-}
-
-paper-card.story div.card-info div.story-date {
-  @apply(--paper-font-caption2);
 }

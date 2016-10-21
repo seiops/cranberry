@@ -18,7 +18,14 @@
     <app-route route="{{route}}" pattern="/:id" data="{{routeData}}"></app-route>
 
     <div class="ad-container">
-      <google-dfp id="topAd" section="[[loadSection]]" ad-pos="leaderboard" ad-size="[[728, 90],[970, 90],[970, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+      <google-dfp
+        section="[[loadSection]]"
+        ad-pos="leaderboard"
+        ad-size-mapping="leaderboard"
+        ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
+        ad-group="{$ config.dfpAdStructure.adGroupID $}"
+        ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
+        ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
     </div>
 
     <h1 class="headline">Jail mugs for {{currentHeadline}}</h1>
@@ -30,9 +37,9 @@
       <div class="flex-absolute tag-links">
         <paper-button raised>Jail Mugs</paper-button>
       </div>
-      <cranberry-slider id="mugSlider" autostart arrows></cranberry-slider>
+      <cranberry-slider id="mugSlider" base-url="{$ config.baseDomain $}" autostart arrows></cranberry-slider>
       <div class="flex-absolute share-buttons">
-        <gigya-sharebar share-buttons-id="gigya-share-buttons-jail-mugs"></gigya-sharebar>
+        <gigya-sharebar share-buttons-id="gigya-share-buttons-jail-mugs" title="Jail mugs for [[currentHeadline]]" route="[[route]]"></gigya-sharebar>
       </div>
     </div>
 
@@ -51,7 +58,7 @@
       <div class="card-container">
         <template is="dom-repeat" items={{cardsJson}}>
           <a href="/jail-mugs/{{item.bookingDate}}">
-            <paper-card image="http://www.standard.net/[[item.image.medium]]">
+            <paper-card image="{$ config.baseDomain $}/[[item.image.medium]]">
               <div class="card-content">
                 <div class="content-container">
                   <div class="content">
@@ -66,7 +73,14 @@
         </template>
       </div>
       <div class="ad-container">
-        <google-dfp section="[[loadSection]]" ad-pos="Middle_of_Stream" ad-size="[[300, 600]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+        <google-dfp
+          section="[[loadSection]]"
+          ad-pos="Middle_of_Stream"
+          ad-size="[[300, 600]]"
+          ad-group="{$ config.dfpAdStructure.adGroupID $}"
+          ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
+          ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}">
+        </google-dfp>
       </div>
     </div>
 

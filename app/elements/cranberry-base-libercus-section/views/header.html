@@ -1,0 +1,29 @@
+<app-header id="header" reveals effects="waterfall" fixed="[[mobile]]" condenses="[[mobile]]" reveals="[[!mobile]]">
+  <app-toolbar class="Main-headerToolbar">
+      <!-- Main Toolbar -->
+      <div class="Main-headerTopBar">
+        <paper-icon-button class="Main-headerButton" icon="menu" drawer-toggle></paper-icon-button>
+        <!-- Hidden container examples -->
+        <div class="Main-siteTitle">
+          <div>[[_siteTitle(route)]]</div>
+          <div hidden$="{{!_equal(data.page, '')}}"></div>
+          <div hidden$="{{!_equal(data.page, 'story')}}"></div>
+          <div hidden$="{{!_equal(data.page, 'gallery')}}"></div>
+          <div hidden$="{{!_equal(data.page, 'policy')}}"></div>
+          <div hidden$="{{!_equal(data.page, 'section')}}"></div>
+        </div>
+        <div class="Main-siteLogo">
+          <iron-image preload src="{$ theme.global.logo $}" fade hidden$="[[logo]]"></iron-image>
+        </div>
+        <div class="Main-siteButtons">
+          <paper-icon-button class="Main-headerButton" icon="search" on-tap="_focusSearch"></paper-icon-button>
+          <div hidden$="[[!user.thumbnailURL]]">
+            <a class="link" on-tap="openUserModal"><iron-image width="24" height="24" style="padding:8px;border-radius:48px" preload src="[[user.thumbnailURL]]" fade sizing="cover"></iron-image></a>
+          </div>
+          <div hidden$="[[user.thumbnailURL]]">
+            <paper-icon-button class="Main-headerButton" icon="account-circle" on-tap="openUserModal"></paper-icon-button>
+          </div>
+        </div>
+      </div>
+  </app-toolbar>
+</app-header>

@@ -1,0 +1,39 @@
+:host {
+  display: block;
+
+  /* postcss-bem-linter: ignore */
+  --paper-icon-button: {
+    padding: 0;
+    width: 24px;
+    height: 24px;
+  };
+
+  /* postcss-bem-linter: ignore */
+  --paper-input-container: {
+    padding: 0;
+  };
+
+  /* postcss-bem-linter: ignore */
+  --paper-input-container-input: {
+    padding-left: 18px;
+  };
+
+  /* postcss-bem-linter: ignore */
+  --paper-input-container-label: {
+    @apply(--paper-font-body1);
+    color: var(--disabled-text-color);
+    font-weight: 500;
+    margin-left: 24px;
+  };
+
+  /* postcss-bem-linter: ignore */
+  --paper-input-prefix: {
+    color: var(--disabled-text-color);
+  };
+
+  /* postcss-bem-linter: ignore */
+  --paper-input-suffix: {
+    color: var(--accent-color);
+    display: inline;
+  };
+}

@@ -1,0 +1,27 @@
+:host {
+  display: block;
+}
+
+div.user-card {
+  @apply(--layout-vertical);
+  @apply(--layout-center);
+}
+
+div.user-created {
+  margin: 14px 0;
+}
+
+div.user-name {
+  margin-top: 14px;
+}
+
+iron-image.user ::content img {
+  width: 75px;
+  height: 75px;
+}
+
+iron-image.user-mugshot {
+  overflow:hidden;
+  border-radius: 150px;
+  display:inline-block;
+}

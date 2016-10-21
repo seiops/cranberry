@@ -1,51 +1,111 @@
-<!--
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
-
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/iron-form/iron-form.html">
-<link rel="import" href="../../bower_components/iron-form-element-behavior/iron-form-element-behavior.html">
-<link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
-<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
-<link rel="import" href="../../bower_components/iron-input/iron-input.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html">
-<link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
-<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../gigya-update-profile/gigya-update-profile.html">
+<link rel="import" href="../gigya-user-comments/gigya-user-comments.html">
+<link rel="import" href="../gigya-user-card/gigya-user-card.html">
+<link rel="import" href="../gigya-change-password/gigya-change-password.html">
+<link rel="import" href="../gigya-forgot-password/gigya-forgot-password.html">
+<link rel="import" href="../gigya-login/gigya-login.html">
+<link rel="import" href="../gigya-register/gigya-register.html">
+<link rel="import" href="../gigya-finalize-register/gigya-finalize-register.html">
+
 <dom-module id="gigya-socialize">
   <template>
-    <style>
-      @import "gigya-socialize/gigya-socialize";
+    <style include="shared-styles">
+    @import "theme.css";
+    @import "gigya-socialize/gigya-socialize";
     </style>
-    <script type="text/javascript" src="https://cdns.gigya.com/JS/gigya.js?apikey={$ config.gigya.apiKey $}"></script>
-    <byutv-jsonp on-response="handleResponse" debounce-duration="300" id="request"></byutv-jsonp>
-    <form is="iron-form" action="/" id="form">
-      <paper-input name="loginID" label="Username" required auto-validate error-message="You must provide a username." allowed-pattern="[\@\.A-zA-Z0-9]" auto-complete></paper-input>
-      <paper-input name="password" label="Password" type="password" required auto-validate error-message="You must provide a password."></paper-input>
-      <paper-button onclick="_submit(event)">Submit</paper-button>
-      <paper-button onclick="_reset(event)">Reset</paper-button>
-      <div class="output"></div>
-    </form>
-    <script>
-
-      function _submit(event) {
-        document.getElementById('form').submit();
-      }
-
-      function _reset(event) {
-        var form = Polymer.dom(event).localTarget.parentElement;
-        form.reset();
-        form.querySelector('.output').innerHTML = '';
-      }
-
-    </script>
+    <paper-dialog id="userModal" modal>
+      <paper-dialog-scrollable>
+        <template is="dom-if" if="[[user.isLoggedIn]]">
+          <paper-toolbar>
+            <div class="user-toolbar">
+              <paper-icon-button icon="arrow-back" dialog-dismiss></paper-icon-button>
+              <div class="user-title">[[user.firstName]] [[user.lastName]]</div>
+            </div>
+            <paper-icon-button icon="close" dialog-dismiss></paper-icon-button>
+          </paper-toolbar>
+          <paper-toolbar>
+            <paper-tabs id="accountTabs" selected="{{userSelected}}" autoselect>
+              <paper-tab>My Profile</paper-tab>
+              <paper-tab disabled>Membership</paper-tab>
+              <!-- <paper-tab disabled>Newsletters</paper-tab> -->
+              <paper-tab>Settings</paper-tab>
+              <paper-tab>Password</paper-tab>
+            </paper-tabs>
+          </paper-toolbar>
+          <div class="user-content">
+            <div hidden$="{{!_equal(userSelected, 0)}}">
+              <paper-material>
+                <div class="user-info">
+                  <gigya-user-card user="[[user]]"></gigya-user-card>
+                  <div class="user-settings">
+                    <paper-button on-tap="_showAccountSettings" raised>Account Settings</paper-button>
+                    <paper-button on-tap="_handleLogout" raised>Logout</paper-buttofn>
+                  </div>
+                  <div class="user-tabs">
+                    <paper-tabs id="profileTabs" selected="{{profileSelected}}" autoselect>
+                      <paper-tab>My Comments</paper-tab>
+                      <paper-tab disabled>My Photos</paper-tab>
+                      <paper-tab disabled>My Stories</paper-tab>
+                    </paper-tabs>
+                  </div>
+                </div>
+              </paper-material>
+              <div class="profile-tabs">
+                <div hidden$="{{!_equal(profileSelected, 0)}}">
+                  <gigya-user-comments></gigya-user-comments>
+                </div>
+                <div hidden$="{{!_equal(profileSelected, 1)}}">
+                  My Photos
+                </div>
+                <div hidden$="{{!_equal(profileSelected, 2)}}">
+                  My Stories
+                </div>
+            </div>
+            </div>
+            <div hidden$="{{!_equal(userSelected, 1)}}">
+              My Membership
+            </div>
+            <!-- Newsletter section commented out for future. Reset indexes below if uncommented -->
+            <!-- <div hidden$="{{!_equal(userSelected, 2)}}">
+              Newsletters
+            </div> -->
+            <div hidden$="{{!_equal(userSelected, 2)}}">
+              <gigya-update-profile user="[[user]]" account="[[account]]"></gigya-update-profile>
+            </div>
+            <div hidden$="{{!_equal(userSelected, 3)}}">
+              <gigya-change-password user="[[user]]"></gigya-change-password>
+            </div>
+          </div>
+        </template>
+        <template is="dom-if" if="[[!user.isLoggedIn]]">
+          <paper-toolbar class="user-toolbar">
+            <paper-tabs id="guestTabs" selected="{{guestSelected}}" autoselect>
+              <paper-tab>Login</paper-tab>
+              <paper-tab>Register</paper-tab>
+              <paper-tab>Forgot Password</paper-tab>
+            </paper-tabs>
+            <paper-icon-button icon="close" dialog-confirm></paper-icon-button>
+          </paper-toolbar>
+          <div class="user-content">
+            <div hidden$="{{!_equal(guestSelected, 0)}}">
+              <gigya-login api-key="{$ config.gigya.apiKey $}"></gigya-login>
+            </div>
+            <div hidden$="{{!_equal(guestSelected, 1)}}">
+              <gigya-register></gigya-register>
+            </div>
+            <div hidden$="{{!_equal(guestSelected, 2)}}">
+              <gigya-forgot-password></gigya-forgot-password>
+            </div>
+          </div>
+        </template>
+      </paper-dialog-scrollable>
+    </paper-dialog>
   </template>
   <script src="gigya-socialize.js"></script>
-
 </dom-module>

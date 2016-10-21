@@ -7,6 +7,8 @@
 <link rel="import" href="../cranberry-slider/cranberry-slider.html">
 <link rel="import" href="../gigya-comments/gigya-comments.html">
 <link rel="import" href="../gigya-sharebar/gigya-sharebar.html">
+<link rel="import" href="../google-dfp/google-dfp.html">
+<link rel="import" href="../cranberry-related-content/cranberry-related-content.html">
 
 <dom-module id="cranberry-gallery">
   <template>
@@ -14,61 +16,108 @@
       @import "cranberry-gallery/cranberry-gallery";
     </style>
 
-    <paper-dialog id="modal" modal>
-      <div class="gallery-container">
-        <cranberry-slider id="modalSlider" images="{{gallery.mediaAssets.images}}" autostart arrows info caption modal></cranberry-slider>
-        <paper-button id="modalClose" raised>Close</paper-button>
-      </div>
-    </paper-dialog>
-
     <app-route route="{{route}}" pattern="/:id" data="{{routeData}}"></app-route>
     <byutv-jsonp on-response="_handleResponse" id="request"></byutv-jsonp>
 
-    <div class="ut-center">
-      <google-dfp route="{{route}}" ad-pos="leaderboard_bottom" ad-size="[728, 90]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+    <iron-media-query query="(min-width: 960px)" query-matches="{{desktop}}"></iron-media-query>
+    <iron-media-query query="(min-width: 720px) and (max-width:959px)" query-matches="{{tablet}}"></iron-media-query>
+    <iron-media-query query="(max-width: 719px)" query-matches="{{mobile}}"></iron-media-query>
+
+    <div class="header-advertisement">
+      <google-dfp
+        section="[[gallery.sectionInformation.sectionName]]"
+        section-parent="[[gallery.sectionInformation.sectionParentName]]"
+        tags="[[gallery.tags]]"
+        ad-pos="leaderboard"
+        ad-size-mapping="leaderboard"
+        ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
+        ad-group="{$ config.dfpAdStructure.adGroupID $}"
+        ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
+        ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}">
+      </google-dfp>
     </div>
 
-    <div class="gallery-container">
-
-      <div class="flex-absolute tag-links">
-        <paper-button raised>{{tags.1}}</paper-button>
-      </div>
-
-      <div class="flex-absolute expand-link">
-        <paper-button raised id="modalOpen" class="rounded-button"><iron-icon icon="icons:fullscreen"></iron-icon></paper-button>
-      </div>
-      <cranberry-slider id="mainSlider" images="{{gallery.mediaAssets.images}}" autostart arrows info caption>
-        <div class="flex-absolute share-buttons">
-          <paper-button raised id="buyButton" class="rounded-button"><iron-icon icon="editor:attach-money"></iron-icon></paper-button>
-          <gigya-sharebar share-buttons-id="gigya-share-buttons-gallery"></gigya-sharebar>
+    <div class="gallery-slider-container" desktop-layout$="{{desktop}}" tablet-layout$="{{tablet}}" mobile-layout$="{{mobile}}">
+      <cranberry-slider id="mainSlider" base-url="{$ config.baseDomain $}" items="{{gallery.mediaAssets.images}}" mobile-layout$="{{mobile}}">
+        <div class="gallery-tag" hidden$="{{noTags}}">
+          <span class="content-tag">{{tags.0}}</span>
+        </div>
+        <div class="expand-link">
+          <paper-button raised class="rounded-button" on-tap="_openModal"><iron-icon icon="icons:fullscreen"></iron-icon></paper-button>
+        </div>
+        <div class="share-buttons">
+          <paper-button raised id="buyButton" class="rounded-button" on-tap="_buyImage"><iron-icon icon="editor:attach-money"></iron-icon></paper-button>
+          <gigya-sharebar share-buttons-id="gigya-share-buttons-gallery" title="[[gallery.title]]" route="[[route]]"></gigya-sharebar>
         </div>
       </cranberry-slider>
+    </div>
 
-    <h1 class="gallery-title">{{gallery.title}}</h1>
-    <p class="time-stamp"> {{gallery.updated}} </p>
-    <p class="body-text">{{gallery.FullText}}</p>
+    <div class="gallery-description-container">
+      <p class="gallery-date">[[gallery.updated]]</p>
+      <h2 class="gallery-headline">[[gallery.title]]</h2>
+      <p class="gallery-description">[[gallery.FullText]]</p>
+    </div>
 
-    <div class="ut-grid ut-margin-bottom">
-      <div class="flex-3 ut-center" id="images">
+    <div class="content-container">
+      <div class="gallery-images-container">
         <template is="dom-repeat" items="{{gallery.mediaAssets.images}}">
-          <iron-image src$="http://www.standard.net{{item.small}}" sizing="cover" data-index$="{{index}}" style="background-color: lightgray;" preload></iron-image>
+          <iron-image class="gallery-image" src$="{$ config.baseDomain $}{{item.small}}" sizing="cover" data-index$="{{index}}" style="background-color: lightgray;" preload on-tap="_goToSlide"></iron-image>
         </template>
       </div>
-      <div class="flex ut-center">
-        <google-dfp route="{{route}}" ad-pos="bottom_of_stream" adsize="[[300,250],[300,600]]" adgroup="{$ config.dfpAdStructure.adGroupID $}" adgrouping="{$ config.dfpAdStructure.adGrouping $}" adsubgrouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+      <div class="gallery-container-ad">
+        <google-dfp section="[[gallery.sectionInformation.sectionName]]"
+                    section-parent="[[gallery.sectionInformation.sectionParentName]]"
+                    tags="[[gallery.tags]]"
+                    ad-pos="Top_of_Stream"
+                    ad-size="[[300, 250],[300, 600]]"
+                    ad-group="{$ config.dfpAdStructure.adGroupID $}"
+                    ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
+                    ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}">
+        </google-dfp>
       </div>
     </div>
 
-
-    <!-- Comments -->
-    <div class="ut-center">
-      <gigya-comments comments-id="gallery-comments"></gigya-comments>
+    <div class="header-advertisement">
+      <google-dfp
+        section="[[gallery.sectionInformation.sectionName]]"
+        section-parent="[[gallery.sectionInformation.sectionParentName]]"
+        tags="[[gallery.tags]]"
+        ad-pos="middle_of_stream"
+        ad-size-mapping="leaderboard"
+        ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
+        ad-group="{$ config.dfpAdStructure.adGroupID $}"
+        ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
+        ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}">
+      </google-dfp>
     </div>
 
-    <div class="ut-center">
-      <iron-image src="http://www.placehold.it/970x250&text=AD_970x250"></iron-image>
+    <div class="recommended-container">
+      <div class="youneeq-container">
+        <youneeq-content user="[[user]]" content="[[gallery]]" domain="{$ config.baseDomain $}"></youneeq-content>
+      </div>
+      <div class="recommended-content-container">
+        <cranberry-related-content related-items="[[gallery.relatedContent]]" story></cranberry-related-content>
+        <cranberry-related-content related-items="[[gallery.relatedContent]]" gallery></cranberry-related-content>
+      </div>
     </div>
 
+    <div class="comments-container">
+      <gigya-comments stream-id="[[gallery.genericLink]]" content="[[gallery]]"  config-id="{$ config.gigya.commentsId $}"></gigya-comments>
+    </div>
+
+    <div class="header-advertisement">
+      <google-dfp
+        section="[[gallery.sectionInformation.sectionName]]"
+        section-parent="[[gallery.sectionInformation.sectionParentName]]"
+        tags="[[gallery.tags]]"
+        ad-pos="Last_of_Stream"
+        ad-size-mapping="leaderboard"
+        ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
+        ad-group="{$ config.dfpAdStructure.adGroupID $}"
+        ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
+        ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}">
+      </google-dfp>
+    </div>
   </template>
     <script src="cranberry-gallery.js"></script>
 </dom-module>

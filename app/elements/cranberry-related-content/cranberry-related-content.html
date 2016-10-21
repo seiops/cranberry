@@ -1,0 +1,35 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="cranberry-related-content">
+  <template>
+    <style>
+      @import "cranberry-related-content/cranberry-related-content";
+    </style>
+    <div class="wrapper" hidden$="{{noItems}}">
+      <template is="dom-if" if="{{gallery}}">
+        <h3 class="related-headline">Related galleries:</h3>
+        <template is="dom-repeat" items="{{items}}" filter="isGallery">
+          <div class="content-wrapper">
+            <a href="/photo-gallery/[[item.itemId]]">
+              <iron-image class="related-gallery-image" sizing="cover" src="{$ config.baseDomain $}{{item.mediaAssets.images.0.medium}}"></iron-image>
+            </a>
+          </div>
+        </template>
+      </template>
+
+      <template is="dom-if" if="{{story}}">
+        <h3 class="related-headline">Related stories:</h3>
+        <template is="dom-repeat" items="{{items}}" filter="isStory">
+          <div class="content-wrapper">
+            <a href="/story/[[item.itemId]]">
+              <div class="related-title"> [[item.title]] </div>
+              <div class="related-caption"> [[item.preview]] </div>
+            </a>
+            <hr class="related-split" hidden$="{{_isLast(index)}}" />
+          </div>
+        </template>
+      </template>
+    </div>
+  </template>
+    <script src="cranberry-related-content.js"></script>
+</dom-module>

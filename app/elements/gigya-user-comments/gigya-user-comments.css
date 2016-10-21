@@ -1,0 +1,25 @@
+:host[content] {
+  display: block;
+}
+
+paper-material.user-comments {
+  @apply(--layout-vertical);
+  padding: 0 24px 24px;
+}
+
+div.comment-row {
+  @apply(--layout-horizontal);
+  padding-top: 24px;
+  padding-bottom: 24px;
+  width: 100%;
+  border-top: 1px solid var(--accent-color);
+}
+
+div.comment-text {
+  @apply(--layout-flex);
+  margin-right: 24px;
+}
+
+div.comment-timestamp {
+  @apply(--layout-end);
+}

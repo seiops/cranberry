@@ -1,58 +1,19 @@
 :host {
   display: block;
 
-  --paper-card {
-    @apply(-layout-flex);
-  }
-  /* postcss-bem-linter: ignore */
-  --paper-card-actions: {
-    color: var(--light-theme-secondary-text-color);
-    font-size: 12px;
-    font-weight: 400;
-  };
-
   /* postcss-bem-linter: ignore */
   --paper-slide-height: auto;
 
   /* postcss-bem-linter: ignore */
-  --paper-card-content: {
-    @apply(--layout-flex);
-    @apply(--paper-font-body1);
-
-    color: var(--light-theme-primary-text-color);
-  };
+  --paper-slide-dot: var(--light-theme-primary-text-color);
 
   /* postcss-bem-linter: ignore */
-  --paper-card-header-image-text: {
-    @apply(--paper-font-headline);
-    color: var(--text-accent-color);
-    font-size: 24px;
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
-  };
-}
-
-paper-card div.card-info span.content-tag {
-  @apply(--paper-font-button);
-  background-color: var(--accent-color);
-  color: var(--text-accent-color);
-  padding-left: 6px;
-  padding-right: 6px;
-  text-transform: uppercase;
-}
-
-paper-card div.card-info span.content-date {
-  @apply(--paper-font-caption2);
-}
-
-paper-card div.card-info {
-  @apply(--layout-horizontal);
-  @apply(--layout-justified);
+  --paper-slide-dot-selected: var(--accent-color);;
 }
 
 div.featured-content {
   @apply(--layout-horizontal);
-
-  margin-bottom: 16px;
+  margin: 0 16px 16px;
 }
 
 div.featured-main {
@@ -63,21 +24,9 @@ div.featured-main {
   min-height: 300px;
 }
 
-div.featured-main > a {
+div.featured-main cranberry-card {
   @apply(--layout-flex);
   @apply(--layout-vertical);
-
-  text-decoration: none;
-}
-
-div.featured-main > a > paper-card {
-  @apply(--layout-flex);
-  @apply(--layout-vertical);
-}
-
-a > paper-card ::content div.title-text {
-  background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(0,0,0,0.9));
-  width: calc(100% - 32px);
 }
 
 div.featured-list {
@@ -86,6 +35,26 @@ div.featured-list {
   @apply(--layout-vertical);
 }
 
-div.featured-list paper-card {
-    min-height: 200px;
+l2t-paper-slider ::content .slider {
+  margin-bottom: 24px;
+  overflow-x: hidden;
+  overflow-y: visible;
+  padding-bottom: 32px;
+}
+
+l2t-paper-slider ::content .slider__dots {
+  bottom: 0px;
+}
+l2t-paper-slider ::content .slider__slides {
+  background-color: transparent;
+}
+
+div.livestream {
+  @apply(--layout-horizontal);
+  @apply(--layout-center);
+  @apply(--layout-center-justified);
+
+  margin-bottom: 16px;
+  padding: 20px;
+  background: #333 url("../../images/livestream/background.jpg");
 }

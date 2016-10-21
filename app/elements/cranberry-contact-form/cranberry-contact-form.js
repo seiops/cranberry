@@ -4,49 +4,56 @@ class cranberryContactForm {
     this.properties = {
       recipient: {
         type: String
+      },
+      submitting: {
+        type: Boolean,
+        value: false
       }
     };
-    // Reset button behavior
-    this.handleReset = function(event) {
-      let form = Polymer.dom(event).localTarget.parentElement;
-      // Reset inputs, checkboxes, and radio buttons
-      form.reset();
-      // Reset the textarea
-      form.querySelector('.output').innerHTML = '';
-      // Fire a change event on the form to re-validate
-      form.fire('change');
-    };
-    // Submit button behavior
-    this.handleSubmit = function(event) {
-      let form = this.$$('form');
-      let request = this.$.request;
-      
-      // Check form for validity
-      let validForm = form.validate();
-      // if the form is in a valid state then submit
-      if (validForm) {
-        request.url = "http://sedevcore.libercus.net/contact-form"
+  }
 
-        var params = {};
+  _handleSubmit() {
+    let form = this.$.form;
+    let request = this.$.request;
+    let submit = this.$.submitButton;
 
-        params.request = "submit";
-        params.fullname = form.name.value;
-        params.email = form.email.value;
-        params.address = form.address.value;
-        params.telephone = form.telephone.value;
-        // Send blank string to by-pass captcha from Libercus.
-        params.captcha = '';
-        params.message = form.message.value;
-        // Passed in value for recipient
-        params.recipient = this.recipient;
+    submit.disabled = true;
+    this.set('submitting', true);
+    // Check form for validity
+    let validForm = form.validate();
+    // if the form is in a valid state then submit
+    if (validForm) {
+      request.setAttribute('url', window.location.protocol + '//' +  window.location.host + '/contact-form');
 
-        // Set params on the request
-        request.params = params;
+      var params = {};
 
-        // Initiate HTTP request
-        request.generateRequest();
-      }
-    };
+      params.request = "submit";
+      params.fullname = form.name.value;
+      params.email = form.email.value;
+      params.address = form.address.value;
+      params.telephone = form.telephone.value;
+      // Send blank string to by-pass captcha from Libercus.
+      params.captcha = '';
+      params.message = form.message.value;
+      // Passed in value for recipient
+      params.recipient = this.recipient;
+
+      // Set params on the request
+      request.params = params;
+
+      // Initiate HTTP request
+      request.generateRequest();
+    }
+  }
+
+  _handleReset() {
+    let form = this.$.form;
+    // Reset inputs, checkboxes, and radio buttons
+    form.reset();
+    // Reset reCaptcha
+    this.$.recap.reset();
+    // Fire a change event on the form to re-validate
+    form.fire('change');
   }
 
   ready() {
@@ -80,7 +87,19 @@ class cranberryContactForm {
   // byutv handle response function
   handleResponse (data) {
     var response = data.detail.Result;
-    this.querySelector('.output').innerHTML = response;
+
+    if (response === 'Your message has been sent') {
+      // Message was successfully sent
+      app.$.infoToast.text = 'Thank you for your submission!';
+      app.$.infoToast.show();
+
+      this._handleReset();
+    }
+
+    this.set('submitting', false);
+    let submit = this.$.submitButton;
+    submit.disabled = false;
+
   }
 }
 

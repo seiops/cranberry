@@ -2,12 +2,19 @@ class cranberryShortcode {
     beforeRegister() {
         this.is = 'cranberry-shortcode';
         this.properties = {
-          storyObject: {
-            type: Object
-          },
-          shortcodeObject: {
-            type: Object
-          }
+            storyObject: {
+                type: Object
+            },
+            shortcodeObject: {
+                type: Object
+            },
+            baseUrl: {
+                type: String
+            },
+            toutUid: {
+                type: String,
+                value: ''
+            }
         };
     }
 
@@ -61,7 +68,12 @@ class cranberryShortcode {
         case 'twitteruser':
           this._createShortcode({}, 'twitter', shortcode);
           break;
+        case 'leadyoutube':
         case 'youtube':
+          if (shortcode.key === 'leadyoutube') {
+            let storyEl = document.querySelector('cranberry-story');
+            storyEl.set('hasLeadShortcode', true);
+          }
           foundObject = this._findAsset(story.mediaAssets.videos, 'title', shortcode.value);
           this._createShortcode(foundObject, 'youtube', shortcode);
           break;
@@ -90,11 +102,14 @@ class cranberryShortcode {
           break;
         case 'generator':
           break;
+        case 'toutembed':
+          this._createShortcode(undefined, 'toutEmbed', shortcode);
       }
     }
 
     _createShortcode(foundObject, type, shortcode) {
       let shortcodeEl;
+      let baseUrl = this.get('baseUrl');
 
       // Create shortcode for images. Except for leadimages
       if (type === 'image' && shortcode.key !== 'leadimage') {
@@ -102,7 +117,7 @@ class cranberryShortcode {
         let image = document.createElement('iron-image');
         let caption = document.createElement('p');
         caption.classList.add('caption-text');
-        image.src = 'http://www.standard.net' + (shortcode.key === 'image' ? foundObject.large : foundObject.url);
+        image.src = baseUrl + (shortcode.key === 'image' ? foundObject.large : foundObject.url);
         caption.appendChild(document.createTextNode(foundObject.caption));
         image.appendChild(caption);
         container.appendChild(image);
@@ -112,7 +127,7 @@ class cranberryShortcode {
 
       // Create shortcode for PDF's and Audio
       if (type === 'attachment') {
-        let url = 'http://www.standard.net' + foundObject.url;
+        let url = baseUrl + foundObject.url;
         if (shortcode.key === 'pdf') {
           shortcodeEl = document.createElement('pdf-object');
           shortcodeEl.file = url;
@@ -155,7 +170,7 @@ class cranberryShortcode {
 
         foundObject.forEach(function(value, index) {
           let obj = {};
-          obj.url = 'http://www.standard.net' + value.exlarge;
+          obj.url = baseUrl + value.exlarge;
           images.push(obj);
         });
 
@@ -189,7 +204,7 @@ class cranberryShortcode {
         let videoAttribute = document.createAttribute('video-id');
         videoAttribute.value = foundObject.url;
         shortcodeEl.setAttributeNode(videoAttribute);
-        shortcodeEl.height = '400px';
+        shortcodeEl.height = '100%';
         shortcodeEl.width = '100%';
       }
 
@@ -218,7 +233,7 @@ class cranberryShortcode {
             }
           }
         });
-
+        let baseUrl = this.get('baseUrl');
         let slider = document.createElement('cranberry-slider');
         let wrapper = document.createElement('cranberry-slider-wrapper');
 
@@ -230,6 +245,7 @@ class cranberryShortcode {
         slider.set('bullets', false);
         slider.set('info', true);
         slider.set('caption', true);
+        slider.set('baseUrl', baseUrl);
         slider.set('images', featured.mediaAssets.images);
 
 
@@ -241,6 +257,7 @@ class cranberryShortcode {
 
       // Create SingleGallery shortcode
       if (type === 'singlegallery') {
+        let baseUrl = this.get('baseUrl');
         let slider = document.createElement('cranberry-slider');
         let wrapper = document.createElement('cranberry-slider-wrapper');
 
@@ -251,6 +268,7 @@ class cranberryShortcode {
         slider.set('bullets', false);
         slider.set('info', true);
         slider.set('caption', true);
+        slider.set('baseUrl', baseUrl);
 
         slider.set('images', foundObject.mediaAssets.images);
 
@@ -259,9 +277,29 @@ class cranberryShortcode {
         shortcodeEl = wrapper;
       }
 
+      if (type === 'toutEmbed') {
+        let story = document.querySelector('cranberry-story');
+        shortcodeEl = document.createElement('div');
+
+        let tout = document.createElement('div');
+        let toutScript = document.createElement('script');
+        let toutId = 'tout-' + shortcode.value + '-target';
+        let toutUid = this.toutUid;
+
+        tout.id = toutId;
+        toutScript.src = '//player.tout.com/embeds/' + shortcode.value + '.js?content_brand_uid=' + toutUid + '&width=auto&height=auto&autoplay=false&element_id=' + toutId;
+
+        shortcodeEl.appendChild(tout);
+        shortcodeEl.appendChild(toutScript);
+
+      }
+
       // Append shortcodeEl
+      let story = document.querySelector('cranberry-story');
       if (shortcode.key === 'leadimage') {
-        document.querySelector('#mainImage').src = 'http://www.standard.net/' + foundObject.exlarge;
+        story.querySelector('#mainImage').src = baseUrl + foundObject.exlarge;
+      } else if (shortcode.key === 'leadyoutube') {
+        story.querySelector('#leadShortcode').appendChild(shortcodeEl);
       } else {
         Polymer.dom(this.$.shortcode).appendChild(shortcodeEl);
       }

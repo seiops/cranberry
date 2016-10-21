@@ -1,8 +1,14 @@
-#commentsButton {
-  background: var(--dark-theme-primary-background-color);
-  color: var(--text-dark-primary-color);
+:host {
+  @apply(--layout-vertical);
+  @apply(--layout-center-justified);
+}
+
+paper-button {
+  @apply(--layout-self-center);
   @apply(--paper-font-button);
-  width: 181px;
+  background: var(--accent-color);
+  color: var(--text-dark-primary-color);
+  width: 180px;
   height: 45px;
   margin-bottom: 25px;
 }

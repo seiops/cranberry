@@ -1,0 +1,35 @@
+:host {
+  display: block;
+}
+
+div.breaking-bar-wrapper {
+  @apply(--layout-horizontal);
+  @apply(--layout-justified);
+  @apply(--layout-center);
+  background-image: url("../../images/breaking/repeatable.png");
+  width: 100%;
+}
+
+a.breaking-item-link {
+  text-decoration: none;
+}
+
+div.breaking-item {
+
+  padding: 10px;
+}
+
+span.breaking-pre-cursor,
+h3.breaking-title {
+  @apply(--paper-font-display2);
+  color: var(--text-accent-color);
+}
+
+h3.breaking-title {
+  margin: 0;
+  display: inline-block;
+}
+
+div.breaking-bar-buttons paper-icon-button {
+  color: var(--text-accent-color);
+}

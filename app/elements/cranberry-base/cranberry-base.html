@@ -7,63 +7,59 @@
 
 <!-- App layout elements -->
 <link rel="import" href="../../bower_components/app-layout/app-layout.html">
-<link rel="import" href="../../bower_components/app-layout/app-scroll-effects/effects/waterfall.html">
+<link rel="import" href="../../bower_components/app-layout/app-scroll-effects/effects/blend-background.html">
 
 <!-- App Theme -->
 <link rel="import" href="../../themes/{$ config.appTheme $}/theme.html">
 
-<!-- JSONP Elements -->
-<link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
-
 <!-- Iron elements -->
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
-<link rel="import" href="../../bower_components/iron-form/iron-form.html">
-<link rel="import" href="../../bower_components/iron-form-element-behavior/iron-form-element-behavior.html">
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/iron-icons/communication-icons.html">
 <link rel="import" href="../../bower_components/iron-icons/social-icons.html">
 <link rel="import" href="../../bower_components/iron-icons/image-icons.html">
 <link rel="import" href="../../bower_components/iron-icons/maps-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/hardware-icons.html">
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../../bower_components/iron-localstorage/iron-localstorage.html">
 <link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
 <link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
-<link rel="import" href="../../bower_components/iron-selector/iron-selector.html">
-<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
-<link rel="import" href="../../bower_components/iron-meta/iron-meta.html">
 
 <!-- Animation elements -->
 <link rel="import" href="../../bower_components/neon-animation/neon-animation.html">
 
 <!-- Paper elements -->
-<link rel="import" href="../../bower_components/l2t-paper-slider/l2t-paper-slider.html">
-<link rel="import" href="../../bower_components/paper-card/paper-card.html">
-<link rel="import" href="../../bower_components/paper-drawer-panel/paper-drawer-panel.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../../bower_components/paper-material/paper-material.html">
 <link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
-<link rel="import" href="../../bower_components/paper-scroll-header-panel/paper-scroll-header-panel.html">
 <link rel="import" href="../../bower_components/paper-styles/color.html">
 <link rel="import" href="../../bower_components/paper-styles/typography.html">
-<link rel="import" href="../../bower_components/paper-swatch-picker/paper-swatch-picker.html">
-<link rel="import" href="../../bower_components/paper-search/paper-search.html">
-<link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
 <link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
 <link rel="import" href="../../bower_components/paper-toggle-button/paper-toggle-button.html">
 <link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
 
+<!-- Gigya elements -->
+<link rel="import" href="../gigya-socialize/gigya-socialize.html">
+
+<!-- Analytics elements -->
+<link rel="import" href="../cranberry-google-analytics/cranberry-google-analytics.html">
+
 <!-- Cranberry elements -->
-<!-- <link rel="import" href="../gigya-socialize/gigya-socialize.html"> -->
-<link rel="import" href="../cranberry-content-list/cranberry-content-list.html">
-<link rel="import" href="../cranberry-featured-content/cranberry-featured-content.html">
-<link rel="import" href="../cranberry-gallery/cranberry-gallery.html">
-<link rel="import" href="../cranberry-section/cranberry-section.html">
-<link rel="import" href="../cranberry-styles/cranberry-styles.html">
-<link rel="import" href="../cranberry-story/cranberry-story.html">
+<link rel="import" href="../cranberry-script-loader/cranberry-script-loader.html">
 <link rel="import" href="../cranberry-contact-page/cranberry-contact-page.html">
-<link rel="import" href="../gigya-sharebar/gigya-sharebar.html">
-<link rel="import" href="../cranberry-jail-mugs/cranberry-jail-mugs.html">
+<link rel="import" href="../cranberry-gallery/cranberry-gallery.html">
+<link rel="import" href="../cranberry-story/cranberry-story.html">
+<link rel="import" href="../cranberry-section/cranberry-section.html">
+<link rel="import" href="../cranberry-story/cranberry-story.html">
+<link rel="import" href="../cranberry-styles/cranberry-styles.html">
+<link rel="import" href="../cranberry-search/cranberry-search.html">
+<link rel="import" href="../cranberry-search-bar/cranberry-search-bar.html">
+<link rel="import" href="../cranberry-archive-page/cranberry-archive-page.html">
+<link rel="import" href="../cranberry-calendar/cranberry-calendar.html">
+<link rel="import" href="../cranberry-nativo-story/cranberry-nativo-story.html">
+<link rel="import" href="../cranberry-breaking-bar/cranberry-breaking-bar.html">
+<link rel="import" href="../cranberry-static-section/cranberry-static-section.html">
+<link rel="import" href="../cranberry-header-links/cranberry-header-links.html">
 <link rel="import" href="../google-dfp/google-dfp.html">
 
 <dom-module id="cranberry-base">
@@ -73,6 +69,21 @@
       @import "theme.css";
     </style>
 
+    <!-- base media queries -->
+    <iron-media-query query="(min-width: 1280px)" query-matches="{{logo}}"></iron-media-query>
+    <iron-media-query query="(min-width: 960px)" query-matches="{{desktop}}"></iron-media-query>
+    <iron-media-query query="(min-width: 720px) and (max-width:959px)" query-matches="{{tablet}}"></iron-media-query>
+    <iron-media-query query="(max-width: 719px)" query-matches="{{mobile}}"></iron-media-query>
+
+    <!-- Script loader -->
+    <cranberry-script-loader></cranberry-script-loader>
+
+    <!-- Google Analytics -->
+    <cranberry-google-analytics tracking-id="{$ config.google.analytics $}"></cranberry-google-analytics>
+
+    <!-- Gigya socialize/accounts integration -->
+    <gigya-socialize user="{{user}}" route="[[route]]"></gigya-socialize>
+
     <!-- local browser storage -->
     <iron-localstorage id="localStorage" name="{$ config.appNameId $}"
       value="{{storage}}"
@@ -81,7 +92,16 @@
 
     <!-- app path routing -->
     {% include "cranberry-base/views/routes.html" %}
-    <iron-meta id="metaSection" key="section" value="{{section}}"></iron-meta>
+
+    <paper-dialog id="globalModal" modal auto-fit-on-attach on-iron-overlay-opened="_disableDocumentScrolling" on-iron-overlay-closed="_restoreDocumentScrolling">
+      <paper-dialog-scrollable>
+        <div class="content-area">
+        </div>
+        <div class="close-button-container">
+          <paper-button class="modal-close" on-tap="_clearModal" raised dialog-dismiss>CLOSE</paper-button>
+        </div>
+      </paper-dialog-scrollable>
+    </paper-dialog>
 
     <app-drawer-layout responsive-width="1280px">
       <!-- side navigation drawer -->
@@ -92,19 +112,36 @@
         {% include "cranberry-base/views/header.html" %}
 
         <!-- content area -->
+        <cranberry-breaking-bar rest="{$ config.baseEndpointUrl $}" mobile="[[mobile]]" tablet="[[tablet]]" desktop="[[desktop]]"></cranberry-breaking-bar>
         {% include "cranberry-base/views/pages.html" %}
       </app-header-layout>
+      <paper-toast id="confirmToast" class="Toast" duration="4000">
+        <span class="Toast-button" role="button" tabindex="0" on-tap="onConfirmToastTap">OK</span>
+      </paper-toast>
+
+      <paper-toast id="infoToast" class="Toast" duration="4000" always-on-top></paper-toast>
+
+      <google-dfp
+        section="homepage"
+        ad-pos="adhesion"
+        ad-group="{$ config.dfpAdStructure.adGroupID $}"
+        ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
+        ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
+        out-of-page>
+      </google-dfp>
+
+      <google-dfp
+        section="homepage"
+        ad-pos="interstitial"
+        ad-group="{$ config.dfpAdStructure.adGroupID $}"
+        ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
+        ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
+        out-of-page>
+      </google-dfp>
 
     </app-drawer-layout>
 
-    <paper-toast id="confirmToast" class="Toast" duration="8000">
-      <span class="Toast-button" role="button" tabindex="0" on-tap="onConfirmToastTap">OK</span>
-    </paper-toast>
-
-    <paper-toast id="infoToast" class="Toast" duration="8000"></paper-toast>
-
   </template>
-
   <!-- include base js module -->
   <script src="cranberry-base.js"></script>
 

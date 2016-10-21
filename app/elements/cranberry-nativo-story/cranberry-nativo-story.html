@@ -1,0 +1,41 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+
+<dom-module id="cranberry-nativo-story">
+
+  <template>
+    <style>
+      @import "cranberry-nativo-story/cranberry-nativo-story";
+    </style>
+    <div class="Cranberry-Story">
+      <!-- Headline -->
+      <h1 class="story-title"><!-- @Title --></h1>
+      <p class="time-stamp"><!-- @Datetime --></p>
+
+      <!-- Story Byline -->
+      <div class="body-text by-line-wrapper">
+        <div class="by-line-info">
+          <p><!-- @Author --></p>
+        </div>
+      </div>
+
+      <!-- Story Content Area -->
+      <div class="content-wrapper">
+        <div class="story-content">
+          <div class="body-text">
+            <!-- @Content -->
+          </div>
+        </div>
+        <!-- Right Rail Area -->
+        <div class="right-rail-content">
+          <div>
+            <!-- Right Rail Content Here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <!-- Add cranberry-story Polymer Object script -->
+  <script src="cranberry-nativo-story.js"></script>
+</dom-module>

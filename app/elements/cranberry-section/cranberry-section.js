@@ -13,6 +13,17 @@ class CranberrySection {
             selected: {
                 type: Number,
                 value: 0
+            },
+            galleries: {
+              type: Boolean,
+              value: false
+            },
+            tags: {
+              type: Boolean,
+              value: false
+            },
+            tag: {
+              type: String
             }
         };
 
@@ -75,36 +86,50 @@ class CranberrySection {
     }
 
     _isFeatured(selected) {
-        if (selected === 2) {
-            return true;
-        } else {
-            return false;
-        }
+      if (selected === 2) {
+          return true;
+      } else {
+          return false;
+      }
+    }
+
+    _isGalleries(galleries) {
+      if (galleries) {
+        return 'gallery';
+      } else {
+        return 'story_gallery'
+      }
+
     }
 
     _routeChange(section) {
-        this.async(function() {
-            let hidden = this.hidden;
+      this.async(function() {
+          let hidden = this.hidden;
+          let tags = this.get('tags');
 
-            if (!hidden) {
-                if (typeof section !== 'undefined' && section.length > 0 && section !== ('section' || 'story')) {
-                    this.set('loadSection', section);
-                } else {
-                    this.set('loadSection', 'news');
-                }
+          if (!hidden) {
+            if(tags === false){
+              let currentSection = this.get('section');
+
+              if (typeof section !== 'undefined' && section !== currentSection && section !== 'section' && section !== 'story'){
+                  if(section.length > 0) {
+                      this.set('loadSection', section);
+                  } else {
+                      section = 'homepage';
+                      this.set('section', section);
+                      this.set('loadSection', section);
+                  }
+                  this.fire('iron-signal', {name: 'track-page', data: { path: '/section/' + section, data: { 'dimension7': section } } });
+              }
+            } else {
+              let tag = this.get('tag');
+              if (tag !== section) {
+                this.set('tag', section);
+                this.fire('iron-signal', {name: 'track-page', data: { path: '/tag/' + section, data: { 'dimension7': tag } } });
+              }
             }
-        });
-        //
-        // console.log('peeeeenis');
-        // this.async(function() {
-        //     let sectionMeta = document.querySelector('iron-meta#metaSection');
-        //     let currentSection = this.get('section');
-        //
-        //     sectionMeta.setAttribute('value', currentSection);
-        //     console.dir(currentSection);
-        //     console.dir(sectionMeta);
-        //     console.log('meta done');
-        // });
+          }
+      });
     }
 }
 // Public methods.

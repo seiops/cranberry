@@ -1,117 +1,207 @@
-/*
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
-*/
-
-/* Gigya Socialize JS library integration */
-
 class GigyaSocialize {
-  handleResponse (data) {
-    var restResponse = JSON.parse(data.detail.Result);
-
-    console.dir(restResponse);
-    var responseMessage = '';
-
-    if (typeof restResponse !== undefined && restResponse.errorCode === 0) {
-
-      var params = {
-          provider:restResponse.loginProvider,
-          callback: this._onlogin(data),
-          UID: restResponse.UID,
-          UIDSignature: restResponse.UIDSignature,
-          signatureTimestamp: restResponse.signatureTimestamp
-      };
-
-      restResponse.callback = this._onlogin(data);
-
-
-      gigya.socialize.getUserInfo(params);
-
-      responseMessage = 'User: ' + restResponse.profile.nickname + '<br />UID: ' + restResponse.UID + '<br />Signature: ' + restResponse.UIDSignature + '<br />Provider: ' + restResponse.loginProvider;
-    } else {
-      responseMessage = restResponse.errorDetails;
-    }
-
-
-    form.querySelector('.output').innerHTML = responseMessage;
-  }
-  _onlogin (meh) {
-    console.log('onlogin');
-    console.dir(meh);
-    console.dir(JSON.parse(meh.detail.Result));
-  }
-  _submit(event) {
-        request.url = "http://sedevcore.libercus.net/gigya"
-
-        var params = {};
-
-        params.request = "login";
-        params.loginID = form.loginID.value;
-        params.password = form.password.value;
-
-        request.params = params;
-
-        request.generateRequest();
-      }
+  // element registration
   beforeRegister() {
     this.is = 'gigya-socialize';
     this.properties = {
-      items: {
+      account: {
         type: Object,
+        value: {},
         notify: true
+      },
+      guestSelected: {
+        type: Number,
+        value: 0
+      },
+      profileSelected: {
+        type: Number,
+        value: 0
+      },
+      user: {
+        type: Object,
+        value: {},
+        notify: true
+      },
+      userSelected: {
+        type: Number,
+        value: 0
+      },
+      route: {
+        type: Object,
+        observer: '_onRouteChanged'
+      },
+      accountVerify: {
+        type: Boolean,
+        value: false,
+        observer: '_verifyAccount'
       }
     };
   }
-  ready() {
-    var checkGigya = function () {
-      setTimeout(function () {
-        if (typeof gigya !== 'undefined') {
-          // Gigya callback goes here.
-          // Bind to login and logout evenets.
-          app.logger("Finished loading Gigya Socialize.");
-          console.dir(gigya.accounts);
-          return;
 
-        } else {
-          checkGigya();
-        }
-      }, 1000);
-    };
-    checkGigya();
+  // public methods
 
-          form.addEventListener('iron-form-submit', function(event) {
-        console.log('iron-form-submit');
-        console.dir(event);
+  // attached to document
+  attached() {
+    app.logger('\<gigya-socialize\> attached');
 
-        request.url = "http://sedevcore.libercus.net/gigya"
+    this.async(function() {
+      this._checkGigya();
 
-        var params = {};
+      let el = this;
 
-        params.request = "login";
-        params.loginID = form.loginID.value;
-        params.password = form.password.value;
-
-        request.params = params;
-
-        request.generateRequest();
-      });
-
-      form.addEventListener('iron-form-response', function(event) {
-        console.log('iron-form-response');
-        console.dir(event.detail);
-      });
-
-      form.addEventListener('iron-form-error', function(event) {
-        console.error('iron-form-error');
-        console.error(event);
-      });
+      gigya.accounts.addEventHandlers({
+        context: this,
+        onLogin: el._loginUser,
+        onLogout: el._logoutUser
+       });
+    });
   }
 
+  // check Gigya user
+  checkUser() {
+    app.logger('\<gigya-socialize\> check user');
+    let params = {
+      callback: this._loadUser,
+      context: this
+    };
+
+    gigya.socialize.getUserInfo(params);
+  }
+
+  // open modal window
+  openModal() {
+    this.$.userModal.toggle();
+  }
+
+  // private methods
+
+  // check if Gigya API is loaded
+  _checkGigya() {
+    let el = this;
+
+    setTimeout(function() {
+      if (typeof gigya !== 'undefined' && typeof gigya.socialize !== 'undefined' && typeof gigya.socialize.getUserInfo === 'function') {
+        el.checkUser();
+
+        return;
+      } else {
+        el._checkGigya();
+      }
+    }, 50);
+  }
+
+  _equal(a, b) {
+    if (a === b) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  // logout from Gigya API
+  _handleLogout() {
+    app.logger('\<gigya-socialize\> handle logout');
+
+    gigya.accounts.logout();
+  }
+
+  // load Gigya account information
+  _loadAccount(account) {
+    app.logger('\<gigya-socialize\> account loaded');
+
+    console.dir(account);
+
+    let el = account.context;
+    el.set('account', account);
+
+    gigya.socialize.refreshUI();
+  }
+
+  // load Gigya user information
+  _loadUser(user) {
+    let el = user.context;
+
+    if (typeof user.UID !== 'undefined') {
+      app.logger('\<gigya-socialize\> user loaded');
+
+      app.$.infoToast.text = 'Logged in, loading user information.';
+      app.$.infoToast.show();
+
+      el.set('user', user.user);
+
+      let params = {
+        callback: el._loadAccount,
+        context: el,
+        include: 'all'
+      };
+
+      gigya.accounts.getAccountInfo(params);
+    } else {
+      app.logger('\<gigya-socialize\> anonymous user');
+    }
+
+    if (user.status === 'FAIL') {
+      console.error('\<gigya-socialize\> api response error -> ' + user.errorMessage);
+    }
+
+  }
+
+  // callback from Gigya logout API
+  _logoutUser(data) {
+    app.logger('\<gigya-socialize\> logged out');
+
+    app.$.infoToast.text = 'Logged out.';
+    app.$.infoToast.show();
+
+    let el = data.context;
+    el.set('user', {});
+
+    gigya.socialize.refreshUI();
+  }
+
+  _loginUser(eventObj) {
+    if (eventObj.newUser) {
+      this.context.checkUser();
+    }
+  }
+
+  // show profile update form
+  _showAccountSettings() {
+    this.set('userSelected', 3);
+  }
+
+  // Method to check if queryParams has a value of verifyAccount
+  _onRouteChanged(newValue) {
+    if (newValue.__queryParams.verifyAccount === '1') {
+      // Set the boolean accountVerify to true
+      this.set('accountVerify', true);
+    }
+  }
+
+  // Method to reset query params to empty object
+  _resetQueryParams() {
+    this.async(function() {
+      // Reset the queryParams value to a blank object to tidy up the URL.
+      let base = Polymer.dom(document).querySelector('cranberry-base');
+      let location = base.querySelector('app-location');
+
+      location.set('queryParams', {});
+    });
+  }
+
+  // Method to check verify param
+  _verifyAccount(verify) {
+    if (typeof verify !== 'undefined' && verify) {
+      // Check the User, open the Modal, and clear query params
+      this.checkUser();
+      this.openModal();
+      this._resetQueryParams();
+    }
+  }
+
+  // Notify resize event for Safari fix
+  resize() {
+    this.$.userModal.notifyResize();
+  }
 }
 
 Polymer(GigyaSocialize);

@@ -9,15 +9,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 /** @define Main */
 .Main {
-  background-color: var(--secondary-background-color);
-
   @nest &-content {
     @apply(--paper-font-body1);
     color: var(--primary-text-color);
+    background-color: #E7E7E9;
     max-width: 1600px;
-
-    @media (--md-viewport) {
-      padding: 0;
+    padding: 16px;
+    /*@media (--sm-viewport) {
+      padding: 16px;
     }
 
     @media (--md-viewport) {
@@ -26,7 +25,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     @media (--lg-viewport) {
       padding: 16px 64px;
-    }
+    }*/
 
     @nest & a {
       color: var(--accent-color);
@@ -55,16 +54,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     @apply(--layout-horizontal);
     @apply(--layout-center);
 
-    background-color: var(--dark-primary-color);
+    /*background-color: var(--dark-primary-color);*/
     color: var(--text-dark-primary-color);
-
   }
 
   @nest &-headerToolbar {
-    background-color: var(--dark-primary-color);
     @apply(--layout-flex);
     @apply(--layout-horizontal);
-
   }
 
   @nest &-siteTitle {
@@ -72,10 +68,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     @apply(--layout-start);
   }
 
+  @nest &-siteButtons a {
+    cursor: pointer;
+  }
+
   @nest &-siteButtons {
     @apply(--paper-font-body2);
     @apply(--layout-horizontal);
-    @apply(--layout-end);
+    @apply(--layout-center);
+    /*@apply(--layout-end);*/
+  }
+
+  @nest &-siteNav a {
+    @apply(--paper-font-body2);
+    color: inherit;
+    margin-right: 12px;
+    text-decoration: none;
   }
 
   @nest &-siteLogo {

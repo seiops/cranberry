@@ -1,0 +1,44 @@
+:host {
+  @apply(--layout-horizontal);
+
+  /* postcss-bem-linter: ignore */
+  --paper-menu-button-dropdown: {
+    background-color: var(--dark-primary-color);
+  };
+
+  /* postcss-bem-linter: ignore */
+  --paper-menu-button-content: {
+    background-color: var(--dark-primary-color);
+    
+    border-radius: 0;
+  };
+
+  /* postcss-bem-linter: ignore */
+  --paper-item: {
+    @apply(--paper-font-body2);
+    @apply(--layout-center-justified);
+    background-color: var(--dark-primary-color);
+    color: var(--text-primary-color);
+    white-space: nowrap;
+  };
+
+  /* postcss-bem-linter: ignore */
+  --paper-menu: {
+    background-color: var(--dark-primary-color);
+  };
+}
+
+paper-menu-button {
+  padding: 0;
+}
+
+paper-menu a {
+  text-decoration: none;
+}
+
+div.link-list a {
+  @apply(--paper-font-body2);
+  color: inherit;
+  margin-right: 12px;
+  text-decoration: none;
+}

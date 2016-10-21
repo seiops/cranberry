@@ -24,17 +24,22 @@
   border-radius: 50%;
 }
 
-div.story-media iron-image[desktop-layout] {
+div.story-media div.media-container::shadow * {
+  height: 100%;
+  width: 100%;
+}
+
+div.story-media div.media-container[desktop-layout] {
   width: 100%;
   height: 645px;
 }
 
-div.story-media iron-image[tablet-layout] {
+div.story-media div.media-container[tablet-layout] {
   width: 100%;
   height: 308px;
 }
 
-div.story-media iron-image[mobile-layout] {
+div.story-media [mobile-layout] {
   width: 100%;
   height: 240px;
 }
@@ -83,6 +88,11 @@ div.body-text {
   background: var(--dark-primary-color);
 }
 
+#commentButton::shadow iron-icon {
+  width: 18px;
+  height: 18px;
+}
+
 #twitterButton {
   background: #55acee;
 }
@@ -118,7 +128,7 @@ div.content-wrapper {
 
 /* The minimum and maximum widths will need to be adjusted based on the new break points element */
 div.story-content {
-  @apply(--layout-flex-4);
+  flex: 1 1 500px;
 }
 
 div.story-content div {
@@ -127,7 +137,9 @@ div.story-content div {
 }
 
 div.right-rail {
-  @apply(--layout-flex);
+  flex: 1 1 auto;
+  max-width: 300px;
+  margin-left: 12px;
 }
 
 div.right-rail div {
@@ -137,4 +149,13 @@ div.right-rail div {
 
 div.right-rail div > * {
   margin: 12px;
+}
+
+div.right-rail gigya-top-comments {
+  min-height: 0;
+  min-width: 300px;
+}
+
+div.right-rail gigya-top-comments::shadow div.wrapper {
+  margin: 0;
 }

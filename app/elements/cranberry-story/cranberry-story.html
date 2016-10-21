@@ -4,10 +4,13 @@
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
 <link rel="import" href="../cranberry-shortcode/cranberry-shortcode.html">
+<link rel="import" href="../youneeq-content/youneeq-content.html">
 <link rel="import" href="../gigya-comments/gigya-comments.html">
 <link rel="import" href="../gigya-sharebar/gigya-sharebar.html">
 <link rel="import" href="../google-dfp/google-dfp.html">
 <link rel="import" href="../tout-element/tout-element.html">
+<link rel="import" href="../gigya-top-comments/gigya-top-comments.html">
+<link rel="import" href="../cranberry-related-content/cranberry-related-content.html">
 
 <dom-module id="cranberry-story">
 
@@ -22,13 +25,22 @@
     <iron-media-query query="(max-width:719px)" query-matches="{{mobile}}"></iron-media-query>
 
     <app-route route="{{route}}" pattern="/:id" data="{{routeData}}"></app-route>
+
     <byutv-jsonp on-response="_handleResponse" id="request"></byutv-jsonp>
 
     <div class="Cranberry-Story">
-      <!-- Top Ad -->
       <div class="ut-center">
-        <!-- Placeholder element for leaderboard ad. -->
-        <google-dfp section="[[story.sectionInformation.sectionName]]" section-parent="[[story.sectionInformation.sectionParentName]]" ad-pos="leaderboard_bottom" ad-size="[[728, 90]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+        <google-dfp
+          section="[[story.sectionInformation.sectionName]]"
+          section-parent="[[story.sectionInformation.sectionParentName]]"
+          tags="[[story.tags]]"
+          ad-pos="leaderboard"
+          ad-size-mapping="leaderboard"
+          ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
+          ad-group="{$ config.dfpAdStructure.adGroupID $}"
+          ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
+          ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}">
+        </google-dfp>
       </div>
 
       <!-- Headline -->
@@ -36,13 +48,16 @@
       <p class="time-stamp"> {{story.updated}} </p>
 
       <!-- Story Media -->
-      <div class="story-media">
-        <iron-image id="mainImage" desktop-layout$="{{desktop}}" tablet-layout$="{{tablet}}" mobile-layout$="{{mobile}}" sizing="cover" src="http://www.standard.net{{story.mediaAssets.images.0.url}}"></iron-image>
+      <div class="story-media" hidden$="{{_checkMedia(story.mediaAssets)}}">
+        <div class="media-container" id="mediaContainer"  desktop-layout$="{{desktop}}" tablet-layout$="{{tablet}}" mobile-layout$="{{mobile}}">
+          <iron-image id="mainImage" sizing="cover" src="{$ config.baseDomain $}{{story.mediaAssets.images.0.exlarge}}" hidden$="{{hasLeadShortcode}}"></iron-image>
+          <div id="leadShortcode" hidden$="[[!hasLeadShortcode]]"></div>
+        </div>
         <div class="ut-rowFlex ut-absolute">
-          <paper-fab mini src="images/FacebookLogo_29.png" id="facebookButton" class="ut-small-icon-margin"></paper-fab>
-          <paper-fab mini src="images/TwitterLogo_white.png" title="Share on Twitter" id="twitterButton" class="ut-small-icon-margin" twitter-name="{$ config.socialNaming.twitter $}"></paper-fab>
+          <paper-fab mini src="../../../images/social/FacebookLogo_29.png" id="facebookButton" class="ut-small-icon-margin" social-name="{$ config.socialNaming.facebook $}" hidden></paper-fab>
+          <paper-fab mini src="../../../images/social/TwitterLogo_white.png" title="Share on Twitter" id="twitterButton" class="ut-small-icon-margin" social-name="{$ config.socialNaming.twitter $}" hidden></paper-fab>
           <paper-fab mini icon="communication:chat-bubble" title="Comments" id="commentButton" class="ut-small-icon-margin" on-tap="_scrollToComments"></paper-fab>
-          <gigya-sharebar share-buttons-id="gigya-share-buttons-story"></gigya-sharebar>
+          <gigya-sharebar share-buttons-id="gigya-share-buttons-story" title="[[story.title]]" route="[[route]]"></gigya-sharebar>
         </div>
       </div>
 
@@ -75,28 +90,26 @@
             <google-dfp
               section="[[story.sectionInformation.sectionName]]"
               section-parent="[[story.sectionInformation.sectionParentName]]"
-              ad-pos="Top_of_Stream" ad-size="[[300, 250],[300, 600]]"
+              tags="[[story.tags]]"
+              ad-pos="Top_of_Stream"
+              ad-size="[[300, 250],[300, 600]]"
               ad-group="{$ config.dfpAdStructure.adGroupID $}"
               ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
               ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}">
             </google-dfp>
-            <iron-image src="http://www.placehold.it/300x250&amp;text=House Promo"></iron-image>
+            <gigya-top-comments count="5" age="90"></gigya-top-comments>
+            <cranberry-related-content related-items="[[story.relatedContent]]" story></cranberry-related-content>
             <google-dfp
               section="[[story.sectionInformation.sectionName]]"
               section-parent="[[story.sectionInformation.sectionParentName]]"
-              ad-pos="Middle_of_Stream" ad-size="[[300, 250]]"
+              tags="[[story.tags]]"
+              ad-pos="Sidebar_promo"
+              ad-size="[[300, 100],[300, 250],[300, 600]]"
               ad-group="{$ config.dfpAdStructure.adGroupID $}"
               ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
               ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}">
             </google-dfp>
-            <google-dfp
-              section="[[story.sectionInformation.sectionName]]"
-              section-parent="[[story.sectionInformation.sectionParentName]]"
-              ad-pos="Bottom_of_Stream" ad-size="[[300, 250],[300, 600]]"
-              ad-group="{$ config.dfpAdStructure.adGroupID $}"
-              ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
-              ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}">
-            </google-dfp>
+            <cranberry-related-content related-items="[[story.relatedContent]]" gallery></cranberry-related-content>
           </div>
         </div>
       </div>
@@ -106,7 +119,10 @@
         <google-dfp
           section="[[story.sectionInformation.sectionName]]"
           section-parent="[[story.sectionInformation.sectionParentName]]"
-          ad-pos="Middle_of_Stream" ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
+          tags="[[story.tags]]"
+          ad-pos="Middle_of_Stream"
+          ad-size-mapping="leaderboard"
+          ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
           ad-group="{$ config.dfpAdStructure.adGroupID $}"
           ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
           ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}">
@@ -115,7 +131,7 @@
 
       <!-- Comments -->
       <div class="ut-center">
-        <gigya-comments comments-id="story-comments"></gigya-comments>
+        <gigya-comments stream-id="[[story.genericLink]]" content="[[story]]" config-id="{$ config.gigya.commentsId $}"></gigya-comments>
       </div>
 
       <!-- Bottom Ad -->
@@ -123,7 +139,10 @@
         <google-dfp
           section="[[story.sectionInformation.sectionName]]"
           section-parent="[[story.sectionInformation.sectionParentName]]"
-          ad-pos="Middle_of_Stream" ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
+          tags="[[story.tags]]"
+          ad-pos="Last_of_Stream"
+          ad-size-mapping="leaderboard"
+          ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
           ad-group="{$ config.dfpAdStructure.adGroupID $}"
           ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
           ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}">
@@ -132,9 +151,7 @@
 
       <!-- Youneeq Content Area -->
       <div class="ut-center">
-        <div style="width:100%; height:350px; background:lightgray;">
-          Youneeq
-        </div>
+        <youneeq-content user="[[user]]" content="[[story]]" domain="{$ config.baseDomain $}"></youneeq-content>
       </div>
 
       <!-- Last Ad -->
@@ -142,7 +159,10 @@
         <google-dfp
           section="[[story.sectionInformation.sectionName]]"
           section-parent="[[story.sectionInformation.sectionParentName]]"
-          ad-pos="Last_of_Stream" ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
+          tags="[[story.tags]]"
+          ad-pos="Last_of_Stream"
+          ad-size-mapping="leaderboard"
+          ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
           ad-group="{$ config.dfpAdStructure.adGroupID $}"
           ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
           ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}">

@@ -1,5 +1,11 @@
 :host {
   display: block;
+
+  --paper-material-background: #fff;
+}
+
+paper-material {
+  background: #ffffff;
 }
 
 /* Font Styles */
@@ -7,7 +13,7 @@
   @apply(--paper-font-caption);
 }
 
-paper-button.rounded-button {
+.rounded-button {
   border-radius: 50%;
   width: 50px;
   height: 50px;
@@ -15,6 +21,12 @@ paper-button.rounded-button {
   min-height: 50px;
   max-width: 50px;
   max-height: 50px;
+}
+
+paper-button.faux-disabled[disabled] {
+  background-color: #fff;
+  color: #000;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
 }
 
 /* Main image/header styles */
@@ -28,16 +40,21 @@ paper-button.rounded-button {
 .main-image iron-image {
   display: flex;
   justify-content: center;
-  max-height: 700px;
+  height: 700px;
   width: 100%;
 }
 
-.main-image .header-title {
+.main-image .header-title-container {
   position: absolute;
   bottom: 0;
-  left: 10%;
+  width: 100%;
+}
+
+.main-image .header-title-container .header-title {
+  text-align: center;
   @apply(--paper-font-display1);
   color: var(--text-primary-color);
+  text-shadow: 0px 0px 5px rgba(0,0,0,.5);
 }
 
 /* Contact Card Styles */
@@ -66,9 +83,8 @@ paper-button.rounded-button {
 
 .contact-card-wrapper {
   @apply(--layout-vertical);
-  @apply(--layout-center-justified);
   margin: 0 auto;
-  padding: 0 40px 0;
+  padding: 0 80px 0 20px;
 }
 
 .contact-card-header-info {
@@ -120,12 +136,19 @@ paper-button.rounded-button {
   @apply(--layout-wrap);
   background-color: var(--accent-color);
   min-height: 150px;
+  padding: 0 30px;
 }
 
-.social-buttons-container paper-button {
+.social-buttons-container paper-icon-button {
   @apply(--layout-flex);
-  background-color: var(--light-accent-color);
+  border-radius: 50%;
   margin: 20px;
+  padding: 10px;
+  max-width: 20px;
+  max-height: 20px;
+  color: var(--accent-color);
+  background-color: var(--light-accent-color);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
 }
 
 /* Help Section */
@@ -164,6 +187,14 @@ paper-button.rounded-button {
   @apply(--layout-center);
   max-width: 150px;
   min-width: 150px;
+  margin: 10px;
+}
+
+.help-card.linked {
+  cursor: pointer;
+}
+
+.help-card iron-icon {
   margin: 10px;
 }
 
@@ -232,8 +263,14 @@ paper-button.rounded-button {
   @apply(--layout-wrap);
 }
 
+.important-links-container a {
+  text-decoration: none;
+}
+
 .important-links-container paper-button {
+  @apply(--paper-font-button);
   min-width: 150px;
   margin: 10px;
-  @apply(--paper-font-subhead);
+  background-color: var(--accent-color);
+  color: var(--text-dark-primary-color);
 }

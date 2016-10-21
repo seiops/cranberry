@@ -9,6 +9,43 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 /** @define Drawer */
 
+/* Toolbar styles for blending effect at different breakpoints */
+app-header ::content #backgroundFrontLayer {
+  @media (--header-breakpoint) {
+    background: var(--dark-primary-color) url("/images/logos/sandusky/location.png");
+    background-size: cover;
+    background-position: bottom;
+  }
+  @media (--header-breakpoint-alt) {
+    background-image: none !important;
+    background-color: var(--dark-primary-color) !important;
+  }
+}
+
+/* Base header stylings */
+app-header {
+  background-color: var(--dark-primary-color);
+  @media (--header-breakpoint) {
+    height: 164px;
+  }
+  @media (--header-breakpoint-alt) {
+    height: 64px;
+  }
+  --app-header-background-rear-layer: {
+    background-color: var(--dark-primary-color);
+  };
+}
+
+app-header ::content #contentContainer {
+  @apply(--layout-horizontal);
+  @apply(--layout-end);
+}
+
+app-drawer ::content #contentContainer {
+  width: 282px;
+}
+
+/* Drawer styles */
 .Drawer {
   @nest &-logo {
     @apply(--layout-flex);
@@ -26,20 +63,29 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     z-index: 1;
   }
 
+  @nest &-location ::content div#sizedImgDiv {
+    background-position: 0 100% !important;
+  }
+
   @nest &-content {
     @apply(--layout-flex);
     @apply(--layout-vertical);
     @apply(--paper-font-body1);
 
     background-color: var(--secondary-background-color);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
     color: var(--primary-text-color);
     height: 100%;
-    overflow: auto;
+
+    /* has to be scroll for Safari, not auto */
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
   }
 
   @nest &-header {
     background-color: var(--dark-primary-color);
     color: var(--primary-text-color);
+    height: 64px !important;
   }
 
   @nest &-link {
@@ -50,21 +96,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   @nest &-info {
     @apply(--layout-flex);
     @apply(--layout-vertical);
-
-    max-height: 150px;
+    min-height: 100px;
+    max-height: 200px;
     position: relative;
   }
 
-  @nest &-widget {
-
-    @nest &--bottom {
-      border-top: 1px solid var(--divider-color);
-    }
-
-    @nest &--footer {
-      padding: 8px 24px;
-      @apply(--paper-font-caption);
-      border-top: 1px solid var(--divider-color);
-    }
+  @nest &-search {
+    margin-bottom: 18px;
+    padding-left: 24px;
+    padding-right: 24px;
   }
 }

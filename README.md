@@ -26,10 +26,6 @@ See latest Polymer Starter Kit Plus Demo (from master) at https://polymer-starte
 
 The demo is running on Google App Engine with [HTTP 2.0 Push](https://github.com/GoogleChrome/http2push-gae)
 
-## Projects based on PSK+
-
-- [Hoverboard](https://github.com/gdg-x/hoverboard)
-
 ## :sparkles: Features :sparkles:
 
 - Progressive Web App template
@@ -171,7 +167,7 @@ cd polymer-starter-kit-plus && npm install && bower install
 
 This installs the element sets (Paper, Iron, Platinum) and tools the starter kit requires to build and serve apps.
 
-If you get a browser console error indicating that an element you know you have installed is missing, try deleting the bower_components folder, then run `bower cache clean` followed by `bower install` to reinstall. This can be especially helpful when upgrading from a prior version of the Polymer Starter Kit Plus. 
+If you get a browser console error indicating that an element you know you have installed is missing, try deleting the bower_components folder, then run `bower cache clean` followed by `bower install` to reinstall. This can be especially helpful when upgrading from a prior version of the Polymer Starter Kit Plus.
 
 If the issue is to do with a failure somewhere else, you might find that due to a network issue
 a dependency failed to correctly install. We recommend running `npm cache clean` and deleting the `node_modules` directory followed by

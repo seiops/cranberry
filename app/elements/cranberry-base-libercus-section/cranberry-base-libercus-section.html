@@ -1,0 +1,95 @@
+<!-- Polymer base element -->
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<!-- App routing elements -->
+<link rel="import" href="../../bower_components/app-route/app-location.html">
+<link rel="import" href="../../bower_components/app-route/app-route.html">
+
+<!-- App layout elements -->
+<link rel="import" href="../../bower_components/app-layout/app-layout.html">
+<link rel="import" href="../../bower_components/app-layout/app-scroll-effects/effects/waterfall.html">
+
+<!-- App Theme -->
+<link rel="import" href="../../themes/{$ config.appTheme $}/theme.html">
+
+<!-- Iron elements -->
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/communication-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/social-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/image-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/maps-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/hardware-icons.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../bower_components/iron-localstorage/iron-localstorage.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+
+<!-- Animation elements -->
+<link rel="import" href="../../bower_components/neon-animation/neon-animation.html">
+
+<!-- Paper elements -->
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
+<link rel="import" href="../../bower_components/paper-styles/color.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+<link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
+<link rel="import" href="../../bower_components/paper-toggle-button/paper-toggle-button.html">
+<link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
+
+<!-- Gigya elements -->
+<link rel="import" href="../gigya-socialize/gigya-socialize.html">
+
+<!-- Cranberry elements -->
+<link rel="import" href="../cranberry-nativo-story/cranberry-nativo-story.html">
+
+<dom-module id="cranberry-base-libercus-section">
+  <template>
+    <!-- include shared styles and theme stylesheet -->
+    <style include="shared-styles">
+      @import "theme.css";
+    </style>
+
+    <!-- base media queries -->
+    <iron-media-query query="(min-width: 1280px)" query-matches="{{logo}}"></iron-media-query>
+    <iron-media-query query="(min-width: 960px)" query-matches="{{desktop}}"></iron-media-query>
+    <iron-media-query query="(min-width: 720px) and (max-width:959px)" query-matches="{{tablet}}"></iron-media-query>
+    <iron-media-query query="(max-width: 719px)" query-matches="{{mobile}}"></iron-media-query>
+
+    <!-- Gigya socialize/accounts integration -->
+    <gigya-socialize user="{{user}}"></gigya-socialize>
+
+    <!-- local browser storage -->
+    <iron-localstorage id="localStorage" name="{$ config.appNameId $}"
+      value="{{storage}}"
+      on-iron-localstorage-load-empty="initializeDefaultStorage">
+    </iron-localstorage>
+
+    <app-drawer-layout responsive-width="1280px">
+      <!-- side navigation drawer -->
+      {% include "cranberry-base-libercus-section/views/drawer.html" %}
+
+      <app-header-layout>
+        <!-- header toolbar -->
+        {% include "cranberry-base/views/header.html" %}
+
+        <!-- content area -->
+        <section class="Page" tabindex="-1">
+          <cranberry-nativo-story></cranberry-nativo-story>
+        </section>
+
+      </app-header-layout>
+      <paper-toast id="confirmToast" class="Toast" duration="4000">
+        <span class="Toast-button" role="button" tabindex="0" on-tap="onConfirmToastTap">OK</span>
+      </paper-toast>
+
+      <paper-toast id="infoToast" class="Toast" duration="4000" always-on-top></paper-toast>
+    </app-drawer-layout>
+
+  </template>
+
+  <!-- include base js module -->
+  <script src="cranberry-base-libercus-section.js"></script>
+
+</dom-module>

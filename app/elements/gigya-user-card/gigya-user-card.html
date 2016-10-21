@@ -1,0 +1,25 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/moment-js/moment-js.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
+
+<dom-module id="gigya-user-card">
+  <template>
+    <style>
+    @import "gigya-user-card/gigya-user-card";
+    </style>
+    <div class="user-card">
+      <div class="user-photo">
+        <div hidden$="[[!user.photoURL]]">
+          <iron-image class="user-mugshot" preload src="[[user.photoURL]]" fade></iron-image>
+        </div>
+        <div hidden$="[[user.photoURL]]"></div>
+      </div>
+      <div class="user-name">[[user.firstName]] [[user.lastName]]</div>
+      <div class="user-created">
+        Member since
+        <moment-js date="[[account.created]]" format="MMMM Do, YYYY"></moment-js>
+      </div>
+    </div>
+  </template>
+  <script src="gigya-user-card.js"></script>
+</dom-module>
