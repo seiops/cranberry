@@ -66,6 +66,7 @@ class CranberryContentList {
 
     if (params.length !== 0 && params.desiredCount) {
       this.$.request.setAttribute('url', this.get('rest'));
+      this.$.request.setAttribute('callback-value', 'callback');
       this.$.request.params = params;
       this.$.request.generateRequest();
     }
@@ -94,6 +95,7 @@ class CranberryContentList {
       } else {
         this.set('hidePreviousButton', true);
       }
+
       this._updateParams();
     });
   }
