@@ -38,7 +38,7 @@ class CranberryCard {
   }
 
   _computeUrl(item) {
-    if(typeof item !== 'undefined' && typeof item.contentType !== 'undefined'){
+    if(typeof item !== 'undefined' && item !== null && typeof item.contentType !== 'undefined'){
       let prefix = '/';
 
       switch(item.contentType) {
