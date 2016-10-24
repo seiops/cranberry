@@ -93,6 +93,8 @@ class CranberryStory {
     this.set('story', {});
     this._destroyContent();
 
+    params.preview = 1;
+
     if (params.length !== 0 && storyId !== 0) {
       this.$.request.url = this.rest;
       this.$.request.params = params;
