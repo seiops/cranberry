@@ -329,7 +329,7 @@ module.exports = {
 
   /* Custom Global Colors */
   'paper-error-red': '#ce181e',
-  'paper-page-background': '#f9f9f9',
+  'paper-page-background': '#f6f6f6',
 
   /* Custom Standard Examiner Color Palette */
   /* Main Colors */

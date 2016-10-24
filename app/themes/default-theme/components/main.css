@@ -12,7 +12,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   @nest &-content {
     @apply(--paper-font-body1);
     color: var(--primary-text-color);
-    background-color: #E7E7E9;
+    background-color: var(--primary-background-color);
     max-width: 1600px;
     padding: 16px;
     /*@media (--sm-viewport) {

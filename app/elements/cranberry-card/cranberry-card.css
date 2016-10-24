@@ -84,7 +84,7 @@ div.card > a > div.card-header > div.title-text {
 
 /* Card header overlay WITH images, provides photo vignette */
 div.card > a > div.card-header > div.card-header-overlay {
-  background: radial-gradient(transparent, black);
+  background: radial-gradient(transparent, rgba(0,0,0,0.5));
   height: 100%;
   position: absolute;
   width:100%;
