@@ -137,7 +137,7 @@ class CranberryFeaturedContent {
         if (typeof tags !== 'undefined' && tags) {
           let sections = this.get('sections');
           sections = sections.replace('-', ' ');
-          // jsonp.desiredTags = sections + ', featured';
+          jsonp.desiredTags = sections;
         } else {
           jsonp.desiredSection = this.get('sections');
           // jsonp.desiredTags = 'featured';

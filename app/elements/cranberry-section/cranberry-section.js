@@ -124,6 +124,7 @@ class CranberrySection {
             } else {
               let tag = this.get('tag');
               if (tag !== section) {
+                this.set('loadSection', section);
                 this.set('tag', section);
                 this.fire('iron-signal', {name: 'track-page', data: { path: '/tag/' + section, data: { 'dimension7': tag } } });
               }
