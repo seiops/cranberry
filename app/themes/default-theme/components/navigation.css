@@ -38,6 +38,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 .Navigation--menu {
   --paper-menu-color: currentColor;
 
+  --primary-background-color: #ffffff;
   /* stylelint-disable indentation */
 
   /* postcss-bem-linter: ignore */
@@ -53,6 +54,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   /* stylelint-enable */
 
   @media (--md-viewport) {
-    background-color: var(--secondary-background-color);
+    background-color: #ffffff;
   }
 }

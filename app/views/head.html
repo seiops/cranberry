@@ -9,6 +9,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <head>
+  <script>
+    /* this script must run before Polymer is imported */
+    window.Polymer = {
+      lazyRegister: true
+    };
+  </script>
   <base href="{$ config.baseUrl $}">
   <meta charset="{$ charset $}">
   <meta name="description" content="{$ description $}">

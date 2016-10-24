@@ -169,6 +169,26 @@
         </google-dfp>
       </div>
 
+      <google-dfp
+        section="[[story.sectionInformation.sectionName]]"
+        section-parent="[[story.sectionInformation.sectionParentName]]"
+        ad-pos="adhesion"
+        ad-group="{$ config.dfpAdStructure.adGroupID $}"
+        ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
+        ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
+        out-of-page>
+      </google-dfp>
+
+      <google-dfp
+        section="[[story.sectionInformation.sectionName]]"
+        section-parent="[[story.sectionInformation.sectionParentName]]"
+        ad-pos="interstitial"
+        ad-group="{$ config.dfpAdStructure.adGroupID $}"
+        ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
+        ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
+        out-of-page>
+      </google-dfp>
+
   </template>
 
   <!-- Add cranberry-story Polymer Object script -->

@@ -124,6 +124,7 @@ class CranberrySection {
             } else {
               let tag = this.get('tag');
               if (tag !== section) {
+                this.set('loadSection', section);
                 this.set('tag', section);
                 this.fire('iron-signal', {name: 'track-page', data: { path: '/tag/' + section, data: { 'dimension7': tag } } });
               }
@@ -131,10 +132,15 @@ class CranberrySection {
           }
       });
     }
+
+    _setToParent(section, parent) {
+      console.log('IN SET TO PARENT!');
+      if (typeof parent !== 'undefined' && parent === '') {
+        return section;
+      } else {
+        return parent;
+      }
+    }
 }
-// Public methods.
-// ready() {
-//   app.logger('\<cranberry-section\> ready');
-// }
-// Private methods
+
 Polymer(CranberrySection);

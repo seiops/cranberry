@@ -78,7 +78,9 @@ class cranberryBreakingBar {
   }
 
   timer() {
-    let self = document.querySelector('cranberry-breaking-bar');
+    let app = Polymer.dom(document).querySelector('cranberry-base');
+    let self = app.querySelector('cranberry-breaking-bar');
+
     self._showNext();
   }
 

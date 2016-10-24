@@ -6,6 +6,7 @@
 <link rel="import" href="../cranberry-content-list/cranberry-content-list.html">
 <link rel="import" href="../cranberry-featured-content/cranberry-featured-content.html">
 <link rel="import" href="../cranberry-search-bar/cranberry-search-bar.html">
+<link rel="import" href="../cranberry-section-tracker/cranberry-section-tracker.html">
 <link rel="import" href="../scorestream-widget/scorestream-widget.html">
 <link rel="import" href="../google-dfp/google-dfp.html">
 <link rel="import" href="../tout-element/tout-element.html">
@@ -23,8 +24,11 @@
 
     <app-route route="{{route}}" pattern="/:section" data="{{routeData}}"></app-route>
 
+    <!-- Section Tracker -->
+    <cranberry-section-tracker rest="{$ config.baseEndpointUrl $}" page="[[routeData.section]]" parent-section="{{trackerParentSection}}" section="{{trackerSection}}"></cranberry-section-tracker>
+
     <div class="header-advertisement">
-        <google-dfp section="[[loadSection]]" tags="[[tag]]" ad-size-mapping="leaderboard" ad-pos="leaderboard" ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
+        <google-dfp section="[[trackerSection]]" section-parent="[[trackerParentSection]]" tags="[[tag]]" ad-size-mapping="leaderboard" ad-pos="leaderboard" ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
     </div>
 
     <scorestream-widget rest="{$ config.baseEndpointUrl $}" route="{{routeData}}" section="[[loadSection]]" hidden$="[[hidden]]"></scorestream-widget>
@@ -48,7 +52,7 @@
     </div>
 
     <template is="dom-if" if="[[_isLatest(selected)]]">
-      <cranberry-content-list rest="{$ config.baseEndpointUrl $}" type="[[_isGalleries(galleries)]]" sections="[[loadSection]]" section="[[section]]" count="18" start="1" tags="[[tags]]" tag="[[tag]]"></cranberry-content-list>
+      <cranberry-content-list rest="{$ config.baseEndpointUrl $}" type="[[_isGalleries(galleries)]]" sections="[[loadSection]]" section="[[section]]" tracked-section="[[trackerSection]]" tracked-parent-section="[[trackerParentSection]]" count="18" start="1" tags="[[tags]]" tag="[[tag]]"></cranberry-content-list>
     </template>
 
     <!-- <template is="dom-if" if="[[_isLocal(selected)]]">
@@ -62,6 +66,26 @@
     <!-- <template is="dom-if" if="[[_isFeatured(selected)]]">
       <cranberry-content-list rest="{$ config.baseEndpointUrl $}" type="[[_isGalleries(galleries)]]" sections="[[loadSection]]" count="18" start="1" tags="[[tags]]" tag="[[tag]]"></cranberry-content-list>
     </template> -->
+
+    <google-dfp
+        section="[[trackerSection]]"
+        section-parent="[[trackerParentSection]]"
+        ad-pos="adhesion"
+        ad-group="{$ config.dfpAdStructure.adGroupID $}"
+        ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
+        ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
+        out-of-page>
+      </google-dfp>
+
+      <google-dfp
+        section="[[trackerSection]]"
+        section-parent="[[trackerParentSection]]"
+        ad-pos="interstitial"
+        ad-group="{$ config.dfpAdStructure.adGroupID $}"
+        ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
+        ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
+        out-of-page>
+      </google-dfp>
   </template>
   <script src="cranberry-section.js"></script>
 </dom-module>
