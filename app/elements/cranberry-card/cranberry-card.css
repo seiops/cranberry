@@ -100,6 +100,7 @@ div.card > a > div.card-header > div.title-text.over-image {
   position: absolute;
   text-shadow: 0px 0px 10px rgba(0,0,0,1);
   width: calc(100% - 32px);
+  white-space: normal;
 }
 
 /* Card content area */
