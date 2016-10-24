@@ -114,6 +114,7 @@
 
         <!-- content area -->
         <cranberry-breaking-bar rest="{$ config.baseEndpointUrl $}" mobile="[[mobile]]" tablet="[[tablet]]" desktop="[[desktop]]"></cranberry-breaking-bar>
+
         {% include "cranberry-base/views/pages.html" %}
       </app-header-layout>
       <paper-toast id="confirmToast" class="Toast" duration="4000">
@@ -121,24 +122,6 @@
       </paper-toast>
 
       <paper-toast id="infoToast" class="Toast" duration="4000" always-on-top></paper-toast>
-
-      <google-dfp
-        section="homepage"
-        ad-pos="adhesion"
-        ad-group="{$ config.dfpAdStructure.adGroupID $}"
-        ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
-        ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
-        out-of-page>
-      </google-dfp>
-
-      <google-dfp
-        section="homepage"
-        ad-pos="interstitial"
-        ad-group="{$ config.dfpAdStructure.adGroupID $}"
-        ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
-        ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
-        out-of-page>
-      </google-dfp>
 
     </app-drawer-layout>
 

@@ -43,7 +43,9 @@ class CranberryContentList {
       tags: {
         type: Boolean,
         value: false
-      }
+      },
+      trackedSection: String,
+      trackedParentSection: String
     };
   }
 
