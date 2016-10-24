@@ -25,7 +25,7 @@ class cranberrySectionTracker {
 
     if (page === 'galleries') {
       this.set('section', 'news');
-    } else if (page !== '') {
+    } else if (page !== '' && page !== 'section' && page !== 'story' && page !== 'photo-gallery') {
       // REQUEST SECTION INFO
       params.request = 'section';
       params.desiredSection = page;
