@@ -51,8 +51,10 @@ class cranberrySearchBar {
     // Get the search request BYUTV element
     let request = document.querySelector('#searchRequest');
 
-    if (request.loading === true) {
-      request.abortRequest();
+    if (request !== null) {
+      if (request.loading === true) {
+        request.abortRequest();
+      }
     }
   }
 
