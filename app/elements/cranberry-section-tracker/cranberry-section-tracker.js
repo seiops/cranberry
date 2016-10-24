@@ -2,41 +2,48 @@ class cranberrySectionTracker {
   beforeRegister() {
     this.is = 'cranberry-section-tracker';
     this.properties = {
-        findSection: {
-            type: Boolean,
-            value: false
-        },
         rest: String,
         page: {
             type: String,
             observer: '_onRouteChanged'
         },
-        foundSection: {
-          type: Object,
+        section: {
+          type: String,
+          notify: true
+        },
+        parentSection: {
+          type: String,
           notify: true
         }
     };
-    this.observers = ['_buildRequest(findSection)'];
-  }
-
-  _buildRequest(findSection) {
-    if (findSection) {
-      console.log('FIND SECTION CHANGED TO :::::::: ' + findSection);
-      console.log('SETTING UP REQUEST');
-      this.set('foundSection', {'section': 'local', 'sectionParent': 'news'});
-      this.set('findSection', false);
-    }
-    
   }
 
   _onRouteChanged(page) {
-    console.log('The Page Has Changed!');
-    console.log(page);
+    let request = this.$.request;
+    let params = {};
+    let scrubbedPath = '';
 
-    if (typeof page !== 'undefined' && (page === '' || page === 'section' || page === 'galleries')) {
-      // GENERATE THE REQUEST
-      this.set('findSection', true);
+    if (page === 'galleries') {
+      this.set('section', 'news');
+    } else if (page !== '') {
+      // REQUEST SECTION INFO
+      params.request = 'section';
+      params.desiredSection = page;
+      
+      request.setAttribute('url', this.get('rest'));
+      request.setAttribute('callback-value', 'callbackSectionTracker');
+      request.params = params;
+      request.generateRequest();
+    } else if (page === '') {
+      this.set('section', 'homepage');
     }
+  }
+
+  _handleResponse(response) {
+    var result = JSON.parse(response.detail.Result);
+
+    this.set('section', result.sectionName);
+    this.set('parentSection', result.sectionParent);
   }
 
 }

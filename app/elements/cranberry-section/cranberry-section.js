@@ -132,10 +132,15 @@ class CranberrySection {
           }
       });
     }
+
+    _setToParent(section, parent) {
+      console.log('IN SET TO PARENT!');
+      if (typeof parent !== 'undefined' && parent === '') {
+        return section;
+      } else {
+        return parent;
+      }
+    }
 }
-// Public methods.
-// ready() {
-//   app.logger('\<cranberry-section\> ready');
-// }
-// Private methods
+
 Polymer(CranberrySection);

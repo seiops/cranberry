@@ -62,7 +62,6 @@
 <link rel="import" href="../cranberry-static-section/cranberry-static-section.html">
 <link rel="import" href="../cranberry-header-links/cranberry-header-links.html">
 <link rel="import" href="../google-dfp/google-dfp.html">
-<link rel="import" href="../cranberry-section-tracker/cranberry-section-tracker.html">
 
 <dom-module id="cranberry-base">
   <template>
@@ -76,12 +75,6 @@
     <iron-media-query query="(min-width: 960px)" query-matches="{{desktop}}"></iron-media-query>
     <iron-media-query query="(min-width: 720px) and (max-width:959px)" query-matches="{{tablet}}"></iron-media-query>
     <iron-media-query query="(max-width: 719px)" query-matches="{{mobile}}"></iron-media-query>
-
-    <!-- Section Tracker -->
-    <cranberry-section-tracker page="[[data.page]]" found-section="{{foundSection}}"></cranberry-section-tracker>
-
-    [[foundSection.section]]
-    [[foundSection.sectionParent]]
 
     <!-- Script loader -->
     <cranberry-script-loader></cranberry-script-loader>
@@ -121,6 +114,7 @@
 
         <!-- content area -->
         <cranberry-breaking-bar rest="{$ config.baseEndpointUrl $}" mobile="[[mobile]]" tablet="[[tablet]]" desktop="[[desktop]]"></cranberry-breaking-bar>
+
         {% include "cranberry-base/views/pages.html" %}
       </app-header-layout>
       <paper-toast id="confirmToast" class="Toast" duration="4000">
@@ -128,24 +122,6 @@
       </paper-toast>
 
       <paper-toast id="infoToast" class="Toast" duration="4000" always-on-top></paper-toast>
-
-      <google-dfp
-        section="homepage"
-        ad-pos="adhesion"
-        ad-group="{$ config.dfpAdStructure.adGroupID $}"
-        ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
-        ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
-        out-of-page>
-      </google-dfp>
-
-      <google-dfp
-        section="homepage"
-        ad-pos="interstitial"
-        ad-group="{$ config.dfpAdStructure.adGroupID $}"
-        ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
-        ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
-        out-of-page>
-      </google-dfp>
 
     </app-drawer-layout>
 
