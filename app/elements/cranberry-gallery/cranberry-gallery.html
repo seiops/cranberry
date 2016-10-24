@@ -118,6 +118,26 @@
         ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}">
       </google-dfp>
     </div>
+
+    <google-dfp
+        section="[[gallery.sectionInformation.sectionName]]"
+        section-parent="[[gallery.sectionInformation.sectionParentName]]"
+        ad-pos="adhesion"
+        ad-group="{$ config.dfpAdStructure.adGroupID $}"
+        ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
+        ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
+        out-of-page>
+      </google-dfp>
+
+      <google-dfp
+        section="[[gallery.sectionInformation.sectionName]]"
+        section-parent="[[gallery.sectionInformation.sectionParentName]]"
+        ad-pos="interstitial"
+        ad-group="{$ config.dfpAdStructure.adGroupID $}"
+        ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
+        ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
+        out-of-page>
+      </google-dfp>
   </template>
     <script src="cranberry-gallery.js"></script>
 </dom-module>
