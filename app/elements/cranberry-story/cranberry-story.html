@@ -26,7 +26,7 @@
 
     <app-route route="{{route}}" pattern="/:id" data="{{routeData}}"></app-route>
 
-    <byutv-jsonp on-response="_handleResponse" id="request"></byutv-jsonp>
+    <byutv-jsonp cache on-response="_handleResponse" id="storyRequest"></byutv-jsonp>
 
     <div class="Cranberry-Story">
       <div class="ut-center">
@@ -52,6 +52,7 @@
         <div class="media-container" id="mediaContainer"  desktop-layout$="{{desktop}}" tablet-layout$="{{tablet}}" mobile-layout$="{{mobile}}">
           <iron-image id="mainImage" sizing="cover" src="{$ config.baseDomain $}{{story.mediaAssets.images.0.exlarge}}" hidden$="{{hasLeadShortcode}}"></iron-image>
           <div id="leadShortcode" hidden$="[[!hasLeadShortcode]]"></div>
+          <div id="toutTap" hidden$="[[!hasToutTap]]"></div>
         </div>
         <div class="ut-rowFlex ut-absolute">
           <paper-fab mini src="../../../images/social/FacebookLogo_29.png" id="facebookButton" class="ut-small-icon-margin" social-name="{$ config.socialNaming.facebook $}" hidden></paper-fab>
@@ -77,7 +78,7 @@
           <p>{{story.byline.jobtitle}}</p>
         </div>
       </div>
-      <tout-element placement="tout-mid-article" slot="mid-article" route="{{route}}" hidden="{{hidden}}"></tout-element>
+
       <!-- Story Content Area -->
       <div class="content-wrapper">
         <!-- Contains story paragraphs -->

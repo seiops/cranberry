@@ -5,7 +5,7 @@ class toutElement {
       placement: {
         type: String
       },
-      storyTail: {
+      storyId: {
         type: Object
       },
       slot: {
@@ -15,63 +15,83 @@ class toutElement {
         type: Object,
         observer: 'onRouteChanged'
       },
+      player: String,
       hidden: {
         type: Boolean,
         observer: 'onHiddenChanged'
+      },
+      slotName: String,
+      routeData: {
+        type: Object
       }
     };
-  }
-
-  ready() {
-
-  }
-  onHiddenChanged(newValue) {
-    let tout = Polymer.dom(this.querySelector('#tout-slot-b50c2b'));
-    if (newValue) {
-      if (tout.firstChild){
-        console.info('DESTROY!!!');
-        console.info(TOUT);
-        TOUT.onReady(function(){
-          var $slot = TOUT.$("#tout-slot-b50c2b");
-
-          var players = TOUT.players.getAll();
-          var player = players.find(function(player) {
-            return $slot.has(player._player.$el);
-          });
-
-          if(player){
-            player.destroy();
-            tout.remove();
-          }
-        });
-      }
-
-    }
-  }
-  onRouteChanged(newValue) {
-    console.info('In Route changed');
-    console.info(newValue);
-    if (newValue.path !== null && typeof newValue.path !== 'undefined') {
-      let route = newValue;
-      let routePath = route.path.replace('/', '');
-
-      this.set('storyTail', routePath);
-
-      let self = this;
-
-      // this._setupTout();
-      console.log(TOUT);
-      TOUT.onReady(function(){
-        TOUT.players.create("mid_article_player", { selector: "#tout-slot-b50c2b" });
-      });
-    }
-  }
-
-  _setupTout() {
-
+    this.observers = ['_routeChanged(routeData.page)'];
   }
 
   attached() {
+    app.logger('\<tout-element\> attached');
+
+    let slot = this.get('slot');
+    let slotName = 'tout-slot-' + slot;
+    let placement = this.get('placement');
+    let player = this.get('player');
+
+    this.set('slotName', slotName);
+
+    TOUT.onReady(function(){
+      TOUT.players.create(player, { selector: '#' + slotName });
+    });
+  }
+
+  detached() {
+    app.logger('\<tout-element\> detached');
+    this.destroy();
+  }
+
+  refresh() {
+    this.async(function() {
+      let player = this.get('player');
+      let slotName = this.get('slotName');
+
+      TOUT.onReady(function(){
+        TOUT.players.create(player, { selector: '#' + slotName });
+      });
+    });
+  }
+
+  destroy(autoRefresh) {
+    this.async(function() {
+      let el = this;
+      let slotName = this.get('slotName');
+
+      TOUT.onReady(function(){
+        let $slot = TOUT.$('#' + slotName);
+
+        let players = TOUT.players.getAll();
+        let player = players.find(function(player) {
+          return $slot.has(player._player.$el);
+        });
+
+        if(typeof player !== 'undefined' && typeof player.instanceID !== 'undeinfed' && player.instanceID !== ''){
+          player.destroy();
+
+          let toutWrapper = el.querySelector('#' + slotName);
+          toutWrapper.innerHTML = '';
+
+          if (autoRefresh) {
+            el.refresh();
+          }
+        }
+      });
+    });
+  }
+
+  _routeChanged(page) {
+    if (page === 'section' || page === '') {
+      this.destroy(true);
+    } else {
+      this.destroy();
+    }
   }
 }
 Polymer(toutElement);

@@ -104,6 +104,9 @@ class cranberryShortcode {
           break;
         case 'toutembed':
           this._createShortcode(undefined, 'toutEmbed', shortcode);
+          break;
+        case 'tout':
+          this._createShortcode(undefined, 'tout', shortcode);
       }
     }
 
@@ -277,6 +280,7 @@ class cranberryShortcode {
         shortcodeEl = wrapper;
       }
 
+      // Create Tout Embed shortcode
       if (type === 'toutEmbed') {
         let story = document.querySelector('cranberry-story');
         shortcodeEl = document.createElement('div');
@@ -292,6 +296,18 @@ class cranberryShortcode {
         shortcodeEl.appendChild(tout);
         shortcodeEl.appendChild(toutScript);
 
+      }
+
+      // Create Tout shortcode
+      if (type === 'tout') {
+        let story = document.querySelector('cranberry-story');
+        shortcodeEl = document.createElement('tout-element');
+
+        shortcodeEl.set('placement', 'tout-mid-article');
+        shortcodeEl.set('slot', 'mid-article');
+        shortcodeEl.set('player', 'mid_article_player');
+        shortcodeEl.set('storyId', story.get('routeData.id'));
+        
       }
 
       // Append shortcodeEl
