@@ -28,9 +28,6 @@ class cranberrySectionTracker {
     let scrubbedPath = '';
     let tags = this.get('tags');
 
-    console.log('THIS IS TRACKER');
-    console.log(page);
-
     if (page === 'galleries' || tags) {
       this.set('section', 'news');
     } else if (page !== '' && page !== 'section' && page !== 'story' && page !== 'photo-gallery') {
