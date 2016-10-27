@@ -52,7 +52,8 @@
         <div class="media-container" id="mediaContainer"  desktop-layout$="{{desktop}}" tablet-layout$="{{tablet}}" mobile-layout$="{{mobile}}">
           <iron-image id="mainImage" sizing="cover" src="{$ config.baseDomain $}{{story.mediaAssets.images.0.exlarge}}" hidden$="{{hasLeadShortcode}}"></iron-image>
           <div id="leadShortcode" hidden$="[[!hasLeadShortcode]]"></div>
-          <div id="toutTap" hidden$="[[!hasToutTap]]"></div>
+          <!-- TOUT TAP -->
+          <!--<div id="toutTap" hidden$="[[!hasToutTap]]"></div>-->
         </div>
         <div class="ut-rowFlex ut-absolute">
           <paper-fab mini src="../../../images/social/FacebookLogo_29.png" id="facebookButton" class="ut-small-icon-margin" social-name="{$ config.socialNaming.facebook $}" hidden></paper-fab>

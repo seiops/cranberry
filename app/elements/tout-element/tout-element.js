@@ -31,6 +31,10 @@ class toutElement {
   attached() {
     app.logger('\<tout-element\> attached');
 
+    let metaTag = Polymer.dom(document).querySelector('meta[property="tout:article:id"]');
+    metaTag.setAttribute('content', this.get('storyId'));
+    console.log(metaTag);
+
     let slot = this.get('slot');
     let slotName = 'tout-slot-' + slot;
     let placement = this.get('placement');
@@ -50,6 +54,7 @@ class toutElement {
 
   refresh() {
     this.async(function() {
+      console.log('Refreshing the Tout');
       let player = this.get('player');
       let slotName = this.get('slotName');
 

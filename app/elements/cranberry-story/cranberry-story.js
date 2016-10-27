@@ -166,7 +166,12 @@ class CranberryStory {
   }
 
   _hiddenChanged(hidden) {
-    this._destroyContent();
+    // console.log('Hidden Changed!');
+    // console.log(hidden);
+
+    // if (hidden) {
+    //   this._destroyContent();
+    // }
   }
 
   _computeBylineURL(url) {
@@ -192,15 +197,16 @@ class CranberryStory {
           let contentArea = this.$.storyContentArea;
           let el = this;
 
-          let tapTout = document.createElement('tout-element');
-          let topToutDiv = this.$.toutTap;
+          // TOUT TAP BUILD
+          // let tapTout = document.createElement('tout-element');
+          // let topToutDiv = this.$.toutTap;
 
-          tapTout.set('placement', 'tout-tap-article');
-          tapTout.set('slot', 'tap-article');
-          tapTout.set('player', 'top_article_embed');
-          tapTout.set('storyId', this.get('routeData.id'));
+          // tapTout.set('placement', 'tout-tap-article');
+          // tapTout.set('slot', 'tap-article');
+          // tapTout.set('player', 'top_article_embed');
+          // tapTout.set('storyId', this.get('routeData.id'));
 
-          topToutDiv.appendChild(tapTout);
+          // topToutDiv.appendChild(tapTout);
 
           if (typeof paragraphs !== 'undefined') {
             // Create a document fragment to append all elements to
