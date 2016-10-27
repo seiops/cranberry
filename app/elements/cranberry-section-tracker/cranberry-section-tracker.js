@@ -14,6 +14,10 @@ class cranberrySectionTracker {
         parentSection: {
           type: String,
           notify: true
+        },
+        tags: {
+          type: Boolean,
+          value: false
         }
     };
   }
@@ -22,8 +26,12 @@ class cranberrySectionTracker {
     let request = this.$.request;
     let params = {};
     let scrubbedPath = '';
+    let tags = this.get('tags');
 
-    if (page === 'galleries') {
+    console.log('THIS IS TRACKER');
+    console.log(page);
+
+    if (page === 'galleries' || tags) {
       this.set('section', 'news');
     } else if (page !== '' && page !== 'section' && page !== 'story' && page !== 'photo-gallery') {
       // REQUEST SECTION INFO

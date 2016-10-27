@@ -65,7 +65,9 @@ class CranberryStory {
   }
 
   attached() {
-    app.logger('\<cranberry-story\> attached');
+    this.async(function() {
+      app.logger('\<cranberry-story\> attached');
+    });
   }
 
   _checkStory() {
@@ -150,17 +152,18 @@ class CranberryStory {
   }
 
   _checkParams() {
-    let hidden = this.get('hidden');
+    this.async(function() {
+      let hidden = this.get('hidden');
+      if (!hidden) {
+        let storyId = this.get('routeData.id');
+        let currentId = this.get('storyId');
 
-    if (!hidden) {
-      let storyId = this.get('routeData.id');
-      let currentId = this.get('storyId');
-
-      if (typeof storyId !== 'undefined' && currentId !== storyId) {
-        app.logger('\<cranberry-story\> setting new story id -\> ' + storyId);
-        this.set('storyId', storyId);
+        if (typeof storyId !== 'undefined' && currentId !== storyId) {
+          app.logger('\<cranberry-story\> setting new story id -\> ' + storyId);
+          this.set('storyId', storyId);
+        }
       }
-    }
+    });
   }
 
   _hiddenChanged(hidden, routeId) {
