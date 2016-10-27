@@ -131,8 +131,6 @@ class cranberrySearch {
 
   _requestSearch(queryString, move) {
     if (queryString !== '' && typeof queryString !== 'undefined') {
-      console.log('SEARCHING ON');
-      console.log(queryString);
       this.set('noQuery', false);
       this.set('isSearching', true);
       // Set the display string for the query to display to the user
@@ -186,7 +184,6 @@ class cranberrySearch {
   }
 
   _parseResponse(response) {
-      console.info('Parsing response!');
       var result = JSON.parse(response.Result);
 
       if (result.length !== 20) {

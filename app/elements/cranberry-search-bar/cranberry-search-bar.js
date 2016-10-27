@@ -68,6 +68,13 @@ class cranberrySearchBar {
       appLocation.set('path', '/search/' + query.replace(/ /g, '+'));
 
       this._clearInput();
+
+      let base = Polymer.dom(document).querySelector('cranberry-base');
+      let drawer = base.querySelector('app-drawer');
+
+      if (!drawer.persistent && drawer.opened) {
+        drawer.close();
+      }
     });
 
   }
