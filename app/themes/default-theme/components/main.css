@@ -91,4 +91,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     @apply(--layout-center);
     @apply(--layout-flex);
   }
+
+  @nest &-siteLogo iron-image {
+    width: 156px;
+    height: 48px;
+  }
 }
