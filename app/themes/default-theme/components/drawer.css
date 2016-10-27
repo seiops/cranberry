@@ -109,4 +109,14 @@ app-drawer ::content #contentContainer {
     padding-left: 24px;
     padding-right: 24px;
   }
+
+  @nest &-promo {
+    @apply(--layout-horizontal);
+    @apply(--layout-center-justified);
+  }
+
+  @nest &-promoImage {
+    width: 250px;
+    height: 55px;
+  }
 }

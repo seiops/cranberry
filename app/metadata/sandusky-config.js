@@ -12,6 +12,10 @@ module.exports = {
   urlTitle: 'SanduskyRegister.com',
   epaperLink: 'http://digital.olivesoftware.com/Olive/ODE/SanduskyRegister',
   ludiPortal: 'sanduskyregister',
+  promo: {
+    image: '../../images/promo/sandusky/promo.png',
+    link: 'http://www.sanduskyoffers.com'
+  },
   // Gigya
   gigya: {
     // Needs changed from dev key to prod key
