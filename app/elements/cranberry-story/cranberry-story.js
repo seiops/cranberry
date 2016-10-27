@@ -61,13 +61,11 @@ class CranberryStory {
         type: Boolean
       }
     };
-    this.observers = ['_checkParams(routeData.id)', '_hiddenChanged(hidden)'];
+    this.observers = ['_checkParams(routeData.id)', '_hiddenChanged(hidden, routeData.id)'];
   }
 
   attached() {
     app.logger('\<cranberry-story\> attached');
-
-    this._checkStory();    
   }
 
   _checkStory() {
@@ -165,13 +163,20 @@ class CranberryStory {
     }
   }
 
-  _hiddenChanged(hidden) {
-    // console.log('Hidden Changed!');
-    // console.log(hidden);
+  _hiddenChanged(hidden, routeId) {
+    this.async(function() {
+      let storyId = this.get('storyId');
 
-    // if (hidden) {
-    //   this._destroyContent();
-    // }
+      if (hidden) {
+        // Destroy the content
+        this._destroyContent();
+      } else {
+        if (routeId === storyId) {
+          this._checkStory();
+        }
+      }
+    });
+    
   }
 
   _computeBylineURL(url) {
