@@ -17,7 +17,11 @@
     </div>
     <nav class="Drawer-widget">
       <cranberry-search-bar class="Drawer-search" id="drawerSearch"></cranberry-search-bar>
-
+      <div class="Drawer-promo">
+        <a href="{$ config.promo.link $}" target="_blank" on-tap="_checkDrawer">
+          <iron-image class="Drawer-promoImage" src="{$ config.promo.image $}" sizing="cover"></iron-image>
+        </a>
+      </div>
       <paper-menu class="Navigation Navigation--menu list" attr-for-selected="data-route" selected="[[route.path]]">
         <a class="Navigation-link" data-route="/" href="/" on-tap="_checkDrawer">
           <iron-icon class="Navigation-icon" icon="home"></iron-icon>
