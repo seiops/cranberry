@@ -3,6 +3,7 @@
 <link rel="import" href="../../bower_components/iron-icons/social-icons.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
+<link rel="import" href="../../bower_components/page-title/page-title.html">
 <link rel="import" href="../cranberry-shortcode/cranberry-shortcode.html">
 <link rel="import" href="../youneeq-content/youneeq-content.html">
 <link rel="import" href="../gigya-comments/gigya-comments.html">
@@ -25,6 +26,8 @@
     <iron-media-query query="(max-width:719px)" query-matches="{{mobile}}"></iron-media-query>
 
     <app-route route="{{route}}" pattern="/:id" data="{{routeData}}"></app-route>
+
+    <page-title base-title="{$ config.title $}" title="[[story.title]]"></page-title>
 
     <byutv-jsonp cache on-response="_handleResponse" id="storyRequest"></byutv-jsonp>
 

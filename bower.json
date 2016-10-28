@@ -40,7 +40,8 @@
     "re-captcha": "^1.1.1",
     "start-google-analytics-tracker": "StartPolymer/start-google-analytics-tracker#^1.1.1",
     "autotrack": "^1.0.3",
-    "iron-lazy-pages": "^1.4.2"
+    "iron-lazy-pages": "^1.4.2",
+    "page-title": "^1.0.0"
   },
   "ignore": [],
   "resolutions": {

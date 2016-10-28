@@ -24,6 +24,11 @@ class CranberrySection {
             },
             tag: {
               type: String
+            },
+            hidden: {
+                type: Boolean,
+                reflectToAttribute: true,
+                value: true
             }
         };
 
@@ -140,6 +145,26 @@ class CranberrySection {
       } else {
         return parent;
       }
+    }
+
+    _displayTitle(routeData) {
+        let hidden = this.get('hidden');
+        if (!hidden) {
+            if(typeof routeData.section !== 'undefined' && routeData.section !== 'section') {
+                if (routeData.section === '') {
+                    return 'Home';
+                } else if(routeData.section === 'tags') {
+                    let route = this.get('route');
+                    let path = route.path;
+                    path = path[0].toUpperCase() + path.slice(1)
+                    return path;
+                } else {
+                    let route = routeData.section;
+                    route = route[0].toUpperCase() + route.slice(1);
+                    return route;
+                }
+            }
+        }
     }
 }
 
