@@ -68,7 +68,7 @@ class CranberryCard {
 
   _scrubTag(tag) {
     if (typeof tag !== 'undefined' && tag !== '') {
-      let temp = tag.replace('_', ' ');
+      let temp = tag.replace(/_/g, ' ');;
 
       return temp;
     } else {
