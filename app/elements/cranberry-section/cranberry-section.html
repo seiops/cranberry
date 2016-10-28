@@ -25,7 +25,7 @@
 
     <app-route route="{{route}}" pattern="/:section" data="{{routeData}}"></app-route>
 
-    <page-title base-title="{$ config.title $}" title="[[_displayTitle(routeData)]]"></page-title>
+    <page-title base-title="{$ config.title $}" title="[[sectionTitle]]"></page-title>
 
     <!-- Section Tracker -->
     <cranberry-section-tracker rest="{$ config.baseEndpointUrl $}" page="[[routeData.section]]" parent-section="{{trackerParentSection}}" section="{{trackerSection}}" tags$="{{tags}}"></cranberry-section-tracker>

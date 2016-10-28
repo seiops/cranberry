@@ -26,13 +26,17 @@ class CranberrySection {
               type: String
             },
             hidden: {
-                type: Boolean,
-                reflectToAttribute: true,
-                value: true
+              type: Boolean,
+              reflectToAttribute: true,
+              value: true
+            },
+            sectionTitle: {
+              type: String,
+              value: ''
             }
         };
 
-        this.observers = ['_routeChange(routeData.section)'];
+        this.observers = ['_routeChange(routeData.section)', '_hiddenChanged(hidden, routeData)'];
     }
 
     attached() {
@@ -147,24 +151,25 @@ class CranberrySection {
       }
     }
 
-    _displayTitle(routeData) {
-        let hidden = this.get('hidden');
-        if (!hidden) {
-            if(typeof routeData.section !== 'undefined' && routeData.section !== 'section') {
-                if (routeData.section === '') {
-                    return 'Home';
-                } else if(routeData.section === 'tags') {
-                    let route = this.get('route');
-                    let path = route.path;
-                    path = path[0].toUpperCase() + path.slice(1)
-                    return path;
-                } else {
-                    let route = routeData.section;
-                    route = route[0].toUpperCase() + route.slice(1);
-                    return route;
-                }
-            }
+    _hiddenChanged(hidden, routeData) {
+      if (!hidden) {
+        let title = '';
+        if(typeof routeData.section !== 'undefined' && routeData.section !== 'section') {
+          if (routeData.section === '') {
+            title = 'Home';
+          } else if(routeData.section === 'tags') {
+            let route = this.get('route');
+            let path = route.path;
+            path = path[0].toUpperCase() + path.slice(1)
+            title = path;
+          } else {
+            let route = routeData.section;
+            route = route[0].toUpperCase() + route.slice(1);
+            title = route;
+          }
         }
+        this.set('sectionTitle', title);
+      }
     }
 }
 
