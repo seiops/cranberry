@@ -12,12 +12,11 @@
       @import "cranberry-news-archive/cranberry-news-archive";
     </style>
     <paper-material>
-      <form is="iron-form" id="form" method="post" action="http://www.newslibrary.com/nlsearch.asp">
-        <input type="hidden" name="region" value="srso">
-        <paper-input class="keyword-input" name="name" label="Keywords"></paper-input>
-        <paper-dropdown-menu id="label_section" label="Sections" name="label_section">
+      <form is="iron-form">
+        <paper-input class="keyword-input" label="Keywords" value="{{keywords}}"></paper-input>
+        <paper-dropdown-menu label="Section" selected-item="{{sectionItem}}">
           <paper-listbox class="dropdown-content" selected="0">
-            <paper-item value="all">All sections</paper-item>
+            <paper-item value="all">All Sections</paper-item>
             <paper-item value="editorial">Editorial</paper-item>
             <paper-item value="entertainment">Entertainment</paper-item>
             <paper-item value="food">Food</paper-item>
@@ -31,7 +30,7 @@
           </paper-listbox>
         </paper-dropdown-menu>
 
-        <paper-dropdown-menu label="Sort Order" name="SORT">
+        <paper-dropdown-menu label="Sort Order" selected-item="{{sortItem}}">
           <paper-listbox class="dropdown-content" selected="0">
             <paper-item value="d:h">Return most recent matches first</paper-item>
             <paper-item value="h:d">Return best matches first</paper-item>
@@ -41,8 +40,10 @@
         <fieldset>
           <legend>Time Frame</legend>
           <div class="all-articles-container">
-            <paper-radio-button id="days-weeks-years" name="date_mode" value="year" checked$="{{!dateRange}}" active="{{quickSearch}}">Quick Search</paper-radio-button>
-            <paper-dropdown-menu class="all-articles-menu" label="All Articles" name="year" disabled$="{{!quickSearch}}">
+
+            <paper-radio-button name="date_mode" checked$="{{!dateRange}}" active="{{quickSearch}}">Quick Search</paper-radio-button>
+
+            <paper-dropdown-menu class="all-articles-menu" label="All Articles" disabled$="{{!quickSearch}}" selected-item="{{quickReturn}}">
               <paper-listbox class="dropdown-content" selected="0">
                 <paper-item value="all">All articles</paper-item>
                 <paper-item value="last 7 days">Last 7 days</paper-item>
@@ -54,10 +55,10 @@
           </div>
 
           <div class="date-range-container">
-            <paper-radio-button id="calendarPick" name="date_mode" value="range" active="{{dateRange}}" checked$="{{!quickSearch}}">Date Range</paper-radio-button>
+            <paper-radio-button value="range" active="{{dateRange}}" checked$="{{!quickSearch}}">Date Range</paper-radio-button>
             <div class="date-from-menu-container">
               <h3 class="date-headline">From:</h3>
-              <paper-dropdown-menu label="Month" name="start_month" disabled$="{{!dateRange}}">
+              <paper-dropdown-menu label="Month" disabled$="{{!dateRange}}" selected-item="{{startMonth}}">
                 <paper-listbox class="dropdown-content" selected="0">
                   <paper-item value="1">January</paper-item>
                   <paper-item value="2">February</paper-item>
@@ -74,7 +75,7 @@
                 </paper-listbox>
               </paper-dropdown-menu>
 
-              <paper-dropdown-menu label="Day" name="start_day" disabled$="{{!dateRange}}">
+              <paper-dropdown-menu label="Day" disabled$="{{!dateRange}}" selected-item="{{startDay}}">
                 <paper-listbox class="dropdown-content" selected="0">
                   <paper-item value="1">1</paper-item>
                   <paper-item value="2">2</paper-item>
@@ -110,10 +111,10 @@
                 </paper-listbox>
               </paper-dropdown-menu>
 
-              <paper-dropdown-menu label="Year" name="start_year" disabled$="{{!dateRange}}">
+              <paper-dropdown-menu label="Year" disabled$="{{!dateRange}}" selected-item="{{startYear}}">
                 <paper-listbox class="dropdown-content" selected="0">
                   <template is="dom-repeat" items="{{yearArray}}">
-                    <paper-item value="[[index]]">[[item]]</paper-item>
+                    <paper-item value$="[[item]]">[[item]]</paper-item>
                   </template>
                 </paper-listbox>
               </paper-dropdown-menu>
@@ -121,7 +122,7 @@
 
             <div class="date-to-menu-container">
               <h3 class="date-headline">To:</h3>
-              <paper-dropdown-menu label="Month" name="end_month" disabled$="{{!dateRange}}">
+              <paper-dropdown-menu label="Month" disabled$="{{!dateRange}}" selected-item="{{endMonth}}">
                 <paper-listbox class="dropdown-content" selected="0">
                   <paper-item value="1">January</paper-item>
                   <paper-item value="2">February</paper-item>
@@ -138,7 +139,7 @@
                 </paper-listbox>
               </paper-dropdown-menu>
 
-              <paper-dropdown-menu label="Day" name="end_day" disabled$="{{!dateRange}}">
+              <paper-dropdown-menu label="Day" disabled$="{{!dateRange}}" selected-item="{{endDay}}">
                 <paper-listbox class="dropdown-content" selected="0">
                   <paper-item value="1">1</paper-item>
                   <paper-item value="2">2</paper-item>
@@ -174,10 +175,10 @@
                 </paper-listbox>
               </paper-dropdown-menu>
 
-              <paper-dropdown-menu label="Year" name="end_year" disabled$="{{!dateRange}}">
+              <paper-dropdown-menu label="Year" disabled$="{{!dateRange}}" selected-item="{{endYear}}">
                 <paper-listbox class="dropdown-content" selected="0">
                   <template is="dom-repeat" items="{{yearArray}}">
-                    <paper-item value="[[index]]">[[item]]</paper-item>
+                    <paper-item value$="[[item]]">[[item]]</paper-item>
                   </template>
                 </paper-listbox>
               </paper-dropdown-menu>
@@ -186,6 +187,24 @@
         </fieldset>
         
         <paper-button on-tap="_handleSubmit" id="submitButton" name="search" raised>Begin Search</paper-button>
+      </form>
+
+      <form id="form" method="post" action="http://www.newslibrary.com/nlsearch.asp" hidden>
+        <input type="hidden" name="region" value="srso" hidden />
+        <input type="hidden" name="NITEMS" value="10" hidden />
+        <input type="hidden" name="search_text" value="[[keywords]]" hidden />
+        <input type="hidden" name="search_mode" value="basic" hidden />
+        <input type="radio" name="date_mode" value="year" checked$="{{quickSearch}}" hidden>
+        <input type="hidden" name="label_section" value$="[[sectionItem.attributes.0.nodeValue]]" hidden />
+        <input type="radio" name="date_mode" value="range" checked$="{{dateRange}}" hidden>
+        <input type="hidden" name="SORT" value$="[[sortItem.attributes.0.nodeValue]]" hidden />
+        <input type="hidden" name="year" value$="[[quickReturn.attributes.0.nodeValue]]" hidden />
+        <input type="hidden" name="start_month" value$="[[startMonth.attributes.0.nodeValue]]" hidden />
+        <input type="hidden" name="start_day" value$="[[startDay.attributes.0.nodeValue]]" hidden />
+        <input type="hidden" name="start_year" value$="[[startYear.attributes.4.nodeValue]]" hidden />
+        <input type="hidden" name="end_month" value$="[[endMonth.attributes.0.nodeValue]]" hidden />
+        <input type="hidden" name="end_day" value$="[[endDay.attributes.0.nodeValue]]" hidden />
+        <input type="hidden" name="end_year" value$="[[endYear.attributes.4.nodeValue]]" hidden />
       </form>
     </paper-material>
   </template>

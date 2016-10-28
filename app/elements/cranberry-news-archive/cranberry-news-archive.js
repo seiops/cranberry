@@ -6,6 +6,10 @@ class cranberryNewsArchive {
       quickSearch: {
         type: Boolean,
         value: true
+      },
+      startYear: {
+        type: Object,
+        observer: 'sectionItemChanged'
       }
     }
   }
@@ -22,7 +26,14 @@ class cranberryNewsArchive {
   }
 
   _handleSubmit(event) {
-    Polymer.dom(event).localTarget.parentElement.submit();
+    let dummyForm = this.$.form;
+
+    form.submit();
+    // Polymer.dom(event).localTarget.parentElement.submit();
+  }
+
+  sectionItemChanged(newValue) {
+    console.dir(newValue);
   }
 }
 Polymer(cranberryNewsArchive);
