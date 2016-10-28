@@ -1,3 +1,22 @@
 :host {
   display: block;
+
+  --paper-dropdown-menu: {
+    margin: 12px;
+  };
+}
+
+form {
+  padding: 24px;
+}
+
+paper-input.keyword-input {
+  margin: 12px;
+}
+
+paper-button {
+  background-color: var(--accent-color);
+  color: #fff;
+  border-radius: 0;
+  margin: 24px 0;
 }

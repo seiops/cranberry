@@ -3,19 +3,191 @@
 <link rel="import" href="../../bower_components/iron-form-element-behavior/iron-form-element-behavior.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
-<link rel="import" href="../../bower_components/paper-input/paper-textarea.html">
+<link rel="import" href="../../bower_components/paper-radio-button/paper-radio-button.html">
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
 
 <dom-module id="cranberry-news-archive">
   <template>
     <style>
-      @import "cranberry-map/cranberry-map";
+      @import "cranberry-news-archive/cranberry-news-archive";
     </style>
+    <paper-material>
+      <form is="iron-form" id="form" method="post" action="http://www.newslibrary.com/nlsearch.asp">
+        <input type="hidden" name="region" value="srso">
+        <paper-input class="keyword-input" name="name" label="Keywords"></paper-input>
+        <paper-dropdown-menu id="label_section" label="Sections" name="label_section">
+          <paper-listbox class="dropdown-content" selected="0">
+            <paper-item value="all">All sections</paper-item>
+            <paper-item value="editorial">Editorial</paper-item>
+            <paper-item value="entertainment">Entertainment</paper-item>
+            <paper-item value="food">Food</paper-item>
+            <paper-item value="homes">Homes</paper-item>
+            <paper-item value="news">News</paper-item>
+            <paper-item value="lifestyle">Lifestyle</paper-item>
+            <paper-item value="obituaries">Obituaries</paper-item>
+            <paper-item value="sports">Sports</paper-item>
+            <paper-item value="travel">Travel</paper-item>
+            <paper-item value="tv magazine">TV Magazine</paper-item>
+          </paper-listbox>
+        </paper-dropdown-menu>
 
-    <form is="iron-form" id="form" method="post" action="/form/handler">
-      <paper-input name="name" label="KeyWords"></paper-input>
-      
-    </form>
+        <paper-dropdown-menu label="Sort Order" name="SORT">
+          <paper-listbox class="dropdown-content" selected="0">
+            <paper-item value="d:h">Return most recent matches first</paper-item>
+            <paper-item value="h:d">Return best matches first</paper-item>
+          </paper-listbox>
+        </paper-dropdown-menu>
 
+        <fieldset>
+          <legend>Time Frame</legend>
+          <div class="all-articles-container">
+            <paper-radio-button id="days-weeks-years" name="date_mode" value="year" checked$="{{!dateRange}}" active="{{quickSearch}}">Quick Search</paper-radio-button>
+            <paper-dropdown-menu class="all-articles-menu" label="All Articles" name="year" disabled$="{{!quickSearch}}">
+              <paper-listbox class="dropdown-content" selected="0">
+                <paper-item value="all">All articles</paper-item>
+                <paper-item value="last 7 days">Last 7 days</paper-item>
+                <paper-item value="last 14 days">Last 14 days</paper-item>
+                <paper-item value="last 6 months">Past 6 months</paper-item>
+                <paper-item value="last 12 months">Past year</paper-item>
+              </paper-listbox>
+            </paper-dropdown-menu>
+          </div>
+
+          <div class="date-range-container">
+            <paper-radio-button id="calendarPick" name="date_mode" value="range" active="{{dateRange}}" checked$="{{!quickSearch}}">Date Range</paper-radio-button>
+            <div class="date-from-menu-container">
+              <h3 class="date-headline">From:</h3>
+              <paper-dropdown-menu label="Month" name="start_month" disabled$="{{!dateRange}}">
+                <paper-listbox class="dropdown-content" selected="0">
+                  <paper-item value="1">January</paper-item>
+                  <paper-item value="2">February</paper-item>
+                  <paper-item value="3">March</paper-item>
+                  <paper-item value="4">April</paper-item>
+                  <paper-item value="5">May</paper-item>
+                  <paper-item value="6">June</paper-item>
+                  <paper-item value="7">July</paper-item>
+                  <paper-item value="8">August</paper-item>
+                  <paper-item value="9">September</paper-item>
+                  <paper-item value="10">October</paper-item>
+                  <paper-item value="11">November</paper-item>
+                  <paper-item value="12">December</paper-item>
+                </paper-listbox>
+              </paper-dropdown-menu>
+
+              <paper-dropdown-menu label="Day" name="start_day" disabled$="{{!dateRange}}">
+                <paper-listbox class="dropdown-content" selected="0">
+                  <paper-item value="1">1</paper-item>
+                  <paper-item value="2">2</paper-item>
+                  <paper-item value="3">3</paper-item>
+                  <paper-item value="4">4</paper-item>
+                  <paper-item value="5">5</paper-item>
+                  <paper-item value="6">6</paper-item>
+                  <paper-item value="7">7</paper-item>
+                  <paper-item value="8">8</paper-item>
+                  <paper-item value="9">9</paper-item>
+                  <paper-item value="10">10</paper-item>
+                  <paper-item value="11">11</paper-item>
+                  <paper-item value="12">12</paper-item>
+                  <paper-item value="13">13</paper-item>
+                  <paper-item value="14">14</paper-item>
+                  <paper-item value="15">15</paper-item>
+                  <paper-item value="16">16</paper-item>
+                  <paper-item value="17">17</paper-item>
+                  <paper-item value="18">18</paper-item>
+                  <paper-item value="19">19</paper-item>
+                  <paper-item value="20">20</paper-item>
+                  <paper-item value="21">21</paper-item>
+                  <paper-item value="22">22</paper-item>
+                  <paper-item value="23">23</paper-item>
+                  <paper-item value="24">24</paper-item>
+                  <paper-item value="25">25</paper-item>
+                  <paper-item value="26">26</paper-item>
+                  <paper-item value="27">27</paper-item>
+                  <paper-item value="28">28</paper-item>
+                  <paper-item value="29">29</paper-item>
+                  <paper-item value="30">30</paper-item>
+                  <paper-item value="31">31</paper-item>
+                </paper-listbox>
+              </paper-dropdown-menu>
+
+              <paper-dropdown-menu label="Year" name="start_year" disabled$="{{!dateRange}}">
+                <paper-listbox class="dropdown-content" selected="0">
+                  <template is="dom-repeat" items="{{yearArray}}">
+                    <paper-item value="[[index]]">[[item]]</paper-item>
+                  </template>
+                </paper-listbox>
+              </paper-dropdown-menu>
+            </div>
+
+            <div class="date-to-menu-container">
+              <h3 class="date-headline">To:</h3>
+              <paper-dropdown-menu label="Month" name="end_month" disabled$="{{!dateRange}}">
+                <paper-listbox class="dropdown-content" selected="0">
+                  <paper-item value="1">January</paper-item>
+                  <paper-item value="2">February</paper-item>
+                  <paper-item value="3">March</paper-item>
+                  <paper-item value="4">April</paper-item>
+                  <paper-item value="5">May</paper-item>
+                  <paper-item value="6">June</paper-item>
+                  <paper-item value="7">July</paper-item>
+                  <paper-item value="8">August</paper-item>
+                  <paper-item value="9">September</paper-item>
+                  <paper-item value="10">October</paper-item>
+                  <paper-item value="11">November</paper-item>
+                  <paper-item value="12">December</paper-item>
+                </paper-listbox>
+              </paper-dropdown-menu>
+
+              <paper-dropdown-menu label="Day" name="end_day" disabled$="{{!dateRange}}">
+                <paper-listbox class="dropdown-content" selected="0">
+                  <paper-item value="1">1</paper-item>
+                  <paper-item value="2">2</paper-item>
+                  <paper-item value="3">3</paper-item>
+                  <paper-item value="4">4</paper-item>
+                  <paper-item value="5">5</paper-item>
+                  <paper-item value="6">6</paper-item>
+                  <paper-item value="7">7</paper-item>
+                  <paper-item value="8">8</paper-item>
+                  <paper-item value="9">9</paper-item>
+                  <paper-item value="10">10</paper-item>
+                  <paper-item value="11">11</paper-item>
+                  <paper-item value="12">12</paper-item>
+                  <paper-item value="13">13</paper-item>
+                  <paper-item value="14">14</paper-item>
+                  <paper-item value="15">15</paper-item>
+                  <paper-item value="16">16</paper-item>
+                  <paper-item value="17">17</paper-item>
+                  <paper-item value="18">18</paper-item>
+                  <paper-item value="19">19</paper-item>
+                  <paper-item value="20">20</paper-item>
+                  <paper-item value="21">21</paper-item>
+                  <paper-item value="22">22</paper-item>
+                  <paper-item value="23">23</paper-item>
+                  <paper-item value="24">24</paper-item>
+                  <paper-item value="25">25</paper-item>
+                  <paper-item value="26">26</paper-item>
+                  <paper-item value="27">27</paper-item>
+                  <paper-item value="28">28</paper-item>
+                  <paper-item value="29">29</paper-item>
+                  <paper-item value="30">30</paper-item>
+                  <paper-item value="31">31</paper-item>
+                </paper-listbox>
+              </paper-dropdown-menu>
+
+              <paper-dropdown-menu label="Year" name="end_year" disabled$="{{!dateRange}}">
+                <paper-listbox class="dropdown-content" selected="0">
+                  <template is="dom-repeat" items="{{yearArray}}">
+                    <paper-item value="[[index]]">[[item]]</paper-item>
+                  </template>
+                </paper-listbox>
+              </paper-dropdown-menu>
+            </div>
+          </div>
+        </fieldset>
+        
+        <paper-button on-tap="_handleSubmit" id="submitButton" name="search" raised>Begin Search</paper-button>
+      </form>
+    </paper-material>
   </template>
     <script src="cranberry-news-archive.js"></script>
 </dom-module>
