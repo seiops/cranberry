@@ -33,10 +33,28 @@ class CranberrySection {
             sectionTitle: {
               type: String,
               value: ''
+            },
+            params: {
+              type: Object,
+              value: [],
+              observer: '_changeParams'
+            },
+            response: {
+              type: Object,
+              observer: '_parseResponse'
+            },
+            items: {
+              type: Object,
+              value: []
+            },
+            start: {
+              type: Number,
+              value: 1,
+              observer: '_changeStart'
             }
         };
 
-        this.observers = ['_routeChange(routeData.section)', '_hiddenChanged(hidden, routeData)'];
+        this.observers = ['_routeChange(routeData.section)', '_hiddenChanged(hidden, routeData)', '_itemsChanged(items)'];
     }
 
     attached() {
@@ -138,6 +156,7 @@ class CranberrySection {
                 this.fire('iron-signal', {name: 'track-page', data: { path: '/tag/' + section, data: { 'dimension7': tag } } });
               }
             }
+            this._updateParams();
           }
       });
     }
@@ -171,6 +190,69 @@ class CranberrySection {
         this.set('sectionTitle', title);
       }
     }
+
+  _updateParams() {
+    this.async(function () {
+      let currentRequest = this.get('request');
+
+      if (typeof currentRequest !== 'undefined' && currentRequest.loading === true) {
+        app.logger('<\cranberry-content-list\> aborting previous request');
+        this.$.request.abortRequest(currentRequest);
+      }
+
+
+      this.set('items', []);
+
+      let jsonp = {};
+      let sections = this.get('loadSection');
+      let tags = this.get('tags');
+
+      jsonp.request = 'test-content-list';
+
+      if (typeof tags !== 'undefined' && tags) {
+        sections = sections.replace('-', ' ');
+        jsonp.desiredTags = sections;
+      } else {
+        if (sections === 'homepage') {
+          sections = 'news,opinion,announcements,sports,entertainment,lifestyle';
+        }
+        jsonp.desiredSection = sections;
+      }
+
+      jsonp.desiredContent = this._isGalleries(this.get('galleries'));
+      jsonp.desiredStart = this.get('start');
+
+      this.set('params', jsonp);
+    });
+  }
+
+  _changeParams() {
+    let params = this.get('params');
+
+    if (params.length !== 0) {
+      this.$.request.setAttribute('callback-value', 'callback');
+      this.$.request.params = params;
+      this.$.request.generateRequest();
+    }
+  }
+
+  _parseResponse(response) {
+    var result = JSON.parse(response.Result);
+
+    this.set('items', result);
+  }
+
+  _itemsChanged(items) {
+    console.dir(items);
+  }
+
+  _handleLoad() {
+    app.logger('<\cranberry-SECTION\> load received');
+  }
+
+  _handleResponse(res) {
+    app.logger('<\cranberry-SECTION\> response received');
+  }
 }
 
 Polymer(CranberrySection);

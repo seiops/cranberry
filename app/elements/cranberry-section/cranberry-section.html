@@ -4,6 +4,7 @@
 <link rel="import" href="../../bower_components/paper-material/paper-material.html">
 <link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
 <link rel="import" href="../../bower_components/page-title/page-title.html">
+<link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
 <link rel="import" href="../cranberry-content-list/cranberry-content-list.html">
 <link rel="import" href="../cranberry-featured-content/cranberry-featured-content.html">
 <link rel="import" href="../cranberry-search-bar/cranberry-search-bar.html">
@@ -26,6 +27,17 @@
     <app-route route="{{route}}" pattern="/:section" data="{{routeData}}"></app-route>
 
     <page-title base-title="{$ config.title $}" title="[[sectionTitle]]"></page-title>
+
+    <byutv-jsonp
+      verbose
+      cache
+      url="{$ config.baseEndpointUrl $}"
+      on-response="_handleResponse"
+      on-load="_handleLoad"
+      last-response="{{response}}"
+      last-request="{{request}}"
+      last-error="{{error}}"
+      id="request"></byutv-jsonp>
 
     <!-- Section Tracker -->
     <cranberry-section-tracker rest="{$ config.baseEndpointUrl $}" page="[[routeData.section]]" parent-section="{{trackerParentSection}}" section="{{trackerSection}}" tags$="{{tags}}"></cranberry-section-tracker>

@@ -66,7 +66,7 @@ class CranberryFeaturedContent {
     _changeSections(section) {
         this.async(function() {
             app.logger('<\cranberry-featured-content\> section changed -\> ' + section);
-            this._updateParams();
+            // this._updateParams();
         });
     }
 

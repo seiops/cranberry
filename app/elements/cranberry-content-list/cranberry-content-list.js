@@ -81,7 +81,7 @@ class CranberryContentList {
       if (start > 1) {
         this.set('start', 1);
       } else {
-        this._updateParams();
+        // this._updateParams();
       }
     });
   }
@@ -98,7 +98,7 @@ class CranberryContentList {
         this.set('hidePreviousButton', true);
       }
 
-      this._updateParams();
+      // this._updateParams();
     });
   }
 
