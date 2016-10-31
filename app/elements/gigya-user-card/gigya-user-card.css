@@ -21,7 +21,9 @@ iron-image.user ::content img {
 }
 
 iron-image.user-mugshot {
-  overflow:hidden;
-  border-radius: 150px;
+  overflow: hidden;
+  border-radius: 100%;
+  width: 150px;
+  height: 150px;
   display:inline-block;
 }
