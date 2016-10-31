@@ -28,6 +28,8 @@ class CranberryBase {
         this.changeAccentColor(storage.accentColor);
       }
     }
+
+    this._setupSurvey();
   }
 
   // element ready
@@ -36,6 +38,16 @@ class CranberryBase {
     // https://github.com/Polymer/polymer/issues/2653
     this.fire('upgraded');
     this.set('upgraded', true);
+
+  }
+
+  _setupSurvey() {
+    window._igniter = window._igniter || [];
+    window._igniter.push('or-V23', 'https://apps.ignitefeedback.com');
+
+    let loader = document.querySelector('cranberry-script-loader');
+
+    loader.loadScript('https://apps.ignitefeedback.com/assets/javascripts/igniter.js');
   }
 
   // private methods
