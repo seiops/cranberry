@@ -168,8 +168,8 @@ module.exports = {
       label: 'Text Archive',
       description: 'The Sandusky Register Text Archive is an additional search tool that allows you to do more advanced searching. This archive contains only story text, and no photos or videos.',
       dates: '2001-05-22 - Present',
-      link: '/archive',
-      buttonText: 'Coming Soon',
+      link: '/news-archive',
+      buttonText: 'View Archive',
       image: '../images/archive/sandusky/text_archive_image.png'
     }
   ],
