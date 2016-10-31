@@ -12,6 +12,11 @@
       @import "cranberry-news-archive/cranberry-news-archive";
     </style>
     <paper-material>
+      <div class="copy-text">
+        <h3>About the Archive</h3>
+        <p>The {$ config.title $} archive contains staff-written and other selected articles from 05/22/01 to the present.</p>
+        <p>Searching is free and unlimited. There is a small fee for complete articles retrieved from our archive. {$ config.title $} Members get FREE access.</p>
+      </div>
       <form is="iron-form">
         <paper-input class="keyword-input" label="Keywords" value="{{keywords}}"></paper-input>
         <paper-dropdown-menu label="Section" selected-item="{{sectionItem}}">

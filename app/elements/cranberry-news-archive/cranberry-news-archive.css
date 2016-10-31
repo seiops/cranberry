@@ -6,6 +6,19 @@
   };
 }
 
+div.copy-text {
+  text-align: center;
+}
+
+div.copy-text h3 {
+  @apply(--paper-font-display1);
+  margin-bottom: 0;
+}
+
+div.copy-text p {
+  @apply(--paper-font-body1);
+}
+
 form {
   padding: 24px;
 }
