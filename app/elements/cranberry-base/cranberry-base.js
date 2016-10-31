@@ -42,12 +42,12 @@ class CranberryBase {
   }
 
   _setupSurvey() {
-    window._igniter = window._igniter || [];
-    window._igniter.push('or-V23', 'https://apps.ignitefeedback.com');
-
     let loader = document.querySelector('cranberry-script-loader');
 
     loader.loadScript('https://apps.ignitefeedback.com/assets/javascripts/igniter.js');
+
+    window._igniter = window._igniter || [];
+    window._igniter.push(['or-V23', 'https://apps.ignitefeedback.com']);
   }
 
   // private methods
