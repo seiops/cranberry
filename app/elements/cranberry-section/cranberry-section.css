@@ -25,3 +25,19 @@ cranberry-search-bar#tabSearch ::content paper-input ::content .unfocused-line,
 cranberry-search-bar#tabSearch ::content paper-input ::content .focused-line {
   background-color: transparent;
 }
+
+div.pagination-wrapper {
+  @apply(--layout-center);
+  @apply(--layout-flex);
+  @apply(--layout-vertical);
+  margin-top: 24px;
+}
+
+div.pagination {
+  @apply(--layout-horizontal);
+}
+
+div.loading-container {
+  @apply(--layout-vertical);
+  @apply(--layout-center);
+}

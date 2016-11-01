@@ -47,10 +47,20 @@ class CranberrySection {
               type: Object,
               value: []
             },
+            featuredItems: Array,
+            contentItems: Array,
             start: {
               type: Number,
               value: 1,
-              observer: '_changeStart'
+              observer: '_startChanged'
+            },
+            count: {
+              type: Number,
+              value: 18
+            },
+            hidePreviousButton: {
+              type: Boolean,
+              value: true
             }
         };
 
@@ -156,6 +166,9 @@ class CranberrySection {
                 this.fire('iron-signal', {name: 'track-page', data: { path: '/tag/' + section, data: { 'dimension7': tag } } });
               }
             }
+            // Reset start to 1
+            this.set('start', 1);
+
             this._updateParams();
           }
       });
@@ -207,7 +220,8 @@ class CranberrySection {
       let sections = this.get('loadSection');
       let tags = this.get('tags');
 
-      jsonp.request = 'test-content-list';
+      // THIS NEEDS TO CHANGE!!!! THIS NEEDS TO CHANGE!!!! THIS NEEDS TO CHANGE!!!! THIS NEEDS TO CHANGE!!!! THIS NEEDS TO CHANGE!!!! THIS NEEDS TO CHANGE!!!! 
+      jsonp.request = 'content-list';
 
       if (typeof tags !== 'undefined' && tags) {
         sections = sections.replace('-', ' ');
@@ -239,6 +253,9 @@ class CranberrySection {
   _parseResponse(response) {
     var result = JSON.parse(response.Result);
 
+    this.set('featuredItems', result.featured);
+    this.set('contentItems', result.content);
+
     this.set('items', result);
   }
 
@@ -252,6 +269,47 @@ class CranberrySection {
 
   _handleResponse(res) {
     app.logger('<\cranberry-SECTION\> response received');
+  }
+
+  _showPrevious() {
+    let start = this.get('start');
+    let count = this.get('count');
+    let offset = start - count;
+
+    this.set('start', offset);
+    
+    this._showPreviousButton();
+
+    this._updateParams();
+  }
+
+  _showNext() {
+    let start = this.get('start');
+    let count = this.get('count');
+    let offset = start + count;
+
+    this.set('start', offset);
+
+    this._showPreviousButton();
+
+    this._updateParams();
+  }
+
+  _showPreviousButton() {
+    let start = this.get('start');
+    let count = this.get('count');
+
+    if (start > count) {
+      this.set('hidePreviousButton', false);
+    } else {
+      this.set('hidePreviousButton', true);
+    }
+  }
+
+  _startChanged(start) {
+    if (typeof start !=='undefined' && start === 1) {
+      this._showPreviousButton();
+    }
   }
 }
 

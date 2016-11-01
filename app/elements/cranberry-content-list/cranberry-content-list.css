@@ -84,14 +84,3 @@ div.leaderboard-advertisement {
   background-color: transparent;
   text-align: center;
 }
-
-div.pagination-wrapper {
-  @apply(--layout-center);
-  @apply(--layout-flex);
-  @apply(--layout-vertical);
-  margin-top: 24px;
-}
-
-div.pagination {
-  @apply(--layout-horizontal);
-}
