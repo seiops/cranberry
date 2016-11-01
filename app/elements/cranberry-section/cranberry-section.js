@@ -4,12 +4,6 @@ class CranberrySection {
         this.properties = {
             route: Object,
             routeData: Object,
-            section: {
-                type: String
-            },
-            loadSection: {
-                type: String
-            },
             selected: {
                 type: Number,
                 value: 0
@@ -33,10 +27,20 @@ class CranberrySection {
             sectionTitle: {
               type: String,
               value: ''
+            },
+            featuredItems: Array,
+            contentItems: Array,
+            start: {
+              type: Number,
+              value: 1
+            },
+            count: {
+              type: Number,
+              value: 18
             }
         };
 
-        this.observers = ['_routeChange(routeData.section)', '_hiddenChanged(hidden, routeData)'];
+        this.observers = ['_hiddenChanged(hidden, routeData)'];
     }
 
     attached() {
@@ -111,39 +115,7 @@ class CranberrySection {
 
     }
 
-    _routeChange(section) {
-      this.async(function() {
-          let hidden = this.hidden;
-          let tags = this.get('tags');
-
-          if (!hidden) {
-            if(tags === false){
-              let currentSection = this.get('section');
-
-              if (typeof section !== 'undefined' && section !== currentSection && section !== 'section' && section !== 'story'){
-                  if(section.length > 0) {
-                      this.set('loadSection', section);
-                  } else {
-                      section = 'homepage';
-                      this.set('section', section);
-                      this.set('loadSection', section);
-                  }
-                  this.fire('iron-signal', {name: 'track-page', data: { path: '/section/' + section, data: { 'dimension7': section } } });
-              }
-            } else {
-              let tag = this.get('tag');
-              if (tag !== section) {
-                this.set('loadSection', section);
-                this.set('tag', section);
-                this.fire('iron-signal', {name: 'track-page', data: { path: '/tag/' + section, data: { 'dimension7': tag } } });
-              }
-            }
-          }
-      });
-    }
-
     _setToParent(section, parent) {
-      console.log('IN SET TO PARENT!');
       if (typeof parent !== 'undefined' && parent === '') {
         return section;
       } else {

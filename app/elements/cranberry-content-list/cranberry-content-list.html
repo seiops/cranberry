@@ -16,7 +16,8 @@
     <style include="app-grid-style">
       @import "cranberry-content-list/cranberry-content-list";
     </style>
-    <byutv-jsonp
+
+    <!--<byutv-jsonp
       verbose
       cache
       on-response="_handleResponse"
@@ -24,7 +25,8 @@
       last-response="{{response}}"
       last-request="{{request}}"
       last-error="{{error}}"
-      id="request"></byutv-jsonp>
+      id="request"></byutv-jsonp>-->
+
       <div class="content-cards-wrapper">
         <div class="content-cards">
           <ul class="app-grid">
@@ -121,12 +123,6 @@
               </div>
             </template>
         </template> -->
-      </div>
-    </div>
-    <div class="pagination-wrapper">
-      <div class="pagination">
-        <paper-button on-tap="_showPrevious" hidden$="[[hidePreviousButton]]" raised>Previous</paper-button>
-        <paper-button on-tap="_showNext" raised>Next</paper-button>
       </div>
     </div>
   </template>

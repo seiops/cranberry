@@ -57,7 +57,7 @@ div.card > a > div.card-header {
 
 /* Card header icon bar */
 div.card > a > div.card-header > div.card-icons {
-  color: #fff;
+  color: rgba(255,255,255,0.65);
   padding: 8px;
   position: absolute;
   top: 0;
