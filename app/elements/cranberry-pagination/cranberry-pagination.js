@@ -5,7 +5,8 @@ class cranberryPagination {
       start: {
         type: Number,
         value: 1,
-        notify: true
+        notify: true,
+        observer: '_startChanged'
       },
       count: {
         type: Number,
@@ -26,8 +27,6 @@ class cranberryPagination {
     this.set('start', offset);
     
     this._showPreviousButton();
-
-    this._updateParams();
   }
 
   _showNext() {
@@ -38,8 +37,6 @@ class cranberryPagination {
     this.set('start', offset);
 
     this._showPreviousButton();
-
-    this._updateParams();
   }
 
   _showPreviousButton() {

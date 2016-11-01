@@ -27,7 +27,7 @@ class cranberrySectionRequest {
       },
       start: {
         type: Number,
-        value: 1,
+        notify: true,
         observer: '_startChanged'
       },
       items: {
@@ -133,11 +133,11 @@ class cranberrySectionRequest {
   }
 
   _handleLoad() {
-    app.logger('<\cranberry-SECTION\> load received');
+    app.logger('<\cranberry-section-request\> load received');
   }
 
   _handleResponse(res) {
-    app.logger('<\cranberry-SECTION\> response received');
+    app.logger('<\cranberry-section-request\> response received');
   }
 
   _parseResponse(response) {
@@ -157,10 +157,12 @@ class cranberrySectionRequest {
     }
   }
 
-  _startChanged(start) {
+  _startChanged(start, oldStart) {
       this.async(function () {
-        app.logger('\<cranberry-section-request\> start changed -\> ' + start);
-        this._updateParams();
+        if (typeof oldStart !== 'undefined') {
+          app.logger('\<cranberry-section-request\> start changed -\> ' + start);
+          this._updateParams();
+        }
       });
     }
 }

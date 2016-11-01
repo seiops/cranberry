@@ -30,10 +30,6 @@ class CranberrySection {
             },
             featuredItems: Array,
             contentItems: Array,
-            start: {
-              type: Number,
-              value: 1
-            },
             count: {
               type: Number,
               value: 18
