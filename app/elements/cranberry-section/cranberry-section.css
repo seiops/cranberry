@@ -33,10 +33,6 @@ div.pagination-wrapper {
   margin-top: 24px;
 }
 
-div.pagination {
-  @apply(--layout-horizontal);
-}
-
 div.loading-container {
   @apply(--layout-vertical);
   @apply(--layout-center);

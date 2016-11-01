@@ -7,8 +7,7 @@ class CranberryContentList {
         value: []
       },
       sections: {
-        type: String,
-        observer: '_changeSections'
+        type: String
       },
       hidePreviousButton: {
         type: Boolean,

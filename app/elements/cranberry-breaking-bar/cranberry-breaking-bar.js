@@ -95,15 +95,26 @@ class cranberryBreakingBar {
   _parseResponse(response) {
     var result = JSON.parse(response.Result);
 
-    this.set('count', result.length);
+    let concatResult = [];
 
-    if (result.length > 1) {
+    result.content.forEach(function(value, index) {
+      concatResult.push(value);
+    });
+
+    result.featured.forEach(function(value, index) {
+      concatResult.push(value);
+    });
+
+    this.set('count', concatResult.length);
+
+    if (concatResult.length > 1) {
       this.set('setTimer', true);
       window.breakingBarTimer = window.setInterval(this.timer, 7000);
     } else {
       this.set('hideSelectors', true);
     }
-    this.set('items', result);
+
+    this.set('items', concatResult);
   }
 
   _computeShow(item) {

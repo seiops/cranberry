@@ -10,6 +10,8 @@
 <link rel="import" href="../cranberry-featured-content/cranberry-featured-content.html">
 <link rel="import" href="../cranberry-search-bar/cranberry-search-bar.html">
 <link rel="import" href="../cranberry-section-tracker/cranberry-section-tracker.html">
+<link rel="import" href="../cranberry-section-request/cranberry-section-request.html">
+<link rel="import" href="../cranberry-pagination/cranberry-pagination.html">
 <link rel="import" href="../scorestream-widget/scorestream-widget.html">
 <link rel="import" href="../google-dfp/google-dfp.html">
 <link rel="import" href="../tout-element/tout-element.html">
@@ -29,20 +31,22 @@
 
     <page-title base-title="{$ config.title $}" title="[[sectionTitle]]"></page-title>
 
-    <byutv-jsonp
-      verbose
-      cache
-      url="{$ config.baseEndpointUrl $}"
-      on-response="_handleResponse"
-      on-load="_handleLoad"
-      last-response="{{response}}"
-      last-request="{{request}}"
-      last-error="{{error}}"
-      loading="{{contentLoading}}"
-      id="request"></byutv-jsonp>
-
     <!-- Section Tracker -->
     <cranberry-section-tracker rest="{$ config.baseEndpointUrl $}" page="[[routeData.section]]" parent-section="{{trackerParentSection}}" section="{{trackerSection}}" tags$="{{tags}}"></cranberry-section-tracker>
+
+    <!-- Section Reuqest -->
+    <cranberry-section-request 
+      route-data="[[routeData.section]]"
+      tags="[[tags]]"
+      galleries="[[galleries]]"
+      start="{{start}}"
+      hidden$="[[hidden]]"
+      featured-items="{{featuredItems}}"
+      content-items="{{contentItems}}"
+      load-section="{{loadSection}}"
+      section="{{section}}"
+      request-in-progress="{{contentLoading}}">
+    </cranberry-section-request>
 
     <div class="header-advertisement">
         <google-dfp section="[[trackerSection]]" section-parent="[[trackerParentSection]]" tags="[[tag]]" ad-size-mapping="leaderboard" ad-pos="leaderboard" ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
@@ -74,10 +78,7 @@
         <!-- CONTENT LIST ELEMENT -->
         <cranberry-content-list items="{{contentItems}}" sections="[[loadSection]]" section="[[section]]" tracked-section="[[trackerSection]]" tracked-parent-section="[[trackerParentSection]]" tags="[[tags]]" tag="[[tag]]"></cranberry-content-list>
         <div class="pagination-wrapper">
-          <div class="pagination">
-            <paper-button on-tap="_showPrevious" hidden$="[[hidePreviousButton]]" raised>Previous</paper-button>
-            <paper-button on-tap="_showNext" raised>Next</paper-button>
-          </div>
+          <cranberry-pagination start="{{start}}"></cranberry-pagination>
         </div>
       </template>
     </div>

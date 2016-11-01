@@ -1,0 +1,15 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<dom-module id="cranberry-pagination">
+  <template>
+    <style>
+      @import "cranberry-pagination/cranberry-pagination";
+    </style>
+    <div class="pagination">
+      <paper-button on-tap="_showPrevious" hidden$="[[hidePreviousButton]]" raised>Previous</paper-button>
+      <paper-button on-tap="_showNext" raised>Next</paper-button>
+    </div>
+  </template>
+    <script src="cranberry-pagination.js"></script>
+</dom-module>

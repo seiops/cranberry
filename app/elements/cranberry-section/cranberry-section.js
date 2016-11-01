@@ -4,12 +4,6 @@ class CranberrySection {
         this.properties = {
             route: Object,
             routeData: Object,
-            section: {
-                type: String
-            },
-            loadSection: {
-                type: String
-            },
             selected: {
                 type: Number,
                 value: 0
@@ -34,37 +28,19 @@ class CranberrySection {
               type: String,
               value: ''
             },
-            params: {
-              type: Object,
-              value: [],
-              observer: '_changeParams'
-            },
-            response: {
-              type: Object,
-              observer: '_parseResponse'
-            },
-            items: {
-              type: Object,
-              value: []
-            },
             featuredItems: Array,
             contentItems: Array,
             start: {
               type: Number,
-              value: 1,
-              observer: '_startChanged'
+              value: 1
             },
             count: {
               type: Number,
               value: 18
-            },
-            hidePreviousButton: {
-              type: Boolean,
-              value: true
             }
         };
 
-        this.observers = ['_routeChange(routeData.section)', '_hiddenChanged(hidden, routeData)', '_itemsChanged(items)'];
+        this.observers = ['_hiddenChanged(hidden, routeData)'];
     }
 
     attached() {
@@ -139,43 +115,7 @@ class CranberrySection {
 
     }
 
-    _routeChange(section) {
-      this.async(function() {
-          let hidden = this.hidden;
-          let tags = this.get('tags');
-
-          if (!hidden) {
-            if(tags === false){
-              let currentSection = this.get('section');
-
-              if (typeof section !== 'undefined' && section !== currentSection && section !== 'section' && section !== 'story'){
-                  if(section.length > 0) {
-                      this.set('loadSection', section);
-                  } else {
-                      section = 'homepage';
-                      this.set('section', section);
-                      this.set('loadSection', section);
-                  }
-                  this.fire('iron-signal', {name: 'track-page', data: { path: '/section/' + section, data: { 'dimension7': section } } });
-              }
-            } else {
-              let tag = this.get('tag');
-              if (tag !== section) {
-                this.set('loadSection', section);
-                this.set('tag', section);
-                this.fire('iron-signal', {name: 'track-page', data: { path: '/tag/' + section, data: { 'dimension7': tag } } });
-              }
-            }
-            // Reset start to 1
-            this.set('start', 1);
-
-            this._updateParams();
-          }
-      });
-    }
-
     _setToParent(section, parent) {
-      console.log('IN SET TO PARENT!');
       if (typeof parent !== 'undefined' && parent === '') {
         return section;
       } else {
@@ -203,114 +143,6 @@ class CranberrySection {
         this.set('sectionTitle', title);
       }
     }
-
-  _updateParams() {
-    this.async(function () {
-      let currentRequest = this.get('request');
-
-      if (typeof currentRequest !== 'undefined' && currentRequest.loading === true) {
-        app.logger('<\cranberry-content-list\> aborting previous request');
-        this.$.request.abortRequest(currentRequest);
-      }
-
-
-      this.set('items', []);
-
-      let jsonp = {};
-      let sections = this.get('loadSection');
-      let tags = this.get('tags');
-
-      // THIS NEEDS TO CHANGE!!!! THIS NEEDS TO CHANGE!!!! THIS NEEDS TO CHANGE!!!! THIS NEEDS TO CHANGE!!!! THIS NEEDS TO CHANGE!!!! THIS NEEDS TO CHANGE!!!! 
-      jsonp.request = 'content-list';
-
-      if (typeof tags !== 'undefined' && tags) {
-        sections = sections.replace('-', ' ');
-        jsonp.desiredTags = sections;
-      } else {
-        if (sections === 'homepage') {
-          sections = 'news,opinion,announcements,sports,entertainment,lifestyle';
-        }
-        jsonp.desiredSection = sections;
-      }
-
-      jsonp.desiredContent = this._isGalleries(this.get('galleries'));
-      jsonp.desiredStart = this.get('start');
-
-      this.set('params', jsonp);
-    });
-  }
-
-  _changeParams() {
-    let params = this.get('params');
-
-    if (params.length !== 0) {
-      this.$.request.setAttribute('callback-value', 'callback');
-      this.$.request.params = params;
-      this.$.request.generateRequest();
-    }
-  }
-
-  _parseResponse(response) {
-    var result = JSON.parse(response.Result);
-
-    this.set('featuredItems', result.featured);
-    this.set('contentItems', result.content);
-
-    this.set('items', result);
-  }
-
-  _itemsChanged(items) {
-    console.dir(items);
-  }
-
-  _handleLoad() {
-    app.logger('<\cranberry-SECTION\> load received');
-  }
-
-  _handleResponse(res) {
-    app.logger('<\cranberry-SECTION\> response received');
-  }
-
-  _showPrevious() {
-    let start = this.get('start');
-    let count = this.get('count');
-    let offset = start - count;
-
-    this.set('start', offset);
-    
-    this._showPreviousButton();
-
-    this._updateParams();
-  }
-
-  _showNext() {
-    let start = this.get('start');
-    let count = this.get('count');
-    let offset = start + count;
-
-    this.set('start', offset);
-
-    this._showPreviousButton();
-
-    this._updateParams();
-  }
-
-  _showPreviousButton() {
-    let start = this.get('start');
-    let count = this.get('count');
-
-    if (start > count) {
-      this.set('hidePreviousButton', false);
-    } else {
-      this.set('hidePreviousButton', true);
-    }
-  }
-
-  _startChanged(start) {
-    if (typeof start !=='undefined' && start === 1) {
-      this._showPreviousButton();
-    }
-  }
 }
 
 Polymer(CranberrySection);

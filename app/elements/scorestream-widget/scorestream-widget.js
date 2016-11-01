@@ -25,9 +25,6 @@ class scorestreamWidget {
         type: String,
         observer: '_onSectionChanged'
       },
-      response: {
-        type: Object
-      },
       rest: {
           type: String
       },
