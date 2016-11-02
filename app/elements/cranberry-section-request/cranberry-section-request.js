@@ -43,32 +43,41 @@ class cranberrySectionRequest {
       },
       hidden: Boolean
     }
-    this.observers = ['_sectionChanged(routeData)']
+    this.observers = ['_sectionChanged(routeData, hidden)']
   }
 
   attached() {
     app.logger('\<cranberry-section-request\> attached');
   }
 
-  _sectionChanged(section) {
+  _sectionChanged(section, hidden) {
     this.async(function() {
-      let hidden = this.get('hidden');
       let tags = this.get('tags');
 
       if (!hidden) {
         if(tags === false){
           let currentSection = this.get('section');
 
-          if (typeof section !== 'undefined' && section !== currentSection && section !== 'section' && section !== 'story') {
-            if (section.length > 0) {
-              this.set('section', section);
-              this.set('loadSection', section);
-            } else {
+          if (typeof section !== 'undefined' && section !== 'section' && section !== 'story') {
+            let checkHome = section;
+            if (checkHome === '') {
               section = 'homepage';
-              this.set('section', section);
-              this.set('loadSection', section);
             }
-            this.fire('iron-signal', {name: 'track-page', data: { path: '/section/' + section, data: { 'dimension7': section } } });
+
+            if (section !== currentSection) {
+              this.set('start', 1);
+
+              let tempSection = section;
+
+              if (tempSection.length <= 0) {
+                tempSection = 'homepage';
+              }
+
+              this.set('section', tempSection);
+              this.set('loadSection', tempSection);
+
+              this.fire('iron-signal', {name: 'track-page', data: { path: '/section/' + tempSection, data: { 'dimension7': tempSection } } });
+            }
           }
         } else {
           let tag = this.get('tag');
@@ -78,8 +87,6 @@ class cranberrySectionRequest {
             this.fire('iron-signal', {name: 'track-page', data: { path: '/tag/' + section, data: { 'dimension7': tag } } });
           }
         }
-        // Reset start to 1
-        this.set('start', 1);
 
         this._updateParams();
       }
