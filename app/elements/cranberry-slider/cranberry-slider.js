@@ -23,6 +23,11 @@ class cranberrySlider {
         type: Number,
         value: 0
       },
+      clicks: {
+        type: Number,
+        value: 0,
+        observer: '_clicksChanged'
+      },
       requestIndex: {
         type: Number,
         value: 0
@@ -51,6 +56,10 @@ class cranberrySlider {
         type: Boolean,
         value: false
       },
+      hideImage: {
+        type: Boolean,
+        value: false
+      },
       // animationConfig: {
       //   value: function() {
       //     return {
@@ -76,7 +85,6 @@ class cranberrySlider {
     let self = this;
 
     image.addEventListener('touchstart', function (event) {
-      event.preventDefault();
       let eventObj = event.changedTouches[0];
 
       self.set('isDraggable', true);
@@ -84,7 +92,6 @@ class cranberrySlider {
     });
 
     image.addEventListener('touchmove', function (event) {
-      event.preventDefault();
       let startX = self.get('startX');
       let isDraggable = self.get('isDraggable');
       let eventObj = event.changedTouches[0];
@@ -92,6 +99,7 @@ class cranberrySlider {
       let change = Math.abs(startX - thisX);
 
       if (change >= 150 && isDraggable) {
+        event.preventDefault();
         if (thisX < startX) {
           // Move Forward
           self.set('startX', 0);
@@ -129,43 +137,88 @@ class cranberrySlider {
   }
 
   _showNext() {
-    let move = 1;
-    let requestIndex = this.get('requestIndex');
-    let count = this.get('count');
+    let imagesHidden = this.get('hideImage');
 
-    let newNumber = requestIndex + move;
+    if (imagesHidden) {
+      this.set('hideImage', false);
+    } else {
+      let move = 1;
+      let requestIndex = this.get('requestIndex');
+      let count = this.get('count');
 
-    if (newNumber > count - 1) {
-      newNumber = 0;
+      let newNumber = requestIndex + move;
+
+      if (newNumber > count - 1) {
+        newNumber = 0;
+      }
+
+      this.set('requestIndex', newNumber);
+      // this.playAnimation('exit');
+
+      let template = this.$.sliderRepeat;
+      template.render();
+      this._registerClick();
     }
-
-    this.set('requestIndex', newNumber);
-    // this.playAnimation('exit');
-
-    let template = this.$.sliderRepeat;
-    template.render();
   }
 
   _showPrevious() {
-    let move = -1;
-    let requestIndex = this.get('requestIndex');
-    let count = this.get('count');
+    let imagesHidden = this.get('hideImage');
 
-    let newNumber = requestIndex + move;
+    if (imagesHidden) {
+      this.set('hideImage', false);
+    } else {
+      let move = -1;
+      let requestIndex = this.get('requestIndex');
+      let count = this.get('count');
 
-    if (newNumber < 0) {
-      newNumber = count - 1;
+      let newNumber = requestIndex + move;
+
+      if (newNumber < 0) {
+        newNumber = count - 1;
+      }
+
+      this.set('requestIndex', newNumber);
+      // this.playAnimation('exit');
+
+      let template = this.$.sliderRepeat;
+      template.render();
+      this._registerClick();
     }
-
-    this.set('requestIndex', newNumber);
-    // this.playAnimation('exit');
-
-    let template = this.$.sliderRepeat;
-    template.render();
   }
 
   _heightChanged() {
     this.style.height = isNaN(this.height) ? this.height : this.height + 'px';
+  }
+
+  _registerClick() {
+    let clicks = this.get('clicks');
+    this.set('clicks', clicks + 1);
+  }
+
+  _clicksChanged(clicks) {
+    let modal = this.get('whiteText');
+
+    if (typeof clicks !== 'undefined' && clicks !== 0) {
+      if (clicks % 2 === 0 && !modal) {
+      // Refresh Ad Units
+      let app = Polymer.dom(document).querySelector('cranberry-base');
+      let gallery = app.querySelector('cranberry-gallery');
+      let topAd = gallery.$.topAd;
+      let sideAd = gallery.$.sideAd;
+
+      topAd.refresh();
+      sideAd.refresh();
+      }
+
+      if (clicks % 5 === 0) {
+        // Show in gallery ad
+        this.set('hideImage', true);
+      }
+    }
+  }
+
+  _closeAd() {
+    this.set('hideImage', false);
   }
 
   goTo(imageIndex) {

@@ -36,13 +36,14 @@
         ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
         ad-group="{$ config.dfpAdStructure.adGroupID $}"
         ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
-        ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}">
+        ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
+        id="topAd">
       </google-dfp>
     </div>
 
     <div class="top-media">
       <div class="gallery-slider-container" desktop-layout$="{{desktop}}" tablet-layout$="{{tablet}}" mobile-layout$="{{mobile}}">
-        <cranberry-slider id="mainSlider" base-url="{$ config.baseDomain $}" items="{{gallery.mediaAssets.images}}" mobile-layout$="{{mobile}}">
+        <cranberry-slider id="mainSlider" base-url="{$ config.baseDomain $}" items="{{gallery.mediaAssets.images}}" mobile-layout$="{{mobile}}" gallery="{{gallery}}">
           <div class="gallery-tag" hidden$="{{noTags}}">
             <span class="content-tag">{{tags.0}}</span>
           </div>
@@ -63,7 +64,8 @@
                       ad-size="[[300, 250],[300, 600]]"
                       ad-group="{$ config.dfpAdStructure.adGroupID $}"
                       ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
-                      ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}">
+                      ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
+                      id="sideAd">
           </google-dfp>
       </div>
     </div>
@@ -84,7 +86,7 @@
         <google-dfp section="[[gallery.sectionInformation.sectionName]]"
                     section-parent="[[gallery.sectionInformation.sectionParentName]]"
                     tags="[[gallery.tags]]"
-                    ad-pos="Top_of_Stream"
+                    ad-pos="Bottom_of_Stream"
                     ad-size="[[300, 250],[300, 600]]"
                     ad-group="{$ config.dfpAdStructure.adGroupID $}"
                     ad-grouping="{$ config.dfpAdStructure.adGrouping $}"

@@ -86,7 +86,7 @@ class GoogleDFP {
                 }
 
 
-                slots[idModifier].setTargeting('position', position);
+                window.slots[idModifier].setTargeting('position', position);
 
                 if (typeof adSizeMapping !== 'undefined') {
                   slots[idModifier].defineSizeMapping(mapping);
@@ -123,15 +123,15 @@ class GoogleDFP {
 
         return '_' + window.adCounter;
     }
+
+    refresh() {
+      let advertisement = Polymer.dom(this.root).firstElementChild;
+      let slot = advertisement.getAttribute('id');
+
+      console.log('Refreshing: ' + slot);
+      console.dir(window.slots[slot]);
+      googletag.pubads().refresh([window.slots[slot]]);
+    }
 }
-// attached() {
-//     this.async(function() {
-//         let section = this.get('section');
-//
-//         if (typeof section !== 'undefined') {
-//             console.log('section found', section);
-//             this._buildAd(section);
-//         }
-//     });
-// }
+
 Polymer(GoogleDFP);

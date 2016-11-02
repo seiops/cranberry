@@ -1,5 +1,6 @@
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <!-- <link rel="import" href="../../bower_components/neon-animation/animations/fade-in-animation.html">
 <link rel="import" href="../../bower_components/neon-animation/animations/fade-out-animation.html">
 <link rel="import" href="../../bower_components/neon-animation/neon-animation-runner-behavior.html"> -->
@@ -14,12 +15,28 @@
       <div class="slider-container" id="slider">
         <div id="mover" class="mover">
           <template is="dom-repeat" items="{{items}}" filter="_computeShow" id="sliderRepeat">
-            <iron-image id="currentImage" preload fade class="slider-item" src="[[baseUrl]][[item.exlarge]]" data-index$="[[index]]" loading="{{imageLoading}}" sizing="contain"></iron-image>
+            <iron-image id="currentImage" preload fade class="slider-item" src="[[baseUrl]][[item.exlarge]]" data-index$="[[index]]" loading="{{imageLoading}}" sizing="contain" hidden$="[[hideImage]]"></iron-image>
+          </template>
+          <template is="dom-if" if="{{hideImage}}" restamp>
+            <div class="inGalleryAd">
+              <google-dfp section="news"
+                      tags="[[gallery.tags]]"
+                      ad-pos="In_Gallery"
+                      ad-size="[[300, 250],[300, 600]]"
+                      ad-group="{$ config.dfpAdStructure.adGroupID $}"
+                      ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
+                      ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
+                      id="inGallery">
+              </google-dfp>
+              <paper-button class="ad-button" raised on-tap="_closeAd">Close</paper-button>
+            </div>
           </template>
           <div class="overlay-previous" on-tap="_showPrevious" mobile-layout$="{{mobileLayout}}"><span><</span></div>
           <div class="overlay-next" on-tap="_showNext" mobile-layout$="{{mobileLayout}}"><span>></span></div>
           <!-- For Absolute Placed content -->
-          <content></content>
+            <template is="dom-if" if="{{!hideImage}}" restamp>
+              <content></content>
+            </template>
         </div>
         <div class="loading-container" hidden$="{{!imageLoading}}">
           <paper-spinner active$="{{imageLoading}}" hidden$="{{!imageLoading}}"></paper-spinner>

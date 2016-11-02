@@ -14,13 +14,12 @@ div.ad-container {
 }
 
 div.gallery-slider-container {
-  @apply(--layout-flex-2);
-  width: 100%;
+  flex:2 2 auto;
   min-width: 600px;
 }
 
 div.gallery-slider-container[mobile-layout] {
-  height: 345px;
+  height: 445px;
   min-width: 100%;
 }
 
