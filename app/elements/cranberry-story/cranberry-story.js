@@ -161,6 +161,7 @@ class CranberryStory {
         if (typeof storyId !== 'undefined' && currentId !== storyId) {
           app.logger('\<cranberry-story\> setting new story id -\> ' + storyId);
           this.set('storyId', storyId);
+          this._destroyContent();
         }
       }
     });
