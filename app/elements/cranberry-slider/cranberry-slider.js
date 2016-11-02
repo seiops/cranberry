@@ -76,6 +76,7 @@ class cranberrySlider {
     let self = this;
 
     image.addEventListener('touchstart', function (event) {
+      event.preventDefault();
       let eventObj = event.changedTouches[0];
 
       self.set('isDraggable', true);
@@ -83,6 +84,7 @@ class cranberrySlider {
     });
 
     image.addEventListener('touchmove', function (event) {
+      event.preventDefault();
       let startX = self.get('startX');
       let isDraggable = self.get('isDraggable');
       let eventObj = event.changedTouches[0];

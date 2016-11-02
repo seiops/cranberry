@@ -2,8 +2,26 @@
   display: block;
 }
 
+div.top-media {
+  @apply(--layout-horizontal);
+  @apply(--layout-center-justified);
+  @apply(--layout-wrap);
+}
+
+div.ad-container {
+  min-width: 300px;
+  margin: 0 0 0 12px;
+}
+
+div.gallery-slider-container {
+  @apply(--layout-flex-2);
+  width: 100%;
+  min-width: 600px;
+}
+
 div.gallery-slider-container[mobile-layout] {
   height: 345px;
+  min-width: 100%;
 }
 
 div.gallery-slider-container[tablet-layout] {

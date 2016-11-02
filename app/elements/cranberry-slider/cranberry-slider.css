@@ -20,7 +20,7 @@ div.container {
   min-height: 100%;
 }
 
-div.slider {
+div.slider-container {
   @apply(--layout-flex);
   @apply(--layout-vertical);
   display: flex;
@@ -29,14 +29,14 @@ div.slider {
   position: relative;
 }
 
-div.slider div.mover {
+div.slider-container div.mover {
   @apply(--layout-vertical);
   flex: 1 1 auto;
   width: 100%;
   height: 100%;
 }
 
-div.slider iron-image {
+div.slider-container iron-image {
   flex: 1 1 auto;
   width: 100%;
   height: 100%;
