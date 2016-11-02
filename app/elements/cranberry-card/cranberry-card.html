@@ -16,14 +16,16 @@
           <div class="card-header">
             <div class="card-icons"><iron-icon icon="image:photo-camera" hidden$="[[!_checkGallery(item.contentType)]]"></iron-icon></div>
             <div class="card-header-overlay" hidden$="[[!item.mediaAssets.images.0.small]]"></div>
-            <iron-image
-              alt="[[item.title]]"
-              hidden$="[[!item.mediaAssets.images.0.small]]"
-              src$="{$ config.baseDomain $}/[[item.mediaAssets.images.0.medium]]"
-              preload
-              fade
-              sizing="cover">
-            </iron-image>
+            <template is="dom-if" if="[[item.mediaAssets.images.0.medium]]">
+              <iron-image
+                alt="[[item.title]]"
+                hidden$="[[!item.mediaAssets.images.0.small]]"
+                src$="{$ config.baseDomain $}[[item.mediaAssets.images.0.medium]]"
+                preload
+                fade
+                sizing="cover">
+              </iron-image>
+            </template>
             <div hidden$="[[!item.title]]" class$="[[_computeHeadingClass(item.mediaAssets.images.0.small)]]">[[item.title]]</div>
           </div>
           <div class="card-content" hidden$="[[featured]]">

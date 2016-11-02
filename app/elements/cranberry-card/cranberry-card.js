@@ -8,7 +8,8 @@ class CranberryCard {
       },
       item: {
         type: Object,
-        value: {}
+        value: {},
+        observer: '_itemsChanged'
       }
     }
   }
