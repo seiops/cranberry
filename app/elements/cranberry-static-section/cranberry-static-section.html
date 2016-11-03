@@ -25,9 +25,9 @@
       <div class="weather-container">
         <div class="weather-widget-container">
           <p class="no-margin">
-            <a class="aw-widget-legal" href="http://www.accuweather.com/en/us/sandusky-oh/44870/current-weather/1167"></a>
+            <a class="aw-widget-legal" href="http://www.accuweather.com/en/us/{$ config.weather.location $}/{$ config.weather.zip $}/current-weather/{$ config.weather.locationKey $}"></a>
           </p>
-          <div id="awtd1442845125461" class="aw-widget-36hour" data-locationkey="1167" data-unit="f" data-language="en-us" data-useip="false" data-uid="awtd1442845125461" data-editlocation="false">&nbsp;</div>
+          <div id="{$ config.weather.uid $}" class="aw-widget-36hour" data-locationkey="{$ config.weather.locationKey $}" data-unit="f" data-language="en-us" data-useip="false" data-uid="{$ config.weather.uid $}" data-editlocation="false">&nbsp;</div>
         </div>
         <div class="right-rail">
           <google-dfp
@@ -51,18 +51,11 @@
           <div class="image-container">
             <a href="{$ config.advantageUrl $}" target="_blank"><iron-image class="top-image" src="{{advantageItems.0.url}}" sizing="contain"></iron-image></a>
           </div>
-          <p>Welcome to the Sandusky Register Advantage, giving you 7-day home delivery, complete e-paper access and reader rewards.</p>
-          <p>Advantage Membership provides great value including:</p>
-          <ul class="advantage-list">
-            <li>7-day or weekend home delivery of award-winning news, headlines and updates delivered directly to your home</li>
-            <li>Unlimited access to our complete e-paper edition online</li>
-            <li>Reader rewards web site providing discounts at select area locations (41 coupons that you can take advantage of, saving you hundreds of dollars if used regularly)</li>
-            <li>Free online access to The Washington Post Premium edition</li>
-          </ul>
+          <div>{$ config.advantagePage.text | safe $}</div>
           <div class="image-container">
             <a href="{$ config.advantageUrl $}" target="_blank" class="button-link"><iron-image class="button-image" src="{{advantageItems.2.url}}" sizing="contain"></iron-image></a>
           </div>
-          <a href="{$ config.advantageUrl $}" target="_blank">To get the Sandusky Register Advantage, become a member today!</a>
+          <a href="{$ config.advantageUrl $}" target="_blank">To get the {$ config.title $} Advantage, become a member today!</a>
           <div class="image-container">
             <a href="{$ config.advantageUrl $}" target="_blank"><iron-image class="bottom-image" src="{{advantageItems.1.url}}" sizing="contain"></iron-image></a>
           </div>
@@ -97,6 +90,27 @@
     </div>
 
     <!-- End Of Games Page -->
+
+    <!-- Start of Games Page -->
+
+    <div class="cranberry-static-section discoverNorwalk" id="discoverNorwalk" hidden$="{{hideDiscoverNorwalk}}">
+      <h1 class="weather-headline">Discover Norwalk</h1>
+      <p>Inside you'll find quality, informative, entertaining publication focused on the things that make us proud to call Norwalk and Huron County Home. Discover Norwalk Magazine is published every other month.</p>
+      <p>If you know of stories that would be suitable for Discover Norwalk, please contact Scott Seitz, Content Director, at 419-668-3771, ext. 248, or email him at <a href="mailto:sseitz@norwalkreflector.com">sseitz@norwalkreflector.com</a>.</p>
+      <p>If you are a business owner interested in advertising in future issues of Discover Norwalk Magazine, contact Director of Advertising John Ringenberg at 419-668-3771, ext. 228, or email him at <a href="mailto:johnringenberg54@gmail.com">johnringenberg54@gmail.com</a>.</p>
+      <p>Download Discover Norwalk Magazine in PDF format:</p>
+      <p><a href="http://www.norwalkreflector.com/.media/7/2016/09/23/7220f253-b180-4259-960d-e4ff285e56d1.pdf">September-October 2016 Edition</a></p>
+      <p><a href="http://www.norwalkreflector.com/.media/7/2016/09/23/f95e3c1d-edb5-4540-9f58-e91b404bca07.pdf">July-August 2016 Edition</a></p>
+      <p><a href="http://www.norwalkreflector.com/.media/7/2016/06/07/e0a2972d-699c-4888-9e7d-ea647488a6a9.pdf">May-June 2016 Edition</a></p>
+      <p><a href="http://www.norwalkreflector.com/.media/7/2016/06/07/e0a2972d-699c-4888-9e7d-ea647488a6a9.pdf">March-April 2016 Edition</a></p>
+      <p><a href="http://www.norwalkreflector.com/.media/7/2015/11/17/c3de4d51-dc9a-4927-ac2d-97b3627fa3c2.pdf">Winter 2015 Edition</a></p>
+      <p><a href="http://www.norwalkreflector.com/.media/7/2015/10/01/e42a7e51-810f-495b-8e82-78cef07d5df9.pdf">Fall 2015 Edition</a></p>
+      <p><a href="http://www.norwalkreflector.com/.media/7/2015/10/01/63d65f8e-1fa6-4278-8ac3-fda9741392e0.pdf">Summer 2015 Edition</a></p>
+      <p><a href="http://www.norwalkreflector.com/.media/7/2015/10/01/32e8811b-c804-46dc-827e-7c8e23c3e00e.pdf">Spring 2015 Edition</a></p>
+    </div>
+
+    <!-- End Of Games Page -->
+
     <div class="headline-advertisement">
       <google-dfp
         section="static"

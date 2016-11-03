@@ -51,6 +51,7 @@ div.weather-container::shadow div.aw-widget-36hour div.aw-widget-36hour-inner {
 div.advantage-container {
   @apply(--layout-horizontal);
   @apply(--layout-wrap);
+  @apply(--paper-font-body1);
 }
 
 div.advantage-content-container {

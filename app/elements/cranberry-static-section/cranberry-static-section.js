@@ -22,6 +22,10 @@ class cranberryStaticSection {
         type: Boolean,
         value: true
       },
+      hideDiscoverNorwalk: {
+        type: Boolean,
+        value: true
+      },
       weatherScriptLoaded: {
         type: Boolean,
         value: false
@@ -61,6 +65,10 @@ class cranberryStaticSection {
     if (typeof hidden !== 'undefined' && !hidden && typeof staticSection !== 'undefined' && staticSection === 'games-page') {
       this.set('hideGames', false);
       this.set('tags', 'games');
+    }
+    if (typeof hidden !== 'undefined' && !hidden && typeof staticSection !== 'undefined' && staticSection === 'discovernorwalk') {
+      this.set('hideDiscoverNorwalk', false);
+      this.set('tags', 'discovernorwalk');
     }
   }
 

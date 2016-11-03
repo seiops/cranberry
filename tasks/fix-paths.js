@@ -33,6 +33,9 @@ module.exports = function($, gulp, merge, order) {
       indexElement = gulp.src('deploy/index.html').pipe($.replace(
         '"bower_components/',
         '"libercus/default/bower_components/'
+      )).pipe($.replace(
+        '"../../images/',
+        '"/libercus/default/images/'
       )).pipe($.replace('"elements/', '"libercus/default/elements/')).pipe($.replace(
         '"favicon',
         '"libercus/default/favicon'

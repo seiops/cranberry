@@ -16,7 +16,7 @@
           <a href="{$ config.baseDomain $}"><iron-image src="{$ theme.global.logo $}" fade hidden$="[[logo]]" sizing="cover"></iron-image></a>
         </div>
         <div class="Main-siteButtons">
-          <cranberry-header-links></cranberry-header-links>
+          <cranberry-header-links items='{$ config.topMenu | dump $}'></cranberry-header-links>
           <paper-icon-button class="Main-headerButton" icon="search" on-tap="_focusSearch"></paper-icon-button>
           <div hidden$="[[!_computeDefaultHide(user.thumbnailURL)]]">
             <a class="link" on-tap="openUserModal"><iron-image width="24" height="24" style="padding:8px;border-radius:48px" preload src="[[_computeThumbnail(user.thumbnailURL)]]" fade sizing="cover"></iron-image></a>

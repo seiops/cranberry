@@ -12,7 +12,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 /* Toolbar styles for blending effect at different breakpoints */
 app-header ::content #backgroundFrontLayer {
   @media (--header-breakpoint) {
-    background: var(--dark-primary-color) url("/images/logos/sandusky/location.png");
+    /*background: var(--dark-primary-color) url("/images/logos/sandusky/location.png");*/
     background-size: cover;
     background-position: bottom;
   }

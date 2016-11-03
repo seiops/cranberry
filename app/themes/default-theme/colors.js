@@ -351,6 +351,17 @@ module.exports = {
   'paper-Sandusky-Register-accent-a100': '#80b3e6',
   'paper-Sandusky-Register-accent-a200': '#6699cc',
   'paper-Sandusky-Register-accent-a400': '#4d80b3',
-  'paper-Sandusky-Register-accent-a700': '#336699'
+  'paper-Sandusky-Register-accent-a700': '#336699',
+
+  /* Custom Norwalk Reflector Color Palette */
+  /* Main Colors */
+  'paper-Norwalk-Reflector-100': '#1A4DE6',
+  'paper-Norwalk-Reflector-500': '#0033cc',
+  'paper-Norwalk-Reflector-700': '#001AB3',
+  /* Accent Colors */
+  'paper-Norwalk-Reflector-accent-a100': '#804D1A',
+  'paper-Norwalk-Reflector-accent-a200': '#663300',
+  'paper-Norwalk-Reflector-accent-a400': '#4D1A00',
+  'paper-Norwalk-Reflector-accent-a700': '#330000'
 
 };

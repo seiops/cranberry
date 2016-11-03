@@ -10,7 +10,18 @@ class CranberryBase {
       },
       route: Object,
       section: String,
-      user: Object
+      user: Object,
+      mobile: {
+        type: Boolean,
+        observer: 'onMobileChanged'
+      },
+      locationImage: {
+        type: String
+      },
+      sideNav: {
+        type: Object,
+        value: []
+      }
     };
   }
   // public methods
@@ -84,6 +95,18 @@ class CranberryBase {
 
   onSubmitFeedbackTap() {
     this.$.submitFeedback.href += window.location.pathname;
+  }
+
+  onMobileChanged(mobile) {
+    console.log('MOBILE CHANGED!');
+    if (mobile) {
+      let header = Polymer.dom(this.root).querySelector('app-header');
+      console.log(header);
+      let backgroundDiv = header.querySelector('#backgroundFrontLayer');
+      backgroundDiv.style.background = "url(" + this.get('locationImage') + ")";
+      backgroundDiv.style.backgroundSize = 'cover';
+      backgroundDiv.style.backgroundPosition = 'bottom';
+    }
   }
 
   changeAccentColor(color) {}

@@ -173,20 +173,157 @@ module.exports = {
       image: '../images/archive/sandusky/text_archive_image.png'
     }
   ],
-  advantagePage: [
+  advantagePage: {
+    images: [
+      {
+        url: '../images/advantage/sandusky/advantage.jpg'
+      },
+      {
+        url: '../images/advantage/sandusky/advantage-2.jpg'
+      },
+      {
+        url: '../images/advantage/sandusky/advantage-button.jpg'
+      }
+    ],
+    text: '<p>Welcome to the Sandusky Register Advantage, giving you 7-day home delivery, complete e-paper access and reader rewards.</p><p>Advantage Membership provides great value including:</p><ul class="advantage-list"><li>7-day or weekend home delivery of award-winning news, headlines and updates delivered directly to your home</li><li>Unlimited access to our complete e-paper edition online</li><li>Reader rewards web site providing discounts at select area locations (41 coupons that you can take advantage of, saving you hundreds of dollars if used regularly)</li><li>Free online access to The Washington Post Premium edition</li></ul>'
+  },
+  advantageUrl: 'http://www.sanduskyoffers.com/',
+    topMenu: [
     {
-      images: [
+      linkText: 'Norwalk Reflector',
+      linkUrl: 'www.norwalkreflector.com'
+    },
         {
-          url: '../images/advantage/sandusky/advantage.jpg'
-        },
-        {
-          url: '../images/advantage/sandusky/advantage-2.jpg'
-        },
-        {
-          url: '../images/advantage/sandusky/advantage-button.jpg'
-        }
-      ]
+      linkText: 'Today&#8217;s ads',
+      linkUrl: 'http://local.sanduskyregister.com/ads'
+    },
+    {
+      linkText: 'Local Guide',
+      linkUrl: '	http://local.sanduskyregister.com/'
+    },
+    {
+      linkText: 'Job Network',
+      linkUrl: 'http://sanduskyregister.thejobnetwork.com/'
+    },
+    {
+      linkText: 'Member Rewards',
+      linkUrl: 'http://sanduskyregister.clickitrewards.com/'
     }
   ],
-  advantageUrl: 'http://www.sanduskyoffers.com/'
+  sideMenu: [
+    {
+      linkText: 'Home',
+      linkUrl: '/',
+      linkIcon: 'home',
+      target: ''
+    },
+    {
+      linkText: 'Obituaries',
+      linkUrl: '/section/obituary',
+      linkIcon: '',
+      target: ''
+    },
+    {
+      linkText: 'E-Paper',
+      linkUrl: 'http://digital.olivesoftware.com/Olive/ODE/SanduskyRegister',
+      linkIcon: '',
+      target: '_blank'
+    },
+    {
+      linkText: 'Galleries',
+      linkUrl: '/galleries',
+      linkIcon: '',
+      target: ''
+    },
+    {
+      linkText: 'News',
+      linkUrl: '/section/news',
+      linkIcon: 'chrome-reader-mode',
+      target: ''
+    },
+    {
+      linkText: 'Opinion',
+      linkUrl: '/section/opinion',
+      linkIcon: 'communication:chat-bubble',
+      target: ''
+    },
+    {
+      linkText: 'Announcements',
+      linkUrl: '/section/announcements',
+      linkIcon: 'star',
+      target: ''
+    },
+    {
+      linkText: 'Sports',
+      linkUrl: '/section/sports',
+      linkIcon: 'maps:directions-run',
+      target: ''
+    },
+    {
+      linkText: 'entertainment',
+      linkUrl: '/section/entertainment',
+      linkIcon: 'image:palette',
+      target: ''
+    },
+    {
+      linkText: 'Lifestyle',
+      linkUrl: '/section/lifestyle',
+      linkIcon: 'maps:local-cafe',
+      target: ''
+    },
+    {
+      linkText: 'Classifieds',
+      linkUrl: 'http://classifieds.sanduskyregister.com',
+      linkIcon: 'icons:view-list',
+      target: '_blank'
+    },
+    {
+      linkText: 'Decision 2016',
+      linkUrl: '/tags/decision-2016',
+      linkIcon: '',
+      target: ''
+    },
+    {
+      linkText: 'Weather',
+      linkUrl: '/forecast',
+      linkIcon: '',
+      target: ''
+    },
+    {
+      linkText: 'Fit Challenge',
+      linkUrl: '/tags/c25k',
+      linkIcon: '',
+      target: ''
+    },
+    {
+      linkText: 'Law Enforcement',
+      linkUrl: '/section/law-enforcement',
+      linkIcon: '',
+      target: ''
+    },
+    {
+      linkText: 'Cedar Point',
+      linkUrl: '/tags/cedar-point',
+      linkIcon: '',
+      target: ''
+    },
+    {
+      linkText: 'Calendar',
+      linkUrl: '/tags/calendar',
+      linkIcon: '',
+      target: ''
+    },
+    {
+      linkText: 'Contact Us',
+      linkUrl: '/contact',
+      linkIcon: '',
+      target: ''
+    }
+  ],
+  weather: {
+    uid: 'awtd1442845125461',
+    locationKey: '1167',
+    zipCode: '44870',
+    location: 'sandusky-oh'
+  }
 };
