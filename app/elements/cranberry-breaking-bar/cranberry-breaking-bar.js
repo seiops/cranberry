@@ -64,7 +64,7 @@ class cranberryBreakingBar {
         value: false
       }
     };
-    this.observers = ['_onSizingChanged(mobile, tablet, desktop)']
+    // this.observers = ['_onSizingChanged(mobile, tablet, desktop)']
   }
 
   attached() {
@@ -216,14 +216,15 @@ class cranberryBreakingBar {
     this.set('hiddenForever', true);
   }
 
-  _onSizingChanged(mobile, tablet, desktop) {
-    let count = this.get('count');
-    if (count > 1) {
-      if (mobile || tablet) {
-        this.set('hideSelectors', true);
-      } else {
-        this.set('hideSelectors', false);
+  _truncateText(text) {
+    if(typeof text !== 'undefined'){
+      let trunc = text;
+      if (trunc.length > 25) {
+          trunc = trunc.substring(0, 25);
+          trunc = trunc.replace(/\w+$/, '');
+          trunc += '...';
       }
+      return trunc;
     }
   }
 }

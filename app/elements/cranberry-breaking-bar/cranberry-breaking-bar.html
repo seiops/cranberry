@@ -22,12 +22,13 @@
         <template is="dom-repeat" items="{{items}}" filter="_computeShow" id="repeat">
           <a href="[[_computeUrl(item)]]" class="breaking-item-link">
             <div class="breaking-item">
-              <span class="breaking-pre-cursor">[[type]]<h3 class="breaking-title">[[item.title]]</h3></span>
+              <span class="breaking-pre-cursor" hidden$="{{mobile}}" hidden$="{{tablet}}">[[type]]<h3 class="breaking-title">[[item.title]]</h3></span>
+              <span class="breaking-pre-cursor" hidden$="{{!mobile}}" hidden$="{{!tablet}}">[[type]]<h3 class="breaking-title">[[_truncateText(item.title)]]</h3></span>
             </div>
           </a>
           <div class="breaking-bar-buttons">
-            <paper-icon-button icon="icons:expand-less" on-tap="_showPrevious" hidden$="{{hideSelectors}}"></paper-icon-button>
-            <paper-icon-button icon="icons:expand-more" on-tap="_showNext" hidden$="{{hideSelectors}}"></paper-icon-button>
+            <paper-icon-button icon="icons:expand-less" on-tap="_showPrevious" hidden$="{{mobile}}" hidden$="{{tablet}}"></paper-icon-button>
+            <paper-icon-button icon="icons:expand-more" on-tap="_showNext" hidden$="{{mobile}}" hidden$="{{tablet}}"></paper-icon-button>
             <paper-icon-button icon="icons:close" on-tap="_closeBar"></paper-icon-button>
           </div>
         </template>
