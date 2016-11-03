@@ -6,6 +6,10 @@ paper-material {
   background: #ffffff;
 }
 
+paper-material cranberry-search-bar {
+  padding: 12px;
+}
+
 h2.story-headline {
   @apply(--paper-font-headline);
   margin-top: 0;
