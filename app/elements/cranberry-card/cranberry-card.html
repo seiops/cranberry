@@ -20,7 +20,7 @@
               <iron-image
                 alt="[[item.title]]"
                 hidden$="[[!item.mediaAssets.images.0.small]]"
-                src$="{$ config.baseDomain $}[[item.mediaAssets.images.0.medium]]"
+                src$="{$ config.baseDomain $}[[_computeImageSize(item.mediaAssets.images.0)]]"
                 preload
                 fade
                 sizing="cover">

@@ -10,7 +10,8 @@ class CranberryCard {
         type: Object,
         value: {},
         observer: '_itemsChanged'
-      }
+      },
+      featured: Boolean
     }
   }
 
@@ -74,6 +75,16 @@ class CranberryCard {
       return temp;
     } else {
       return '';
+    }
+  }
+
+  _computeImageSize(image) {
+    let featured = this.get('featured');
+
+    if (typeof featured !== 'undefined' && featured) {
+      return image.exlarge;
+    } else {
+      return image.medium;
     }
   }
 }
