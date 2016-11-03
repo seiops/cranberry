@@ -121,6 +121,8 @@ class cranberrySlider {
     }
 
     this.set('requestIndex', 0);
+    this.set('clicks', 0);
+    this.set('hideImage', false);
   }
 
   _computeShow(item) {
