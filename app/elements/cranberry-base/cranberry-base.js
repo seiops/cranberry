@@ -16,7 +16,8 @@ class CranberryBase {
         observer: 'onMobileChanged'
       },
       locationImage: {
-        type: String
+        type: String,
+        value: ''
       },
       sideNav: {
         type: Object,
@@ -98,12 +99,18 @@ class CranberryBase {
   }
 
   onMobileChanged(mobile) {
-    console.log('MOBILE CHANGED!');
     if (mobile) {
       let header = Polymer.dom(this.root).querySelector('app-header');
-      console.log(header);
+      let locationImage = this.get('locationImage');
+
+      if (typeof locationImage === 'undefined' || locationImage === '') {
+        let drawer = Polymer.dom(this.root).querySelector('app-drawer');
+        locationImage = drawer.querySelector('.Drawer-location').src;
+        this.set('locationImage', locationImage);
+      }
+      
       let backgroundDiv = header.querySelector('#backgroundFrontLayer');
-      backgroundDiv.style.background = "url(" + this.get('locationImage') + ")";
+      backgroundDiv.style.background = "url(" + locationImage + ")";
       backgroundDiv.style.backgroundSize = 'cover';
       backgroundDiv.style.backgroundPosition = 'bottom';
     }
