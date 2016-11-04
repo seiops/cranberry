@@ -11,10 +11,6 @@ class CranberryBase {
       route: Object,
       section: String,
       user: Object,
-      mobile: {
-        type: Boolean,
-        observer: 'onMobileChanged'
-      },
       locationImage: {
         type: String,
         value: ''
@@ -96,24 +92,6 @@ class CranberryBase {
 
   onSubmitFeedbackTap() {
     this.$.submitFeedback.href += window.location.pathname;
-  }
-
-  onMobileChanged(mobile) {
-    if (mobile) {
-      let header = Polymer.dom(this.root).querySelector('app-header');
-      let locationImage = this.get('locationImage');
-
-      if (typeof locationImage === 'undefined' || locationImage === '') {
-        let drawer = Polymer.dom(this.root).querySelector('app-drawer');
-        locationImage = drawer.querySelector('.Drawer-location').src;
-        this.set('locationImage', locationImage);
-      }
-      
-      let backgroundDiv = header.querySelector('#backgroundFrontLayer');
-      backgroundDiv.style.background = "url(" + locationImage + ")";
-      backgroundDiv.style.backgroundSize = 'cover';
-      backgroundDiv.style.backgroundPosition = 'bottom';
-    }
   }
 
   changeAccentColor(color) {}
