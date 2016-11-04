@@ -147,7 +147,7 @@ class cranberryBreakingBar {
       if (value === 'alert' || value === 'Alert') {
         self.set('type', 'ALERT: ');
       } else if (value === 'breaking' || value === 'Breaking') {
-        self.set('type', 'BREAKING NEWS: ');
+        self.set('type', 'BREAKING: ');
       }
     });
   }

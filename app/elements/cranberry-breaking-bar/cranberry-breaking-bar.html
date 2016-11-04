@@ -21,9 +21,11 @@
       <div class="breaking-bar-wrapper">
         <template is="dom-repeat" items="{{items}}" filter="_computeShow" id="repeat">
           <a href="[[_computeUrl(item)]]" class="breaking-item-link">
-            <div class="breaking-item">
-              <span class="breaking-pre-cursor" hidden$="{{mobile}}" hidden$="{{tablet}}">[[type]]<h3 class="breaking-title">[[item.title]]</h3></span>
-              <span class="breaking-pre-cursor" hidden$="{{!mobile}}" hidden$="{{!tablet}}">[[type]]<h3 class="breaking-title">[[_truncateText(item.title)]]</h3></span>
+            <div class="breaking-item" hidden$="{{mobile}}" hidden$="{{tablet}}">
+              <span class="breaking-pre-cursor">[[type]]<h3 class="breaking-title">[[item.title]]</h3></span>
+            </div>
+            <div class="breaking-item" hidden$="{{!mobile}}" hidden$="{{!tablet}}">
+              <span class="breaking-pre-cursor">[[type]]<h3 class="breaking-title">[[_truncateText(item.title)]]</h3></span>
             </div>
           </a>
           <div class="breaking-bar-buttons">

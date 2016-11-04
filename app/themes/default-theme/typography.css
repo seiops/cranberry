@@ -133,6 +133,13 @@ Typography mixins are from file on URL https://github.com/PolymerElements/paper-
     color: rgba(0, 0, 0, 0.87);
   };
 
+  --paper-font-story-font: {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 23px;
+    color: rgba(0, 0, 0, 0.87);
+  };
+
   --paper-font-error: {
     @apply(--paper-font-body1);
     color: var(--paper-error-red);

@@ -76,7 +76,7 @@ div.story-media {
 }
 
 div.body-text {
-  @apply(--paper-font-body1);
+  @apply(--paper-font-story-font);
 }
 
 /* Social Icon styles */

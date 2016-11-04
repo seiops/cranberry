@@ -78,8 +78,8 @@
 
     <div class="content-container">
       <div class="gallery-images-container">
-        <template is="dom-repeat" items="{{gallery.mediaAssets.images}}">
-          <iron-image class="gallery-image" src$="{$ config.baseDomain $}{{item.small}}" sizing="cover" data-index$="{{index}}" style="background-color: lightgray;" preload on-tap="_goToSlide"></iron-image>
+        <template is="dom-repeat" items="{{gallery.mediaAssets.images}}" initial-count="5">
+          <iron-image class="gallery-image" src$="{$ config.baseDomain $}{{item.small}}" sizing="cover" data-index$="{{index}}" style="background-color: lightgray;" preload on-tap="_goToSlide" fade></iron-image>
         </template>
       </div>
       <div class="gallery-container-ad">
