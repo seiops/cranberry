@@ -102,6 +102,7 @@ class youneeqContent {
     let timeZone = jzTimezoneDetector.determine_timezone();
     let utcOffset = timeZone.timezone.utc_offset;
     let timeZoneName = timeZone.timezone.olson_tz;
+    let domain = this.get('domain');
 
     observeObj.type = 'node';
     observeObj.name = content.itemId;
@@ -109,7 +110,7 @@ class youneeqContent {
     observeObj.categories = [content.sectionInformation.section];
     observeObj.description = content.preview;
     if (Object.keys(content.mediaAssets).length > 0) {
-      observeObj.image = content.mediaAssets.images[0].exlarge;
+      observeObj.image = domain + content.mediaAssets.images[0].exlarge;
     }
     observeObj.create_date = content.published;
 
@@ -164,11 +165,8 @@ class youneeqContent {
     if (suggestions.suggest !== null){
       let nodes = suggestions.suggest.node;
 
-      // Leaving this for ease of testing when pushed to different environments
-      console.dir(nodes);
-
       this.set('items', nodes);
-      if (nodes.length !== 0) {
+      if (nodes !== null && nodes.length !== 0) {
         this.set('hasItems', true);
       }
     } else {
