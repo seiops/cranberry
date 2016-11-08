@@ -35,7 +35,7 @@ class GoogleDFP {
             let adSizeMapping = this.get('adSizeMapping');
             let position = this.get('adPos');
             let section = this.get('section');
-            let adSection = section.replace(' ', '_').replace('-', '_');
+            let adSection = section.replace(/\s+/g, '_').replace(/-/g, '_').replace(/\&/g, '');
             let sectionParent = this.get('sectionParent');
             let tags = this.get('tags');
             let outOfPage = this.get('outOfPage');
@@ -47,7 +47,7 @@ class GoogleDFP {
             }
 
             if (typeof sectionParent !== 'undefined' && sectionParent.length > 0) {
-                let parent = sectionParent.replace(' ', '_').replace('-', '_');
+                let parent = sectionParent.replace(/\s+/g, '_').replace(/-/g, '_').replace(/\&/g, '');
 
                 adSection = parent + '/' + adSection;
             }
