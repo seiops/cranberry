@@ -2,7 +2,7 @@ module.exports = {
   // URL Structure
   baseUrl: '/',
   baseDomain: 'http://www.sanduskyregister.com',
-  baseEndpointUrl: 'http://srdevcore.libercus.net/rest.json',
+  baseEndpointUrl: 'http://srprdcore.libercus.net/rest.json',
   appVersion: '<0.1',
   baseCanonicalUrl: 'https://github.com/seiops/cranberry/',
   calendarDomain: 'sanduskyregister',
@@ -191,7 +191,7 @@ module.exports = {
     topMenu: [
     {
       linkText: 'Norwalk Reflector',
-      linkUrl: 'www.norwalkreflector.com'
+      linkUrl: 'http://www.norwalkreflector.com'
     },
         {
       linkText: 'Today&#8217;s ads',
@@ -260,7 +260,7 @@ module.exports = {
       target: ''
     },
     {
-      linkText: 'entertainment',
+      linkText: 'Entertainment',
       linkUrl: '/section/entertainment',
       linkIcon: 'image:palette',
       target: ''
