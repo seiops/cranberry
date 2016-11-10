@@ -80,11 +80,14 @@ class CranberryCard {
   _computeImageSize(image) {
     let featured = this.get('featured');
 
-    if (typeof featured !== 'undefined' && featured) {
-      return image.exlarge;
-    } else {
-      return image.medium;
+    if (typeof image !== 'undefined') {
+      if (typeof featured !== 'undefined' && featured) {
+        return image.exlarge;
+      } else {
+        return image.medium;
+      }
     }
+
   }
 }
 Polymer(CranberryCard);

@@ -76,7 +76,7 @@
 
       <template is="dom-if" if="[[_isLatest(selected)]]">
         <!-- CONTENT LIST ELEMENT -->
-        <cranberry-content-list items="{{contentItems}}" sections="[[loadSection]]" section="[[section]]" tracked-section="[[trackerSection]]" tracked-parent-section="[[trackerParentSection]]" tags="[[tags]]" tag="[[tag]]"></cranberry-content-list>
+        <cranberry-content-list items="{{contentItems}}" sections="[[loadSection]]" section="[[section]]" tracked-section="[[trackerSection]]" tracked-parent-section="[[trackerParentSection]]" tags="[[tags]]" tag="[[tag]]" hidden$="[[hidden]]"></cranberry-content-list>
         <div class="pagination-wrapper">
           <cranberry-pagination start="{{start}}"></cranberry-pagination>
         </div>

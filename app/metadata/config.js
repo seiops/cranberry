@@ -47,7 +47,7 @@ module.exports = {
   },
   // Tout
   tout: {
-      toutUid: '277e2b'
+      toutUid: '7c1682'
   },
   // Jobs Network
   jobs: {

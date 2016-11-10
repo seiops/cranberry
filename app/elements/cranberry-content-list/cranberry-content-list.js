@@ -9,12 +9,22 @@ class CranberryContentList {
       sections: {
         type: String
       },
+      previousSection: String,
       loadSection: {
         type: String
       },
       hidePreviousButton: {
         type: Boolean,
         value: true
+      },
+      hidden: {
+        type: Boolean,
+        reflectToAttribute: true,
+        value: true
+      },
+      displayTout: {
+        type: Boolean,
+        value: false
       },
       tag: {
         type: String
@@ -23,9 +33,13 @@ class CranberryContentList {
         type: Boolean,
         value: false
       },
-      trackedSection: String,
+      trackedSection: {
+        type: String,
+        observer: '_setPrevious'
+      },
       trackedParentSection: String
     };
+    this.observers = ['_displayTout(hidden, trackedSection)'];
   }
 
   attached() {
@@ -36,6 +50,7 @@ class CranberryContentList {
     }.bind(this);
 
     window.addEventListener('resize', this._updateGridStyles);
+
   }
 
   detached() {
@@ -74,6 +89,14 @@ class CranberryContentList {
     }
   }
 
+  _checkToutPlacement(index) {
+    if (index === 8) {
+      return true;
+    } else {
+      return;
+    }
+  }
+
   _checkJobsWidget(index) {
       if (index === 11) {
           return true;
@@ -103,6 +126,31 @@ class CranberryContentList {
       return true;
     } else {
       return;
+    }
+  }
+
+  _displayTout(hidden, section) {
+    this.set('displayTout', false);
+    this.async(function() {
+      if (typeof section !== 'undefined' && section.length > 0) {
+        if (hidden) {
+          this.set('displayTout', false);
+        } else {
+          let previous = this.get('previousSection');
+
+          if (section === previous) {
+            this.set('displayTout', false);
+          } else {
+            this.set('displayTout', true);
+          }
+        }
+      }
+    });
+  }
+
+  _setPrevious(section, oldSection) {
+    if (typeof section !== 'undefined') {
+      this.set('previousSection', oldSection);
     }
   }
 }

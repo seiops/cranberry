@@ -11,10 +11,15 @@ class CranberryScriptLoader {
     app.logger('\<cranberry-script-loader\> attached');
   }
 
-  loadScript(url) {
+  loadScript(url, id) {
     app.logger('\<cranberry-script-loader\> loading ' + url);
 
     let embed = document.createElement('script');
+
+    if (typeof id !== 'undefined' && id.length > 0) {
+      embed.setAttribute('id', id);
+    }
+    
     embed.src = url;
     embed.async = true;
 

@@ -10,6 +10,7 @@
 <link rel="import" href="../cranberry-card/cranberry-card.html">
 <link rel="import" href="../gigya-top-comments/gigya-top-comments.html">
 <link rel="import" href="../cranberry-jobs-widget/cranberry-jobs-widget.html">
+<link rel="import" href="../tout-embed-element/tout-embed-element.html">
 
 <dom-module id="cranberry-content-list">
   <template>
@@ -80,6 +81,13 @@
                       </div>
                     </div>
                   </li>
+                </template>
+                <template is="dom-if" if="[[_checkToutPlacement(index)]]" restamp>
+                  <template is="dom-if" if="[[displayTout]]" restamp>
+                    <li class="item expandable">
+                      <tout-embed-element slot="[[trackedSection]]"></tout-embed-element>
+                    </li>
+                  </template>
                 </template>
             </template>
           </ul>

@@ -84,3 +84,9 @@ div.leaderboard-advertisement {
   background-color: transparent;
   text-align: center;
 }
+
+tout-embed-element {
+  width: 80%;
+  padding: 24px;
+  margin: 0 auto;
+}
