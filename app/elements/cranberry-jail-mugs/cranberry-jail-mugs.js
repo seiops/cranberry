@@ -2,6 +2,7 @@ class cranberryJailMugs {
   beforeRegister() {
     this.is = 'cranberry-jail-mugs';
     this.properties = {
+      baseUrl: String,
       addSliderEvent: {
         type: Boolean,
         value: true
@@ -46,7 +47,8 @@ class cranberryJailMugs {
       },
       rest: {
         type: String
-      }
+      },
+      images: Array
     };
     this.listeners = {
       'next.tap': '_loadNewCards',
@@ -206,6 +208,8 @@ class cranberryJailMugs {
         images.push(value.mugShot);
       }
     });
+
+    this.set('images', images);
     return images;
   }
 
@@ -237,6 +241,27 @@ class cranberryJailMugs {
 
     // Genereate new card request based on new start value
     this._buildCardRequest(totalMove);
+  }
+
+  _openModal () {
+    let baseUrl = this.get('baseUrl');
+    let slider = document.createElement('cranberry-slider');
+
+    let images = this.get('images');
+
+
+    slider.set('items', images);
+    slider.set('baseUrl', baseUrl);
+    slider.set('whiteText', true);
+
+    let modal = Polymer.dom(document).querySelector('cranberry-base').querySelector('#globalModal');
+
+    let modalContent = Polymer.dom(modal).querySelector('paper-dialog-scrollable').querySelector('#scrollable').querySelector('.content-area');
+
+    modalContent.appendChild(slider);
+
+    modal.open();
+    modal.refit();
   }
 }
 Polymer(cranberryJailMugs);
