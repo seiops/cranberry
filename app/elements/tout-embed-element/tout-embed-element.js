@@ -13,7 +13,6 @@ class toutEmbedElement {
   }
 
   attached() {
-    console.log('TOUT EMBED ATTACHED!!');
     let slot = this.get('slot');
 
     let loader = document.querySelector('cranberry-script-loader');
@@ -22,7 +21,6 @@ class toutEmbedElement {
   }
 
   detached() {
-    console.log('TOUT EMBED DETACHED!');
     let slot = this.get('slot');
 
     TOUT.onReady(function(){
@@ -45,7 +43,7 @@ class toutEmbedElement {
       if (typeof previous !== 'undefined' && typeof slot !== 'undefined' && slot !== previous) {
         slot = previous;
       }
-      console.log('#toutEmbedScript-' + slot);
+      
       let script = Polymer.dom(document).querySelector('#toutEmbedScript-' + slot);
       let parent = script.parentNode;
 
