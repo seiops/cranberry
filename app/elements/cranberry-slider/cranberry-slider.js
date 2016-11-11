@@ -1,9 +1,4 @@
 class cranberrySlider {
-
-  // get behaviors() {
-  //   return [Polymer.NeonAnimationRunnerBehavior];
-  // }
-
   beforeRegister() {
     this.is = 'cranberry-slider';
     this.properties = {
@@ -56,26 +51,18 @@ class cranberrySlider {
         type: Boolean,
         value: false
       },
+      noCaption: {
+        type: Boolean,
+        value: false
+      },
       hideImage: {
         type: Boolean,
         value: false
       },
-      // animationConfig: {
-      //   value: function() {
-      //     return {
-      //       'entry': {
-      //         name: 'slide-left-animation',
-      //         node: this.$.mover,
-      //         timig: {duration: 1000}
-      //       },
-      //       'exit': {
-      //         name: 'slide-left-animation',
-      //         node: this.$.mover,
-      //         timig: {duration: 1500}
-      //       }
-      //     }
-      //   }
-      // }
+      galleryType: {
+        type: String,
+        value: 'cranberry-gallery'
+      }
     };
     this.observers = ['_itemsLoaded(items)'];
   }
@@ -132,6 +119,7 @@ class cranberrySlider {
     if (index === requestIndex) {
       this.set('currentImage', item);
       this.set('displayIndex', index + 1);
+      this.fire('sliderMoved', {index: index + 1});
       return true;
     } else {
       return false;
@@ -199,12 +187,15 @@ class cranberrySlider {
 
   _clicksChanged(clicks) {
     let modal = this.get('whiteText');
+    let galleryType = this.get('galleryType');
 
     if (typeof clicks !== 'undefined' && clicks !== 0) {
       if (clicks % 2 === 0 && !modal) {
       // Refresh Ad Units
       let app = Polymer.dom(document).querySelector('cranberry-base');
-      let gallery = app.querySelector('cranberry-gallery');
+      
+      let gallery = app.querySelector(galleryType);
+      console.log(gallery);
       let topAd = gallery.$.topAd;
       let sideAd = gallery.$.sideAd;
 

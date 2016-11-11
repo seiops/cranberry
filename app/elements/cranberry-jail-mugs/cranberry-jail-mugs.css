@@ -12,8 +12,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   display: block;
 }
 
-.ad-container {
-  text-align: center;
+div.header-advertisement {
+  @apply(--layout-center-justified);
+  @apply(--layout-horizontal);
+  padding: 0 16px 16px;
+}
+
+div.ad-container {
+  min-width: 300px;
+  margin: 0 0 0 12px;
+}
+
+div.top-media {
+  @apply(--layout-horizontal);
+  @apply(--layout-center-justified);
+  @apply(--layout-wrap);
 }
 
 .headline {
@@ -29,22 +42,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 }
 
 /* Gallery Container styles*/
-.mug-container {
-  position: relative;
-  width: 100%;
-  max-width: 1200px;
-  height: 100%;
-  max-height: 675px;
-  margin: 0 auto;
+div.mug-container {
+  flex:2 2 auto;
+  min-width: 600px;
 }
 
-cranberry-slider {
-    margin: 0;
+div.mug-container[mobile-layout] {
+  height: 445px;
+  min-width: 100%;
 }
 
-cranberry-slider::shadow figure {
-  max-height: 675px;
-  max-width: 1200px;
+div.mug-container[tablet-layout] {
+  height: 545px;
+}
+
+div.mug-container[desktop-layout] {
+  height: 745px;
 }
 
 /* Caption Styles */
@@ -52,7 +65,8 @@ cranberry-slider::shadow figure {
   @apply(--layout-vertical);
   @apply(--layout-center);
   @apply(--layout-center-justified);
-  margin-top: 25px;
+  margin: 25px 0;
+  max-width: 80%;
 }
 
 .slider-description h3 {
@@ -129,29 +143,49 @@ paper-card p.card-body {
 }
 
 /* Button Styles */
-.flex-absolute {
+/* Gallery Container Button Styles */
+paper-button.rounded-button {
+  border-radius: 50%;
+  margin: 0;
+  min-width: 1px;
+  height: 50px;
+  width: 50px;
+}
+
+/* Absolute positioned icons over mug content */
+div.mug-container cranberry-slider div.mug-tag {
+  @apply(--paper-font-button);
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: var(--accent-color);
+  color: var(--text-dark-accent-color);
+  padding: 6px;
+}
+
+div.mug-container cranberry-slider div.expand-link {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+}
+
+div.mug-container cranberry-slider div.expand-link paper-button {
+  background: var(--dark-primary-color);
+  color: var(--text-dark-accent-color);
+}
+
+div.mug-container cranberry-slider div.share-buttons {
   @apply(--layout-horizontal);
+  @apply(--layout-around-justified);
   @apply(--layout-flex);
   position: absolute;
   bottom: -25px;
   right: 5%;
-  z-index: 10;
 }
 
-.flex-absolute.share-buttons {
-  bottom: -25px;
-  right: 5%;
-}
-
-.flex-absolute.tag-links {
-  top: 0;
-  left: 0;
-  height: 30px;
-}
-
-.flex-absolute.tag-links paper-button {
-  background-color: var(--accent-color);
+div.mug-container cranberry-slider div.share-buttons paper-button {
+  background: var(--dark-primary-color);
   color: var(--text-dark-accent-color);
-  border-radius: 0;
-  margin: 0;
+  margin-right: 25px;
+  bottom: -5px;
 }

@@ -28,6 +28,10 @@ class cranberryJailMugs {
         type: Boolean,
         value: false
       },
+      hideNext: {
+        type: Boolean,
+        value: false
+      },
       route: {
         type: Object,
         observer: 'onRouteChanged'
@@ -84,6 +88,7 @@ class cranberryJailMugs {
   _buildCardRequest(start) {
     // Generate Request to build the cards at the bottom of the page
     let request = this.$.request;
+    request.setAttribute('callback-value', 'cardCallback');
     let url = this.get('rest');
     let params = {
       'request': 'congero',
@@ -105,6 +110,9 @@ class cranberryJailMugs {
   _handleResponse(json) {
     let result = JSON.parse(json.detail.Result);
 
+    if (result.length < 8) {
+      this.set('hideNext', true);
+    }
     this.set('cardsJson', result);
   }
 
@@ -129,6 +137,7 @@ class cranberryJailMugs {
       date = routePath;
     }
     let request = this.$.secondRequest;
+    request.setAttribute('callback-value', 'slideCallback');
     let url = this.get('rest');
     let params = {
       'request': 'congero',
@@ -157,15 +166,17 @@ class cranberryJailMugs {
 
     // If this event isnt already on the element then add it
     if (!addEvent) {
-      slider.addEventListener('goTo', function(e) {
+      slider.addEventListener('sliderMoved', function(e) {
+        console.log('SLIDER MOVED');
+        console.log(e);
+        
         let index = e.detail.index;
-        let displayIndex = index + 1;
         let currentRecord = newValue[index];
         let charges = self._computeChargesArray(currentRecord.charge.split(','));
         // Change mug shot caption and indexes on page
         self.set('currentMugName', currentRecord.title);
         self.set('currentCharges', charges);
-        self.set('currentIndex', displayIndex);
+        self.set('currentIndex', index);
         // You can also refresh the ads from here by following what is in onRouteChanged
       });
     }
@@ -175,7 +186,7 @@ class cranberryJailMugs {
     if (newValue.length !== currentMaxIndex) {
       this.set('currentMaxIndex', newValue.length);
     }
-    slider.set('images', images);
+    slider.set('items', images);
   }
 
   _checkPrevButton(start) {
