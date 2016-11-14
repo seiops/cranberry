@@ -53,10 +53,12 @@ class gigyaComments {
         onSiteLoginClicked: this._onSiteLoginHandler
       };
 
-      this._checkGigya();
+      let gigyaDefined = this._checkGigya();
 
       this.async(function() {
-        gigya.comments.showCommentsUI(params);
+        if (gigyaDefined) {
+          gigya.comments.showCommentsUI(params);
+        }
       });
     }
   }

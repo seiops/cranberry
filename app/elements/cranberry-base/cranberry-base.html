@@ -92,7 +92,7 @@
     <cranberry-google-analytics user="[[user]]" tracking-id="{$ config.google.analytics $}"></cranberry-google-analytics>
 
     <!-- Gigya socialize/accounts integration -->
-    <gigya-socialize user="{{user}}" route="[[route]]"></gigya-socialize>
+    <gigya-socialize user="{{user}}" route="[[route]]" api-key="{$ config.gigya.apiKey $}"></gigya-socialize>
 
     <!-- local browser storage -->
     <iron-localstorage id="localStorage" name="{$ config.appNameId $}"

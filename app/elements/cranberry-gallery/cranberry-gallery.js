@@ -205,7 +205,9 @@ class CranberryGallery {
   }
 
   _closeShare() {
-    let shareBar = this.querySelector('gigya-sharebar');
+    let slider = Polymer.dom(this.$.mainSlider);
+    let shareBar = slider.querySelector('gigya-sharebar');
+
     shareBar.close();
   }
 }

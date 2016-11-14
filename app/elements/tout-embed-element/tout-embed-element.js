@@ -23,18 +23,25 @@ class toutEmbedElement {
   detached() {
     let slot = this.get('slot');
 
-    TOUT.onReady(function(){
-      let $slot = TOUT.$('#tout-embed-' + section);
+    let toutDefined = this._checkTout();
 
-      let players = TOUT.players.getAll();
-      let player = players.find(function(player) {
-        return $slot.has(player._player.$el);
-      });
+    this.async(function() {
+      if (toutDefined) {
+        window.TOUT.onReady(function(){
+          let $slot = TOUT.$('#tout-embed-' + section);
 
-      if(typeof player !== 'undefined' && typeof player.instanceID !== 'undeinfed' && player.instanceID !== ''){
-        player.destroy();
+          let players = TOUT.players.getAll();
+          let player = players.find(function(player) {
+            return $slot.has(player._player.$el);
+          });
+
+          if(typeof player !== 'undefined' && typeof player.instanceID !== 'undeinfed' && player.instanceID !== ''){
+            player.destroy();
+          }
+        });
       }
     });
+
     let previous = this.get('previousSlot');
 
     this.async(function() {
@@ -56,6 +63,19 @@ class toutEmbedElement {
     if (typeof slot !== 'undefined' && typeof oldSlot !== 'undefined') {
       this.set('previousSlot', oldSlot);
     }
+  }
+
+  // check if Tout API is loaded
+  _checkTout() {
+    let el = this;
+
+    setTimeout(function() {
+      if (typeof TOUT !== 'undefined') {
+        return true;
+      } else {
+        el._checkTout();
+      }
+    }, 50);
   }
 }
 Polymer(toutEmbedElement);

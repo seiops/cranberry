@@ -3,6 +3,9 @@ class GigyaSocialize {
   beforeRegister() {
     this.is = 'gigya-socialize';
     this.properties = {
+      apiKey: {
+        type: String
+      },
       account: {
         type: Object,
         value: {},
@@ -33,6 +36,10 @@ class GigyaSocialize {
         type: Boolean,
         value: false,
         observer: '_verifyAccount'
+      },
+      scriptAttached: {
+        type: Boolean,
+        value: false
       }
     };
   }
@@ -43,16 +50,29 @@ class GigyaSocialize {
   attached() {
     app.logger('\<gigya-socialize\> attached');
 
-    this.async(function() {
-      this._checkGigya();
+    let scriptAttached = this.get('scriptAttached');
+    
+    if (!scriptAttached) {
+      let apiKey = this.get('apiKey');
+      let loader = document.querySelector('cranberry-script-loader');
 
-      let el = this;
+      loader.loadScript('https://cdns.gigya.com/JS/gigya.js?apikey=' + apiKey);
+      this.set('scriptAttached', true);
+    }
+
+    let gigyaDefined = this._checkGigya();
+
+    this.async(function() {
+      if (gigyaDefined) {
+        let el = this;
 
       gigya.accounts.addEventHandlers({
         context: this,
         onLogin: el._loginUser,
         onLogout: el._logoutUser
        });
+      }
+      
     });
   }
 
@@ -82,7 +102,7 @@ class GigyaSocialize {
       if (typeof gigya !== 'undefined' && typeof gigya.socialize !== 'undefined' && typeof gigya.socialize.getUserInfo === 'function') {
         el.checkUser();
 
-        return;
+        return true;
       } else {
         el._checkGigya();
       }

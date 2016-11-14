@@ -301,11 +301,13 @@ class cranberryShortcode {
       // Create Tout shortcode
       if (type === 'tout') {
         let story = document.querySelector('cranberry-story');
+        let toutUid = story.get('toutUid');
         shortcodeEl = document.createElement('tout-element');
 
         shortcodeEl.set('placement', 'tout-mid-article');
         shortcodeEl.set('slot', 'mid-article');
         shortcodeEl.set('player', 'mid_article_player');
+        shortcodeEl.set('toutUid', toutUid);
         shortcodeEl.set('storyId', story.get('routeData.id'));
         
       }

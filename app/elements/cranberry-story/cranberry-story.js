@@ -333,6 +333,7 @@ class CranberryStory {
   _checkTout() {
     let contentArea = this.$.storyContentArea;
     let toutDiv = contentArea.querySelector('#tempToutDiv');
+    let toutUid = this.get('toutUid');
 
     if (toutDiv !== null) {
       let tout = document.createElement('tout-element');
@@ -340,6 +341,7 @@ class CranberryStory {
       tout.set('placement', 'tout-mid-article');
       tout.set('slot', 'mid-article');
       tout.set('player', 'mid_article_player');
+      tout.set('toutUid', toutUid);
       tout.set('storyId', this.get('routeData.id'));
 
       toutDiv.appendChild(tout);
