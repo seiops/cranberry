@@ -59,6 +59,9 @@ class CranberryStory {
       },
       active: {
         type: Boolean
+      },
+      distroId: {
+        type: String
       }
     };
     this.observers = ['_checkParams(routeData.id)', '_hiddenChanged(hidden, routeData.id)'];
@@ -272,8 +275,20 @@ class CranberryStory {
 
           // Send pageview event with iron-signals
           this.fire('iron-signal', {name: 'track-page', data: { path: '/story/' + storyId, data } });
+
+          this._setupDistro();
         }
       }
+    }
+  }
+
+  _setupDistro() {
+    let useragent = navigator.userAgent;
+    if(useragent.indexOf('Mobile') == -1) {
+      let distroId = this.get('distroId');
+      let loader = document.querySelector('cranberry-script-loader');
+
+      loader.loadScript('http://c.jsrdn.com/s/cs.js?p=' + distroId);
     }
   }
 
