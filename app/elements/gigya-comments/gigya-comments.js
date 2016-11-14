@@ -53,10 +53,20 @@ class gigyaComments {
         onSiteLoginClicked: this._onSiteLoginHandler
       };
 
-      let gigyaDefined = this._checkGigya();
+      let gigyaDefined = new Promise(
+        function(resolve, reject) {
+          let isDefined = false;
+          while (!isDefined) {
+            if (typeof gigya !== 'undefined' && typeof gigya.comments !== 'undefined' && typeof gigya.comments.showCommentsUI === 'function') {
+              isDefined = true;
+              resolve(true);
+            }
+          }
+        }
+      );
 
-      this.async(function() {
-        if (gigyaDefined) {
+      gigyaDefined.then(function(val) {
+        if (val) {
           gigya.comments.showCommentsUI(params);
         }
       });
@@ -68,9 +78,11 @@ class gigyaComments {
     let el = this;
 
     setTimeout(function() {
-      if (typeof gigya !== 'undefined' && typeof gigya.socialize !== 'undefined' && typeof gigya.socialize.getUserInfo === 'function') {
-        return;
+      if (typeof gigya !== 'undefined' && typeof gigya.comments !== 'undefined' && typeof gigya.comments.showCommentsUI === 'function') {
+        console.info('RETURNING TRUE');
+        return true;
       } else {
+        console.info('FALSE!!!!');
         el._checkGigya();
       }
     }, 50);

@@ -60,19 +60,31 @@ class GigyaSocialize {
       this.set('scriptAttached', true);
     }
 
-    let gigyaDefined = this._checkGigya();
+    let el = this;
 
-    this.async(function() {
-      if (gigyaDefined) {
-        let el = this;
+    let gigyaDefined = new Promise(
+      function(resolve, reject) {
+        function timeoutFunction() {
+          setTimeout(function() {
+            if (typeof gigya !== 'undefined' && typeof gigya.socialize !== 'undefined' && typeof gigya.socialize.getUserInfo === 'function') {
+              resolve(true);
+              return;
+            } else {
+              timeoutFunction();
+            }
+          }, 50);
+        }
+      }
+    );
+
+    gigyaDefined.then(function(val) {
+      el.checkUser();
 
       gigya.accounts.addEventHandlers({
-        context: this,
+        context: el,
         onLogin: el._loginUser,
         onLogout: el._logoutUser
-       });
-      }
-      
+      });
     });
   }
 
@@ -95,19 +107,19 @@ class GigyaSocialize {
   // private methods
 
   // check if Gigya API is loaded
-  _checkGigya() {
-    let el = this;
+  // _checkGigya() {
+  //   let el = this;
 
-    setTimeout(function() {
-      if (typeof gigya !== 'undefined' && typeof gigya.socialize !== 'undefined' && typeof gigya.socialize.getUserInfo === 'function') {
-        el.checkUser();
+  //   setTimeout(function() {
+  //     if (typeof gigya !== 'undefined' && typeof gigya.socialize !== 'undefined' && typeof gigya.socialize.getUserInfo === 'function') {
+  //       el.checkUser();
 
-        return true;
-      } else {
-        el._checkGigya();
-      }
-    }, 50);
-  }
+  //       return true;
+  //     } else {
+  //       el._checkGigya();
+  //     }
+  //   }, 50);
+  // }
 
   _equal(a, b) {
     if (a === b) {
