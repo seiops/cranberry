@@ -13,7 +13,8 @@ module.exports = function ($, gulp) { return function () {
     /^\/app.yaml/g,
     /^\/cache-config.json/g,
     /^\/index.html/g,
-    /^\/sw-import.js/g
+    /^\/sw-import.js/g,
+    /^\/bower_components\/zxcvbn\/dist\/zxcvbn.js/g
   ], dontUpdateReference: [
     /^\/app.yaml/g,
     /^\/cache-config.json/g,

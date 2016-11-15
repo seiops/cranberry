@@ -74,6 +74,7 @@ class GigyaSocialize {
             }
           }, 50);
         }
+        timeoutFunction();
       }
     );
 

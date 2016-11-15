@@ -76,33 +76,44 @@ class toutElement {
   }
 
   destroy(autoRefresh) {
-    let toutDefined = this._checkTout();
+    let el = this;
+    let slotName = this.get('slotName');
 
-    this.async(function() {
-      if (toutDefined) {
-        let el = this;
-        let slotName = this.get('slotName');
-
-        TOUT.onReady(function(){
-          let $slot = TOUT.$('#' + slotName);
-
-          let players = TOUT.players.getAll();
-          let player = players.find(function(player) {
-            return $slot.has(player._player.$el);
-          });
-
-          if(typeof player !== 'undefined' && typeof player.instanceID !== 'undeinfed' && player.instanceID !== ''){
-            player.destroy();
-
-            let toutWrapper = el.querySelector('#' + slotName);
-            toutWrapper.innerHTML = '';
-
-            if (autoRefresh) {
-              el.refresh();
+    let toutDefined = new Promise(
+      function(resolve, reject) {
+        function timeoutFunction() {
+          setTimeout(function() {
+            if (typeof TOUT !== 'undefined' && typeof TOUT.onReady === 'function') {
+              resolve(true);
+              return;
+            } else {
+              timeoutFunction();
             }
-          }
-        });
+          }, 50);
+        }
+        timeoutFunction();
       }
+    );
+
+    toutDefined.then(function(val) {
+      TOUT.onReady(function(){
+        let $slot = TOUT.$('#' + slotName);
+        let players = TOUT.players.getAll();
+        let player = players.find(function(player) {
+          return $slot.has(player._player.$el);
+        });
+
+        if(typeof player !== 'undefined' && typeof player.instanceID !== 'undeinfed' && player.instanceID !== ''){
+          player.destroy();
+
+          let toutWrapper = el.querySelector('#' + slotName);
+          toutWrapper.innerHTML = '';
+
+          if (autoRefresh) {
+            el.refresh();
+          }
+        }
+      });
     });
   }
 
