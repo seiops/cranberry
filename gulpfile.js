@@ -80,7 +80,7 @@ gulp.task('copy', function() {
     'app/*',
     '!app/cache-config.json',
     '!app/content',
-    '!app/manifest.json',
+    'app/manifest.json',
     '!app/metadata.js',
     '!app/test',
     '!app/views',
