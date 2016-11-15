@@ -49,6 +49,10 @@ module.exports = {
   tout: {
       toutUid: 'c9224e'
   },
+  // Distro
+  distro: {
+    distroId: '22325'
+  },
   // Jobs Network
   jobs: {
       affiliateId: '1606',
@@ -191,7 +195,7 @@ module.exports = {
   topMenu: [
     {
       linkText: 'Sandusky Register',
-      linkUrl: 'www.sanduskyregister.com'
+      linkUrl: 'http://www.sanduskyregister.com'
     },
     {
       linkText: 'E-paper',

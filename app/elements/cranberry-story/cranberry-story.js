@@ -276,6 +276,7 @@ class CranberryStory {
           // Send pageview event with iron-signals
           this.fire('iron-signal', {name: 'track-page', data: { path: '/story/' + storyId, data } });
 
+          // DISTRO SETUP FUNCTION
           this._setupDistro();
         }
       }

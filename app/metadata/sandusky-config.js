@@ -49,6 +49,10 @@ module.exports = {
   tout: {
       toutUid: '7c1682'
   },
+  // Distro
+  distro: {
+    distroId: '22325'
+  },
   // Jobs Network
   jobs: {
       affiliateId: '1606',
@@ -309,7 +313,7 @@ module.exports = {
     },
     {
       linkText: 'Calendar',
-      linkUrl: '/tags/calendar',
+      linkUrl: '/calendar',
       linkIcon: '',
       target: ''
     },
