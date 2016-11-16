@@ -138,6 +138,14 @@ class CranberryStory {
 
     // Set lead shortcode back to false
     this.set('hasLeadShortcode', false);
+
+    // Destroy distroScript
+    let script = Polymer.dom(document).querySelector('#distroScript');
+    if (typeof script !== 'undefined' && script !== null) {
+      let parent = script.parentNode;
+
+      parent.removeChild(script);
+    }
   }
 
   _closeShare() {
@@ -286,10 +294,17 @@ class CranberryStory {
   _setupDistro() {
     let useragent = navigator.userAgent;
     if(useragent.indexOf('Mobile') == -1) {
+      let distroDiv = document.createElement('div');
+      let contentArea = this.$.storyContentArea;
+
+      distroDiv.setAttribute('id', 'ds_default_anchor');
+
+      contentArea.appendChild(distroDiv);
+
       let distroId = this.get('distroId');
       let loader = document.querySelector('cranberry-script-loader');
 
-      loader.loadScript('http://c.jsrdn.com/s/cs.js?p=' + distroId);
+      loader.loadScript('http://c.jsrdn.com/s/cs.js?p=' + distroId, 'distroScript');
     }
   }
 
