@@ -97,6 +97,9 @@ class cranberryShortcode {
         if (type.includes('video') || type.includes('youtube')) {
           foundObject = this._findAsset(videos, searchingIndex, searchingValue);
         }
+        if (type.includes('livestream')) {
+          foundObject = this._findAsset(videos, "delivery", "3");
+        }
         if (type.includes('pdf') || type.includes('audio')) {
           foundObject = this._findAsset(attachments, searchingIndex, searchingValue);
         }
@@ -108,7 +111,7 @@ class cranberryShortcode {
         }
         if (type.includes('revealer')) {
           foundObject = this._findAssets(images, searchingIndex, searchingValue);
-        }        
+        }
       } else {
         if (type.includes('map')) {
           if (searchingValue === '') {
@@ -176,21 +179,8 @@ class cranberryShortcode {
       let story = document.querySelector('cranberry-story');
 
       switch(type) {
-        case 'image':
-        case 'imageuncropped':
-          let container = document.createElement('div');
-          let image = document.createElement('iron-image');
-          let caption = document.createElement('p');
-          caption.classList.add('caption-text');
-          image.src = baseUrl + (type === 'image' ? content.large : content.url);
-          caption.appendChild(document.createTextNode(content.caption));
-          image.appendChild(caption);
-          container.appendChild(image);
-          container.appendChild(caption);
-          shortcodeEl = container;
-          break;
-        case 'pdf':
         case 'audio':
+        case 'pdf':
           let url = baseUrl + content.url;
           if (type === 'pdf') {
             shortcodeEl = document.createElement('pdf-object');
@@ -206,71 +196,6 @@ class cranberryShortcode {
 
             Polymer.dom(this.$.shortcode).classList.add('ut-smaller-width')
           }
-          break;
-        case 'gmap':
-          let latitude = (typeof content.latitude === 'undefined') ? storyInfo.latitude : content.latitude;
-          let longitude = (typeof content.longitude === 'undefined') ? storyInfo.longitude : content.longitude;
-          let zoom = (typeof content.zoom === 'undefined') ? Number(storyInfo.zoom) : Number(content.zoom);
-       
-          shortcodeEl = this.create('cranberry-map', {latitude, longitude, zoom});
-          break;
-        case 'revealer':
-          shortcodeEl = document.createElement('cranberry-revealer');
-
-          let images = [];
-
-          content.forEach((value, index) => {
-            let obj = {};
-            obj.url = baseUrl + value.exlarge;
-            images.push(obj);
-          });
-
-          shortcodeEl.images = images;
-          break;
-        case 'twitteruser':
-        case 'twitterhash':
-          let valueArray = value.split(',');
-          let sourceType = document.createAttribute('source-type');
-
-          shortcodeEl = document.createElement('twitter-timeline');
-
-          if (type === 'twitteruser') {
-            sourceType.value = 'profile';
-            let screenName = document.createAttribute('screen-name');
-            screenName.value = valueArray[0];
-            shortcodeEl.setAttributeNode(screenName);
-          } else {
-            let sourceType = document.createAttribute('source-type');
-            sourceType.value = 'widget';
-            let widgetId = document.createAttribute('widget-id');
-            widgetId.value = valueArray[1];
-            shortcodeEl.setAttributeNode(widgetId);
-          }
-          shortcodeEl.setAttributeNode(sourceType);
-          break;
-        case 'youtube':
-        case 'leadyoutube':
-          shortcodeEl = document.createElement('google-youtube');
-          let videoAttribute = document.createAttribute('video-id');
-          videoAttribute.value = content.url;
-          shortcodeEl.setAttributeNode(videoAttribute);
-          shortcodeEl.height = '100%';
-          shortcodeEl.width = '100%';
-          break;
-        case 'quote':
-          shortcodeEl = document.createElement('cranberry-quote');
-          let quote = {};
-          let lastIndex = value.lastIndexOf(',');
-          let firstIndex = (value.indexOf(',')) + 1;
-          let length = value.length;
-          quote.direction = value.substr(0,1);
-          quote.credit = content.unscrubbedValue.substr(lastIndex, length).replace(',', '').trim();
-          quote.text = content.unscrubbedValue.substr(firstIndex, lastIndex - (firstIndex)).trim();
-          shortcodeEl.quote = quote;
-          break;
-        case 'googform':
-          shortcodeEl = document.createElement('google-form');
-          shortcodeEl.url = content.unscrubbedValue;
           break;
         case 'gallery':
         case 'singlegallery':
@@ -305,6 +230,69 @@ class cranberryShortcode {
 
           shortcodeEl = wrapper;
           break;
+        case 'gmap':
+          let latitude = (typeof content.latitude === 'undefined') ? storyInfo.latitude : content.latitude;
+          let longitude = (typeof content.longitude === 'undefined') ? storyInfo.longitude : content.longitude;
+          let zoom = (typeof content.zoom === 'undefined') ? Number(storyInfo.zoom) : Number(content.zoom);
+       
+          shortcodeEl = this.create('cranberry-map', {latitude, longitude, zoom});
+          break;
+        case 'googform':
+          shortcodeEl = document.createElement('google-form');
+          shortcodeEl.url = content.unscrubbedValue;
+          break;
+        case 'image':
+        case 'imageuncropped':
+          let container = document.createElement('div');
+          let image = document.createElement('iron-image');
+          let caption = document.createElement('p');
+          caption.classList.add('caption-text');
+          image.src = baseUrl + (type === 'image' ? content.large : content.url);
+          caption.appendChild(document.createTextNode(content.caption));
+          image.appendChild(caption);
+          container.appendChild(image);
+          container.appendChild(caption);
+          shortcodeEl = container;
+          break;
+        case 'leadyoutube':
+        case 'youtube':
+          shortcodeEl = document.createElement('google-youtube');
+          let videoAttribute = document.createAttribute('video-id');
+          videoAttribute.value = content.url;
+          shortcodeEl.setAttributeNode(videoAttribute);
+          shortcodeEl.height = '100%';
+          shortcodeEl.width = '100%';
+          break;
+        case 'livestream':
+          shortcodeEl = document.createElement('iframe');
+          shortcodeEl.src = content.url + '/player?width=640&amp;height=360&amp;autoPlay=false&amp;mute=false';
+          shortcodeEl.setAttribute('frameborder', "0");
+          shortcodeEl.setAttribute('scrolling', "no");
+          shortcodeEl.setAttribute('width', "620px");
+          shortcodeEl.setAttribute('height', "400px");
+          break;
+        case 'revealer':
+          shortcodeEl = document.createElement('cranberry-revealer');
+
+          let images = [];
+
+          content.forEach((value, index) => {
+            let obj = {};
+            obj.url = baseUrl + value.exlarge;
+            images.push(obj);
+          });
+
+          shortcodeEl.images = images;
+          break;
+        case 'tout':
+          shortcodeEl = document.createElement('tout-element');
+
+          shortcodeEl.set('placement', 'tout-mid-article');
+          shortcodeEl.set('slot', 'mid-article');
+          shortcodeEl.set('player', 'mid_article_player');
+          shortcodeEl.set('toutUid', toutUid);
+          shortcodeEl.set('storyId', story.get('routeData.id'));
+          break;
         case 'toutembed':
           shortcodeEl = document.createElement('div');
 
@@ -318,15 +306,38 @@ class cranberryShortcode {
           shortcodeEl.appendChild(tout);
           shortcodeEl.appendChild(toutScript);
           break;
-        case 'tout':
-            shortcodeEl = document.createElement('tout-element');
+        case 'twitteruser':
+        case 'twitterhash':
+          let valueArray = value.split(',');
+          let sourceType = document.createAttribute('source-type');
 
-            shortcodeEl.set('placement', 'tout-mid-article');
-            shortcodeEl.set('slot', 'mid-article');
-            shortcodeEl.set('player', 'mid_article_player');
-            shortcodeEl.set('toutUid', toutUid);
-            shortcodeEl.set('storyId', story.get('routeData.id'));
-            break;
+          shortcodeEl = document.createElement('twitter-timeline');
+
+          if (type === 'twitteruser') {
+            sourceType.value = 'profile';
+            let screenName = document.createAttribute('screen-name');
+            screenName.value = valueArray[0];
+            shortcodeEl.setAttributeNode(screenName);
+          } else {
+            let sourceType = document.createAttribute('source-type');
+            sourceType.value = 'widget';
+            let widgetId = document.createAttribute('widget-id');
+            widgetId.value = valueArray[1];
+            shortcodeEl.setAttributeNode(widgetId);
+          }
+          shortcodeEl.setAttributeNode(sourceType);
+          break;
+        case 'quote':
+          shortcodeEl = document.createElement('cranberry-quote');
+          let quote = {};
+          let lastIndex = value.lastIndexOf(',');
+          let firstIndex = (value.indexOf(',')) + 1;
+          let length = value.length;
+          quote.direction = value.substr(0,1);
+          quote.credit = content.unscrubbedValue.substr(lastIndex, length).replace(',', '').trim();
+          quote.text = content.unscrubbedValue.substr(firstIndex, lastIndex - (firstIndex)).trim();
+          shortcodeEl.quote = quote;
+          break;
       }
 
       // Append shortcodeEl
