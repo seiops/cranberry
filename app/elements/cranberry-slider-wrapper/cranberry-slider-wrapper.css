@@ -4,6 +4,7 @@
 
 paper-card {
   width: 90%;
+  min-height: 600px;
 }
 
 paper-card ul {

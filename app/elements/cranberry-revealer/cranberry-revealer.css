@@ -43,7 +43,7 @@ polyfill-next-selector { content: ':host img:first-child'; }
   width: 100%;
 }
 
-.slider{
+.revealer-slider{
   width: 100%;
 }
 

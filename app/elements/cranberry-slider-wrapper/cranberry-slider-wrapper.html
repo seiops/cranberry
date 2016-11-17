@@ -18,7 +18,7 @@
             <template is="dom-if" if="{{computeShowTitle(index)}}">
               <h4 class="ut-related-title"> ALSO LINKED </h4>
             </template>
-            <li><a href="{{item.genericLink}}">{{item.title}}</a></li>
+            <li><a href="[[_computeUrl(item)]]">{{item.title}}</a></li>
           </template>
         </ul>
       </div>

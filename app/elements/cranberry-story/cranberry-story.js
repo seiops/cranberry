@@ -62,6 +62,11 @@ class CranberryStory {
       },
       distroId: {
         type: String
+      },
+      storyContent: {
+        type: Array,
+        value: [],
+        observer: '_render'
       }
     };
     this.observers = ['_checkParams(routeData.id)', '_hiddenChanged(hidden, routeData.id)'];
@@ -121,15 +126,9 @@ class CranberryStory {
 
     this.set('route', {});
 
-    // Remove all children of the content area to prevent old paragraphs showing
-    while(contentArea.firstChild) {
-      contentArea.removeChild(contentArea.firstChild);
-    }
-
-    // Remove all children of the media area to prevent old media items from showing
-    while(leadMediaArea.firstChild) {
-      leadMediaArea.removeChild(leadMediaArea.firstChild);
-    }
+    // Destroy content in shortcode and content areas
+    contentArea.innerHTML = '';
+    leadMediaArea.innerHTML = '';
 
     // Remove source on main image
     if (typeof image !== 'undefined') {
@@ -213,81 +212,69 @@ class CranberryStory {
         if (typeof story.published !== 'undefined'){
           let data = {};
           let baseUrl = this.get('baseUrl');
+          let toutUid = this.get('toutUid');
           let paragraphs = story.paragraphs;
           let contentArea = this.$.storyContentArea;
-          let el = this;
-
-          // TOUT TAP BUILD
-          // let tapTout = document.createElement('tout-element');
-          // let topToutDiv = this.$.toutTap;
-
-          // tapTout.set('placement', 'tout-tap-article');
-          // tapTout.set('slot', 'tap-article');
-          // tapTout.set('player', 'top_article_embed');
-          // tapTout.set('storyId', this.get('routeData.id'));
-
-          // topToutDiv.appendChild(tapTout);
 
           if (typeof paragraphs !== 'undefined') {
-            // Create a document fragment to append all elements to
-            let fragment = document.createDocumentFragment();
+            let elementsArray = [];
 
-            paragraphs.forEach(function(value, index) {
+            paragraphs.forEach((value, index) => {
               if (value.shortcode) {
                 if (value.key === 'tout') {
-                  el.set('toutShortcode', true);
+                  this.set('toutShortcode', true);
                 }
 
                 let shortcodeEl = document.createElement('cranberry-shortcode');
 
                 shortcodeEl.set('shortcodeObject', value);
-                if (value.key == 'toutembed') {
-                    shortcodeEl.set('toutUid', el.toutUid);
-                }
                 shortcodeEl.set('storyObject', story);
                 shortcodeEl.set('baseUrl', baseUrl);
-                fragment.appendChild(shortcodeEl);
+                shortcodeEl.set('toutUid', toutUid);
+
+                elementsArray.push(shortcodeEl);
               } else {
-                let hasTout = el.get('toutShortcode');
+                let hasTout = this.get('toutShortcode');
 
                 if (index === 4 && !hasTout) {
                   let tempDiv = document.createElement('div');
                   tempDiv.setAttribute('id', 'tempToutDiv');
 
-                  fragment.appendChild(tempDiv);
+                  elementsArray.push(tempDiv);
                 }
+
                 let paragraphEl = document.createElement('p');
                 paragraphEl.innerHTML = value.text;
 
-                fragment.appendChild(paragraphEl);
+                elementsArray.push(paragraphEl);
               }
             });
-            contentArea.appendChild(fragment);
-            this._checkTout();
+
+            this.set('storyContent', elementsArray);
           }
 
-          // Data settings for pageview
-          data.dimension6 = 'Story';
-
-          if (typeof story.byline.inputByline !== 'undefined') {
-            data.dimension1 = story.byline.inputByline;
-          }
-
-          if (typeof story.published !== 'undefined') {
-            data.dimension3 = story.published;
-          }
-
-          if (typeof story.tags !== 'undefined') {
-            data.dimension8 = story.tags;
-          }
-
-          // Send pageview event with iron-signals
-          this.fire('iron-signal', {name: 'track-page', data: { path: '/story/' + storyId, data } });
-
-          // DISTRO SETUP FUNCTION
-          this._setupDistro();
+          this._sendPageview(story);
         }
       }
+    }
+  }
+
+  _render(newValue) {
+    if (newValue.length > 0) {
+      let docFragment = document.createDocumentFragment();
+
+      newValue.forEach((value, index) => {
+        docFragment.appendChild(value);
+      });
+
+      let contentArea = this.$.storyContentArea;
+
+      contentArea.appendChild(docFragment);
+
+      // Check Tout location function
+      this._checkTout();
+      // DISTRO SETUP FUNCTION
+      this._setupDistro();
     }
   }
 
@@ -306,6 +293,20 @@ class CranberryStory {
 
       loader.loadScript('http://c.jsrdn.com/s/cs.js?p=' + distroId, 'distroScript');
     }
+  }
+
+  _sendPageview(story) {
+    var { byline: { inputByline: byline }, published: published, tags: tags, itemId: storyId } = story;
+
+    let data = {
+      dimension1: (typeof byline !== 'undefined') ? byline : '',
+      dimension3: (typeof published !== 'undefined') ? published : '',
+      dimension6: 'Story',
+      dimension8: (typeof tags !== 'undefined') ? tags : ''
+    };
+  
+    // Send pageview event with iron-signals
+    this.fire('iron-signal', {name: 'track-page', data: { path: '/story/' + storyId, data } });
   }
 
   _handleResponse(json) {

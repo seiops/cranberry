@@ -29,5 +29,13 @@ class cranberrySliderWrapper {
       }
     };
   }
+
+  _computeUrl(item) {
+    if (item.contentType === 'story') {
+      return '/story/' + item.itemId;
+    } else {
+      return '/photo-gallery/' + item.itemId;
+    }
+  }
 }
 Polymer(cranberrySliderWrapper);

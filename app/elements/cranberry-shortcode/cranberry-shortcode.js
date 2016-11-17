@@ -21,322 +21,326 @@ class cranberryShortcode {
     // Attached function to handle all data passed to shortcode Element
     attached() {
       let foundObject = {};
+      let story = this.get('storyObject');
+      let shortcode = this.get('shortcodeObject');
 
-      if (typeof this.storyObject !== 'undefined' && typeof this.shortcodeObject !== 'undefined') {
-        // Establish found object from the return of findAssetObject
-        foundObject = this._findAssetObject(this.storyObject, this.shortcodeObject);
-      }
+      this.async(() => {
+        if (typeof story !== 'undefined' && typeof shortcode !== 'undefined') {
+          // Establish found object from the return of findAssetObject
+          // foundObject = this._findAssetObject(story, shortcode);
+
+          this._setupShortcode(story, shortcode);
+        }
+      });
+      
     }
 
-    _findAssetObject(story, shortcode) {
-      let searchIndex = '';
+    _setupShortcode(story, shortcode) {
+      let baseUrl = this.get('baseUrl');
+      let toutUid = this.get('toutUid');
+
+      this.async(() => {
+
+        let { key: shortcodeType, value: shortcodeValue, unscrubbed: unscrubbedValue } = shortcode;
+        let { mediaAssets: { images, videos }, attachments, relatedContent, latitude, longitude } = story;
+        let lookForObject = false;
+        let searchingIndex = '';
+
+        switch(shortcodeType) {
+          // Types that need no object finding
+          case 'generator':
+          case 'gmap':
+          case 'googform':
+          case 'mec':
+          case 'tout':
+          case 'toutembed':
+          case 'twitterhash':
+          case 'twitteruser':
+          case 'quote':
+            break;
+          // Types that do need object finding
+          default:
+            lookForObject = true
+            searchingIndex = 'title';
+        }
+        let storyInfo = {
+          latitude: latitude,
+          longitude: longitude,
+          zoom: 15,
+          baseUrl: baseUrl,
+          toutUid: toutUid
+        };
+
+        let shortcodeOptions = {
+          type: shortcodeType,
+          value: shortcodeValue,
+          lookForObject: lookForObject,
+          searchingIndex: searchingIndex,
+          images: images,
+          videos: videos,
+          attachments: attachments,
+          relatedContent: relatedContent,
+          storyInfo: storyInfo,
+          unscrubbedValue: unscrubbedValue
+        };
+
+        this._buildShortcode(shortcodeOptions);
+      });
+    }
+
+    _buildShortcode({ type, lookForObject, searchingIndex, attachments, images, videos, relatedContent, storyInfo, unscrubbedValue, value: searchingValue } = opts) {
       let foundObject = {};
+      if (lookForObject) {
+        if (type.includes('image')) {
+          foundObject = this._findAsset(images, searchingIndex, searchingValue);
+        }
+        if (type.includes('video') || type.includes('youtube')) {
+          foundObject = this._findAsset(videos, searchingIndex, searchingValue);
+        }
+        if (type.includes('pdf') || type.includes('audio')) {
+          foundObject = this._findAsset(attachments, searchingIndex, searchingValue);
+        }
+        if (type === 'singlegallery') {
+          foundObject = this._findAsset(relatedContent, searchingIndex, searchingValue);
+        }
+        if (type === 'gallery') {
+          foundObject = relatedContent;
+        }
+        if (type.includes('revealer')) {
+          foundObject = this._findAssets(images, searchingIndex, searchingValue);
+        }        
+      } else {
+        if (type.includes('map')) {
+          if (searchingValue === '') {
+            foundObject = storyInfo;
+          } else {
+            let valueArray = searchingValue.split(',');
 
-      // Switch on the shortcode key (type of shortcode)
-      // If key is found in Switch
-      //   a. Find the corrisponding object based on the passed data.
-      //   b. Pass that to _createShortcode function for creation of the desired element.
+            foundObject = {
+              latitude: valueArray[0],
+              longitude: valueArray[1],
+              zoom: (typeof valueArray[2] !== 'undefined') ? valueArray[2] : 15,
+            }
+          }
+        } else {
+          foundObject = {
+            value: searchingValue,
+            unscrubbedValue: unscrubbedValue
+          }
+        }
+      }
 
-      switch(shortcode.key) {
+      let options = {
+        type: type,
+        value: searchingValue,
+        content: foundObject,
+        storyInfo: storyInfo
+      };
+
+      this._createShortcode(options);
+    }
+
+    _findAsset(content, searchingIndex, searchingValue) {
+      let foundObject = {};
+      content.forEach((value, index) => {
+        if (value[searchingIndex].toLowerCase() === searchingValue) {
+          foundObject = value;
+        }
+      });
+
+      return foundObject;
+    }
+
+    _findAssets(content, searchingIndex, searchingValue) {
+      let searchArray = searchingValue.split(',');
+      let returnArray = [];
+
+      content.forEach((value, index) => {
+        if (value[searchingIndex].toLowerCase() === searchArray[0] || value[searchingIndex].toLowerCase() === searchArray[1]) {
+          returnArray.push(value);
+        }
+
+        // Break out of loop early if all values found:: hardcoded to 2
+        if (returnArray.length === 2) {
+          return;
+        }
+      });
+
+      return returnArray;
+    }
+
+    _createShortcode({ content, type, value, storyInfo } = options) {
+      let shortcodeEl;
+      let baseUrl = storyInfo.baseUrl;
+      let toutUid = storyInfo.toutUid;
+      let story = document.querySelector('cranberry-story');
+
+      switch(type) {
         case 'image':
-        case 'leadimage':
         case 'imageuncropped':
-          foundObject = this._findAsset(story.mediaAssets.images, 'title', shortcode.value);
-          this._createShortcode(foundObject, 'image', shortcode);
-          break;
-        case 'video':
-          foundObject = this._findAsset(story.mediaAssets.videos, 'title', shortcode.value);
+          let container = document.createElement('div');
+          let image = document.createElement('iron-image');
+          let caption = document.createElement('p');
+          caption.classList.add('caption-text');
+          image.src = baseUrl + (type === 'image' ? content.large : content.url);
+          caption.appendChild(document.createTextNode(content.caption));
+          image.appendChild(caption);
+          container.appendChild(image);
+          container.appendChild(caption);
+          shortcodeEl = container;
           break;
         case 'pdf':
         case 'audio':
-          foundObject =  this._findAsset(story.attachments, 'title', shortcode.value);
-          this._createShortcode(foundObject, 'attachment', shortcode);
+          let url = baseUrl + content.url;
+          if (type === 'pdf') {
+            shortcodeEl = document.createElement('pdf-object');
+            shortcodeEl.file = url;
+            shortcodeEl.height = '600px';
+            shortcodeEl.width = '80%';
+          } else {
+            shortcodeEl = document.createElement('paper-audio-player');
+            shortcodeEl.src = url;
+            // Remove base styles from paper-audio-player element for margins
+            shortcodeEl.style = 'margin: 0 auto;';
+            shortcodeEl.title = content.title;
+
+            Polymer.dom(this.$.shortcode).classList.add('ut-smaller-width')
+          }
           break;
         case 'gmap':
-          this._createShortcode(story, 'map', shortcode);
+          let latitude = (typeof content.latitude === 'undefined') ? storyInfo.latitude : content.latitude;
+          let longitude = (typeof content.longitude === 'undefined') ? storyInfo.longitude : content.longitude;
+          let zoom = (typeof content.zoom === 'undefined') ? Number(storyInfo.zoom) : Number(content.zoom);
+       
+          shortcodeEl = this.create('cranberry-map', {latitude, longitude, zoom});
           break;
         case 'revealer':
-          let myElement = this;
-          let shortcodeArr = shortcode.value.split(',');
-          let foundObjectArr = [];
-          shortcodeArr.forEach(function(value) {
-            foundObjectArr.push(myElement._findAsset(story.mediaAssets.images, 'title', value));
+          shortcodeEl = document.createElement('cranberry-revealer');
+
+          let images = [];
+
+          content.forEach((value, index) => {
+            let obj = {};
+            obj.url = baseUrl + value.exlarge;
+            images.push(obj);
           });
-          this._createShortcode(foundObjectArr, 'revealer', shortcode);
+
+          shortcodeEl.images = images;
           break;
-        case 'twitterhash':
         case 'twitteruser':
-          this._createShortcode({}, 'twitter', shortcode);
-          break;
-        case 'leadyoutube':
-        case 'youtube':
-          if (shortcode.key === 'leadyoutube') {
-            let storyEl = document.querySelector('cranberry-story');
-            storyEl.set('hasLeadShortcode', true);
+        case 'twitterhash':
+          let valueArray = value.split(',');
+          let sourceType = document.createAttribute('source-type');
+
+          shortcodeEl = document.createElement('twitter-timeline');
+
+          if (type === 'twitteruser') {
+            sourceType.value = 'profile';
+            let screenName = document.createAttribute('screen-name');
+            screenName.value = valueArray[0];
+            shortcodeEl.setAttributeNode(screenName);
+          } else {
+            let sourceType = document.createAttribute('source-type');
+            sourceType.value = 'widget';
+            let widgetId = document.createAttribute('widget-id');
+            widgetId.value = valueArray[1];
+            shortcodeEl.setAttributeNode(widgetId);
           }
-          foundObject = this._findAsset(story.mediaAssets.videos, 'title', shortcode.value);
-          this._createShortcode(foundObject, 'youtube', shortcode);
+          shortcodeEl.setAttributeNode(sourceType);
+          break;
+        case 'youtube':
+        case 'leadyoutube':
+          shortcodeEl = document.createElement('google-youtube');
+          let videoAttribute = document.createAttribute('video-id');
+          videoAttribute.value = content.url;
+          shortcodeEl.setAttributeNode(videoAttribute);
+          shortcodeEl.height = '100%';
+          shortcodeEl.width = '100%';
           break;
         case 'quote':
+          shortcodeEl = document.createElement('cranberry-quote');
           let quote = {};
-          let lastIndex = shortcode.value.lastIndexOf(',');
-          let firstIndex = (shortcode.value.indexOf(',')) + 1;
-          let length = shortcode.value.length;
-          quote.direction = shortcode.value.substr(0,1);
-          quote.credit = shortcode.unscrubbed.substr(lastIndex, length).replace(',', '').trim();
-          quote.text = shortcode.unscrubbed.substr(firstIndex, lastIndex - (firstIndex)).trim();
-
-          this._createShortcode(quote, 'quote', shortcode);
+          let lastIndex = value.lastIndexOf(',');
+          let firstIndex = (value.indexOf(',')) + 1;
+          let length = value.length;
+          quote.direction = value.substr(0,1);
+          quote.credit = content.unscrubbedValue.substr(lastIndex, length).replace(',', '').trim();
+          quote.text = content.unscrubbedValue.substr(firstIndex, lastIndex - (firstIndex)).trim();
+          shortcodeEl.quote = quote;
           break;
         case 'googform':
-          this._createShortcode(shortcode.unscrubbed, 'googform', shortcode);
+          shortcodeEl = document.createElement('google-form');
+          shortcodeEl.url = content.unscrubbedValue;
           break;
         case 'gallery':
-          this._createShortcode(story.relatedContent, 'gallery', shortcode);
-          break;
         case 'singlegallery':
-          foundObject = this._findAsset(story.relatedContent, 'title', shortcode.value);
-          this._createShortcode(foundObject, 'singlegallery', shortcode);
-          break;
-        case 'mec':
-          break;
-        case 'generator':
+          let slider = document.createElement('cranberry-slider');
+          let wrapper = document.createElement('cranberry-slider-wrapper');
+          let featured = {};
+          let links = [];
+          
+          if (type === 'gallery') {
+            content.forEach((value, index) => {
+              if (type === 'gallery') {
+                if (index === 0) {
+                  featured = value;
+                } else {
+                  links.push(value);
+                }
+              }
+            });
+            wrapper.set('links', links);
+            wrapper.set('featuredTitle', featured.title);
+            slider.set('items', featured.mediaAssets.images);
+          } else {
+            wrapper.set('featuredTitle', content.title);
+            slider.set('items', content.mediaAssets.images);
+          }
+
+          slider.set('baseUrl', baseUrl);
+          slider.set('gallery', true);
+          slider.style.height = "500px";
+
+          Polymer.dom(wrapper).appendChild(slider);
+
+          shortcodeEl = wrapper;
           break;
         case 'toutembed':
-          this._createShortcode(undefined, 'toutEmbed', shortcode);
+          shortcodeEl = document.createElement('div');
+
+          let tout = document.createElement('div');
+          let toutScript = document.createElement('script');
+          let toutId = 'tout-' + value + '-target';
+
+          tout.id = toutId;
+          toutScript.src = '//player.tout.com/embeds/' + value + '.js?content_brand_uid=' + toutUid + '&width=auto&height=auto&autoplay=false&element_id=' + toutId;
+
+          shortcodeEl.appendChild(tout);
+          shortcodeEl.appendChild(toutScript);
           break;
         case 'tout':
-          this._createShortcode(undefined, 'tout', shortcode);
-      }
-    }
+            shortcodeEl = document.createElement('tout-element');
 
-    _createShortcode(foundObject, type, shortcode) {
-      let shortcodeEl;
-      let baseUrl = this.get('baseUrl');
-
-      // Create shortcode for images. Except for leadimages
-      if (type === 'image' && shortcode.key !== 'leadimage') {
-        let container = document.createElement('div');
-        let image = document.createElement('iron-image');
-        let caption = document.createElement('p');
-        caption.classList.add('caption-text');
-        image.src = baseUrl + (shortcode.key === 'image' ? foundObject.large : foundObject.url);
-        caption.appendChild(document.createTextNode(foundObject.caption));
-        image.appendChild(caption);
-        container.appendChild(image);
-        container.appendChild(caption);
-        shortcodeEl = container;
-      }
-
-      // Create shortcode for PDF's and Audio
-      if (type === 'attachment') {
-        let url = baseUrl + foundObject.url;
-        if (shortcode.key === 'pdf') {
-          shortcodeEl = document.createElement('pdf-object');
-          shortcodeEl.file = url;
-          shortcodeEl.height = '600px';
-          shortcodeEl.width = '80%';
-        } else {
-          shortcodeEl = document.createElement('paper-audio-player');
-          shortcodeEl.src = url;
-          // Remove base styles from paper-audio-player element for margins
-          shortcodeEl.style = 'margin: 0 auto;';
-          shortcodeEl.title = foundObject.title;
-
-          Polymer.dom(this.$.shortcode).classList.add('ut-smaller-width')
-        }
-      }
-
-      // Create shortcode for maps
-      if (type === 'map') {
-
-        // Set Latitude, Longitude, and Zoom values
-        let positionArr = [];
-        if (shortcode.value !== '') {
-          positionArr = shortcode.value.split(',');
-        }
-
-        let lat = (positionArr.length > 0 && positionArr[0] !== '' ? positionArr[0] : foundObject.latitude);
-        let long = (positionArr.length > 1 && positionArr[1] !== '' ? positionArr[1] : foundObject.longitude);
-        let zoom = (positionArr.length > 2 && positionArr[2] !== '' ? Number(positionArr[2]) : 15);
-
-        // Create cranberry-map (without api-key attribute)
-        shortcodeEl = this.create('cranberry-map', {latitude: lat, longitude: long, zoom: zoom});
-      }
-
-      // Create shortcode for revealer
-      if (type === 'revealer') {
-        shortcodeEl = document.createElement('cranberry-revealer');
-
-        let myElement = this;
-        let images = [];
-
-        foundObject.forEach(function(value, index) {
-          let obj = {};
-          obj.url = baseUrl + value.exlarge;
-          images.push(obj);
-        });
-
-        shortcodeEl.images = images;
-      }
-
-      // Create shortcode for Twitter hash and user
-      if (type === 'twitter') {
-        let valueArray = shortcode.value.split(',');
-        shortcodeEl = document.createElement('twitter-timeline');
-        if (shortcode.key === 'twitteruser') {
-          let sourceType = document.createAttribute('source-type');
-          sourceType.value = 'profile';
-          let screenName = document.createAttribute('screen-name');
-          screenName.value = valueArray[0];
-          shortcodeEl.setAttributeNode(sourceType);
-          shortcodeEl.setAttributeNode(screenName);
-        } else {
-          let sourceType = document.createAttribute('source-type');
-          sourceType.value = 'widget';
-          let widgetId = document.createAttribute('widget-id');
-          widgetId.value = valueArray[1];
-          shortcodeEl.setAttributeNode(sourceType);
-          shortcodeEl.setAttributeNode(widgetId);
-        }
-      }
-
-      // Create YouTube shortcode
-      if (type === 'youtube') {
-        shortcodeEl = document.createElement('google-youtube');
-        let videoAttribute = document.createAttribute('video-id');
-        videoAttribute.value = foundObject.url;
-        shortcodeEl.setAttributeNode(videoAttribute);
-        shortcodeEl.height = '100%';
-        shortcodeEl.width = '100%';
-      }
-
-      // Create Quote shortcode
-      if (type === 'quote') {
-        shortcodeEl = document.createElement('cranberry-quote');
-        shortcodeEl.quote = foundObject;
-      }
-
-      // Create Google Form shortcode
-      if (type === 'googform') {
-        shortcodeEl = document.createElement('google-form');
-        shortcodeEl.url = foundObject;
-      }
-
-      // Create Gallery shortcode
-      if (type === 'gallery') {
-        let featured = {};
-        let links = [];
-        foundObject.forEach(function(value, index) {
-          if (value.contentType === 'gallery') {
-            if (index === 0) {
-              featured = value;
-            } else {
-              links.push(value);
-            }
-          }
-        });
-        let baseUrl = this.get('baseUrl');
-        let slider = document.createElement('cranberry-slider');
-        let wrapper = document.createElement('cranberry-slider-wrapper');
-
-        wrapper.set('links', links);
-        wrapper.set('featuredTitle', featured.title);
-
-        slider.set('autostart', true);
-        slider.set('arrows', true);
-        slider.set('bullets', false);
-        slider.set('info', true);
-        slider.set('caption', true);
-        slider.set('baseUrl', baseUrl);
-        slider.set('images', featured.mediaAssets.images);
-
-
-        Polymer.dom(wrapper).appendChild(slider);
-
-        shortcodeEl = wrapper;
-
-      }
-
-      // Create SingleGallery shortcode
-      if (type === 'singlegallery') {
-        let baseUrl = this.get('baseUrl');
-        let slider = document.createElement('cranberry-slider');
-        let wrapper = document.createElement('cranberry-slider-wrapper');
-
-        wrapper.set('featuredTitle', foundObject.title);
-
-        slider.set('autostart', true);
-        slider.set('arrows', true);
-        slider.set('bullets', false);
-        slider.set('info', true);
-        slider.set('caption', true);
-        slider.set('baseUrl', baseUrl);
-
-        slider.set('images', foundObject.mediaAssets.images);
-
-        Polymer.dom(wrapper).appendChild(slider);
-
-        shortcodeEl = wrapper;
-      }
-
-      // Create Tout Embed shortcode
-      if (type === 'toutEmbed') {
-        let story = document.querySelector('cranberry-story');
-        shortcodeEl = document.createElement('div');
-
-        let tout = document.createElement('div');
-        let toutScript = document.createElement('script');
-        let toutId = 'tout-' + shortcode.value + '-target';
-        let toutUid = this.toutUid;
-
-        tout.id = toutId;
-        toutScript.src = '//player.tout.com/embeds/' + shortcode.value + '.js?content_brand_uid=' + toutUid + '&width=auto&height=auto&autoplay=false&element_id=' + toutId;
-
-        shortcodeEl.appendChild(tout);
-        shortcodeEl.appendChild(toutScript);
-
-      }
-
-      // Create Tout shortcode
-      if (type === 'tout') {
-        let story = document.querySelector('cranberry-story');
-        let toutUid = story.get('toutUid');
-        shortcodeEl = document.createElement('tout-element');
-
-        shortcodeEl.set('placement', 'tout-mid-article');
-        shortcodeEl.set('slot', 'mid-article');
-        shortcodeEl.set('player', 'mid_article_player');
-        shortcodeEl.set('toutUid', toutUid);
-        shortcodeEl.set('storyId', story.get('routeData.id'));
-        
+            shortcodeEl.set('placement', 'tout-mid-article');
+            shortcodeEl.set('slot', 'mid-article');
+            shortcodeEl.set('player', 'mid_article_player');
+            shortcodeEl.set('toutUid', toutUid);
+            shortcodeEl.set('storyId', story.get('routeData.id'));
+            break;
       }
 
       // Append shortcodeEl
-      let story = document.querySelector('cranberry-story');
-      if (shortcode.key === 'leadimage') {
-        story.querySelector('#mainImage').src = baseUrl + foundObject.exlarge;
-      } else if (shortcode.key === 'leadyoutube') {
-        story.querySelector('#leadShortcode').appendChild(shortcodeEl);
-      } else {
-        Polymer.dom(this.$.shortcode).appendChild(shortcodeEl);
+      if (typeof shortcodeEl !== 'undefined') {
+        if (type === 'leadimage') {
+          story.set('hasLeadShortcode', true);
+          story.querySelector('#mainImage').src = baseUrl + content.exlarge;
+        } else if (type === 'leadyoutube') {
+          story.set('hasLeadShortcode', true);
+          story.querySelector('#leadShortcode').appendChild(shortcodeEl);
+        } else {
+          Polymer.dom(this.$.shortcode).appendChild(shortcodeEl);
+        }
       }
-    }
-
-    _findAsset(obj, matchIndex, matchText) {
-      let returnObject = {};
-
-      if (obj.length > 0 && obj.length !== undefined) {
-        obj.forEach(function(value) {
-          if (value[matchIndex].toLowerCase() === matchText.toLowerCase()) {
-            returnObject = value;
-            return false;
-          }
-        });
-      } else {
-        returnObject = obj;
-      }
-      return returnObject;
     }
 }
 Polymer(cranberryShortcode);
