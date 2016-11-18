@@ -38,6 +38,7 @@ class cranberryShortcode {
     _setupShortcode(story, shortcode) {
       let baseUrl = this.get('baseUrl');
       let toutUid = this.get('toutUid');
+      let survey = this.get('survey');
 
       this.async(() => {
 
@@ -68,7 +69,8 @@ class cranberryShortcode {
           longitude: longitude,
           zoom: 15,
           baseUrl: baseUrl,
-          toutUid: toutUid
+          toutUid: toutUid,
+          survey: survey
         };
 
         let shortcodeOptions = {
@@ -176,6 +178,7 @@ class cranberryShortcode {
       let shortcodeEl;
       let baseUrl = storyInfo.baseUrl;
       let toutUid = storyInfo.toutUid;
+      let survey = storyInfo.survey;
       let story = document.querySelector('cranberry-story');
 
       switch(type) {

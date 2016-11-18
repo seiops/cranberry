@@ -108,6 +108,7 @@ class cranberrySectionRequest {
       let jsonp = {};
       let sections = this.get('loadSection');
       let tags = this.get('tags');
+      let homepageFlag;
 
       // THIS NEEDS TO CHANGE!!!! THIS NEEDS TO CHANGE!!!! THIS NEEDS TO CHANGE!!!! THIS NEEDS TO CHANGE!!!! THIS NEEDS TO CHANGE!!!! THIS NEEDS TO CHANGE!!!! 
       jsonp.request = 'content-list';
@@ -118,10 +119,15 @@ class cranberrySectionRequest {
       } else {
         if (sections === 'homepage') {
           sections = 'news,opinion,announcements,sports,entertainment,lifestyle';
+          homepageFlag = 1;
         }
         jsonp.desiredSection = sections;
       }
 
+      if (typeof homepageFlag !== 'undefined' && homepageFlag === 1) {
+        jsonp.featuredHomepage = homepageFlag;
+      }
+      
       jsonp.desiredContent = this._isGalleries(this.get('galleries'));
       jsonp.desiredStart = this.get('start');
 

@@ -67,6 +67,18 @@ class CranberryStory {
         type: Array,
         value: [],
         observer: '_render'
+      },
+      survey: {
+        type: Boolean,
+        value: true
+      },
+      surveyIndex: {
+        type: Number,
+        value: 5
+      },
+      gcsSurveyId: {
+        type: String,
+        value: '_ajb2thhwixyz2kel67yunivgzq'
       }
     };
     this.observers = ['_checkParams(routeData.id)', '_hiddenChanged(hidden, routeData.id)'];
@@ -213,43 +225,73 @@ class CranberryStory {
           let data = {};
           let baseUrl = this.get('baseUrl');
           let toutUid = this.get('toutUid');
+          let survey = this.get('survey');
+          let surveyIndex = this.get('surveyIndex');
+          let gcsSurveyId = this.get('gcsSurveyId');
           let paragraphs = story.paragraphs;
           let contentArea = this.$.storyContentArea;
-
+          let surveyParagraphs = [];
+          let distributeToSurveys = false;
           if (typeof paragraphs !== 'undefined') {
             let elementsArray = [];
 
             paragraphs.forEach((value, index) => {
-              if (value.shortcode) {
-                if (value.key === 'tout') {
-                  this.set('toutShortcode', true);
-                }
-
-                let shortcodeEl = document.createElement('cranberry-shortcode');
-
-                shortcodeEl.set('shortcodeObject', value);
-                shortcodeEl.set('storyObject', story);
-                shortcodeEl.set('baseUrl', baseUrl);
-                shortcodeEl.set('toutUid', toutUid);
-
-                elementsArray.push(shortcodeEl);
-              } else {
-                let hasTout = this.get('toutShortcode');
-
-                if (index === 4 && !hasTout) {
-                  let tempDiv = document.createElement('div');
-                  tempDiv.setAttribute('id', 'tempToutDiv');
-
-                  elementsArray.push(tempDiv);
-                }
-
-                let paragraphEl = document.createElement('p');
-                paragraphEl.innerHTML = value.text;
-
-                elementsArray.push(paragraphEl);
+              if (index === surveyIndex) {
+                distributeToSurveys = true;
               }
-            });
+              console.log('INDEXES::::::');
+              console.log(index);
+              console.log(surveyIndex);
+              if (!distributeToSurveys) {
+                if (value.shortcode) {
+                  if (value.key === 'tout') {
+                    this.set('toutShortcode', true);
+                  }
 
+                  let shortcodeEl = document.createElement('cranberry-shortcode');
+
+                  shortcodeEl.set('shortcodeObject', value);
+                  shortcodeEl.set('storyObject', story);
+                  shortcodeEl.set('baseUrl', baseUrl);
+                  shortcodeEl.set('toutUid', toutUid);
+
+                  elementsArray.push(shortcodeEl);
+                } else {
+                  let hasTout = this.get('toutShortcode');
+
+                  if (index === 4 && !hasTout) {
+                    let tempDiv = document.createElement('div');
+                    tempDiv.setAttribute('id', 'tempToutDiv');
+
+                    elementsArray.push(tempDiv);
+                  }
+
+                  let paragraphEl = document.createElement('p');
+                  paragraphEl.innerHTML = value.text;
+
+                  elementsArray.push(paragraphEl);
+                }
+              } else {
+                surveyParagraphs.push(value);
+              }
+              
+            });
+            
+            if (survey) {
+              // let wrapperDiv = document.createElement('div');
+              // wrapperDiv.setAttribute('id', 'p402_premium');
+
+              let surveyElement = document.createElement('google-survey');
+              surveyElement.set('storyObject', story);
+              surveyElement.set('baseUrl', baseUrl);
+              surveyElement.set('toutUid', toutUid);
+              surveyElement.set('paragraphs', surveyParagraphs);
+              surveyElement.set('gcsSurveyId', gcsSurveyId);
+
+              // wrapperDiv.appendChild(surveyElement);
+
+              elementsArray.push(surveyElement);
+            }
             this.set('storyContent', elementsArray);
           }
 
