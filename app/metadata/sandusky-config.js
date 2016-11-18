@@ -26,7 +26,8 @@ module.exports = {
   // Google
   google: {
     analytics: 'UA-61183098-4',
-    maps: 'AIzaSyASMEaZRw3O-fhuvscitnQ8k2YJ3kJn_ZA'
+    maps: 'AIzaSyASMEaZRw3O-fhuvscitnQ8k2YJ3kJn_ZA',
+    surveys: '_ajb2thhwixyz2kel67yunivgzq'
   },
   dfpAdStructure: {
     adGroupID: 30103046,

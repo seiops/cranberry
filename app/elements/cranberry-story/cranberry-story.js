@@ -77,8 +77,7 @@ class CranberryStory {
         value: 5
       },
       gcsSurveyId: {
-        type: String,
-        value: '_ajb2thhwixyz2kel67yunivgzq'
+        type: String
       }
     };
     this.observers = ['_checkParams(routeData.id)', '_hiddenChanged(hidden, routeData.id)'];
@@ -225,12 +224,12 @@ class CranberryStory {
           let data = {};
           let baseUrl = this.get('baseUrl');
           let toutUid = this.get('toutUid');
-          let survey = this.get('survey');
-          let surveyIndex = this.get('surveyIndex');
+          let surveyOff = story.surveysOff;
+          let surveyIndex = (story.surveyIndex === "0") ? 5 : Number(story.surveyIndex);
           let gcsSurveyId = this.get('gcsSurveyId');
+          let surveyParagraphs = [];
           let paragraphs = story.paragraphs;
           let contentArea = this.$.storyContentArea;
-          let surveyParagraphs = [];
           let distributeToSurveys = false;
           if (typeof paragraphs !== 'undefined') {
             let elementsArray = [];
@@ -239,9 +238,7 @@ class CranberryStory {
               if (index === surveyIndex) {
                 distributeToSurveys = true;
               }
-              console.log('INDEXES::::::');
-              console.log(index);
-              console.log(surveyIndex);
+
               if (!distributeToSurveys) {
                 if (value.shortcode) {
                   if (value.key === 'tout') {
@@ -277,7 +274,7 @@ class CranberryStory {
               
             });
             
-            if (survey) {
+            if (!surveyOff) {
               // let wrapperDiv = document.createElement('div');
               // wrapperDiv.setAttribute('id', 'p402_premium');
 

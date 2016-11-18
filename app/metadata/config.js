@@ -2,7 +2,7 @@ module.exports = {
   // URL Structure
   baseUrl: '/',
   baseDomain: 'http://www.sanduskyregister.com',
-  baseEndpointUrl: 'http://srdevcore.libercus.net/rest.json',
+  baseEndpointUrl: 'http://srstgcore.libercus.net/rest.json',
   appVersion: '<0.1',
   baseCanonicalUrl: 'https://github.com/seiops/cranberry/',
   calendarDomain: 'sanduskyregister',
@@ -26,7 +26,8 @@ module.exports = {
   // Google
   google: {
     analytics: 'UA-61183098-4',
-    maps: 'AIzaSyASMEaZRw3O-fhuvscitnQ8k2YJ3kJn_ZA'
+    maps: 'AIzaSyASMEaZRw3O-fhuvscitnQ8k2YJ3kJn_ZA',
+    surveys: '_ajb2thhwixyz2kel67yunivgzq'
   },
   dfpAdStructure: {
     adGroupID: 30103046,
