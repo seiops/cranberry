@@ -225,7 +225,7 @@ class CranberryStory {
           let baseUrl = this.get('baseUrl');
           let toutUid = this.get('toutUid');
           let surveyOff = story.surveysOff;
-          let surveyIndex = (story.surveyIndex === "0") ? 5 : Number(story.surveyIndex);
+          let surveyIndex = (story.surveyIndex === "0" || typeof story.surveyIndex === 'undefined') ? 3 : Number(story.surveyIndex);
           let gcsSurveyId = this.get('gcsSurveyId');
           let surveyParagraphs = [];
           let paragraphs = story.paragraphs;
@@ -235,6 +235,7 @@ class CranberryStory {
             let elementsArray = [];
 
             paragraphs.forEach((value, index) => {
+              // UNCOMMENT FOR DEV ENVIRONMENT SURVEYS
               if (index === surveyIndex) {
                 distributeToSurveys = true;
               }
@@ -274,6 +275,7 @@ class CranberryStory {
               
             });
             
+            // UNCOMMENT FOR DEV ENVIRONMENT SURVEYS
             if (!surveyOff) {
               // let wrapperDiv = document.createElement('div');
               // wrapperDiv.setAttribute('id', 'p402_premium');
@@ -289,6 +291,7 @@ class CranberryStory {
 
               elementsArray.push(surveyElement);
             }
+            
             this.set('storyContent', elementsArray);
           }
 
