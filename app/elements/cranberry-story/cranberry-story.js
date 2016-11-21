@@ -231,12 +231,13 @@ class CranberryStory {
           let paragraphs = story.paragraphs;
           let contentArea = this.$.storyContentArea;
           let distributeToSurveys = false;
+          let mobile = this.get('mobile');
           if (typeof paragraphs !== 'undefined') {
             let elementsArray = [];
 
             paragraphs.forEach((value, index) => {
               // UNCOMMENT FOR DEV ENVIRONMENT SURVEYS
-              if (index === surveyIndex) {
+              if (index === surveyIndex && mobile) {
                 distributeToSurveys = true;
               }
 
@@ -276,18 +277,13 @@ class CranberryStory {
             });
             
             // UNCOMMENT FOR DEV ENVIRONMENT SURVEYS
-            if (!surveyOff) {
-              // let wrapperDiv = document.createElement('div');
-              // wrapperDiv.setAttribute('id', 'p402_premium');
-
+            if (!surveyOff && distributeToSurveys) {
               let surveyElement = document.createElement('google-survey');
               surveyElement.set('storyObject', story);
               surveyElement.set('baseUrl', baseUrl);
               surveyElement.set('toutUid', toutUid);
               surveyElement.set('paragraphs', surveyParagraphs);
               surveyElement.set('gcsSurveyId', gcsSurveyId);
-
-              // wrapperDiv.appendChild(surveyElement);
 
               elementsArray.push(surveyElement);
             }
