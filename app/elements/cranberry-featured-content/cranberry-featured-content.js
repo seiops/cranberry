@@ -51,8 +51,8 @@ class CranberryFeaturedContent {
             }
             // Check livestream object length for livestream item
             if (Object.keys(livestreamVideo).length > 0) {
-            this.set('livestreamItem', result[0].mediaAssets.videos[0]);
-            this.set('livestream', true);
+                this.set('livestreamItem', livestreamVideo);
+                this.set('livestream', true);
             }
         }
     }
