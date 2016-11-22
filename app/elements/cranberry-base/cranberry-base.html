@@ -89,7 +89,7 @@
     <cranberry-script-loader></cranberry-script-loader>
 
     <!-- Google Analytics -->
-    <cranberry-google-analytics user="[[user]]" tracking-id="{$ config.google.analytics $}"></cranberry-google-analytics>
+    <cranberry-google-analytics user="[[user]]" tracking-id='{$ config.google.analytics | dump $}'></cranberry-google-analytics>
 
     <!-- Gigya socialize/accounts integration -->
     <gigya-socialize user="{{user}}" route="[[route]]" api-key="{$ config.gigya.apiKey $}"></gigya-socialize>

@@ -25,7 +25,17 @@ module.exports = {
   },
   // Google
   google: {
-    analytics: 'UA-61183098-4',
+    analytics: [
+      {
+        code: 'UA-4700830-1'
+      },
+      {
+        code: 'UA-4700830-30'
+      },
+      {
+        code: 'UA-4700830-29'
+      }
+    ],
     maps: 'AIzaSyASMEaZRw3O-fhuvscitnQ8k2YJ3kJn_ZA',
     surveys: '_ajb2thhwixyz2kel67yunivgzq'
   },

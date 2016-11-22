@@ -185,6 +185,7 @@ paper-button.faux-disabled[disabled] {
   @apply(--layout-vertical);
   @apply(--layout-flex);
   @apply(--layout-center);
+  flex: 1 1 auto;
   max-width: 150px;
   min-width: 150px;
   margin: 10px;

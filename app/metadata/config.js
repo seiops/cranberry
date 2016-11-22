@@ -2,7 +2,7 @@ module.exports = {
   // URL Structure
   baseUrl: '/',
   baseDomain: 'http://www.sanduskyregister.com',
-  baseEndpointUrl: 'http://srdevcore.libercus.net/rest.json',
+  baseEndpointUrl: 'http://srprdcore.libercus.net/rest.json',
   appVersion: '<0.1',
   baseCanonicalUrl: 'https://github.com/seiops/cranberry/',
   calendarDomain: 'sanduskyregister',
@@ -25,7 +25,17 @@ module.exports = {
   },
   // Google
   google: {
-    analytics: 'UA-61183098-4',
+    analytics: [
+      {
+        code: 'UA-4700830-1'
+      },
+      {
+        code: 'UA-4700830-30'
+      },
+      {
+        code: 'UA-4700830-29'
+      }
+    ],
     maps: 'AIzaSyASMEaZRw3O-fhuvscitnQ8k2YJ3kJn_ZA',
     surveys: '_ajb2thhwixyz2kel67yunivgzq'
   },
@@ -64,6 +74,7 @@ module.exports = {
   contactInformation: {
     contactFormRecipient: 'circulation@sanduskyregister.com',
     contactImage: '../../images/contact/sandusky/contact.jpg',
+    recaptchaKey: '6LeQsAwUAAAAAFCmnU2qjqb6S1TMXsFscXLqTMyG',
     hours: {
       week: '8:00 a.m. - 5:00 p.m',
       weekend: 'Closed'
@@ -102,9 +113,7 @@ module.exports = {
         label: 'News Tip',
         phone: '419-502-2060',
         link: true,
-        linkUrl: 'http://srdev.libercus.net/tell-us'
-        // Commented out production url. This site is not ready yet.
-        // linkUrl: 'http://tellus.sanduskyregister.com'
+        linkUrl: 'http://tellus.sanduskyregister.com/'
       },
       {
         logo: 'icons:chrome-reader-mode',

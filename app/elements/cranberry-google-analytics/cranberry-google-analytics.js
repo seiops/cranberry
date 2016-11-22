@@ -3,7 +3,11 @@ class CranberryGoogleAnalytics {
   beforeRegister() {
     this.is = 'cranberry-google-analytics';
     this.properties = {
-      trackingId: String,
+      trackingId: Array,
+      trackerIds: {
+        type: Array,
+        value : []
+      },
       user: {
         type: Object,
         value: {}
@@ -44,10 +48,34 @@ class CranberryGoogleAnalytics {
   }
 
   _setupGA() {
-    let id = this.get('trackingId');
-    app.logger('\<cranberry-google-analytics\> setting tracking for ' + id);
+    let trackingArray = this.get('trackingId');
 
-    ga('create', id, 'auto');
+    if (typeof trackingArray !== 'undefined' && trackingArray.length > 0) {
+      trackingArray.forEach((value, index) => {
+        this._createGA(value.code, index);
+      });
+    }
+  }
+
+  _createGA(id, index) {
+    this.async(() => {
+      let trackerId = '';
+      let trackerIds = this.get('trackerIds');
+
+      if (index >= 1) {
+        trackerId = 'tracker' + index;
+      }
+
+      app.logger('\<cranberry-google-analytics\> setting tracking for ' + id + ' with trackerId ' + ((trackerId !== '') ? trackerId : 'default'));
+
+      if (trackerId !== '') {
+        ga('create', id, 'auto', trackerId);
+        trackerIds.push(trackerId);
+        this.set('trackerIds', trackerIds);
+      } else {
+        ga('create', id, 'auto');
+      }
+    });
   }
 
   trackEvent(e) {
@@ -57,9 +85,7 @@ class CranberryGoogleAnalytics {
   }
 
   trackPage(e) {
-    let el = this;
-
-    setTimeout(function() {
+    setTimeout(() => {
       if (typeof ga !== 'undefined') {
         //Use set param, this way if we then send a subsequent event on the page it will be correctly associated with the same page
 
@@ -67,16 +93,27 @@ class CranberryGoogleAnalytics {
             ga('set', 'page', e.detail.path);
         }
 
+        let trackerIds = this.get('trackerIds');
+
         if(typeof e.detail.data !== 'undefined') {
-          app.logger('\<cranberry-google-analytics\> pageview sent with data');
+          app.logger('\<cranberry-google-analytics\> pageview sent with data on default tracker');
           ga('send', 'pageview', e.detail.data);
+          trackerIds.forEach((value, index) => {
+            app.logger('\<cranberry-google-analytics\> pageview sent with data on ' + value);
+            ga( value + '.send', 'pageview', e.detail.data);
+          });
         } else {
-          app.logger('\<cranberry-google-analytics\> pageview sent');
+          app.logger('\<cranberry-google-analytics\> pageview sent on default tracker');
           ga('send', 'pageview');
+
+          trackerIds.forEach((value, index) => {
+            app.logger('\<cranberry-google-analytics\> pageview sent on ' + value);
+            ga( value + '.send', 'pageview');
+          });
         }
         return;
       } else {
-        el.trackPage(e);
+        this.trackPage(e);
       }
     }, 50);
   }
