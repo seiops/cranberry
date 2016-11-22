@@ -48,6 +48,7 @@ class CranberryGoogleAnalytics {
     app.logger('\<cranberry-google-analytics\> setting tracking for ' + id);
 
     ga('create', id, 'auto');
+    ga('require', 'eventTracker');
   }
 
   trackEvent(e) {

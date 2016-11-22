@@ -19,8 +19,6 @@
       <iron-signals on-iron-signal-track-page="trackPage" on-iron-signal-track-event="trackEvent"></iron-signals>
   </template>
   <!-- <script src="../../scripts/analytics.js"></script> -->
-  <!-- Not using this for now. This is more of a hands off approach for SPA but some of the plugins will be useful. -->
-  <!-- <script src="../../scripts/autotrack.js"></script> -->
   <script src="cranberry-google-analytics.js"></script>
 </dom-module>
 <script>
@@ -29,3 +27,5 @@
     m=s.getElementsByTagName('link')[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','scripts/analytics.js','ga');
 </script>
+<!-- Not using this for now. This is more of a hands off approach for SPA but some of the plugins will be useful. --> 
+<script src="../../scripts/autotrack.js"></script>
