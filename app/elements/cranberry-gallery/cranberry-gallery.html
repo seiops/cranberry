@@ -51,7 +51,15 @@
             <paper-button raised class="rounded-button" on-tap="_openModal"><iron-icon icon="icons:fullscreen"></iron-icon></paper-button>
           </div>
           <div class="share-buttons">
-            <paper-button raised id="buyButton" class="rounded-button" on-tap="_buyImage"><iron-icon icon="editor:attach-money"></iron-icon></paper-button>
+            <paper-button id="buyButton" 
+                          class="rounded-button" 
+                          on-tap="_buyImage" 
+                          ga-on="click" 
+                          ga-event-category$="uti_exlk_byim"
+                          ga-event-action="Buy Imaged Clicked"
+                          raised>
+              <iron-icon icon="editor:attach-money"></iron-icon>
+            </paper-button>
             <gigya-sharebar share-buttons-id="gigya-share-buttons-gallery" title="[[gallery.title]]" route="[[route]]"></gigya-sharebar>
           </div>
         </cranberry-slider>
@@ -79,7 +87,17 @@
     <div class="content-container">
       <div class="gallery-images-container">
         <template is="dom-repeat" items="{{gallery.mediaAssets.images}}" initial-count="5">
-          <iron-image class="gallery-image" src$="{$ config.baseDomain $}{{item.small}}" sizing="cover" data-index$="{{index}}" style="background-color: lightgray;" preload on-tap="_goToSlide" fade></iron-image>
+          <iron-image class="gallery-image" 
+                      src$="{$ config.baseDomain $}{{item.small}}"
+                      sizing="cover"
+                      data-index$="{{index}}"
+                      style="background-color: lightgray;"
+                      preload on-tap="_goToSlide"
+                      ga-on="click"
+                      ga-event-category$="uti_gtnn_[[index]]"
+                      ga-event-action="Gallery Thumbnail Clicked"
+                      fade>
+          </iron-image>
         </template>
       </div>
       <div class="gallery-container-ad">

@@ -49,6 +49,7 @@ class CranberryGoogleAnalytics {
 
     ga('create', id, 'auto');
     ga('require', 'eventTracker');
+    ga('require', 'outboundLinkTracker');
   }
 
   trackEvent(e) {

@@ -189,14 +189,14 @@ class youneeqContent {
     }
   }
 
-  _setupTracking(item) {
-    let items = this.get('items');
-    let index = items.indexOf(item);
+  // _setupTracking(item) {
+  //   let items = this.get('items');
+  //   let index = items.indexOf(item);
 
-    if (typeof item !== 'undefined' && index !== 'undefined') {
-      return 'uti_yrfy_' + index;
-    }
-  }
+  //   if (typeof item !== 'undefined' && index !== 'undefined') {
+  //     return 'uti_yrfy_' + index;
+  //   }
+  // }
   
 
 }
