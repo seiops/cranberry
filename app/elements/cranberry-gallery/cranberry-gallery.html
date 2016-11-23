@@ -55,8 +55,8 @@
                           class="rounded-button" 
                           on-tap="_buyImage" 
                           ga-on="click" 
-                          ga-event-category$="uti_exlk_byim"
-                          ga-event-action="Buy Imaged Clicked"
+                          ga-event-category="Buy Imaged Clicked"
+                          ga-event-action="uti_exlk_byim"
                           raised>
               <iron-icon icon="editor:attach-money"></iron-icon>
             </paper-button>
@@ -94,8 +94,8 @@
                       style="background-color: lightgray;"
                       preload on-tap="_goToSlide"
                       ga-on="click"
-                      ga-event-category$="uti_gtnn_[[index]]"
-                      ga-event-action="Gallery Thumbnail Clicked"
+                      ga-event-category="Gallery Thumbnail Clicked"
+                      ga-event-action$="uti_gtnn_[[index]]"
                       fade>
           </iron-image>
         </template>

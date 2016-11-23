@@ -20,7 +20,11 @@
     <paper-material class="Page-paper" elevation="1" hidden$="{{hiddenForever}}">
       <div class="breaking-bar-wrapper">
         <template is="dom-repeat" items="{{items}}" filter="_computeShow" id="repeat">
-          <a href="[[_computeUrl(item)]]" class="breaking-item-link">
+          <a href="[[_computeUrl(item)]]"
+             class="breaking-item-link"
+             ga-on="click"
+             ga-event-category="Breaking Story Clicked"
+             ga-event-action$="uti_brk_[[requestIndex]]">
             <div class="breaking-item" hidden$="{{mobile}}" hidden$="{{tablet}}">
               <span class="breaking-pre-cursor">[[type]]<h3 class="breaking-title">[[item.title]]</h3></span>
             </div>
@@ -29,9 +33,28 @@
             </div>
           </a>
           <div class="breaking-bar-buttons">
-            <paper-icon-button icon="icons:expand-less" on-tap="_showPrevious" hidden$="{{mobile}}" hidden$="{{tablet}}"></paper-icon-button>
-            <paper-icon-button icon="icons:expand-more" on-tap="_showNext" hidden$="{{mobile}}" hidden$="{{tablet}}"></paper-icon-button>
-            <paper-icon-button icon="icons:close" on-tap="_closeBar"></paper-icon-button>
+            <paper-icon-button icon="icons:expand-less"
+                               on-tap="_showPrevious"
+                               hidden$="{{mobile}}"
+                               hidden$="{{tablet}}"
+                               ga-on="click"
+                               ga-event-category="Breaking Bar Navigation Clicked"
+                               ga-event-action="uti_brk_nav_prev">
+            </paper-icon-button>
+            <paper-icon-button icon="icons:expand-more"
+                               on-tap="_showNext"
+                               hidden$="{{mobile}}"
+                               hidden$="{{tablet}}"
+                               ga-on="click"
+                               ga-event-category="Breaking Bar Navigation Clicked"
+                               ga-event-action="uti_brk_nav_next">
+            </paper-icon-button>
+            <paper-icon-button icon="icons:close"
+                               on-tap="_closeBar"
+                               ga-on="click"
+                               ga-event-category="Breaking Bar Exit Clicked"
+                               ga-event-action="uti_brk_exit">
+            </paper-icon-button>
           </div>
         </template>
       </div>

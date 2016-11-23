@@ -14,8 +14,8 @@
       <template is="dom-if" if="[[item.contentType]]" index-as="itemIndex">
         <a href$="[[_computeUrl(item)]]"
            ga-on="click"
-           ga-event-category$="[[_setupTracking(item)]]"
-           ga-event-action="Content Card Clicked">
+           ga-event-category="Content Card Clicked"
+           ga-event-action$="[[_setupTracking(item)]]">
           <div class="card-header">
             <div class="card-icons"><iron-icon icon="image:photo-camera" hidden$="[[!_checkGallery(item.contentType)]]"></iron-icon></div>
             <div class="card-header-overlay" hidden$="[[!item.mediaAssets.images.0.small]]"></div>
@@ -37,7 +37,11 @@
           </div>
         </a>
         <div class="card-info">
-          <div class="content-tag"><a href$="/section/[[item.sectionInformation.primarySectionLabel]]">[[_scrubTag(item.sectionInformation.primarySection)]]</a></div>
+          <div class="content-tag"><a href$="/section/[[item.sectionInformation.primarySectionLabel]]"
+                                      ga-on="click"
+                                      ga-event-category="Content Card Section Clicked"
+                                      ga-event-action$="uti_crd_sec_[[_scrubTag(item.sectionInformation.primarySection)]]">[[_scrubTag(item.sectionInformation.primarySection)]]</a>
+          </div>
           <div class="content-comments"><a href$="[[_computeUrl(item)]]#comments">[[item.socialInformation.comments]] &nbsp;<iron-icon icon="communication:chat"></iron-icon></a></div>
         </div>
       </template>

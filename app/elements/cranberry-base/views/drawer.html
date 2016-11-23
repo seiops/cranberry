@@ -8,7 +8,12 @@
     <!-- Navigation -->
     <div class="Drawer-info" hidden$="[[!logo]]">
 
-      <a data-route="/" href="/" on-tap="_checkDrawer">
+      <a data-route="/" 
+         href="/"
+         on-tap="_checkDrawer"
+         ga-on="click"
+         ga-event-category="Home Logo Clicked"
+         ga-event-action="uti_hml_desk">
         <iron-image class="Drawer-logo" src="{$ theme.global.logo $}" sizing="cover"></iron-image>
       </a>
 
@@ -18,7 +23,7 @@
     <nav class="Drawer-widget">
       <cranberry-search-bar class="Drawer-search" id="drawerSearch"></cranberry-search-bar>
       <div class="Drawer-promo">
-        <a href="{$ config.promo.link $}" target="_blank" on-tap="_checkDrawer">
+        <a href="{$ config.promo.link $}" target="_blank" on-tap="_checkDrawer" ga-on="click" ga-event-category="Promo Image Clicked" ga-event-action="uti_exlk_promo">
           <iron-image class="Drawer-promoImage" src="{$ config.promo.image $}" sizing="cover"></iron-image>
         </a>
       </div>
@@ -30,8 +35,8 @@
              target="[[target]]"
              on-tap="_checkDrawer"
              ga-on="click"
-             ga-event-category$="uti_ndwr_cst_[[index]]"
-             ga-event-action="Side Navigation Clicked">
+             ga-event-category="Side Navigation Clicked"
+             ga-event-action$="uti_ndwr_cst_[[index]]">
             <iron-icon class="Navigation-icon" icon="[[item.linkIcon]]"></iron-icon>
             <span class="Navigation-text">[[item.linkText]]</span>
           </a>

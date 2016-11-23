@@ -12,8 +12,8 @@
           <div class="content-wrapper">
             <a href="/photo-gallery/[[item.itemId]]"
                ga-on="click"
-               ga-event-category$="uti_pgly_[[index]]"
-               ga-event-action="Related Gallery Clicked">
+               ga-event-category="Related Gallery Clicked"
+               ga-event-action$="uti_pgly_[[index]]">
               <iron-image class="related-gallery-image" sizing="cover" src="{$ config.baseDomain $}{{item.mediaAssets.images.0.medium}}"></iron-image>
             </a>
           </div>
@@ -26,8 +26,8 @@
           <div class="content-wrapper">
             <a href="/story/[[item.itemId]]"
                ga-on="click"
-               ga-event-category$="uti_rsty_[[index]]"
-               ga-event-action="Related Story Clicked">
+               ga-event-category="Related Story Clicked"
+               ga-event-action$="uti_rsty_[[index]]">
               <div class="related-title"> [[item.title]] </div>
               <div class="related-caption"> [[item.preview]] </div>
             </a>

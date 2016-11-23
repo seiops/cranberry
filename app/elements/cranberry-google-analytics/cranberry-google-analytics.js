@@ -53,9 +53,12 @@ class CranberryGoogleAnalytics {
   }
 
   trackEvent(e) {
+    console.dir(e);
       //Add support for a non-interaction even that does not effect bounce rates - eg things that happen after a timeout
       //ga('send', 'event', 'category', 'action', {'nonInteraction': 1});
-      ga('send', 'event', e.detail.category, e.detail.action, e.detail.label, e.detail.value);
+      
+      // ga('send', 'event', e.detail.category, e.detail.action, e.detail.label, e.detail.value);
+      ga('send', 'event', e.detail.event.category, e.detail.event.action);
   }
 
   trackPage(e) {
