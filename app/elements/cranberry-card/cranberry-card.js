@@ -10,7 +10,8 @@ class CranberryCard {
         type: Object,
         value: {}
       },
-      featured: Boolean
+      featured: Boolean,
+      index: Number
     }
   }
 
@@ -87,7 +88,20 @@ class CranberryCard {
         return image.medium;
       }
     }
+  }
 
+  _setupTracking(item) {
+    let index = this.get('index');
+    let featured = this.get('featured');
+
+    if (featured) {
+      console.log('uti_ftrd_' + index + ((item.contentType === 'Story') ? '_stdc' : '_stgc'));
+      return 'uti_ftrd_' + index + ((item.contentType === 'Story') ? '_stdc' : '_stgc');
+    } else {
+      if (typeof item !== 'undefined') {
+        return 'uti_strm_' + index + ((item.contentType === 'Story') ? '_stdc' : '_stgc');
+      }
+    }
   }
 }
 Polymer(CranberryCard);

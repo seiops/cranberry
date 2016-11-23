@@ -11,8 +11,11 @@
       @import "cranberry-card/cranberry-card";
     </style>
     <div class="card" advertisement$="[[advertisement]]">
-      <template is="dom-if" if="[[item.contentType]]">
-        <a href$="[[_computeUrl(item)]]">
+      <template is="dom-if" if="[[item.contentType]]" index-as="itemIndex">
+        <a href$="[[_computeUrl(item)]]"
+           ga-on="click"
+           ga-event-category$="[[_setupTracking(item)]]"
+           ga-event-action="Content Card Clicked">
           <div class="card-header">
             <div class="card-icons"><iron-icon icon="image:photo-camera" hidden$="[[!_checkGallery(item.contentType)]]"></iron-icon></div>
             <div class="card-header-overlay" hidden$="[[!item.mediaAssets.images.0.small]]"></div>

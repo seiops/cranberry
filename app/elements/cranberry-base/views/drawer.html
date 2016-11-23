@@ -8,7 +8,7 @@
     <!-- Navigation -->
     <div class="Drawer-info" hidden$="[[!logo]]">
 
-      <a data-route="/" href="/" on-tap="_checkDrawer" ga-on="click" ga-event-category="Main_Home_Logo" ga-event-action="home_logo_clicked">
+      <a data-route="/" href="/" on-tap="_checkDrawer">
         <iron-image class="Drawer-logo" src="{$ theme.global.logo $}" sizing="cover"></iron-image>
       </a>
 
@@ -24,7 +24,14 @@
       </div>
       <paper-menu class="Navigation Navigation--menu list" attr-for-selected="data-route" selected="[[route.path]]">
         <template is="dom-repeat" items="{{sideNav}}">
-          <a class="Navigation-link" data-route="[[item.linkUrl]]" href="[[item.linkUrl]]" target="[[target]]" on-tap="_checkDrawer">
+          <a class="Navigation-link" 
+             data-route="[[item.linkUrl]]"
+             href="[[item.linkUrl]]"
+             target="[[target]]"
+             on-tap="_checkDrawer"
+             ga-on="click"
+             ga-event-category$="uti_ndwr_cst_[[index]]"
+             ga-event-action="Side Navigation Clicked">
             <iron-icon class="Navigation-icon" icon="[[item.linkIcon]]"></iron-icon>
             <span class="Navigation-text">[[item.linkText]]</span>
           </a>
