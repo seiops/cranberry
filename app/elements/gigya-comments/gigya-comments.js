@@ -31,61 +31,56 @@ class gigyaComments {
     return timeStamp;
   }
 
-  _updateComments(id, content, configId) {
-    if (typeof id !== 'undefined' && id.length > 0) {
-      let el = this;
-      let time = this._timeId();
-      this.set('containerId', time);
-      let streamId = this.get('streamId');
-
-      // Context needs to be the gigya socialize element for logout handling
-      let params = {
-        context: Polymer.dom(document).querySelector('gigya-socialize'),
-        categoryID: configId,
-        streamID: streamId,
-        streamURL: window.location.href,
-        version: 2,
-        containerID: time,
-        cid: '',
-        width: '100%',
-        streamTitle: content.title,
-        useSiteLogin: true,
-        onSiteLoginClicked: this._onSiteLoginHandler
-      };
-
-      let gigyaDefined = new Promise(
-        function(resolve, reject) {
-          let isDefined = false;
-          while (!isDefined) {
-            if (typeof gigya !== 'undefined' && typeof gigya.comments !== 'undefined' && typeof gigya.comments.showCommentsUI === 'function') {
-              isDefined = true;
-              resolve(true);
-            }
-          }
-        }
-      );
-
-      gigyaDefined.then(function(val) {
-        if (val) {
-          gigya.comments.showCommentsUI(params);
-        }
-      });
-    }
+  _destroyOldComments() {
+    this.$.commentContainer.innerHTML = '';
   }
 
-  // check if Gigya API is loaded
-  _checkGigya() {
-    let el = this;
+  _updateComments(id, content, configId) {
+    if (typeof id !== 'undefined' && id.length > 0) {
+      this._destroyOldComments();
+      let time = this._timeId();
+      this.set('containerId', time);
 
-    setTimeout(function() {
-      if (typeof gigya !== 'undefined' && typeof gigya.comments !== 'undefined' && typeof gigya.comments.showCommentsUI === 'function') {
-        console.info('RETURNING TRUE');
-        return true;
-      } else {
-        console.info('FALSE!!!!');
-        el._checkGigya();
-      }
-    }, 50);
+      let div = document.createElement('div');
+      div.setAttribute('id', time);
+
+      this.$.commentContainer.appendChild(div);
+
+      this.async(() => {
+        // Context needs to be the gigya socialize element for logout handling
+        let params = {
+          context: Polymer.dom(document).querySelector('gigya-socialize'),
+          categoryID: configId,
+          streamID: id,
+          streamURL: window.location.href,
+          version: 2,
+          containerID: time,
+          cid: '',
+          width: '100%',
+          streamTitle: content.title,
+          useSiteLogin: true,
+          onSiteLoginClicked: this._onSiteLoginHandler
+        };
+
+        let gigyaDefined = new Promise(
+          function(resolve, reject) {
+            let isDefined = false;
+            while (!isDefined) {
+              if (typeof gigya !== 'undefined' && typeof gigya.comments !== 'undefined' && typeof gigya.comments.showCommentsUI === 'function') {
+                isDefined = true;
+                resolve(true);
+              }
+            }
+          }
+        );
+
+        gigyaDefined.then(function(val) {
+          if (val) {
+            gigya.comments.showCommentsUI(params);
+          }
+        });
+      });
+    }
   }
 
   _onSiteLoginHandler(event) {
