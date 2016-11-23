@@ -75,13 +75,25 @@ class cranberrySearchBar {
       if (!drawer.persistent && drawer.opened) {
         drawer.close();
       }
-    });
 
+      this._sendEvent();
+    });
   }
 
   _clearInput() {
     let form = this.querySelector('form');
     form.reset();
+  }
+
+  _sendEvent() {
+    let action = this.get('query');
+    let event = {
+      category: 'Search Requested',
+      action: action
+    };
+  
+    // Send pageview event with iron-signals
+    this.fire('iron-signal', {name: 'track-event', data: { event } });
   }
 }
 Polymer(cranberrySearchBar);

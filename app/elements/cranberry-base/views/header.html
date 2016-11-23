@@ -2,7 +2,7 @@
   <app-toolbar class="Main-headerToolbar">
       <!-- Main Toolbar -->
       <div class="Main-headerTopBar">
-        <paper-icon-button class="Main-headerButton" icon="menu" drawer-toggle></paper-icon-button>
+        <paper-icon-button class="Main-headerButton" icon="menu" drawer-toggle ga-on="click" ga-event-category="Header Main Navigation Button Clicked" ga-event-action="uti_hmnd"></paper-icon-button>
         <!-- Hidden container examples -->
         <div class="Main-siteTitle">
           <!-- <div >[[_siteTitle(route)]]</div> -->
@@ -13,16 +13,31 @@
           <div hidden$="{{!_equal(data.page, 'section')}}"></div>
         </div>
         <div class="Main-siteLogo">
-          <a href="{$ config.baseDomain $}"><iron-image src="{$ theme.global.logo $}" fade hidden$="[[logo]]" sizing="cover"></iron-image></a>
+          <a href="{$ config.baseDomain $}"
+             ga-on="click"
+             ga-event-category="Home Logo Clicked"
+             ga-event-action="uti_hml_mob">
+             <iron-image src="{$ theme.global.logo $}" fade hidden$="[[logo]]" sizing="cover"></iron-image>
+          </a>
         </div>
         <div class="Main-siteButtons">
           <cranberry-header-links items='{$ config.topMenu | dump $}'></cranberry-header-links>
-          <paper-icon-button class="Main-headerButton" icon="search" on-tap="_focusSearch"></paper-icon-button>
+          <paper-icon-button class="Main-headerButton"
+                             icon="search"
+                             on-tap="_focusSearch"
+                             ga-on="click"
+                             ga-event-category="Search Button Clicked"
+                             ga-event-action="uti_src">
+          </paper-icon-button>
           <div hidden$="[[!_computeDefaultHide(user.thumbnailURL)]]">
-            <a class="link" on-tap="openUserModal"><iron-image width="24" height="24" style="padding:8px;border-radius:48px" preload src="[[_computeThumbnail(user.thumbnailURL)]]" fade sizing="cover"></iron-image></a>
+            <a class="link" 
+               on-tap="openUserModal"
+               ga-on="click"
+               ga-event-category="User Logo Clicked"
+               ga-event-action="uti_usr"><iron-image width="24" height="24" style="padding:8px;border-radius:48px" preload src="[[_computeThumbnail(user.thumbnailURL)]]" fade sizing="cover"></iron-image></a>
           </div>
           <div hidden$="[[_computeDefaultHide(user.thumbnailURL)]]">
-            <span hidden$="[[mobile]]" class="Main-siteNav">Log In</span><paper-icon-button class="Main-headerButton" icon="account-circle" on-tap="openUserModal"></paper-icon-button>
+            <span hidden$="[[mobile]]" class="Main-siteNav">Log In</span><paper-icon-button class="Main-headerButton" icon="account-circle" on-tap="openUserModal" ga-on="click" ga-event-category="User Logo Clicked" ga-event-action="uti_usr_lgn"></paper-icon-button>
           </div>
         </div>
       </div>

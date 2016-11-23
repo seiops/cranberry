@@ -10,7 +10,10 @@
         <h3 class="related-headline">Related galleries:</h3>
         <template is="dom-repeat" items="{{items}}" filter="isGallery">
           <div class="content-wrapper">
-            <a href="/photo-gallery/[[item.itemId]]">
+            <a href="/photo-gallery/[[item.itemId]]"
+               ga-on="click"
+               ga-event-category="Related Gallery Clicked"
+               ga-event-action$="uti_pgly_[[index]]">
               <iron-image class="related-gallery-image" sizing="cover" src="{$ config.baseDomain $}{{item.mediaAssets.images.0.medium}}"></iron-image>
             </a>
           </div>
@@ -21,7 +24,10 @@
         <h3 class="related-headline">Related stories:</h3>
         <template is="dom-repeat" items="{{items}}" filter="isStory">
           <div class="content-wrapper">
-            <a href="/story/[[item.itemId]]">
+            <a href="/story/[[item.itemId]]"
+               ga-on="click"
+               ga-event-category="Related Story Clicked"
+               ga-event-action$="uti_rsty_[[index]]">
               <div class="related-title"> [[item.title]] </div>
               <div class="related-caption"> [[item.preview]] </div>
             </a>

@@ -50,7 +50,10 @@
               <p class="total-results">About: [[totalResults]] results</p>
             </div>
             <template is="dom-repeat" items="{{items}}">
-              <a href="/story/[[item.itemId]]">
+              <a href="/story/[[item.itemId]]"
+                 ga-on="click"
+                 ga-event-category="Search Result Clicked"
+                 ga-event-action$="uti_srch_item_[[index]]">
                 <h2 class="story-headline">[[item.title]]</h2>
                 <div class="story-content">
                   <template is="dom-if" if="[[_hasImage(item.mediaAssets.images.0.small)]]">

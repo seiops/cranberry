@@ -10,14 +10,21 @@
 
     <div class="link-list" hidden$="[[!showLinks]]">
       <template is="dom-repeat" items="{{items}}">
-        <a href="[[item.linkUrl]]" target="_blank">[[item.linkText]]</a>
+        <a href="[[item.linkUrl]]" target="_blank" ga-on="click" ga-event-category="Header Navigation Item Clicked" ga-event-action$="uti_hnpnldsk_lnk_[[index]]">[[item.linkText]]</a>
       </template>
     </div>
-    <paper-menu-button no-overlap close-on-activate dynamic-align vertical-align="bottom" horizontal-offset="-70">
+    <paper-menu-button no-overlap
+                       close-on-activate
+                       dynamic-align
+                       vertical-align="bottom"
+                       horizontal-offset="-70"
+                       ga-on="click"
+                       ga-event-category="Header Navigation Button Clicked"
+                       ga-event-action="uti_hnpnl">
       <paper-icon-button icon="apps" class="dropdown-trigger" hidden$="{{showLinks}}"></paper-icon-button>
       <paper-menu class="dropdown-content">
         <template is="dom-repeat" items="{{items}}">
-          <a href="[[item.linkUrl]]" target="_blank">
+          <a href="[[item.linkUrl]]" target="_blank" ga-on="click" ga-event-category="Header Navigation Item Clicked" ga-event-action$="uti_hnpnlmob_lnk_[[index]]">
             <paper-item>[[item.linkText]]</paper-item>
           </a>
         </template>
