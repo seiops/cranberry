@@ -69,33 +69,32 @@ class gigyaSharebar {
 
   _updateGigya(title, route) {
     let shareDiv = this.get('shareButtonsId');
-    let el = this;
 
-    var checkGigya = function () {
-      setTimeout(function () {
-        let params = el.get('params');
-        if (typeof gigya !== 'undefined') {
-          // Gigya callback goes here.
-          // Bind to login and logout evenets.
-          app.logger("Finished loading Gigya Sharebar.");
+    if (typeof route !== 'undefined') {
+      var checkGigya = () => {
+        setTimeout(() => {
+          let params = this.get('params');
+          if (typeof gigya !== 'undefined') {
+            app.logger("Finished loading Gigya Sharebar.");
 
-          var ua = new gigya.socialize.UserAction();
-              ua.setLinkBack('http://srdevcore.libercus.net' + route.prefix + route.path);
-              ua.setTitle(title);
+            var ua = new gigya.socialize.UserAction();
+                ua.setLinkBack(window.location.href);
+                ua.setTitle(title);
 
-          params.userAction = ua;
-          params.containerID = shareDiv;
+            params.userAction = ua;
+            params.containerID = shareDiv;
 
-          gigya.socialize.showShareBarUI(params);
+            gigya.socialize.showShareBarUI(params);
 
-          return;
+            return;
 
-        } else {
-          checkGigya();
-        }
-      }, 1000);
-    };
-    checkGigya();
+          } else {
+            checkGigya();
+          }
+        }, 1000);
+      };
+      checkGigya();
+    }
   }
 
   _shareButtonHandler() {
