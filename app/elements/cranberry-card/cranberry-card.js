@@ -98,7 +98,6 @@ class CranberryCard {
       return 'uti_ftrd_' + index + ((item.contentType === 'Story') ? '_stdc' : '_stgc');
     } else {
       if (typeof item !== 'undefined') {
-        console.dir(item);
         if (typeof item.mediaAssets.images !== 'undefined' && typeof item.mediaAssets.images[0] !== 'undefined') {
           return 'uti_strm_' + index + ((item.contentType === 'Story') ? '_stdc' : '_stgc');
         } else {

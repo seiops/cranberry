@@ -23,7 +23,8 @@ class cranberryContactForm {
     let validForm = form.validate();
     // if the form is in a valid state then submit
     if (validForm) {
-      request.setAttribute('url', window.location.protocol + '//' +  window.location.host + '/contact-form');
+      // request.setAttribute('url', window.location.protocol + '//' +  window.location.host + '/contact-form');
+      request.setAttribute('url', 'http://www.sanduskyregister.com/contact-form');
 
       var params = {};
 
@@ -93,6 +94,7 @@ class cranberryContactForm {
       app.$.infoToast.text = 'Thank you for your submission!';
       app.$.infoToast.show();
 
+      this._sendEvent();
       this._handleReset();
     }
 
@@ -101,6 +103,17 @@ class cranberryContactForm {
     submit.disabled = false;
 
   }
+
+  _sendEvent() {
+    let event = {
+      category: 'Contact Form Submitted',
+      action: 'uti_cnfrm_submit'
+    };
+  
+    // Send pageview event with iron-signals
+    this.fire('iron-signal', {name: 'track-event', data: { event } });
+  }
+
 }
 
 Polymer(cranberryContactForm);

@@ -39,21 +39,37 @@
             <p class="caption-text">Saturday-Sunday {$ config.contactInformation.hours.weekend $}</p>
           </div>
           <div class="contact-card">
-            <paper-button class="rounded-button faux-disabled" raised disabled><iron-icon icon="communication:phone"></iron-icon></paper-button>
+            <a href="tel:{$ config.contactInformation.phone $}"
+               ga-on="click"
+               ga-event-category="Contact Info Clicked"
+               ga-event-action="uti_phone">
+              <paper-button class="rounded-button faux-disabled" raised disabled><iron-icon icon="communication:phone"></iron-icon></paper-button>
+            </a>
             <div class="contact-card-info">
               <h3>PHONE</h3>
               <p class="caption-text">{$ config.contactInformation.phone $}</p>
             </div>
           </div>
           <div class="contact-card">
-            <paper-button class="rounded-button faux-disabled" raised disabled><iron-icon icon="communication:email"></iron-icon></paper-button>
+            <a href="mailto:{$ config.contactInformation.email $}"
+               ga-on="click"
+               ga-event-category="Contact Info Clicked"
+               ga-event-action="uti_email">
+              <paper-button class="rounded-button faux-disabled" raised disabled><iron-icon icon="communication:email"></iron-icon></paper-button>
+            </a>
             <div class="contact-card-info">
               <h3>EMAIL</h3>
               <p class="caption-text">{$ config.contactInformation.email $}</p>
             </div>
           </div>
           <div class="contact-card">
-            <paper-button class="rounded-button faux-disabled" raised disabled><iron-icon icon="maps:add-location"></iron-icon></paper-button>
+            <a href="http://www.google.com/maps?q={$ config.contactInformation.address.unitNumber $}%20{$ config.contactInformation.address.street $}%20{$ config.contactInformation.address.city $}%20{$ config.contactInformation.address.state $}%20{$ config.contactInformation.address.zip $}" 
+               target="_blank"
+               ga-on="click"
+               ga-event-category="Contact Info Clicked"
+               ga-event-action="uti_map">
+               <paper-button class="rounded-button faux-disabled" raised disabled><iron-icon icon="maps:add-location"></iron-icon></paper-button>
+            </a>
             <div class="contact-card-info">
               <h3>ADDRESS</h3>
               <p class="caption-text">{$ config.contactInformation.address.unitNumber $} {$ config.contactInformation.address.street $}</p>
@@ -68,16 +84,16 @@
 
       <!-- Social Integration -->
       <div class="social-buttons-container">
-        <a href="{$ config.socialUrls.facebook $}" tabindex="-1" target="_blank">
+        <a href="{$ config.socialUrls.facebook $}" tabindex="-1" target="_blank" ga-on="click" ga-event-category="Social Link Clicked" ga-event-action="uti_exlk_fbel">
           <paper-icon-button class="rounded-button" icon="fa:facebook"></paper-icon-button>
         </a>
-        <a href="{$ config.socialUrls.instagram $}" tabindex="-1" target="_blank">
+        <a href="{$ config.socialUrls.instagram $}" tabindex="-1" target="_blank" ga-on="click" ga-event-category="Social Link Clicked" ga-event-action="uti_exlk_instael">
           <paper-icon-button class="rounded-button" icon="fa:instagram"></paper-icon-button>
         </a>
-        <a href="{$ config.socialUrls.twitter $}" tabindex="-1" target="_blank">
+        <a href="{$ config.socialUrls.twitter $}" tabindex="-1" target="_blank" ga-on="click" ga-event-category="Social Link Clicked" ga-event-action="uti_exlk_twel">
           <paper-icon-button class="rounded-button" icon="fa:twitter"></paper-icon-button>
         </a>
-        <a href="{$ config.socialUrls.linkedin $}" tabindex="-1" target="_blank">
+        <a href="{$ config.socialUrls.linkedin $}" tabindex="-1" target="_blank" ga-on="click" ga-event-category="Social Link Clicked" ga-event-action="uti_exlk_lkdnel">
           <paper-icon-button class="rounded-button" icon="fa:linkedin"></paper-icon-button>
         </a>
       </div>
@@ -93,16 +109,24 @@
         </div>
         <div class="help-card-container">
           <template is="dom-repeat" items="{{needHelp}}">
-              <div class="help-card" hidden$="[[item.link]]">
-                <iron-icon icon="{{item.logo}}"></iron-icon>
-                <p>{{item.label}}</p>
-                <p class="phone">{{item.phone}}</p>
-              </div>
-              <div class="help-card linked" on-tap="_openLink" hidden$="[[!item.link]]">
-                <iron-icon icon="{{item.logo}}"></iron-icon>
-                <p>{{item.label}}</p>
-                <p class="phone">{{item.phone}}</p>
-              </div>
+              <template is="dom-if" if="[[item.link]]">
+                <div class="help-card linked" 
+                     on-tap="_openLink"
+                     ga-on="click"
+                     ga-event-category="Need Help Link Clicked"
+                     ga-event-action$="uti_nh_{{item.label}}">
+                  <iron-icon icon="{{item.logo}}"></iron-icon>
+                  <p>{{item.label}}</p>
+                  <p class="phone">{{item.phone}}</p>
+                </div>
+              </template>
+              <template is="dom-if" if="[[!item.link]]">
+                <div class="help-card" hidden$="[[item.link]]">
+                  <iron-icon icon="{{item.logo}}"></iron-icon>
+                  <p>{{item.label}}</p>
+                  <p class="phone">{{item.phone}}</p>
+                </div>
+              </template>
           </template>
         </div>
       </div>
@@ -118,7 +142,12 @@
         </div>
         <div class="important-links-container">
           <template is="dom-repeat" items="{{footerLinks}}">
-            <a href="{{item.link}}"><paper-button raised>{{item.label}}</paper-button></a>
+            <a href="{{item.link}}"
+               ga-on="click"
+               ga-event-category="Important Link Clicked"
+               ga-event-action$="uti_impt_{{item.label}}">
+              <paper-button raised>{{item.label}}</paper-button>
+            </a>
           </template>
         </div>
       </div>

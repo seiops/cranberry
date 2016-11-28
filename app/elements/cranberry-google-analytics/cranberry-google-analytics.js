@@ -83,6 +83,8 @@ class CranberryGoogleAnalytics {
 
   trackEvent(e) {
     let trackerIds = this.get('trackerIds');
+    app.logger('\<cranberry-google-analytics\> event sent with data on default');
+    ga('send', 'event', e.detail.event.category, e.detail.event.action);
     trackerIds.forEach((value, index) => {
       app.logger('\<cranberry-google-analytics\> event sent with data on ' + value);
       ga( value + '.send', 'event', e.detail.event.category, e.detail.event.action);

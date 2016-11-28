@@ -20,6 +20,7 @@ class CranberryBase {
         value: []
       }
     };
+    this.observers = ['_setCanonical(route)'];
   }
   // public methods
 
@@ -49,6 +50,16 @@ class CranberryBase {
 
   }
 
+  _setCanonical(route) {
+    if (typeof route !== 'undefined') {
+      let path = route.path;
+      let prefix = route.prefix;
+
+      let canonicalTag = Polymer.dom(document).querySelector('link[rel="canonical"]');
+      canonicalTag.setAttribute('href', window.location.origin + prefix + path);
+    }
+  }
+  
   _setupSurvey() {
     let loader = document.querySelector('cranberry-script-loader');
 
