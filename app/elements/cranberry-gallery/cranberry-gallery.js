@@ -35,9 +35,6 @@ class CranberryGallery {
         type: Boolean,
         value: true
       },
-      myCaptureUrl: {
-        type: String
-      },
       hidden: {
           type: Boolean,
           reflectToAttribute: true,
@@ -150,6 +147,8 @@ class CranberryGallery {
       // Set tags variable to the tags response
       this.set('tags', result.tags.split(','));
       this.set('noTags', false);
+    } else {
+      this.set('noTags', true);
     }
   }
 

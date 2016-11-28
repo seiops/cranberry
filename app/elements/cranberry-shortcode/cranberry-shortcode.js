@@ -220,9 +220,11 @@ class cranberryShortcode {
             wrapper.set('links', links);
             wrapper.set('featuredTitle', featured.title);
             slider.set('items', featured.mediaAssets.images);
+            slider.set('gallery', featured);
           } else {
             wrapper.set('featuredTitle', content.title);
             slider.set('items', content.mediaAssets.images);
+            slider.set('gallery', content);
           }
 
           slider.set('baseUrl', baseUrl);

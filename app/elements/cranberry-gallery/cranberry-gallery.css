@@ -14,7 +14,7 @@ div.ad-container {
 }
 
 div.gallery-slider-container {
-  flex:2 2 auto;
+  flex:2 2 600px;
   min-width: 600px;
 }
 

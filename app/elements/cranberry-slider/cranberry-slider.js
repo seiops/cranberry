@@ -195,7 +195,6 @@ class cranberrySlider {
       let app = Polymer.dom(document).querySelector('cranberry-base');
       
       let gallery = app.querySelector(galleryType);
-      console.log(gallery);
       let topAd = gallery.$.topAd;
       let sideAd = gallery.$.sideAd;
 
@@ -207,11 +206,44 @@ class cranberrySlider {
         // Show in gallery ad
         this.set('hideImage', true);
       }
+
+      this._sendPageview();
     }
   }
 
   _closeAd() {
     this.set('hideImage', false);
+  }
+
+  _sendPageview() {
+    let galleryObject = this.get('gallery');
+    let galleryType = this.get('gallery-type');
+
+    let path = 'photo-gallery/';
+
+    if (typeof galleryType !== 'undefined' && galleryType === 'cranberry-jail-mugs') {
+      path = window.location.pathname;
+    }
+    
+    let gaData = {};
+
+    // Data settings for pageview
+    gaData.dimension6 = 'Gallery';
+
+    if (typeof galleryObject.byline !== 'undefined') {
+      gaData.dimension1 = galleryObject.byline;
+    }
+
+    if (typeof galleryObject.published !== 'undefined') {
+      gaData.dimension3 = galleryObject.published;
+    }
+
+    if (typeof galleryObject.tags !== 'undefined') {
+      gaData.dimension8 = galleryObject.tags;
+    }
+
+    // Send pageview event with iron-signals
+    this.fire('iron-signal', {name: 'track-page', data: { path: path + galleryObject.itemId, gaData } });
   }
 
   goTo(imageIndex) {
