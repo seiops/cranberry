@@ -51,11 +51,11 @@ class googleSurvey {
     
     let ARTICLE_URL = window.location.href;
     let CONTENT_ID = 'everything';
-    let url = 'http://survey.g.doubleclick.net/async_survey?site=' + gcsSurveyId + '&amp;url=' + encodeURIComponent(ARTICLE_URL) + (CONTENT_ID ? '&amp;cid=' + encodeURIComponent(CONTENT_ID) : '') + '&amp;random=' + (new Date).getTime();
+    let url = 'http://survey.g.doubleclick.net/survey?site=' + gcsSurveyId + '&amp;url=' + encodeURIComponent(ARTICLE_URL) + (CONTENT_ID ? '&amp;cid=' + encodeURIComponent(CONTENT_ID) : '') + '&amp;random=' + (new Date).getTime();
 
     let loader = document.querySelector('cranberry-script-loader');
 
-    loader.loadScript(url, 'googleSurveyScript');
+    loader.loadScript(url, 'googleSurveyScript', 'defer');
 
     try { _402_Show(); } catch(e) {};
   }

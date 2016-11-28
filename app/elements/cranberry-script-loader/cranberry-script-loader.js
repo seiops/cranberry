@@ -11,7 +11,7 @@ class CranberryScriptLoader {
     app.logger('\<cranberry-script-loader\> attached');
   }
 
-  loadScript(url, id) {
+  loadScript(url, id, attribute) {
     app.logger('\<cranberry-script-loader\> loading ' + url);
 
     let embed = document.createElement('script');
@@ -21,7 +21,16 @@ class CranberryScriptLoader {
     }
     
     embed.src = url;
-    embed.async = true;
+    
+    if (typeof attribute !== 'undefined') {
+      if (attribute === 'defer') {
+        embed.defer = true;
+      } else if (attribute === 'async') {
+        embed.async = true;
+      }
+    } else {
+      embed.async = true;
+    }
 
     let script = document.getElementsByTagName('script')[0];
     let parent = script.parentNode;
