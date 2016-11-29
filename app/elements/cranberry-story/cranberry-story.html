@@ -53,8 +53,8 @@
 
       <!-- Story Media -->
       <div class="story-media" hidden$="{{_checkMedia(story.mediaAssets)}}">
-        <div class="media-container" id="mediaContainer"  desktop-layout$="{{desktop}}" tablet-layout$="{{tablet}}" mobile-layout$="{{mobile}}">
-          <iron-image id="mainImage" sizing="cover" src="{$ config.baseDomain $}{{story.mediaAssets.images.0.exlarge}}" hidden$="{{hasLeadShortcode}}"></iron-image>
+        <div class="media-container" id="mediaContainer"  desktop-layout$="[[desktop]]" tablet-layout$="[[tablet]]" mobile-layout$="[[mobile]]">
+          <iron-image id="mainImage" sizing="cover" src="{$ config.baseDomain $}{{story.mediaAssets.images.0.exlarge}}" hidden$="[[hasLeadShortcode]]"></iron-image>
           <div id="leadShortcode" hidden$="[[!hasLeadShortcode]]"></div>
           <!-- TOUT TAP -->
           <!--<div id="toutTap" hidden$="[[!hasToutTap]]"></div>-->
@@ -65,7 +65,9 @@
         </div>
       </div>
 
-      <p class="caption-text main-image-caption">{{story.mediaAssets.images.0.caption}}</p>
+      <div class="main-image-subtext" mobile-layout$="[[mobile]]" tablet-layout$="[[tablet]]">
+        <p class="caption-text">[[story.mediaAssets.images.0.caption]] <span>--[[story.mediaAssets.images.0.credit]]</span>
+      </div>
 
       <!-- Story Byline -->
       <div class="body-text by-line-wrapper">

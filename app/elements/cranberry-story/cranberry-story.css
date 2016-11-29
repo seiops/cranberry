@@ -56,16 +56,28 @@ h1.story-title {
 }
 
 /* Publish Date / Image Caption */
-p.caption-text {
+.caption-text {
   @apply(--paper-font-caption);
+  margin: 0;
 }
 
 p.time-stamp {
   color: var(--primary-color);
 }
 
-p.main-image-caption {
-  margin: 30px 0 20px 0;
+div.main-image-subtext {
+  @apply(--layout-vertical);
+  max-width: 85%;
+  margin: 0 0 16px 0;
+}
+
+div.main-image-subtext[mobile-layout] {
+  max-width: 100%;
+  margin: 30px 0 16px 0;
+}
+
+div.main-image-subtext[tablet-layout] {
+  max-width: 80%;
 }
 
 div.story-media {
