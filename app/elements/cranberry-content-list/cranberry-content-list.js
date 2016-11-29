@@ -43,7 +43,7 @@ class CranberryContentList {
   }
 
   attached() {
-    app.logger('\<cranberry-content-list\> attached');
+    console.info('\<cranberry-content-list\> attached');
 
     this._updateGridStyles = this._updateGridStyles || function() {
       this.updateStyles();

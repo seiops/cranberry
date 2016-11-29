@@ -85,11 +85,11 @@ class cranberryBreakingBar {
   }
 
   _handleLoad() {
-    app.logger('<\cranberry-breaking-bar\> load received');
+    console.info('<\cranberry-breaking-bar\> load received');
   }
 
   _handleResponse() {
-    app.logger('<\cranberry-breaking-bar\> response received');
+    console.info('<\cranberry-breaking-bar\> response received');
   }
 
   _parseResponse(response) {
@@ -206,7 +206,7 @@ class cranberryBreakingBar {
   }
 
   _closeBar() {
-    app.logger('<\cranberry-breaking-bar\> hidden!');
+    console.info('<\cranberry-breaking-bar\> hidden!');
     let setTimer = this.get('setTimer');
 
     if (setTimer) {

@@ -21,7 +21,7 @@ class cranberrySearchBar {
       let value = this.get('query');
 
       form.addEventListener('iron-form-submit', function() {
-        app.logger('\<cranberry-search-bar\> search submit event');
+        console.info('\<cranberry-search-bar\> search submit event');
 
         el._search();
       });

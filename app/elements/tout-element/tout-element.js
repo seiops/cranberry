@@ -32,7 +32,7 @@ class toutElement {
   }
 
   attached() {
-    app.logger('\<tout-element\> attached');
+    console.info('\<tout-element\> attached');
     this._setupToutScript();
 
     let metaTag = Polymer.dom(document).querySelector('meta[property="tout:article:id"]');
@@ -60,7 +60,7 @@ class toutElement {
   }
 
   detached() {
-    app.logger('\<tout-element\> detached');
+    console.info('\<tout-element\> detached');
     this.destroy();
   }
 

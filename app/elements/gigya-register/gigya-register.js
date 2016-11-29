@@ -22,14 +22,14 @@ class GigyaRegister {
 
   // attached to document
   attached() {
-    app.logger('\<gigya-register\> attached');
+    console.info('\<gigya-register\> attached');
 
     this.async(function() {
       let el = this;
       let form = Polymer.dom(this.root).querySelector('#registerForm');
 
       form.addEventListener('iron-form-submit', function() {
-        app.logger('\<gigya-register\> form submit event');
+        console.info('\<gigya-register\> form submit event');
 
         el._disableForm();
         el._submit();
@@ -42,14 +42,14 @@ class GigyaRegister {
 
   // disable form elements
   _disableForm() {
-    app.logger('\<gigya-register\> disable form');
+    console.info('\<gigya-register\> disable form');
 
     this.$.submit.disabled = true;
   }
 
   // enable form elements
   _enableForm() {
-    app.logger('\<gigya-register\> enable form');
+    console.info('\<gigya-register\> enable form');
 
     this.$.submit.disabled = false;
   }
@@ -82,7 +82,7 @@ class GigyaRegister {
 
   // handle reset form, clear notices
   _handleReset(event) {
-    app.logger('\<gigya-register\> reset form');
+    console.info('\<gigya-register\> reset form');
 
     this.set('notices', []);
 
@@ -93,7 +93,7 @@ class GigyaRegister {
 
   // handle register form link
   _handleRegister(event) {
-    app.logger('\<gigya-register\> handle update profile');
+    console.info('\<gigya-register\> handle update profile');
 
     let form = Polymer.dom(this.root).querySelector('#registerForm');
 
@@ -102,7 +102,7 @@ class GigyaRegister {
 
   // process error code from API
   _processError(error) {
-    app.logger('\<gigya-login\> API response error');
+    console.info('\<gigya-login\> API response error');
 
     let notice = {};
 
@@ -135,7 +135,7 @@ class GigyaRegister {
 
   // process error code from API
   _processValidationError(error) {
-    app.logger('\<gigya-register\> API validation error');
+    console.info('\<gigya-register\> API validation error');
 
     let notice = {};
 
@@ -192,7 +192,7 @@ class GigyaRegister {
 
   // submit initRegistration call for Gigya token
   _submit() {
-    app.logger('\<gigya-register\> submit gigya');
+    console.info('\<gigya-register\> submit gigya');
 
     this.set('notices', []);
 
@@ -208,14 +208,14 @@ class GigyaRegister {
 
   // callback for registration from Gigya
   _registerCallback(data) {
-    app.logger('\<gigya-register\> register callback');
+    console.info('\<gigya-register\> register callback');
 
     console.dir(data);
 
     let el = data.context;
 
     if (data.errorCode === 0) {
-      app.logger('\<gigya-register\> user updated');
+      console.info('\<gigya-register\> user updated');
 
       let base = Polymer.dom(document).querySelector('cranberry-base');
       let socialize = base.querySelector('gigya-socialize');

@@ -25,7 +25,7 @@ class GigyaTopComments {
 
   // attached to document
   attached() {
-    app.logger('\<gigya-top-comments\> attached');
+    console.info('\<gigya-top-comments\> attached');
 
     this.async(function() {
       this._checkGigya();
@@ -58,7 +58,7 @@ class GigyaTopComments {
 
   // Gigya API callback
   _commentsCallback(response) {
-    app.logger('\<gigya-top-comments\> response');
+    console.info('\<gigya-top-comments\> response');
 
     if (response.status === 'FAIL') {
       console.error('\<gigya-top-comments\> api response error -> ' + response.errorMessage);

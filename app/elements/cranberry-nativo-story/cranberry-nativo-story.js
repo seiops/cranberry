@@ -4,12 +4,12 @@ class CranberryNativoStory {
     }
 
     attached() {
-        app.logger('\<cranberry-nativo-story\> attached');
+        console.info('\<cranberry-nativo-story\> attached');
     }
 }
 // Public methods.
 // ready () {
-//   app.logger('\<cranberry-story\> ready');
+//   console.info('\<cranberry-story\> ready');
 // }
 // Private methods.
 // Called by observer when params object is changed.

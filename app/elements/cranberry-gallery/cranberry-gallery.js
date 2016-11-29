@@ -46,7 +46,7 @@ class CranberryGallery {
 
   // Public methods.
   attached() {
-    app.logger('\<cranberry-gallery\> attached');
+    console.info('\<cranberry-gallery\> attached');
   }
 
   // Private methods.
@@ -90,7 +90,7 @@ class CranberryGallery {
     let currentId = this.get('galleryId');
 
     if (typeof galleryId !== 'undefined' && currentId !== galleryId) {
-      app.logger('\<cranberry-gallery\> setting new gallery id -\> ' + galleryId);
+      console.info('\<cranberry-gallery\> setting new gallery id -\> ' + galleryId);
 
       this.set('galleryId', galleryId);
     }
@@ -101,7 +101,7 @@ class CranberryGallery {
     let galleryId = this.get('galleryId');
 
     if (galleryId !== 0) {
-      app.logger('\<cranberry-gallery\> galleryId set to ' + galleryId);
+      console.info('\<cranberry-gallery\> galleryId set to ' + galleryId);
 
       this._updateGalleryId(galleryId);
     }
@@ -116,7 +116,7 @@ class CranberryGallery {
   }
 
   _handleResponse (data) {
-    app.logger('\<cranberry-gallery\> json response received');
+    console.info('\<cranberry-gallery\> json response received');
 
     let result = JSON.parse(data.detail.Result);
     let gaData = {};
@@ -165,22 +165,23 @@ class CranberryGallery {
   _openModal () {
     let baseUrl = this.get('baseUrl');
     let slider = document.createElement('cranberry-slider');
+    let gallery = this.get('gallery');
 
-    let images = this.get('gallery.mediaAssets.images');
+    this.async(() => {
+      slider.set('items', gallery.mediaAssets.images);
+      slider.set('baseUrl', baseUrl);
+      slider.set('whiteText', true);
+      slider.set('gallery', gallery);
 
+      let modal = Polymer.dom(document).querySelector('cranberry-base').querySelector('#globalModal');
 
-    slider.set('items', images);
-    slider.set('baseUrl', baseUrl);
-    slider.set('whiteText', true);
+      let modalContent = Polymer.dom(modal).querySelector('paper-dialog-scrollable').querySelector('#scrollable').querySelector('.content-area');
 
-    let modal = Polymer.dom(document).querySelector('cranberry-base').querySelector('#globalModal');
+      modalContent.appendChild(slider);
 
-    let modalContent = Polymer.dom(modal).querySelector('paper-dialog-scrollable').querySelector('#scrollable').querySelector('.content-area');
-
-    modalContent.appendChild(slider);
-
-    modal.open();
-    modal.refit();
+      modal.open();
+      modal.refit();
+    });
   }
 
   // Update story id in request parameters.

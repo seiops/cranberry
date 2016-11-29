@@ -48,7 +48,7 @@ class GigyaSocialize {
 
   // attached to document
   attached() {
-    app.logger('\<gigya-socialize\> attached');
+    console.info('\<gigya-socialize\> attached');
 
     let scriptAttached = this.get('scriptAttached');
     
@@ -91,7 +91,7 @@ class GigyaSocialize {
 
   // check Gigya user
   checkUser() {
-    app.logger('\<gigya-socialize\> check user');
+    console.info('\<gigya-socialize\> check user');
     let params = {
       callback: this._loadUser,
       context: this
@@ -132,14 +132,14 @@ class GigyaSocialize {
 
   // logout from Gigya API
   _handleLogout() {
-    app.logger('\<gigya-socialize\> handle logout');
+    console.info('\<gigya-socialize\> handle logout');
 
     gigya.accounts.logout();
   }
 
   // load Gigya account information
   _loadAccount(account) {
-    app.logger('\<gigya-socialize\> account loaded');
+    console.info('\<gigya-socialize\> account loaded');
 
     console.dir(account);
 
@@ -154,7 +154,7 @@ class GigyaSocialize {
     let el = user.context;
 
     if (typeof user.UID !== 'undefined') {
-      app.logger('\<gigya-socialize\> user loaded');
+      console.info('\<gigya-socialize\> user loaded');
 
       app.$.infoToast.text = 'Logged in, loading user information.';
       app.$.infoToast.show();
@@ -169,7 +169,7 @@ class GigyaSocialize {
 
       gigya.accounts.getAccountInfo(params);
     } else {
-      app.logger('\<gigya-socialize\> anonymous user');
+      console.info('\<gigya-socialize\> anonymous user');
     }
 
     if (user.status === 'FAIL') {
@@ -180,7 +180,7 @@ class GigyaSocialize {
 
   // callback from Gigya logout API
   _logoutUser(data) {
-    app.logger('\<gigya-socialize\> logged out');
+    console.info('\<gigya-socialize\> logged out');
 
     app.$.infoToast.text = 'Logged out.';
     app.$.infoToast.show();

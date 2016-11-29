@@ -176,11 +176,11 @@ class cranberrySearch {
   }
 
   _handleLoad() {
-      app.logger('<\cranberry-search\> load received');
+      console.info('<\cranberry-search\> load received');
   }
 
   _handleResponse() {
-      app.logger('<\cranberry-search\> response received');
+      console.info('<\cranberry-search\> response received');
   }
 
   _parseResponse(response) {

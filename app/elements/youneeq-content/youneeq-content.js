@@ -154,11 +154,11 @@ class youneeqContent {
   }
 
   _handleLoad(l) {
-      app.logger('<\youneeq-content\> load received');
+      console.info('<\youneeq-content\> load received');
   }
 
   _handleResponse() {
-      app.logger('<\youneeq-content\> response received');
+      console.info('<\youneeq-content\> response received');
   }
 
   _parseResponse(suggestions) {
@@ -170,7 +170,7 @@ class youneeqContent {
         this.set('hasItems', true);
       }
     } else {
-      app.logger('<\youneeq-content\> no suggested content');
+      console.info('<\youneeq-content\> no suggested content');
     }
   }
 

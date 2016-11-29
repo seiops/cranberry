@@ -21,7 +21,7 @@ class GigyaFinalizeRegister {
 
   // attached to document
   attached() {
-    app.logger('\<gigya-finalize-register\> attached');
+    console.info('\<gigya-finalize-register\> attached');
 
     this.async(function() {
       let el = this;
@@ -32,7 +32,7 @@ class GigyaFinalizeRegister {
       // Fire resize event when this element is attached SAFARI FIX
       socialize.resize();
       form.addEventListener('iron-form-submit', function() {
-        app.logger('\<gigya-finalize-register\> form submit event');
+        console.info('\<gigya-finalize-register\> form submit event');
 
         el._disableForm();
         el._submit();
@@ -45,14 +45,14 @@ class GigyaFinalizeRegister {
 
   // disable form elements
   _disableForm() {
-    app.logger('\<gigya-finalize-register\> disable form');
+    console.info('\<gigya-finalize-register\> disable form');
 
     this.$.submit.disabled = true;
   }
 
   // enable form elements
   _enableForm() {
-    app.logger('\<gigya-finalize-register\> enable form');
+    console.info('\<gigya-finalize-register\> enable form');
 
     this.$.submit.disabled = false;
   }
@@ -85,7 +85,7 @@ class GigyaFinalizeRegister {
 
   // handle reset form, clear notices
   _handleReset(event) {
-    app.logger('\<gigya-finalize-register\> reset form');
+    console.info('\<gigya-finalize-register\> reset form');
 
     this.set('notices', []);
 
@@ -96,7 +96,7 @@ class GigyaFinalizeRegister {
 
   // handle register form link
   _handleRegister(event) {
-    app.logger('\<gigya-finalize-register\> handle update profile');
+    console.info('\<gigya-finalize-register\> handle update profile');
 
     let form = Polymer.dom(this.root).querySelector('#registerFinalizeForm');
 
@@ -105,7 +105,7 @@ class GigyaFinalizeRegister {
 
   // process error code from API
   _processError(error) {
-    app.logger('\<gigya-login\> API response error');
+    console.info('\<gigya-login\> API response error');
 
     let notice = {};
 
@@ -138,7 +138,7 @@ class GigyaFinalizeRegister {
 
   // process error code from API
   _processValidationError(error) {
-    app.logger('\<gigya-finalize-register\> API validation error');
+    console.info('\<gigya-finalize-register\> API validation error');
 
     let notice = {};
 
@@ -193,7 +193,7 @@ class GigyaFinalizeRegister {
 
   // submit initRegistration call for Gigya token
   _submit() {
-    app.logger('\<gigya-finalize-register\> submit gigya');
+    console.info('\<gigya-finalize-register\> submit gigya');
 
     this.set('notices', []);
 
@@ -210,13 +210,13 @@ class GigyaFinalizeRegister {
 
   // callback for registration from Gigya
   _registerCallback(data) {
-    app.logger('\<gigya-finalize-register\> register callback');
+    console.info('\<gigya-finalize-register\> register callback');
     console.dir(data);
 
     let el = data.context;
 
     if (data.errorCode === 0) {
-      app.logger('\<gigya-finalize-register\> user updated');
+      console.info('\<gigya-finalize-register\> user updated');
 
       let base = Polymer.dom(document).querySelector('cranberry-base');
       let socialize = base.querySelector('gigya-socialize');

@@ -36,7 +36,7 @@ class cranberryStaffList {
     if (typeof newValue !== 'undefined') {
       this.async(function() {
         if (!this.hidden) {
-          app.logger('\<cranberry-staff-list\> route changed -\> ' + newValue.path);
+          console.info('\<cranberry-staff-list\> route changed -\> ' + newValue.path);
           if (typeof newValue !== 'undefined' && newValue.path === '/contact') {
             this._updateParams();
           }
@@ -52,7 +52,7 @@ class cranberryStaffList {
       let currentRequest = this.get('request');
 
       if (typeof currentRequest !== 'undefined' && currentRequest.loading === true) {
-          app.logger('<\cranberry-staff-list\> aborting previous request');
+          console.info('<\cranberry-staff-list\> aborting previous request');
           this.$.request.abortRequest(currentRequest);
       }
 
@@ -76,11 +76,11 @@ class cranberryStaffList {
   }
 
   _handleLoad() {
-      app.logger('<\cranberry-staff-list\> load received');
+      console.info('<\cranberry-staff-list\> load received');
   }
 
   _handleResponse() {
-      app.logger('<\cranberry-staff-list\> response received');
+      console.info('<\cranberry-staff-list\> response received');
   }
 
   _parseResponse(response) {

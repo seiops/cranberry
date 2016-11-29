@@ -15,14 +15,14 @@ class GigyaChangePassword {
   }
 
   attached() {
-    app.logger('\<gigya-change-password\> attached');
+    console.info('\<gigya-change-password\> attached');
 
     this.async(function() {
       let el = this;
       let form = Polymer.dom(this.root).querySelector('#changePasswordForm');
 
       form.addEventListener('iron-form-submit', function() {
-        app.logger('\<gigya-change-password\> form submit event');
+        console.info('\<gigya-change-password\> form submit event');
 
         el._disableForm();
         el._submit();
@@ -31,12 +31,12 @@ class GigyaChangePassword {
   }
 
   _changePasswordCallback(data) {
-    app.logger('\<gigya-change-password\> change password callback');
+    console.info('\<gigya-change-password\> change password callback');
 
     let el = data.context;
 
     if (data.errorCode === 0) {
-      app.logger('\<gigya-change-password\> password updated');
+      console.info('\<gigya-change-password\> password updated');
 
       let notice = {
         type: 'success',
@@ -55,19 +55,19 @@ class GigyaChangePassword {
   }
 
   _disableForm() {
-    app.logger('\<gigya-update-profile\> disable form');
+    console.info('\<gigya-update-profile\> disable form');
 
     this.$.submit.disabled = true;
   }
 
   _enableForm() {
-    app.logger('\<gigya-update-profile\> enable form');
+    console.info('\<gigya-update-profile\> enable form');
 
     this.$.submit.disabled = false;
   }
 
   _handleChangePassword(event) {
-    app.logger('\<gigya-change-password\> handle change password');
+    console.info('\<gigya-change-password\> handle change password');
 
     let form = Polymer.dom(this.root).querySelector('#changePasswordForm');
 
@@ -86,7 +86,7 @@ class GigyaChangePassword {
 
   // process error code from API
   _processError(code) {
-    app.logger('\<gigya-change-password\> error');
+    console.info('\<gigya-change-password\> error');
 
     console.dir(code);
 
@@ -124,7 +124,7 @@ class GigyaChangePassword {
 
   _submit() {
     this.async(function(){
-      app.logger('\<gigya-change-password\> submit gigya');
+      console.info('\<gigya-change-password\> submit gigya');
 
       this.set('notices', []);
 

@@ -40,7 +40,7 @@ class CranberrySection {
     }
 
     attached() {
-        app.logger('\<cranberry-section\> attached');
+        console.info('\<cranberry-section\> attached');
         this._checkTabs();
     }
 

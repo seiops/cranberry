@@ -23,7 +23,7 @@ class GigyaUserComments {
 
   // attached to document
   attached() {
-    app.logger('\<gigya-user-comments\> attached');
+    console.info('\<gigya-user-comments\> attached');
 
     this.async(function() {
       this._checkGigya();
@@ -65,7 +65,7 @@ class GigyaUserComments {
 
   // make request to Gigya Comments API
   _getComments() {
-    app.logger('\<gigya-user-comments\> get user comments');
+    console.info('\<gigya-user-comments\> get user comments');
 
     let el = this;
 

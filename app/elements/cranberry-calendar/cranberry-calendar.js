@@ -25,14 +25,14 @@ class CranberryCalendar {
 
   // attached to document
   attached() {
-    app.logger('\<cranberry-calendar\> attached');
+    console.info('\<cranberry-calendar\> attached');
   }
 
   // private methods
 
   // inject script asynchronously
   _injectScript() {
-    app.logger('\<cranberry-calendar\> generating config and loading script');
+    console.info('\<cranberry-calendar\> generating config and loading script');
 
     let SpinGo = (window.SpinGo = window.SpinGo || {});
     let radiusConfig = this.get('radius');
@@ -57,7 +57,7 @@ class CranberryCalendar {
 
   // detect route and visibility
   _routeChange(section) {
-    app.logger('\<cranberry-calendar\> route change');
+    console.info('\<cranberry-calendar\> route change');
 
     this.async(function() {
         let hidden = this.hidden;

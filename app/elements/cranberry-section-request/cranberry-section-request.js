@@ -47,7 +47,7 @@ class cranberrySectionRequest {
   }
 
   attached() {
-    app.logger('\<cranberry-section-request\> attached');
+    console.info('\<cranberry-section-request\> attached');
   }
 
   _sectionChanged(section, hidden) {
@@ -98,7 +98,7 @@ class cranberrySectionRequest {
       let currentRequest = this.get('request');
 
       if (typeof currentRequest !== 'undefined' && currentRequest.loading === true) {
-        app.logger('<\cranberry-section-request\> aborting previous request');
+        console.info('<\cranberry-section-request\> aborting previous request');
         this.$.request.abortRequest(currentRequest);
       }
 
@@ -146,11 +146,11 @@ class cranberrySectionRequest {
   }
 
   _handleLoad() {
-    app.logger('<\cranberry-section-request\> load received');
+    console.info('<\cranberry-section-request\> load received');
   }
 
   _handleResponse(res) {
-    app.logger('<\cranberry-section-request\> response received');
+    console.info('<\cranberry-section-request\> response received');
   }
 
   _parseResponse(response) {
@@ -173,7 +173,7 @@ class cranberrySectionRequest {
   _startChanged(start, oldStart) {
       this.async(function () {
         if (typeof oldStart !== 'undefined') {
-          app.logger('\<cranberry-section-request\> start changed -\> ' + start);
+          console.info('\<cranberry-section-request\> start changed -\> ' + start);
           this._updateParams();
         }
       });

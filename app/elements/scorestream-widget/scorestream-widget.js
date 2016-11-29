@@ -49,30 +49,32 @@ class scorestreamWidget {
   }
 
   _handleLoad() {
-      app.logger('<\scorestream-widget\> load received');
+      console.info('<\scorestream-widget\> load received');
   }
 
   _handleResponse() {
-      app.logger('<\scorestream-widget\> response received');
+      console.info('<\scorestream-widget\> response received');
   }
 
   _parseResponse(response) {
-    var result = JSON.parse(response.Result);
+    if (typeof response !== 'undefined') {
+      var result = JSON.parse(response.Result);
 
-    // If the response is not empty and it has scoreboards set values
-    if (Object.keys(result).length > 0 && typeof result.scoreboards !== 'undefined') {
-      let masterSwitch = (result.masterSwitchOn === 'true');
-      let scoreboardSwitch = (result.scoreboards[0].scoreboardOn === 'true');
+      // If the response is not empty and it has scoreboards set values
+      if (Object.keys(result).length > 0 && typeof result.scoreboards !== 'undefined') {
+        let masterSwitch = (result.masterSwitchOn === 'true');
+        let scoreboardSwitch = (result.scoreboards[0].scoreboardOn === 'true');
 
-      this.set('masterSwitch', masterSwitch);
-      this.set('scoreboardSwitch', scoreboardSwitch);
+        this.set('masterSwitch', masterSwitch);
+        this.set('scoreboardSwitch', scoreboardSwitch);
 
-      if (masterSwitch && scoreboardSwitch) {
-        this.set('widgetId', result.scoreboards[0].horizontalId);
+        if (masterSwitch && scoreboardSwitch) {
+          this.set('widgetId', result.scoreboards[0].horizontalId);
+        }
+      } else {
+        // Otherwise turn the whole thing off
+        this.set('isOff', true);
       }
-    } else {
-      // Otherwise turn the whole thing off
-      this.set('isOff', true);
     }
   }
 

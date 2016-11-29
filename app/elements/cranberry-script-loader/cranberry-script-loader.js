@@ -8,11 +8,11 @@ class CranberryScriptLoader {
 
   // attached to document
   attached() {
-    app.logger('\<cranberry-script-loader\> attached');
+    console.info('\<cranberry-script-loader\> attached');
   }
 
   loadScript(url, id, attribute) {
-    app.logger('\<cranberry-script-loader\> loading ' + url);
+    console.info('\<cranberry-script-loader\> loading ' + url);
 
     let embed = document.createElement('script');
 

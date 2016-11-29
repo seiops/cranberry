@@ -18,7 +18,7 @@ class CranberryFeaturedContent {
     }
 
     attached() {
-        app.logger('<\cranberry-featured-content\> attached');
+        console.info('<\cranberry-featured-content\> attached');
     }
 
     _firstItem(item, index) {

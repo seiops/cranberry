@@ -75,7 +75,7 @@ class gigyaSharebar {
         setTimeout(() => {
           let params = this.get('params');
           if (typeof gigya !== 'undefined') {
-            app.logger("Finished loading Gigya Sharebar.");
+            console.info("Finished loading Gigya Sharebar.");
 
             var ua = new gigya.socialize.UserAction();
                 ua.setLinkBack(window.location.href);

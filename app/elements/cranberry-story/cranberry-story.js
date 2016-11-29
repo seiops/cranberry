@@ -85,7 +85,7 @@ class CranberryStory {
 
   attached() {
     this.async(function() {
-      app.logger('\<cranberry-story\> attached');
+      console.info('\<cranberry-story\> attached');
     });
   }
 
@@ -108,7 +108,7 @@ class CranberryStory {
   }
 
   detached() {
-    app.logger('\<cranberry-story\> detached');
+    console.info('\<cranberry-story\> detached');
 
     this._destroyContent();
     this._closeShare();
@@ -180,7 +180,7 @@ class CranberryStory {
         let currentId = this.get('storyId');
 
         if (typeof storyId !== 'undefined' && currentId !== storyId) {
-          app.logger('\<cranberry-story\> setting new story id -\> ' + storyId);
+          console.info('\<cranberry-story\> setting new story id -\> ' + storyId);
           this.set('storyId', storyId);
           this._destroyContent();
         }
@@ -312,7 +312,7 @@ class CranberryStory {
       // Check Tout location function
       this._checkTout();
       // DISTRO SETUP FUNCTION
-      this._setupDistro();
+      // this._setupDistro();
     }
   }
 
@@ -348,7 +348,7 @@ class CranberryStory {
   }
 
   _handleResponse(json) {
-    app.logger('\<cranberry-story\> json response received');
+    console.info('\<cranberry-story\> json response received');
 
     let result = JSON.parse(json.detail.Result);
 
@@ -370,7 +370,7 @@ class CranberryStory {
       let storyId = this.get('storyId');
 
       if (typeof storyId !== 'undefined' && storyId !== 0) {
-        app.logger('\<cranberry-story\> storyId set to ' + storyId);
+        console.info('\<cranberry-story\> storyId set to ' + storyId);
 
         this._updateStoryId(storyId);
       }

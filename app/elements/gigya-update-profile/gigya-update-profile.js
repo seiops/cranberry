@@ -20,14 +20,14 @@ class GigyaUpdateProfile {
 
   // public methods
   attached() {
-    app.logger('\<gigya-update-profile\> attached');
+    console.info('\<gigya-update-profile\> attached');
 
     this.async(function() {
       let el = this;
       let form = Polymer.dom(this.root).querySelector('#updateProfileForm');
 
       form.addEventListener('iron-form-submit', function() {
-        app.logger('\<gigya-update-profile\> form submit event');
+        console.info('\<gigya-update-profile\> form submit event');
 
         el._disableForm();
         el._submit();
@@ -38,7 +38,7 @@ class GigyaUpdateProfile {
   
   // private methods
   _computeBirthday(user) {
-    app.logger('\<gigya-update-profile\> compute birthday');
+    console.info('\<gigya-update-profile\> compute birthday');
 
     let birthday = user.birthYear + '-' + user.birthMonth + '-' + user.birthDay;
 
@@ -46,19 +46,19 @@ class GigyaUpdateProfile {
   }
 
   _disableForm() {
-    app.logger('\<gigya-update-profile\> disable form');
+    console.info('\<gigya-update-profile\> disable form');
 
     this.$.submit.disabled = true;
   }
 
   _enableForm() {
-    app.logger('\<gigya-update-profile\> enable form');
+    console.info('\<gigya-update-profile\> enable form');
 
     this.$.submit.disabled = false;
   }
 
   _handleReset(event) {
-    app.logger('\<gigya-update-profile\> reset form');
+    console.info('\<gigya-update-profile\> reset form');
 
     let form = Polymer.dom(this.root).querySelector('#updateProfileForm');
 
@@ -66,7 +66,7 @@ class GigyaUpdateProfile {
   }
 
   _handleUpdateProfile(event) {
-    app.logger('\<gigya-update-profile\> handle update profile');
+    console.info('\<gigya-update-profile\> handle update profile');
 
     let form = Polymer.dom(this.root).querySelector('#updateProfileForm');
 
@@ -75,7 +75,7 @@ class GigyaUpdateProfile {
 
   // process error code from API
   _processError(error) {
-    app.logger('\<gigya-update-profile\> API response error');
+    console.info('\<gigya-update-profile\> API response error');
 
     let notice = {};
 
@@ -113,7 +113,7 @@ class GigyaUpdateProfile {
   }
 
   _submit() {
-    app.logger('\<gigya-update-profile\> submit gigya');
+    console.info('\<gigya-update-profile\> submit gigya');
 
     this.set('notices', []);
 
@@ -141,12 +141,12 @@ class GigyaUpdateProfile {
   }
 
   _updateProfileCallback(data) {
-    app.logger('\<gigya-update-profile\> update profile callback');
+    console.info('\<gigya-update-profile\> update profile callback');
 
     let el = data.context;
 
     if (data.errorCode === 0) {
-      app.logger('\<gigya-update-profile\> user updated');
+      console.info('\<gigya-update-profile\> user updated');
 
       let base = Polymer.dom(document).querySelector('cranberry-base');
       let socialize = base.querySelector('gigya-socialize');

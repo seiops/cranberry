@@ -26,14 +26,14 @@ class GigyaLogin {
 
   // attached to document
   attached() {
-    app.logger('\<gigya-login\> attached');
+    console.info('\<gigya-login\> attached');
 
     this.async(function() {
       let el = this;
       let form = Polymer.dom(this.root).querySelector('#loginForm');
 
       form.addEventListener('iron-form-submit', function() {
-        app.logger('\<gigya-login\> form submit event');
+        console.info('\<gigya-login\> form submit event');
 
         el._disableForm();
         el._submit();
@@ -51,21 +51,21 @@ class GigyaLogin {
 
   // disable form elements
   _disableForm() {
-    app.logger('\<gigya-login\> disable form');
+    console.info('\<gigya-login\> disable form');
 
     this.$.submit.disabled = true;
   }
 
   // enable form elements
   _enableForm() {
-    app.logger('\<gigya-login\> enable form');
+    console.info('\<gigya-login\> enable form');
 
     this.$.submit.disabled = false;
   }
 
   // handle login form click
   _handleLogin(event) {
-    app.logger('\<gigya-login\> handle login');
+    console.info('\<gigya-login\> handle login');
 
     let form = Polymer.dom(this.root).querySelector('#loginForm');
 
@@ -111,7 +111,7 @@ class GigyaLogin {
 
   // handle reset form, clear notices
   _handleReset(event) {
-    app.logger('\<gigya-login\> reset form');
+    console.info('\<gigya-login\> reset form');
 
     let form = Polymer.dom(this.root).querySelector('#loginForm');
 
@@ -162,7 +162,7 @@ class GigyaLogin {
 
   // process error code from API
   _processError(code) {
-    app.logger('\<gigya-login\> error');
+    console.info('\<gigya-login\> error');
 
     let notice = {};
 
@@ -281,7 +281,7 @@ class GigyaLogin {
   // submit login form data
   _submit() {
     this.async(function(){
-      app.logger('\<gigya-login\> submit gigya');
+      console.info('\<gigya-login\> submit gigya');
 
       this.set('notices', []);
       this.$.spinner.active = true;

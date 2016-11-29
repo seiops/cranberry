@@ -14,14 +14,14 @@ class GigyaForgotPassword {
   }
 
   attached() {
-    app.logger('\<gigya-forgot-password\> attached');
+    console.info('\<gigya-forgot-password\> attached');
 
     this.async(function() {
       let el = this;
       let form = Polymer.dom(this.root).querySelector('#forgotPasswordForm');
 
       form.addEventListener('iron-form-submit', function() {
-        app.logger('\<gigya-forgot-password\> form submit event');
+        console.info('\<gigya-forgot-password\> form submit event');
 
         el._disableForm();
         el._submit();
@@ -30,12 +30,12 @@ class GigyaForgotPassword {
   }
 
   _forgotPasswordCallback(data) {
-    app.logger('\<gigya-forgot-password\> forgot password callback');
+    console.info('\<gigya-forgot-password\> forgot password callback');
 
     let el = data.context;
 
     if (data.errorCode === 0) {
-      app.logger('\<gigya-forgot-password\> password reset email sent');
+      console.info('\<gigya-forgot-password\> password reset email sent');
 
       el.set('showForm', false);
 
@@ -62,19 +62,19 @@ class GigyaForgotPassword {
   }
 
   _disableForm() {
-    app.logger('\<gigya-forgot-password\> disable form');
+    console.info('\<gigya-forgot-password\> disable form');
 
     this.$.submit.disabled = true;
   }
 
   _enableForm() {
-    app.logger('\<gigya-forgot-password\> enable form');
+    console.info('\<gigya-forgot-password\> enable form');
 
     this.$.submit.disabled = false;
   }
 
   _handleForgotPassword(event) {
-    app.logger('\<gigya-forgot-password\> handle forgot password');
+    console.info('\<gigya-forgot-password\> handle forgot password');
 
     let form = Polymer.dom(this.root).querySelector('#forgotPasswordForm');
 
@@ -102,7 +102,7 @@ class GigyaForgotPassword {
 
   // process error code from API
   _processError(error) {
-    app.logger('\<gigya-forgot-password\> API response error');
+    console.info('\<gigya-forgot-password\> API response error');
 
     let notice = {};
 
@@ -134,7 +134,7 @@ class GigyaForgotPassword {
 
   // process error code from API
   _processValidationError(error) {
-    app.logger('\<gigya-forgot-password\> API validation error');
+    console.info('\<gigya-forgot-password\> API validation error');
 
     let notice = {};
 
@@ -160,7 +160,7 @@ class GigyaForgotPassword {
   }
 
   _submit() {
-    app.logger('\<gigya-forgot-password\> submit gigya');
+    console.info('\<gigya-forgot-password\> submit gigya');
 
     this.set('notices', []);
 
