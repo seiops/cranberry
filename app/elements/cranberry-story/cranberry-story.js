@@ -312,7 +312,7 @@ class CranberryStory {
       // Check Tout location function
       this._checkTout();
       // DISTRO SETUP FUNCTION
-      // this._setupDistro();
+      this._setupDistro();
     }
   }
 
