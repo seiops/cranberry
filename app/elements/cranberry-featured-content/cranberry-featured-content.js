@@ -38,7 +38,7 @@ class CranberryFeaturedContent {
     }
 
     _itemsChanged(newValue) {
-        if (typeof newValue !== 'undefined' && newValue.length > 0) {
+        if (typeof newValue !== 'undefined' && newValue.length > 0 && !this.hidden) {
             let livestreamResult = newValue[0];
             let livestreamMedia = livestreamResult.mediaAssets;
             let livestreamVideo = {};
