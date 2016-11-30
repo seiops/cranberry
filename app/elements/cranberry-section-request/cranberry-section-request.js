@@ -114,7 +114,7 @@ class cranberrySectionRequest {
       jsonp.request = 'content-list';
 
       if (typeof tags !== 'undefined' && tags) {
-        sections = sections.replace('-', ' ');
+        sections = sections.replace(/-/g, ' ');
         jsonp.desiredTags = sections;
       } else {
         if (sections === 'homepage') {

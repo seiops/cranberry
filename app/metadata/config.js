@@ -305,7 +305,7 @@ module.exports = {
     },
     {
       linkText: 'Fit Challenge',
-      linkUrl: '/tags/c25k',
+      linkUrl: '/tags/fit-challenge',
       linkIcon: '',
       target: ''
     },
