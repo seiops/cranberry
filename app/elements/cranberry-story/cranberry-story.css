@@ -107,6 +107,10 @@ div.body-text {
 }
 
 /* Byline styles */
+a.byline-link {
+  text-decoration: none;
+}
+
 .by-line-wrapper {
     @apply(--layout-horizontal);
 }
