@@ -22,6 +22,7 @@ div.featured-main {
   @apply(--layout-vertical);
 
   min-height: 300px;
+  margin-right: 8px;
 }
 
 div.featured-main cranberry-card {
@@ -33,6 +34,10 @@ div.featured-list {
   @apply(--layout-flex-4);
   @apply(--layout-justified);
   @apply(--layout-vertical);
+}
+
+div.featured-list cranberry-card:first-of-type {
+  margin-bottom: 8px;
 }
 
 l2t-paper-slider ::content .slider {
