@@ -273,7 +273,7 @@ class cranberryShortcode {
           shortcodeEl.src = content.url + '/player?width=640&amp;height=360&amp;autoPlay=false&amp;mute=false';
           shortcodeEl.setAttribute('frameborder', "0");
           shortcodeEl.setAttribute('scrolling', "no");
-          shortcodeEl.setAttribute('width', "620px");
+          shortcodeEl.setAttribute('width', "100%");
           shortcodeEl.setAttribute('height', "400px");
           break;
         case 'revealer':
