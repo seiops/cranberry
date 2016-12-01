@@ -1,0 +1,19 @@
+:host {
+  display: block;
+}
+
+div.featured {
+  @apply(--layout-horizontal);
+  @apply(--layout-wrap);
+  padding: 16px;
+  height: 700px;
+}
+
+cranberry-profile-card {
+  @apply(--layout-flex);
+  min-width: 300px;
+}
+
+div.featured-story {
+  @apply(--layout-flex-3);
+}

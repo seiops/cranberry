@@ -1,0 +1,33 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
+<link rel="import" href="../cranberry-card/cranberry-card.html">
+<link rel="import" href="../cranberry-content-list/cranberry-content-list.html">
+<link rel="import" href="../cranberry-profile-card/cranberry-profile-card.html">
+
+<dom-module id="cranberry-profile-page">
+  <template>
+    <style>
+      @import "cranberry-profile-page/cranberry-profile-page";
+    </style>
+
+    <byutv-jsonp cache on-response="_handleResponse" id="profileRequest" debounce-duration="300"></byutv-jsonp>
+    <byutv-jsonp cache on-response="_handleListResponse" id="profileListRequest"></byutv-jsonp>
+
+    <div class="featured">
+      <div class="profile-card-container">
+        <cranberry-profile-card profile="[[profile]]"></cranberry-profile-card>
+      </div>
+
+      <div class="featured-story">
+        <iron-image class="profile-image" sizing="cover" src="{$ config.baseDomain $}[[profile.image2]]"></iron-image>
+        <!--<cranberry-card item$="[[featuredContent]]" index="0" featured hide-info></cranberry-card>-->
+      </div>
+    </div>
+
+    <div>
+      <cranberry-content-list items="{{content}}" tracked-section="news" hidden$="[[hideContent]]"></cranberry-content-list>
+    </div>
+
+  </template>
+    <script src="cranberry-profile-page.js"></script>
+</dom-module>

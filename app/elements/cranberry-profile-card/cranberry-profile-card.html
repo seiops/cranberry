@@ -1,0 +1,19 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="cranberry-profile-card">
+  <template>
+    <style>
+      @import "cranberry-profile-card/cranberry-profile-card";
+    </style>
+
+    <div class="profile-card">
+      <iron-image class="profile-image" sizing="cover" src="{$ config.baseDomain $}[[profile.image]]"></iron-image>
+      <p>[[profile.first]] [[profile.last]]</p>
+      <p>[[profile.location]]</p>
+      <p>[[profile.category]]</p>
+      <p>[[profile.description]]</p>
+    </div>
+
+  </template>
+    <script src="cranberry-profile-card.js"></script>
+</dom-module>

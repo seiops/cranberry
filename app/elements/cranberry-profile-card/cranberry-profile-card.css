@@ -1,0 +1,24 @@
+:host {
+  display: block;
+}
+
+div.profile-card {
+  @apply(--layout-vertical);
+  @apply(--layout-center-justified);
+  @apply(--layout-center);
+  background: rgba(0, 0, 0, 0.65);
+}
+
+div.profile-card iron-image.profile-image {
+  overflow: hidden;
+  border-radius: 100%;
+  width: 150px;
+  height: 150px;
+  display: inline-block;
+}
+
+div.profile-card p {
+  @apply(--paper-font-body);
+  color: #fff;
+  margin: 0;
+}
