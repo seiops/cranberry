@@ -8,6 +8,10 @@ class CranberrySection {
                 type: Number,
                 value: 0
             },
+            currentPage: {
+              type: Number,
+              observer: '_currentPageChanged'
+            },
             galleries: {
               type: Boolean,
               value: false
@@ -137,6 +141,14 @@ class CranberrySection {
           }
         }
         this.set('sectionTitle', title);
+      }
+    }
+
+    _currentPageChanged(newValue, oldValue) {
+      if (typeof newValue !== 'undefined' && newValue > 1) {
+        this.set('featuredHidden', true);
+      } else {
+        this.set('featuredHidden', false);
       }
     }
 }
