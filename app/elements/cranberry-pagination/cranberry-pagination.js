@@ -12,6 +12,11 @@ class cranberryPagination {
         type: Number,
         value: 18
       },
+      currentPage: {
+        type: Number,
+        value: 1,
+        notify: true
+      },
       hidePreviousButton: {
         type: Boolean,
         value: true
@@ -22,9 +27,11 @@ class cranberryPagination {
   _showPrevious() {
     let start = this.get('start');
     let count = this.get('count');
+    let currentPage = this.get('currentPage');
     let offset = start - count;
 
     this.set('start', offset);
+    this.set('currentPage', currentPage - 1);
     
     this._showPreviousButton();
   }
@@ -32,9 +39,11 @@ class cranberryPagination {
   _showNext() {
     let start = this.get('start');
     let count = this.get('count');
+    let currentPage = this.get('currentPage');
     let offset = start + count;
 
     this.set('start', offset);
+    this.set('currentPage', currentPage + 1);
 
     this._showPreviousButton();
   }

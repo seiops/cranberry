@@ -27,7 +27,7 @@ module.exports = {
   google: {
     analytics: [
       {
-        code: 'UA-4700830-3'
+        code: 'UA-61183098-5'
       }
     ],
     maps: 'AIzaSyDowSgQY1GSZFWxopUDRvRKxOhbiICW5QQ',
@@ -68,6 +68,7 @@ module.exports = {
   contactInformation: {
     contactFormRecipient: 'news@norwalkreflector.com',
     contactImage: '../../images/contact/norwalk/contact.jpg',
+    recaptchaKey: '6LdGnQ0UAAAAAAGZEmOvLIK9NLY0oG2C4GvUbR_P',
     hours: {
       week: '8:00 a.m. - 5:00 p.m',
       weekend: 'Closed'
@@ -220,7 +221,7 @@ module.exports = {
     },
     {
       linkText: 'Local Guide',
-      linkUrl: '	http://local.sanduskyregister.com/'
+      linkUrl: 'http://local.sanduskyregister.com/'
     }
   ],
   sideMenu: [
@@ -302,15 +303,15 @@ module.exports = {
       linkIcon: '',
       target: ''
     },
-    {
-      linkText: 'Games & Puzzles',
-      linkUrl: '/games-page',
-      linkIcon: '',
-      target: ''
-    },
+    // {
+    //   linkText: 'Games & Puzzles',
+    //   linkUrl: '/games-page',
+    //   linkIcon: '',
+    //   target: ''
+    // },
     {
       linkText: 'Fit Challenge',
-      linkUrl: '/tags/c25k',
+      linkUrl: '/tags/fit-challenge',
       linkIcon: '',
       target: ''
     },
