@@ -2,6 +2,7 @@
 <link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
 <link rel="import" href="../google-dfp/google-dfp.html">
 <link rel="import" href="../cranberry-search-bar/cranberry-search-bar.html">
+<link rel="import" href="../cranberry-pagination/cranberry-pagination.html">
 <link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
 
 <dom-module id="cranberry-search">
@@ -65,19 +66,17 @@
               <hr class="break" />
             </template>
           </div>
-          <div class="pagination-container" hidden$="[[_hideResultsArea(isSearching, noQuery)]]">
-            <paper-button id="prev" class="prev-button" raised hidden$="{{!isPrev}}">Previous</paper-button>
-            <paper-button id="next" raised hidden$="{{!isNext}}">Next</paper-button>
+        </div>
+        <div class="right-rail">
+          <div class="ad-container">
+            <google-dfp section="[[loadSection]]" ad-pos="Top_of_Stream" ad-size="[[300, 250],[300, 600]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
           </div>
         </div>
-      <div class="right-rail">
-        <div class="ad-container">
-          <google-dfp section="[[loadSection]]" ad-pos="Top_of_Stream" ad-size="[[300, 250],[300, 600]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
-        </div>
       </div>
-    </div>
-      </paper-material>
-
+      <div class="pagination-wrapper" hidden$="[[_hideResultsArea(isSearching, noQuery)]]">
+        <cranberry-pagination start="{{start}}" current-page="[[currentPage]]" count="20"></cranberry-pagination>
+      </div>
+    </paper-material>
   </template>
   <script src="cranberry-search.js"></script>
 </dom-module>
