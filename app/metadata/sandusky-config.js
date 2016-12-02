@@ -74,6 +74,7 @@ module.exports = {
   contactInformation: {
     contactFormRecipient: 'circulation@sanduskyregister.com',
     contactImage: '../../images/contact/sandusky/contact.jpg',
+    recaptchaKey: '6LeQsAwUAAAAAFCmnU2qjqb6S1TMXsFscXLqTMyG',
     hours: {
       week: '8:00 a.m. - 5:00 p.m',
       weekend: 'Closed'
@@ -112,9 +113,7 @@ module.exports = {
         label: 'News Tip',
         phone: '419-502-2060',
         link: true,
-        linkUrl: 'http://srdev.libercus.net/tell-us'
-        // Commented out production url. This site is not ready yet.
-        // linkUrl: 'http://tellus.sanduskyregister.com'
+        linkUrl: 'http://tellus.sanduskyregister.com/'
       },
       {
         logo: 'icons:chrome-reader-mode',
