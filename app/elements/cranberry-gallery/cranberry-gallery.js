@@ -139,6 +139,9 @@ class CranberryGallery {
     // Send pageview event with iron-signals
     this.fire('iron-signal', {name: 'track-page', data: { path: '/photo-gallery/' + result.itemId, gaData } });
 
+    //Send Chartbeat
+    this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/photo-gallery/' + result.itemId, data: {'sections': result.sectionInformation.sectionName, 'authors': result.byline } } });
+
     // Assign restResponse to data bound object gallery
     this.set('gallery', result);
 

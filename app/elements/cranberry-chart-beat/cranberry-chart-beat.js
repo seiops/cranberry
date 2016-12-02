@@ -17,88 +17,101 @@ class cranberryChartBeat {
       sfConfig: {
         type: Object,
         value: () => {
-          return {
-            'uid': 0,
-            'domain': '',
-            'useCanonical': true,
-            'authors': ''
+          return { 
+            'data': {
+              'uid': 0,
+              'domain': '',
+              'useCanonical': true,
+              'authors': ''
+            }
           };
-        }
+        },
+        notify: true
       },
-      authorSet: {
+      initialLoad: {
         type: Boolean,
-        value: false,
-        observer: '_authorSet'
+        value: true
       }
     }
     this.observers = [
-      '_updateConfig(author, uid, siteName, route.path)',
-      '_configChanged(sfConfig.*)'
-    ]
+      '_configChanged(sfConfig.data.*)'
+    ];
+    this.listeners = {
+      'chartbeat-track-page': 'trackPage'
+    };
   }
 
-  // SETUP GLOBAL CONFIG OBJECT
-  // ANYTIME THAT OBJECT CHANGES CHECK IF INITIAL LOAD HAPPENED (GLOBAL BOOLEAN)
-  // IF IT DID SEND VIRTUAL IF NOT ESTABLISH LOAD
+  trackPage(e) {
+    let load = this.get('initialLoad');
 
-
-  _updateConfig(author, uid, siteName, path) {
     this.async(() => {
-console.log('SETTING UP CONFIG!');
-      if (typeof author !== 'undefined' && typeof uid !== 'undefined' && typeof siteName !== 'undefined' && typeof path !== 'undefined') {
-        this.set('sfConfig', {});
-        let config = {};
+      if (load) {
+        this._setupConfig(e.detail);
+        this.set('initialLoad', false);
+        this._establishGlobal();
+        this._loadChartBeat();
+      } else {
+        let config = this.get('sfConfig.data');
 
-        // Setup default chartbeat object
-        config.uid = uid;
-        config.domain = siteName;
-        config.authors = author;
-        config.sections = path;
+        if (typeof e.detail.data !== 'undefined' && typeof e.detail.data.authors !== 'undefined') {
+          config.authors = e.detail.data.authors;
+        }
+        
+        if (typeof e.detail.data !== 'undefined' && typeof e.detail.data.sections !== 'undefined') {
+          config.sections = e.detail.data.sections;
+        }
 
-        this.set('sfConfig', config);
+        this.set('sfConfig.data', config);
+        this._establishGlobal();
+        this._fireVirtualPage(e.detail.path);
       }
     });
-      
   }
 
-  _configChanged(newValue) {
-    console.log('Config object changed!');
-    console.dir(newValue);
+  _setupConfig(details) {
+    let config = this.get('sfConfig.data');
+
+    config.uid = this.get('uid');
+    config.domain = this.get('siteName');
+    
+    if (typeof details.data !== 'undefined' && typeof details.data.authors !== 'undefined') {
+      config.authors = details.data.authors;
+    }
+    
+    if (typeof details.data !== 'undefined' && typeof details.data.sections !== 'undefined') {
+      config.sections = details.data.sections;
+    }
+    
+    this.set('sfConfig.data', config);
   }
 
-  _setupSection(path) {
-
+  _configChanged(newConfig, oldConfig) {
+    // console.log('Config changed');
+    // console.dir(newConfig);
   }
 
-  _changeAuthors(authors) {
-    if (typeof authors !== 'undefined') {
-      this.set('sfConfig.authors', authors);
+  _establishGlobal() {
+    let _sf_async_config = (window._sf_async_config = window._sf_async_config || {});
+    let config = this.get('sfConfig.data');
+
+    Object.assign(_sf_async_config, config);
+  }
+
+  _loadChartBeat() {
+    window._sf_endpt = (new Date()).getTime();
+    
+    let loader = document.querySelector('cranberry-script-loader');
+
+    loader.loadScript('http://static.chartbeat.com/js/chartbeat.js');
+  }
+
+  _fireVirtualPage(path) {
+    if (typeof window.pSUPERFLY !== 'undefined' && typeof window.pSUPERFLY.virtualPage !== 'undefined') {
+      let title = Polymer.dom(document).querySelector('title').innerText;
+
+      window.pSUPERFLY.virtualPage(path, title);
     }
   }
-
-  // _loadChartbeat() {
-  //   _sf_endpt=(new Date()).getTime();
-    
-  //   let loader = document.querySelector('cranberry-script-loader');
-
-  //   loader.loadScript('http://static.chartbeat.com/js/chartbeat.js');
-    
-  // }
-
-  // _authorSet(newValue, oldValue) {
-  //   if (typeof newValue !== 'undefined' && newValue) {
-  //     this._loadChartbeat();
-  //   }
-  // }
-
-  // _fireVirtualPage() {
-  //   if (typeof window.pSUPERFLY !== 'undefined' && typeof window.pSUPERFLY.virtualPage !== 'undefined') {
-  //     let route = this.get('route');
-  //     let title = Polymer.dom(document).querySelector('title').innerText;
-
-  //     window.pSUPERFLY.virtualPage(route.path, title);
-  //   }
-  // }
 
 }
 Polymer(cranberryChartBeat);

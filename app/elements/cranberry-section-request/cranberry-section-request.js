@@ -3,10 +3,31 @@ class cranberrySectionRequest {
     this.is = 'cranberry-section-request';
     this.properties = {
       routeData: String,
+      parentSection: {
+        type: String,
+        notify: true
+      },
       section: {
         type: String,
         notify: true
       },
+      tempParent: {
+        type: String,
+        value: ''
+      },
+      tempSection: {
+        type: String,
+        value: ''
+      },
+      tempHidden: {
+        type: Boolean,
+        value: false
+      },
+      tagSection: {
+        type: Boolean,
+        value: false
+      },
+      tags: String,
       loadSection: {
         type: String,
         notify: true
@@ -41,59 +62,77 @@ class cranberrySectionRequest {
         type: Array,
         notify: true
       },
+      author: String,
       hidden: Boolean
     }
-    this.observers = ['_sectionChanged(routeData, hidden)']
+    this.observers = [
+      '_sectionChanged(parentSection, section, hidden)',
+      '_updateParams(loadSection)'  
+    ]
+  }
+
+  _sectionChanged(parentSection, section, hidden) {
+    let tempSection = this.get('tempSection');
+    let tempParent = this.get('tempParent');
+    let tempHidden = this.get('tempHidden');
+
+    this.async(() => {
+      if (tempSection === section && tempParent === parent && tempHidden !== hidden) {
+        // Just hidden changed.
+        if (!hidden) {
+          // SEND THE PAGEVIEWS!
+          this._firePageview();
+        }
+      } else {
+        this.set('tempSection', section);
+        this.set('tempParent', parent);
+
+        if (!hidden) {
+          // Not hidden fetch content
+          let tagSection = this.get('tagSection');
+
+          if (!tagSection) {
+            if (parentSection === '') {
+              this.set('loadSection', section);
+            } else {
+              if (section !== '') {
+                this.set('loadSection', section);
+              } else {
+                this.set('loadSection', parentSection);
+              }  
+            }
+          } else {
+            let tags = this.get('tags');
+            
+            this.set('loadSection', tags);
+          }
+
+          this._firePageview();
+        }
+      }
+    });
+  }
+
+  _firePageview() {
+    let tagSection = this.get('tagSection');
+    let section = this.get('section');
+    let author = this.get('author');
+
+    this.async(() => {
+      if (tagSection) {
+        this.fire('iron-signal', {name: 'track-page', data: { path: '/tag/' + section, data: { 'dimension7': section } } });
+      } else {
+        this.fire('iron-signal', {name: 'track-page', data: { path: '/section/' + section, data: { 'dimension7': section } } });
+        this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/section/' + section, data: {'sections': section, 'authors': author } } });
+      }
+    });
   }
 
   attached() {
     console.info('\<cranberry-section-request\> attached');
   }
 
-  _sectionChanged(section, hidden) {
-    this.async(function() {
-      let tags = this.get('tags');
-
-      if (!hidden) {
-        if(tags === false){
-          let currentSection = this.get('section');
-
-          if (typeof section !== 'undefined' && section !== 'section' && section !== 'story') {
-            let checkHome = section;
-            if (checkHome === '') {
-              section = 'homepage';
-            }
-
-            if (section !== currentSection) {
-              this.set('start', 1);
-
-              let tempSection = section;
-
-              if (tempSection.length <= 0) {
-                tempSection = 'homepage';
-              }
-
-              this.set('section', tempSection);
-              this.set('loadSection', tempSection);
-
-              this.fire('iron-signal', {name: 'track-page', data: { path: '/section/' + tempSection, data: { 'dimension7': tempSection } } });
-            }
-          }
-        } else {
-          let tag = this.get('tag');
-          if (tag !== section) {
-            this.set('loadSection', section);
-            this.set('tag', section);
-            this.fire('iron-signal', {name: 'track-page', data: { path: '/tag/' + section, data: { 'dimension7': tag } } });
-          }
-        }
-
-        this._updateParams();
-      }
-    }); 
-  }
-
-  _updateParams() {
+  _updateParams(loadSection) {
     this.async(function () {
       let currentRequest = this.get('request');
 
@@ -106,26 +145,28 @@ class cranberrySectionRequest {
       this.set('items', []);
 
       let jsonp = {};
-      let sections = this.get('loadSection');
-      let tags = this.get('tags');
+      let sections = loadSection;
+      let tagSection = this.get('tagSection');
+      let gallerySection = this.get('galleries');
       let homepageFlag;
-
-      // THIS NEEDS TO CHANGE!!!! THIS NEEDS TO CHANGE!!!! THIS NEEDS TO CHANGE!!!! THIS NEEDS TO CHANGE!!!! THIS NEEDS TO CHANGE!!!! THIS NEEDS TO CHANGE!!!! 
+ 
       jsonp.request = 'content-list';
 
-      if (typeof tags !== 'undefined' && tags) {
-        sections = sections.replace('-', ' ');
+      if (typeof gallerySection !== undefined && gallerySection) {
+        jsonp.desiredSection = 'galleries';
+      } else if (typeof tagSection !== 'undefined' && tagSection) {
+        sections = sections.replace(/-/g, ' ');
         jsonp.desiredTags = sections;
       } else {
         if (sections === 'homepage') {
           sections = 'news,opinion,announcements,sports,entertainment,lifestyle';
-          homepageFlag = 1;
+          homepageFlag = true;
         }
         jsonp.desiredSection = sections;
       }
 
-      if (typeof homepageFlag !== 'undefined' && homepageFlag === 1) {
-        jsonp.featuredHomepage = homepageFlag;
+      if (typeof homepageFlag !== 'undefined' && homepageFlag) {
+        jsonp.featuredHomepage = 1;
       }
       
       jsonp.desiredContent = this._isGalleries(this.get('galleries'));
@@ -175,6 +216,7 @@ class cranberrySectionRequest {
         if (typeof oldStart !== 'undefined') {
           console.info('\<cranberry-section-request\> start changed -\> ' + start);
           this._updateParams();
+          this._firePageview();
         }
       });
     }
