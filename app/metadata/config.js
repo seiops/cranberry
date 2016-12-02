@@ -16,6 +16,10 @@ module.exports = {
     image: '../../images/promo/sandusky/promo.png',
     link: 'http://www.sanduskyoffers.com'
   },
+  chartbeat: {
+    uid: 61057,
+    domain: 'sanduskyregister.com'
+  },
   // Gigya
   gigya: {
     // Needs changed from dev key to prod key
@@ -46,8 +50,8 @@ module.exports = {
   },
   // Social Networks
   socialNaming: {
-    twitter: 'sanduskyregister',
-    facebook: 'sanduskyregistr',
+    twitter: 'sanduskyregistr',
+    facebook: 'sanduskyregister',
     facebookId: '259812604228072'
   },
   socialUrls: {

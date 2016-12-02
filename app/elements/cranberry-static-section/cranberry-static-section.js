@@ -73,7 +73,12 @@ class cranberryStaticSection {
   }
 
   _setupGames(hidden, hideGames) {
-    // let gamesDiv = this.$.games;
+    
+  }
+}
+Polymer(cranberryStaticSection);
+
+// let gamesDiv = this.$.games;
     // let ludiPortal = this.get('ludiPortal');
     // if (typeof hidden !== 'undefined' && !hidden && typeof hideGames !== 'undefined' && !hideGames) {
     //   // Add HTML to games div
@@ -88,6 +93,3 @@ class cranberryStaticSection {
     //   // Destroy any HTML in games div.
     //   gamesDiv.innerHTML = '';
     // }
-  }
-}
-Polymer(cranberryStaticSection);
