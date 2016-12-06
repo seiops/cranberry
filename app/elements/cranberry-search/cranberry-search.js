@@ -94,7 +94,7 @@ class cranberrySearch {
   }
 
   _requestSearch(queryString, move) {
-    if (queryString !== '' && typeof queryString !== 'undefined') {
+    if (typeof queryString !== 'undefined' && queryString !== '') {
       this.set('noQuery', false);
       this.set('isSearching', true);
       // Set the display string for the query to display to the user
