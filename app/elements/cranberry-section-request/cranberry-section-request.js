@@ -13,15 +13,14 @@ class cranberrySectionRequest {
       },
       tempParent: {
         type: String,
-        value: ''
+        value: 'default'
       },
       tempSection: {
         type: String,
-        value: ''
+        value: 'default'
       },
       tempHidden: {
-        type: Boolean,
-        value: false
+        type: Boolean
       },
       tagSection: {
         type: Boolean,
@@ -66,28 +65,32 @@ class cranberrySectionRequest {
       hidden: Boolean
     }
     this.observers = [
-      '_sectionChanged(parentSection, section, hidden)',
+      '_sectionChanged(section, parentSection, hidden)',
       '_updateParams(loadSection)'  
     ]
   }
 
-  _sectionChanged(parentSection, section, hidden) {
-    let tempSection = this.get('tempSection');
-    let tempParent = this.get('tempParent');
-    let tempHidden = this.get('tempHidden');
+  debouncedChanged(section, parentSection, hidden) {
+    // Debounce function to ensure that all values are properly set.
+    this.debounce('debouncedChanged', ()  => {
+      let tempSection = this.get('tempSection');
+      let tempParent = this.get('tempParent');
+      let tempHidden = this.get('tempHidden');
 
-    this.async(() => {
-      if (tempSection === section && tempParent === parent && tempHidden !== hidden) {
-        // Just hidden changed.
-        if (!hidden) {
-          // SEND THE PAGEVIEWS!
-          this._firePageview();
+      if (!hidden) {
+        // This element is not hidden
+        if (tempSection !== section) {
+          this.set('tempSection', section);
         }
-      } else {
-        this.set('tempSection', section);
-        this.set('tempParent', parent);
 
-        if (!hidden) {
+        if (tempParent !== parentSection) {
+          this.set('tempParent', parent);
+        }
+
+        if (tempSection !== section && tempParent !== parentSection) {
+          // This is a new section!
+          this.set('tempHidden', false);
+
           // Not hidden fetch content
           let tagSection = this.get('tagSection');
 
@@ -106,10 +109,22 @@ class cranberrySectionRequest {
             
             this.set('loadSection', tags);
           }
-
+            
+          this._firePageview();
+        } else {
+          // This is the same section hidden just changed
           this._firePageview();
         }
+      } else {
+        // This element is hidden
+        this.set('tempHidden', true);
       }
+    });
+  }
+
+  _sectionChanged(section, parentSection, hidden) {
+    this.async(() => {
+      this.debouncedChanged(section, parentSection, hidden);
     });
   }
 

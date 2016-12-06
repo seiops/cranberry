@@ -32,7 +32,7 @@
     <page-title base-title="{$ config.title $}" title="[[sectionTitle]]"></page-title>
 
     <!-- Section Tracker -->
-    <cranberry-section-tracker rest="{$ config.baseEndpointUrl $}" page="[[routeData.section]]" parent-section="{{trackerParentSection}}" section="{{trackerSection}}" tags$="{{tags}}"></cranberry-section-tracker>
+    <cranberry-section-tracker rest="{$ config.baseEndpointUrl $}" page="[[routeData.section]]" parent-section="{{trackerParentSection}}" section="{{trackerSection}}" tags$="{{tags}}" hidden$="[[hidden]]"></cranberry-section-tracker>
 
     <!-- Section Reuqest -->
     <cranberry-section-request 
@@ -56,9 +56,6 @@
     </div>
 
     <scorestream-widget rest="{$ config.baseEndpointUrl $}" route="{{routeData}}" section="[[loadSection]]" hidden$="[[hidden]]"></scorestream-widget>
-
-    <p>Section: [[trackerSection]]</p>
-    <p>Parent: [[trackerParentSection]]</p>
 
     <div class="section-wrapper" hidden$="[[contentLoading]]">
       <!-- FEATURED CONTENT ELEMENT -->
