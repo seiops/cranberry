@@ -160,7 +160,7 @@ class cranberrySectionRequest {
       this.set('items', []);
 
       let jsonp = {};
-      let sections = loadSection;
+      let sections = (typeof loadSection !== 'undefined') ? loadSection : this.get('loadSection');
       let tagSection = this.get('tagSection');
       let gallerySection = this.get('galleries');
       let homepageFlag;

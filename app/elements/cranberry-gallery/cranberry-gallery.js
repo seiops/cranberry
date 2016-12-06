@@ -36,9 +36,7 @@ class CranberryGallery {
         value: true
       },
       hidden: {
-          type: Boolean,
-          reflectToAttribute: true,
-          value: true
+          type: Boolean
       }
     };
     this.observers = ['_checkParams(routeData.id)', '_hiddenChanged(hidden)'];
@@ -200,11 +198,18 @@ class CranberryGallery {
   }
 
   _hiddenChanged(hidden) {
-    this.async(function() {
-      if (hidden) {
-        this._closeShare();
-      }
-    });
+    let gallery = this.get('gallery');
+
+    if (hidden) {
+      this._closeShare();
+    } else {
+      // Send pageview event with iron-signals
+      this.fire('iron-signal', {name: 'track-page', data: { path: '/photo-gallery/' + gallery.itemId, gaData } });
+
+      //Send Chartbeat
+      this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/photo-gallery/' + gallery.itemId, data: {'sections': gallery.sectionInformation.sectionName, 'authors': gallery.byline } } });
+
+    }
   }
 
   _closeShare() {
