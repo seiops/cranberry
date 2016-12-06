@@ -68,14 +68,16 @@ class CranberryCard {
     return cssClass;
   }
 
-  _scrubTag(tag) {
-    if (typeof tag !== 'undefined' && tag !== '') {
-      let temp = tag.replace(/_/g, ' ');;
+  _scrubTag(sectionInformation) {
+    let temp = '';
 
-      return temp;
+    if (typeof sectionInformation !== 'undefined' && typeof sectionInformation.sectionName !== 'undefined') {
+      temp = sectionInformation.sectionName.replace(/_/g, ' ').toLowerCase();
     } else {
-      return '';
+      temp = sectionInformation.sectionParent.replace(/_/g, ' ').toLowerCase();
     }
+
+    return temp;
   }
 
   _computeImageSize(image) {

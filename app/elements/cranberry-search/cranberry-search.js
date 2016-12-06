@@ -55,10 +55,10 @@ class cranberrySearch {
         value: true
       }
     };
-    this.listeners = {
-      'next.tap': '_paginate',
-      'prev.tap': '_paginate'
-    };
+    // this.listeners = {
+    //   'next.tap': '_paginate',
+    //   'prev.tap': '_paginate'
+    // };
     this.observers = ['_requestSearch(queryString)',
                       '_clearResults(hidden)',
                       '_onRouteChanged(route)']
@@ -93,44 +93,8 @@ class cranberrySearch {
     // this.$.searchRe._clear();
   }
 
-  _paginate(e) {
-    let hidden = this.get('hidden');
-    // Reload the ads
-    if (!hidden || typeof hidden === 'undefined') {
-      // Set location to undefined to trigger the same value being placed in as a new value ** Ad refresh**
-      this.set('loadSection', undefined);
-      this.set('loadSection', 'news');
-    }
-    // Pagination function
-    // Establish direction
-    let direction = e.target.id;
-    let move = 0;
-    // Set move based on direction
-    if (direction === "next") {
-      move = 20;
-    } else {
-      move = -20;
-    }
-
-    // Get the current start value
-    let start = this.get('start');
-    // Asign new start value
-    let totalMove = start + move;
-
-    // Set current start value to new start value
-    this.set('start', totalMove);
-
-    // Get the current query string
-    let query = this.get('queryString');
-
-    // Genereate new card request based on new start value
-    this._requestSearch(query, totalMove);
-
-    window.scrollTo(0,0);
-  }
-
   _requestSearch(queryString, move) {
-    if (queryString !== '' && typeof queryString !== 'undefined') {
+    if (typeof queryString !== 'undefined' && queryString !== '') {
       this.set('noQuery', false);
       this.set('isSearching', true);
       // Set the display string for the query to display to the user
@@ -144,6 +108,9 @@ class cranberrySearch {
 
       if (typeof move !== 'undefined') {
         params.desiredStart = move;
+      } else {
+        this.set('start', 1);
+        params.desiredStart = 1;
       }
 
       let request = this.$.searchRequest;
@@ -169,10 +136,21 @@ class cranberrySearch {
     }
   }
 
-  _onStartChanged(newValue) {
-    if (newValue > 1) {
-      this.set('isPrev', true);
+  _onStartChanged(newValue, oldValue) {
+    let hidden = this.get('hidden');
+    // Reload the ads
+    if (!hidden || typeof hidden === 'undefined') {
+      // Set location to undefined to trigger the same value being placed in as a new value ** Ad refresh**
+      this.set('loadSection', undefined);
+      this.set('loadSection', 'news');
     }
+    // Get the current query string
+    let query = this.get('queryString');
+
+    // Genereate new card request based on new start value
+    this._requestSearch(query, newValue);
+
+    window.scrollTo(0,0);
   }
 
   _handleLoad() {
@@ -192,7 +170,20 @@ class cranberrySearch {
 
       this.set('items', result);
       this.set('totalResults', parseInt(result[0].totalResults));
+
+      this._sendPageviews();
+
       this.set('isSearching', false);
+  }
+
+  _sendPageviews() {
+    let route = this.get('route');
+    let author = this.get('author');
+
+    if (typeof route !== 'undefined') {
+      this.fire('iron-signal', {name: 'track-page', data: { path: '/search' + route.path, data: { 'dimension7': route.path.replace('/', '') } } });
+      this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/search' + route.path, data: {'sections': route.path.replace('/', ''), 'authors': author } } });
+    }
   }
 
   _hasImage(image) {

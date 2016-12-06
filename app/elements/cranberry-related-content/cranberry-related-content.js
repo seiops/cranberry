@@ -49,7 +49,7 @@ class cranberryRelatedContent {
     let story = this.get('story');
 
     this.async(function() {
-      if (related.length > 0 && typeof related !== 'undefined') {
+      if (typeof related !== 'undefined' && related.length > 0) {
         if (gallery) {
           this._setupArray(related, 'gallery');
         } else {

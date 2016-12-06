@@ -12,19 +12,34 @@ class cranberryPagination {
         type: Number,
         value: 18
       },
+      currentPage: {
+        type: Number,
+        value: 1,
+        notify: true
+      },
       hidePreviousButton: {
         type: Boolean,
         value: true
-      }
-    }
+      },
+      section: {
+        type: String,
+        observer: '_sectionChanged'
+      },
+      parent: {
+        type: String,
+        observer: '_parentSectionChanged'
+      },
+    };
   }
 
   _showPrevious() {
     let start = this.get('start');
     let count = this.get('count');
+    let currentPage = this.get('currentPage');
     let offset = start - count;
 
     this.set('start', offset);
+    this.set('currentPage', currentPage - 1);
     
     this._showPreviousButton();
   }
@@ -32,9 +47,11 @@ class cranberryPagination {
   _showNext() {
     let start = this.get('start');
     let count = this.get('count');
+    let currentPage = this.get('currentPage');
     let offset = start + count;
 
     this.set('start', offset);
+    this.set('currentPage', currentPage + 1);
 
     this._showPreviousButton();
   }
@@ -55,5 +72,16 @@ class cranberryPagination {
       this._showPreviousButton();
     }
   }
+
+  _sectionChanged(newValue, oldValue) {
+    this.set('start', 1);
+    this.set('currentPage', 1);
+  }
+
+  _parentSectionChanged(newValue, oldValue) {
+    this.set('start', 1);
+    this.set('currentPage', 1);
+  }
+
 }
 Polymer(cranberryPagination);

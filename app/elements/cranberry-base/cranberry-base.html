@@ -63,7 +63,11 @@
 <link rel="import" href="../cranberry-header-links/cranberry-header-links.html">
 <link rel="import" href="../cranberry-jail-mugs/cranberry-jail-mugs.html">
 <link rel="import" href="../cranberry-news-archive/cranberry-news-archive.html">
+<<<<<<< HEAD
 <link rel="import" href="../cranberry-profile-page/cranberry-profile-page.html">
+=======
+<link rel="import" href="../cranberry-chart-beat/cranberry-chart-beat.html">
+>>>>>>> michael-development
 <link rel="import" href="../google-dfp/google-dfp.html">
 
 <dom-module id="cranberry-base">
@@ -91,6 +95,9 @@
 
     <!-- Google Analytics -->
     <cranberry-google-analytics user="[[user]]" tracking-id='{$ config.google.analytics | dump $}'></cranberry-google-analytics>
+    
+    <!-- Chartbeat -->
+    <cranberry-chart-beat author="{$ config.socialNaming.twitter $}" site-name="{$ config.chartbeat.domain $}" uid="{$ config.chartbeat.uid $}" route="[[route]]"></cranberry-chart-beat>
 
     <!-- Gigya socialize/accounts integration -->
     <gigya-socialize user="{{user}}" route="[[route]]" api-key="{$ config.gigya.apiKey $}"></gigya-socialize>

@@ -30,6 +30,7 @@ class cranberrySectionTracker {
 
     if (page === 'galleries' || tags) {
       this.set('section', 'news');
+      this.set('parentSection', '');
     } else if (page !== '' && page !== 'section' && page !== 'story' && page !== 'photo-gallery') {
       // REQUEST SECTION INFO
       params.request = 'section';
@@ -41,6 +42,7 @@ class cranberrySectionTracker {
       request.generateRequest();
     } else if (page === '') {
       this.set('section', 'homepage');
+      this.set('parentSection', '');
     }
   }
 
@@ -48,7 +50,11 @@ class cranberrySectionTracker {
     var result = JSON.parse(response.detail.Result);
 
     this.set('section', result.sectionName);
-    this.set('parentSection', result.sectionParent);
+    if (typeof result.sectionParent === 'undefined') {
+      this.set('parentSection', '');
+    } else {
+      this.set('parentSection', result.sectionParent);
+    }
   }
 
 }

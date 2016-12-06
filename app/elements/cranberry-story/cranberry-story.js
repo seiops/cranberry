@@ -328,7 +328,7 @@ class CranberryStory {
       // Check Tout location function
       this._checkTout();
       // DISTRO SETUP FUNCTION
-      this._setupDistro();
+      // this._setupDistro();
     }
   }
 
@@ -350,7 +350,17 @@ class CranberryStory {
   }
 
   _sendPageview(story) {
-    var { byline: { inputByline: byline }, published: published, tags: tags, itemId: storyId } = story;
+    var { byline: { inputByline: byline }, sectionInformation: { section }, published: published, tags: tags, itemId: storyId } = story;
+
+    if (typeof story.byline !== 'undefined') {
+      if (typeof story.byline.title !== 'undefined') {
+        byline = story.byline.title;
+      }
+    }
+
+    if (section === '') {
+      section = story.sectionInformation.sectionParentName;
+    }
 
     let data = {
       dimension1: (typeof byline !== 'undefined') ? byline : '',
@@ -361,6 +371,9 @@ class CranberryStory {
   
     // Send pageview event with iron-signals
     this.fire('iron-signal', {name: 'track-page', data: { path: '/story/' + storyId, data } });
+
+    // Send Chartbeat
+    this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/story/' + storyId, data: {'sections': section, 'authors': byline } } });
   }
 
   _handleResponse(json) {

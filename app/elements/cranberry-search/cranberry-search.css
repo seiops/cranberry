@@ -88,17 +88,12 @@ div.story-content iron-image {
   height: 84px;
 }
 
-.pagination-container {
-  @apply(--layout-horizontal);
+div.pagination-wrapper {
   @apply(--layout-center);
-  @apply(--layout-center-justified);
-  margin-top: 50px;
-}
-
-.pagination-container paper-button.prev-button {
-  background: var(--dark-primary-color);
-  @apply(--paper-font-button);
-  color: var(--text-primary-color);
+  @apply(--layout-flex);
+  @apply(--layout-vertical);
+  margin-top: 24px;
+  padding-bottom: 24px;
 }
 
 .loading {
