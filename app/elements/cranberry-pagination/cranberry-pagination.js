@@ -20,8 +20,16 @@ class cranberryPagination {
       hidePreviousButton: {
         type: Boolean,
         value: true
-      }
-    }
+      },
+      section: {
+        type: String,
+        observer: '_sectionChanged'
+      },
+      parent: {
+        type: String,
+        observer: '_parentSectionChanged'
+      },
+    };
   }
 
   _showPrevious() {
@@ -64,5 +72,16 @@ class cranberryPagination {
       this._showPreviousButton();
     }
   }
+
+  _sectionChanged(newValue, oldValue) {
+    this.set('start', 1);
+    this.set('currentPage', 1);
+  }
+
+  _parentSectionChanged(newValue, oldValue) {
+    this.set('start', 1);
+    this.set('currentPage', 1);
+  }
+
 }
 Polymer(cranberryPagination);
