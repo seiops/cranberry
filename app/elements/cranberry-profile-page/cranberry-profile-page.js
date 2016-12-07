@@ -31,6 +31,10 @@ class cranberryProfilePage {
       hideContent: {
         type: Boolean,
         value: true
+      },
+      start: {
+        type: Number,
+        observer: '_startChanged'
       }
     }
     this.observers = [
@@ -44,13 +48,16 @@ class cranberryProfilePage {
   }
 
   _routeChanged(newRoute, oldRoute) {
-    let pathArray = newRoute.path.split('/');
-    
-    if (pathArray.length > 2) {
-      this.set('fname', pathArray[1]);
-      this.set('lname', pathArray[2]);
-    } else {
-      this.set('userId', pathArray[1]);
+    console.dir(newRoute);
+    if (typeof newRoute !== 'undefined' && typeof newRoute.path !== 'undefined' && newRoute.path !== null) {
+      let pathArray = newRoute.path.split('/');
+      
+      if (pathArray.length > 2) {
+        this.set('fname', pathArray[1]);
+        this.set('lname', pathArray[2]);
+      } else {
+        this.set('userId', pathArray[1]);
+      }
     }
   }
 
@@ -59,7 +66,6 @@ class cranberryProfilePage {
     if (typeof userId !== 'undefined') {
       console.log('FETCH WITH ' + userId);
       this._setupProfileRequest(true);
-      // http://srdevcore.libercus.net/rest.json?request=congero&desiredContent=staffMember&userid=24644
     }
   }
 
@@ -69,12 +75,10 @@ class cranberryProfilePage {
     if (typeof fname !== 'undefined' && typeof lname !== 'undefined' && (typeof userId === 'undefined' || userId === '')) {
       console.log('FETCH WITH NAME ' + fname + ' ' + lname);
       this._setupProfileRequest(false);
-      // http://srdevcore.libercus.net/rest.json?request=congero&desiredContent=staffMember&userid=999&fname=fname&lname=lname
     }
   }
 
-  _fetchContentWithName(fname, lname) {
-    console.log('Fetching content');
+  _fetchContentWithName(fname, lname, start) {
     // Fetch content with the first and last names
     if (typeof fname !== 'undefined' && typeof lname !== 'undefined') {
       let requester = this.$.profileListRequest;
@@ -86,7 +90,12 @@ class cranberryProfilePage {
 
       params.request = 'content-list';
       params.desiredContent = 'story_gallery';
-      params.desiredStart = '1';
+      if (typeof start !== 'undefined') {
+        params.desiredStart = start;
+      } else {
+        params.desiredStart = '1';
+      }
+      
       params.desiredFeaturedCount = '1';
       params.desiredStoryByline = fname + ' ' + lname;
 
@@ -142,6 +151,7 @@ class cranberryProfilePage {
 
     this.set('featuredContent', result.featured[0]);
     this.set('content', result.content);
+    this._firePageview();
   }
 
   _profileChanged(newValue, oldValue) {
@@ -155,6 +165,27 @@ class cranberryProfilePage {
       this.set('hideContent', true);
     }
   }
+
+  _firePageview() {
+    let section = this.get('userId');
+    let author = this.get('author');
+
+    this.async(() => {
+      this.fire('iron-signal', {name: 'track-page', data: { path: '/profile/' + section, data: { 'dimension7': '/profile/' + section } } });
+      this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/profile/' + section, data: {'sections': '/profile/' + section, 'authors': author } } });
+    });
+  }
+
+  _startChanged(start, oldStart) {
+    this.async(function () {
+      if (typeof oldStart !== 'undefined' && typeof start !== 'undefined') {
+        console.info('\<cranberry-profile-page\> start changed -\> ' + start);
+        let fname = this.get('fname');
+        let lname = this.get('lname');
+        this._fetchContentWithName(fname, lname, start);
+      }
+    });
+    }
 
 }
 Polymer(cranberryProfilePage);

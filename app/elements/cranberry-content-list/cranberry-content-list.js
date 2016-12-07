@@ -10,9 +10,6 @@ class CranberryContentList {
         type: String
       },
       previousSection: String,
-      loadSection: {
-        type: String
-      },
       hidePreviousButton: {
         type: Boolean,
         value: true

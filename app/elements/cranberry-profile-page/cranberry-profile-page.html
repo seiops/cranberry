@@ -10,23 +10,44 @@
       @import "cranberry-profile-page/cranberry-profile-page";
     </style>
 
-    <byutv-jsonp cache on-response="_handleResponse" id="profileRequest" debounce-duration="300"></byutv-jsonp>
-    <byutv-jsonp cache on-response="_handleListResponse" id="profileListRequest"></byutv-jsonp>
+    <byutv-jsonp cache on-response="_handleResponse" id="profileRequest" debounce-duration="300" loading="{{profileLoading}}"></byutv-jsonp>
+    <byutv-jsonp cache on-response="_handleListResponse" id="profileListRequest" loading="{{contentLoading}}"></byutv-jsonp>
 
-    <div class="featured">
-      <div class="profile-card-container">
-        <cranberry-profile-card profile="[[profile]]"></cranberry-profile-card>
+    <div class="headline-advertisement">
+      <google-dfp
+        section="news"
+        ad-pos="leaderboard"
+        ad-size-mapping="leaderboard"
+        ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
+        ad-group="{$ config.dfpAdStructure.adGroupID $}"
+        ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
+        ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}">
+      </google-dfp>
+    </div>
+
+    <div class="main-content-wrapper" hidden$="[[contentLoading]]" hidden$="[[profileLoading]]">
+      <div class="featured">
+        <div class="profile-card-container">
+          <cranberry-profile-card profile="[[profile]]"></cranberry-profile-card>
+        </div>
+
+        <div class="featured-story">
+          <cranberry-card item$="[[featuredContent]]" index="0" featured hide-info></cranberry-card>
+        </div>
       </div>
 
-      <div class="featured-story">
-        <cranberry-card item$="[[featuredContent]]" index="0" featured hide-info></cranberry-card>
+      <div>
+        <cranberry-content-list items="{{content}}" tracked-section="news" hidden$="[[hideContent]]"></cranberry-content-list>
+        <div class="pagination-wrapper">
+          <cranberry-pagination start="{{start}}" current-page="{{currentPage}}" section="[[trackerSection]]" parent="[[trackerParentSection]]"></cranberry-pagination>
+        </div>
       </div>
     </div>
 
-    <div>
-      <cranberry-content-list items="{{content}}" tracked-section="news" hidden$="[[hideContent]]"></cranberry-content-list>
+    <div class="loading-container" hidden$="[[!contentLoading]]" hidden$="[[!profileLoading]]">
+      <paper-spinner active$="[[contentLoading]]" active$="[[profileLoading]]"></paper-spinner>
+      <p>Fetching Your Content...</p>
     </div>
-
   </template>
     <script src="cranberry-profile-page.js"></script>
 </dom-module>

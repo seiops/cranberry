@@ -470,7 +470,7 @@ class CranberryStory {
       tempObject.title = (byline.title !== '') ? byline.title : byline.first + ' ' + byline.last;
       tempObject.inputByline = byline.inputByline;
       tempObject.location = byline.location;
-      tempObject.profileUrl = baseUrl + '/profile/' + byline.bylineid;
+      tempObject.profileUrl = '/profile/' + byline.bylineid;
 
       this.set('hasProfile', true);
     } else {
