@@ -87,8 +87,7 @@ class cranberryStaffList {
       var result = JSON.parse(response.Result);
 
       this.set('items', result);
-
-      console.info(result);
+      
       if (result.length === 0) {
         let contactPage = document.querySelector('cranberry-contact-page');
 

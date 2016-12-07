@@ -219,7 +219,6 @@ class CranberryStory {
   }
 
   _computeBylineImageURL(url) {
-    console.log(url);
     let baseUrl = this.get('baseUrl');
 
     if (typeof url === 'undefined') {
@@ -461,8 +460,6 @@ class CranberryStory {
     let byline = story.byline;
     let tempObject = {};
 
-    console.dir(byline);
-
     tempObject.image = byline.image;
 
     if (typeof byline.bylineid !== 'undefined') {
@@ -486,9 +483,6 @@ class CranberryStory {
         tempObject.title = byline.inputByline;
       }
     }
-
-    console.log('TEMP OBJECT FOR BYLINE');
-    console.dir(tempObject);
 
     this.set('byline', tempObject);
   }

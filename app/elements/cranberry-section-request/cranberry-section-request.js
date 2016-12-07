@@ -86,7 +86,7 @@ class cranberrySectionRequest {
         if (tempParent !== parentSection) {
           this.set('tempParent', parent);
         }
-        console.log('SECTION FROM SECTION REQUEST: ' + section);
+        
         if (tempSection !== section && tempParent !== parentSection) {
           // This is a new section!
           this.set('tempHidden', false);
@@ -148,8 +148,6 @@ class cranberrySectionRequest {
   }
 
   _updateParams(loadSection) {
-    console.log('UPDATE PARAMS CALLED: ' + loadSection);
-
     this.async(function () {
       let currentRequest = this.get('request');
 
@@ -194,7 +192,6 @@ class cranberrySectionRequest {
   }
 
   _changeParams() {
-    console.log('THE PARAMS HAVE CHANGED!');
     let params = this.get('params');
     
     if (params.length !== 0) {

@@ -18,18 +18,20 @@
 
     <div class="card-container">
       <template is="dom-repeat" items="{{items}}">
-        <paper-card image="{{_computeStaffImage(item.image)}}">
-          <div class="card-content">
-            <div class="content-container">
-              <div class="content">
-                <p class="remove-margin name">{{item.title}}</p>
-                <p class="remove-margin caption-text">{{item.categoryName}}</p>
+        <a href$="/profile/[[item.byLineId]]" ga-on="click" ga-event-category="Contact Page Profile Clicked" ga-event-action$="uti_prf_crd_[[index]]">
+          <paper-card image="{{_computeStaffImage(item.image)}}">
+            <div class="card-content">
+              <div class="content-container">
+                <div class="content">
+                  <p class="remove-margin name">{{item.title}}</p>
+                  <p class="remove-margin caption-text">{{item.categoryName}}</p>
+                </div>
+                <!-- Button disabled currently -->
+                <paper-icon-button disabled icon="icons:more-vert"></paper-icon-button>
               </div>
-              <!-- Button disabled currently -->
-              <paper-icon-button disabled icon="icons:more-vert"></paper-icon-button>
             </div>
-          </div>
-        </paper-card>
+          </paper-card>
+        </a>
       </template>
     </div>
   </template>

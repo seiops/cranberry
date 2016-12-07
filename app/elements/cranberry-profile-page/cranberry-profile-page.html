@@ -10,8 +10,8 @@
       @import "cranberry-profile-page/cranberry-profile-page";
     </style>
 
-    <byutv-jsonp cache on-response="_handleResponse" id="profileRequest" debounce-duration="300" loading="{{profileLoading}}"></byutv-jsonp>
-    <byutv-jsonp cache on-response="_handleListResponse" id="profileListRequest" loading="{{contentLoading}}"></byutv-jsonp>
+    <byutv-jsonp cache on-response="_handleResponse" id="profileRequest" debounce-duration="300" last-request="{{profileRequest}}" loading="{{profileLoading}}"></byutv-jsonp>
+    <byutv-jsonp cache on-response="_handleListResponse" id="profileListRequest" debounce-duration="300" last-request="{{profileListrequest}}" loading="{{contentLoading}}"></byutv-jsonp>
 
     <div class="headline-advertisement">
       <google-dfp
@@ -31,14 +31,14 @@
           <cranberry-profile-card profile="[[profile]]"></cranberry-profile-card>
         </div>
 
-        <div class="featured-story">
+        <div class="featured-story" hidden$="[[hideFeatured]]">
           <cranberry-card item$="[[featuredContent]]" index="0" featured hide-info></cranberry-card>
         </div>
       </div>
 
       <div>
         <cranberry-content-list items="{{content}}" tracked-section="news" hidden$="[[hideContent]]"></cranberry-content-list>
-        <div class="pagination-wrapper">
+        <div class="pagination-wrapper" hidden$="[[hideContent]]">
           <cranberry-pagination start="{{start}}" current-page="{{currentPage}}" section="[[trackerSection]]" parent="[[trackerParentSection]]"></cranberry-pagination>
         </div>
       </div>

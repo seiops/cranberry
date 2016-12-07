@@ -16,12 +16,10 @@ class cranberryProfilePage {
         type: String
       },
       profile: {
-        type: Object,
-        observer: '_profileChanged'
+        type: Object
       },
       content: {
-        type: Object,
-        observer: '_contentChanged'
+        type: Object
       },
       featuredContent: {
         type: Object
@@ -32,9 +30,21 @@ class cranberryProfilePage {
         type: Boolean,
         value: true
       },
+      hideFeatured: {
+        type: Boolean,
+        value: true
+      },
       start: {
         type: Number,
         observer: '_startChanged'
+      },
+      contentLoading: {
+        type: Boolean,
+        value: true
+      },
+      profileLoading: {
+        type: Boolean,
+        value: true
       }
     }
     this.observers = [
@@ -44,12 +54,12 @@ class cranberryProfilePage {
     ]
   }
 
-  ready() {
-  }
-
   _routeChanged(newRoute, oldRoute) {
-    console.dir(newRoute);
     if (typeof newRoute !== 'undefined' && typeof newRoute.path !== 'undefined' && newRoute.path !== null) {
+      this.set('content', []);
+      this.set('featuredContent', []);
+      this.set('profile', {});
+
       let pathArray = newRoute.path.split('/');
       
       if (pathArray.length > 2) {
@@ -64,7 +74,6 @@ class cranberryProfilePage {
   _fetchProfile(userId) {
     // Fetch profile with just userId
     if (typeof userId !== 'undefined') {
-      console.log('FETCH WITH ' + userId);
       this._setupProfileRequest(true);
     }
   }
@@ -73,39 +82,63 @@ class cranberryProfilePage {
     let userId = this.get('userId');
     // Fetch profile with the first and last names setting userid to 999
     if (typeof fname !== 'undefined' && typeof lname !== 'undefined' && (typeof userId === 'undefined' || userId === '')) {
-      console.log('FETCH WITH NAME ' + fname + ' ' + lname);
       this._setupProfileRequest(false);
     }
   }
 
-  _fetchContentWithName(fname, lname, start) {
-    // Fetch content with the first and last names
-    if (typeof fname !== 'undefined' && typeof lname !== 'undefined') {
-      let requester = this.$.profileListRequest;
+  debouncedChanged(fname, lname, start) {
+    // Debounce function to ensure that all values are properly set.
+    this.debounce('debouncedChanged', ()  => {
+      // Fetch content with the first and last names
+      if (typeof fname !== 'undefined' && typeof lname !== 'undefined') {
+        this.set('content', []);
+        this.set('featuredContent', []);
 
-      requester.url = this.rest;
-      requester.setAttribute('callback-value', 'profileListCallback');
+        let requester = this.$.profileListRequest;
+        let currentRequest = this.get('profileListRequest');
 
-      let params = {};
+        if (typeof currentRequest !== 'undefined' && currentRequest.loading === true) {
+          console.info('<\cranberry-profile-page\> aborting previous request');
+          requester.abortRequest(currentRequest);
+        }
 
-      params.request = 'content-list';
-      params.desiredContent = 'story_gallery';
-      if (typeof start !== 'undefined') {
-        params.desiredStart = start;
-      } else {
-        params.desiredStart = '1';
+        requester.url = this.rest;
+        requester.setAttribute('callback-value', 'profileListCallback');
+
+        let params = {};
+
+        params.request = 'content-list';
+        params.desiredContent = 'story_gallery';
+        if (typeof start !== 'undefined') {
+          params.desiredStart = start;
+        } else {
+          params.desiredStart = '1';
+        }
+        
+        params.desiredFeaturedCount = '1';
+        params.desiredStoryByline = fname + ' ' + lname;
+
+        requester.set('params', params);
+        requester.generateRequest();
       }
-      
-      params.desiredFeaturedCount = '1';
-      params.desiredStoryByline = fname + ' ' + lname;
+    });
+  }
 
-      requester.set('params', params);
-      requester.generateRequest();
-    }
+  _fetchContentWithName(fname, lname, start) {
+    this.async(() => {
+      this.debouncedChanged(fname, lname, start);
+    });
   }
 
   _setupProfileRequest(useUserId) {
+    this.set('profile', {});
     let requester = this.$.profileRequest;
+    let currentRequest = this.get('profileRequest');
+
+    if (typeof currentRequest !== 'undefined' && currentRequest.loading === true) {
+      console.info('<\cranberry-profile-page\> aborting previous request');
+      requester.abortRequest(currentRequest);
+    }
 
     requester.url = this.rest;
     requester.setAttribute('callback-value', 'profileCallback');
@@ -149,21 +182,21 @@ class cranberryProfilePage {
 
     let result = JSON.parse(json.detail.Result);
 
-    this.set('featuredContent', result.featured[0]);
-    this.set('content', result.content);
-    this._firePageview();
-  }
-
-  _profileChanged(newValue, oldValue) {
-    console.dir(newValue);
-  }
-
-  _contentChanged(newValue, oldValue) {
-    if (typeof newValue !== 'undefined' && newValue.length > 0) {
+    if (result.featured.length > 0) {
+      this.set('featuredContent', result.featured[0]);
+      this.set('hideFeatured', false);
+    } else {
+      this.set('hideFeatured', true);
+    }
+    
+    if (result.content.length > 0) {
+      this.set('content', result.content);
       this.set('hideContent', false);
     } else {
       this.set('hideContent', true);
     }
+
+    this._firePageview();
   }
 
   _firePageview() {
@@ -177,15 +210,14 @@ class cranberryProfilePage {
   }
 
   _startChanged(start, oldStart) {
-    this.async(function () {
-      if (typeof oldStart !== 'undefined' && typeof start !== 'undefined') {
-        console.info('\<cranberry-profile-page\> start changed -\> ' + start);
-        let fname = this.get('fname');
-        let lname = this.get('lname');
-        this._fetchContentWithName(fname, lname, start);
-      }
-    });
+      this.async(function () {
+        if (typeof oldStart !== 'undefined' && typeof start !== 'undefined') {
+          console.info('\<cranberry-profile-page\> start changed -\> ' + start);
+          let fname = this.get('fname');
+          let lname = this.get('lname');
+          this._fetchContentWithName(fname, lname, start);
+        }
+      });
     }
-
 }
 Polymer(cranberryProfilePage);

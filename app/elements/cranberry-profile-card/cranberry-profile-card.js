@@ -27,21 +27,20 @@ class cranberryProfileCard {
 
   _profileChanged(newValue, oldValue) {
     if (typeof newValue !== 'undefined' && typeof newValue.socialInfo !== 'undefined') {
-      if (typeof newValue.socialInfo.email !== 'undefined' && newValue.socialInfo.email !== '') {
-        this.set('hideEmail', false);
-      }
+      this._setHidden('email', newValue.socialInfo);
+      this._setHidden('facebook', newValue.socialInfo);
+      this._setHidden('linkedin', newValue.socialInfo);
+      this._setHidden('twitter', newValue.socialInfo);
+    }
+  }
 
-      if (typeof newValue.socialInfo.facebook !== 'undefined' && newValue.socialInfo.facebook !== '') {
-        this.set('hideFacebook', false);
-      }
-
-      if (typeof newValue.socialInfo.linkedin !== 'undefined' && newValue.socialInfo.linkedin !== '') {
-        this.set('hideLinkedin', false);
-      }
-
-      if (typeof newValue.socialInfo.twitter !== 'undefined' && newValue.socialInfo.twitter !== '') {
-        this.set('hideTwitter', false);
-      }
+  _setHidden(type, value) {
+    let variableType = 'hide' + type.charAt(0).toUpperCase() + type.slice(1);
+    
+    if (typeof value[type] !== 'undefined' && value[type] !== '') {
+      this.set(variableType, false);
+    } else {
+      this.set(variableType, true);
     }
   }
 }

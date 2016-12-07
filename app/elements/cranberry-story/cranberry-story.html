@@ -71,7 +71,7 @@
 
       <!-- Story Byline -->
       <template is="dom-if" if="[[hasProfile]]">
-        <a class="byline-link" href="[[byline.profileUrl]]">
+        <a class="byline-link" href="[[byline.profileUrl]]" ga-on="click" ga-event-category="Story Byline Clicked" ga-event-action="uti_prf_str_byline">
           <div class="body-text by-line-wrapper">
             <img src="[[_computeBylineImageURL(byline.image)]]" class="ut-circle-image"/>
             <div class="by-line-info">
