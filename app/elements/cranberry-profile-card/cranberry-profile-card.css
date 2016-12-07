@@ -34,10 +34,10 @@ div.profile-card p {
 /* Social Integration Styles */
 .rounded-button {
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  max-width: 40px;
-  max-height: 40px;
+  width: 35px;
+  height: 35px;
+  max-width: 35px;
+  max-height: 35px;
 }
 
 .social-buttons-container {
@@ -50,14 +50,14 @@ div.profile-card p {
 
 .social-buttons-container a {
   margin: 20px;
-  width: 40px;
+  width: 35px;
 }
 .social-buttons-container paper-icon-button {
   @apply(--layout-flex);
   border-radius: 50%;
-  padding: 4px;
-  max-width: 25px;
-  max-height: 25px;
+  padding: 6px;
+  max-width: 35px;
+  max-height: 35px;
   color: var(--accent-color);
   background-color: var(--light-accent-color);
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);

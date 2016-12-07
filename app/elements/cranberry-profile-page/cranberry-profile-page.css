@@ -2,11 +2,14 @@
   display: block;
 }
 
+div.profile-card-container {
+  @apply(--layout-flex-3);
+}
+
 div.featured {
   @apply(--layout-horizontal);
   @apply(--layout-wrap);
   padding: 16px;
-  height: 500px;
 }
 
 div.featured cranberry-card {
@@ -17,16 +20,15 @@ div.featured cranberry-card::shadow div.card{
   height: 100%;
 }
 
-
 cranberry-profile-card {
-  @apply(--layout-flex);
-  min-width: 400px;
-  max-width: 400px;
   height: 100%;
+  min-height: 500px;
+  min-width: 320px;
+  margin-bottom: 8px;
 }
 
 div.featured-story {
-  @apply(--layout-flex-3);
+  @apply(--layout-flex-8);
 }
 
 iron-image {
