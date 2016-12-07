@@ -18,16 +18,16 @@
         <p>[[profile.description]]Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
       </div>
       <div class="social-buttons-container">
-        <a href="mailto:[[profile.socialInfo.email]]" tabindex="-1" target="_blank" ga-on="click" ga-event-category="Profile Social Link Clicked" ga-event-action="uti_prf_exlk_email" hidden$="[[hideEmail]]">
+        <a href$="mailto:[[profile.socialInfo.email]]" tabindex="-1" ga-on="click" ga-event-category="Profile Social Link Clicked" ga-event-action="uti_prf_exlk_email" hidden$="[[hideEmail]]">
           <paper-icon-button class="rounded-button" icon="fa:envelope-o"></paper-icon-button>
         </a>
-        <a href="[[profile.socialInfo.facebook]]" tabindex="-1" target="_blank" ga-on="click" ga-event-category="Social Link Clicked" ga-event-action="uti_prf_exlk_fbel" hidden$="[[hideFacebook]]">
+        <a href$="http://www.facebook.com/[[profile.socialInfo.facebook]]" tabindex="-1" target="_blank" ga-on="click" ga-event-category="Social Link Clicked" ga-event-action="uti_prf_exlk_fbel" hidden$="[[hideFacebook]]">
           <paper-icon-button class="rounded-button" icon="fa:facebook"></paper-icon-button>
         </a>
-        <a href="[[profile.socialInfo.twitter]]" tabindex="-1" target="_blank" ga-on="click" ga-event-category="Social Link Clicked" ga-event-action="uti_prf_exlk_twel" hidden$="[[hideTwitter]]">
+        <a href$="http://www.twitter.com/[[profile.socialInfo.twitter]]" tabindex="-1" target="_blank" ga-on="click" ga-event-category="Social Link Clicked" ga-event-action="uti_prf_exlk_twel" hidden$="[[hideTwitter]]">
           <paper-icon-button class="rounded-button" icon="fa:twitter"></paper-icon-button>
         </a>
-        <a href="[[profile.socialInfo.linkedin]]" tabindex="-1" target="_blank" ga-on="click" ga-event-category="Social Link Clicked" ga-event-action="uti_pef_exlk_lkdnel" hidden$="[[hideLinkedin]]">
+        <a href$="http://www.linkedin.com/[[profile.socialInfo.linkedin]]" tabindex="-1" target="_blank" ga-on="click" ga-event-category="Social Link Clicked" ga-event-action="uti_pef_exlk_lkdnel" hidden$="[[hideLinkedin]]">
           <paper-icon-button class="rounded-button" icon="fa:linkedin"></paper-icon-button>
         </a>
       </div>

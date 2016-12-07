@@ -8,19 +8,19 @@ class cranberryProfileCard {
       },
       hideEmail: {
         type: Boolean,
-        value: false
+        value: true
       },
       hideFacebook: {
         type: Boolean,
-        value: false
+        value: true
       },
       hideLinkedin: {
         type: Boolean,
-        value: false
+        value: true
       },
       hideTwitter: {
         type: Boolean,
-        value: false
+        value: true
       },
     }
   }
