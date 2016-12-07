@@ -274,7 +274,7 @@ module.exports = {
       target: ''
     },
     {
-      linkText: 'entertainment',
+      linkText: 'Entertainment',
       linkUrl: '/section/entertainment',
       linkIcon: 'image:palette',
       target: ''
