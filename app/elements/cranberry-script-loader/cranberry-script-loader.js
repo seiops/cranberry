@@ -11,7 +11,7 @@ class CranberryScriptLoader {
     console.info('\<cranberry-script-loader\> attached');
   }
 
-  loadScript(url, id, attribute) {
+  loadScript(url, id, attribute, appendToBody) {
     console.info('\<cranberry-script-loader\> loading ' + url);
 
     let embed = document.createElement('script');
@@ -31,11 +31,14 @@ class CranberryScriptLoader {
     } else {
       embed.async = true;
     }
-
-    let script = document.getElementsByTagName('script')[0];
-    let parent = script.parentNode;
-
-    parent.insertBefore(embed, script);
+    if (typeof appendToBody !== 'undefined' && appendToBody) {
+      let body = document.getElementsByTagName('body')[0];
+      body.appendChild(embed);
+    } else {
+      let script = document.getElementsByTagName('script')[0];
+      let parent = script.parentNode;
+      parent.insertBefore(embed, script);
+    }
   }
 }
 Polymer(CranberryScriptLoader);

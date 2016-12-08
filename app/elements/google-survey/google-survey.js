@@ -55,7 +55,7 @@ class googleSurvey {
 
     let loader = document.querySelector('cranberry-script-loader');
 
-    loader.loadScript(url, 'googleSurveyScript', 'defer');
+    loader.loadScript(url, 'googleSurveyScript', 'async', true);
 
     try { _402_Show(); } catch(e) {};
   }
