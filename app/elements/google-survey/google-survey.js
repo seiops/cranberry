@@ -52,13 +52,13 @@ class googleSurvey {
     let ARTICLE_URL = window.location.href;
     let CONTENT_ID = 'everything';
 
-    // window.TriggerPrompt(ARTICLE_URL, CONTENT_ID);
+    window.TriggerPrompt(ARTICLE_URL, CONTENT_ID);
 
-    let url = 'http://survey.g.doubleclick.net/survey?site=' + gcsSurveyId + '&url=' + encodeURIComponent(ARTICLE_URL) + (CONTENT_ID ? '&cid=' + encodeURIComponent(CONTENT_ID) : '') + '&random=' + (new Date).getTime() + '&after=1';
+    // let url = 'http://survey.g.doubleclick.net/survey?site=' + gcsSurveyId + '&url=' + encodeURIComponent(ARTICLE_URL) + (CONTENT_ID ? '&cid=' + encodeURIComponent(CONTENT_ID) : '') + '&random=' + (new Date).getTime() + '&after=1';
       
-    let loader = document.querySelector('cranberry-script-loader');
+    // let loader = document.querySelector('cranberry-script-loader');
 
-    loader.loadScript(url, 'googleSurveyScript', undefined, true);
+    // loader.loadScript(url, 'googleSurveyScript', undefined, true);
   }
 }
 Polymer(googleSurvey);
