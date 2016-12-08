@@ -71,7 +71,7 @@ module.exports = {
   // Jobs Network
   jobs: {
       affiliateId: '1606',
-      widgetId: '3167'
+      widgetId: '2372'
   },
   // Contact Page Config
   // Entire contact information needs changed

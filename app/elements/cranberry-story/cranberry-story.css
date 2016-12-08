@@ -175,3 +175,8 @@ div.right-rail gigya-top-comments {
 div.right-rail gigya-top-comments::shadow div.wrapper {
   margin: 0;
 }
+
+div.jobs-container {
+  width: 100%;
+  height: 348px;
+}
