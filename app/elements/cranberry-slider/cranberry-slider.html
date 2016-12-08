@@ -15,7 +15,7 @@
       <div class="slider-container" id="slider">
         <div id="mover" class="mover">
           <template is="dom-repeat" items="{{items}}" filter="_computeShow" id="sliderRepeat">
-            <iron-image id="currentImage" preload fade class="slider-item" src="[[baseUrl]][[item.exlarge]]" data-index$="[[index]]" loading="{{imageLoading}}" sizing="contain" hidden$="[[hideImage]]"></iron-image>
+            <iron-image id="currentImage" preload fade class="slider-item" src="[[baseUrl]][[item.galleryImage]]" data-index$="[[index]]" loading="{{imageLoading}}" sizing="contain" hidden$="[[hideImage]]"></iron-image>
           </template>
           <template is="dom-if" if="{{hideImage}}" restamp>
             <div class="inGalleryAd">
