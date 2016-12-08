@@ -1,0 +1,38 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../cranberry-font-awesome/cranberry-font-awesome.html">
+
+<dom-module id="cranberry-profile-card">
+  <template>
+    <style>
+      @import "cranberry-profile-card/cranberry-profile-card";
+    </style>
+
+    <div class="profile-card">
+      <div class="profile-card-content">
+        <iron-image class="profile-image" sizing="cover" src="{$ config.baseDomain $}[[profile.image]]"></iron-image>
+        <p>[[profile.first]] [[profile.last]]</p>
+        <p>[[profile.location]]</p>
+        <p>[[profile.category]]</p>
+        <p>[[profile.description]]</p>
+      </div>
+      <div class="social-buttons-container">
+        <a href$="mailto:[[profile.socialInfo.email]]" tabindex="-1" ga-on="click" ga-event-category="Profile Social Link Clicked" ga-event-action="uti_prf_exlk_email" hidden$="[[hideEmail]]">
+          <paper-icon-button class="rounded-button" icon="fa:envelope-o"></paper-icon-button>
+        </a>
+        <a href$="http://www.facebook.com/[[profile.socialInfo.facebook]]" tabindex="-1" target="_blank" ga-on="click" ga-event-category="Social Link Clicked" ga-event-action="uti_prf_exlk_fbel" hidden$="[[hideFacebook]]">
+          <paper-icon-button class="rounded-button" icon="fa:facebook"></paper-icon-button>
+        </a>
+        <a href$="http://www.twitter.com/[[profile.socialInfo.twitter]]" tabindex="-1" target="_blank" ga-on="click" ga-event-category="Social Link Clicked" ga-event-action="uti_prf_exlk_twel" hidden$="[[hideTwitter]]">
+          <paper-icon-button class="rounded-button" icon="fa:twitter"></paper-icon-button>
+        </a>
+        <a href$="http://www.linkedin.com/[[profile.socialInfo.linkedin]]" tabindex="-1" target="_blank" ga-on="click" ga-event-category="Social Link Clicked" ga-event-action="uti_pef_exlk_lkdnel" hidden$="[[hideLinkedin]]">
+          <paper-icon-button class="rounded-button" icon="fa:linkedin"></paper-icon-button>
+        </a>
+      </div>
+    </div>
+
+  </template>
+    <script src="cranberry-profile-card.js"></script>
+</dom-module>

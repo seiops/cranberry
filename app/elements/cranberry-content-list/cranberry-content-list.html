@@ -18,16 +18,6 @@
       @import "cranberry-content-list/cranberry-content-list";
     </style>
 
-    <!--<byutv-jsonp
-      verbose
-      cache
-      on-response="_handleResponse"
-      on-load="_handleLoad"
-      last-response="{{response}}"
-      last-request="{{request}}"
-      last-error="{{error}}"
-      id="request"></byutv-jsonp>-->
-
       <div class="content-cards-wrapper">
         <div class="content-cards">
           <ul class="app-grid">
@@ -83,12 +73,12 @@
                   </li>
                 </template>
                 <!-- TOUT EMBED FOR SECTION FRONT -->
-                <template is="dom-if" if="[[_checkToutPlacement(index)]]" restamp>
+                <!--<template is="dom-if" if="[[_checkToutPlacement(index)]]" restamp>
                   <template is="dom-if" if="[[displayTout]]" restamp>
                     <li class="item expandable">
                       <tout-embed-element slot="[[trackedSection]]"></tout-embed-element>
                     </li>
-                  </template>
+                  </template>-->
                 </template>
             </template>
           </ul>

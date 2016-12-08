@@ -31,7 +31,8 @@ class cranberrySectionTracker {
     if (page === 'galleries' || tags) {
       this.set('section', 'news');
       this.set('parentSection', '');
-    } else if (page !== '' && page !== 'section' && page !== 'story' && page !== 'photo-gallery') {
+    } else if (page !== '' && page !== 'section' && page !== 'story' && page !== 'photo-gallery' && page !== 'profile' && page !== 'contact'
+    && page !== 'archive' && page !== 'forecast') {
       // REQUEST SECTION INFO
       params.request = 'section';
       params.desiredSection = page;

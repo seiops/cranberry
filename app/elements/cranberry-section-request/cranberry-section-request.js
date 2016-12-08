@@ -86,7 +86,7 @@ class cranberrySectionRequest {
         if (tempParent !== parentSection) {
           this.set('tempParent', parent);
         }
-
+        
         if (tempSection !== section && tempParent !== parentSection) {
           // This is a new section!
           this.set('tempHidden', false);
@@ -228,7 +228,7 @@ class cranberrySectionRequest {
 
   _startChanged(start, oldStart) {
       this.async(function () {
-        if (typeof oldStart !== 'undefined') {
+        if (typeof oldStart !== 'undefined' && typeof start !== 'undefined') {
           console.info('\<cranberry-section-request\> start changed -\> ' + start);
           this._updateParams();
           this._firePageview();

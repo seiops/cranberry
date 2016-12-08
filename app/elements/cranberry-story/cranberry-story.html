@@ -70,19 +70,29 @@
       </div>
 
       <!-- Story Byline -->
-      <div class="body-text by-line-wrapper">
-        <img src="{{_computeBylineURL(story.byline.image)}}" class="ut-circle-image"/>
-        <div class="by-line-info">
-          <p>{{story.byline.inputByLine}}</p>
-          <p>{% if story.byline.name != undefined %}
-              {{story.byline.name}}
-             {% else %}
-              {{story.byline.inputByline}}
-             {% endif %}
-          </p>
-          <p>{{story.byline.jobtitle}}</p>
+      <template is="dom-if" if="[[hasProfile]]">
+        <a class="byline-link" href="[[byline.profileUrl]]" ga-on="click" ga-event-category="Story Byline Clicked" ga-event-action="uti_prf_str_byline">
+          <div class="body-text by-line-wrapper">
+            <img src="[[_computeBylineImageURL(byline.image)]]" class="ut-circle-image"/>
+            <div class="by-line-info">
+              <p>[[byline.title]]</p>
+              <p>[[byline.location]]</p>
+              <p>[[byline.jobtitle]]</p>
+            </div>
+          </div>
+        </a>
+      </template>
+
+      <template is="dom-if" if="[[!hasProfile]]">
+        <div class="body-text by-line-wrapper">
+          <img src="[[_computeBylineImageURL(byline.image)]]" class="ut-circle-image"/>
+          <div class="by-line-info">
+            <p>[[byline.title]]</p>
+            <p>[[byline.location]]</p>
+            <p>[[byline.jobtitle]]</p>
+          </div>
         </div>
-      </div>
+      </template>
 
       <!-- Story Content Area -->
       <div class="content-wrapper">

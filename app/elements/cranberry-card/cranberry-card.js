@@ -74,7 +74,9 @@ class CranberryCard {
     if (typeof sectionInformation !== 'undefined' && typeof sectionInformation.sectionName !== 'undefined') {
       temp = sectionInformation.sectionName.replace(/_/g, ' ').toLowerCase();
     } else {
-      temp = sectionInformation.sectionParent.replace(/_/g, ' ').toLowerCase();
+      if (typeof sectionInformation !== 'undefined' && typeof sectionInformation.sectionParent !== 'undefined') {
+        temp = sectionInformation.sectionParent.replace(/_/g, ' ').toLowerCase();
+      }
     }
 
     return temp;
