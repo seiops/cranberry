@@ -47,19 +47,18 @@ class googleSurvey {
   }
 
   _setupSurveyScript() {
-    // let gcsSurveyId = this.get('gcsSurveyId');
+    let gcsSurveyId = this.get('gcsSurveyId');
     
     let ARTICLE_URL = window.location.href;
     let CONTENT_ID = 'everything';
 
-    window.TriggerPrompt(ARTICLE_URL, CONTENT_ID);
-    // let url = 'http://survey.g.doubleclick.net/survey?site=' + gcsSurveyId + '&amp;url=' + encodeURIComponent(ARTICLE_URL) + (CONTENT_ID ? '&amp;cid=' + encodeURIComponent(CONTENT_ID) : '') + '&amp;random=' + (new Date).getTime();
+    // window.TriggerPrompt(ARTICLE_URL, CONTENT_ID);
 
-    // let loader = document.querySelector('cranberry-script-loader');
+    let url = 'http://survey.g.doubleclick.net/survey?site=' + gcsSurveyId + '&url=' + encodeURIComponent(ARTICLE_URL) + (CONTENT_ID ? '&cid=' + encodeURIComponent(CONTENT_ID) : '') + '&random=' + (new Date).getTime() + '&after=1';
+      
+    let loader = document.querySelector('cranberry-script-loader');
 
-    // loader.loadScript(url, 'googleSurveyScript', 'async', true);
-
-    // try { _402_Show(); } catch(e) {};
+    loader.loadScript(url, 'googleSurveyScript', undefined, true);
   }
 }
 Polymer(googleSurvey);
