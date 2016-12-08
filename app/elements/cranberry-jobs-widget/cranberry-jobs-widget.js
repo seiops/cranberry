@@ -24,51 +24,37 @@ class cranberryJobsWidget {
   }
 
   attached() {
-      let ajax = this.$.request;
+      let request = this.$.request;
       let widgetId = this.get('widgetId');
       let affiliateId = this.get('affiliateId');
+      let params = {};
+      let header = {};
+      let body = {};
 
-      this.async(function() {
-          let params = {};
-          let header = {};
-          let body = {};
-          header.TokenId = 0;
-          header.AffiliateId = affiliateId;
-          header.SessionId = null;
+      header.TokenId = 0;
+      header.AffiliateId = parseInt(affiliateId);
+      header.SessionId = null;
 
-          body.affiliateId = header.AffiliateId;
-          body.WidgetId = widgetId;
-          body.LocationIds = [];
-          body.count = 50;
+      body.affiliateId = header.AffiliateId;
+      body.WidgetId = widgetId;
+      body.LocationIds = [];
+      body.Count = 50;
 
-          params.header = JSON.stringify(header);
-          params.body = JSON.stringify(body);
+      params.header = JSON.stringify(header);
+      params.body = JSON.stringify(body);
+      request.setAttribute('callback-value', 'callbackSectionTracker');
 
+      request.params = params;
 
-          ajax.params = params;
-
-          ajax.generateRequest();
-      });
+      request.generateRequest();
   }
 
   _handleResponse(response) {
       let jobs = response.detail.body.Jobs;
 
       if (jobs.length > 0) {
-          let placement = this.get('placement');
-          let index = this.get('index');
-          let array = [];
-
-          if (placement === 'rail') {
-              index =  6;
-              this.set('index', index);
-          }
-
-          for (let i = 0; i < index; i++) {
-              array[i] = jobs[i];
-          }
-
-          this.set('items', array);
+        this.set('index', jobs.length);
+        this.set('items', jobs);
       }
   }
 

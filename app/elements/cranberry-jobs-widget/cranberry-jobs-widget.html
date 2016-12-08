@@ -9,6 +9,7 @@
       </style>
 
       <byutv-jsonp
+        cache
         id="request"
         url="http://sanduskyregister.thejobnetwork.com/RMAPI/widgets/Widget.svc/GetFeaturedJobs"
         on-response="_handleResponse"
@@ -18,15 +19,17 @@
           <div class="card-tag-container">
               <span class="card-tag">Jobs</span>
           </div>
-          <div class="card-content">
-              <template is="dom-repeat" items="{{items}}">
-                  <a href="[[item.JobUrl]]" class="item-link" target="_blank">
-                      <p class="item-company-name">[[item.CompanyName]]</p>
-                      <h3 class="item-title">[[item.Title]]</h3>
-                      <p class="item-location">[[item.Location]]</p>
-                  </a>
-                  <hr class="item-seperator" hidden$="{{_isLastItem(index)}}" />
-              </template>
+          <div class="card-content" id="scrollContainer">
+              <div class="scrolling-content">
+                <template is="dom-repeat" items="{{items}}">
+                    <a href="[[item.JobUrl]]" class="item-link" target="_blank">
+                        <p class="item-company-name">[[item.CompanyName]]</p>
+                        <h3 class="item-title">[[item.Title]]</h3>
+                        <p class="item-location">[[item.Location]]</p>
+                    </a>
+                    <hr class="item-seperator" hidden$="{{_isLastItem(index)}}" />
+                </template>
+            </div>
           </div>
 
   </template>
