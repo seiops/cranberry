@@ -3,10 +3,6 @@ class cranberryJailMugs {
     this.is = 'cranberry-jail-mugs';
     this.properties = {
       baseUrl: String,
-      addSliderEvent: {
-        type: Boolean,
-        value: true
-      },
       firstRun: {
         type: Boolean,
         value: true
@@ -159,36 +155,33 @@ class cranberryJailMugs {
   }
 
   onSliderJsonChanged(newValue) {
+    console.log(newValue);
     // Setup the images array
     let images = this._setupImages(newValue);
     let slider = this.$.mugSlider;
-    let self = this;
-    let addEvent = this.get('addSliderEvent');
     let currentMaxIndex = this.get('currentMaxIndex');
 
-    // If this event isnt already on the element then add it
-    if (!addEvent) {
-      slider.addEventListener('sliderMoved', function(e) {
-        console.log('SLIDER MOVED');
-        console.log(e);
-        
-        let index = e.detail.index;
-        let currentRecord = newValue[index];
-        let charges = self._computeChargesArray(currentRecord.charge.split(','));
-        // Change mug shot caption and indexes on page
-        self.set('currentMugName', currentRecord.title);
-        self.set('currentCharges', charges);
-        self.set('currentIndex', index);
-        // You can also refresh the ads from here by following what is in onRouteChanged
-      });
-    }
-    // Updat slider event, headline, and max index
-    this.set('addSliderEvent', false);
+    slider.removeEventListener('sliderMoved', this._event);
+    slider.addEventListener('sliderMoved', this._event.bind(this));
+
+    // Update slider event, headline, and max index
     this.set('currentHeadline', newValue[0].bookingDateFormatted);
     if (newValue.length !== currentMaxIndex) {
       this.set('currentMaxIndex', newValue.length);
     }
     slider.set('items', images);
+  }
+
+  _event(e) {
+    let records = this.get('sliderJson');
+    let index = e.detail.index;
+    let currentRecord = records[index - 1];
+
+    let charges = this._computeChargesArray(currentRecord.charge.split(','));
+    // Change mug shot caption and indexes on page
+    this.set('currentMugName', currentRecord.title);
+    this.set('currentCharges', charges);
+    this.set('currentIndex', index);
   }
 
   _checkPrevButton(start) {
