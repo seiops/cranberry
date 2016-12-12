@@ -174,7 +174,7 @@ class cranberrySectionRequest {
         jsonp.desiredTags = sections;
       } else {
         if (sections === 'homepage') {
-          sections = 'news,opinion,announcements,sports,entertainment,lifestyle';
+          sections = 'useHomepageVariable';
           homepageFlag = true;
         }
         jsonp.desiredSection = sections;
