@@ -47,3 +47,9 @@ div.loading-container {
   @apply(--layout-vertical);
   @apply(--layout-center);
 }
+
+div.headline-advertisement {
+  @apply(--layout-center-justified);
+  @apply(--layout-horizontal);
+  padding: 0 16px 16px;
+}
