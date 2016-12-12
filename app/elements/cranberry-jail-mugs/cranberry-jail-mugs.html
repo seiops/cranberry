@@ -12,8 +12,8 @@
       @import "cranberry-jail-mugs/cranberry-jail-mugs";
     </style>
 
-    <byutv-jsonp on-response="_handleResponse" debounce-duration="300" id="request"></byutv-jsonp>
-    <byutv-jsonp on-response="_handleSlides" debounce-duration="300" id="secondRequest"></byutv-jsonp>
+    <byutv-jsonp on-response="_handleResponse" debounce-duration="300" last-request="{{cardRequest}}" id="request"></byutv-jsonp>
+    <byutv-jsonp on-response="_handleSlides" debounce-duration="300" last-request="{{slideRequest}}" id="secondRequest"></byutv-jsonp>
 
     <iron-media-query query="(min-width: 960px)" query-matches="{{desktop}}"></iron-media-query>
     <iron-media-query query="(min-width: 720px) and (max-width:959px)" query-matches="{{tablet}}"></iron-media-query>

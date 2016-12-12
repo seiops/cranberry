@@ -221,10 +221,12 @@ class cranberryShortcode {
             wrapper.set('featuredTitle', featured.title);
             slider.set('items', featured.mediaAssets.images);
             slider.set('gallery', featured);
+            slider.set('galleryType', 'cranberry-story');
           } else {
             wrapper.set('featuredTitle', content.title);
             slider.set('items', content.mediaAssets.images);
             slider.set('gallery', content);
+            slider.set('galleryType', 'cranberry-story');
           }
 
           slider.set('baseUrl', baseUrl);

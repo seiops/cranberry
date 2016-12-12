@@ -86,6 +86,13 @@ class cranberryJailMugs {
   _buildCardRequest(start) {
     // Generate Request to build the cards at the bottom of the page
     let request = this.$.request;
+    let currentRequest = this.get('cardRequest');
+
+    if (typeof currentRequest !== 'undefined' && currentRequest.loading === true) {
+      console.info('<\cranberry-jail-mugs\> aborting previous request');
+      request.abortRequest(currentRequest);
+    }
+
     request.setAttribute('callback-value', 'cardCallback');
     let url = this.get('rest');
     let params = {
@@ -128,13 +135,20 @@ class cranberryJailMugs {
   }
 
   _buildSliderRequest(date) {
+    let request = this.$.secondRequest;
+    let currentRequest = this.get('slideRequest');
+
+    if (typeof currentRequest !== 'undefined' && currentRequest.loading === true) {
+      console.info('<\cranberry-jail-mugs\> aborting previous request');
+      request.abortRequest(currentRequest);
+    }
     // Generate request for image slider JSON
     let route = this.get('route');
     let routePath = route.path.replace('/', '');
     if (routePath !== '') {
       date = routePath;
     }
-    let request = this.$.secondRequest;
+    
     request.setAttribute('callback-value', 'slideCallback');
     let url = this.get('rest');
     let params = {
