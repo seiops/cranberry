@@ -36,7 +36,10 @@ class CranberryContentList {
       },
       trackedParentSection: String
     };
-    this.observers = ['_displayTout(hidden, trackedSection)'];
+    this.observers = [
+      '_displayTout(hidden, trackedSection)',
+      '_hiddenChanged(hidden)'
+    ];
   }
 
   attached() {
@@ -142,6 +145,20 @@ class CranberryContentList {
           }
         }
       }
+    });
+  }
+
+  _hiddenChanged(hidden, oldHidden) {
+    if (typeof hidden !== 'undefined' && hidden) {
+      this._destroyNativo();
+    }
+  }
+
+  _destroyNativo() {
+    let nativoAds = this.querySelectorAll('.ntv-ad-div');
+
+    nativoAds.forEach((index, value) => {
+      value.innerHTML = '';
     });
   }
 

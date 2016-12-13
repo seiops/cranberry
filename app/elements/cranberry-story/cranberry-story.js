@@ -164,6 +164,14 @@ class CranberryStory {
     this.set('hasProfile', false);
   }
 
+  _destroyNativo() {
+    let nativoAds = this.querySelectorAll('.ntv-ad-div');
+
+    nativoAds.forEach((index, value) => {
+      value.innerHTML = '';
+    });
+  }
+
   _closeShare() {
     let shareBar = Polymer.dom(this.root).querySelector('gigya-sharebar');
     shareBar.close();
@@ -201,6 +209,7 @@ class CranberryStory {
       if (hidden) {
         // Destroy the content
         this._destroyContent();
+        this._destroyNativo();
       } else {
         if (routeId === storyId) {
           this._checkStory();
@@ -239,6 +248,7 @@ class CranberryStory {
           let baseUrl = this.get('baseUrl');
           let toutUid = this.get('toutUid');
           let surveyOff = story.surveysOff;
+          let toutOff = story.toutOff;
           let surveyIndex = (story.surveyIndex === "0" || typeof story.surveyIndex === 'undefined') ? 3 : Number(story.surveyIndex);
           let gcsSurveyId = this.get('gcsSurveyId');
           let surveyParagraphs = [];
@@ -257,7 +267,7 @@ class CranberryStory {
 
               if (!distributeToSurveys) {
                 if (value.shortcode) {
-                  if (value.key === 'tout') {
+                  if (value.key === 'tout' && !toutOff) {
                     this.set('toutShortcode', true);
                   }
 
@@ -272,7 +282,7 @@ class CranberryStory {
                 } else {
                   let hasTout = this.get('toutShortcode');
 
-                  if (index === 4 && !hasTout) {
+                  if (index === 4 && !hasTout && !toutOff) {
                     let tempDiv = document.createElement('div');
                     tempDiv.setAttribute('id', 'tempToutDiv');
 
@@ -307,6 +317,11 @@ class CranberryStory {
 
           this._setupByline();
           this._sendPageview(story);
+
+          // Fire nativo
+          if (typeof window.PostRelease !== 'undefined' && typeof window.PostRelease.Start === 'function') {
+            PostRelease.Start();
+          }
         }
       }
     }

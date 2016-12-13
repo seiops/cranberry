@@ -143,6 +143,10 @@ class CranberryGallery {
     // Assign restResponse to data bound object gallery
     this.set('gallery', result);
 
+    // Fire nativo
+    if (typeof window.PostRelease !== 'undefined' && typeof window.PostRelease.Start === 'function') {
+      PostRelease.Start();
+    }
 
     if (typeof result.tags !== 'undefined' && result.tags.length > 0) {
       // Set tags variable to the tags response
@@ -202,6 +206,7 @@ class CranberryGallery {
 
     if (hidden) {
       this._closeShare();
+      this._destroyNativo();
     } else {
       // Send pageview event with iron-signals
       this.fire('iron-signal', {name: 'track-page', data: { path: '/photo-gallery/' + gallery.itemId, gaData } });
@@ -212,6 +217,14 @@ class CranberryGallery {
     }
   }
 
+  _destroyNativo() {
+    let nativoAds = this.querySelectorAll('.ntv-ad-div');
+
+    nativoAds.forEach((index, value) => {
+      value.innerHTML = '';
+    });
+  }
+  
   _closeShare() {
     let slider = Polymer.dom(this.$.mainSlider);
     let shareBar = slider.querySelector('gigya-sharebar');

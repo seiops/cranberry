@@ -114,6 +114,7 @@ class cranberrySectionRequest {
         } else {
           // This is the same section hidden just changed
           this._firePageview();
+          this._fireNativo();
         }
       } else {
         // This element is hidden
@@ -141,6 +142,13 @@ class cranberrySectionRequest {
         this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/section/' + section, data: {'sections': section, 'authors': author } } });
       }
     });
+  }
+
+  _fireNativo() {
+    // Fire nativo
+    if (typeof window.PostRelease !== 'undefined' && typeof window.PostRelease.Start === 'function') {
+      PostRelease.Start();
+    }
   }
 
   attached() {
@@ -216,6 +224,7 @@ class cranberrySectionRequest {
     this.set('contentItems', result.content);
 
     this.set('items', result);
+    this._fireNativo();
   }
 
   _isGalleries(galleries) {
