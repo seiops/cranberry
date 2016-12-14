@@ -27,12 +27,12 @@ class cranberrySectionTracker {
     let params = {};
     let scrubbedPath = '';
     let tags = this.get('tags');
-
+    
     this.async(() => {
       if (page === 'galleries' || tags) {
         this.set('section', 'news');
         this.set('parentSection', '');
-      } else if (page !== '' && page !== 'section' && page !== 'story' && page !== 'photo-gallery' && page !== 'profile' && page !== 'contact'
+      } else if (page !== '' && page !== 'tags' && page !== 'section' && page !== 'story' && page !== 'photo-gallery' && page !== 'profile' && page !== 'contact'
       && page !== 'archive' && page !== 'forecast' && page !== 'jail-mugs') {
         // REQUEST SECTION INFO
         params.request = 'section';
@@ -53,7 +53,7 @@ class cranberrySectionTracker {
   _handleResponse(response) {
     var result = JSON.parse(response.detail.Result);
 
-    this.set('section', result.sectionName);
+    this.set('section', result.sectionId.replace(/_/g, '-'));
     if (typeof result.sectionParent === 'undefined') {
       this.set('parentSection', '');
     } else {

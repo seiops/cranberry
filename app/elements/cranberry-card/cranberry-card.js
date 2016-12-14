@@ -82,6 +82,16 @@ class CranberryCard {
     return temp;
   }
 
+  _scrubTagUrl(sectionInformation) {
+    let temp = '';
+
+    if (typeof sectionInformation !== 'undefined' && typeof sectionInformation.sectionLabel !== 'undefined') {
+      temp = sectionInformation.sectionLabel.replace(/_/g, '-').replace('-and', '').toLowerCase();
+    } 
+
+    return temp;
+  }
+
   _computeImageSize(image) {
     let featured = this.get('featured');
 
