@@ -167,7 +167,7 @@ class CranberryStory {
   _destroyNativo() {
     let nativoAds = this.querySelectorAll('.ntv-ad-div');
 
-    nativoAds.forEach((index, value) => {
+    nativoAds.forEach((value, index) => {
       value.innerHTML = '';
     });
   }
