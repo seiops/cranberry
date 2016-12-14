@@ -10,9 +10,15 @@
 
       <byutv-jsonp
         cache
+        verbose
         id="request"
         url="http://sanduskyregister.thejobnetwork.com/RMAPI/widgets/Widget.svc/GetFeaturedJobs"
         on-response="_handleResponse"
+        last-response="{{response}}"
+        last-request="{{request}}"
+        last-error="{{error}}"
+        loading="{{requestInProgress}}"
+        callback-value="callbackJobsWidget"
         debounce-duration="300"></byutv-jsonp>
 
 

@@ -59,7 +59,7 @@
 
     <div class="section-wrapper" hidden$="[[contentLoading]]">
       <!-- FEATURED CONTENT ELEMENT -->
-      <cranberry-featured-content items="{{featuredItems}}" sections="[[loadSection]]" hidden$="[[featuredHidden]]"></cranberry-featured-content>
+      <cranberry-featured-content items="{{featuredItems}}" sections="[[loadSection]]" hidden$="[[featuredHidden]]" main-hidden$="[[hidden]]" homepage$="[[isHomepage]]"></cranberry-featured-content>
 
       <div hidden$="[[_isLatest(selected)]]">
         <paper-material elevation="1">

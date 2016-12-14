@@ -17,7 +17,6 @@
     <style include="app-grid-style">
       @import "cranberry-content-list/cranberry-content-list";
     </style>
-
       <div class="content-cards-wrapper">
         <div class="content-cards">
           <ul class="app-grid">
@@ -25,7 +24,7 @@
                 <template is="dom-if" if="[[_checkJobsWidget(index)]]">
                   <li class="item">
                     <cranberry-card jobs>
-                      <cranberry-jobs-widget affiliate-id="{$ config.jobs.affiliateId $}" widget-id="{$ config.jobs.widgetId $}" hidden$="{{hidden}}"></cranberry-jobs-widget>
+                      <cranberry-jobs-widget affiliate-id="{$ config.jobs.affiliateId $}" widget-id="{$ config.jobs.widgetId $}"></cranberry-jobs-widget>
                     </cranberry-card>
                   </li>
                 </template>

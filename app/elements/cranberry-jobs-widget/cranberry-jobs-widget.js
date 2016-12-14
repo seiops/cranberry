@@ -24,29 +24,49 @@ class cranberryJobsWidget {
   }
 
   attached() {
-      let request = this.$.request;
-      let widgetId = this.get('widgetId');
-      let affiliateId = this.get('affiliateId');
-      let params = {};
-      let header = {};
-      let body = {};
+    let items = this.get('items');
 
-      header.TokenId = 0;
-      header.AffiliateId = parseInt(affiliateId);
-      header.SessionId = null;
+    this.async(() => {
+      if (items.length === 0) {
+        let request = this.$.request;
+        let currentRequest = this.get('request');
+        let widgetId = this.get('widgetId');
+        let affiliateId = this.get('affiliateId');
+        let params = {};
+        let header = {};
+        let body = {};
 
-      body.affiliateId = header.AffiliateId;
-      body.WidgetId = widgetId;
-      body.LocationIds = [];
-      body.Count = 50;
+        if (typeof currentRequest !== 'undefined' && currentRequest.loading === true) {
+          console.info('<\cranberry-jobs-widget\> aborting previous request');
+          request.abortRequest(currentRequest);
+        }
+        
+        header.TokenId = 0;
+        header.AffiliateId = parseInt(affiliateId);
+        header.SessionId = null;
 
-      params.header = JSON.stringify(header);
-      params.body = JSON.stringify(body);
-      request.setAttribute('callback-value', 'callbackSectionTracker');
+        body.affiliateId = header.AffiliateId;
+        body.WidgetId = widgetId;
+        body.LocationIds = [];
+        body.Count = 50;
 
-      request.params = params;
+        params.header = JSON.stringify(header);
+        params.body = JSON.stringify(body);
+        // request.setAttribute('callback-value', 'callbackJobsWidget');
 
-      request.generateRequest();
+        request.params = params;
+
+        request.generateRequest();
+        }
+    });
+  }
+
+  detached() {
+    console.log('JOBS WIDGET DETACHED!');
+    let request = this.$.request;
+    let currentRequest = this.get('request');
+
+    request.abortRequest(currentRequest);
   }
 
   _handleResponse(response) {

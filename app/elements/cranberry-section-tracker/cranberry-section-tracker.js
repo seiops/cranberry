@@ -28,23 +28,26 @@ class cranberrySectionTracker {
     let scrubbedPath = '';
     let tags = this.get('tags');
 
-    if (page === 'galleries' || tags) {
-      this.set('section', 'news');
-      this.set('parentSection', '');
-    } else if (page !== '' && page !== 'section' && page !== 'story' && page !== 'photo-gallery' && page !== 'profile' && page !== 'contact'
-    && page !== 'archive' && page !== 'forecast' && page !== 'jail-mugs') {
-      // REQUEST SECTION INFO
-      params.request = 'section';
-      params.desiredSection = page;
-      
-      request.setAttribute('url', this.get('rest'));
-      request.setAttribute('callback-value', 'callbackSectionTracker');
-      request.params = params;
-      request.generateRequest();
-    } else if (page === '') {
-      this.set('section', 'homepage');
-      this.set('parentSection', '');
-    }
+    this.async(() => {
+      if (page === 'galleries' || tags) {
+        this.set('section', 'news');
+        this.set('parentSection', '');
+      } else if (page !== '' && page !== 'section' && page !== 'story' && page !== 'photo-gallery' && page !== 'profile' && page !== 'contact'
+      && page !== 'archive' && page !== 'forecast' && page !== 'jail-mugs') {
+        // REQUEST SECTION INFO
+        params.request = 'section';
+        params.desiredSection = page;
+        
+        request.setAttribute('url', this.get('rest'));
+        request.setAttribute('callback-value', 'callbackSectionTracker');
+        request.params = params;
+        request.generateRequest();
+      } else if (page === '') {
+        this.set('section', 'homepage');
+        this.set('parentSection', '');
+      }
+    });
+    
   }
 
   _handleResponse(response) {
