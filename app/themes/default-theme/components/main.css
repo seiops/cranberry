@@ -79,6 +79,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     /*@apply(--layout-end);*/
   }
 
+  @nest &-siteButtons span.Main-siteNav {
+    cursor: pointer;
+  }
+
   @nest &-siteNav a {
     @apply(--paper-font-body2);
     color: inherit;
