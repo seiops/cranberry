@@ -5,6 +5,10 @@ class cranberryChartBeat {
       author: {
         type: String
       },
+      chartbeatLoaded: {
+        type: Boolean,
+        value: false
+      },
       uid: {
         type: Number
       },
@@ -50,6 +54,7 @@ class cranberryChartBeat {
         this.set('initialLoad', false);
         this._establishGlobal();
         this._loadChartBeat();
+        this.trackPage(e);
       } else {
         let config = this.get('sfConfig.data');
 
@@ -98,19 +103,30 @@ class cranberryChartBeat {
   }
 
   _loadChartBeat() {
-    window._sf_endpt = (new Date()).getTime();
-    
-    let loader = document.querySelector('cranberry-script-loader');
+    let chartbeatLoaded = this.get('chartbeatLoaded');
 
-    loader.loadScript('http://static.chartbeat.com/js/chartbeat.js');
+    if (!chartbeatLoaded) {
+      window._sf_endpt = (new Date()).getTime();
+    
+      let loader = document.querySelector('cranberry-script-loader');
+
+      loader.loadScript('http://static.chartbeat.com/js/chartbeat.js');
+
+      this.set('chartbeatLoaded', true);
+    }
   }
 
   _fireVirtualPage(path) {
-    if (typeof window.pSUPERFLY !== 'undefined' && typeof window.pSUPERFLY.virtualPage !== 'undefined') {
-      let title = Polymer.dom(document).querySelector('title').innerText;
+    setTimeout(() => {
+      if (typeof window.pSUPERFLY !== 'undefined' && typeof window.pSUPERFLY.virtualPage !== 'undefined') {
+        console.info('\<cranberry-chart-beat\> pageview sent');
+        let title = Polymer.dom(document).querySelector('title').innerText;
 
-      window.pSUPERFLY.virtualPage(path, title);
-    }
+        window.pSUPERFLY.virtualPage(path, title);
+      } else {
+        this._fireVirtualPage(path);
+      }
+    }, 50);
   }
 
 }
