@@ -19,22 +19,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
      the page until imports and Polymer are loaded. Intead, control FOUC manually with
      a skeleton. -->
 <body>
-  <!--<script type="text/javascript">
-    var TriggerPrompt = function(articleUrl, contentId) {
-      var ARTICLE_URL = articleUrl;
-      var CONTENT_ID = contentId || '';
-      var el = document.createElement('script');
-  var url = 'http://survey.g.doubleclick.net/survey?site={$ config.google.surveys $}' +
-                '&url=' + encodeURIComponent(ARTICLE_URL) +
-                (CONTENT_ID ? '&cid=' + encodeURIComponent(CONTENT_ID) : '') +
-                '&random=' + (new Date).getTime() +
-                '&after=1';
-      el.setAttribute('src', url);
-      var head = document.getElementsByTagName('head')[0] ||
-          document.getElementsByTagName('body')[0];
-      head.appendChild(el);
-    };
-  </script>-->
   <span id="browser-sync-binding"></span>
 
   <!-- Light weight skeleton is outside of Polymer/imports and styled by
@@ -44,7 +28,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   {% include "skeleton.html" %}
 
   <!-- Elements wait on the page and are upgraded when elements/base-bundle.html loads. -->
-  <cranberry-base id="app" side-nav='{$ config.sideMenu | dump $}'></cranberry-base>
+  <!--<cranberry-base id="app" side-nav='{$ config.sideMenu | dump $}'></cranberry-base>-->
 
   <!-- <cranberry-base-libercus-section id="app"></cranberry-base-libercus-section> -->
 

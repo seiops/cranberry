@@ -34,4 +34,7 @@ body {
   /* Text adjust is set to 100% to avoid iOS Safari bugs where the font-size is
      sometimes not restored during orientation. See #449. */
   text-size-adjust: 100%;
+
+  /* Fix for skeleton not being 100% on load */
+  height: 100vh;
 }
