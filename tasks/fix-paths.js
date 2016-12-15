@@ -36,6 +36,9 @@ module.exports = function($, gulp, merge, order) {
       )).pipe($.replace(
         '"../../images/',
         '"/libercus/default/images/'
+      )).pipe($.replace(
+        '"/images/',
+        '"/libercus/default/images/'
       )).pipe($.replace('"elements/', '"libercus/default/elements/')).pipe($.replace(
         '"favicon',
         '"libercus/default/favicon'
