@@ -20,6 +20,7 @@ module.exports = {
     global: {
         logo: '../../images/logos/' + fileName + '/logo.png',
         location: '../../images/logos/' + fileName + '/location.png',
+        fileName: fileName,
         primaryColorName: primaryColorName,
         accentColorName: accentColorName,
         themeMode: themeMode

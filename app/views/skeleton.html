@@ -13,18 +13,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
      one could create an "app shell" and style the page's un-upgraded elements
      similar to their final upgraded version. -->
 <div id="skeleton" class="Skeleton">
-  <!-- main panel -->
-  <div class="Skeleton-main">
-    <div class="Skeleton-middleContent">
-      <img src="{$ theme.global.logo $}"/>
-      <div>
-        <p>Loading SanduskyRegister.com</p>
+    <!-- main panel -->
+    <div class="Skeleton-main">
+      <div class="Skeleton-middleContent">
+        <img src="/images/logos/{$ theme.global.fileName $}/logo.png" />
         <div>
-          <div id="spinner">
-            <div id="spinnerContainer" class="active">
-              <div class="spinner-layer">
-                <div class="circle-clipper left"></div>
-                <div class="circle-clipper right"></div>
+          <p>Loading {$ config.urlTitle $}</p>
+          <div>
+            <div id="spinner">
+              <div id="spinnerContainer" class="active">
+                <div class="spinner-layer">
+                  <div class="circle-clipper left"></div>
+                  <div class="circle-clipper right"></div>
+                </div>
               </div>
             </div>
           </div>
@@ -32,4 +33,3 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </div>
     </div>
   </div>
-</div>

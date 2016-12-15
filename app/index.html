@@ -25,7 +25,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
        the main page. 1st paint is fast, even on polyfilled browsers. Alternatively,
        one could create an "app shell" and style the page's un-upgraded elements
        similar to their final upgraded version. -->
-  {% include "skeleton.html" %}
+  <div id="skeleton" class="Skeleton">
+    <!-- main panel -->
+    <div class="Skeleton-main">
+      <div class="Skeleton-middleContent">
+        <img src="/images/logos/{$ theme.global.fileName $}/logo.png" />
+        <div>
+          <p>Loading {$ config.urlTitle $}</p>
+          <div>
+            <div id="spinner">
+              <div id="spinnerContainer" class="active">
+                <div class="spinner-layer">
+                  <div class="circle-clipper left"></div>
+                  <div class="circle-clipper right"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Elements wait on the page and are upgraded when elements/base-bundle.html loads. -->
   <cranberry-base id="app" side-nav='{$ config.sideMenu | dump $}'></cranberry-base>
