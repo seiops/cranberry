@@ -111,6 +111,14 @@ class CranberryGallery {
     let imageIndex = Number(e.target.parentElement.dataset.index);
 
     mainSlider.goTo(imageIndex);
+
+    this._scrollToY(0, 1500, 'easeInOutQuint');
+
+    let topAd = this.$.topAd;
+    let sideAd = this.$.sideAd;
+
+    topAd.refresh();
+    sideAd.refresh();
   }
 
   _handleResponse (data) {
@@ -230,6 +238,68 @@ class CranberryGallery {
     let shareBar = slider.querySelector('gigya-sharebar');
 
     shareBar.close();
+  }
+
+    _requestAnimFrame() {
+    window.requestAnimFrame = (function(){
+      return  window.requestAnimationFrame       ||
+              window.webkitRequestAnimationFrame ||
+              window.mozRequestAnimationFrame    ||
+              function( callback ){
+                window.setTimeout(callback, 1000 / 60);
+              };
+      })();
+  }
+
+  _scrollToY(scrollTargetY, speed, easing) {
+    // scrollTargetY: the target scrollY property of the window
+    // speed: time in pixels per second
+    // easing: easing equation to use
+    this._requestAnimFrame();
+    let scrollY = window.scrollY || document.documentElement.scrollTop;
+    console.log(scrollY);
+    let currentTime = 0;
+
+    scrollTargetY = scrollTargetY || 0;
+    speed = speed || 2000;
+    easing = easing || 'easeOutSine';
+
+    // min time .1, max time .8 seconds
+    let time = Math.max(.1, Math.min(Math.abs(scrollY - scrollTargetY) / speed, .8));
+
+    // easing equations from https://github.com/danro/easing-js/blob/master/easing.js
+    let easingEquations = {
+      easeOutSine: function (pos) {
+        return Math.sin(pos * (Math.PI / 2));
+      },
+      easeInOutSine: function (pos) {
+        return (-0.5 * (Math.cos(Math.PI * pos) - 1));
+      },
+      easeInOutQuint: function (pos) {
+        if ((pos /= 0.5) < 1) {
+          return 0.5 * Math.pow(pos, 5);
+        }
+        return 0.5 * (Math.pow((pos - 2), 5) + 2);
+      }
+    };
+
+    let tick = () => {
+      currentTime += 1 / 60;
+
+      var p = currentTime / time;
+      var t = easingEquations[easing](p);
+
+      if (p < 1) {
+        window.requestAnimFrame(tick);
+        window.scrollTo(0, scrollY + ((scrollTargetY - scrollY) * t));
+      } else {
+        console.log('scroll done');
+        window.scrollTo(0, scrollTargetY);
+      }
+    }
+
+    // call it once to get started
+    tick();
   }
 }
 Polymer(CranberryGallery);
