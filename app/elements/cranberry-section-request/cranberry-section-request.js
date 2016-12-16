@@ -114,6 +114,7 @@ class cranberrySectionRequest {
         } else {
           // This is the same section hidden just changed
           this._firePageview();
+          console.info('HIDDEN CHANGED!');
           this._fireNativo();
         }
       } else {
@@ -145,6 +146,7 @@ class cranberrySectionRequest {
   }
 
   _fireNativo() {
+    console.info('FIRING NATIVO FROM SECTION!');
     // Fire nativo
     if (typeof window.PostRelease !== 'undefined' && typeof window.PostRelease.Start === 'function') {
       PostRelease.Start();
@@ -218,6 +220,7 @@ class cranberrySectionRequest {
   }
 
   _parseResponse(response) {
+    console.info('PARSING RESPONSE!');
     var result = JSON.parse(response.Result);
 
     this.set('featuredItems', result.featured);

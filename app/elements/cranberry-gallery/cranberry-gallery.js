@@ -40,6 +40,7 @@ class CranberryGallery {
       }
     };
     this.observers = ['_checkParams(routeData.id)', '_hiddenChanged(hidden)'];
+    this.listeners = { 'scrollComplete': '_afterScroll' };
   }
 
   // Public methods.
@@ -113,7 +114,9 @@ class CranberryGallery {
     mainSlider.goTo(imageIndex);
 
     this._scrollToY(0, 1500, 'easeInOutQuint');
-
+  }
+  
+  _afterScroll() {
     let topAd = this.$.topAd;
     let sideAd = this.$.sideAd;
 
@@ -293,7 +296,7 @@ class CranberryGallery {
         window.requestAnimFrame(tick);
         window.scrollTo(0, scrollY + ((scrollTargetY - scrollY) * t));
       } else {
-        console.log('scroll done');
+        this.fire('scrollComplete');
         window.scrollTo(0, scrollTargetY);
       }
     }
