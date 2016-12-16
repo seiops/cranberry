@@ -10,7 +10,7 @@ module.exports = {
   // General Namings
   title: 'Sandusky Register',
   urlTitle: 'SanduskyRegister.com',
-  epaperLink: 'http://digital.olivesoftware.com/Olive/ODE/SanduskyRegister',
+  epaperLink: 'http://digital.olivesoftware.com/Olive/ODN/SanduskyRegister/default.aspx',
   ludiPortal: 'sanduskyregister',
   promo: {
     image: '../../images/promo/sandusky/promo.png',
@@ -166,7 +166,7 @@ module.exports = {
       label: 'ePaper Archive',
       description: 'Coming Soon - The ePaper Archive is a deeper repository of printed editions, formatted for those users who prefer the print experience on a digital device.',
       dates: '2004-08-11 - 2014-08-31',
-      link: 'http://sample.olivesoftware.com/Olive/APA/SanduskyRegisterA/Default.aspx#panel=home',
+      link: 'http://digital.olivesoftware.com/Olive/ODN/SanduskyRegister/default.aspx',
       buttonText: 'View Archive',
       image: '../images/archive/sandusky/e-paper_archive_image.png'
     },
@@ -239,7 +239,7 @@ module.exports = {
     },
     {
       linkText: 'E-Paper',
-      linkUrl: 'http://digital.olivesoftware.com/Olive/ODE/SanduskyRegister',
+      linkUrl: 'http://digital.olivesoftware.com/Olive/ODN/SanduskyRegister/default.aspx',
       linkIcon: '',
       target: '_blank'
     },

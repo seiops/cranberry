@@ -10,7 +10,7 @@ module.exports = {
   // General Namings
   title: 'Norwalk Reflector',
   urlTitle: 'NorwalkReflector.com',
-  epaperLink: 'http://digital.olivesoftware.com/Olive/ODE/NorwalkReflector',
+  epaperLink: 'http://digital.olivesoftware.com/Olive/ODN/NorwalkReflector/default.aspx',
   ludiPortal: 'norwalk-reflector',
   promo: {
     image: '../../images/promo/norwalk/promo.png',
@@ -162,7 +162,7 @@ module.exports = {
       label: 'ePaper Archive',
       description: 'Coming Soon - The ePaper Archive is a deeper repository of printed editions, formatted for those users who prefer the print experience on a digital device.',
       dates: '2004-08-11 - 2014-08-31',
-      link: 'http://sample.olivesoftware.com/Olive/APA/SanduskyRegisterA/Default.aspx#panel=home',
+      link: 'http://digital.olivesoftware.com/Olive/ODN/NorwalkReflector/default.aspx',
       buttonText: 'View Archive',
       image: '../images/archive/norwalk/e-paper_archive_image.png'
     },
@@ -239,7 +239,7 @@ module.exports = {
     },
     {
       linkText: 'E-Paper',
-      linkUrl: 'http://digital.olivesoftware.com/Olive/ODE/NorwalkReflector',
+      linkUrl: 'http://digital.olivesoftware.com/Olive/ODN/NorwalkReflector/default.aspx',
       linkIcon: '',
       target: '_blank'
     },
