@@ -31,8 +31,8 @@ module.exports = function($, gulp, merge, order) {
       )).pipe(gulp.dest('deploy/elements'));
 
       indexElement = gulp.src('deploy/index.html').pipe($.replace(
-        '"bower_components/',
-        '"libercus/default/bower_components/'
+        '"/bower_components/',
+        '"/libercus/default/bower_components/'
       )).pipe($.replace(
         '"../../images/',
         '"/libercus/default/images/'
