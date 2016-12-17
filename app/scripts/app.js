@@ -30,7 +30,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   app.logger = logger;
 
-  let finishLazyLoadingFired = false;
   // Conditionally load the webcomponents polyfill if needed by the browser.
   // This feature detect will need to change over time as browsers implement
   // different features.
@@ -45,38 +44,36 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     // // by the Shadow DOM to point to <cranberry-base>
     // // window.Polymer = window.Polymer || {dom: 'shadow'};
 
-    if (!finishLazyLoadingFired) {
-      finishLazyLoadingFired = true;
-      // // When base-bundle.html with elements is loaded
-      var onImportLoaded = function() {
-        logger('Imports loaded and elements registered.');
+    // // When base-bundle.html with elements is loaded
+    var onImportLoaded = function() {
+      logger('Imports loaded and elements registered.');
 
-      //   // Remove skeleton
-        var skeleton = document.getElementById('skeleton');
-        skeleton.remove();
+    //   // Remove skeleton
+      var skeleton = document.getElementById('skeleton');
+      skeleton.remove();
 
-        if (webComponentsSupported) {
-          // Emulate WebComponentsReady event for browsers supporting Web Components natively
-          // (Chrome, Opera, Vivaldi)
-          document.dispatchEvent(
-            new CustomEvent('WebComponentsReady', {bubbles: true})
-          );
-        }
-      };
-
-      var elementsBaseBundle = document.getElementById('elementsBaseBundle');
-
-      // Go if the async Import loaded quickly. Otherwise wait for it.
-      // crbug.com/504944 - readyState never goes to complete until Chrome 46.
-      // crbug.com/505279 - Resource Timing API is not available until Chrome 46.
-      if (elementsBaseBundle.import && elementsBaseBundle.import.readyState === 'complete') {
-        onImportLoaded();
-      } else {
-        elementsBaseBundle.addEventListener('load', onImportLoaded);
+      if (webComponentsSupported) {
+        // Emulate WebComponentsReady event for browsers supporting Web Components natively
+        // (Chrome, Opera, Vivaldi)
+        document.dispatchEvent(
+          new CustomEvent('WebComponentsReady', {bubbles: true})
+        );
       }
+    };
+
+    var elementsBaseBundle = document.getElementById('elementsBaseBundle');
+
+    // Go if the async Import loaded quickly. Otherwise wait for it.
+    // crbug.com/504944 - readyState never goes to complete until Chrome 46.
+    // crbug.com/505279 - Resource Timing API is not available until Chrome 46.
+    if (elementsBaseBundle.import && elementsBaseBundle.import.readyState === 'complete') {
+      onImportLoaded();
+    } else {
+      elementsBaseBundle.addEventListener('load', onImportLoaded);
     }
   }
 
+  finishLazyLoading();
   // if (!webComponentsSupported) {
   //   logger('Web Components aren\'t supported!');
   //   var script = document.createElement('script');
@@ -103,7 +100,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   // See https://github.com/Polymer/polymer/issues/1381
   window.addEventListener('WebComponentsReady', () => {
     /* imports are loaded and elements have been registered */
-    finishLazyLoading();
   });
 
   window.addEventListener('service-worker-error', e => {
