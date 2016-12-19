@@ -155,11 +155,13 @@ class CranberryContentList {
   }
 
   _destroyNativo() {
-    let nativoAds = this.querySelectorAll('.ntv-ad-div');
+    let nativoAds = Polymer.dom(this).querySelectorAll('.ntv-ad-div');
 
-    nativoAds.forEach((value, index) => {
-      value.innerHTML = '';
-    });
+    if (nativoAds.length > 0) {
+      nativoAds.forEach((value, index) => {
+        value.innerHTML = '';
+      });
+    }
   }
 
   _setPrevious(section, oldSection) {
