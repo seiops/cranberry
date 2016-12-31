@@ -1,0 +1,24 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
+
+<dom-module id="cranberry-syncronex">
+
+  <template>
+    <!-- Polymer 1.1 and above recommends placing style within template https://www.polymer-project.org/1.0/docs/devguide/styling -->
+    <style>
+      @import "cranberry-syncronex/cranberry-syncronex";
+    </style>
+
+    <byutv-jsonp on-response="_handleSessionResponse" id="sessionRequest"></byutv-jsonp>
+    <byutv-jsonp on-response="_handleLibercusResponse" id="libercusRequest"></byutv-jsonp>
+
+    <div class="Cranberry-Syncronex">
+      <p>Hello world</p>
+    </div>
+
+  </template>
+
+  <!-- Add cranberry-story Polymer Object script -->
+  <script src="cranberry-syncronex.js"></script>
+
+</dom-module>
