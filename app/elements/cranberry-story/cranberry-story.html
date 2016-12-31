@@ -12,6 +12,7 @@
 <link rel="import" href="../tout-element/tout-element.html">
 <link rel="import" href="../gigya-top-comments/gigya-top-comments.html">
 <link rel="import" href="../cranberry-related-content/cranberry-related-content.html">
+<link rel="import" href="../cranberry-syncronex/cranberry-syncronex.html">
 <link rel="import" href="../google-survey/google-survey.html">
 
 <dom-module id="cranberry-story">
@@ -33,6 +34,9 @@
     <byutv-jsonp cache on-response="_handleResponse" id="storyRequest"></byutv-jsonp>
 
     <div class="Cranberry-Story">
+      <div class="cranberry-meter">
+        <cranberry-syncronex user="[[user]]" content="[[story]]"></cranberry-syncronex>
+      </div>
       <div class="ut-center">
         <google-dfp
           section="[[story.sectionInformation.sectionName]]"
