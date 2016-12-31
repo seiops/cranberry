@@ -31,7 +31,7 @@ class CranberrySyncronex {
     });
   }
 
-  _loginLibercus(user) {
+  _buildUser(user) {
     this.async(function() {
       console.info('\<cranberry-syncronex\> (development) login Libercus');
 
@@ -74,33 +74,12 @@ class CranberrySyncronex {
 
           console.info('\<cranberry-syncronex\> (development) user data object built');
           console.dir(data);
-          // Submit authentication object to Libercus.
-          // $.ajax({
-          //     cache: false,
-          //     data: data,
-          //     url: '/.auth',
-          //     success: function (response) {
-          //         utilities.moduleMessage('System', '', 'user', 3);
-          //
-          //         user.loginConfirm();
-          //     },
-          //     error: function (response) {
-          //         utilities.moduleMessage('System', '', 'user', -3, response);
-          //
-          //         user.logout();
-          //     }
-          // });
+
+          this._loginLibercus(data);
+          console.log('should be logging in here.');
         } else {
           console.info('\<cranberry-syncronex\> (development) no user data');
         }
-    });
-  }
-
-  _onUserChanged(user) {
-    console.info('\<cranberry-syncronex\> (development) user changed');
-    
-    this.async(function() {
-      this._loginLibercus(user);
     });
   }
 
@@ -123,12 +102,27 @@ class CranberrySyncronex {
 
     this.set('sessionLabel', result.sessionLabel);
     this.set('sessionId', result.sessionId);
-
-    console.dir(result);
   }
 
   _handleLibercusResponse(response) {
-    console.info('\<cranberry-syncronex\> (development) libercus response received');
+    console.info('\<cranberry-syncronex\> (development) Libercus response received');
+    console.dir(response);
+  }
+
+  _loginLibercus(params) {
+    console.info('\<cranberry-syncronex\> (development) Logging in to Libercus');
+
+    this.$.libercusRequest.url = 'http://srdevcore.libercus.net/.auth';
+    this.$.libercusRequest.params = params;
+    this.$.libercusRequest.generateRequest();
+  }
+
+  _onUserChanged(user) {
+    console.info('\<cranberry-syncronex\> (development) user changed');
+
+    this.async(function() {
+      this._buildUser(user);
+    });
   }
 
   _onContentChanged(newValue) {
