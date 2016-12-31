@@ -26,6 +26,8 @@ class CranberrySyncronex {
   attached() {
     this.async(function() {
       console.info('\<cranberry-syncronex\> (development) attached');
+
+      this._getSessionData();
     });
   }
 
@@ -66,8 +68,9 @@ class CranberrySyncronex {
           data.UID = user.UID;
           data.email = user.email;
 
+          let label = this.get('sessionLabel');
           // Set session label for Libercus.
-          // data[user.sessionLabel] = user.sessionId;
+          data[label] = this.get('sessionId');
 
           console.info('\<cranberry-syncronex\> (development) user data object built');
           console.dir(data);
@@ -95,18 +98,22 @@ class CranberrySyncronex {
 
   _onUserChanged(user) {
     console.info('\<cranberry-syncronex\> (development) user changed');
+    
     this.async(function() {
-      this._getSessionData();
-      // this._loginLibercus(user);
+      this._loginLibercus(user);
     });
   }
 
   _getSessionData() {
-    console.info('\<cranberry-syncronex\> (development) retrieving session data');
+    let sessionCheck = this.get('sessionId');
 
-    this.$.sessionRequest.url = 'http://srdevcore.libercus.net/ajaxquery/userinfo';
-    this.$.sessionRequest.params = '';
-    this.$.sessionRequest.generateRequest();
+    if (typeof sessionCheck === 'undefined' || sessionCheck.length === 0) {
+      console.info('\<cranberry-syncronex\> (development) retrieving session data');
+
+      this.$.sessionRequest.url = 'http://srdevcore.libercus.net/ajaxquery/userinfo';
+      this.$.sessionRequest.params = '';
+      this.$.sessionRequest.generateRequest();
+    }
   }
 
   _handleSessionResponse(response) {
