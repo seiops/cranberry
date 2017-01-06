@@ -2,6 +2,10 @@ class CranberrySyncronex {
   beforeRegister() {
     this.is = 'cranberry-syncronex';
     this.properties = {
+      content: {
+        type: Object,
+        observer: '_onContentChanged'
+      },
       exclusive: {
         type: Boolean,
         notify: true
@@ -28,7 +32,7 @@ class CranberrySyncronex {
 
   _onAccountChanged(account) {
     if (typeof account !== 'undefined' && account !== '') {
-      console.info('\<cranberry-syncronex\> account changed');
+      console.info('\<cranberry-syncronex\> session information changed');
 
       let session = this.get('user.sessionid');
 
@@ -62,6 +66,7 @@ class CranberrySyncronex {
 
   _syncronexMeterAuth(account, session) {
     console.info('\<cranberry-syncronex\> authenticating with meter');
+
     let user = this.get('user');
 
     this.async(function() {
@@ -73,31 +78,25 @@ class CranberrySyncronex {
         clientInfo: 'desktop'
       };
 
-      console.dir(params);
-
       this.$.syncronexAuthRequest.url = 'https://syncaccess-sng-og.syncronex.com/sng/og/api/svcs/meter/standard';
       this.$.syncronexAuthRequest.params = params;
       this.$.syncronexAuthRequest.generateRequest();
     });
   }
 
-  // _onContentChanged(newValue) {
-  //   this.async(function() {
-  //     console.info('\<cranberry-syncronex\> (development) content changed');
-  //
-  //     let el = this.get('content');
-  //
-  //     if (typeof el !== 'undefined' && typeof el.storyExclusive !== 'undefined') {
-  //       console.dir(el);
-  //
-  //       if (typeof el !== 'undefined' && typeof el.storyExclusive !== 'undefined' && el.storyExclusive === false) {
-  //         console.info('\<cranberry-syncronex\> (development) content conditional 1');
-  //       } else {
-  //         console.info('\<cranberry-syncronex\> (development) content conditional 2');
-  //       }
-  //     }
-  //   });
-  // }
+  _onContentChanged(content) {
+    console.info('\<cranberry-syncronex\> content changed');
+
+    this.async(function() {
+      if (typeof content !== 'undefined' && typeof content.storyExclusive !== 'undefined'){
+        if (content.storyExclusive === true) {
+          this.set('exclusive', true);
+        } else {
+          this.set('exclusive', false);
+        }
+      }
+    });
+  }
 
 }
 Polymer(CranberrySyncronex);
