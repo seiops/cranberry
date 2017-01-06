@@ -35,10 +35,10 @@
 
     <div class="Cranberry-Story">
       <div class="cranberry-meter">
-        <cranberry-syncronex user="[[user]]" content="[[story]]" syncronex="{{syncronex}}"></cranberry-syncronex>
-        <template is="dom-if" if="[[syncronex]]">
-          <p>This is test protected content.</p>
-      </template>
+        <cranberry-syncronex user="[[user]]" content="[[story]]" exclusive="{{exclusive}}" syncronex="{{syncronex}}"></cranberry-syncronex>
+        <p>Story protected: [[exclusive]]</p>
+        <p>Meter authorization: [[syncronex]]</p>
+        <p>Use these two-way bound properties to filter story content.</p>
       </div>
       <div class="ut-center">
         <google-dfp

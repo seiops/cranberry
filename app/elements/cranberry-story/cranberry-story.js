@@ -85,6 +85,9 @@ class CranberryStory {
       },
       syncronex: {
         type: String
+      },
+      exclusive: {
+        type: Boolean
       }
     };
     this.observers = ['_checkParams(routeData.id)', '_hiddenChanged(hidden, routeData.id)'];

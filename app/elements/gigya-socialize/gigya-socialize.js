@@ -392,9 +392,9 @@ class GigyaSocialize {
         account = 'guest';
       }
 
-      console.dir(label);
-      console.dir(session);
-      console.dir(account);
+      console.info(label);
+      console.info(session);
+      console.info(account);
     });
   }
 
