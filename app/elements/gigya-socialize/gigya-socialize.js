@@ -376,7 +376,7 @@ class GigyaSocialize {
           this.set('user.sessionaccount', sessionSyncronex);
         }
 
-        this._showSession();
+        // this._showSession();
       }
     });
   }
