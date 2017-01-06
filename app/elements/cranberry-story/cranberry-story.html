@@ -35,8 +35,10 @@
 
     <div class="Cranberry-Story">
       <div class="cranberry-meter">
-        <!-- <cranberry-syncronex user="[[user]]" content="[[story]]"></cranberry-syncronex> -->
-        USER IS [[user.sessionaccount]]
+        <cranberry-syncronex user="[[user]]" content="[[story]]" syncronex="{{syncronex}}"></cranberry-syncronex>
+        <template is="dom-if" if="[[syncronex]]">
+          <p>This is test protected content.</p>
+      </template>
       </div>
       <div class="ut-center">
         <google-dfp
