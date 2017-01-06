@@ -105,7 +105,7 @@ class GigyaSocialize {
 
       // Check for a valid profile object.
       if (typeof user !== 'undefined' && typeof user.statusCode !== 'undefined' && user.statusCode === 200) {
-          console.info('\<gigya-socialize\> user found, authenticating');
+          console.info('\<gigya-socialize\> building user data object');
 
           // Initialize empty data object.
           let data = {};
@@ -135,12 +135,13 @@ class GigyaSocialize {
           data.UID = user.UID;
           data.email = user.email;
 
+          // Get label for dynamic key creation.
           let label = this.get('sessionLabel');
-          // Set session label for Libercus.
+
+          // Set session label key for Libercus.
           data[label] = this.get('sessionId');
 
-          console.info('\<gigya-socialize\> user data object built');
-
+          // Login to Libercus user authentication system.
           this._loginLibercus(data);
         } else {
           console.error('\<gigya-socialize\> no user found or incomplete data');
