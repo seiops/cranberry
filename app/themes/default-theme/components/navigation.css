@@ -18,19 +18,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     pointer-events: none;
   }
 
+  @nest &-text {
+    pointer-events: none;
+  }
+
   @nest &-link {
     @apply(--layout-horizontal);
     @apply(--layout-center);
 
     color: var(--primary-text-color);
     min-height: 48px;
+    width: 100%;
     padding-left: 24px;
     padding-right: 24px;
     text-decoration: none;
-  }
-
-  @nest &-text {
-    pointer-events: none;
   }
 }
 

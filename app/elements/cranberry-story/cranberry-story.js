@@ -82,15 +82,21 @@ class CranberryStory {
       hasProfile: {
         type: Boolean,
         value: false
+      },
+      byline: {
+        type: Object,
+        value: {}
+      },
+      firstTime: {
+        type: Boolean,
+        value: true
       }
     };
     this.observers = ['_checkParams(routeData.id)', '_hiddenChanged(hidden, routeData.id)'];
   }
 
   attached() {
-    this.async(function() {
-      console.info('\<cranberry-story\> attached');
-    });
+    console.info('\<cranberry-story\> attached');
   }
 
   _checkStory() {
@@ -100,13 +106,15 @@ class CranberryStory {
     let cachedStory = this.get('cachedStory');
 
     this.async(function() {
-      if (routeId === cachedStory.itemId) {
-        // Destroy current story to flag observer change for cachedStory
-        this.set('story', {});
-        // Set story to cachedStory
-        this.set('story', cachedStory);
-        // Refresh tout
-        this._refreshTout();
+      if (typeof cachedStory !== 'undefined' && typeof cachedStory.itemId !== 'undefined' && typeof routeId !== 'undefined') {
+        if (routeId === cachedStory.itemId) {
+          // Destroy current story to flag observer change for cachedStory
+          this.set('story', {});
+          // Set story to cachedStory
+          this.set('story', cachedStory);
+          // Refresh tout
+          this._refreshTout();
+        }
       }
     }); 
   }
@@ -119,19 +127,21 @@ class CranberryStory {
   }
 
   _changeParams() {
-    let params = this.get('params');
-    let storyId = this.get('storyId');
+    this.async(function()  {
+      let params = this.get('params');
+      let storyId = this.get('storyId');
 
-    this.set('story', {});
+      this.set('story', {});
 
-    params.preview = 1;
+      params.preview = 1;
 
-    if (params.length !== 0 && storyId !== 0) {
-      this.$.storyRequest.url = this.rest;
-      this.$.storyRequest.setAttribute('callback-value', 'storycallback');
-      this.$.storyRequest.params = params;
-      this.$.storyRequest.generateRequest();
-    }
+      if (params.length !== 0 && storyId !== 0) {
+        this.$.storyRequest.url = this.rest;
+        this.$.storyRequest.setAttribute('callback-value', 'storycallback');
+        this.$.storyRequest.params = params;
+        this.$.storyRequest.generateRequest();
+      }
+    });
   }
 
   _destroyContent() {
@@ -184,21 +194,28 @@ class CranberryStory {
       let hasShortcode = this.get('hasLeadShortcode');
       if (Object.keys(mediaItems).length === 0 && !hasShortcode) {
         return true;
+      } else {
+        return false;
       }
     }
   }
 
-  _checkParams() {
+  _checkParams(routeId) {
     this.async(function() {
-      let hidden = this.get('hidden');
-      if (!hidden) {
-        let storyId = this.get('routeData.id');
-        let currentId = this.get('storyId');
+      if (typeof routeId !== 'undefined') {
+        let hidden = this.get('hidden');
+        if (typeof hidden !== 'undefined' && !hidden) {
+          let storyId = routeId;
+          let currentId = this.get('storyId');
+          let firstTime = this.get('firstTime');
 
-        if (typeof storyId !== 'undefined' && currentId !== storyId) {
-          console.info('\<cranberry-story\> setting new story id -\> ' + storyId);
-          this.set('storyId', storyId);
-          this._destroyContent();
+          if (typeof storyId !== 'undefined' && typeof currentId !== 'undefined' && currentId !== storyId) {
+            console.info('\<cranberry-story\> setting new story id -\> ' + storyId);
+            this.set('storyId', storyId);
+            if (!firstTime) {
+              this._destroyContent();
+            }
+          }
         }
       }
     });
@@ -208,7 +225,7 @@ class CranberryStory {
     this.async(function() {
       let storyId = this.get('storyId');
 
-      if (hidden) {
+      if (typeof hidden !== 'undefined' && hidden && typeof storyId !== 'undefined' && storyId !== 0) {
         // Destroy the content
         this._destroyContent();
         this._destroyNativo();
@@ -218,7 +235,6 @@ class CranberryStory {
         }
       }
     });
-    
   }
 
   _computeBylineURL(byline) {
@@ -233,100 +249,102 @@ class CranberryStory {
     let baseUrl = this.get('baseUrl');
 
     if (typeof url === 'undefined') {
-      return 'http://imgsrc.me/250x400/9c9c9c/000000/Image Unavailable?showDimensions=0&font=arial';
+      return '../images/story/unavail.png';
     } else {
       return baseUrl + url;
     }
   }
 
   _displayContent() {
-    if (this.hidden === false) {
-      let storyId = this.get('storyId');
+    this.async(function()  {
+      if (this.hidden === false) {
+        let storyId = this.get('storyId');
 
-      if (typeof storyId !== 'undefined' && storyId !== 0) {
-        let story = this.get('story');
-        if (typeof story.published !== 'undefined') {
-          let data = {};
-          let baseUrl = this.get('baseUrl');
-          let toutUid = this.get('toutUid');
-          let surveyOff = story.surveysOff;
-          let toutOff = story.toutOff;
-          let surveyIndex = (story.surveyIndex === "0" || typeof story.surveyIndex === 'undefined') ? 3 : Number(story.surveyIndex);
-          let gcsSurveyId = this.get('gcsSurveyId');
-          let surveyParagraphs = [];
-          let paragraphs = story.paragraphs;
-          let contentArea = this.$.storyContentArea;
-          let distributeToSurveys = false;
-          let mobile = this.get('mobile');
-          if (typeof paragraphs !== 'undefined') {
-            let elementsArray = [];
+        if (typeof storyId !== 'undefined' && storyId !== 0) {
+          let story = this.get('story');
+          if (typeof story.published !== 'undefined') {
+            let data = {};
+            let baseUrl = this.get('baseUrl');
+            let toutUid = this.get('toutUid');
+            let surveyOff = story.surveysOff;
+            let toutOff = story.toutOff;
+            let surveyIndex = (story.surveyIndex === "0" || typeof story.surveyIndex === 'undefined') ? 3 : Number(story.surveyIndex);
+            let gcsSurveyId = this.get('gcsSurveyId');
+            let surveyParagraphs = [];
+            let paragraphs = story.paragraphs;
+            let contentArea = this.$.storyContentArea;
+            let distributeToSurveys = false;
+            let mobile = this.get('mobile');
+            if (typeof paragraphs !== 'undefined') {
+              let elementsArray = [];
 
-            paragraphs.forEach((value, index) => {
-              // UNCOMMENT FOR DEV ENVIRONMENT SURVEYS
-              if (index === surveyIndex && mobile) {
-                distributeToSurveys = true;
-              }
-
-              if (!distributeToSurveys) {
-                if (value.shortcode) {
-                  if (value.key === 'tout' && !toutOff) {
-                    this.set('toutShortcode', true);
-                  }
-
-                  let shortcodeEl = document.createElement('cranberry-shortcode');
-
-                  shortcodeEl.set('shortcodeObject', value);
-                  shortcodeEl.set('storyObject', story);
-                  shortcodeEl.set('baseUrl', baseUrl);
-                  shortcodeEl.set('toutUid', toutUid);
-
-                  elementsArray.push(shortcodeEl);
-                } else {
-                  let hasTout = this.get('toutShortcode');
-
-                  if (index === 4 && !hasTout && !toutOff) {
-                    let tempDiv = document.createElement('div');
-                    tempDiv.setAttribute('id', 'tempToutDiv');
-
-                    elementsArray.push(tempDiv);
-                  }
-
-                  let paragraphEl = document.createElement('p');
-                  paragraphEl.innerHTML = value.text;
-
-                  elementsArray.push(paragraphEl);
+              paragraphs.forEach((value, index) => {
+                // UNCOMMENT FOR DEV ENVIRONMENT SURVEYS
+                if (index === surveyIndex && mobile) {
+                  distributeToSurveys = true;
                 }
-              } else {
-                surveyParagraphs.push(value);
+
+                if (!distributeToSurveys) {
+                  if (value.shortcode) {
+                    if (value.key === 'tout' && !toutOff) {
+                      this.set('toutShortcode', true);
+                    }
+
+                    let shortcodeEl = document.createElement('cranberry-shortcode');
+
+                    shortcodeEl.set('shortcodeObject', value);
+                    shortcodeEl.set('storyObject', story);
+                    shortcodeEl.set('baseUrl', baseUrl);
+                    shortcodeEl.set('toutUid', toutUid);
+
+                    elementsArray.push(shortcodeEl);
+                  } else {
+                    let hasTout = this.get('toutShortcode');
+
+                    if (index === 4 && !hasTout && !toutOff) {
+                      let tempDiv = document.createElement('div');
+                      tempDiv.setAttribute('id', 'tempToutDiv');
+
+                      elementsArray.push(tempDiv);
+                    }
+
+                    let paragraphEl = document.createElement('p');
+                    paragraphEl.innerHTML = value.text;
+
+                    elementsArray.push(paragraphEl);
+                  }
+                } else {
+                  surveyParagraphs.push(value);
+                }
+                
+              });
+              
+              // UNCOMMENT FOR DEV ENVIRONMENT SURVEYS
+              if (!surveyOff && distributeToSurveys) {
+                let surveyElement = document.createElement('google-survey');
+                surveyElement.set('storyObject', story);
+                surveyElement.set('baseUrl', baseUrl);
+                surveyElement.set('toutUid', toutUid);
+                surveyElement.set('paragraphs', surveyParagraphs);
+                surveyElement.set('gcsSurveyId', gcsSurveyId);
+
+                elementsArray.push(surveyElement);
               }
               
-            });
-            
-            // UNCOMMENT FOR DEV ENVIRONMENT SURVEYS
-            if (!surveyOff && distributeToSurveys) {
-              let surveyElement = document.createElement('google-survey');
-              surveyElement.set('storyObject', story);
-              surveyElement.set('baseUrl', baseUrl);
-              surveyElement.set('toutUid', toutUid);
-              surveyElement.set('paragraphs', surveyParagraphs);
-              surveyElement.set('gcsSurveyId', gcsSurveyId);
-
-              elementsArray.push(surveyElement);
+              this.set('storyContent', elementsArray);
             }
-            
-            this.set('storyContent', elementsArray);
-          }
 
-          this._setupByline();
-          this._sendPageview(story);
+            this._setupByline();
+            this._sendPageview(story);
 
-          // Fire nativo
-          if (typeof window.PostRelease !== 'undefined' && typeof window.PostRelease.Start === 'function') {
-            PostRelease.Start();
+            // Fire nativo
+            if (typeof window.PostRelease !== 'undefined' && typeof window.PostRelease.Start === 'function') {
+              PostRelease.Start();
+            }
           }
         }
       }
-    }
+    });
   }
 
   _render(newValue) {
@@ -403,20 +421,13 @@ class CranberryStory {
     this.set('story', result);
   }
 
-  _scrollToComments() {
-    let commentsDiv = Polymer.dom(this.root).querySelector('#commentsButton');
-
-    commentsDiv.scrollIntoView(true);
-  }
-
-  _storyIdChanged() {
+  _storyIdChanged(storyId, oldId) {
+    if (typeof oldId !== 'undefined' && oldId !== 0) {
+      this.set('firstTime', false);
+    }
     this.async(function() {
-
-      let storyId = this.get('storyId');
-
       if (typeof storyId !== 'undefined' && storyId !== 0) {
         console.info('\<cranberry-story\> storyId set to ' + storyId);
-
         this._updateStoryId(storyId);
       }
       
@@ -446,28 +457,33 @@ class CranberryStory {
   }
 
   _checkTout() {
-    let contentArea = this.$.storyContentArea;
-    let toutDiv = contentArea.querySelector('#tempToutDiv');
-    let toutUid = this.get('toutUid');
+    this.async(function()  {
+      let contentArea = this.$.storyContentArea;
+      let toutDiv = contentArea.querySelector('#tempToutDiv');
+      let toutUid = this.get('toutUid');
 
-    if (toutDiv !== null) {
-      let tout = document.createElement('tout-element');
+      if (toutDiv !== null) {
+        let tout = document.createElement('tout-element');
 
-      tout.set('placement', 'tout-mid-article');
-      tout.set('slot', 'mid-article');
-      tout.set('player', 'mid_article_player');
-      tout.set('toutUid', toutUid);
-      tout.set('storyId', this.get('routeData.id'));
+        tout.set('placement', 'tout-mid-article');
+        tout.set('slot', 'mid-article');
+        tout.set('player', 'mid_article_player');
+        tout.set('toutUid', toutUid);
+        tout.set('storyId', this.get('routeData.id'));
 
-      toutDiv.appendChild(tout);
-    }
+        toutDiv.appendChild(tout);
+      }
+    });
+    
   }
 
   _refreshTout() {
-    let touts = Polymer.dom(this.root).querySelectorAll('tout-element');
+    this.async(function()  {
+      let touts = Polymer.dom(this.root).querySelectorAll('tout-element');
 
-    touts.forEach(function(value, index) {
-      value.refresh();
+      touts.forEach(function(value, index) {
+        value.refresh();
+      });
     });
   }
 
@@ -477,31 +493,33 @@ class CranberryStory {
     let byline = story.byline;
     let tempObject = {};
 
-    tempObject.image = byline.image;
+    this.async(function()  {
+      tempObject.image = byline.image;
 
-    if (typeof byline.bylineid !== 'undefined') {
-      tempObject.bylineid = byline.bylineid;
-      tempObject.title = (byline.title !== '') ? byline.title : byline.first + ' ' + byline.last;
-      tempObject.inputByline = byline.inputByline;
-      tempObject.location = byline.location;
-      tempObject.profileUrl = '/profile/' + byline.bylineid;
+      if (typeof byline.bylineid !== 'undefined') {
+        tempObject.bylineid = byline.bylineid;
+        tempObject.title = (byline.title !== '') ? byline.title : byline.first + ' ' + byline.last;
+        tempObject.inputByline = byline.inputByline;
+        tempObject.location = byline.location;
+        tempObject.profileUrl = '/profile/' + byline.bylineid;
 
-      this.set('hasProfile', true);
-    } else {
-      tempObject.profileUrl = '';
-      if (typeof byline.line1 !== 'undefined' && typeof byline.line2 !== 'undefined') {
-        if (byline.line1 !== '') {
-          tempObject.title = byline.line1;
-        }
-        if (byline.line2 !== '') {
-          tempObject.location = byline.line2;
-        }
+        this.set('hasProfile', true);
       } else {
-        tempObject.title = byline.inputByline;
+        tempObject.profileUrl = '';
+        if (typeof byline.line1 !== 'undefined' && typeof byline.line2 !== 'undefined') {
+          if (byline.line1 !== '') {
+            tempObject.title = byline.line1;
+          }
+          if (byline.line2 !== '') {
+            tempObject.location = byline.line2;
+          }
+        } else {
+          tempObject.title = byline.inputByline;
+        }
       }
-    }
 
-    this.set('byline', tempObject);
+      this.set('byline', tempObject);
+    });
   }
 }
 Polymer(CranberryStory);

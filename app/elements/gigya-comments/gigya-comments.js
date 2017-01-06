@@ -64,13 +64,17 @@ class gigyaComments {
 
         let gigyaDefined = new Promise(
           function(resolve, reject) {
-            let isDefined = false;
-            while (!isDefined) {
-              if (typeof gigya !== 'undefined' && typeof gigya.comments !== 'undefined' && typeof gigya.comments.showCommentsUI === 'function') {
-                isDefined = true;
-                resolve(true);
-              }
+            function timeoutFunction() {
+              setTimeout(function() {
+                if (typeof gigya !== 'undefined' && typeof gigya.comments !== 'undefined' && typeof gigya.comments.showCommentsUI === 'function') {
+                  resolve(true);
+                  return;
+                } else {
+                  timeoutFunction();
+                }
+              }, 50);
             }
+            timeoutFunction();
           }
         );
 

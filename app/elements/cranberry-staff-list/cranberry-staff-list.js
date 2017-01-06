@@ -101,7 +101,7 @@ class cranberryStaffList {
     if (typeof imageObject.small !== 'undefined') {
       return baseUrl + '/' + imageObject.small;
     } else {
-      return 'http://imgsrc.me/200x113/9c9c9c/000000/Image Unavailable?showDimensions=0&font=arial';
+      return '../images/story/unavail.png';
     }
   }
 

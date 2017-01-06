@@ -26,17 +26,17 @@ class CranberryBase {
 
   // attached to document
   attached() {
-    let storage = JSON.parse(localStorage.getItem(this.$.localStorage.name));
+    // let storage = JSON.parse(localStorage.getItem(this.$.localStorage.name));
 
-    if (storage) {
-      if (storage.darkThemeEnabled) {
-        this.changeTheme(storage.darkThemeEnabled);
-      }
+    // if (storage) {
+    //   if (storage.darkThemeEnabled) {
+    //     this.changeTheme(storage.darkThemeEnabled);
+    //   }
 
-      if (storage.accentColor) {
-        this.changeAccentColor(storage.accentColor);
-      }
-    }
+    //   if (storage.accentColor) {
+    //     this.changeAccentColor(storage.accentColor);
+    //   }
+    // }
 
     this._setupSurvey();
   }
@@ -339,7 +339,7 @@ class CranberryBase {
       return thumbnail;
     } else {
       // Return canned image currently
-      return 'http://imgsrc.me/250x400/9c9c9c/000000/Image Unavailable?showDimensions=0&font=arial';
+      return '../images/story/unavail.png';
     }
   }
 

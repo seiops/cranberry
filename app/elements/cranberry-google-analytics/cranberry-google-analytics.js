@@ -53,6 +53,7 @@ class CranberryGoogleAnalytics {
     if (typeof trackingArray !== 'undefined' && trackingArray.length > 0) {
       trackingArray.forEach((value, index) => {
         this._createGA(value.code, index);
+        this._sendAsyncTracking();
       });
     }
   }
@@ -82,47 +83,76 @@ class CranberryGoogleAnalytics {
   }
 
   trackEvent(e) {
-    let trackerIds = this.get('trackerIds');
-    console.info('\<cranberry-google-analytics\> event sent with data on default');
-    ga('send', 'event', e.detail.event.category, e.detail.event.action);
-    trackerIds.forEach((value, index) => {
-      console.info('\<cranberry-google-analytics\> event sent with data on ' + value);
-      ga( value + '.send', 'event', e.detail.event.category, e.detail.event.action);
-    });
+    if (typeof ga !== 'undefined') {
+      let trackerIds = this.get('trackerIds');
+      if (typeof e.detail.event.category !== 'undefined' && typeof e.detail.event.action !== 'undefined') {
+        console.info('\<cranberry-google-analytics\> event sent with data on default');
+        ga('send', 'event', e.detail.event.category, e.detail.event.action);
+        trackerIds.forEach((value, index) => {
+          console.info('\<cranberry-google-analytics\> event sent with data on ' + value);
+          ga( value + '.send', 'event', e.detail.event.category, e.detail.event.action);
+        });
+      }
+    } else {
+      let asyncEvents = this.get('asyncEvents');
+
+      asyncEvents.push(e);
+      this.set('asyncEvents', asyncEvents);
+    }
   }
 
   trackPage(e) {
-    setTimeout(() => {
-      if (typeof ga !== 'undefined') {
-        //Use set param, this way if we then send a subsequent event on the page it will be correctly associated with the same page
+    if (typeof ga !== 'undefined') {
+      //Use set param, this way if we then send a subsequent event on the page it will be correctly associated with the same page
 
-        if (typeof e !== 'undefined' && typeof e.detail.path !== 'undefined') {
-            ga('set', 'page', e.detail.path);
-        }
-
-        let trackerIds = this.get('trackerIds');
-
-        if(typeof e.detail.data !== 'undefined') {
-          console.info('\<cranberry-google-analytics\> pageview sent with data on default tracker');
-          ga('send', 'pageview', e.detail.data);
-          trackerIds.forEach((value, index) => {
-            console.info('\<cranberry-google-analytics\> pageview sent with data on ' + value);
-            ga( value + '.send', 'pageview', e.detail.data);
-          });
-        } else {
-          console.info('\<cranberry-google-analytics\> pageview sent on default tracker');
-          ga('send', 'pageview');
-
-          trackerIds.forEach((value, index) => {
-            console.info('\<cranberry-google-analytics\> pageview sent on ' + value);
-            ga( value + '.send', 'pageview');
-          });
-        }
-        return;
-      } else {
-        this.trackPage(e);
+      if (typeof e !== 'undefined' && typeof e.detail.path !== 'undefined') {
+          ga('set', 'page', e.detail.path);
       }
-    }, 50);
+
+      let trackerIds = this.get('trackerIds');
+
+      if(typeof e.detail.data !== 'undefined') {
+        console.info('\<cranberry-google-analytics\> pageview sent with data on default tracker');
+        ga('send', 'pageview', e.detail.data);
+        trackerIds.forEach((value, index) => {
+          console.info('\<cranberry-google-analytics\> pageview sent with data on ' + value);
+          ga( value + '.send', 'pageview', e.detail.data);
+        });
+      } else {
+        console.info('\<cranberry-google-analytics\> pageview sent on default tracker');
+        ga('send', 'pageview');
+
+        trackerIds.forEach((value, index) => {
+          console.info('\<cranberry-google-analytics\> pageview sent on ' + value);
+          ga( value + '.send', 'pageview');
+        });
+      }
+      return;
+    } else {
+      let asyncPageViews = this.get('asyncPageViews');
+
+      asyncPageViews.push(e);
+      this.set('asyncPageViews', asyncPageViews);
+    }
+  }
+
+  _sendAsyncTracking() {
+    this.async(function() {
+      let asyncEvents = this.get('asyncEvents');
+      let asyncPageViews = this.get('asyncPageViews');
+
+      if (typeof asyncEvents !== 'undefined') {
+        asyncEvents.forEach((value, index) => {
+          this.trackEvent(value);
+        });
+      }
+
+      if (typeof asyncPageViews !== 'undefined') {
+        asyncPageViews.forEach((value, index) => {
+          this.trackPage(value);
+        });
+      }
+    });
   }
 
   userIDChanged(e) {

@@ -17,7 +17,6 @@
 <dom-module id="cranberry-story">
 
   <template>
-    <!-- Polymer 1.1 and above recommends placing style within template https://www.polymer-project.org/1.0/docs/devguide/styling -->
     <style>
       @import "cranberry-story/cranberry-story";
     </style>
@@ -49,19 +48,19 @@
       </div>
 
       <!-- Headline -->
-      <h1 class="story-title"> {{story.title}} </h1>
-      <p class="time-stamp"> {{story.updated}} </p>
+      <h1 class="story-title"> [[story.title]] </h1>
+      <p class="time-stamp"> [[story.updated]] </p>
 
       <!-- Story Media -->
-      <div class="story-media" hidden$="{{_checkMedia(story.mediaAssets)}}">
+      <div class="story-media" hidden$="[[_checkMedia(story.mediaAssets)]]">
         <div class="media-container" id="mediaContainer"  desktop-layout$="[[desktop]]" tablet-layout$="[[tablet]]" mobile-layout$="[[mobile]]">
-          <iron-image id="mainImage" sizing="cover" src="{$ config.baseDomain $}{{story.mediaAssets.images.0.exlarge}}" hidden$="[[hasLeadShortcode]]"></iron-image>
+          <iron-image id="mainImage" sizing="cover" src$="{$ config.baseDomain $}[[story.mediaAssets.images.0.exlarge]]" hidden$="[[hasLeadShortcode]]"></iron-image>
           <div id="leadShortcode" hidden$="[[!hasLeadShortcode]]"></div>
           <!-- TOUT TAP -->
           <!--<div id="toutTap" hidden$="[[!hasToutTap]]"></div>-->
         </div>
         <div class="ut-rowFlex ut-absolute">
-          <paper-fab mini icon="communication:chat-bubble" title="Comments" id="commentButton" class="ut-small-icon-margin" on-tap="_scrollToComments"></paper-fab>
+          <paper-fab mini icon="communication:chat-bubble" title="Comments" id="commentButton" class="ut-small-icon-margin"></paper-fab>
           <gigya-sharebar share-buttons-id="gigya-share-buttons-story" title="[[story.title]]" route="[[route]]"></gigya-sharebar>
         </div>
       </div>
@@ -116,10 +115,9 @@
               ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
               id="sideAd">
             </google-dfp>
+
             <gigya-top-comments count="5" age="90"></gigya-top-comments>
-            <!--<div class="jobs-container">
-              <cranberry-jobs-widget affiliate-id="{$ config.jobs.affiliateId $}" widget-id="{$ config.jobs.widgetId $}" hidden$="{{hidden}}"></cranberry-jobs-widget>
-            </div>-->
+
             <cranberry-related-content related-items="[[story.relatedContent]]" story></cranberry-related-content>
             <div class="ntv-ad-div"></div>
             <div class="tout-sdk tout-right-rail-embed"></div>
