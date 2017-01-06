@@ -3,13 +3,18 @@ class GigyaSocialize {
   beforeRegister() {
     this.is = 'gigya-socialize';
     this.properties = {
-      apiKey: {
-        type: String
-      },
       account: {
         type: Object,
         value: {},
         notify: true
+      },
+      accountVerify: {
+        type: Boolean,
+        value: false,
+        observer: '_verifyAccount'
+      },
+      apiKey: {
+        type: String
       },
       guestSelected: {
         type: Number,
@@ -19,6 +24,23 @@ class GigyaSocialize {
         type: Number,
         value: 0
       },
+      route: {
+        type: Object,
+        observer: '_onRouteChanged'
+      },
+      scriptAttached: {
+        type: Boolean,
+        value: false
+      },
+      sessionId: {
+        type: String
+      },
+      sessionLabel: {
+        type: String
+      },
+      sessionSyncronex: {
+        type: String
+      },
       user: {
         type: Object,
         value: {},
@@ -27,19 +49,6 @@ class GigyaSocialize {
       userSelected: {
         type: Number,
         value: 0
-      },
-      route: {
-        type: Object,
-        observer: '_onRouteChanged'
-      },
-      accountVerify: {
-        type: Boolean,
-        value: false,
-        observer: '_verifyAccount'
-      },
-      scriptAttached: {
-        type: Boolean,
-        value: false
       }
     };
   }
@@ -51,7 +60,7 @@ class GigyaSocialize {
     console.info('\<gigya-socialize\> attached');
 
     let scriptAttached = this.get('scriptAttached');
-    
+
     if (!scriptAttached) {
       let apiKey = this.get('apiKey');
       let loader = document.querySelector('cranberry-script-loader');
@@ -89,9 +98,63 @@ class GigyaSocialize {
     });
   }
 
+  // build user object to authenticate with Libercus
+  _buildUser(user) {
+    this.async(function() {
+      let user = this.get('user');
+
+      // Check for a valid profile object.
+      if (typeof user !== 'undefined' && typeof user.statusCode !== 'undefined' && user.statusCode === 200) {
+          console.info('\<gigya-socialize\> user found, authenticating');
+
+          // Initialize empty data object.
+          let data = {};
+
+          // Check profile.username value, use nickname if no username.
+          if (typeof user.nickname !== 'undefined') {
+              data.nickName = user.nickname;
+          } else if (typeof profile.nickname !== 'undefined') {
+              data.nickName = user.email;
+          }
+
+          // Check for profile.firstName, use e-mail if no firstName.
+          if (typeof user.firstName !== 'undefined') {
+              data.firstName = user.firstName;
+          } else {
+              data.firstName = user.email;
+          }
+
+          // Check for profile.lastName, use e-mail if no firstName.
+          if (typeof user.lastName !== 'undefined') {
+              data.lastName = user.lastName;
+          } else {
+              data.lastName = user.email;
+          }
+
+          // Set Gigya UID and email for Libercus data object.
+          data.UID = user.UID;
+          data.email = user.email;
+
+          let label = this.get('sessionLabel');
+          // Set session label for Libercus.
+          data[label] = this.get('sessionId');
+
+          console.info('\<gigya-socialize\> user data object built');
+
+          this._loginLibercus(data);
+        } else {
+          console.error('\<gigya-socialize\> no user found or incomplete data');
+        }
+    });
+  }
+
+
   // check Gigya user
   checkUser() {
     console.info('\<gigya-socialize\> check user');
+
+    this._loginSession();
+
     let params = {
       callback: this._loadUser,
       context: this
@@ -122,12 +185,22 @@ class GigyaSocialize {
   //   }, 50);
   // }
 
+  // Simple method checking equal value
   _equal(a, b) {
     if (a === b) {
       return true;
     } else {
       return false;
     }
+  }
+
+  // echo response data (user created or blank) to console and check session
+  _handleLibercusResponse(response) {
+    console.info('\<gigya-socialize\> Libercus response received');
+    // console.dir(response);
+
+    // Set session information.
+    this._loginSession();
   }
 
   // logout from Gigya API
@@ -137,14 +210,32 @@ class GigyaSocialize {
     gigya.accounts.logout();
   }
 
+  // set session information from Libercus
+  _handleSessionResponse(response) {
+    console.info('\<gigya-socialize\> session response received');
+
+    let result = JSON.parse(response.detail.Result);
+
+    this.set('sessionLabel', result.sessionLabel);
+    this.set('sessionId', result.sessionId);
+
+    if (typeof result.syncronexAccount !== 'undefined') {
+      this.set('sessionSyncronex', result.syncronexAccount);
+    }
+
+    this.async(function(){
+      this._sessionChanged();
+    });
+  }
+
   // load Gigya account information
   _loadAccount(account) {
-    console.info('\<gigya-socialize\> account loaded');
-
-    console.dir(account);
+    console.info('\<gigya-socialize\> Gigya account loaded');
 
     let el = account.context;
     el.set('account', account);
+
+    el._buildUser();
 
     gigya.socialize.refreshUI();
   }
@@ -178,9 +269,32 @@ class GigyaSocialize {
 
   }
 
+  // logout Libercus session and cookies
+  _logoutCookies(name, value, expires, path, domain, secure) {
+    console.log('deleting cookie ' + name);
+  	cookieStr = name + '=' + escape(value) + '; ';
+
+  	if(expires){
+  		expires = setExpiration(expires);
+  		cookieStr += 'expires=' + expires + '; ';
+  	}
+  	if(path){
+  		cookieStr += 'path=' + path + '; ';
+  	}
+  	if(domain){
+  		cookieStr += 'domain=' + domain + '; ';
+  	}
+  	if(secure){
+  		cookieStr += 'secure; ';
+  	}
+
+  	document.cookie = cookieStr;
+    return;
+  }
+
   // callback from Gigya logout API
   _logoutUser(data) {
-    console.info('\<gigya-socialize\> logged out');
+    console.info('\<gigya-socialize\> logged out, clearing session data');
 
     app.$.infoToast.text = 'Logged out.';
     app.$.infoToast.show();
@@ -189,11 +303,39 @@ class GigyaSocialize {
     el.set('user', {});
 
     gigya.socialize.refreshUI();
+
+    el._logoutCookies('LIBERCUS_ID', '', -1);
+    el._logoutCookies('LIBERCUS_SESSIONID', '', -1);
+
+    el._loginSession();
   }
 
   _loginUser(eventObj) {
     if (eventObj.newUser) {
       this.context.checkUser();
+    }
+  }
+
+  // login to Libercus platform, creates synced account if none exists
+  _loginLibercus(params) {
+    console.info('\<gigya-socialize\> logging in to Libercus');
+
+    this.$.libercusRequest.url = 'http://srdevcore.libercus.net/.auth';
+    this.$.libercusRequest.params = params;
+    this.$.libercusRequest.generateRequest();
+  }
+
+  // retrieve user session information from Libercus users
+  _loginSession() {
+    console.info('\<gigya-socialize\> checking session data');
+    let sessionCheck = this.get('sessionId');
+
+    if (typeof sessionCheck === 'undefined' || sessionCheck.length === 0) {
+      console.info('\<gigya-socialize\> retrieving session data');
+
+      this.$.sessionRequest.url = 'http://srdevcore.libercus.net/ajaxquery/userinfo';
+      this.$.sessionRequest.params = '';
+      this.$.sessionRequest.generateRequest();
     }
   }
 
@@ -210,6 +352,15 @@ class GigyaSocialize {
     }
   }
 
+  // Observer method for when session value changes
+  _onUserChanged(user) {
+    console.info('\<gigya-socialize\> session changed');
+
+    this.async(function() {
+      this._buildUser(user);
+    });
+  }
+
   // Method to reset query params to empty object
   _resetQueryParams() {
     this.async(function() {
@@ -218,6 +369,43 @@ class GigyaSocialize {
       let location = base.querySelector('app-location');
 
       location.set('queryParams', {});
+    });
+  }
+
+  // Method to update user session properties
+  _sessionChanged(){
+    console.info('\<gigya-socialize\> session changed, updating information');
+
+    this.async(function() {
+      let sessionId = this.get('sessionId');
+      let sessionLabel = this.get('sessionLabel');
+      let sessionSyncronex = this.get('sessionSyncronex');
+
+      this.set('user.sessionid', sessionId);
+      this.set('user.sessionlabel', sessionLabel);
+
+      if (typeof sessionSyncronex !== 'undefined') {
+        this.set('user.sessionaccount', sessionSyncronex);
+      }
+
+      this._showSession();
+    });
+  }
+
+  // Print session values to console
+  _showSession(){
+    this.async(function(){
+      let session = this.get('user.sessionid');
+      let label = this.get('user.sessionlabel');
+      let account = this.get('user.sessionaccount');
+
+      if (typeof account === 'undefined') {
+        account = 'guest';
+      }
+
+      console.dir(label);
+      console.dir(session);
+      console.dir(account);
     });
   }
 
