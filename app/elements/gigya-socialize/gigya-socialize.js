@@ -194,6 +194,11 @@ class GigyaSocialize {
     }
   }
 
+  // echo response data (logging out) to console
+  _handleLibercusLogout() {
+    console.info('\<gigya-socialize\> user session data cleared');
+  }
+
   // echo response data (user created or blank) to console and check session
   _handleLibercusResponse(response) {
     console.info('\<gigya-socialize\> Libercus response received');
@@ -266,48 +271,27 @@ class GigyaSocialize {
     if (user.status === 'FAIL') {
       console.error('\<gigya-socialize\> api response error -> ' + user.errorMessage);
     }
-
   }
 
-  // logout Libercus session and cookies
-  _logoutCookies(name, value, expires, path, domain, secure) {
-    console.log('deleting cookie ' + name);
-  	cookieStr = name + '=' + escape(value) + '; ';
-
-  	if(expires){
-  		expires = setExpiration(expires);
-  		cookieStr += 'expires=' + expires + '; ';
-  	}
-  	if(path){
-  		cookieStr += 'path=' + path + '; ';
-  	}
-  	if(domain){
-  		cookieStr += 'domain=' + domain + '; ';
-  	}
-  	if(secure){
-  		cookieStr += 'secure; ';
-  	}
-
-  	document.cookie = cookieStr;
-    return;
+  // logout user from Libercus sessions
+  _logoutLibercus() {
+    this.$.libercusLogoutRequest.url = 'http://srdevcore.libercus.net/ajaxquery/logout';
+    this.$.libercusLogoutRequest.params = '';
+    this.$.libercusLogoutRequest.generateRequest();
   }
 
   // callback from Gigya logout API
   _logoutUser(data) {
-    console.info('\<gigya-socialize\> logged out, clearing session data');
+    console.info('\<gigya-socialize\> logged out of Gigya, clearing session data');
 
     app.$.infoToast.text = 'Logged out.';
     app.$.infoToast.show();
 
     let el = data.context;
+
     el.set('user', {});
-
+    el._logoutLibercus();
     gigya.socialize.refreshUI();
-
-    el._logoutCookies('LIBERCUS_ID', '', -1);
-    el._logoutCookies('LIBERCUS_SESSIONID', '', -1);
-
-    el._loginSession();
   }
 
   _loginUser(eventObj) {
