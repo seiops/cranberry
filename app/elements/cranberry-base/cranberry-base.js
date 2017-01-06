@@ -85,7 +85,8 @@ class CranberryBase {
     this.$.headerPanelMain.scrollToTop(true);
   }
 
-  closeDrawer() {
+  closeDrawer(e) {
+    e.preventDefault();
     this.$.paperDrawerPanel.closeDrawer();
   }
 
@@ -119,11 +120,18 @@ class CranberryBase {
   }
 
   _checkDrawer() {
-    this.async(function() {
+    this.async(() => {
       if (!this.$.drawer.persistent) {
         this.$.drawer.close();
       }
     });
+  }
+
+  _drawerItemSelected(e) {
+    console.dir(e);
+    setTimeout(() => {
+      this._checkDrawer();
+    }, 150);
   }
 
   _equal(a, b) {

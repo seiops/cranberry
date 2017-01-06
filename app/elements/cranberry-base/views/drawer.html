@@ -32,10 +32,10 @@
       <paper-menu class="Navigation Navigation--menu list" attr-for-selected="data-route" selected="[[route.path]]">
         <template is="dom-repeat" items="{{sideNav}}">
           <a class="Navigation-link" 
-             data-route="[[item.linkUrl]]"
-             href="[[item.linkUrl]]"
-             target="[[target]]"
-             on-tap="_checkDrawer"
+             data-route$="[[item.linkUrl]]"
+             href$="[[item.linkUrl]]"
+             target$="[[item.target]]"
+             on-tap="_drawerItemSelected"
              ga-on="click"
              ga-event-category="Side Navigation Clicked"
              ga-event-action$="uti_ndwr_cst_[[index]]">
