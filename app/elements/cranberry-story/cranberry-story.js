@@ -82,6 +82,9 @@ class CranberryStory {
       hasProfile: {
         type: Boolean,
         value: false
+      },
+      syncronex: {
+        type: String
       }
     };
     this.observers = ['_checkParams(routeData.id)', '_hiddenChanged(hidden, routeData.id)'];
@@ -108,7 +111,7 @@ class CranberryStory {
         // Refresh tout
         this._refreshTout();
       }
-    }); 
+    });
   }
 
   detached() {
@@ -218,7 +221,7 @@ class CranberryStory {
         }
       }
     });
-    
+
   }
 
   _computeBylineURL(byline) {
@@ -299,9 +302,9 @@ class CranberryStory {
               } else {
                 surveyParagraphs.push(value);
               }
-              
+
             });
-            
+
             // UNCOMMENT FOR DEV ENVIRONMENT SURVEYS
             if (!surveyOff && distributeToSurveys) {
               let surveyElement = document.createElement('google-survey');
@@ -313,7 +316,7 @@ class CranberryStory {
 
               elementsArray.push(surveyElement);
             }
-            
+
             this.set('storyContent', elementsArray);
           }
 
@@ -384,7 +387,7 @@ class CranberryStory {
       dimension6: 'Story',
       dimension8: (typeof tags !== 'undefined') ? tags : ''
     };
-  
+
     // Send pageview event with iron-signals
     this.fire('iron-signal', {name: 'track-page', data: { path: '/story/' + storyId, data } });
 
@@ -419,7 +422,7 @@ class CranberryStory {
 
         this._updateStoryId(storyId);
       }
-      
+
     });
   }
 
