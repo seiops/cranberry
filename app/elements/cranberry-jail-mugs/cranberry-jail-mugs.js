@@ -166,6 +166,18 @@ class cranberryJailMugs {
     let result = JSON.parse(json.detail.Result);
 
     this.set('sliderJson', result);
+
+    let bookingdate = this.get('route.path').replace('/', '');
+    let data = {};
+
+    data.dimension6 = 'jail-mugs';
+    data.dimension3 = result[0].publishDate;
+
+    // Send pageview event with iron-signals
+    this.fire('iron-signal', {name: 'track-page', data: { path: '/jail-mugs/' + bookingdate, data } });
+
+    // Send Chartbeat
+    this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/jail-mugs/' + bookingdate, data: {'sections': 'jail-mugs' } } });
   }
 
   onSliderJsonChanged(newValue) {
@@ -248,6 +260,18 @@ class cranberryJailMugs {
 
     // Genereate new card request based on new start value
     this._buildCardRequest(totalMove);
+
+    let bookingdate = this.get('route.path').replace('/', '');
+    let data = {};
+
+    data.dimension6 = 'jail-mugs';
+    data.dimension3 = result[0].publishDate;
+
+    // Send pageview event with iron-signals
+    this.fire('iron-signal', {name: 'track-page', data: { path: '/jail-mugs/' + bookingdate, data } });
+
+    // Send Chartbeat
+    this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/jail-mugs/' + bookingdate, data: {'sections': 'jail-mugs' } } });
   }
 
   _openModal () {

@@ -186,6 +186,7 @@ class cranberrySlider {
   }
 
   _clicksChanged(clicks) {
+    console.log('CLICKS CHANGED FIRED');
     let modal = this.get('whiteText');
     let galleryType = this.get('galleryType');
 

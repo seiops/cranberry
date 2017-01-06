@@ -122,6 +122,30 @@ class CranberryGallery {
 
     topAd.refresh();
     sideAd.refresh();
+
+    let gaData = {};
+    let gallery = this.get('gallery');
+
+    // Data settings for pageview
+    gaData.dimension6 = 'Gallery';
+
+    if (typeof gallery.byline !== 'undefined') {
+      gaData.dimension1 = gallery.byline;
+    }
+
+    if (typeof gallery.published !== 'undefined') {
+      gaData.dimension3 = gallery.published;
+    }
+
+    if (typeof gallery.tags !== 'undefined') {
+      gaData.dimension8 = gallery.tags;
+    }
+
+    // Send pageview event with iron-signals
+    this.fire('iron-signal', {name: 'track-page', data: { path: '/photo-gallery/' + gallery.itemId, gaData } });
+
+    //Send Chartbeat
+    this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/photo-gallery/' + gallery.itemId, data: {'sections': gallery.sectionInformation.sectionName, 'authors': gallery.byline } } });
   }
 
   _handleResponse (data) {
@@ -245,7 +269,7 @@ class CranberryGallery {
     shareBar.close();
   }
 
-    _requestAnimFrame() {
+  _requestAnimFrame() {
     window.requestAnimFrame = (function(){
       return  window.requestAnimationFrame       ||
               window.webkitRequestAnimationFrame ||
@@ -262,7 +286,6 @@ class CranberryGallery {
     // easing: easing equation to use
     this._requestAnimFrame();
     let scrollY = window.scrollY || document.documentElement.scrollTop;
-    console.log(scrollY);
     let currentTime = 0;
 
     scrollTargetY = scrollTargetY || 0;
