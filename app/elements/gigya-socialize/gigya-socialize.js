@@ -153,14 +153,20 @@ class GigyaSocialize {
   checkUser() {
     console.info('\<gigya-socialize\> check user');
 
-    this._loginSession();
+    this.async(function() {
+      let sessionCheck = this.get('sessionId');
 
-    let params = {
-      callback: this._loadUser,
-      context: this
-    };
+      if (typeof sessionCheck === 'undefined' || sessionCheck.length === 0) {
+        this._loginSession();
+      }
 
-    gigya.socialize.getUserInfo(params);
+      let params = {
+        callback: this._loadUser,
+        context: this
+      };
+
+      gigya.socialize.getUserInfo(params);
+    });
   }
 
   // open modal window
@@ -312,15 +318,10 @@ class GigyaSocialize {
   // retrieve user session information from Libercus users
   _loginSession() {
     console.info('\<gigya-socialize\> checking session data');
-    let sessionCheck = this.get('sessionId');
 
-    if (typeof sessionCheck === 'undefined' || sessionCheck.length === 0) {
-      console.info('\<gigya-socialize\> retrieving session data');
-
-      this.$.sessionRequest.url = 'http://srdevcore.libercus.net/ajaxquery/userinfo';
-      this.$.sessionRequest.params = '';
-      this.$.sessionRequest.generateRequest();
-    }
+    this.$.sessionRequest.url = 'http://srdevcore.libercus.net/ajaxquery/userinfo';
+    this.$.sessionRequest.params = '';
+    this.$.sessionRequest.generateRequest();
   }
 
   // show profile update form
@@ -361,18 +362,22 @@ class GigyaSocialize {
     console.info('\<gigya-socialize\> session changed, updating information');
 
     this.async(function() {
-      let sessionId = this.get('sessionId');
-      let sessionLabel = this.get('sessionLabel');
-      let sessionSyncronex = this.get('sessionSyncronex');
+      let user = this.get('user');
 
-      this.set('user.sessionid', sessionId);
-      this.set('user.sessionlabel', sessionLabel);
+      if (typeof user.UID !== 'undefined') {
+        let sessionId = this.get('sessionId');
+        let sessionLabel = this.get('sessionLabel');
+        let sessionSyncronex = this.get('sessionSyncronex');
 
-      if (typeof sessionSyncronex !== 'undefined') {
-        this.set('user.sessionaccount', sessionSyncronex);
+        this.set('user.sessionid', sessionId);
+        this.set('user.sessionlabel', sessionLabel);
+
+        if (typeof sessionSyncronex !== 'undefined') {
+          this.set('user.sessionaccount', sessionSyncronex);
+        }
+
+        this._showSession();
       }
-
-      this._showSession();
     });
   }
 
