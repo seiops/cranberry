@@ -275,6 +275,11 @@ class CranberryStory {
             let contentArea = this.$.storyContentArea;
             let distributeToSurveys = false;
             let mobile = this.get('mobile');
+
+            if (story.sectionInformation.section === 'Obituary' || story.sectionInformation.section === 'Death_Notice') {
+              toutOff = true;
+            }
+
             if (typeof paragraphs !== 'undefined') {
               let elementsArray = [];
 
