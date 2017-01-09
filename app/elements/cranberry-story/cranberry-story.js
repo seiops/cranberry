@@ -429,6 +429,7 @@ class CranberryStory {
   _storyIdChanged(storyId, oldId) {
     if (typeof oldId !== 'undefined' && oldId !== 0) {
       this.set('firstTime', false);
+      this._destroyContent();
     }
     this.async(function() {
       if (typeof storyId !== 'undefined' && storyId !== 0) {
