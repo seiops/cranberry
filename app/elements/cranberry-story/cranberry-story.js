@@ -145,6 +145,7 @@ class CranberryStory {
   }
 
   _destroyContent() {
+    console.log('DESTROYING CONTENT!!!');
     let contentArea = this.$.storyContentArea;
     let leadMediaArea = this.$.leadShortcode;
     let image = this.$.mainImage;
@@ -222,19 +223,17 @@ class CranberryStory {
   }
 
   _hiddenChanged(hidden, routeId) {
-    this.async(function() {
-      let storyId = this.get('storyId');
+    let storyId = this.get('storyId');
 
-      if (typeof hidden !== 'undefined' && hidden && typeof storyId !== 'undefined' && storyId !== 0) {
-        // Destroy the content
-        this._destroyContent();
-        this._destroyNativo();
-      } else {
-        if (routeId === storyId) {
-          this._checkStory();
-        }
+    if (typeof hidden !== 'undefined' && hidden && typeof storyId !== 'undefined' && storyId !== 0) {
+      // Destroy the content
+      this._destroyContent();
+      this._destroyNativo();
+    } else {
+      if (routeId === storyId) {
+        this._checkStory();
       }
-    });
+    }
   }
 
   _computeBylineURL(byline) {
@@ -255,13 +254,13 @@ class CranberryStory {
     }
   }
 
-  _displayContent() {
+  _displayContent(story, oldStory) {
     this.async(function()  {
-      if (this.hidden === false) {
+      if (this.hidden === false && Object.keys(story).length > 0) {
         let storyId = this.get('storyId');
-
+        console.log('DISPLAYING CONTENT!');
+        console.dir(story);
         if (typeof storyId !== 'undefined' && storyId !== 0) {
-          let story = this.get('story');
           if (typeof story.published !== 'undefined') {
             let data = {};
             let baseUrl = this.get('baseUrl');
@@ -429,8 +428,8 @@ class CranberryStory {
   _storyIdChanged(storyId, oldId) {
     if (typeof oldId !== 'undefined' && oldId !== 0) {
       this.set('firstTime', false);
-      this._destroyContent();
     }
+
     this.async(function() {
       if (typeof storyId !== 'undefined' && storyId !== 0) {
         console.info('\<cranberry-story\> storyId set to ' + storyId);
@@ -441,6 +440,8 @@ class CranberryStory {
   }
 
   _updateStoryId(storyid) {
+    this._destroyContent();
+    
     this.set('jsonp.desiredItemID', storyid);
 
     let request = this.get('jsonp');

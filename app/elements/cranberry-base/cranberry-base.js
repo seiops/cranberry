@@ -128,7 +128,6 @@ class CranberryBase {
   }
 
   _drawerItemSelected(e) {
-    console.dir(e);
     setTimeout(() => {
       this._checkDrawer();
     }, 150);
