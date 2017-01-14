@@ -30,7 +30,8 @@
         ad-group="{$ config.dfpAdStructure.adGroupID $}"
         ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
         ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
-        id="topAd">
+        id="topAd"
+        hidden$="[[hidden]]">
       </google-dfp>
     </div>
 
@@ -41,7 +42,7 @@
 
     <div class="top-media">
       <div class="mug-container" desktop-layout$="{{desktop}}" tablet-layout$="{{tablet}}" mobile-layout$="{{mobile}}">
-        <cranberry-slider id="mugSlider" base-url="{$ config.baseDomain $}" mobile-layout$="{{mobile}}" gallery="{{sliderJson}}" no-caption gallery-type="cranberry-jail-mugs">
+        <cranberry-slider id="mugSlider" base-url="{$ config.baseDomain $}" mobile-layout$="{{mobile}}" gallery="{{sliderJson}}" no-caption gallery-type="cranberry-jail-mugs" hidden$="[[hidden]]">
           <div class="mug-tag" hidden$="{{noTags}}">
             <span class="content-tag">[[currentHeadline]]</span>
           </div>
@@ -60,7 +61,8 @@
                       ad-group="{$ config.dfpAdStructure.adGroupID $}"
                       ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
                       ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
-                      id="sideAd">
+                      id="sideAd"
+                      hidden$="[[hidden]]">
           </google-dfp>
       </div>
     </div>
@@ -84,7 +86,8 @@
         ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
         ad-group="{$ config.dfpAdStructure.adGroupID $}"
         ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
-        ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}">
+        ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
+        hidden$="[[hidden]]">
       </google-dfp>
     </div>
 
@@ -113,7 +116,8 @@
           ad-size="[[300, 600]]"
           ad-group="{$ config.dfpAdStructure.adGroupID $}"
           ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
-          ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}">
+          ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
+          hidden$="[[hidden]]">
         </google-dfp>
       </div>
     </div>
@@ -126,7 +130,8 @@
         ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
         ad-group="{$ config.dfpAdStructure.adGroupID $}"
         ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
-        ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}">
+        ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
+        hidden$="[[hidden]]">
       </google-dfp>
     </div>
 

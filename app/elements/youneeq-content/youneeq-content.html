@@ -27,12 +27,13 @@
         <template is="dom-if" if="{{_index(index)}}">
           <div>
             <google-dfp
-              section="[[content.sectionInformation.sectionName]]"
+              section="[[_computeSectionName(content.sectionInformation.sectionName)]]"
               section-parent="[[content.sectionInformation.sectionParentName]]"
               ad-pos="Bottom_of_stream" ad-size="[[300, 250]]"
               ad-group="{$ config.dfpAdStructure.adGroupID $}"
               ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
-              ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}">
+              ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
+              hidden$="[[hidden]]">
             </google-dfp>
           </div>
         </template>

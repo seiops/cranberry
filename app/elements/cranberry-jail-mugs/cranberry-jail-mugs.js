@@ -44,7 +44,12 @@ class cranberryJailMugs {
       rest: {
         type: String
       },
-      images: Array
+      images: Array,
+      hidden: {
+        type: Boolean,
+        reflectToAttribute: true,
+        value: true
+      }
     };
     this.listeners = {
       'next.tap': '_loadNewCards',

@@ -37,14 +37,15 @@
         ad-group="{$ config.dfpAdStructure.adGroupID $}"
         ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
         ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
-        id="topAd">
+        id="topAd"
+        hidden$="[[hidden]]">
       </google-dfp>
     </div>
 
     <div class="top-media">
       <div class="gallery-slider-container" desktop-layout$="{{desktop}}" tablet-layout$="{{tablet}}" mobile-layout$="{{mobile}}">
-        <cranberry-slider id="mainSlider" base-url="{$ config.baseDomain $}" items="{{gallery.mediaAssets.images}}" mobile-layout$="{{mobile}}" gallery="{{gallery}}">
-          <div class="gallery-tag" hidden$="{{noTags}}">
+        <cranberry-slider id="mainSlider" base-url="{$ config.baseDomain $}" items="{{gallery.mediaAssets.images}}" mobile-layout$="{{mobile}}" gallery="{{gallery}}" hidden$="[[hidden]]">
+          <div class="gallery-tag" hidden$="{{noTags}}" >
             <span class="content-tag">{{tags.0}}</span>
           </div>
           <div class="expand-link">
@@ -73,7 +74,8 @@
                       ad-group="{$ config.dfpAdStructure.adGroupID $}"
                       ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
                       ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
-                      id="sideAd">
+                      id="sideAd"
+                      hidden$="[[hidden]]">
           </google-dfp>
       </div>
     </div>
@@ -108,7 +110,8 @@
                     ad-size="[[300, 250],[300, 600]]"
                     ad-group="{$ config.dfpAdStructure.adGroupID $}"
                     ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
-                    ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}">
+                    ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
+                    hidden$="[[hidden]]">
         </google-dfp>
         <div class="ntv-ad-div"></div>
       </div>
@@ -125,13 +128,14 @@
         ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
         ad-group="{$ config.dfpAdStructure.adGroupID $}"
         ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
-        ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}">
+        ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
+        hidden$="[[hidden]]">
       </google-dfp>
     </div>
 
     <div class="recommended-container">
       <div class="youneeq-container">
-        <youneeq-content user="[[user]]" content="[[gallery]]" domain="{$ config.baseDomain $}"></youneeq-content>
+        <youneeq-content user="[[user]]" content="[[gallery]]" domain="{$ config.baseDomain $}" hidden$="[[hidden]]"></youneeq-content>
       </div>
       <div class="recommended-content-container">
         <cranberry-related-content related-items="[[gallery.relatedContent]]" story></cranberry-related-content>
@@ -153,7 +157,8 @@
         ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
         ad-group="{$ config.dfpAdStructure.adGroupID $}"
         ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
-        ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}">
+        ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
+        hidden$="[[hidden]]">
       </google-dfp>
     </div>
 
@@ -164,7 +169,8 @@
         ad-group="{$ config.dfpAdStructure.adGroupID $}"
         ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
         ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
-        out-of-page>
+        out-of-page
+        hidden$="[[hidden]]">
       </google-dfp>
 
       <google-dfp
@@ -174,7 +180,8 @@
         ad-group="{$ config.dfpAdStructure.adGroupID $}"
         ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
         ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
-        out-of-page>
+        out-of-page
+        hidden$="[[hidden]]">
       </google-dfp>
   </template>
     <script src="cranberry-gallery.js"></script>

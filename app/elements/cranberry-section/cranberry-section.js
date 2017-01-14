@@ -141,6 +141,8 @@ class CranberrySection {
           }
         }
         this.set('sectionTitle', title);
+
+        this.fire('iron-signal', {name: 'refresh-ad' });
       }
     }
 

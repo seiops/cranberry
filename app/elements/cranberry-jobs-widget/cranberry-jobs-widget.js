@@ -62,7 +62,6 @@ class cranberryJobsWidget {
   }
 
   detached() {
-    console.log('JOBS WIDGET DETACHED!');
     let request = this.$.request;
     let currentRequest = this.get('request');
 

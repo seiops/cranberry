@@ -145,7 +145,6 @@ class CranberryStory {
   }
 
   _destroyContent() {
-    console.log('DESTROYING CONTENT!!!');
     let contentArea = this.$.storyContentArea;
     let leadMediaArea = this.$.leadShortcode;
     let image = this.$.mainImage;
@@ -223,17 +222,19 @@ class CranberryStory {
   }
 
   _hiddenChanged(hidden, routeId) {
-    let storyId = this.get('storyId');
+    this.debounce('_hiddenChanged', ()  => {
+      let storyId = this.get('storyId');
 
-    if (typeof hidden !== 'undefined' && hidden && typeof storyId !== 'undefined' && storyId !== 0) {
-      // Destroy the content
-      this._destroyContent();
-      this._destroyNativo();
-    } else {
-      if (routeId === storyId) {
-        this._checkStory();
+      if (typeof hidden !== 'undefined' && hidden && typeof storyId !== 'undefined' && storyId !== 0) {
+        // Destroy the content
+        this._destroyContent();
+        this._destroyNativo();
+      } else {
+        if (routeId === storyId) {
+          this._checkStory();
+        }
       }
-    }
+    });
   }
 
   _computeBylineURL(byline) {
@@ -256,10 +257,9 @@ class CranberryStory {
 
   _displayContent(story, oldStory) {
     this.async(function()  {
-      if (this.hidden === false && Object.keys(story).length > 0) {
+      let hidden = this.get('hidden');
+      if (!hidden && Object.keys(story).length > 0) {
         let storyId = this.get('storyId');
-        console.log('DISPLAYING CONTENT!');
-        console.dir(story);
         if (typeof storyId !== 'undefined' && storyId !== 0) {
           if (typeof story.published !== 'undefined') {
             let data = {};
@@ -431,7 +431,7 @@ class CranberryStory {
     }
 
     this.async(function() {
-      if (typeof storyId !== 'undefined' && storyId !== 0) {
+      if (typeof storyId !== 'undefined' && storyId !== 0 && storyId !== oldId) {
         console.info('\<cranberry-story\> storyId set to ' + storyId);
         this._updateStoryId(storyId);
       }

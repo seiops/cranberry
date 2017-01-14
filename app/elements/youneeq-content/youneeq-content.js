@@ -189,15 +189,12 @@ class youneeqContent {
     }
   }
 
-  // _setupTracking(item) {
-  //   let items = this.get('items');
-  //   let index = items.indexOf(item);
-
-  //   if (typeof item !== 'undefined' && index !== 'undefined') {
-  //     return 'uti_yrfy_' + index;
-  //   }
-  // }
-  
-
+  _computeSectionName(sectionName) {
+    if (typeof sectionName === 'undefined' || sectionName === '') {
+      return 'news';
+    } else {
+      return sectionName;
+    }
+  }
 }
 Polymer(youneeqContent);

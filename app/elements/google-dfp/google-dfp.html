@@ -1,4 +1,5 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-signals/iron-signals.html">
 
 <dom-module id="google-dfp">
 
@@ -7,7 +8,10 @@
     <style>
       @import "google-dfp/google-dfp";
     </style>
+
     <div id="{{adPos}}{{_adCount()}}" class="advertisement"></div>
+
+    <iron-signals on-iron-signal-refresh-ad="refresh"></iron-signals>
   </template>
 
   <!-- Declare googletag var and cmd. Setup default ad structure object-->

@@ -73,27 +73,9 @@ class cranberrySectionRequest {
   debouncedChanged(section, parentSection, hidden) {
     // Debounce function to ensure that all values are properly set.
     this.debounce('debouncedChanged', ()  => {
-      let tempSection = this.get('tempSection');
-      let tempParent = this.get('tempParent');
-      let tempHidden = this.get('tempHidden');
-
+      let tagSection = this.get('tagSection');
+      let tags = this.get('tags');
       if (!hidden) {
-        // This element is not hidden
-        if (tempSection !== section) {
-          this.set('tempSection', section);
-        }
-
-        if (tempParent !== parentSection) {
-          this.set('tempParent', parent);
-        }
-        
-        if (tempSection !== section && tempParent !== parentSection) {
-          // This is a new section!
-          this.set('tempHidden', false);
-
-          // Not hidden fetch content
-          let tagSection = this.get('tagSection');
-
           if (!tagSection) {
             if (parentSection === '') {
               this.set('loadSection', section);
@@ -105,23 +87,12 @@ class cranberrySectionRequest {
               }  
             }
           } else {
-            let tags = this.get('tags');
-            
             this.set('loadSection', tags);
           }
-            
           this._firePageview();
-        } else {
-          // This is the same section hidden just changed
-          this._firePageview();
-          console.info('HIDDEN CHANGED!');
           this._fireNativo();
         }
-      } else {
-        // This element is hidden
-        this.set('tempHidden', true);
-      }
-    });
+    }, 50);
   }
 
   _sectionChanged(section, parentSection, hidden) {
@@ -137,7 +108,8 @@ class cranberrySectionRequest {
 
     this.async(() => {
       if (tagSection) {
-        this.fire('iron-signal', {name: 'track-page', data: { path: '/tag/' + section, data: { 'dimension7': section } } });
+        this.fire('iron-signal', {name: 'track-page', data: { path: '/tags/' + section, data: { 'dimension7': section } } });
+        this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/tags/' + section, data: {'sections': section, 'authors': author } } });
       } else {
         this.fire('iron-signal', {name: 'track-page', data: { path: '/section/' + section, data: { 'dimension7': section } } });
         this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/section/' + section, data: {'sections': section, 'authors': author } } });
@@ -146,7 +118,6 @@ class cranberrySectionRequest {
   }
 
   _fireNativo() {
-    console.info('FIRING NATIVO FROM SECTION!');
     // Fire nativo
     if (typeof window.PostRelease !== 'undefined' && typeof window.PostRelease.Start === 'function') {
       PostRelease.Start();
@@ -220,7 +191,6 @@ class cranberrySectionRequest {
   }
 
   _parseResponse(response) {
-    console.info('PARSING RESPONSE!');
     var result = JSON.parse(response.Result);
 
     this.set('featuredItems', result.featured);

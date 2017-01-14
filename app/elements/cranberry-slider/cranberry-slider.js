@@ -62,6 +62,11 @@ class cranberrySlider {
       galleryType: {
         type: String,
         value: 'cranberry-gallery'
+      },
+      hidden: {
+        type: Boolean,
+        reflectToAttribute: true,
+        value: true
       }
     };
     this.observers = ['_itemsLoaded(items)'];
@@ -186,7 +191,6 @@ class cranberrySlider {
   }
 
   _clicksChanged(clicks) {
-    console.log('CLICKS CHANGED FIRED');
     let modal = this.get('whiteText');
     let galleryType = this.get('galleryType');
 

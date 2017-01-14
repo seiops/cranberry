@@ -30,6 +30,7 @@ class cranberrySectionTracker {
     
     this.async(() => {
       if (page === 'galleries' || tags) {
+        this.set('section', '');
         this.set('section', 'news');
         this.set('parentSection', '');
       } else if (page !== '' && page !== 'tags' && page !== 'section' && page !== 'story' && page !== 'photo-gallery' && page !== 'profile' && page !== 'contact'

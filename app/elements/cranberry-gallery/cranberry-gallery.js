@@ -36,10 +36,16 @@ class CranberryGallery {
         value: true
       },
       hidden: {
-          type: Boolean
+        type: Boolean,
+        reflectToAttribute: true,
+        value: true
+      },
+      sendInitialView: {
+        type: Boolean,
+        value: true
       }
     };
-    this.observers = ['_checkParams(routeData.id)', '_hiddenChanged(hidden)'];
+    this.observers = ['_checkParams(routeData.id)', '_hiddenChanged(hidden, routeData.id)'];
     this.listeners = { 'scrollComplete': '_afterScroll' };
   }
 
@@ -96,10 +102,8 @@ class CranberryGallery {
   }
 
   // Observer method for when the story id changes.
-  _galleryIdChanged () {
-    let galleryId = this.get('galleryId');
-
-    if (galleryId !== 0) {
+  _galleryIdChanged (galleryId, oldGalleryId) {
+    if (galleryId !== 0 && galleryId !== oldGalleryId) {
       console.info('\<cranberry-gallery\> galleryId set to ' + galleryId);
 
       this._updateGalleryId(galleryId);
@@ -169,14 +173,20 @@ class CranberryGallery {
       gaData.dimension8 = result.tags;
     }
 
-    // Send pageview event with iron-signals
-    this.fire('iron-signal', {name: 'track-page', data: { path: '/photo-gallery/' + result.itemId, gaData } });
-
-    //Send Chartbeat
-    this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/photo-gallery/' + result.itemId, data: {'sections': result.sectionInformation.sectionName, 'authors': result.byline } } });
-
     // Assign restResponse to data bound object gallery
     this.set('gallery', result);
+
+    let sendInitialView = this.get('sendInitialView');
+
+    if (sendInitialView) {
+      // Send pageview event with iron-signals
+      this.fire('iron-signal', {name: 'track-page', data: { path: '/photo-gallery/' + result.itemId, gaData } });
+
+      //Send Chartbeat
+      this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/photo-gallery/' + result.itemId, data: {'sections': result.sectionInformation.sectionName, 'authors': result.byline } } });
+
+      this.set('sendInitialView', false);
+    }
 
     // Fire nativo
     if (typeof window.PostRelease !== 'undefined' && typeof window.PostRelease.Start === 'function') {
@@ -226,30 +236,39 @@ class CranberryGallery {
 
   // Update story id in request parameters.
   _updateGalleryId (galleryid) {
-    this.set('tags', []);
-    this.set('jsonp.desiredItemID', galleryid);
+    this.debounce('_updateGalleryId', ()  => {
+      this.set('tags', []);
+      this.set('jsonp.desiredItemID', galleryid);
 
-    let request = this.get('jsonp');
+      let request = this.get('jsonp');
 
-    this.set('params', request);
+      this.set('params', request);
 
-    this._changeParams();
+      this._changeParams();
+    });
   }
 
-  _hiddenChanged(hidden) {
-    let gallery = this.get('gallery');
+  _hiddenChanged(hidden, routeId) {
+    this.async(()  => {
+      let gallery = this.get('gallery');
+      let galleryId = this.get('galleryId');
+      let sendInitialView = this.get('sendInitialView');
 
-    if (hidden) {
-      this._closeShare();
-      this._destroyNativo();
-    } else {
-      // Send pageview event with iron-signals
-      this.fire('iron-signal', {name: 'track-page', data: { path: '/photo-gallery/' + gallery.itemId, gaData } });
+      if (typeof hidden !== 'undefined' && hidden) {
+        this._closeShare();
+        this._destroyNativo();
+      } else {
+        if (typeof gallery !== 'undefined' && typeof gallery.itemId !== 'undefined' && !sendInitialView) {
+          // Send pageview event with iron-signals
+          this.fire('iron-signal', {name: 'track-page', data: { path: '/photo-gallery/' + gallery.itemId, gaData } });
 
-      //Send Chartbeat
-      this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/photo-gallery/' + gallery.itemId, data: {'sections': gallery.sectionInformation.sectionName, 'authors': gallery.byline } } });
-
-    }
+          //Send Chartbeat
+          this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/photo-gallery/' + gallery.itemId, data: {'sections': gallery.sectionInformation.sectionName, 'authors': gallery.byline } } });
+          
+          this.fire('iron-signal', {name: 'refresh-ad' });
+        }
+      }
+    });
   }
 
   _destroyNativo() {
