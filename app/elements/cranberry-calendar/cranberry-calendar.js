@@ -53,16 +53,24 @@ class CranberryCalendar {
     let loader = document.querySelector('cranberry-script-loader');
 
     loader.loadScript('http://' + calendarDomain + '.spingo.com/embed.js');
+    this.set('loaded', true);
   }
 
   // detect route and visibility
-  _routeChange(section) {
-    console.info('\<cranberry-calendar\> route change');
+  _routeChange(section, oldSection) {
+    this.async(() => {
+      if (section.path.includes('/calendar') && section.path !== oldSection.path) {
+        console.info('\<cranberry-calendar\> route change');
 
-    this.async(function() {
         let hidden = this.hidden;
 
         if (!hidden) {
+          // Send pageview event with iron-signals
+          this.fire('iron-signal', {name: 'track-page', data: { path: window.location.pathname } });
+
+          // Send Chartbeat
+          this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: window.location.pathname } });
+
           let loaded = this.get('loaded');
 
           if(loaded === false){
@@ -72,6 +80,7 @@ class CranberryCalendar {
             angular.bootstrap(document.documentElement, ['sgCalendarUI']);
           }
         }
+      }
     });
   }
 }
