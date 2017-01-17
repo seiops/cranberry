@@ -37,7 +37,8 @@ module.exports = {
       }
     ],
     maps: 'AIzaSyASMEaZRw3O-fhuvscitnQ8k2YJ3kJn_ZA',
-    surveys: '_ajb2thhwixyz2kel67yunivgzq'
+    surveys: '_ajb2thhwixyz2kel67yunivgzq',
+    siteVerification: 'fZibeoFmCJXMlwdTVWdLhmIoBIawotoXlU1VnWOTyc0'
   },
   dfpAdStructure: {
     adGroupID: 30103046,
