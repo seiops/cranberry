@@ -14,7 +14,14 @@ class cranberryContactPage {
       }
     }
   }
+  
+  attached() {
+    // Send pageview event with iron-signals
+    this.fire('iron-signal', {name: 'track-page', data: { path: '/contact' } });
 
+    // Send Chartbeat
+    this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/contact' } });
+  }
   _openLink(event, detail) {
     let iFrame = document.createElement('iframe');
 
