@@ -5,30 +5,27 @@ class cranberryStaticSection {
       hidden: {
           type: Boolean,
           reflectToAttribute: true,
-          value: true
+          value: true,
+          observer: '_hiddenChanged'
       },
       staticSection: {
         type: String
       },
       hideWeather: {
         type: Boolean,
-        value: true,
-        observer: '_sendPageviews'
+        value: true
       },
       hideAdvantage: {
         type: Boolean,
-        value: true,
-        observer: '_sendPageviews'
+        value: true
       },
       hideGames: {
         type: Boolean,
-        value: true,
-        observer: '_sendPageviews'
+        value: true
       },
       hideDiscoverNorwalk: {
         type: Boolean,
-        value: true,
-        observer: '_sendPageviews'
+        value: true
       },
       weatherScriptLoaded: {
         type: Boolean,
@@ -44,52 +41,63 @@ class cranberryStaticSection {
         type: String
       }
     }
-    this.observers = ['_setupWeather(hidden, staticSection)',
+    this.observers = ['_setupStaticPage(hidden, staticSection)',
                       '_setupGames(hidden, hideGames)']
   }
 
-  _setupWeather(hidden, staticSection) {
-    if (typeof hidden !== 'undefined' && !hidden && typeof staticSection !== 'undefined' && staticSection === 'weather') {
-      let scriptLoaded = this.get('weatherScriptLoaded');
+  _setupStaticPage(hidden, staticSection) {
+    this.debounce('_setupStaticPage', ()  => {
+      if (typeof hidden !== 'undefined' && !hidden && typeof staticSection !== 'undefined' && staticSection === 'weather') {
+        let scriptLoaded = this.get('weatherScriptLoaded');
 
-      if (!scriptLoaded) {
-        let loader = document.querySelector('cranberry-script-loader');
+        if (!scriptLoaded) {
+          let loader = document.querySelector('cranberry-script-loader');
 
-        loader.loadScript('http://oap.accuweather.com/launch.js');
-        this.set('weatherScriptLoaded', true);
-        this.set('tags', 'weather, forecast');
+          loader.loadScript('http://oap.accuweather.com/launch.js');
+          this.set('weatherScriptLoaded', true);
+          this.set('tags', 'weather, forecast');
+        }
+
+        this.set('hideWeather', false);
       }
-
-      this.set('hideWeather', false);
-    }
-    if (typeof hidden !== 'undefined' && !hidden && typeof staticSection !== 'undefined' && staticSection === 'advantage-member') {
-      this.set('hideAdvantage', false);
-      this.set('tags', 'advantage');
-    }
-    if (typeof hidden !== 'undefined' && !hidden && typeof staticSection !== 'undefined' && staticSection === 'games-page') {
-      this.set('hideGames', false);
-      this.set('tags', 'games');
-    }
-    if (typeof hidden !== 'undefined' && !hidden && typeof staticSection !== 'undefined' && staticSection === 'discovernorwalk') {
-      this.set('hideDiscoverNorwalk', false);
-      this.set('tags', 'discovernorwalk');
-    }
+      if (typeof hidden !== 'undefined' && !hidden && typeof staticSection !== 'undefined' && staticSection === 'advantage-member') {
+        this.set('hideAdvantage', false);
+        this.set('tags', 'advantage');
+      }
+      if (typeof hidden !== 'undefined' && !hidden && typeof staticSection !== 'undefined' && staticSection === 'games-page') {
+        this.set('hideGames', false);
+        this.set('tags', 'games');
+      }
+      if (typeof hidden !== 'undefined' && !hidden && typeof staticSection !== 'undefined' && staticSection === 'discovernorwalk') {
+        this.set('hideDiscoverNorwalk', false);
+        this.set('tags', 'discovernorwalk');
+      }
+    });
   }
 
-  _setupGames(hidden, hideGames) {
+  _hiddenChanged(hidden, oldHidden) {
+    let staticSection = this.get('staticSection');
+
+    this.async(() => {
+      if (typeof hidden !== 'undefined' && !hidden && typeof staticSection !== 'undefined') {
+        this._sendPageviews(staticSection);
+      }
+    });
+  }
+
+  _sendPageviews(staticSection) {
+    this.async(() => {
+      // Send pageview event with iron-signals
+      this.fire('iron-signal', {name: 'track-page', data: { path: '/' + staticSection } });
+
+      // Send Chartbeat
+      this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/' + staticSection } });
+    });
     
   }
 
-  _sendPageviews(hidden, oldHidden) {
-    this.async(() => {
-      if (typeof hidden !== 'undefined' && !hidden) {
-        // Send pageview event with iron-signals
-        this.fire('iron-signal', {name: 'track-page', data: { path: window.location.href } });
+  _setupGames(hidden, hideGames) {
 
-        // Send Chartbeat
-        this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: window.location.href } });
-      }
-    })
   }
 }
 Polymer(cranberryStaticSection);

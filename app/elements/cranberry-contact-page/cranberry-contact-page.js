@@ -11,17 +11,34 @@ class cranberryContactPage {
       noStaff: {
         type: Boolean,
         value: false
-      }
+      },
+      hidden: {
+        type: Boolean,
+        reflectToAttribute: true,
+        value: true,
+        observer: '_hiddenChanged'
+      },
     }
   }
-  
-  attached() {
-    // Send pageview event with iron-signals
-    this.fire('iron-signal', {name: 'track-page', data: { path: '/contact' } });
 
-    // Send Chartbeat
-    this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/contact' } });
+  _hiddenChanged(hidden, oldHidden) {
+    this.async(() => {
+      if (typeof hidden !== 'undefined' && !hidden) {
+        this._firePageViews();
+      }
+    });
   }
+
+  _firePageViews() {
+    this.async(() => {
+      // Send pageview event with iron-signals
+      this.fire('iron-signal', {name: 'track-page', data: {path: '/contact'}});
+
+      // Send Chartbeat
+      this.fire('iron-signal', {name: 'chartbeat-track-page', data: {path: '/contact'}});
+    });
+  }
+
   _openLink(event, detail) {
     let iFrame = document.createElement('iframe');
 
