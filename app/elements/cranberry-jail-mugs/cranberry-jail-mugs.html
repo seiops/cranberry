@@ -67,7 +67,7 @@
       </div>
     </div>
 
-    <div class="slider-description">
+    <div class="slider-description" mobile-layout$="{{mobile}}">
       <div class="info">
         <span>[[currentIndex]] / [[currentMaxIndex]]</span>
       </div>
@@ -93,7 +93,7 @@
 
     <div class="main-content">
       <div class="card-container">
-        <template is="dom-repeat" items={{cardsJson}}>
+        <template is="dom-repeat" items="{{cardsJson}}">
           <a href="/jail-mugs/{{item.bookingDate}}">
             <paper-card image="{$ config.baseDomain $}/[[item.image.medium]]">
               <div class="card-content">
@@ -101,8 +101,7 @@
                   <div class="content">
                     <p class="card-body">Jailings on [[item.bookingDateFormatted]]
                   </div>
-                  <!-- Button disabled currently -->
-                  <paper-icon-button disabled icon="icons:more-vert"></paper-icon-button>
+                  <!--<paper-icon-button disabled icon="icons:more-vert"></paper-icon-button>-->
                 </div>
               </div>
             </paper-card>

@@ -38,3 +38,15 @@ body {
   /* Fix for skeleton not being 100% on load */
   height: 100vh;
 }
+
+/* Styles for Ignite Feedback Widget */
+div.igtfb__wrapper {
+  bottom: 60px;
+}
+
+a.igtfb__icon__text {
+  display: block;
+  width: 100%;
+  position: relative;
+  padding: 0 10px 0 0;
+}

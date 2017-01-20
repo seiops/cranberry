@@ -43,8 +43,9 @@ div.top-media {
 
 /* Gallery Container styles*/
 div.mug-container {
-  flex:2 2 auto;
+  flex: 2 2 600px;
   min-width: 600px;
+  margin-bottom: 34px;
 }
 
 div.mug-container[mobile-layout] {
@@ -69,6 +70,10 @@ div.mug-container[desktop-layout] {
   max-width: 80%;
 }
 
+.slider-description[mobile-layout] {
+  max-width: 100%;
+}
+
 .slider-description h3 {
   @apply(--paper-font-display2);
 }
@@ -91,15 +96,14 @@ div.mug-container[desktop-layout] {
 }
 
 .card-container {
-  @apply(--layout-flex-4);
-  @apply(--layout-horizontal);
-  @apply(--layout-center);
-  @apply(--layout-center-justified);
-  @apply(--layout-wrap);
+  flex: 2 2 300px;
+  min-width: 300px;
+  text-align: center;
 }
 
 .card-container a {
   @apply(--paper-font-subhead);
+  text-decoration: none;
   color: var(--light-theme-primary-text-color);
 }
 
