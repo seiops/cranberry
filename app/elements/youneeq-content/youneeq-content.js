@@ -14,6 +14,10 @@ class youneeqContent {
       },
       domain: {
         type: String
+      },
+      response: {
+        type: Object,
+        observer: '_responseChanged'
       }
     };
     this.listeners = {
@@ -50,5 +54,47 @@ class youneeqContent {
       return sectionName;
     }
   }
+
+  _trimTitle(title) {
+    return String(title).replace(/'/g, "").replace(/"/g, "").replace(/"/g, "").replace(/'/g, ""); 
+  }
+
+  _trackClick(event) {
+    let item = event.model.item;
+
+    let yq_id = item.id;
+    let yq_title = this._trimTitle(item.title);
+    let yq_url = item.url;
+
+    let profile = document.querySelector('youneeq-tracker').youneeqId;
+    let requestUrl = 'http://ype.youneeq.ca/api/panelaction';
+    let currentUrl = window.location.href;
+
+    let panel_click_data = {
+      domain_name: window.location.hostname,
+      user_id: profile,
+      recommendation_url: yq_url,
+      recommendation_title: yq_title,
+      recommendation_content_id: yq_id,
+      current_page: currentUrl
+    };
+
+    let request = this.$.request;
+
+    request.url = requestUrl;
+    request.params.json = JSON.stringify(panel_click_data);
+
+    request.generateRequest();
+    console.info('<\youneeq-content\> click tracked sent');
+  }
+
+  _handleResponse() {
+    console.info('<\youneeq-content\> click tracked response recieved');
+  }
+
+  _responseChanged(response) {
+    
+  }
+  
 }
 Polymer(youneeqContent);

@@ -19,10 +19,7 @@
 
     <byutv-jsonp
       on-response="_handleResponse"
-      on-load="_handleLoad"
       last-response="{{response}}"
-      last-request="{{request}}"
-      last-error="{{error}}"
       id="request"></byutv-jsonp>
 
     <h3 class="youneeq-header" hidden$="{{!hasItems}}">Recommended for you:</h3>
@@ -41,10 +38,11 @@
             </google-dfp>
           </div>
         </template>
-        <a href="{{item.url}}"
+        <a href="[[item.url]]"
            ga-on="click"
            ga-event-category="Youneeq Content Clicked"
-           ga-event-action$="uti_yrfy_[[index]]">
+           ga-event-action$="uti_yrfy_[[index]]"
+           on-tap="_trackClick">
           <div class="youneeq-content-item">
             <iron-image src="{{_checkImage(item.image)}}" sizing="cover"></iron-image>
             <h3 class="youneeq-content-item-title">{{item.title}}</h3>
