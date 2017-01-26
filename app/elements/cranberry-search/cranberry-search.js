@@ -183,6 +183,7 @@ class cranberrySearch {
     if (typeof route !== 'undefined') {
       this.fire('iron-signal', {name: 'track-page', data: { path: '/search' + route.path, data: { 'dimension7': route.path.replace('/', '') } } });
       this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/search' + route.path, data: {'sections': route.path.replace('/', ''), 'authors': author } } });
+      this.fire('iron-signal', {name: 'page-hit'});
     }
   }
 

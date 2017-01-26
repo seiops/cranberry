@@ -185,6 +185,10 @@ class CranberryGallery {
       //Send Chartbeat
       this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/photo-gallery/' + result.itemId, data: {'sections': result.sectionInformation.sectionName, 'authors': result.byline } } });
 
+      // Fire Youneeq Page Hit Request
+      this.fire('iron-signal', {name: 'page-hit'});
+      this.fire('iron-signal', {name: 'observe', data: {content: result}});
+
       this.set('sendInitialView', false);
     }
 
@@ -265,6 +269,10 @@ class CranberryGallery {
           //Send Chartbeat
           this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/photo-gallery/' + gallery.itemId, data: {'sections': gallery.sectionInformation.sectionName, 'authors': gallery.byline } } });
           
+          // Fire Youneeq Page Hit Request
+          this.fire('iron-signal', {name: 'page-hit'});
+          this.fire('iron-signal', {name: 'observe', data: {content: gallery}});
+
           this.fire('iron-signal', {name: 'refresh-ad' });
         }
       }

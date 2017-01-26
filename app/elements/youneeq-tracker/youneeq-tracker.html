@@ -8,12 +8,17 @@
     <iron-signals on-iron-signal-page-hit="sendPageHit" on-iron-signal-observe="sendObserve"></iron-signals>
 
     <byutv-jsonp
+      on-response="_handlePageHitResponse"
+      last-response="{{pageHitResponse}}"
+      id="pageHitRequest"></byutv-jsonp>
+
+    <byutv-jsonp
       on-response="_handleResponse"
       on-load="_handleLoad"
       last-response="{{response}}"
       last-request="{{request}}"
       last-error="{{error}}"
-      id="request"></byutv-jsonp>
+      id="observeRequest"></byutv-jsonp>
 
   </template>
     <script src="http://api.youneeq.ca/scripts/detect_timezone.js"></script>

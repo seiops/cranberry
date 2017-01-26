@@ -413,6 +413,8 @@ class CranberryStory {
     // Send Chartbeat
     this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/story/' + storyId, data: {'sections': section, 'authors': byline } } });
 
+    // Fire Youneeq Page Hit Request
+    this.fire('iron-signal', {name: 'page-hit'});
     this.fire('iron-signal', {name: 'observe', data: {content: story}});
   }
 

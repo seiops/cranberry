@@ -27,6 +27,10 @@ class youneeqTracker {
         type: Object,
         observer: '_parseResponse'
       },
+      pageHitResponse: {
+        type: Object,
+        observer: '_parsePageHitResponse'
+      }
     };
     this.listeners = {
       'page-hit': 'sendPageHit',
@@ -74,26 +78,17 @@ class youneeqTracker {
   }
 
   sendPageHit(event) {
-    // URL::: http://api.youneeq.ca/api/page_hit
-    console.log('SEND PAGE HIT');
-
-    
+    console.info('<\youneeq-tracker\> page hit event received');
     this.set('pageHit', this._setPageHit());
-
   }
 
   // Method to send the observe object and get in return the suggest object
   sendObserve(event) {
-    // URL::: http://api.youneeq.ca/api/observe
-    console.log('SEND OBSERVE');
-    console.dir(event);
-
     let content = event.detail.content;
-
     this._contentChanged(content);
   }
 
-  _handleLoad(l) {
+  _handleLoad() {
     console.info('<\youneeq-tracker\> load received');
   }
 
@@ -101,10 +96,20 @@ class youneeqTracker {
     console.info('<\youneeq-tracker\> response received');
   }
 
-  _parseResponse(response) {
-    console.dir(response);
+  _handlePageHitResponse() {
+    console.info('<\youneeq-tracker\> page hit response received');
   }
 
+  _parseResponse(response) {
+    if (typeof response.suggest !== 'undefined' && typeof response.suggest.node !== 'undefined' && response.suggest.node.length > 0) {
+      console.info('<\youneeq-tracker\> suggestions received');
+      this.fire('iron-signal', {name: 'youneeq-suggestions', data: {content: response.suggest.node}});
+    }
+  }
+
+  _parsePageHitResponse(response) {
+    console.info('<\youneeq-tracker\> page hit sent');
+  }
 
   _contentChanged(content, oldContent) {
     if (typeof content !== 'undefined' && Object.keys(content).length > 0) {
@@ -149,7 +154,7 @@ class youneeqTracker {
       fullObject.href = window.location.href;
       fullObject.gigya = user;
 
-      let request = this.$.request;
+      let request = this.querySelector('#observeRequest');
       let jsonString = JSON.stringify(fullObject);
 
       request.url = 'http://api.youneeq.ca/api/observe';
@@ -160,14 +165,9 @@ class youneeqTracker {
   }
 
   _pageHitChanged(pageHit, oldPageHit) {
-    console.log('PAGEHIT CHANGED');
-    console.dir(pageHit);
-
     if (typeof pageHit !== 'undefined' && Object.keys(pageHit).length > 0) {
       // GENERATE THE PAGEHIT REQUEST AND SEND IT OFF
-      console.log('SEND OFF PAGEHIT TO SERVER');
-
-      let request = this.$.request;
+      let request = this.querySelector('#pageHitRequest');
       let jsonString = JSON.stringify(pageHit);
 
       request.url = 'http://api.youneeq.ca/api/page_hit';
