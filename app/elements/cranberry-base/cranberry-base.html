@@ -65,6 +65,7 @@
 <link rel="import" href="../cranberry-news-archive/cranberry-news-archive.html">
 <link rel="import" href="../cranberry-profile-page/cranberry-profile-page.html">
 <link rel="import" href="../cranberry-chart-beat/cranberry-chart-beat.html">
+<link rel="import" href="../youneeq-tracker/youneeq-tracker.html">
 <link rel="import" href="../google-dfp/google-dfp.html">
 
 <dom-module id="cranberry-base">
@@ -93,6 +94,9 @@
     <!-- Google Analytics -->
     <cranberry-google-analytics user="[[user]]" tracking-id='{$ config.google.analytics | dump $}'></cranberry-google-analytics>
     
+    <!-- Youneeq Tracker -->
+    <youneeq-tracker domain="{$ config.baseDomain $}" user="{{user}}"></youneeq-tracker>
+
     <!-- Chartbeat -->
     <cranberry-chart-beat author="{$ config.socialNaming.twitter $}" site-name="{$ config.chartbeat.domain $}" uid="{$ config.chartbeat.uid $}" route="[[route]]"></cranberry-chart-beat>
 

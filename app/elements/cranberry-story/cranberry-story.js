@@ -412,6 +412,8 @@ class CranberryStory {
 
     // Send Chartbeat
     this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/story/' + storyId, data: {'sections': section, 'authors': byline } } });
+
+    this.fire('iron-signal', {name: 'observe', data: {content: story}});
   }
 
   _handleResponse(json) {

@@ -108,11 +108,19 @@ class cranberrySectionRequest {
 
     this.async(() => {
       if (tagSection) {
+        // Fire Google Analytics Pageview
         this.fire('iron-signal', {name: 'track-page', data: { path: '/tags/' + section, data: { 'dimension7': section } } });
+        // Fire Chartbeat pageview
         this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/tags/' + section, data: {'sections': section, 'authors': author } } });
+        // Fire Youneeq Page Hit Request
+        this.fire('iron-signal', {name: 'page-hit'});
       } else {
+        // Fire Google Analytics Pageview
         this.fire('iron-signal', {name: 'track-page', data: { path: '/section/' + section, data: { 'dimension7': section } } });
+        // Fire Chartbeat pageview
         this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/section/' + section, data: {'sections': section, 'authors': author } } });
+        // Fire Youneeq Page Hit Request
+        this.fire('iron-signal', {name: 'page-hit'});
       }
     });
   }
