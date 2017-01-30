@@ -90,6 +90,14 @@ class CranberryStory {
       firstTime: {
         type: Boolean,
         value: true
+      },
+      hasImage: {
+        type: Boolean,
+        value: false
+      },
+      hasImages: {
+        type: Boolean,
+        value: false
       }
     };
     this.observers = ['_checkParams(routeData.id)', '_hiddenChanged(hidden, routeData.id)'];
@@ -172,6 +180,9 @@ class CranberryStory {
     }
 
     this.set('hasProfile', false);
+
+    this.set('hasImage', false);
+    this.set('hasImages', false);
   }
 
   _destroyNativo() {
@@ -344,6 +355,19 @@ class CranberryStory {
             // Fire nativo
             if (typeof window.PostRelease !== 'undefined' && typeof window.PostRelease.Start === 'function') {
               PostRelease.Start();
+            }
+
+            // Setup image logic
+
+            let images = story.mediaAssets.images;
+
+            if (images.length > 1) {
+              this.set('hasImage', true);
+              this.set('hasImages', true);
+            } else {
+              if (images.length > 0) {
+                this.set('hasImage', true);
+              }
             }
           }
         }
@@ -531,6 +555,14 @@ class CranberryStory {
 
       this.set('byline', tempObject);
     });
+  }
+
+  _checkNumberImages(images) {
+    if (images.length > 1) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
 Polymer(CranberryStory);
