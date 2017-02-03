@@ -27,6 +27,18 @@ class youneeqContent {
       },
       domain: {
         type: String
+      },
+      yqsessionid: {
+        type: String,
+        value: this._generateId(),
+      },
+      yqpageid: {
+        type: String,
+        value: this._generateId(),
+      },
+      yqrequestcount: {
+        type: Number,
+        value: 0,
       }
     }
   }
@@ -77,6 +89,11 @@ class youneeqContent {
       }
     });
   }
+
+  _generateId() {
+    return Math.floor(100000000 + Math.random() * 899999999).toString();
+  }
+
   _checkYq() {
     let el = this;
 
@@ -90,6 +107,7 @@ class youneeqContent {
   }
 
   _yqInit(content) {
+    this.set("pageid", this._generateId());
     let user = this.get('user');
     let el = this;
 
@@ -146,9 +164,17 @@ class youneeqContent {
 
   _setupRequest(jsonString) {
     let request = this.$.request;
+    let sessionId = this.get("sessionid");
+    let pageId = this.get("pageid");
+    let requestCount = this.get("requestcount");
+    requestCount++;
+    this.set("requestcount", requestCount);
+    let now = new Date().getTime();
 
-    request.url = 'http://api.youneeq.ca/api/observe';
+    //request.url = 'http://api.youneeq.ca/api/observe';
+    request.url = 'http://localhost:62778/api/observe';
     request.params.json = jsonString;
+    request.setAttribute('callback-value', sessionId + "_" + pageId + "_" + now + "_" + requestCount);
 
     request.generateRequest();
   }
