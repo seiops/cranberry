@@ -123,12 +123,4 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       logger(e.detail);
     }
   });
-
-  document.addEventListener("DOMContentLoaded", function(event) {
-    console.log("DOM fully loaded and parsed");
-    let start = performance.timing.navigationStart;
-    let now = new Date().getTime();
-
-    console.log(now - start);
-  });
 })(document);

@@ -131,7 +131,9 @@ class cranberrySlider {
     }
   }
 
-  _showNext() {
+  _showNext(e) {
+    e.preventDefault();
+
     let imagesHidden = this.get('hideImage');
 
     if (imagesHidden) {
@@ -222,14 +224,18 @@ class cranberrySlider {
 
   _sendPageview() {
     let galleryObject = this.get('gallery');
-    let galleryType = this.get('gallery-type');
+    let galleryType = this.get('galleryType');
 
     let path = 'photo-gallery/';
 
     if (typeof galleryType !== 'undefined' && galleryType === 'cranberry-jail-mugs') {
       path = window.location.pathname;
     }
-    
+
+    if (typeof galleryType !== 'undefined' && galleryType === 'cranberry-story') {
+      path = 'story/';
+    }
+  
     let gaData = {};
 
     // Data settings for pageview

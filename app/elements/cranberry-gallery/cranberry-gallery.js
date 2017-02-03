@@ -226,6 +226,7 @@ class CranberryGallery {
       slider.set('baseUrl', baseUrl);
       slider.set('whiteText', true);
       slider.set('gallery', gallery);
+      slider.set('hidden', false);
 
       let modal = Polymer.dom(document).querySelector('cranberry-base').querySelector('#globalModal');
 

@@ -289,6 +289,7 @@ class cranberryJailMugs {
     slider.set('items', images);
     slider.set('baseUrl', baseUrl);
     slider.set('whiteText', true);
+    slider.set('hidden', false);
 
     let modal = Polymer.dom(document).querySelector('cranberry-base').querySelector('#globalModal');
 

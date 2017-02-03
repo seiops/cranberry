@@ -13,7 +13,7 @@
 <link rel="import" href="../gigya-top-comments/gigya-top-comments.html">
 <link rel="import" href="../cranberry-related-content/cranberry-related-content.html">
 <link rel="import" href="../google-survey/google-survey.html">
-<link rel="import" href="../cranberry-slider/cranberry-slider.html">
+<link rel="import" href="../cranberry-story-media/cranberry-story-media.html">
 
 <dom-module id="cranberry-story">
 
@@ -32,8 +32,9 @@
 
     <byutv-jsonp cache on-response="_handleResponse" id="storyRequest"></byutv-jsonp>
 
-    <div class="Cranberry-Story">
-      <div class="ut-center">
+    <div class="cranberry-story">
+      <!-- Main Header Ad -->
+      <div class="banner-advertisement">
         <google-dfp
           section="[[story.sectionInformation.sectionName]]"
           section-parent="[[story.sectionInformation.sectionParentName]]"
@@ -49,105 +50,56 @@
         </google-dfp>
       </div>
 
-      <!-- Headline -->
-      <h1 class="story-title"> [[story.title]] </h1>
-      <p class="time-stamp"> [[story.updated]] </p>
-
-      <template is="dom-if" if="[[hasImage]]">
-            <template is="dom-if" if="[[hasImages]]">
-              <cranberry-slider id="mainSlider" base-url="{$ config.baseDomain $}" items="{{story.mediaAssets.images}}" mobile-layout$="[[mobile]]" gallery="{{story}}" hidden$="[[hidden]]">
-                <div class="gallery-tag" hidden$="{{noTags}}" >
-                  <span class="content-tag">{{tags.0}}</span>
-                </div>
-                <div class="expand-link">
-                  <paper-button raised class="rounded-button" on-tap="_openModal"><iron-icon icon="icons:fullscreen"></iron-icon></paper-button>
-                </div>
-                <div class="share-buttons">
-                  <paper-button id="buyButton" 
-                                class="rounded-button" 
-                                on-tap="_buyImage" 
-                                ga-on="click" 
-                                ga-event-category="Buy Imaged Clicked"
-                                ga-event-action="uti_exlk_byim"
-                                raised>
-                    <iron-icon icon="editor:attach-money"></iron-icon>
-                  </paper-button>
-                  <gigya-sharebar share-buttons-id="gigya-share-buttons-gallery" title="[[gallery.title]]" route="[[route]]"></gigya-sharebar>
-                </div>
-              </cranberry-slider>
-            </template>
-            <template is="dom-if" if="[[!hasImages]]">
-              <iron-image id="mainImage" class="main-image" sizing="cover" src$="{$ config.baseDomain $}[[story.mediaAssets.images.0.exlarge]]" hidden$="[[hasLeadShortcode]]"></iron-image>
-            </template>
-          </template>
-      <!-- Story Media -->
-      <div class="story-media" hidden$="[[_checkMedia(story.mediaAssets)]]">
-        <div class="media-container" id="mediaContainer"  desktop-layout$="[[desktop]]" tablet-layout$="[[tablet]]" mobile-layout$="[[mobile]]">
-          <!--<template is="dom-if" if="[[hasImage]]">
-            <template is="dom-if" if="[[hasImages]]">
-              <cranberry-slider id="mainSlider" base-url="{$ config.baseDomain $}" items="{{story.mediaAssets.images}}" mobile-layout$="[[mobile]]" gallery hidden$="[[hidden]]">
-                <div class="gallery-tag" hidden$="{{noTags}}" >
-                  <span class="content-tag">{{tags.0}}</span>
-                </div>
-                <div class="expand-link">
-                  <paper-button raised class="rounded-button" on-tap="_openModal"><iron-icon icon="icons:fullscreen"></iron-icon></paper-button>
-                </div>
-                <div class="share-buttons">
-                  <paper-button id="buyButton" 
-                                class="rounded-button" 
-                                on-tap="_buyImage" 
-                                ga-on="click" 
-                                ga-event-category="Buy Imaged Clicked"
-                                ga-event-action="uti_exlk_byim"
-                                raised>
-                    <iron-icon icon="editor:attach-money"></iron-icon>
-                  </paper-button>
-                  <gigya-sharebar share-buttons-id="gigya-share-buttons-gallery" title="[[gallery.title]]" route="[[route]]"></gigya-sharebar>
-                </div>
-              </cranberry-slider>
-            </template>
-            <template is="dom-if" if="[[!hasImages]]">
-              <iron-image id="mainImage" sizing="cover" src$="{$ config.baseDomain $}[[story.mediaAssets.images.0.exlarge]]" hidden$="[[hasLeadShortcode]]"></iron-image>
-            </template>
-          </template>-->
-          <div id="leadShortcode" hidden$="[[!hasLeadShortcode]]"></div>
-          <!-- TOUT TAP -->
-          <!--<div id="toutTap" hidden$="[[!hasToutTap]]"></div>-->
-        </div>
-        <div class="ut-rowFlex ut-absolute">
-          <paper-fab mini icon="communication:chat-bubble" title="Comments" id="commentButton" class="ut-small-icon-margin"></paper-fab>
-          <gigya-sharebar share-buttons-id="gigya-share-buttons-story" title="[[story.title]]" route="[[route]]"></gigya-sharebar>
-        </div>
+      <div class="headline">
+        <h1 class="story-title">[[story.title]]</h1>
+        <p class="time-stamp">[[story.updated]]</p>
       </div>
 
-      <div class="main-image-subtext" mobile-layout$="[[mobile]]" tablet-layout$="[[tablet]]">
-        <p class="caption-text">[[story.mediaAssets.images.0.caption]] <span>--[[story.mediaAssets.images.0.credit]]</span>
+      <div class="media-asset">
+        <cranberry-story-media
+          attachments="[[story.attachments]]"
+          base-domain="{$ config.baseDomain $}"
+          content="[[story]]"
+          has-shortcode$="[[hasLeadShortcode]]"
+          hidden="[[hidden]]"
+          lead-shortcode-type="[[leadShortcodeType]]"
+          lead-shortcode-content="[[leadShortcodeContent]]"
+          media="[[story.mediaAssets.images]]"
+          my-capture-url="{$ config.myCaptureUrl $}"
+          route="[[route]]"
+          videos="[[story.mediaAssets.videos]]">
+        </cranberry-story-media>
       </div>
 
       <!-- Story Byline -->
-      <template is="dom-if" if="[[hasProfile]]">
-        <a class="byline-link" href="[[byline.profileUrl]]" ga-on="click" ga-event-category="Story Byline Clicked" ga-event-action="uti_prf_str_byline">
-          <div class="body-text by-line-wrapper">
-            <img src="[[_computeBylineImageURL(byline.image)]]" class="ut-circle-image"/>
+      <div class="byline-container">
+        <!-- Has Byline Logic -->
+        <template is="dom-if" if="[[hasProfile]]">
+          <a class="byline-link" href="[[byline.profileUrl]]" ga-on="click" ga-event-category="Story Byline Clicked" ga-event-action="uti_prf_str_byline">
+            <div class="body-text by-line-wrapper">
+              <iron-image src="[[_computeBylineImageURL(byline.image)]]" sizing="cover"></iron-image>
+              <div class="by-line-info">
+                <p>[[byline.title]]</p>
+                <p>[[byline.location]]</p>
+                <p>[[byline.jobtitle]]</p>
+              </div>
+            </div>
+          </a>
+        </template>
+
+        <!-- No Byline Logic -->
+        <template is="dom-if" if="[[!hasProfile]]">
+          <div class="byline-wrapper">
+            <iron-image src="[[_computeBylineImageURL(byline.image)]]" sizing="cover"></iron-image>
             <div class="by-line-info">
               <p>[[byline.title]]</p>
               <p>[[byline.location]]</p>
               <p>[[byline.jobtitle]]</p>
             </div>
           </div>
-        </a>
-      </template>
+        </template>
+      </div>
 
-      <template is="dom-if" if="[[!hasProfile]]">
-        <div class="body-text by-line-wrapper">
-          <img src="[[_computeBylineImageURL(byline.image)]]" class="ut-circle-image"/>
-          <div class="by-line-info">
-            <p>[[byline.title]]</p>
-            <p>[[byline.location]]</p>
-            <p>[[byline.jobtitle]]</p>
-          </div>
-        </div>
-      </template>
 
       <!-- Story Content Area -->
       <div class="content-wrapper">
@@ -194,7 +146,7 @@
       </div>
 
       <!-- Middle Ad -->
-      <div class="ut-center">
+      <div class="banner-advertisement">
         <google-dfp
           section="[[story.sectionInformation.sectionName]]"
           section-parent="[[story.sectionInformation.sectionParentName]]"
@@ -210,12 +162,12 @@
       </div>
 
       <!-- Comments -->
-      <div class="ut-center">
+      <div class="comments-wrappper">
         <gigya-comments stream-id="[[story.genericLink]]" content="[[story]]" config-id="{$ config.gigya.commentsId $}"></gigya-comments>
       </div>
 
       <!-- Bottom Ad -->
-      <div class="ut-center">
+      <div class="banner-advertisement">
         <google-dfp
           section="[[story.sectionInformation.sectionName]]"
           section-parent="[[story.sectionInformation.sectionParentName]]"
@@ -231,12 +183,12 @@
       </div>
 
       <!-- Youneeq Content Area -->
-      <div class="ut-center">
+      <div class="youneeq-wrapper">
         <youneeq-content content="[[story]]" domain="{$ config.baseDomain $}" hidden$="[[hidden]]"></youneeq-content>
       </div>
 
       <!-- Last Ad -->
-      <div class="ut-center">
+      <div class="banner-advertisement">
         <google-dfp
           section="[[story.sectionInformation.sectionName]]"
           section-parent="[[story.sectionInformation.sectionParentName]]"
@@ -272,7 +224,7 @@
         out-of-page
         hidden$="[[hidden]]">
       </google-dfp>
-
+    </div>
   </template>
 
   <!-- Add cranberry-story Polymer Object script -->
