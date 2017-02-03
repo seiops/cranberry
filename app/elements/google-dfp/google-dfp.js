@@ -76,6 +76,15 @@ class GoogleDFP {
               addSize([1050, 200], [[970, 250], [970, 90], [728, 90]]).
               build();
           }
+
+          if (adSizeMapping === 'mobileLeader') {
+            mapping = googletag.sizeMapping().
+              addSize([0, 0], [300, 250]).
+              addSize([400, 400], [[300, 250]]).
+              addSize([850, 200], [[728, 90], [300, 50]]).
+              addSize([1050, 200], [[970, 250], [970, 90], [728, 90]]).
+              build();
+          }
         }
 
 

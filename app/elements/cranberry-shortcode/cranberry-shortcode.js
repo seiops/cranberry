@@ -230,7 +230,7 @@ class cranberryShortcode {
           }
 
           slider.set('baseUrl', baseUrl);
-          slider.set('gallery', true);
+          slider.set('hidden', false);
           slider.style.height = "500px";
 
           Polymer.dom(wrapper).appendChild(slider);
@@ -261,7 +261,10 @@ class cranberryShortcode {
           container.appendChild(caption);
           shortcodeEl = container;
           break;
+        case 'leadimage':
+          shortcodeEl = '';
         case 'leadyoutube':
+          shortcodeEl = '';
         case 'youtube':
           shortcodeEl = document.createElement('google-youtube');
           let videoAttribute = document.createAttribute('video-id');
@@ -351,10 +354,12 @@ class cranberryShortcode {
       if (typeof shortcodeEl !== 'undefined') {
         if (type === 'leadimage') {
           story.set('hasLeadShortcode', true);
-          story.querySelector('#mainImage').src = baseUrl + content.exlarge;
+          story.set('leadShortcodeType', 'image');
+          story.set('leadShortcodeContent', content);
         } else if (type === 'leadyoutube') {
           story.set('hasLeadShortcode', true);
-          story.querySelector('#leadShortcode').appendChild(shortcodeEl);
+          story.set('leadShortcodeType', 'youtube');
+          story.set('leadShortcodeContent', content);
         } else {
           Polymer.dom(this.$.shortcode).appendChild(shortcodeEl);
         }

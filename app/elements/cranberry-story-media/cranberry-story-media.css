@@ -1,0 +1,117 @@
+:host {
+  width: 100%;
+  height: 100%;
+}
+
+div.media-container {
+  width: 100%;
+  height: 100%;
+}
+
+div.media-container {
+  @apply(--layout-flex-2);
+}
+
+div.media-container[mobile-layout] .main-media-item {
+  height: 445px;
+}
+
+div.media-container[tablet-layout] .main-media-item {
+  height: 545px;
+}
+
+div.media-container[desktop-layout] .main-media-item {
+  height: 645px;
+}
+
+/* Single Image Styles */
+div.media-container iron-image {
+  @apply(--layout-vertical);
+  height: 100%;
+}
+
+div.media-container div.single-image-container {
+  position: relative;
+}
+
+div.single-image-overlay {
+  @apply(--layout-flex);
+  @apply(--layout-horizontal);
+
+  position: absolute;
+  bottom: -28px;
+  right: 25px;
+}
+
+div.single-image-overlay paper-fab {
+  margin: 10px 14px 0 0;
+}
+
+div.single-image-information {
+  @apply(--layout-vertical);
+  max-width: 85%;
+  margin: 0 0 16px 0;
+}
+
+div.single-image-information[mobile-layout] {
+  max-width: 100%;
+  margin: 30px 0 16px 0;
+}
+
+div.single-image-information[tablet-layout] {
+  max-width: 80%;
+}
+
+div.single-image-information p.caption {
+  @apply(--paper-font-caption);
+  margin: 0;
+}
+
+/* Slider Styles */
+
+/* Gallery Container Button Styles */
+paper-button.rounded-button {
+  border-radius: 50%;
+  margin: 0;
+  min-width: 1px;
+  height: 50px;
+  width: 50px;
+}
+
+/* Absolute positioned icons over slider content */
+div.media-container cranberry-slider div.slider-tag {
+  @apply(--paper-font-button);
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: var(--accent-color);
+  color: var(--text-dark-accent-color);
+  padding: 6px;
+}
+
+div.media-container cranberry-slider div.expand-link {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+}
+
+div.media-container cranberry-slider div.expand-link paper-button {
+  background: var(--dark-primary-color);
+  color: var(--text-dark-accent-color);
+}
+
+div.media-container cranberry-slider div.share-buttons {
+  @apply(--layout-horizontal);
+  @apply(--layout-around-justified);
+  @apply(--layout-flex);
+  position: absolute;
+  bottom: -25px;
+  right: 5%;
+}
+
+div.media-container cranberry-slider div.share-buttons paper-button {
+  background: var(--dark-primary-color);
+  color: var(--text-dark-accent-color);
+  margin-right: 25px;
+  bottom: -5px;
+}

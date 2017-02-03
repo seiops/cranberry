@@ -146,14 +146,14 @@ class CranberryStory {
 
   _destroyContent() {
     let contentArea = this.$.storyContentArea;
-    let leadMediaArea = this.$.leadShortcode;
+    // let leadMediaArea = this.$.leadShortcode;
     let image = this.$.mainImage;
 
     this.set('route', {});
 
     // Destroy content in shortcode and content areas
     contentArea.innerHTML = '';
-    leadMediaArea.innerHTML = '';
+    // leadMediaArea.innerHTML = '';
 
     // Remove source on main image
     if (typeof image !== 'undefined') {
@@ -344,7 +344,7 @@ class CranberryStory {
             // Fire nativo
             if (typeof window.PostRelease !== 'undefined' && typeof window.PostRelease.Start === 'function') {
               PostRelease.Start();
-            }
+            }            
           }
         }
       }
@@ -531,6 +531,14 @@ class CranberryStory {
 
       this.set('byline', tempObject);
     });
+  }
+
+  _checkNumberImages(images) {
+    if (images.length > 1) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
 Polymer(CranberryStory);
