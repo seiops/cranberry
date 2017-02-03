@@ -28,17 +28,13 @@ class youneeqContent {
       domain: {
         type: String
       },
-      yqsessionid: {
-        type: String,
-        value: this._generateId(),
-      },
-      yqpageid: {
-        type: String,
-        value: this._generateId(),
-      },
-      yqrequestcount: {
-        type: Number,
-        value: 0,
+      yqcallbackid: {
+        type: Object,
+        value: {
+          sessionId: this._generateId(),
+          pageId: '',
+          requestCount: '',
+        }
       }
     }
   }
@@ -91,7 +87,7 @@ class youneeqContent {
   }
 
   _generateId() {
-    return Math.floor(100000000 + Math.random() * 899999999).toString();
+    return Math.floor(10000000 + Math.random() * 89999999).toString();
   }
 
   _checkYq() {
@@ -107,7 +103,12 @@ class youneeqContent {
   }
 
   _yqInit(content) {
-    this.set("pageid", this._generateId());
+
+    //  This should get executed when content is changed. Changes the PageID
+    let callbackId = this.get("yqcallbackid");
+    callbackId.pageId = this._generateId();
+    this.set("yqcallbackid", callbackId);
+
     let user = this.get('user');
     let el = this;
 
@@ -164,17 +165,18 @@ class youneeqContent {
 
   _setupRequest(jsonString) {
     let request = this.$.request;
-    let sessionId = this.get("sessionid");
-    let pageId = this.get("pageid");
-    let requestCount = this.get("requestcount");
-    requestCount++;
-    this.set("requestcount", requestCount);
-    let now = new Date().getTime();
-
-    //request.url = 'http://api.youneeq.ca/api/observe';
-    request.url = 'http://localhost:62778/api/observe';
+    request.url = 'http://api.youneeq.ca/api/observe';
     request.params.json = jsonString;
-    request.setAttribute('callback-value', sessionId + "_" + pageId + "_" + now + "_" + requestCount);
+
+    // This should get run every time a request is sent.
+    let callbackId = this.get("yqcallbackid");
+    if (!callbackId.sessionId){
+      callbackId.sessionId = this._generateId();
+    }
+    callbackId.requestCount++;
+    this.set("yqcallbackid", callbackId);
+    let now = new Date().getTime();
+    request.setAttribute('callback-value', callbackId.sessionId + "_" + callbackId.pageId + "_" + now + "_" + callbackId.requestCount);
 
     request.generateRequest();
   }
