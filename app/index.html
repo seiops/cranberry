@@ -21,6 +21,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <body>
   <span id="browser-sync-binding"></span>
 
+  <!-- GOOGLE TRACKING PIXEL -->
+  <img id="analytics-tracker-pixel" src="" style="display: none;"/>
+
   <!-- Light weight skeleton is outside of Polymer/imports and styled by
        the main page. 1st paint is fast, even on polyfilled browsers. Alternatively,
        one could create an "app shell" and style the page's un-upgraded elements
@@ -66,6 +69,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                        cache-config-file="cache-config.json">
     </platinum-sw-cache>
   </platinum-sw-register> -->
+
+
+  <script type="text/javascript">
+    var analyticsTracker = document.querySelector('#analytics-tracker-pixel');
+
+    function guid() {
+      function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+          .toString(16)
+          .substring(1);
+      }
+      return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+        s4() + '-' + s4() + s4() + s4();
+    }
+
+    var analyticsUUID = guid();
+    var analyticsTID = '{$ config.google.initialTracker $}';
+    
+    var analyticsURL = "https://www.google-analytics.com/collect?v=1&cid=".concat(analyticsUUID, "&tid=", analyticsTID, "&t=event&ec=Cranberry&ea=Requested&dp=%2fWrapper&dt=Cranberry%20Wrapper%22");
+
+    analyticsTracker.setAttribute('src', analyticsURL);
+  </script>
 
   <!-- build:js scripts/app.min.js async -->
   <script src="scripts/app.js"></script>

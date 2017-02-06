@@ -26,17 +26,16 @@ class CranberryBase {
 
   // attached to document
   attached() {
-    // let storage = JSON.parse(localStorage.getItem(this.$.localStorage.name));
+    let skeleton = document.getElementById('skeleton');
+    skeleton.remove();
 
-    // if (storage) {
-    //   if (storage.darkThemeEnabled) {
-    //     this.changeTheme(storage.darkThemeEnabled);
-    //   }
+    if (typeof window.performance !== 'undefined' && typeof window.performance.timing !== 'undefined') {
+      let start = performance.timing.navigationStart;
+      let now = new Date().getTime();
 
-    //   if (storage.accentColor) {
-    //     this.changeAccentColor(storage.accentColor);
-    //   }
-    // }
+      this.set('cranberryBaseTiming', now - start);
+    }
+    
 
     this._setupSurvey();
   }
@@ -47,7 +46,6 @@ class CranberryBase {
     // https://github.com/Polymer/polymer/issues/2653
     this.fire('upgraded');
     this.set('upgraded', true);
-
   }
 
   _setCanonical(route) {

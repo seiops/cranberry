@@ -25,6 +25,7 @@ module.exports = {
   },
   // Google
   google: {
+    initialTracker: 'UA-4700830-1',
     analytics: [
       {
         code: 'UA-4700830-1'
