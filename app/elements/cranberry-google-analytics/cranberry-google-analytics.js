@@ -98,7 +98,6 @@ class CranberryGoogleAnalytics {
       if (typeof ga !== 'undefined') {
         let cranberryBase = Polymer.dom(document).querySelector('cranberry-base');
         let appStartedValue = performance.timing.responseEnd - performance.timing.navigationStart;
-        console.log(appStartedValue);
         let cranberryBaseAttached = cranberryBase.get('cranberryBaseTiming');
         let trackerIds = this.get('trackerIds');
         let timingVar1 = 'App Started Loading';
@@ -123,7 +122,6 @@ class CranberryGoogleAnalytics {
   trackEvent(e) {
     setTimeout(() => {
       if (typeof ga !== 'undefined') {
-        console.log(e);
         let trackerIds = this.get('trackerIds');
         console.info('\<cranberry-google-analytics\> event sent with data on default');
         ga('send', 'event', e.detail.event.category, e.detail.event.action);
