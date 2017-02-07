@@ -6,8 +6,8 @@ div.profile-card {
   @apply(--layout-vertical);
   @apply(--layout-center-justified);
   @apply(--layout-center);
+  flex: 1 1 auto;
   background: var(--accent-color);
-  height: 100%;
 }
 
 div.profile-card div.profile-card-content {
