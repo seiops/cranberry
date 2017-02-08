@@ -37,6 +37,11 @@ class CranberrySection {
             count: {
               type: Number,
               value: 18
+            },
+            isHomepage: {
+              type: Boolean,
+              reflectToAttribute: true,
+              value: false
             }
         };
 
