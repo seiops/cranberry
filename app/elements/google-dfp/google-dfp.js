@@ -7,12 +7,20 @@ class GoogleDFP {
                 observer: '_sectionChanged'
             },
             sectionParent: String,
+            adElementReady: {
+              type: Boolean,
+              value: false
+            },
             adSize: Array,
             adSizeMapping: String,
             adPos: String,
             adGroup: Number,
             adGrouping: String,
             adSubGrouping: String,
+            shareThrough: {
+              type: Boolean,
+              value: false
+            },
             tags: String,
             outOfPage: {
               type: Boolean,
@@ -29,12 +37,9 @@ class GoogleDFP {
         };
     }
 
-
-    _buildAd() {
+    _buildAd(idModifier) {
+      console.log(idModifier);
       this.async(function() {
-        let advertisement = Polymer.dom(this.root).firstElementChild;
-        let idModifier = advertisement.getAttribute('id');
-        let parentSection = section;
         let childSection = '';
         let adGroup = this.get('adGroup');
         let adGrouping = this.get('adGrouping');
@@ -89,9 +94,11 @@ class GoogleDFP {
 
 
         googletag.cmd.push(function() {
-            googletag.pubads().setTargeting('section', parentSection);
+            googletag.pubads().setTargeting('section', adSection);
             googletag.pubads().setTargeting('placement', 'development');
-            googletag.pubads().setTargeting('content', tags);
+            if (typeof tags !== 'undefined') {
+              googletag.pubads().setTargeting('content', tags);
+            }
             googletag.enableServices();
 
             let dfpURL = adGroup + '/' + adGrouping + '/' + adSubGrouping + '/' + adSection + '/' + position;
@@ -109,34 +116,41 @@ class GoogleDFP {
               slots[idModifier].defineSizeMapping(mapping);
             }
 
+            console.log(idModifier);
+
             googletag.display(idModifier);
         });
       });
     }
 
     _checkGoogle() {
-      let el = this;
+      let adElementReady = this.get('adElementReady');
+      setTimeout(() => {
+        if (typeof googletag !== 'undefined' && typeof googletag.pubads === 'function' && typeof googletag.sizeMapping === 'function' && adElementReady) {
+          let advertisement = Polymer.dom(this.root).querySelector('.advertisement');
+          let id = advertisement.getAttribute('id');
 
-      setTimeout(function() {
-        if (typeof googletag !== 'undefined' && typeof googletag.sizeMapping === 'function') {
-          el._buildAd();
+          this._buildAd(id);
           return;
         } else {
-          el._checkGoogle();
+          this._checkGoogle();
         }
-      }, 500);
+      }, 50);
     }
 
     _sectionChanged(section) {
       if (typeof section === 'undefined') {
         this.set('section', 'homepage');
       }
+
       this._checkGoogle();
     }
 
     _adCount() {
         window.adCounter = window.adCounter || 0;
         window.adCounter += 1;
+
+        this.set('adElementReady', true);
 
         return '_' + window.adCounter;
     }
