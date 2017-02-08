@@ -43,7 +43,7 @@ div.single-image-overlay {
   right: 25px;
 }
 
-div.single-image-overlay paper-fab {
+div.single-image-overlay paper-button {
   margin: 10px 14px 0 0;
 }
 
@@ -114,4 +114,10 @@ div.media-container cranberry-slider div.share-buttons paper-button {
   color: var(--text-dark-accent-color);
   margin-right: 25px;
   bottom: -5px;
+}
+
+div.media-container cranberry-slider div.share-buttons paper-button.comment-button {
+  width: 40px;
+  height: 40px;
+  bottom: -12px;
 }

@@ -28,7 +28,7 @@
                 <iron-image class="main-media-item" sizing="cover" src$="[[_computeImageUrl(media.0)]]" hidden$="[[hasLeadShortcode]]"></iron-image>
                 <!-- Button Overlay -->
                 <div class="single-image-overlay">
-                  <paper-fab mini icon="communication:chat-bubble" title="Comments" id="commentButton"></paper-fab>
+                  <paper-button raised class="rounded-button comment-button" on-tap="_scrollToComments"><iron-icon icon="communication:chat-bubble"></iron-icon></paper-button>
                   <gigya-sharebar share-buttons-id="gigya-share-buttons-story" title="[[content.title]]" route="[[route]]"></gigya-sharebar>
                 </div>
               </div>
@@ -47,6 +47,7 @@
                   <paper-button raised class="rounded-button" on-tap="_openModal"><iron-icon icon="icons:fullscreen"></iron-icon></paper-button>
                 </div>
                 <div class="share-buttons">
+                  <paper-button raised class="rounded-button comment-button" on-tap="_scrollToComments"><iron-icon icon="communication:chat-bubble"></iron-icon></paper-button>
                   <paper-button id="buyButton" 
                                 class="rounded-button" 
                                 on-tap="_buyImage" 
@@ -69,7 +70,7 @@
                 <iron-image class="main-media-item" sizing="cover" src$="[[_computeImageUrl(leadShortcodeContent)]]"></iron-image>
                 <!-- Button Overlay -->
                 <div class="single-image-overlay">
-                  <paper-fab mini icon="communication:chat-bubble" title="Comments" id="commentButton"></paper-fab>
+                  <paper-button raised class="rounded-button comment-button" on-tap="_scrollToComments"><iron-icon icon="communication:chat-bubble"></iron-icon></paper-button>
                   <gigya-sharebar share-buttons-id="gigya-share-buttons-story" title="[[content.title]]" route="[[route]]"></gigya-sharebar>
                 </div>
               </div>
