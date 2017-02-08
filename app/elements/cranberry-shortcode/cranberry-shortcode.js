@@ -254,7 +254,7 @@ class cranberryShortcode {
           let image = document.createElement('iron-image');
           let caption = document.createElement('p');
           caption.classList.add('caption-text');
-          image.src = baseUrl + (type === 'image' ? content.large : content.url);
+          image.src = baseUrl + (type === 'image' ? content.large : content.uncropped);
           caption.appendChild(document.createTextNode(content.caption));
           image.appendChild(caption);
           container.appendChild(image);
