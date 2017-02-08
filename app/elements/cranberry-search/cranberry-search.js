@@ -28,14 +28,6 @@ class cranberrySearch {
       totalResults: {
         type: Number
       },
-      isNext: {
-        Boolean,
-        value: true
-      },
-      isPrev: {
-        type: Boolean,
-        value: false
-      },
       isSearching: {
         type: Boolean,
         value: false
@@ -45,7 +37,9 @@ class cranberrySearch {
         value: 'news'
       },
       hidden: {
-        type: Boolean
+        type: Boolean,
+        reflectToAttribute: true,
+        value: true
       },
       rest: {
         type: String
@@ -86,36 +80,48 @@ class cranberrySearch {
     // Run through a reset of all params for the search page
     this.set('route', {});
     this.set('items', []);
-    this.set('isPrev', false);
-    this.set('isNext', true);
     this.set('start', 1);
     this.set('displayQuery', 'Search');
     // this.$.searchRe._clear();
   }
 
   _requestSearch(queryString, move) {
+
+    /* 
+      cref=www.sanduskyregister.com (domain name for site from config)
+      cx=011196976410573082968%3A7m7hlyxbyte (search engine id from config)
+      num=10
+      siteSearch=www.sanduskyregister.com (same as cref)
+      key=AIzaSyBDk13Lq9zUa9osnHN4Lo9SgziiwJFMjmM (google api from config)
+    */
+
     if (typeof queryString !== 'undefined' && queryString !== '') {
       this.set('noQuery', false);
       this.set('isSearching', true);
+      
       // Set the display string for the query to display to the user
-      this.set('displayQuery', queryString.replace(/\+/g, ' '));
+      let displayQuery = queryString.replace(/\+/g, ' ');
+      this.set('displayQuery', displayQuery);
+
       // Establish the JSONP parameters
       let params = {};
 
-      params.request = 'search';
-      params.desiredCount = 20;
-      params.query = queryString;
+      params.cref = 'www.sanduskyregister.com';
+      params.cx = '011196976410573082968:7m7hlyxbyte';
+      params.siteSearch = 'www.sanduskyregister.com';
+      params.key = 'AIzaSyBDk13Lq9zUa9osnHN4Lo9SgziiwJFMjmM';
+      params.num = 10;
+      params.q = queryString;
 
       if (typeof move !== 'undefined') {
-        params.desiredStart = move;
+        params.start = move;
       } else {
         this.set('start', 1);
-        params.desiredStart = 1;
+        params.start = 1;
       }
 
       let request = this.$.searchRequest;
 
-      request.setAttribute('url', this.get('rest'));
       request.params = params;
       request.generateRequest();
     }
@@ -162,17 +168,13 @@ class cranberrySearch {
   }
 
   _parseResponse(response) {
-      var result = JSON.parse(response.Result);
+      console.dir(response);
+      if (typeof response !== 'undefined' && typeof response.items !== 'undefined') {
+        this.set('items', response.items);
 
-      if (result.length !== 20) {
-        this.set('isNext', false);
+        this.set('totalResults', parseInt(response.searchInformation.totalResults));
+        this._sendPageviews();
       }
-
-      this.set('items', result);
-      this.set('totalResults', parseInt(result[0].totalResults));
-
-      this._sendPageviews();
-
       this.set('isSearching', false);
   }
 
@@ -188,11 +190,17 @@ class cranberrySearch {
   }
 
   _hasImage(image) {
-      if (typeof image !== 'undefined' && image.length > 0) {
-          return true;
+    if (typeof image !== 'undefined') {
+      let staticImage = image.includes('/libercus/default/staticImages/static.jpg');
+
+      if (!staticImage) {
+        return true;
       } else {
-          return;
+        return false;
       }
+    } else {
+      return false;
+    }
   }
 
   _checkCurrentRequest() {
@@ -228,6 +236,8 @@ class cranberrySearch {
           trunc += '...';
       }
       return trunc;
+    } else {
+      return '';
     }
   }
 }
