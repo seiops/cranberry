@@ -17,6 +17,9 @@ class gigyaComments {
       }
     };
     this.observers = ['_updateComments(streamId, content, configId)'];
+    this.listeners = {
+      'scroll-to-comments': 'scrollToComments'
+    };
   }
 
   _timeId() {
@@ -91,6 +94,12 @@ class gigyaComments {
     let app = Polymer.dom(document).querySelector('cranberry-base');
 
     app.openUserModal();
+  }
+
+  scrollToComments() {
+    let scrollPosition = Polymer.dom(this).node.offsetTop;
+
+    this.fire('iron-signal', { name: 'app-scroll', data: { scrollPosition: scrollPosition, scrollSpeed: 1500, scrollAnimation: 'easeInOutQuint' } });
   }
 }
 

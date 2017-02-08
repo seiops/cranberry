@@ -21,6 +21,9 @@ class CranberryBase {
       }
     };
     this.observers = ['_setCanonical(route)'];
+    this.listeners = {
+      'app-scroll': '_appScrollY'
+    };
   }
   // public methods
 
@@ -355,6 +358,84 @@ class CranberryBase {
     } else {
       return true;
     }
+  }
+
+  _appScrollY(e) {
+    // let scrollPosition = e.scrollPosition;
+    // let scrollSpeed = e.scrollSpeed;
+    // let scrollAnimation = e.scrollAnimation;
+    if (typeof e.detail !== 'undefined') {
+      let scrollData = e.detail;
+      let scrollPosition = (typeof scrollData.scrollPosition !== 'undefined' ? scrollData.scrollPosition : 0);
+      let scrollSpeed = (typeof scrollData.scrollSpeed !== 'undefined' ? scrollData.scrollSpeed : 1500);
+      let scrollAnimation = (typeof scrollData.scrollAnimation !== 'undefined' ? scrollData.scrollAnimation : 'easeInOutQuint');
+      let afterScroll = (typeof scrollData.afterScroll !== 'undefined' ? scrollData.afterScroll : false);
+
+      this._scrollToY(scrollPosition, scrollSpeed, scrollAnimation, afterScroll);
+    }
+  }
+
+  _requestAnimFrame() {
+    window.requestAnimFrame = (function(){
+      return  window.requestAnimationFrame       ||
+              window.webkitRequestAnimationFrame ||
+              window.mozRequestAnimationFrame    ||
+              function( callback ){
+                window.setTimeout(callback, 1000 / 60);
+              };
+      })();
+  }
+
+  _scrollToY(scrollTargetY, speed, easing, afterScroll) {
+    // scrollTargetY: the target scrollY property of the window
+    // speed: time in pixels per second
+    // easing: easing equation to use
+    this._requestAnimFrame();
+    let scrollY = window.scrollY || document.documentElement.scrollTop;
+    let currentTime = 0;
+
+    scrollTargetY = scrollTargetY || 0;
+    speed = speed || 2000;
+    easing = easing || 'easeOutSine';
+
+    // min time .1, max time .8 seconds
+    let time = Math.max(.1, Math.min(Math.abs(scrollY - scrollTargetY) / speed, .8));
+
+    // easing equations from https://github.com/danro/easing-js/blob/master/easing.js
+    let easingEquations = {
+      easeOutSine: function (pos) {
+        return Math.sin(pos * (Math.PI / 2));
+      },
+      easeInOutSine: function (pos) {
+        return (-0.5 * (Math.cos(Math.PI * pos) - 1));
+      },
+      easeInOutQuint: function (pos) {
+        if ((pos /= 0.5) < 1) {
+          return 0.5 * Math.pow(pos, 5);
+        }
+        return 0.5 * (Math.pow((pos - 2), 5) + 2);
+      }
+    };
+
+    let tick = () => {
+      currentTime += 1 / 60;
+
+      var p = currentTime / time;
+      var t = easingEquations[easing](p);
+
+      if (p < 1) {
+        window.requestAnimFrame(tick);
+        window.scrollTo(0, scrollY + ((scrollTargetY - scrollY) * t));
+      } else {
+        if (afterScroll) {
+          this.fire('iron-signal', { name: 'scroll-complete' });
+        }
+        window.scrollTo(0, scrollTargetY);
+      }
+    }
+
+    // call it once to get started
+    tick();
   }
 }
 // Change accent color

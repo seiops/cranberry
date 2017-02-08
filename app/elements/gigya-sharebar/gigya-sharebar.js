@@ -83,8 +83,6 @@ class gigyaSharebar {
               params.userAction = ua;
               params.containerID = shareButtonsId;
 
-              console.dir(params);
-
               gigya.socialize.showShareBarUI(params);
 
               return;

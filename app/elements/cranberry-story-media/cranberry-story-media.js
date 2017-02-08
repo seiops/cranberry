@@ -144,7 +144,10 @@ class cranberryStoryMedia {
         }
       }
     });
-    
+  }
+
+  _scrollToComments() {
+    this.fire('iron-signal', {name: 'scroll-to-comments'});
   }
 }
 Polymer(cranberryStoryMedia);
