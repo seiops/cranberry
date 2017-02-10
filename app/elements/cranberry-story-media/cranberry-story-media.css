@@ -43,8 +43,14 @@ div.single-image-overlay {
   right: 25px;
 }
 
+div.single-image-overlay {
+  @apply(--layout-center);
+}
+
 div.single-image-overlay paper-button {
-  margin: 10px 14px 0 0;
+  background: var(--dark-primary-color);
+  color: var(--text-dark-accent-color);
+  margin: 0 14px 0 0;
 }
 
 div.single-image-information {
