@@ -1,0 +1,90 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
+<link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
+<link rel="import" href="../../bower_components/paper-menu/paper-submenu.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-item/paper-icon-item.html">
+
+<dom-module id="cranberry-main-navigation">
+  <template>
+    <style>
+      @import "cranberry-main-navigation/cranberry-main-navigation";
+    </style>
+
+    <byutv-jsonp on-response="_handleResponse" id="request"></byutv-jsonp>
+
+    <paper-menu id="menu" class="Navigation Navigation--menu list" attr-for-selected="data-route" selected="[[route.path]]" items="[[navigationItems]]">
+      <template is="dom-repeat" items="{{navigationItems}}">
+        <template is="dom-if" if="[[_checkChildren(item.children)]]">
+          <paper-submenu class="Navigation-main-sub-menu" opened="{{item.submenuOpen}}">
+            <paper-item class="Navigation-submenu-trigger Navigation-link menu-trigger" data-route$="[[item.url]]">
+              <iron-icon class="Navigation-submenu-icon" icon="[[item.icon]]"></iron-icon>
+              <span>[[item.title]]</span>
+              <div class="Navigation-submenu-expander">
+                <template is="dom-if" if="[[item.submenuOpen]]">
+                  <iron-icon icon="icons:arrow-drop-up"></iron-icon>  
+                </template>
+                <template is="dom-if" if="[[!item.submenuOpen]]">
+                  <iron-icon icon="icons:arrow-drop-down"></iron-icon>  
+                </template>
+              </div>
+            </paper-item>
+            <paper-menu class="Navigation-submenu menu-content" attr-for-selected="data-route" selected="[[route.path]]" items="[[item.children]]" selected-item="{{submenuSelected}}">
+              <template is="dom-repeat" items="[[item.children]]">
+                <a class="Navigation-link Navigation-submenu-item"
+                   data-route$="[[item.url]]"
+                   href$="[[item.url]]"
+                   target$="[[item.target]]"
+                   on-tap="_drawerItemSelected"
+                   ga-on="click"
+                   ga-event-category="Side Navigation Clicked"
+                   ga-event-action$="[[item.tracking]]">
+                <paper-item data-route$="[[item.url]]">[[item.title]]</paper-item>
+              </a>
+              </template>
+            </paper-menu>
+          </paper-submenu>
+        </template>
+        <template is="dom-if" if="[[!_checkChildren(item.children)]]">
+          <a class="Navigation-link"
+             data-route$="[[item.url]]"
+             href$="[[item.url]]"
+             target$="[[item.target]]"
+             on-tap="_drawerItemSelected"
+             ga-on="click"
+             ga-event-category="Side Navigation Clicked"
+             ga-event-action$="[[item.tracking]]">
+            <iron-icon class="Navigation-icon" icon="[[item.icon]]"></iron-icon>
+            <paper-item data-route$="[[item.url]]">[[item.title]]</paper-item>
+          </a>
+        </template>
+        <!--<a class="Navigation-link" 
+            data-route$="[[item.url]]"
+            href$="[[item.url]]"
+            target$="[[item.target]]"
+            on-tap="_drawerItemSelected"
+            ga-on="click"
+            ga-event-category="Side Navigation Clicked"
+            ga-event-action$="[[item.tracking]]">
+          <iron-icon class="Navigation-icon" icon="[[item.icon]]"></iron-icon>
+          <span class="Navigation-text">[[item.title]]</span>
+        </a>
+        <template is="dom-if" if="_checkChildren(item.children)">
+          <template is="dom-repeat" items="{{item.children}}">
+            <a class="Navigation-child-link" 
+                data-route$="[[item.url]]"
+                href$="[[item.url]]"
+                target$="[[item.target]]"
+                on-tap="_drawerItemSelected"
+                ga-on="click"
+                ga-event-category="Side Navigation Clicked"
+                ga-event-action$="[[item.tracking]]">
+              <span class="Navigation-child-text">[[item.title]]</span>
+            </a>
+          </template>-->
+        </template>
+      </template>
+    </paper-menu>
+  </template>
+    <script src="cranberry-main-navigation.js"></script>
+</dom-module>
