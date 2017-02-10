@@ -6,6 +6,7 @@
   --paper-item: {
     @apply(--paper-font-body1);
     color: var(--primary-text-color);
+    padding: 0;
   };
 
   /* postcss-bem-linter: ignore */
@@ -42,18 +43,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   padding-top: 0;
 
   @nest &-icon {
-    margin-right: 24px;
+    margin-right: 12px;
   }
 
   @nest &-link {
     @apply(--layout-horizontal);
     @apply(--layout-flex);
+    @apply(--layout-wrap);
     @apply(--layout-center);
 
     color: var(--primary-text-color);
     min-height: 48px;
-    padding-left: 24px;
-    padding-right: 24px;
+    padding-left: 12px;
+    padding-right: 12px;
     text-decoration: none;
   }
 
@@ -88,26 +90,32 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   }
 
   @nest &-submenu-trigger {
-    padding: 0 24px;
+    padding: 0 12px;
     pointer-events: none;
+    border-top: 1px solid #EDEDED;
+    border-bottom: 1px solid #EDEDED;
   }
 
   @nest &-submenu-expander {
     @apply(--layout-flex);
+    @apply(--layout-end-justified);
+
+    display: flex;
+    flex: 1 1 auto;
     align-self: center;
   }
 
   @nest &-submenu-icon {
-    padding: 0 38px 0 0;
+    padding: 0 12px 0 0;
   }
 
   @nest &-submenu {
     padding: 0;
-    background-color: #E0E0E0;
+    background-color: #EDEDED;
   }
 
   @nest &-submenu &-link {
-    padding-left: 70px;
+    padding-left: 58px;
   }
 
 }

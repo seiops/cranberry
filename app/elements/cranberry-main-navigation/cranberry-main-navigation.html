@@ -19,13 +19,15 @@
           <paper-submenu class="Navigation-main-sub-menu" opened="{{item.submenuOpen}}">
             <paper-item class="Navigation-submenu-trigger Navigation-link menu-trigger" data-route$="[[item.url]]">
               <iron-icon class="Navigation-submenu-icon" icon="[[item.icon]]"></iron-icon>
-              [[item.title]]
-              <template is="dom-if" if="[[item.submenuOpen]]">
-                <iron-icon class="Navigation-submenu-expander" icon="icons:arrow-drop-up"></iron-icon>  
-              </template>
-              <template is="dom-if" if="[[!item.submenuOpen]]">
-                <iron-icon class="Navigation-submenu-expander" icon="icons:arrow-drop-down"></iron-icon>  
-              </template>
+              <span>[[item.title]]</span>
+              <div class="Navigation-submenu-expander">
+                <template is="dom-if" if="[[item.submenuOpen]]">
+                  <iron-icon icon="icons:arrow-drop-up"></iron-icon>  
+                </template>
+                <template is="dom-if" if="[[!item.submenuOpen]]">
+                  <iron-icon icon="icons:arrow-drop-down"></iron-icon>  
+                </template>
+              </div>
             </paper-item>
             <paper-menu class="Navigation-submenu menu-content" attr-for-selected="data-route" selected="[[route.path]]" items="[[item.children]]" selected-item="{{submenuSelected}}">
               <template is="dom-repeat" items="[[item.children]]">

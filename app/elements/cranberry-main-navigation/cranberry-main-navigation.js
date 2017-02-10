@@ -57,17 +57,6 @@ class cranberryMainNavigation {
     });
   }
 
-  setIcon(value) {
-    console.log('SET ICON CALLED WITH');
-    console.log(value);
-    
-    if (typeof value !== 'undefined' && typeof value === 'object') {
-      return 'icons:arrow-drop-up';
-    } else {
-      return 'icons:arrow-drop-down';
-    }
-  }
-
   _submenuSelectedChanged(value, oldValue) {
     if (typeof value !== 'undefined' && typeof value === 'object') {
       if (typeof value.parentNode !== 'undefined' && value.parentNode) {
