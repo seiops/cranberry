@@ -46,7 +46,8 @@ class toutElement {
     this.set('slotName', slotName);
 
     TOUT.onReady(function(){
-      TOUT.players.create(player, { selector: '#' + slotName });
+      TOUT.slotManager.slotReady(player, '#' + slotName);
+      // TOUT.players.create(player, { selector: '#' + slotName });
     });
   }
 
@@ -70,7 +71,7 @@ class toutElement {
       let slotName = this.get('slotName');
 
       TOUT.onReady(function(){
-        TOUT.players.create(player, { selector: '#' + slotName });
+        TOUT.slotManager.slotReady(player, '#' + slotName);
       });
     });
   }
