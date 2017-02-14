@@ -41,7 +41,6 @@ class GoogleDFP {
     }
 
     _buildAd(idModifier) {
-      console.log(idModifier);
       this.async(function() {
         let childSection = '';
         let adGroup = this.get('adGroup');
@@ -93,6 +92,7 @@ class GoogleDFP {
               addSize([1050, 200], [[970, 250], [970, 90], [728, 90], [1,1]]).
               build();
           }
+
         }
 
 
@@ -118,8 +118,6 @@ class GoogleDFP {
             if (typeof adSizeMapping !== 'undefined') {
               slots[idModifier].defineSizeMapping(mapping);
             }
-
-            console.log(idModifier);
 
             googletag.display(idModifier);
         });
