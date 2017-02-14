@@ -87,20 +87,12 @@ class cranberrySearch {
 
   _requestSearch(queryString, move) {
 
-    /* 
-      cref=www.sanduskyregister.com (domain name for site from config)
-      cx=011196976410573082968%3A7m7hlyxbyte (search engine id from config)
-      num=10
-      siteSearch=www.sanduskyregister.com (same as cref)
-      key=AIzaSyBDk13Lq9zUa9osnHN4Lo9SgziiwJFMjmM (google api from config)
-    */
-
     if (typeof queryString !== 'undefined' && queryString !== '') {
       this.set('noQuery', false);
       this.set('isSearching', true);
       
       // Set the display string for the query to display to the user
-      let displayQuery = queryString.replace(/\+/g, ' ');
+      let displayQuery = decodeURI(queryString);
       this.set('displayQuery', displayQuery);
 
       // Establish the JSONP parameters
