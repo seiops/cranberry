@@ -40,7 +40,7 @@
       tag-section="[[tags]]"
       tags="[[routeData.section]]"
       galleries="[[galleries]]"
-      start="{{start}}"
+      start="[[start]]"
       hidden$="[[hidden]]"
       featured-items="{{featuredItems}}"
       content-items="{{contentItems}}"
@@ -81,7 +81,7 @@
         <!-- CONTENT LIST ELEMENT -->
         <cranberry-content-list items="[[contentItems]]" sections="[[loadSection]]" section="[[section]]" tracked-section="[[trackerSection]]" tracked-parent-section="[[trackerParentSection]]" tags="[[tags]]" tag="[[tag]]" homepage$="[[isHomepage]]" hidden$="[[hidden]]"></cranberry-content-list>
         <div class="pagination-wrapper">
-          <cranberry-pagination start="{{start}}" current-page="{{currentPage}}" section="[[trackerSection]]" parent="[[trackerParentSection]]"></cranberry-pagination>
+          <cranberry-pagination start="{{start}}" current-page="{{currentPage}}" section="[[trackerSection]]" parent="[[trackerParentSection]]" count="[[_computeCount(isHomepage, currentPage)]]"></cranberry-pagination>
         </div>
       </template>
     </div>
