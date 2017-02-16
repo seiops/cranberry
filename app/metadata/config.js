@@ -59,7 +59,7 @@ module.exports = {
   },
   // Tout
   tout: {
-      toutUid: '7c1682'
+      toutUid: '277e2b'
   },
   // Distro
   distro: {
