@@ -1,62 +1,4 @@
 class CranberrySection {
-<<<<<<< HEAD
-    beforeRegister() {
-        this.is = 'cranberry-section';
-        this.properties = {
-            route: Object,
-            routeData: Object,
-            selected: {
-                type: Number,
-                value: 0
-            },
-            currentPage: {
-              type: Number,
-              observer: '_currentPageChanged'
-            },
-            galleries: {
-              type: Boolean,
-              value: false
-            },
-            tags: {
-              type: Boolean,
-              value: false
-            },
-            tag: {
-              type: String
-            },
-            hidden: {
-              type: Boolean,
-              reflectToAttribute: true,
-              value: true
-            },
-            sectionTitle: {
-              type: String,
-              value: ''
-            },
-            featuredItems: Array,
-            contentItems: Array,
-            count: {
-              type: Number,
-              value: 18
-            },
-            isHomepage: {
-              type: Boolean,
-              reflectToAttribute: true,
-              value: false
-            }
-        };
-
-        this.observers = ['_hiddenChanged(hidden, routeData)'];
-    }
-
-    attached() {
-        console.info('\<cranberry-section\> attached');
-        this._checkTabs();
-    }
-
-    _checkItem(item, index) {
-        let modulus = index % 2;
-=======
   beforeRegister() {
     this.is = 'cranberry-section';
     this.properties = {
@@ -80,7 +22,11 @@ class CranberrySection {
         reflectToAttribute: true,
         value: true
       },
-      isHomepage: Boolean,
+      isHomepage: {
+        type: Boolean,
+        reflectToAttribute: true,
+        value: false
+      },
       route: Object,
       routeData: Object,
       sectionTitle: {
@@ -88,8 +34,8 @@ class CranberrySection {
         value: ''
       },
       selected: {
-          type: Number,
-          value: 0
+        type: Number,
+        value: 0
       },
       start: {
         type: Number,
@@ -105,7 +51,6 @@ class CranberrySection {
     };
     this.observers = ['_hiddenChanged(hidden, routeData)'];
   }
->>>>>>> jail-mug-homepage
 
   attached() {
       console.info('\<cranberry-section\> attached');
