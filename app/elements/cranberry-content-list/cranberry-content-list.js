@@ -113,14 +113,6 @@ class CranberryContentList {
     }
   }
 
-  _checkJobsWidget(index) {
-      if (index === 11) {
-          return true;
-      } else {
-          return;
-      }
-  }
-
   _hasPreview(preview) {
     if (typeof preview !== 'undefined' && preview.length > 0) {
       return true;
