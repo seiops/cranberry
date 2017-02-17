@@ -71,6 +71,8 @@ class cranberryJailMugs {
       let routePath = newValue.path.replace('/', '');
       let firstRun = this.get('firstRun');
 
+      console.log('THIS IS FIRST RUN:: ' + firstRun);
+
       // Check if the element has gone through once yet.
       if (!firstRun) {
         if (routePath === '') {
@@ -82,7 +84,9 @@ class cranberryJailMugs {
         // If it hasnt ran through once run both requests
         this.set('firstRun', false)
         this._buildCardRequest();
-        this._buildSliderRequest(routePath);
+        if (typeof routePath !== 'undefined' && routePath !== '') {
+          this._buildSliderRequest(routePath);
+        }
       }
 
     }
@@ -186,7 +190,6 @@ class cranberryJailMugs {
   }
 
   onSliderJsonChanged(newValue) {
-    console.log(newValue);
     // Setup the images array
     let images = this._setupImages(newValue);
     let slider = this.$.mugSlider;
