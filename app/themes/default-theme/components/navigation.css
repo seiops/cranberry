@@ -14,6 +14,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   padding-top: 0;
 
   @nest &-icon {
+    margin-left:24px;
     margin-right: 24px;
   }
 
@@ -24,8 +25,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     color: var(--primary-text-color);
     min-height: 48px;
     width: 100%;
-    padding-left: 24px;
-    padding-right: 24px;
     text-decoration: none;
   }
 
