@@ -2,8 +2,8 @@ class toutElement {
   beforeRegister() {
     this.is = 'tout-element';
     this.properties = {
-      placement: {
-        type: String
+      story: {
+        type: Object
       },
       storyId: {
         type: Object
@@ -35,19 +35,31 @@ class toutElement {
     console.info('\<tout-element\> attached');
     this._setupToutScript();
 
-    let metaTag = Polymer.dom(document).querySelector('meta[property="tout:article:id"]');
-    metaTag.setAttribute('content', this.get('storyId'));
+    let story = this.get('story');
+    let storyId = '';
+    if (typeof story !== 'undefined' && typeof story.itemId !== 'undefined') {
+      storyId = story.itemId;
+
+      if (typeof story.title !== 'undefined') {
+        let metaTag = Polymer.dom(document).querySelector('meta[property="og:title"]');
+        metaTag.setAttribute('content', story.title);
+      }
+    }
+
+    if (typeof storyId !== 'undefined' && storyId !== '') {
+      let metaTag = Polymer.dom(document).querySelector('meta[property="tout:article:id"]');
+      metaTag.setAttribute('content', storyId);
+    }
+    
 
     let slot = this.get('slot');
     let slotName = 'tout-slot-' + slot;
-    let placement = this.get('placement');
     let player = this.get('player');
 
     this.set('slotName', slotName);
 
     TOUT.onReady(function(){
-      TOUT.slotManager.slotReady(player, '#' + slotName);
-      // TOUT.players.create(player, { selector: '#' + slotName });
+      TOUT.players.create(player, { selector: '#' + slotName });
     });
   }
 

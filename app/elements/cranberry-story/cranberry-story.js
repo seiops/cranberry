@@ -480,7 +480,7 @@ class CranberryStory {
         tout.set('slot', 'mid-article');
         tout.set('player', 'mid_article_player');
         tout.set('toutUid', toutUid);
-        tout.set('storyId', this.get('routeData.id'));
+        tout.set('story', this.get('story'));
 
         toutDiv.appendChild(tout);
       }
