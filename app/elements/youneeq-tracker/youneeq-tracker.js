@@ -101,7 +101,7 @@ class youneeqTracker {
   }
 
   _parseResponse(response) {
-    if (typeof response.suggest !== 'undefined' && typeof response.suggest.node !== 'undefined' && response.suggest.node.length > 0) {
+    if (typeof response.suggest !== 'undefined' && typeof response.suggest.node !== 'undefined' && response.suggest.node && response.suggest.node.length > 0) {
       console.info('<\youneeq-tracker\> suggestions received');
       this.fire('iron-signal', {name: 'youneeq-suggestions', data: {content: response.suggest.node}});
     }
