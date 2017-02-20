@@ -101,7 +101,7 @@ class cranberrySearch {
       params.cref = 'www.sanduskyregister.com';
       params.cx = '011196976410573082968:7m7hlyxbyte';
       params.siteSearch = 'www.sanduskyregister.com';
-      params.key = 'AIzaSyBDk13Lq9zUa9osnHN4Lo9SgziiwJFMjmM';
+      params.key = 'AIzaSyCMGfdDaSfjqv5zYoS0mTJnOT3e9MURWkU';
       params.num = 10;
       params.q = queryString;
 

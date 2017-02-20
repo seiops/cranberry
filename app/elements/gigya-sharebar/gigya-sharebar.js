@@ -70,29 +70,28 @@ class gigyaSharebar {
   _updateGigya(title, route, shareButtonsId) {
     this.async(() => {
       if (typeof route !== 'undefined') {
-        var checkGigya = () => {
+
+        var gigyaPromise = new Promise((resolve, reject) => {
           setTimeout(() => {
-            let params = this.get('params');
             if (typeof gigya !== 'undefined') {
-              console.info("Finished loading Gigya Sharebar.");
-
-              var ua = new gigya.socialize.UserAction();
-                  ua.setLinkBack(window.location.href);
-                  ua.setTitle(title);
-
-              params.userAction = ua;
-              params.containerID = shareButtonsId;
-
-              gigya.socialize.showShareBarUI(params);
-
-              return;
-
-            } else {
-              checkGigya();
+              resolve(true);
             }
-          }, 1000);
-        };
-        checkGigya();
+          }, 50);
+        });
+
+        gigyaPromise.then((value) => {
+          console.info("Finished loading Gigya Sharebar.");
+          let params = this.get('params');
+          let ua = new gigya.socialize.UserAction();
+
+          ua.setLinkBack(window.location.href);
+          ua.setTitle(title);
+
+          params.userAction = ua;
+          params.containerID = shareButtonsId;
+
+          gigya.socialize.showShareBarUI(params);
+        });
       }
     });
   }
