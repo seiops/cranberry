@@ -40,8 +40,17 @@ class GoogleDFP {
         };
     }
 
+<<<<<<< HEAD
     _buildAd(idModifier) {
       this.async(function() {
+=======
+
+    _buildAd() {
+      this.async(() => {
+        let advertisement = Polymer.dom(this.root).querySelector('.advertisement');
+        let idModifier = advertisement.getAttribute('id');
+        let parentSection = section;
+>>>>>>> development
         let childSection = '';
         let adGroup = this.get('adGroup');
         let adGrouping = this.get('adGrouping');
@@ -125,6 +134,7 @@ class GoogleDFP {
     }
 
     _checkGoogle() {
+<<<<<<< HEAD
       let adElementReady = this.get('adElementReady');
       setTimeout(() => {
         if (typeof googletag !== 'undefined' && typeof googletag.pubads === 'function' && typeof googletag.sizeMapping === 'function' && adElementReady) {
@@ -137,6 +147,20 @@ class GoogleDFP {
           this._checkGoogle();
         }
       }, 50);
+=======
+
+      let dfpPromise = new Promise((resolve, reject) => {
+        setTimeout(() => {
+          if (typeof googletag !== 'undefined' && typeof googletag.sizeMapping === 'function') {
+            resolve(true);
+          }
+        }, 50);
+      });
+
+      dfpPromise.then((value) => {
+        this._buildAd();
+      });
+>>>>>>> development
     }
 
     _sectionChanged(section) {
