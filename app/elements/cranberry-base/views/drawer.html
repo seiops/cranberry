@@ -24,27 +24,12 @@
       <cranberry-search-bar class="Drawer-search" id="drawerSearch"></cranberry-search-bar>
       <div class="Drawer-promo">
 
-        <a href="{$ config.promo.link $}" target="_blank" on-tap="_checkDrawer" ga-on="click" ga-event-category="Promo Image Clicked" ga-event-action="uti_exlk_promo">
+        <a href="{$ config.promo.link $}" target="_blank" on-tap="_drawerItemSelected" ga-on="click" ga-event-category="Promo Image Clicked" ga-event-action="uti_exlk_promo">
           <iron-image class="Drawer-promoImage" src="{$ config.promo.image $}" sizing="contain"></iron-image>
 
         </a>
       </div>
-      <paper-menu class="Navigation Navigation--menu list" attr-for-selected="data-route" selected="[[route.path]]">
-        <template is="dom-repeat" items="{{sideNav}}">
-          <a class="Navigation-link" 
-             data-route$="[[item.linkUrl]]"
-             href$="[[item.linkUrl]]"
-             target$="[[item.target]]"
-             on-tap="_drawerItemSelected"
-             ga-on="click"
-             ga-event-category="Side Navigation Clicked"
-             ga-event-action$="uti_ndwr_cst_[[index]]">
-            <iron-icon class="Navigation-icon" icon="[[item.linkIcon]]"></iron-icon>
-            <span class="Navigation-text">[[item.linkText]]</span>
-          </a>
-        </template>
-      </paper-menu>
-
+      <cranberry-main-navigation rest="{$ config.baseEndpointUrl $}" route="[[route]]"></cranberry-main-navigation>
     </nav>
 
     <span class="u-spacer"></span>

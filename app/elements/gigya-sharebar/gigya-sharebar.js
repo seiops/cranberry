@@ -64,37 +64,37 @@ class gigyaSharebar {
         }
       }
     };
-    this.observers = ['_updateGigya(title, route)'];
+    this.observers = ['_updateGigya(title, route, shareButtonsId)'];
   }
 
-  _updateGigya(title, route) {
-    let shareDiv = this.get('shareButtonsId');
+  _updateGigya(title, route, shareButtonsId) {
+    this.async(() => {
+      if (typeof route !== 'undefined') {
+        var checkGigya = () => {
+          setTimeout(() => {
+            let params = this.get('params');
+            if (typeof gigya !== 'undefined') {
+              console.info("Finished loading Gigya Sharebar.");
 
-    if (typeof route !== 'undefined') {
-      var checkGigya = () => {
-        setTimeout(() => {
-          let params = this.get('params');
-          if (typeof gigya !== 'undefined') {
-            console.info("Finished loading Gigya Sharebar.");
+              var ua = new gigya.socialize.UserAction();
+                  ua.setLinkBack(window.location.href);
+                  ua.setTitle(title);
 
-            var ua = new gigya.socialize.UserAction();
-                ua.setLinkBack(window.location.href);
-                ua.setTitle(title);
+              params.userAction = ua;
+              params.containerID = shareButtonsId;
 
-            params.userAction = ua;
-            params.containerID = shareDiv;
+              gigya.socialize.showShareBarUI(params);
 
-            gigya.socialize.showShareBarUI(params);
+              return;
 
-            return;
-
-          } else {
-            checkGigya();
-          }
-        }, 1000);
-      };
-      checkGigya();
-    }
+            } else {
+              checkGigya();
+            }
+          }, 1000);
+        };
+        checkGigya();
+      }
+    });
   }
 
   _shareButtonHandler() {

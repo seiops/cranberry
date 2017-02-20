@@ -3,7 +3,7 @@
 }
 
 div.profile-card-container {
-  @apply(--layout-flex-3);
+  flex: 1 1 auto;
 }
 
 div.featured {
@@ -13,22 +13,33 @@ div.featured {
 }
 
 div.featured cranberry-card {
-  height: 100%;
+  @apply(--layout-vertical);
+  flex: 1 1 auto;
+  min-height: 500px;
+  min-width: 320px;
 }
 
-div.featured cranberry-card::shadow div.card{
+div.featured cranberry-card[mobile-layout] {
+  min-height: 300px;
+}
+
+div.featured cranberry-card::shadow div.card {
   height: 100%;
 }
 
 cranberry-profile-card {
-  height: 100%;
+  @apply(--layout-vertical);
   min-height: 500px;
   min-width: 320px;
-  margin-bottom: 8px;
+}
+
+cranberry-profile-card[mobile-layout] {
+  min-height: 400px;
+  margin-bottom: 16px;
 }
 
 div.featured-story {
-  @apply(--layout-flex-8);
+  flex: 8 8 auto;
 }
 
 iron-image {

@@ -46,7 +46,7 @@ class CranberryGallery {
       }
     };
     this.observers = ['_checkParams(routeData.id)', '_hiddenChanged(hidden, routeData.id)'];
-    this.listeners = { 'scrollComplete': '_afterScroll' };
+    this.listeners = { 'scroll-complete': 'scrollComplete' };
   }
 
   // Public methods.
@@ -117,39 +117,44 @@ class CranberryGallery {
 
     mainSlider.goTo(imageIndex);
 
-    this._scrollToY(0, 1500, 'easeInOutQuint');
+    this.fire('iron-signal', { name: 'app-scroll', data: { scrollPosition: 0, scrollSpeed: 1500, scrollAnimation: 'easeInOutQuint', afterScroll: true } });
   }
   
-  _afterScroll() {
-    let topAd = this.$.topAd;
-    let sideAd = this.$.sideAd;
+  scrollComplete() {
+    let hidden = this.get('hidden');
+    this.async(() => {
+      if (!hidden) {
+        let topAd = this.$.topAd;
+        let sideAd = this.$.sideAd;
 
-    topAd.refresh();
-    sideAd.refresh();
+        topAd.refresh();
+        sideAd.refresh();
 
-    let gaData = {};
-    let gallery = this.get('gallery');
+        let gaData = {};
+        let gallery = this.get('gallery');
 
-    // Data settings for pageview
-    gaData.dimension6 = 'Gallery';
+        // Data settings for pageview
+        gaData.dimension6 = 'Gallery';
 
-    if (typeof gallery.byline !== 'undefined') {
-      gaData.dimension1 = gallery.byline;
-    }
+        if (typeof gallery.byline !== 'undefined') {
+          gaData.dimension1 = gallery.byline;
+        }
 
-    if (typeof gallery.published !== 'undefined') {
-      gaData.dimension3 = gallery.published;
-    }
+        if (typeof gallery.published !== 'undefined') {
+          gaData.dimension3 = gallery.published;
+        }
 
-    if (typeof gallery.tags !== 'undefined') {
-      gaData.dimension8 = gallery.tags;
-    }
+        if (typeof gallery.tags !== 'undefined') {
+          gaData.dimension8 = gallery.tags;
+        }
 
-    // Send pageview event with iron-signals
-    this.fire('iron-signal', {name: 'track-page', data: { path: '/photo-gallery/' + gallery.itemId, gaData } });
+        // Send pageview event with iron-signals
+        this.fire('iron-signal', {name: 'track-page', data: { path: '/photo-gallery/' + gallery.itemId, gaData } });
 
-    //Send Chartbeat
-    this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/photo-gallery/' + gallery.itemId, data: {'sections': gallery.sectionInformation.sectionName, 'authors': gallery.byline } } });
+        //Send Chartbeat
+        this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/photo-gallery/' + gallery.itemId, data: {'sections': gallery.sectionInformation.sectionName, 'authors': gallery.byline } } });
+      }
+    });
   }
 
   _handleResponse (data) {
@@ -184,6 +189,10 @@ class CranberryGallery {
 
       //Send Chartbeat
       this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/photo-gallery/' + result.itemId, data: {'sections': result.sectionInformation.sectionName, 'authors': result.byline } } });
+
+      // Fire Youneeq Page Hit Request
+      this.fire('iron-signal', {name: 'page-hit'});
+      this.fire('iron-signal', {name: 'observe', data: {content: result}});
 
       this.set('sendInitialView', false);
     }
@@ -222,6 +231,7 @@ class CranberryGallery {
       slider.set('baseUrl', baseUrl);
       slider.set('whiteText', true);
       slider.set('gallery', gallery);
+      slider.set('hidden', false);
 
       let modal = Polymer.dom(document).querySelector('cranberry-base').querySelector('#globalModal');
 
@@ -265,6 +275,10 @@ class CranberryGallery {
           //Send Chartbeat
           this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/photo-gallery/' + gallery.itemId, data: {'sections': gallery.sectionInformation.sectionName, 'authors': gallery.byline } } });
           
+          // Fire Youneeq Page Hit Request
+          this.fire('iron-signal', {name: 'page-hit'});
+          this.fire('iron-signal', {name: 'observe', data: {content: gallery}});
+
           this.fire('iron-signal', {name: 'refresh-ad' });
         }
       }
@@ -286,67 +300,6 @@ class CranberryGallery {
     let shareBar = slider.querySelector('gigya-sharebar');
 
     shareBar.close();
-  }
-
-  _requestAnimFrame() {
-    window.requestAnimFrame = (function(){
-      return  window.requestAnimationFrame       ||
-              window.webkitRequestAnimationFrame ||
-              window.mozRequestAnimationFrame    ||
-              function( callback ){
-                window.setTimeout(callback, 1000 / 60);
-              };
-      })();
-  }
-
-  _scrollToY(scrollTargetY, speed, easing) {
-    // scrollTargetY: the target scrollY property of the window
-    // speed: time in pixels per second
-    // easing: easing equation to use
-    this._requestAnimFrame();
-    let scrollY = window.scrollY || document.documentElement.scrollTop;
-    let currentTime = 0;
-
-    scrollTargetY = scrollTargetY || 0;
-    speed = speed || 2000;
-    easing = easing || 'easeOutSine';
-
-    // min time .1, max time .8 seconds
-    let time = Math.max(.1, Math.min(Math.abs(scrollY - scrollTargetY) / speed, .8));
-
-    // easing equations from https://github.com/danro/easing-js/blob/master/easing.js
-    let easingEquations = {
-      easeOutSine: function (pos) {
-        return Math.sin(pos * (Math.PI / 2));
-      },
-      easeInOutSine: function (pos) {
-        return (-0.5 * (Math.cos(Math.PI * pos) - 1));
-      },
-      easeInOutQuint: function (pos) {
-        if ((pos /= 0.5) < 1) {
-          return 0.5 * Math.pow(pos, 5);
-        }
-        return 0.5 * (Math.pow((pos - 2), 5) + 2);
-      }
-    };
-
-    let tick = () => {
-      currentTime += 1 / 60;
-
-      var p = currentTime / time;
-      var t = easingEquations[easing](p);
-
-      if (p < 1) {
-        window.requestAnimFrame(tick);
-        window.scrollTo(0, scrollY + ((scrollTargetY - scrollY) * t));
-      } else {
-        this.fire('scrollComplete');
-        window.scrollTo(0, scrollTargetY);
-      }
-    }
-
-    // call it once to get started
-    tick();
   }
 }
 Polymer(CranberryGallery);
