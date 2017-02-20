@@ -117,16 +117,20 @@ class cranberryChartBeat {
   }
 
   _fireVirtualPage(path) {
-    setTimeout(() => {
-      if (typeof window.pSUPERFLY !== 'undefined' && typeof window.pSUPERFLY.virtualPage !== 'undefined') {
-        console.info('\<cranberry-chart-beat\> pageview sent');
+    let superflyPromise = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (typeof window.pSUPERFLY !== 'undefined' && typeof window.pSUPERFLY.virtualPage !== 'undefined') {
+          resolve(true);
+        }
+      }, 50);
+    });
+
+    superflyPromise.then((value) => {
+      console.info('\<cranberry-chart-beat\> pageview sent');
         let title = Polymer.dom(document).querySelector('title').innerText;
 
         window.pSUPERFLY.virtualPage(path, title);
-      } else {
-        this._fireVirtualPage(path);
-      }
-    }, 50);
+    });
   }
 
 }

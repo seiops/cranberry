@@ -123,7 +123,6 @@ class CranberryStory {
     console.info('\<cranberry-story\> detached');
 
     this._destroyContent();
-    this._closeShare();
   }
 
   _changeParams() {
@@ -182,11 +181,6 @@ class CranberryStory {
         value.innerHTML = '';
       });
     }
-  }
-
-  _closeShare() {
-    let shareBar = Polymer.dom(this.root).querySelector('gigya-sharebar');
-    shareBar.close();
   }
 
   _checkMedia(mediaItems) {
