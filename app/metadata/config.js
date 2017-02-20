@@ -2,7 +2,7 @@ module.exports = {
   // URL Structure
   baseUrl: '/',
   baseDomain: 'http://www.sanduskyregister.com',
-  baseEndpointUrl: 'http://srprdcore.libercus.net/rest.json',
+  baseEndpointUrl: 'http://srdevcore.libercus.net/rest.json',
   appVersion: '<0.1',
   baseCanonicalUrl: 'https://github.com/seiops/cranberry/',
   calendarDomain: 'sanduskyregister',
