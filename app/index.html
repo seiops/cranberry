@@ -84,10 +84,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         s4() + '-' + s4() + s4() + s4();
     }
 
-    var analyticsUUID = guid();
-    var analyticsTID = '{$ config.google.initialTracker $}';
+    function getRandomInt(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min)) + min;
+    }
     
-    var analyticsURL = "https://www.google-analytics.com/collect?v=1&cid=".concat(analyticsUUID, "&tid=", analyticsTID, "&t=event&ec=Cranberry&ea=Requested&ni=1");
+    var analyticsObject = {
+      uid: guid(),
+      tid: "{$ config.google.initialTracker $}",
+      cacheBuster: getRandomInt(1,999999999999)
+    };
+
+    var analyticsURL = `https://www.google-analytics.com/collect?v=1&tid=${analyticsObject.tid}&uid=${analyticsObject.uid}&t=event&ec=Cranberry&ea=Requested&ni=1&z=${analyticsObject.cahceBuster}`;
 
     analyticsTracker.setAttribute('src', analyticsURL);
   </script>
