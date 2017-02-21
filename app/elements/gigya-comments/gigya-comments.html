@@ -1,10 +1,12 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-signals/iron-signals.html">
 
 <dom-module id="gigya-comments">
   <template>
     <style>
       @import "gigya-comments/gigya-comments";
     </style>
+    <iron-signals on-iron-signal-scroll-to-comments="scrollToComments"></iron-signals>
 
     <paper-button raised id="commentsButton">Comments</paper-button>
 

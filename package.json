@@ -3,7 +3,7 @@
   "devDependencies": {
     "autoprefixer": "^6.0.3",
     "babel-preset-es2015": "^6.3.13",
-    "browser-sync": "^2.7.7",
+    "browser-sync": "^2.18.5",
     "commonmark": "^0.24.0",
     "connect-history-api-fallback": "^1.1.0",
     "css-mqpacker": "^4.0.0",
@@ -81,6 +81,6 @@
     "node": ">=4.0"
   },
   "dependencies": {
-    "graceful-fs": "^4.1.5"
+    "graceful-fs": "^4.1.11"
   }
 }

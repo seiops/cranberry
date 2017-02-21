@@ -1,5 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
 <link rel="import" href="../cranberry-card/cranberry-card.html">
 <link rel="import" href="../cranberry-content-list/cranberry-content-list.html">
 <link rel="import" href="../cranberry-profile-card/cranberry-profile-card.html">
@@ -9,6 +11,10 @@
     <style>
       @import "cranberry-profile-page/cranberry-profile-page";
     </style>
+
+    <iron-media-query query="(min-width: 960px)" query-matches="{{desktop}}"></iron-media-query>
+    <iron-media-query query="(min-width: 720px) and (max-width:959px)" query-matches="{{tablet}}"></iron-media-query>
+    <iron-media-query query="(max-width:719px)" query-matches="{{mobile}}"></iron-media-query>
 
     <byutv-jsonp cache on-response="_handleResponse" id="profileRequest" debounce-duration="300" last-request="{{profileRequest}}" loading="{{profileLoading}}"></byutv-jsonp>
     <byutv-jsonp cache on-response="_handleListResponse" id="profileListRequest" debounce-duration="300" last-request="{{profileListrequest}}" loading="{{contentLoading}}"></byutv-jsonp>
@@ -28,11 +34,11 @@
     <div class="main-content-wrapper" hidden$="[[contentLoading]]" hidden$="[[profileLoading]]">
       <div class="featured">
         <div class="profile-card-container">
-          <cranberry-profile-card profile="[[profile]]"></cranberry-profile-card>
+          <cranberry-profile-card profile="[[profile]]" mobile-layout$="[[mobile]]"></cranberry-profile-card>
         </div>
 
         <div class="featured-story" hidden$="[[hideFeatured]]">
-          <cranberry-card item$="[[featuredContent]]" index="0" featured hide-info></cranberry-card>
+          <cranberry-card item$="[[featuredContent]]" index="0" featured hide-info mobile-layout$="[[mobile]]"></cranberry-card>
         </div>
       </div>
 

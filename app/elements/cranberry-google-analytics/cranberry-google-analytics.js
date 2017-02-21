@@ -20,6 +20,7 @@ class CranberryGoogleAnalytics {
     this.listeners = {
       'track-event': 'trackEvent',
       'track-page': 'trackPage',
+      'track-timing': 'trackTiming',
       'user-id-changed': 'userIDChanged'
     };
   }
@@ -29,7 +30,7 @@ class CranberryGoogleAnalytics {
   // attached to document
   attached() {
     console.info('\<cranberry-google-analytics\> attached');
-
+    
     this._checkGoogle();
   }
 
@@ -54,6 +55,17 @@ class CranberryGoogleAnalytics {
       trackingArray.forEach((value, index) => {
         this._createGA(value.code, index);
       });
+    }
+
+    let event = {
+      category: 'Cranberry',
+      action: 'Loaded'
+    };
+  
+    // Send pageview event with iron-signals
+    this.trackEvent({detail: { event: event } });
+    if (typeof window.performance !== 'undefined' && typeof window.performance.timing !== 'undefined') {
+      this.trackTiming();
     }
   }
 
@@ -81,14 +93,47 @@ class CranberryGoogleAnalytics {
     });
   }
 
+  trackTiming(e) {
+    setTimeout(() => {
+      if (typeof ga !== 'undefined') {
+        if (typeof window.performance !== 'undefined' && typeof window.performance.timing !== 'undefined') {
+          let cranberryBase = Polymer.dom(document).querySelector('cranberry-base');
+          let appStartedValue = performance.timing.responseEnd - performance.timing.navigationStart;
+          let cranberryBaseAttached = cranberryBase.get('cranberryBaseTiming');
+          let trackerIds = this.get('trackerIds');
+          let timingVar1 = 'App Started Loading';
+          let timingVar2 = 'Cranberry Base Element Attached';
+
+          console.info('\<cranberry-google-analytics\> page timing sent with data on default tracker');
+          ga('send', 'timing', 'App Loading', timingVar1, appStartedValue);
+          ga('send', 'timing', 'App Loading', timingVar2, cranberryBaseAttached);
+
+          trackerIds.forEach((value, index) => {
+            console.info('\<cranberry-google-analytics\> page timing sent with data on ' + value);
+            ga( value + '.send', 'timing', 'App Loading', timingVar1, appStartedValue);
+            ga( value + '.send', 'timing', 'App Loading', timingVar2, cranberryBaseAttached);
+          });
+        }
+      } else {
+          this.trackTiming(e);
+        }
+      }, 50);
+  }
+
   trackEvent(e) {
-    let trackerIds = this.get('trackerIds');
-    console.info('\<cranberry-google-analytics\> event sent with data on default');
-    ga('send', 'event', e.detail.event.category, e.detail.event.action);
-    trackerIds.forEach((value, index) => {
-      console.info('\<cranberry-google-analytics\> event sent with data on ' + value);
-      ga( value + '.send', 'event', e.detail.event.category, e.detail.event.action);
-    });
+    setTimeout(() => {
+      if (typeof ga !== 'undefined') {
+        let trackerIds = this.get('trackerIds');
+        console.info('\<cranberry-google-analytics\> event sent with data on default');
+        ga('send', 'event', e.detail.event.category, e.detail.event.action);
+        trackerIds.forEach((value, index) => {
+          console.info('\<cranberry-google-analytics\> event sent with data on ' + value);
+          ga( value + '.send', 'event', e.detail.event.category, e.detail.event.action);
+        });
+      } else {
+        this.trackEvent(e);
+      }
+    }, 50);
   }
 
   trackPage(e) {
@@ -99,7 +144,7 @@ class CranberryGoogleAnalytics {
         if (typeof e !== 'undefined' && typeof e.detail.path !== 'undefined') {
             ga('set', 'page', e.detail.path);
         }
-
+        
         let trackerIds = this.get('trackerIds');
 
         if(typeof e.detail.data !== 'undefined') {

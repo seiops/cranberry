@@ -27,6 +27,10 @@ class cranberryStaticSection {
         type: Boolean,
         value: true
       },
+      hideTvListings: {
+        type: Boolean,
+        value: true
+      },
       weatherScriptLoaded: {
         type: Boolean,
         value: false
@@ -72,6 +76,10 @@ class cranberryStaticSection {
         this.set('hideDiscoverNorwalk', false);
         this.set('tags', 'discovernorwalk');
       }
+      if (typeof hidden !== 'undefined' && !hidden && typeof staticSection !== 'undefined' && staticSection === 'tv-listings') {
+        this.set('hideTvListings', false);
+        this.set('tags', 'tv-listings');
+      }
     });
   }
 
@@ -92,12 +100,23 @@ class cranberryStaticSection {
 
       // Send Chartbeat
       this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/' + staticSection } });
+
+      this.fire('iron-signal', {name: 'page-hit'});
     });
     
   }
 
   _setupGames(hidden, hideGames) {
 
+  }
+
+  _computeTvListingsUrl(mobile) {
+    if (mobile) {
+      return 'http://www.tvpassport.com/mobile/?subid=sandusky-001&&defaultLineup=6257D&ht=1200&loc=' + location;
+    } else {
+      let location = window.location.href;
+      return 'http://decoy.tvpassport.com/?subid=sandusky-001&ht=1200&defaultLineup=6257D&loc=' + location;
+    }
   }
 }
 Polymer(cranberryStaticSection);

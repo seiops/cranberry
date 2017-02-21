@@ -49,8 +49,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       logger('Imports loaded and elements registered.');
 
     //   // Remove skeleton
-      var skeleton = document.getElementById('skeleton');
-      skeleton.remove();
+      // var skeleton = document.getElementById('skeleton');
+      // skeleton.remove();
 
       if (webComponentsSupported) {
         // Emulate WebComponentsReady event for browsers supporting Web Components natively

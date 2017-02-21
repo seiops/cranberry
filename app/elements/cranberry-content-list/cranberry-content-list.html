@@ -64,65 +64,18 @@
                     <div class="leaderboard-advertisement-wrapper">
                       <div class="leaderboard-advertisement">
                         <template is="dom-if" if="[[_checkAdPos(index, 8)]]">
-                          <google-dfp section="[[trackedSection]]" section-parent="[[trackedParentSection]]" tags="[[tag]]" ad-pos="Middle_Of_Stream" ad-size-mapping="leaderboard" ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}" hidden$="[[hidden]]"></google-dfp>
+                          <google-dfp section="[[trackedSection]]" section-parent="[[trackedParentSection]]" tags="[[tag]]" ad-pos="Middle_Of_Stream" ad-size-mapping="mobileLeader" ad-size="[[970, 250],[970, 90],[728, 90],[300, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}" hidden$="[[hidden]]"></google-dfp>
                         </template>
                         <template is="dom-if" if="[[_checkAdPos(index, 17)]]">
-                          <google-dfp section="[[trackedSection]]" section-parent="[[trackedParentSection]]" tags="[[tag]]" ad-pos="Last_Of_Stream" ad-size-mapping="leaderboard" ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}" hidden$="[[hidden]]"></google-dfp>
+                          <google-dfp section="[[trackedSection]]" section-parent="[[trackedParentSection]]" tags="[[tag]]" ad-pos="Last_Of_Stream" ad-size-mapping="mobileLeader" ad-size="[[970, 250],[970, 90],[728, 90],[300, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}" hidden$="[[hidden]]"></google-dfp>
                         </template>
                       </div>
                     </div>
                   </li>
                 </template>
-                <!-- TOUT EMBED FOR SECTION FRONT -->
-                <!--<template is="dom-if" if="[[_checkToutPlacement(index)]]" restamp>
-                  <template is="dom-if" if="[[displayTout]]" restamp>
-                    <li class="item expandable">
-                      <tout-embed-element slot="[[trackedSection]]"></tout-embed-element>
-                    </li>
-                  </template>-->
-                </template>
+              </template>
             </template>
           </ul>
-        <!-- <template is="dom-repeat" items="{{items}}" initial-count="9">
-            <template is="dom-if" if="[[_checkJobsWidget(index)]]">
-              <cranberry-card breakpoints>
-                <cranberry-jobs-widget affiliate-id="{$ config.jobs.affiliateId $}" widget-id="{$ config.jobs.widgetId $}" hidden$="{{hidden}}"></cranberry-jobs-widget>
-              </cranberry-card>
-            </template>
-            <template is="dom-if" if="[[_checkTopComments(index)]]">
-              <cranberry-card breakpoints>
-                <gigya-top-comments count="5" age="90"></gigya-top-comments>
-              </cranberry-card>
-            </template>
-            <template is="dom-if" if="[[_checkInStreamAd(index)]]">
-              <cranberry-card advertisement breakpoints>
-                <template is="dom-if" if="[[_checkAdPos(index,2)]]">
-                  <google-dfp section="[[sections]]" tags="[[tag]]" ad-pos="Top_Of_Stream" ad-size="[[300, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
-                </template>
-                <template is="dom-if" if="[[_checkAdPos(index,11)]]">
-                  <google-dfp section="[[sections]]" tags="[[tag]]" ad-pos="Bottom_Of_Stream" ad-size="[[300, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
-                </template>
-              </cranberry-card>
-            </template>
-            <template is="dom-if" if="[[_checkNativeAd(index)]]">
-              <cranberry-card advertisement breakpoints>
-                <google-dfp section="[[sections]]" tags="[[tag]]" ad-pos="Middle_of_Stream" ad-size="[[300, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
-              </cranberry-card>
-            </template>
-            <cranberry-card item="[[item]]" breakpoints></cranberry-card>
-            <template is="dom-if" if="[[_checkLeaderboardAd(index)]]">
-              <div class="leaderboard-advertisement-wrapper">
-                <div class="leaderboard-advertisement">
-                  <template is="dom-if" if="[[_checkAdPos(index, 8)]]">
-                    <google-dfp section="[[sections]]" tags="[[tag]]" ad-pos="Middle_Of_Stream" ad-size-mapping="leaderboard" ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
-                  </template>
-                  <template is="dom-if" if="[[_checkAdPos(index, 17)]]">
-                    <google-dfp section="[[sections]]" tags="[[tag]]" ad-pos="Last_Of_Stream" ad-size-mapping="leaderboard" ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"></google-dfp>
-                  </template>
-                </div>
-              </div>
-            </template>
-        </template> -->
       </div>
     </div>
   </template>

@@ -16,7 +16,7 @@
       document.querySelector("start-google-analytics-tracker").userId = loggedInUserId;
   -->
   <template>
-      <iron-signals on-iron-signal-track-page="trackPage" on-iron-signal-track-event="trackEvent"></iron-signals>
+      <iron-signals on-iron-signal-track-page="trackPage" on-iron-signal-track-event="trackEvent" on-iron-signal-track-timing="trackTiming"></iron-signals>
   </template>
   <!-- <script src="../../scripts/analytics.js"></script> -->
   <script src="cranberry-google-analytics.js"></script>

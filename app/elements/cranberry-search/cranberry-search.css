@@ -29,12 +29,18 @@ div.main-content {
 div.vertical-container {
   @apply(--layout-vertical);
   @apply(--layout-flex-4);
+  flex: 4 4 500px;
   padding: 20px;
+}
+
+div.right-rail {
+  flex: 1 1 auto;
 }
 
 div.right-rail div.ad-container {
   padding: 20px;
   min-width: 300px;
+  max-width: 300px;
 }
 
 div.search-header-container {

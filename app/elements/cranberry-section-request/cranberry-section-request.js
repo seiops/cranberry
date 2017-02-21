@@ -2,31 +2,19 @@ class cranberrySectionRequest {
   beforeRegister() {
     this.is = 'cranberry-section-request';
     this.properties = {
-      routeData: String,
-      parentSection: {
-        type: String,
+      author: String,
+      contentItems: {
+        type: Array,
         notify: true
       },
-      section: {
-        type: String,
+      featuredItems: {
+        type: Array,
         notify: true
       },
-      tempParent: {
-        type: String,
-        value: 'default'
+      hidden: Boolean,
+      items: {
+        type: Object
       },
-      tempSection: {
-        type: String,
-        value: 'default'
-      },
-      tempHidden: {
-        type: Boolean
-      },
-      tagSection: {
-        type: Boolean,
-        value: false
-      },
-      tags: String,
       loadSection: {
         type: String,
         notify: true
@@ -35,6 +23,10 @@ class cranberrySectionRequest {
         type: Object,
         value: [],
         observer: '_changeParams'
+      },
+      parentSection: {
+        type: String,
+        notify: true
       },
       response: {
         type: Object,
@@ -45,24 +37,29 @@ class cranberrySectionRequest {
         value: false,
         notify: true
       },
+      routeData: String,
+      section: {
+        type: String,
+        notify: true
+      },
       start: {
         type: Number,
-        notify: true,
         observer: '_startChanged'
       },
-      items: {
-        type: Object
+      tags: String,
+      tagSection: {
+        type: Boolean,
+        value: false
       },
-      featuredItems: {
-        type: Array,
-        notify: true
+      tempHidden: Boolean,
+      tempParent: {
+        type: String,
+        value: 'default'
       },
-      contentItems: {
-        type: Array,
-        notify: true
-      },
-      author: String,
-      hidden: Boolean
+      tempSection: {
+        type: String,
+        value: 'default'
+      }
     }
     this.observers = [
       '_sectionChanged(section, parentSection, hidden)',
@@ -108,11 +105,19 @@ class cranberrySectionRequest {
 
     this.async(() => {
       if (tagSection) {
+        // Fire Google Analytics Pageview
         this.fire('iron-signal', {name: 'track-page', data: { path: '/tags/' + section, data: { 'dimension7': section } } });
+        // Fire Chartbeat pageview
         this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/tags/' + section, data: {'sections': section, 'authors': author } } });
+        // Fire Youneeq Page Hit Request
+        this.fire('iron-signal', {name: 'page-hit'});
       } else {
+        // Fire Google Analytics Pageview
         this.fire('iron-signal', {name: 'track-page', data: { path: '/section/' + section, data: { 'dimension7': section } } });
+        // Fire Chartbeat pageview
         this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/section/' + section, data: {'sections': section, 'authors': author } } });
+        // Fire Youneeq Page Hit Request
+        this.fire('iron-signal', {name: 'page-hit'});
       }
     });
   }
@@ -145,7 +150,8 @@ class cranberrySectionRequest {
       let tagSection = this.get('tagSection');
       let gallerySection = this.get('galleries');
       let homepageFlag;
- 
+      let start = this.get('start');
+      
       jsonp.request = 'content-list';
 
       if (typeof gallerySection !== undefined && gallerySection) {
@@ -157,16 +163,24 @@ class cranberrySectionRequest {
         if (sections === 'homepage') {
           sections = 'useHomepageVariable';
           homepageFlag = true;
+          
         }
         jsonp.desiredSection = sections;
       }
+      
+      jsonp.desiredContent = this._isGalleries(this.get('galleries'));
+      jsonp.desiredStart = start;
 
       if (typeof homepageFlag !== 'undefined' && homepageFlag) {
         jsonp.featuredHomepage = 1;
+        if (typeof start === 'undefined' || start === 1) {
+          jsonp.auxJailMugs = 1;
+          jsonp.desiredCount = 17;
+        } else {
+          jsonp.auxJailMugs = 0;
+          jsonp.desiredCount = 18;
+        }
       }
-      
-      jsonp.desiredContent = this._isGalleries(this.get('galleries'));
-      jsonp.desiredStart = this.get('start');
 
       this.set('params', jsonp);
     });

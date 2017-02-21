@@ -36,6 +36,8 @@ class cranberryContactPage {
 
       // Send Chartbeat
       this.fire('iron-signal', {name: 'chartbeat-track-page', data: {path: '/contact'}});
+
+      this.fire('iron-signal', {name: 'page-hit'});
     });
   }
 
