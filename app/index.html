@@ -87,7 +87,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     var analyticsUUID = guid();
     var analyticsTID = '{$ config.google.initialTracker $}';
     
-    var analyticsURL = "https://www.google-analytics.com/collect?v=1&cid=".concat(analyticsUUID, "&tid=", analyticsTID, "&t=event&ec=Cranberry&ea=Requested&dp=%2fWrapper&dt=Cranberry%20Wrapper%22");
+    var analyticsURL = "https://www.google-analytics.com/collect?v=1&cid=".concat(analyticsUUID, "&tid=", analyticsTID, "&t=event&ec=Cranberry&ea=Requested&ni=1");
 
     analyticsTracker.setAttribute('src', analyticsURL);
   </script>
