@@ -112,10 +112,10 @@ class cranberryStaticSection {
 
   _computeTvListingsUrl(mobile) {
     if (mobile) {
-      return 'http://www.tvpassport.com/mobile/?subid=sandusky-001&ht=1200&loc=' + location;
+      return 'http://www.tvpassport.com/mobile/?subid=sandusky-001&&defaultLineup=6257D&ht=1200&loc=' + location;
     } else {
       let location = window.location.href;
-      return 'http://decoy.tvpassport.com/?subid=sandusky-001&ht=1200&loc=' + location;
+      return 'http://decoy.tvpassport.com/?subid=sandusky-001&ht=1200&defaultLineup=6257D&loc=' + location;
     }
   }
 }
