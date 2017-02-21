@@ -30,7 +30,13 @@ class CranberryBase {
   // attached to document
   attached() {
     let skeleton = document.getElementById('skeleton');
-    skeleton.remove();
+    if (typeof skeleton.remove !== 'undefined') {
+      skeleton.remove();
+    } else {
+      let body = Polymer.dom(document).querySelector('body');
+      body.removeChild(skeleton);
+    }
+    
 
     if (typeof window.performance !== 'undefined' && typeof window.performance.timing !== 'undefined') {
       let start = performance.timing.navigationStart;

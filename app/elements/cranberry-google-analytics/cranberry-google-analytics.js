@@ -96,14 +96,15 @@ class CranberryGoogleAnalytics {
   trackTiming(e) {
     setTimeout(() => {
       if (typeof ga !== 'undefined') {
-        let cranberryBase = Polymer.dom(document).querySelector('cranberry-base');
-        let appStartedValue = performance.timing.responseEnd - performance.timing.navigationStart;
-        let cranberryBaseAttached = cranberryBase.get('cranberryBaseTiming');
-        let trackerIds = this.get('trackerIds');
-        let timingVar1 = 'App Started Loading';
-        let timingVar2 = 'Cranberry Base Element Attached';
+        if (typeof window.performance !== 'undefined' && typeof window.performance.timing !== 'undefined') {
+          let cranberryBase = Polymer.dom(document).querySelector('cranberry-base');
+          let appStartedValue = performance.timing.responseEnd - performance.timing.navigationStart;
+          let cranberryBaseAttached = cranberryBase.get('cranberryBaseTiming');
+          let trackerIds = this.get('trackerIds');
+          let timingVar1 = 'App Started Loading';
+          let timingVar2 = 'Cranberry Base Element Attached';
 
-        console.info('\<cranberry-google-analytics\> page timing sent with data on default tracker');
+          console.info('\<cranberry-google-analytics\> page timing sent with data on default tracker');
           ga('send', 'timing', 'App Loading', timingVar1, appStartedValue);
           ga('send', 'timing', 'App Loading', timingVar2, cranberryBaseAttached);
 
@@ -112,7 +113,7 @@ class CranberryGoogleAnalytics {
             ga( value + '.send', 'timing', 'App Loading', timingVar1, appStartedValue);
             ga( value + '.send', 'timing', 'App Loading', timingVar2, cranberryBaseAttached);
           });
-        
+        }
       } else {
           this.trackTiming(e);
         }
@@ -143,7 +144,7 @@ class CranberryGoogleAnalytics {
         if (typeof e !== 'undefined' && typeof e.detail.path !== 'undefined') {
             ga('set', 'page', e.detail.path);
         }
-
+        
         let trackerIds = this.get('trackerIds');
 
         if(typeof e.detail.data !== 'undefined') {
