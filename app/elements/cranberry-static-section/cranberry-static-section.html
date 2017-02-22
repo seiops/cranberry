@@ -1,4 +1,5 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
 <link rel="import" href="../google-dfp/google-dfp.html">
 
 <dom-module id="cranberry-static-section">
@@ -6,6 +7,11 @@
     <style>
       @import "cranberry-static-section/cranberry-static-section";
     </style>
+
+    <iron-media-query query="(min-width: 960px)" query-matches="{{desktop}}"></iron-media-query>
+    <iron-media-query query="(min-width: 720px) and (max-width:959px)" query-matches="{{tablet}}"></iron-media-query>
+    <iron-media-query query="(max-width:719px)" query-matches="{{mobile}}"></iron-media-query>
+
     <div class="headline-advertisement">
       <google-dfp
         section="static"
@@ -113,6 +119,26 @@
     </div>
 
     <!-- End Of Discover Norwalk Page -->
+
+    <!-- Start of TV Listings Page -->
+
+    <div class="cranberry-static-section tvListings" id="tvListings" hidden$="{{hideTvListings}}">
+      <h1>TV Listings</h1>
+      <iframe src="[[_computeTvListingsUrl(mobile)]]"
+              name="tvmds_portal_frame"
+              id="tvmds_portal_frame"
+              frameborder="0"
+              marginwidth="0"
+              marginheight="0"
+              vspace="0"
+              hspace="0"
+              width="100%"
+              height="1200px"
+              allowtransparency="true"
+              scrolling="no"></iframe>
+    </div>
+
+    <!-- End Of TV Listings Page -->
 
     <div class="headline-advertisement">
       <google-dfp

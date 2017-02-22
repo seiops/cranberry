@@ -25,10 +25,10 @@ class youneeqContent {
     };
     this.listeners = {
       'youneeq-callbackid': 'callbackIdRecieved',
-      'youneeq-suggestions': 'suggestionsRecieved'
-    };
-  }
-
+      'youneeq-suggestions': 'suggestionsRecieved',
+    }
+  };
+  
   callbackIdRecieved(event) {
     let callbackId = event.detail.content;
 

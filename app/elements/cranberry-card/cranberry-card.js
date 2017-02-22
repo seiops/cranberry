@@ -50,9 +50,15 @@ class CranberryCard {
         case 'Gallery':
         prefix += 'photo-gallery';
         break;
+        case 'Jail-Mug':
+        prefix += 'jail-mugs';
+        break;
       }
+      let url = prefix;
 
-      let url = prefix + '/' + item.itemId;
+      if (typeof item.itemId !== 'undefined') {
+        url = prefix + '/' + item.itemId;
+      }
 
       return url;
     }
@@ -72,10 +78,10 @@ class CranberryCard {
     let temp = '';
 
     if (typeof sectionInformation !== 'undefined' && typeof sectionInformation.sectionName !== 'undefined') {
-      temp = sectionInformation.sectionName.replace(/_/g, ' ').toLowerCase();
+      temp += sectionInformation.sectionName.replace(/_/g, ' ').toLowerCase();
     } else {
       if (typeof sectionInformation !== 'undefined' && typeof sectionInformation.sectionParent !== 'undefined') {
-        temp = sectionInformation.sectionParent.replace(/_/g, ' ').toLowerCase();
+        temp += sectionInformation.sectionParent.replace(/_/g, ' ').toLowerCase();
       }
     }
 
@@ -83,13 +89,15 @@ class CranberryCard {
   }
 
   _scrubTagUrl(sectionInformation) {
-    let temp = '';
+    if (typeof sectionInformation !== 'undefined' && sectionInformation.sectionLabel !== 'undefined' && sectionInformation.sectionLabel !== 'jail-mugs') {
+      let temp = '/section/' + sectionInformation.sectionLabel.replace(/_/g, '-').replace('-and', '').toLowerCase();
 
-    if (typeof sectionInformation !== 'undefined' && typeof sectionInformation.sectionLabel !== 'undefined') {
-      temp = sectionInformation.sectionLabel.replace(/_/g, '-').replace('-and', '').toLowerCase();
-    } 
+      return temp;
+    } else if (typeof sectionInformation !== 'undefined' && sectionInformation.sectionLabel !== 'undefined' && sectionInformation.sectionLabel === 'jail-mugs') {
+      let temp = sectionInformation.sectionLabel.toLowerCase();
 
-    return temp;
+      return temp;
+    }
   }
 
   _computeImageSize(image) {

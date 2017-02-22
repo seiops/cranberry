@@ -123,7 +123,6 @@ class CranberryStory {
     console.info('\<cranberry-story\> detached');
 
     this._destroyContent();
-    this._closeShare();
   }
 
   _changeParams() {
@@ -146,14 +145,14 @@ class CranberryStory {
 
   _destroyContent() {
     let contentArea = this.$.storyContentArea;
-    let leadMediaArea = this.$.leadShortcode;
+    // let leadMediaArea = this.$.leadShortcode;
     let image = this.$.mainImage;
 
     this.set('route', {});
 
     // Destroy content in shortcode and content areas
     contentArea.innerHTML = '';
-    leadMediaArea.innerHTML = '';
+    // leadMediaArea.innerHTML = '';
 
     // Remove source on main image
     if (typeof image !== 'undefined') {
@@ -182,11 +181,6 @@ class CranberryStory {
         value.innerHTML = '';
       });
     }
-  }
-
-  _closeShare() {
-    let shareBar = Polymer.dom(this.root).querySelector('gigya-sharebar');
-    shareBar.close();
   }
 
   _checkMedia(mediaItems) {
@@ -344,7 +338,7 @@ class CranberryStory {
             // Fire nativo
             if (typeof window.PostRelease !== 'undefined' && typeof window.PostRelease.Start === 'function') {
               PostRelease.Start();
-            }
+            }            
           }
         }
       }
@@ -412,6 +406,10 @@ class CranberryStory {
 
     // Send Chartbeat
     this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/story/' + storyId, data: {'sections': section, 'authors': byline } } });
+
+    // Fire Youneeq Page Hit Request
+    this.fire('iron-signal', {name: 'page-hit'});
+    this.fire('iron-signal', {name: 'observe', data: {content: story}});
   }
 
   _handleResponse(json) {
@@ -527,6 +525,14 @@ class CranberryStory {
 
       this.set('byline', tempObject);
     });
+  }
+
+  _checkNumberImages(images) {
+    if (images.length > 1) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
 Polymer(CranberryStory);

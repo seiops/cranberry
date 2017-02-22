@@ -54,11 +54,7 @@ gulp.task('lint-js', ['ensureFiles'], function() {
       '!app/scripts/gpt.js',
       'app/elements/**/*.js',
       'gulpfile.js'
-    ])
-    .pipe(reload({
-      stream: true,
-      once: true
-    }));
+    ]);
 
     //.pipe($.if(!browserSync.active, $.jshint.reporter('fail')));
 });
@@ -247,7 +243,7 @@ gulp.task('serve', ['js', 'lint', 'lint-js', 'styles'], function() {
   ], ['styles', reload]);
   gulp.watch(['app/{elements,themes}/**/*.{css,html}'], ['styles', reload]);
   gulp.watch(['app/themes/**/*.js'], ['styles', reload]);
-  gulp.watch(['app/{elements,scripts}/**/*.js'], ['lint-js', 'js']);
+  gulp.watch(['app/{elements,scripts}/**/*.js'], ['lint-js', 'js', reload]);
   gulp.watch(['app/images/**/*'], reload);
 });
 
