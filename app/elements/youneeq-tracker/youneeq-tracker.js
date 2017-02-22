@@ -185,7 +185,7 @@ class youneeqTracker {
       pageHit.tz_off = utcOffset;
       pageHit.tz_name = timeZoneName;
       pageHit.bof_profile = bof_profile;
-      
+
       // GENERATE THE PAGEHIT REQUEST AND SEND IT OFF   
       fullObject.domain = domain;
       fullObject.content_id = null;
@@ -199,6 +199,8 @@ class youneeqTracker {
       request.params.json = jsonString;
 
       request.generateRequest();
+      
+      this.set('previousURL', window.location.href);
     }
   }
 }
