@@ -2,50 +2,26 @@ class CranberryStory {
   beforeRegister() {
     this.is = 'cranberry-story';
     this.properties = {
-      staticPage: {
-        type: Boolean,
-        value: false
-      },
-      jsonp: {
-          type: Object,
-          value: {
-              request: 'story'
-          }
-      },
-      rest: {
-          type: String
-      },
-      routeData: Object,
-      story: {
-          type: Object,
-          value: {},
-          observer: '_displayContent'
+      baseUrl: String,
+      byline: {
+        type: Object,
+        value: {}
       },
       cachedStory: {
         type: Object,
         value: {}
       },
-      storyId: {
-          type: Number,
-          value: 0,
-          observer: '_storyIdChanged'
+      distroId: String,
+      firstTime: {
+        type: Boolean,
+        value: true
       },
-      params: {
-          type: Object,
-          value: {}
-      },
-      baseUrl: {
-        type: String
-      },
-      user: {
-        type: Object
-      },
-      hidden: {
-          type: Boolean,
-          reflectToAttribute: true,
-          value: true
-      },
+      gcsSurveyId: String,
       hasLeadShortcode: {
+        type: Boolean,
+        value: false
+      },
+      hasProfile: {
         type: Boolean,
         value: false
       },
@@ -53,24 +29,43 @@ class CranberryStory {
         type: Boolean,
         value: false
       },
-      toutUid: {
+      hidden: {
+        type: Boolean,
+        reflectToAttribute: true,
+        value: true
+      },
+      jsonp: {
+        type: Object,
+        value: {
+          request: 'story'
+        }
+      },
+      params: {
+        type: Object,
+        value: {}
+      },
+      rest: {
           type: String
       },
-      toutShortcode: {
+      routeData: Object,
+      staticPage: {
         type: Boolean,
-        value: false,
-        observer: '_toutShortcodeFlagged'
+        value: false
       },
-      active: {
-        type: Boolean
-      },
-      distroId: {
-        type: String
+      story: {
+        type: Object,
+        value: {},
+        observer: '_displayContent'
       },
       storyContent: {
         type: Array,
         value: [],
         observer: '_render'
+      },
+      storyId: {
+        type: Number,
+        value: 0,
+        observer: '_storyIdChanged'
       },
       survey: {
         type: Boolean,
@@ -80,21 +75,13 @@ class CranberryStory {
         type: Number,
         value: 5
       },
-      gcsSurveyId: {
-        type: String
-      },
-      hasProfile: {
+      toutShortcode: {
         type: Boolean,
-        value: false
+        value: false,
+        observer: '_toutShortcodeFlagged'
       },
-      byline: {
-        type: Object,
-        value: {}
-      },
-      firstTime: {
-        type: Boolean,
-        value: true
-      }
+      toutUid: String,
+      user: Object
     };
     this.observers = ['_checkParams(routeData.id)', '_hiddenChanged(hidden, routeData.id)'];
   }
