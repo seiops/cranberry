@@ -126,51 +126,51 @@ class CranberryStory {
   }
 
   _changeParams() {
-    this.async(function()  {
-      let params = this.get('params');
-      let storyId = this.get('storyId');
+    // this.async(function()  {
+    //   let params = this.get('params');
+    //   let storyId = this.get('storyId');
 
-      this.set('story', {});
+    //   this.set('story', {});
 
-      params.preview = 1;
+    //   params.preview = 1;
 
-      if (params.length !== 0 && storyId !== 0) {
-        this.$.storyRequest.url = this.rest;
-        this.$.storyRequest.setAttribute('callback-value', 'storycallback');
-        this.$.storyRequest.params = params;
-        this.$.storyRequest.generateRequest();
-      }
-    });
+    //   if (params.length !== 0 && storyId !== 0) {
+    //     this.$.storyRequest.url = this.rest;
+    //     this.$.storyRequest.setAttribute('callback-value', 'storycallback');
+    //     this.$.storyRequest.params = params;
+    //     this.$.storyRequest.generateRequest();
+    //   }
+    // });
   }
 
   _destroyContent() {
-    let contentArea = this.$.storyContentArea;
-    // let leadMediaArea = this.$.leadShortcode;
-    let image = this.$.mainImage;
+    // let contentArea = this.$.storyContentArea;
+    // // let leadMediaArea = this.$.leadShortcode;
+    // let image = this.$.mainImage;
 
-    this.set('route', {});
+    // this.set('route', {});
 
-    // Destroy content in shortcode and content areas
-    contentArea.innerHTML = '';
-    // leadMediaArea.innerHTML = '';
+    // // Destroy content in shortcode and content areas
+    // contentArea.innerHTML = '';
+    // // leadMediaArea.innerHTML = '';
 
-    // Remove source on main image
-    if (typeof image !== 'undefined') {
-      image.src = '';
-    }
+    // // Remove source on main image
+    // if (typeof image !== 'undefined') {
+    //   image.src = '';
+    // }
 
-    // Set lead shortcode back to false
-    this.set('hasLeadShortcode', false);
+    // // Set lead shortcode back to false
+    // this.set('hasLeadShortcode', false);
 
-    // Destroy distroScript
-    let script = Polymer.dom(document).querySelector('#distroScript');
-    if (typeof script !== 'undefined' && script !== null) {
-      let parent = script.parentNode;
+    // // Destroy distroScript
+    // let script = Polymer.dom(document).querySelector('#distroScript');
+    // if (typeof script !== 'undefined' && script !== null) {
+    //   let parent = script.parentNode;
 
-      parent.removeChild(script);
-    }
+    //   parent.removeChild(script);
+    // }
 
-    this.set('hasProfile', false);
+    // this.set('hasProfile', false);
   }
 
   _destroyNativo() {

@@ -7,9 +7,9 @@
 <link rel="import" href="../../bower_components/page-title/page-title.html">
 <!-- Custom Dependencies -->
 <link rel="import" href="../cranberry-related-content/cranberry-related-content.html">
-<link rel="import" href="../cranberry-shortcode/cranberry-shortcode.html">
 <link rel="import" href="../cranberry-story-byline/cranberry-story-byline.html">
 <link rel="import" href="../cranberry-story-media/cranberry-story-media.html">
+<link rel="import" href="../cranberry-story-paragraphs/cranberry-story-paragraphs.html">
 <link rel="import" href="../cranberry-story-request/cranberry-story-request.html">
 <link rel="import" href="../gigya-comments/gigya-comments.html">
 <link rel="import" href="../gigya-sharebar/gigya-sharebar.html">
@@ -61,10 +61,11 @@
       </div>
 
       <!-- Loading Content Display -->
-      <template is="dom-if" if="[[loading]]">
-        <div class="loading-container" hidden$="[[!loading]]">
-          <paper-spinner active$="[[loading]]"></paper-spinner>
+      <template is="dom-if" if="[[!paragraphsLoaded]]">
+        <div class="loading-container" hidden$="[[paragraphsLoaded]]">
+          <paper-spinner active$="[[!paragraphsLoaded]]"></paper-spinner>
           <p>Fetching Your Content...</p>
+          [[paragraphsLoaded]]
         </div>
       </template>
 
@@ -76,119 +77,125 @@
         </template>
         <!-- Content Display -->
         <template is="dom-if" if="[[!error.errorCode]]">
-          <div class="headline">
-            <h1 class="story-title">[[response.title]]</h1>
-            <p class="time-stamp">[[response.updated]]</p>
-          </div>
+          <div class="story-content-wrapper" hidden$="[[!paragraphsLoaded]]">
 
-          <div class="media-asset">
-            <cranberry-story-media
-              attachments="[[response.attachments]]"
-              base-domain="{$ config.baseDomain $}"
-              content="[[response]]"
-              has-shortcode$="[[hasLeadShortcode]]"
-              hidden="[[hidden]]"
-              lead-shortcode-type="[[leadShortcodeType]]"
-              lead-shortcode-content="[[leadShortcodeContent]]"
-              media="[[response.mediaAssets.images]]"
-              my-capture-url="{$ config.myCaptureUrl $}"
-              route="[[route]]"
-              videos="[[response.mediaAssets.videos]]">
-            </cranberry-story-media>
-          </div>
-
-          <!-- Story Byline -->
-          <div class="byline-container">
-            <cranberry-story-byline byline="[[response.byline]]"
-                                    base-domain="{$ config.baseDomain $}"
-                                    display-byline="{{byline}}">
-            </cranberry-story-byline>
-          </div>
-
-          <!-- Story Content Area -->
-          <div class="content-wrapper">
-            <!-- Contains story paragraphs -->
-            <div class="story-content">
-              <div class="body-text" id="storyContentArea"></div>
-              <div class="ntv-ad-div"></div>
+            <div class="headline">
+              <h1 class="story-title">[[response.title]]</h1>
+              <p class="time-stamp">[[response.updated]]</p>
             </div>
-            <!-- Contains Right Rail -->
-            <div class="right-rail">
-              <div>
-                <google-dfp
-                  section="[[story.sectionInformation.sectionName]]"
-                  section-parent="[[story.sectionInformation.sectionParentName]]"
-                  tags="[[story.tags]]"
-                  ad-pos="Top_of_Stream"
-                  ad-size="[[300, 250],[300, 600]]"
-                  ad-group="{$ config.dfpAdStructure.adGroupID $}"
-                  ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
-                  ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
-                  id="sideAd"
-                  hidden$="[[hidden]]">
-                </google-dfp>
 
-                <gigya-top-comments count="5" age="90"></gigya-top-comments>
+            <div class="media-asset">
+              <cranberry-story-media
+                attachments="[[response.attachments]]"
+                base-domain="{$ config.baseDomain $}"
+                content="[[response]]"
+                has-shortcode$="[[hasLeadShortcode]]"
+                hidden="[[hidden]]"
+                lead-shortcode-type="[[leadShortcodeType]]"
+                lead-shortcode-content="[[leadShortcodeContent]]"
+                media="[[response.mediaAssets.images]]"
+                my-capture-url="{$ config.myCaptureUrl $}"
+                route="[[route]]"
+                videos="[[response.mediaAssets.videos]]">
+              </cranberry-story-media>
+            </div>
 
-                <cranberry-related-content related-items="[[story.relatedContent]]" story></cranberry-related-content>
+            <!-- Story Byline -->
+            <div class="byline-container">
+              <cranberry-story-byline byline="[[response.byline]]"
+                                      base-domain="{$ config.baseDomain $}"
+                                      display-byline="{{byline}}">
+              </cranberry-story-byline>
+            </div>
+
+            <!-- Story Content Area -->
+            <div class="content-wrapper">
+              <!-- Contains story paragraphs -->
+              <div class="story-content">
+                <cranberry-story-paragraphs paragraphs="[[response.paragraphs]]"
+                                            paragraphs-rendered="{{paragraphsLoaded}}"
+                                            base-domain="{$ config.baseDomain $}">
+                </cranberry-story-paragraphs>
                 <div class="ntv-ad-div"></div>
-                <div class="tout-sdk tout-right-rail-embed"></div>
-                <google-dfp
-                  section="[[story.sectionInformation.sectionName]]"
-                  section-parent="[[story.sectionInformation.sectionParentName]]"
-                  tags="[[story.tags]]"
-                  ad-pos="Sidebar_promo"
-                  ad-size="[[300, 100],[300, 250],[300, 600]]"
-                  ad-group="{$ config.dfpAdStructure.adGroupID $}"
-                  ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
-                  ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
-                  hidden$="[[hidden]]">
-                </google-dfp>
-                <cranberry-related-content related-items="[[story.relatedContent]]" gallery></cranberry-related-content>
+              </div>
+              <!-- Contains Right Rail -->
+              <div class="right-rail">
+                <div>
+                  <google-dfp
+                    section="[[story.sectionInformation.sectionName]]"
+                    section-parent="[[story.sectionInformation.sectionParentName]]"
+                    tags="[[story.tags]]"
+                    ad-pos="Top_of_Stream"
+                    ad-size="[[300, 250],[300, 600]]"
+                    ad-group="{$ config.dfpAdStructure.adGroupID $}"
+                    ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
+                    ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
+                    id="sideAd"
+                    hidden$="[[hidden]]">
+                  </google-dfp>
+
+                  <gigya-top-comments count="5" age="90"></gigya-top-comments>
+
+                  <cranberry-related-content related-items="[[story.relatedContent]]" story></cranberry-related-content>
+                  <div class="ntv-ad-div"></div>
+                  <div class="tout-sdk tout-right-rail-embed"></div>
+                  <google-dfp
+                    section="[[story.sectionInformation.sectionName]]"
+                    section-parent="[[story.sectionInformation.sectionParentName]]"
+                    tags="[[story.tags]]"
+                    ad-pos="Sidebar_promo"
+                    ad-size="[[300, 100],[300, 250],[300, 600]]"
+                    ad-group="{$ config.dfpAdStructure.adGroupID $}"
+                    ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
+                    ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
+                    hidden$="[[hidden]]">
+                  </google-dfp>
+                  <cranberry-related-content related-items="[[story.relatedContent]]" gallery></cranberry-related-content>
+                </div>
               </div>
             </div>
-          </div>
 
-          <!-- Middle Ad -->
-          <div class="banner-advertisement">
-            <google-dfp
-              section="[[story.sectionInformation.sectionName]]"
-              section-parent="[[story.sectionInformation.sectionParentName]]"
-              tags="[[story.tags]]"
-              ad-pos="Middle_of_Stream"
-              ad-size-mapping="mobileLeader"
-              ad-size="[[970, 250],[970, 90],[728, 90],[300, 250]]"
-              ad-group="{$ config.dfpAdStructure.adGroupID $}"
-              ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
-              ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
-              hidden$="[[hidden]]">
-            </google-dfp>
-          </div>
+            <!-- Middle Ad -->
+            <div class="banner-advertisement">
+              <google-dfp
+                section="[[story.sectionInformation.sectionName]]"
+                section-parent="[[story.sectionInformation.sectionParentName]]"
+                tags="[[story.tags]]"
+                ad-pos="Middle_of_Stream"
+                ad-size-mapping="mobileLeader"
+                ad-size="[[970, 250],[970, 90],[728, 90],[300, 250]]"
+                ad-group="{$ config.dfpAdStructure.adGroupID $}"
+                ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
+                ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
+                hidden$="[[hidden]]">
+              </google-dfp>
+            </div>
 
-          <!-- Comments -->
-          <div class="comments-wrappper">
-            <gigya-comments stream-id="[[story.genericLink]]" content="[[story]]" config-id="{$ config.gigya.commentsId $}"></gigya-comments>
-          </div>
+            <!-- Comments -->
+            <div class="comments-wrappper">
+              <gigya-comments stream-id="[[story.genericLink]]" content="[[story]]" config-id="{$ config.gigya.commentsId $}"></gigya-comments>
+            </div>
 
-          <!-- Bottom Ad -->
-          <div class="banner-advertisement">
-            <google-dfp
-              section="[[story.sectionInformation.sectionName]]"
-              section-parent="[[story.sectionInformation.sectionParentName]]"
-              tags="[[story.tags]]"
-              ad-pos="Last_of_Stream"
-              ad-size-mapping="mobileLeader"
-              ad-size="[[970, 250],[970, 90],[728, 90],[300, 250]]"
-              ad-group="{$ config.dfpAdStructure.adGroupID $}"
-              ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
-              ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
-              hidden$="[[hidden]]">
-            </google-dfp>
-          </div>
+            <!-- Bottom Ad -->
+            <div class="banner-advertisement">
+              <google-dfp
+                section="[[story.sectionInformation.sectionName]]"
+                section-parent="[[story.sectionInformation.sectionParentName]]"
+                tags="[[story.tags]]"
+                ad-pos="Last_of_Stream"
+                ad-size-mapping="mobileLeader"
+                ad-size="[[970, 250],[970, 90],[728, 90],[300, 250]]"
+                ad-group="{$ config.dfpAdStructure.adGroupID $}"
+                ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
+                ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
+                hidden$="[[hidden]]">
+              </google-dfp>
+            </div>
 
-          <!-- Youneeq Content Area -->
-          <div class="youneeq-wrapper">
-            <youneeq-content content="[[story]]" domain="{$ config.baseDomain $}" hidden$="[[hidden]]"></youneeq-content>
+            <!-- Youneeq Content Area -->
+            <div class="youneeq-wrapper">
+              <youneeq-content content="[[story]]" domain="{$ config.baseDomain $}" hidden$="[[hidden]]"></youneeq-content>
+            </div>
           </div>
         </template>
       </template>
