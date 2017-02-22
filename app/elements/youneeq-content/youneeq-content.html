@@ -11,13 +11,13 @@
     </style>
 
     <iron-signals on-iron-signal-youneeq-suggestions="suggestionsRecieved"></iron-signals>
+    <iron-signals on-iron-signal-youneeq-callbackid="callbackIdRecieved"></iron-signals>
     
     <iron-media-query
       query="(max-width:640px)"
       query-matches="{{mobile}}">
     </iron-media-query>
     
-    <iron-signals on-iron-signal-youneeq-callbackid="callbackIdRecieved"></iron-signals>
 
     <byutv-jsonp
       on-response="_handleResponse"

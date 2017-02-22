@@ -30,6 +30,14 @@ class youneeqTracker {
       pageHitResponse: {
         type: Object,
         observer: '_parsePageHitResponse'
+      },
+      yqCallbackId: {
+        type: Object,
+        value: {
+          sessionId: this._generateId(),
+          pageId: '',
+          requestCount: '',
+        }
       }
     };
     this.listeners = {
@@ -38,9 +46,18 @@ class youneeqTracker {
     };
   }
 
+  callbackIdRecieved(event) {
+    let callbackId = event.detail.content;
+
+    this.set('yqCallbackId', callbackId);
+  }
   attached() {
 
   }
+
+  _generateId() {
+		return Math.floor(10000000 + Math.random() * 89999999).toString();
+	}
 
   ready() {
     this._setYouneeqId();
@@ -121,6 +138,7 @@ class youneeqTracker {
       let suggestObj = {};
       let domain = this.get('domain');
       let user = this.get('user');
+      let callbackId = this.get("yqCallbackId");
       
       observeObj.type = 'node';
       observeObj.name = content.itemId;
@@ -160,6 +178,16 @@ class youneeqTracker {
       request.url = 'http://api.youneeq.ca/api/observe';
       request.params.json = jsonString;
 
+      if (!callbackId.sessionId){
+        callbackId.sessionId = this._generateId();
+      }
+      callbackId.requestCount++;
+      //this.set('yqCallbackId', callbackId);
+      this.fire('iron-signal', {name: 'youneeq-callbackid', data: { content: callbackId }});
+      let now = new Date().getTime();
+      request.setAttribute('callback-value', "yq_" + callbackId.sessionId + "_" + callbackId.pageId + "_" + now + "_" + callbackId.requestCount);
+
+
       request.generateRequest();
     }
   }
@@ -169,9 +197,23 @@ class youneeqTracker {
       // GENERATE THE PAGEHIT REQUEST AND SEND IT OFF
       let request = this.querySelector('#pageHitRequest');
       let jsonString = JSON.stringify(pageHit);
+      let callbackId = this.get("yqCallbackId");
+
+      
+      callbackId.pageId = this._generateId();
+      this.set("yqCallbackId", callbackId);
 
       request.url = 'http://api.youneeq.ca/api/page_hit';
       request.params.json = jsonString;
+
+      if (!callbackId.sessionId){
+        callbackId.sessionId = this._generateId();
+      }
+      callbackId.requestCount++;
+      //this.set('yqCallbackId', callbackId);
+      this.fire('iron-signal', {name: 'youneeq-callbackid', data: { content: callbackId }});
+      let now = new Date().getTime();
+      request.setAttribute('callback-value', "yq_" + callbackId.sessionId + "_" + callbackId.pageId + "_" + now + "_" + callbackId.requestCount);
 
       request.generateRequest();
     }
