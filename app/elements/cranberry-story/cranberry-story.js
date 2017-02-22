@@ -2,6 +2,10 @@ class CranberryStory {
   beforeRegister() {
     this.is = 'cranberry-story';
     this.properties = {
+      staticPage: {
+        type: Boolean,
+        value: false
+      },
       jsonp: {
           type: Object,
           value: {
