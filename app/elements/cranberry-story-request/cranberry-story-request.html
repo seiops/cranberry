@@ -1,0 +1,23 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
+
+<dom-module id="cranberry-story-request">
+  <template>
+    <style>
+      @import "cranberry-story-request/cranberry-story-request";
+    </style>
+
+    <byutv-jsonp
+      verbose
+      cache
+      url="{$ config.baseEndpointUrl $}"
+      on-response="_handleResponse"
+      on-load="_handleLoad"
+      last-request="{{request}}"
+      last-error="{{responseError}}"
+      loading="{{requestInProgress}}"
+      id="request"></byutv-jsonp>
+
+  </template>
+    <script src="cranberry-story-request.js"></script>
+</dom-module>

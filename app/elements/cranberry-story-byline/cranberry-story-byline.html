@@ -1,0 +1,37 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
+
+<dom-module id="cranberry-story-byline">
+  <template>
+    <style>
+      @import "cranberry-story-byline/cranberry-story-byline";
+    </style>
+
+    <!-- Has Byline Logic -->
+    <template is="dom-if" if="[[hasProfile]]">
+      <a class="byline-link" href="[[displayByline.profileUrl]]" ga-on="click" ga-event-category="Story Byline Clicked" ga-event-action="uti_prf_str_byline">
+        <div class="byline-wrapper">
+          <iron-image src="[[_computeBylineImageURL(displayByline.image)]]" sizing="cover"></iron-image>
+          <div class="byline-info">
+            <p>[[byline.title]]</p>
+            <p>[[byline.location]]</p>
+            <p>[[byline.jobtitle]]</p>
+          </div>
+        </div>
+      </a>
+    </template>
+
+    <!-- No Byline Logic -->
+    <template is="dom-if" if="[[!hasProfile]]">
+      <div class="byline-wrapper">
+        <iron-image src="[[_computeBylineImageURL(displayByline.image)]]" sizing="cover"></iron-image>
+        <div class="byline-info">
+          <p>[[byline.title]]</p>
+          <p>[[byline.location]]</p>
+          <p>[[byline.jobtitle]]</p>
+        </div>
+      </div>
+    </template>
+  </template>
+    <script src="cranberry-story-byline.js"></script>
+</dom-module>

@@ -12,6 +12,10 @@ class CranberryStory {
         value: {}
       },
       distroId: String,
+      error: {
+        type: Object,
+        value: {}
+      },
       firstTime: {
         type: Boolean,
         value: true
@@ -40,10 +44,15 @@ class CranberryStory {
           request: 'story'
         }
       },
+      loading: {
+        type: Boolean,
+        value: true
+      },
       params: {
         type: Object,
         value: {}
       },
+      response: Object,
       rest: {
           type: String
       },
@@ -222,24 +231,6 @@ class CranberryStory {
     });
   }
 
-  _computeBylineURL(byline) {
-    if (typeof byline.bylineid !== 'undefined' && byline.bylineid !== '') {
-      return byline.bylineid;
-    } else {
-      return byline.first + '/' + byline.last;
-    }
-  }
-
-  _computeBylineImageURL(url) {
-    let baseUrl = this.get('baseUrl');
-
-    if (typeof url === 'undefined') {
-      return '../images/story/unavail.png';
-    } else {
-      return baseUrl + url;
-    }
-  }
-
   _displayContent(story, oldStory) {
     this.async(function()  {
       let hidden = this.get('hidden');
@@ -323,7 +314,6 @@ class CranberryStory {
               this.set('storyContent', elementsArray);
             }
 
-            this._setupByline();
             this._sendPageview(story);
 
             // Fire nativo
@@ -480,41 +470,6 @@ class CranberryStory {
       touts.forEach(function(value, index) {
         value.refresh();
       });
-    });
-  }
-
-  _setupByline() {
-    let story = this.get('story');
-    let baseUrl = this.get('baseUrl');
-    let byline = story.byline;
-    let tempObject = {};
-
-    this.async(function()  {
-      tempObject.image = byline.image;
-
-      if (typeof byline.bylineid !== 'undefined') {
-        tempObject.bylineid = byline.bylineid;
-        tempObject.title = (byline.title !== '') ? byline.title : byline.first + ' ' + byline.last;
-        tempObject.inputByline = byline.inputByline;
-        tempObject.location = byline.location;
-        tempObject.profileUrl = '/profile/' + byline.bylineid;
-
-        this.set('hasProfile', true);
-      } else {
-        tempObject.profileUrl = '';
-        if (typeof byline.line1 !== 'undefined' && typeof byline.line2 !== 'undefined') {
-          if (byline.line1 !== '') {
-            tempObject.title = byline.line1;
-          }
-          if (byline.line2 !== '') {
-            tempObject.location = byline.line2;
-          }
-        } else {
-          tempObject.title = byline.inputByline;
-        }
-      }
-
-      this.set('byline', tempObject);
     });
   }
 

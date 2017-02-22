@@ -35,23 +35,6 @@ div.byline-container {
   @apply(--paper-font-story-font);
 }
 
-div.byline-container a.byline-link {
-  text-decoration: none;
-}
-
-div.byline-container div.byline-wrapper {
-  @apply(--layout-horizontal);
-}
-
-div.byline-container div.byline-wrapper iron-image {
-  width: 55px;
-  height: 55px;
-  border-top-left-radius: 50%;
-  border-top-right-radius: 50%;
-  border-bottom-right-radius: 50%;
-  border-bottom-left-radius: 50%;
-}
-
 /* Story Content Styles */
 div.body-text {
   @apply(--paper-font-story-font);
@@ -95,4 +78,10 @@ div.right-rail gigya-top-comments {
 
 div.right-rail gigya-top-comments::shadow div.wrapper {
   margin: 0;
+}
+
+/* Loading Container Styles */
+div.loading-container {
+  @apply(--layout-vertical);
+  @apply(--layout-center);
 }
