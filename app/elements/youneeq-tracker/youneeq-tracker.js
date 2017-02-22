@@ -79,7 +79,7 @@ class youneeqTracker {
 
   sendPageHit(event) {
     console.info('<\youneeq-tracker\> page hit event received');
-    this.set('pageHit', this._setPageHit());
+    this._pageHitChanged(event);
   }
 
   // Method to send the observe object and get in return the suggest object
@@ -123,7 +123,7 @@ class youneeqTracker {
       let user = this.get('user');
       
       observeObj.type = 'node';
-      observeObj.name = content.itemId;
+      observeObj.content_id = content.itemId;
       observeObj.title = content.title;
       observeObj.categories = [content.sectionInformation.section];
       observeObj.description = content.preview;
@@ -164,37 +164,42 @@ class youneeqTracker {
     }
   }
 
-  _pageHitChanged(pageHit, oldPageHit) {
-    if (typeof pageHit !== 'undefined' && Object.keys(pageHit).length > 0) {
-      // GENERATE THE PAGEHIT REQUEST AND SEND IT OFF
-      let request = this.querySelector('#pageHitRequest');
-      let jsonString = JSON.stringify(pageHit);
+  _pageHitChanged(content, oldContent) {
 
-      request.url = 'http://api.youneeq.ca/api/page_hit';
+    
+    if (typeof content !== 'undefined' && Object.keys(content).length > 0) {
+      let fullObject = {};
+      let pageHit = {};
+      let observeHit = [];
+      let domain = this.get('domain');
+      let user = this.get('user');
+      let timeZone = jzTimezoneDetector.determine_timezone();
+      let utcOffset = timeZone.timezone.utc_offset;
+      let timeZoneName = timeZone.timezone.olson_tz;
+      let bof_profile = this.get('youneeqId');
+      let referrer = this.get('previousURL');
+
+      pageHit.href = window.location.href;
+      //pageHit.href = "http://www.sanduskyregister.com";
+      pageHit.referrer = referrer;
+      pageHit.tz_off = utcOffset;
+      pageHit.tz_name = timeZoneName;
+      pageHit.bof_profile = bof_profile;
+      
+      // GENERATE THE PAGEHIT REQUEST AND SEND IT OFF   
+      fullObject.domain = domain;
+      fullObject.content_id = null;
+      fullObject.page_hit = pageHit;   
+      fullObject.bof_profile = bof_profile;
+      fullObject.href = window.location.href;
+      //fullObject.href = "http://www.sanduskyregister.com";
+      let jsonString = JSON.stringify(fullObject);
+      let request = this.querySelector('#pageHitRequest');
+      request.url = 'http://api.youneeq.ca/api/observe';
       request.params.json = jsonString;
 
       request.generateRequest();
     }
-  }
-
-  _setPageHit() {
-    let pageHit = {};
-    let timeZone = jzTimezoneDetector.determine_timezone();
-    let utcOffset = timeZone.timezone.utc_offset;
-    let timeZoneName = timeZone.timezone.olson_tz;
-    let bof_profile = this.get('youneeqId');
-    let referrer = this.get('previousURL');
-
-    pageHit.href = window.location.href;
-    pageHit.referrer = referrer;
-    pageHit.tz_off = utcOffset;
-    pageHit.tz_name = timeZoneName;
-    pageHit.bof_profile = bof_profile;
-
-    // Set Previous URL
-    this.set('previousURL', window.location.href);
-
-    return pageHit;
   }
 }
 Polymer(youneeqTracker);
