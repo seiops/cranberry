@@ -79,7 +79,12 @@ class youneeqTracker {
 
   sendPageHit(event) {
     console.info('<\youneeq-tracker\> page hit event received');
-    this._pageHitChanged(event);
+    if(event.detail){
+      let content = event.detail.content;
+      this._pageHitChanged(content);
+    } else {
+      this._pageHitChanged(event);
+    }
   }
 
   // Method to send the observe object and get in return the suggest object
