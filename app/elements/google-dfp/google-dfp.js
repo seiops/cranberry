@@ -7,12 +7,23 @@ class GoogleDFP {
                 observer: '_sectionChanged'
             },
             sectionParent: String,
+            adElementReady: {
+              type: Boolean,
+              value: false
+            },
             adSize: Array,
             adSizeMapping: String,
             adPos: String,
             adGroup: Number,
             adGrouping: String,
             adSubGrouping: String,
+            shareThrough: {
+              type: Boolean,
+              value: false
+            },
+            shareThroughId: {
+              type: String
+            },
             tags: String,
             outOfPage: {
               type: Boolean,
@@ -29,12 +40,8 @@ class GoogleDFP {
         };
     }
 
-
-    _buildAd() {
-      this.async(() => {
-        let advertisement = Polymer.dom(this.root).querySelector('.advertisement');
-        let idModifier = advertisement.getAttribute('id');
-        let parentSection = section;
+    _buildAd(idModifier) {
+      this.async(function() {
         let childSection = '';
         let adGroup = this.get('adGroup');
         let adGrouping = this.get('adGrouping');
@@ -82,16 +89,19 @@ class GoogleDFP {
               addSize([0, 0], [300, 250]).
               addSize([400, 400], [[300, 250]]).
               addSize([850, 200], [[728, 90], [300, 50]]).
-              addSize([1050, 200], [[970, 250], [970, 90], [728, 90]]).
+              addSize([1050, 200], [[970, 250], [970, 90], [728, 90], [1,1]]).
               build();
           }
+
         }
 
 
         googletag.cmd.push(function() {
-            googletag.pubads().setTargeting('section', parentSection);
+            googletag.pubads().setTargeting('section', adSection);
             googletag.pubads().setTargeting('placement', 'development');
-            googletag.pubads().setTargeting('content', tags);
+            if (typeof tags !== 'undefined') {
+              googletag.pubads().setTargeting('content', tags);
+            }
             googletag.enableServices();
 
             let dfpURL = adGroup + '/' + adGrouping + '/' + adSubGrouping + '/' + adSection + '/' + position;
@@ -115,17 +125,20 @@ class GoogleDFP {
     }
 
     _checkGoogle() {
-
+      let adElementReady = this.get('adElementReady');
       let dfpPromise = new Promise((resolve, reject) => {
         setTimeout(() => {
-          if (typeof googletag !== 'undefined' && typeof googletag.sizeMapping === 'function') {
+          if (typeof googletag !== 'undefined' && typeof googletag.pubads === 'function' && typeof googletag.sizeMapping === 'function' && adElementReady) {
             resolve(true);
           }
         }, 50);
       });
 
       dfpPromise.then((value) => {
-        this._buildAd();
+        let advertisement = Polymer.dom(this.root).querySelector('.advertisement');
+        let id = advertisement.getAttribute('id');
+
+        this._buildAd(id);
       });
     }
 
@@ -133,12 +146,15 @@ class GoogleDFP {
       if (typeof section === 'undefined') {
         this.set('section', 'homepage');
       }
+
       this._checkGoogle();
     }
 
     _adCount() {
         window.adCounter = window.adCounter || 0;
         window.adCounter += 1;
+
+        this.set('adElementReady', true);
 
         return '_' + window.adCounter;
     }
