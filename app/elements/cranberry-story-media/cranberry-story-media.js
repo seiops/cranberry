@@ -146,6 +146,16 @@ class cranberryStoryMedia {
     });
   }
 
+  // Lifycyle Methods
+  attached() {
+    console.info('\<cranberry-story-media\> attached');
+  }
+
+  detached() {
+    console.info('\<cranberry-story-media\> detached');
+  }
+
+  // Private Methods
   _scrollToComments() {
     this.fire('iron-signal', {name: 'scroll-to-comments'});
   }

@@ -20,6 +20,7 @@ class cranberryShortcode {
 
     // Attached function to handle all data passed to shortcode Element
     attached() {
+      console.info('\<cranberry-shortcode\> attached');
       let foundObject = {};
       let story = this.get('storyObject');
       let shortcode = this.get('shortcodeObject');
@@ -33,6 +34,10 @@ class cranberryShortcode {
         }
       });
       
+    }
+
+    detached() {
+      console.info('\<cranberry-shortcode\> detached');
     }
 
     _setupShortcode(story, shortcode) {

@@ -59,7 +59,7 @@
 
     <div class="section-wrapper" hidden$="[[contentLoading]]">
       <!-- FEATURED CONTENT ELEMENT -->
-      <cranberry-featured-content items="{{featuredItems}}" sections="[[loadSection]]" hidden$="[[featuredHidden]]" main-hidden$="[[hidden]]" homepage$="[[isHomepage]]"></cranberry-featured-content>
+      <cranberry-featured-content items="{{featuredItems}}" sections="[[loadSection]]" hidden$="[[featuredHidden]]" hidden$="[[requestLoading]]" main-hidden$="[[hidden]]" homepage$="[[isHomepage]]"></cranberry-featured-content>
 
       <div hidden$="[[_isLatest(selected)]]">
         <paper-material elevation="1">
@@ -79,7 +79,7 @@
 
       <template is="dom-if" if="[[_isLatest(selected)]]">
         <!-- CONTENT LIST ELEMENT -->
-        <cranberry-content-list items="[[contentItems]]" sections="[[loadSection]]" section="[[section]]" tracked-section="[[trackerSection]]" tracked-parent-section="[[trackerParentSection]]" tags="[[tags]]" tag="[[tag]]" hidden$="[[hidden]]"></cranberry-content-list>
+        <cranberry-content-list items="[[contentItems]]" sections="[[loadSection]]" section="[[section]]" tracked-section="[[trackerSection]]" tracked-parent-section="[[trackerParentSection]]" tags="[[tags]]" tag="[[tag]]" hidden$="[[hidden]]" hidden$="[[contentLoading]]"></cranberry-content-list>
         <div class="pagination-wrapper">
           <cranberry-pagination start="{{start}}" current-page="{{currentPage}}" section="[[trackerSection]]" parent="[[trackerParentSection]]" count="[[_computeCount(isHomepage, currentPage)]]"></cranberry-pagination>
         </div>

@@ -2,6 +2,16 @@ class cranberryStoryRequest {
   beforeRegister() {
     this.is = 'cranberry-story-request';
     this.properties = {
+      cachedPageId: {
+        type: String,
+        value: '',
+        notify: true
+      },
+      cachedResponse: {
+        type: Object,
+        value: {},
+        notify: true
+      },
       error: {
         type: Object,
         value: {},
@@ -15,6 +25,7 @@ class cranberryStoryRequest {
       requestInProgress: {
         type: Boolean,
         value: true,
+        reflectToAttribute: true,
         notify: true
       },
       staticPage: Boolean
@@ -22,11 +33,23 @@ class cranberryStoryRequest {
     this.observers = ['_setupRequest(pageId, staticPage)']
   }
 
+  // Lifycyle Methods
+  attached() {
+    console.info('\<cranberry-story-request\> attached');
+  }
+
+  detached() {
+    console.info('\<cranberry-story-request\> detached');
+  }
+
   // Private Methods
   _handleResponse(json) {
     console.info('\<cranberry-story-response\> json response received');
     let result = {};
     if (typeof json !== 'undefined' && typeof json.detail !== 'undefined' && json.detail.Result !== 'undefined') {
+      console.dir(result);
+      console.log(Object.keys(json.detail.Result).length);
+      
       // Handle Empty Return Case
       if (Object.keys(json.detail.Result).length === 0) {
         let error = {
@@ -37,6 +60,7 @@ class cranberryStoryRequest {
       } else {
         // Parse Response
         result = JSON.parse(json.detail.Result);
+        this.set('cachedResponse', result);
       }
     }
     
@@ -51,7 +75,10 @@ class cranberryStoryRequest {
   }
 
   _setupRequest(pageId, staticPage) {
+    console.log('SETTING UP REQUEST!');
     if (typeof pageId !== 'undefined' && typeof staticPage !== 'undefined') {
+      this.set('cachedPageId', pageId);
+      // this.set('cachedPageId', pageId);
       if (staticPage) {
         this._setupStaticRequest(pageId);
       } else {

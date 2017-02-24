@@ -146,7 +146,7 @@ class GoogleDFP {
     refresh() {
       let hidden = this.get('hidden');
 
-      if (!hidden) {
+      if (!hidden && typeof window.slots !== 'undefined') {
         let advertisement = Polymer.dom(this.root).firstElementChild;
         let slot = advertisement.getAttribute('id');
 

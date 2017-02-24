@@ -20,6 +20,16 @@ class cranberryStoryByline {
     this.observers = ['_setupByline(byline)']
   }
 
+  // Lifycyle Methods
+  attached() {
+    console.info('\<cranberry-story-byline\> attached');
+  }
+
+  detached() {
+    console.info('\<cranberry-story-byline\> detached');
+  }
+
+  // Private Methods
   _computeBylineImageURL(url) {
     console.log('Computing on ' + url);
     let baseDomain = this.get('baseDomain');

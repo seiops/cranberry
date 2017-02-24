@@ -36,9 +36,6 @@ div.byline-container {
 }
 
 /* Story Content Styles */
-div.body-text {
-  @apply(--paper-font-story-font);
-}
 
 div.content-wrapper {
   @apply(--layout-around-justified);
@@ -84,4 +81,6 @@ div.right-rail gigya-top-comments::shadow div.wrapper {
 div.loading-container {
   @apply(--layout-vertical);
   @apply(--layout-center);
+  @apply(--layout-center-justified);
+  height: 100vh;
 }

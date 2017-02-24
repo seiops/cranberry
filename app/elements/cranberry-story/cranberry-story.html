@@ -38,8 +38,10 @@
     <cranberry-story-request page-id="[[routeData.id]]"
                              error="{{error}}"
                              response="{{response}}"
-                             request-in-progress="{{loading}}"
-                             static-page$="[[staticPage]]">
+                             request-in-progress="{{requestLoading}}"
+                             static-page$="[[staticPage]]"
+                             cached-page-id="{{storyId}}"
+                             cached-response="{{cachedResponse}}">
     </cranberry-story-request>
 
     <div class="cranberry-story">
@@ -59,25 +61,24 @@
           hidden$="[[hidden]]">
         </google-dfp>
       </div>
-
+      
       <!-- Loading Content Display -->
-      <template is="dom-if" if="[[!paragraphsLoaded]]">
-        <div class="loading-container" hidden$="[[paragraphsLoaded]]">
-          <paper-spinner active$="[[!paragraphsLoaded]]"></paper-spinner>
+      <template is="dom-if" if="[[loading]]">
+        <div class="loading-container" hidden$="[[!loading]]">
+          <paper-spinner active$="[[loading]]"></paper-spinner>
           <p>Fetching Your Content...</p>
-          [[paragraphsLoaded]]
         </div>
       </template>
 
       <!-- Content Loaded Display -->
-      <template is="dom-if" if="[[!loading]]">
+      <template is="dom-if" if="[[!requestLoading]]">
         <!-- Error Display -->
         <template is="dom-if" if="[[error.errorCode]]">
           <h1>[[error.errorMessage]]</h1>
         </template>
         <!-- Content Display -->
         <template is="dom-if" if="[[!error.errorCode]]">
-          <div class="story-content-wrapper" hidden$="[[!paragraphsLoaded]]">
+          <div class="story-content-wrapper" hidden$="[[loading]]">
 
             <div class="headline">
               <h1 class="story-title">[[response.title]]</h1>
@@ -112,9 +113,18 @@
             <div class="content-wrapper">
               <!-- Contains story paragraphs -->
               <div class="story-content">
-                <cranberry-story-paragraphs paragraphs="[[response.paragraphs]]"
-                                            paragraphs-rendered="{{paragraphsLoaded}}"
-                                            base-domain="{$ config.baseDomain $}">
+                <cranberry-story-paragraphs paragraphs-loading="{{paragraphsLoading}}"
+                                            story="[[response]]"
+                                            tout-uid="{$ config.tout.toutUid $}"
+                                            gcs-survey-id="{$ config.google.surveys $}"
+                                            distro-id="{$ config.distro.distroId $}"
+                                            mobile$="[[mobile]]"
+                                            surveys-off="[[response.surveysOff]]"
+                                            tout-off="[[response.toutOff]]"
+                                            section-information="[[response.sectionInformation]]"
+                                            static-page$="[[staticPage]]"
+                                            base-domain="{$ config.baseDomain $}"
+                                            paragraphs="[[response.paragraphs]]">
                 </cranberry-story-paragraphs>
                 <div class="ntv-ad-div"></div>
               </div>
@@ -122,9 +132,9 @@
               <div class="right-rail">
                 <div>
                   <google-dfp
-                    section="[[story.sectionInformation.sectionName]]"
-                    section-parent="[[story.sectionInformation.sectionParentName]]"
-                    tags="[[story.tags]]"
+                    section="[[response.sectionInformation.sectionName]]"
+                    section-parent="[[response.sectionInformation.sectionParentName]]"
+                    tags="[[response.tags]]"
                     ad-pos="Top_of_Stream"
                     ad-size="[[300, 250],[300, 600]]"
                     ad-group="{$ config.dfpAdStructure.adGroupID $}"
@@ -136,13 +146,13 @@
 
                   <gigya-top-comments count="5" age="90"></gigya-top-comments>
 
-                  <cranberry-related-content related-items="[[story.relatedContent]]" story></cranberry-related-content>
+                  <cranberry-related-content related-items="[[response.relatedContent]]" story></cranberry-related-content>
                   <div class="ntv-ad-div"></div>
                   <div class="tout-sdk tout-right-rail-embed"></div>
                   <google-dfp
-                    section="[[story.sectionInformation.sectionName]]"
-                    section-parent="[[story.sectionInformation.sectionParentName]]"
-                    tags="[[story.tags]]"
+                    section="[[response.sectionInformation.sectionName]]"
+                    section-parent="[[response.sectionInformation.sectionParentName]]"
+                    tags="[[response.tags]]"
                     ad-pos="Sidebar_promo"
                     ad-size="[[300, 100],[300, 250],[300, 600]]"
                     ad-group="{$ config.dfpAdStructure.adGroupID $}"
@@ -150,7 +160,7 @@
                     ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
                     hidden$="[[hidden]]">
                   </google-dfp>
-                  <cranberry-related-content related-items="[[story.relatedContent]]" gallery></cranberry-related-content>
+                  <cranberry-related-content related-items="[[response.relatedContent]]" gallery></cranberry-related-content>
                 </div>
               </div>
             </div>
@@ -158,9 +168,9 @@
             <!-- Middle Ad -->
             <div class="banner-advertisement">
               <google-dfp
-                section="[[story.sectionInformation.sectionName]]"
-                section-parent="[[story.sectionInformation.sectionParentName]]"
-                tags="[[story.tags]]"
+                section="[[response.sectionInformation.sectionName]]"
+                section-parent="[[response.sectionInformation.sectionParentName]]"
+                tags="[[response.tags]]"
                 ad-pos="Middle_of_Stream"
                 ad-size-mapping="mobileLeader"
                 ad-size="[[970, 250],[970, 90],[728, 90],[300, 250]]"
@@ -173,15 +183,15 @@
 
             <!-- Comments -->
             <div class="comments-wrappper">
-              <gigya-comments stream-id="[[story.genericLink]]" content="[[story]]" config-id="{$ config.gigya.commentsId $}"></gigya-comments>
+              <gigya-comments stream-id="[[response.genericLink]]" content="[[response]]" config-id="{$ config.gigya.commentsId $}"></gigya-comments>
             </div>
 
             <!-- Bottom Ad -->
             <div class="banner-advertisement">
               <google-dfp
-                section="[[story.sectionInformation.sectionName]]"
-                section-parent="[[story.sectionInformation.sectionParentName]]"
-                tags="[[story.tags]]"
+                section="[[response.sectionInformation.sectionName]]"
+                section-parent="[[response.sectionInformation.sectionParentName]]"
+                tags="[[response.tags]]"
                 ad-pos="Last_of_Stream"
                 ad-size-mapping="mobileLeader"
                 ad-size="[[970, 250],[970, 90],[728, 90],[300, 250]]"
@@ -194,7 +204,7 @@
 
             <!-- Youneeq Content Area -->
             <div class="youneeq-wrapper">
-              <youneeq-content content="[[story]]" domain="{$ config.baseDomain $}" hidden$="[[hidden]]"></youneeq-content>
+              <youneeq-content content="[[response]]" domain="{$ config.baseDomain $}" hidden$="[[hidden]]"></youneeq-content>
             </div>
           </div>
         </template>
@@ -203,9 +213,9 @@
       <!-- Last Ad -->
       <div class="banner-advertisement">
         <google-dfp
-          section="[[story.sectionInformation.sectionName]]"
-          section-parent="[[story.sectionInformation.sectionParentName]]"
-          tags="[[story.tags]]"
+          section="[[response.sectionInformation.sectionName]]"
+          section-parent="[[response.sectionInformation.sectionParentName]]"
+          tags="[[response.tags]]"
           ad-pos="Last_of_Stream"
           ad-size-mapping="leaderboard"
           ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
@@ -217,8 +227,8 @@
       </div>
 
       <google-dfp
-        section="[[story.sectionInformation.sectionName]]"
-        section-parent="[[story.sectionInformation.sectionParentName]]"
+        section="[[response.sectionInformation.sectionName]]"
+        section-parent="[[response.sectionInformation.sectionParentName]]"
         ad-pos="adhesion"
         ad-group="{$ config.dfpAdStructure.adGroupID $}"
         ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
@@ -228,8 +238,8 @@
       </google-dfp>
 
       <google-dfp
-        section="[[story.sectionInformation.sectionName]]"
-        section-parent="[[story.sectionInformation.sectionParentName]]"
+        section="[[response.sectionInformation.sectionName]]"
+        section-parent="[[response.sectionInformation.sectionParentName]]"
         ad-pos="interstitial"
         ad-group="{$ config.dfpAdStructure.adGroupID $}"
         ad-grouping="{$ config.dfpAdStructure.adGrouping $}"

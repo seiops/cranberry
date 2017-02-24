@@ -240,7 +240,7 @@ gulp.task('serve', ['js', 'lint', 'lint-js', 'styles'], function() {
     'app/views/**/*.html',
     'app/content/**/*.md',
     'app/metadata/*.js'
-  ], ['styles', reload]);
+  ], { interval: 500 }, ['styles', reload]);
   gulp.watch(['app/{elements,themes}/**/*.{css,html}'], ['styles', reload]);
   gulp.watch(['app/themes/**/*.js'], ['styles', reload]);
   gulp.watch(['app/{elements,scripts}/**/*.js'], ['lint-js', 'js', reload]);
