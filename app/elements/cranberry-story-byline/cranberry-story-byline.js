@@ -34,7 +34,7 @@ class cranberryStoryByline {
     console.log('Computing on ' + url);
     let baseDomain = this.get('baseDomain');
 
-    if (typeof url === 'undefined') {
+    if (typeof url === 'undefined' || url === '') {
       return '../images/story/unavail.png';
     } else {
       return baseDomain + url;
@@ -65,7 +65,7 @@ class cranberryStoryByline {
 
           this.set('hasProfile', true);
         } else {
-          this.set('hasByline', false);
+          this.set('hasProfile', false);
           tempObject.profileUrl = '';
           if (typeof byline.line1 !== 'undefined' && typeof byline.line2 !== 'undefined') {
             if (byline.line1 !== '') {
@@ -81,6 +81,8 @@ class cranberryStoryByline {
 
         this.set('displayByline', tempObject);
       });
+    } else {
+      this.set('displayByline', {});
     }
     
   }
