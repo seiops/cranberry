@@ -82,7 +82,6 @@ class youneeqContent {
 
     let profile = document.querySelector('youneeq-tracker').youneeqId;
     let requestUrl = 'http://ype.youneeq.ca/api/panelaction';
-    //let requestUrl = 'http://localhost:62778/api/panelaction';
     let currentUrl = window.location.href;
     let callbackId = this.get("yqCallbackId");
 
