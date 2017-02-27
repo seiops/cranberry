@@ -96,7 +96,12 @@ class youneeqTracker {
 
   sendPageHit(event) {
     console.info('<\youneeq-tracker\> page hit event received');
-    this._pageHitChanged(event);
+    if(event.detail){
+      let content = event.detail.content;
+      this._pageHitChanged(content);
+    } else {
+      this._pageHitChanged(event);
+    }
   }
 
   // Method to send the observe object and get in return the suggest object
@@ -141,7 +146,6 @@ class youneeqTracker {
       let callbackId = this.get("yqCallbackId");
       
       observeObj.type = 'node';
-      observeObj.content_id = content.itemId;
       observeObj.title = content.title;
       observeObj.categories = [content.sectionInformation.section];
       observeObj.description = content.preview;
@@ -166,6 +170,7 @@ class youneeqTracker {
       // fullObject.domain = 'localhost';
       fullObject.observe = observe;
       fullObject.suggest = suggest;
+      fullObject.content_id = content.itemId;
       // For Localhost Testing uncomment this
       // fullObject.alt_href = 'http://sedev.libercus.net/News/2016/08/18/Ogden-s-STEM-school-makes-its-debut-with-enthusiasm.html';
       fullObject.bof_profile = this.get('youneeqId');
@@ -204,17 +209,15 @@ class youneeqTracker {
       let timeZoneName = timeZone.timezone.olson_tz;
       let bof_profile = this.get('youneeqId');
       let referrer = this.get('previousURL');
-
       //pageHit.href = window.location.href;
       pageHit.href = "http://www.sanduskyregister.com";
       pageHit.referrer = referrer;
       pageHit.tz_off = utcOffset;
       pageHit.tz_name = timeZoneName;
-      pageHit.bof_profile = bof_profile;
 
       // GENERATE THE PAGEHIT REQUEST AND SEND IT OFF   
       fullObject.domain = domain;
-      fullObject.content_id = null;
+      fullObject.content_id = content.itemId;
       fullObject.page_hit = pageHit;   
       fullObject.bof_profile = bof_profile;
       //fullObject.href = window.location.href;
@@ -239,7 +242,7 @@ class youneeqTracker {
       request.setAttribute('callback-value', "yq_" + callbackId.sessionId + "_" + callbackId.pageId + "_" + now + "_" + callbackId.requestCount);
 
       request.generateRequest();
-      
+
       this.set('previousURL', window.location.href);
     }
   }
