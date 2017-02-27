@@ -31,14 +31,16 @@ class cranberryStoryByline {
 
   // Private Methods
   _computeBylineImageURL(url) {
-    console.log('Computing on ' + url);
+    let computedURL = '../images/story/unavail.png';
     let baseDomain = this.get('baseDomain');
 
-    if (typeof url === 'undefined' || url === '') {
-      return '../images/story/unavail.png';
-    } else {
-      return baseDomain + url;
+    if (typeof url !== 'undefined') {
+      if (url !== '') {
+        computedURL = baseDomain + url;  
+      }
     }
+
+    return computedURL;
   }
   
   _computeBylineURL(byline) {

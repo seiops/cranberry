@@ -9,7 +9,11 @@ class cranberryStoryRequest {
       },
       cachedResponse: {
         type: Object,
-        value: {},
+        value: {}
+      },
+      currentPageId: {
+        type: String,
+        value: '',
         notify: true
       },
       error: {
@@ -47,9 +51,6 @@ class cranberryStoryRequest {
     console.info('\<cranberry-story-response\> json response received');
     let result = {};
     if (typeof json !== 'undefined' && typeof json.detail !== 'undefined' && json.detail.Result !== 'undefined') {
-      console.dir(result);
-      console.log(Object.keys(json.detail.Result).length);
-      
       // Handle Empty Return Case
       if (Object.keys(json.detail.Result).length === 0) {
         let error = {
@@ -75,14 +76,21 @@ class cranberryStoryRequest {
   }
 
   _setupRequest(pageId, staticPage) {
-    console.log('SETTING UP REQUEST!');
+    let cachedPageId = this.get('cachedPageId');
+
     if (typeof pageId !== 'undefined' && typeof staticPage !== 'undefined') {
-      this.set('cachedPageId', pageId);
-      // this.set('cachedPageId', pageId);
-      if (staticPage) {
-        this._setupStaticRequest(pageId);
+      if (cachedPageId !== pageId) {
+        this.set('cachedPageId', pageId);
+        this.set('currentPageId', pageId);
+        if (staticPage) {
+          this._setupStaticRequest(pageId);
+        } else {
+          this._setupStoryRequest(pageId);
+        } 
       } else {
-        this._setupStoryRequest(pageId);
+        let cachedResponse = this.get('cachedResponse');
+        this.set('currentPageId', pageId);
+        this.set('response', cachedResponse);
       }
     }
   }

@@ -85,7 +85,6 @@ class cranberryStoryMedia {
 
   _buyImage() {
     let slider = Polymer.dom(this.root).querySelector('#mainSlider');
-    console.log(slider);
     let currentImage = Polymer.dom(slider.root).querySelector('iron-image').src;
     let myCapture = this.get('myCaptureUrl');
 

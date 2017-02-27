@@ -7,7 +7,8 @@ class cranberryStoryParagraphs {
       mobile: Boolean,
       paragraphs: {
         type: Array,
-        value: []
+        value: [],
+        observer: '_setupParagraphs'
       },
       paragraphsLoading: {
         type: Boolean,
@@ -29,7 +30,6 @@ class cranberryStoryParagraphs {
       },
       toutUid: String
     }
-    this.observers = ['_setupParagraphs(paragraphs)']
   }
 
   // Lifycyle Methods
@@ -95,23 +95,23 @@ class cranberryStoryParagraphs {
 
   _setupParagraphs(paragraphs) {
     this.async(() => {
-      console.log('PARAGRAPHS CHANGED!');
-      // Variables for Display
-      let story = this.get('story');
-      let staticPage = this.get('staticPage');
-      let baseDomain = this.get('baseDomain');
-      let toutUid = this.get('toutUid');
-      let surveysOff = this.get('surveysOff');
-      let toutOff = this.get('toutOff');
-      let surveyIndex = this.get('surveyIndex');
-      let gcsSurveyId = this.get('gcsSurveyId');
-      let mobile = this.get('mobile');
-      let surveyParagraphs = [];
-      let elementsArray = [];
-      let distributeToSurveys = false;
-      let hasTout = false;
-
       if (typeof paragraphs !== 'undefined' && paragraphs.length > 0) {
+
+        // Variables for Display
+        let story = this.get('story');
+        let staticPage = this.get('staticPage');
+        let baseDomain = this.get('baseDomain');
+        let toutUid = this.get('toutUid');
+        let surveysOff = this.get('surveysOff');
+        let toutOff = this.get('toutOff');
+        let surveyIndex = this.get('surveyIndex');
+        let gcsSurveyId = this.get('gcsSurveyId');
+        let mobile = this.get('mobile');
+        let surveyParagraphs = [];
+        let elementsArray = [];
+        let distributeToSurveys = false;
+        let hasTout = false;
+
         this._setParagraphsLoading(true);
 
         // Turn surveys and Tout off

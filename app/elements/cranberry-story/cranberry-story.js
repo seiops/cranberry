@@ -7,10 +7,6 @@ class CranberryStory {
         type: Object,
         value: {}
       },
-      cachedResponse: {
-        type: Object,
-        value: {}
-      },
       error: {
         type: Object,
         value: {}
@@ -59,15 +55,7 @@ class CranberryStory {
     console.info('\<cranberry-story\> attached');
     let routeId = this.get('routeData.id');
     let storyId = this.get('storyId');
-    if (routeId === storyId) {
-      let cachedResponse = this.get('cachedResponse');
-      
-      if (Object.keys(cachedResponse).length > 0) {
-        console.log(cachedResponse);
-        this.set('response', {});
-        this.set('response', cachedResponse);
-      }
-    }
+
     this.refreshDFP();
   }
 
