@@ -200,10 +200,11 @@ class cranberrySlider {
       if (clicks % 2 === 0 && !modal) {
       // Refresh Ad Units
       let app = Polymer.dom(document).querySelector('cranberry-base');
+      let content = Polymer.dom(app.root).querySelector(galleryType);
+      let gallery = Polymer.dom(content.root);
       
-      let gallery = app.querySelector(galleryType);
-      let topAd = gallery.$.topAd;
-      let sideAd = gallery.$.sideAd;
+      let topAd = Polymer.dom(gallery).querySelector('#topAd');
+      let sideAd = Polymer.dom(gallery).querySelector('#sideAd');
 
       topAd.refresh();
       sideAd.refresh();
