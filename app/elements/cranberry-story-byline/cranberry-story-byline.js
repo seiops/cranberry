@@ -82,6 +82,7 @@ class cranberryStoryByline {
         this.set('displayByline', tempObject);
       });
     } else {
+      this.set('hasProfile', false);
       this.set('displayByline', {});
     }
     
