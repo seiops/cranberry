@@ -62,7 +62,6 @@ class CranberryStory {
   detached() {
     console.info('\<cranberry-story\> detached');
     this.set('loading', true);
-    this.set('paragraphsLoading', true);
   }
 
   // Public Methods
@@ -98,50 +97,58 @@ class CranberryStory {
   }
 
   _sendPageview() {
-    let story = this.get('response');
+    this.async(() => {
+      let story = this.get('response');
 
-    var { byline: { inputByline: byline }, sectionInformation: { section }, published: published, tags: tags, itemId: storyId } = story;
+      var { byline: { inputByline: byline }, sectionInformation: { section }, published: published, tags: tags, itemId: storyId } = story;
 
-    if (typeof story.byline !== 'undefined') {
-      if (typeof story.byline.title !== 'undefined') {
-        byline = story.byline.title;
+      if (typeof story.byline !== 'undefined') {
+        if (typeof story.byline.title !== 'undefined') {
+          byline = story.byline.title;
+        }
       }
-    }
 
-    if (section === '') {
-      section = story.sectionInformation.sectionParentName;
-    }
+      if (section === '') {
+        section = story.sectionInformation.sectionParentName;
+      }
 
-    let data = {
-      dimension1: (typeof byline !== 'undefined') ? byline : '',
-      dimension3: (typeof published !== 'undefined') ? published : '',
-      dimension6: 'Story',
-      dimension8: (typeof tags !== 'undefined') ? tags : ''
-    };
-  
-    // Send pageview event with iron-signals
-    this.fire('iron-signal', {name: 'track-page', data: { path: '/story/' + storyId, data } });
+      let data = {
+        dimension1: (typeof byline !== 'undefined') ? byline : '',
+        dimension3: (typeof published !== 'undefined') ? published : '',
+        dimension6: 'Story',
+        dimension8: (typeof tags !== 'undefined') ? tags : ''
+      };
+    
+      // Send pageview event with iron-signals
+      this.fire('iron-signal', {name: 'track-page', data: { path: '/story/' + storyId, data } });
 
-    // Send Chartbeat
-    this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/story/' + storyId, data: {'sections': section, 'authors': byline } } });
+      // Send Chartbeat
+      this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/story/' + storyId, data: {'sections': section, 'authors': byline } } });
 
-    // Fire Youneeq Page Hit Request
-    this.fire('iron-signal', {name: 'page-hit'});
-    this.fire('iron-signal', {name: 'observe', data: {content: story}});
+      // Fire Youneeq Page Hit Request
+      this.fire('iron-signal', {name: 'page-hit'});
+      this.fire('iron-signal', {name: 'observe', data: {content: story}});
+    });
   }
 
   _storyDoneLoading(paragraphsLoading, requestLoading) {
-    if (typeof paragraphsLoading !== 'undefined' && typeof requestLoading !== 'undefined') {
-      if (!paragraphsLoading && !requestLoading) {
-        this.set('loading', false);
-        this._sendPageview();
+    this.async(() => {
+      if (typeof paragraphsLoading !== 'undefined' && typeof requestLoading !== 'undefined') {
+        if (requestLoading && !paragraphsLoading) {
+          this.set('paragraphsLoading', true);
+        }
 
-        // Fire nativo
-        if (typeof window.PostRelease !== 'undefined' && typeof window.PostRelease.Start === 'function') {
-          PostRelease.Start();
+        if (!paragraphsLoading && !requestLoading) {
+          this.set('loading', false);
+          this._sendPageview();
+
+          // Fire nativo
+          if (typeof window.PostRelease !== 'undefined' && typeof window.PostRelease.Start === 'function') {
+            PostRelease.Start();
+          }
         }
       }
-    }
+    });
   }
 }
 Polymer(CranberryStory);

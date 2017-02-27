@@ -181,7 +181,7 @@
             </div>
 
             <!-- Comments -->
-            <div class="comments-wrappper">
+            <div class="comments-wrappper" hidden$="[[staticPage]]">
               <gigya-comments stream-id="[[response.genericLink]]" content="[[response]]" config-id="{$ config.gigya.commentsId $}"></gigya-comments>
             </div>
 
@@ -202,7 +202,7 @@
             </div>
 
             <!-- Youneeq Content Area -->
-            <div class="youneeq-wrapper">
+            <div class="youneeq-wrapper" hidden$="[[staticPage]]">
               <youneeq-content content="[[response]]" domain="{$ config.baseDomain $}" hidden$="[[hidden]]"></youneeq-content>
             </div>
           </div>
