@@ -76,23 +76,25 @@ class cranberryStoryRequest {
   }
 
   _setupRequest(pageId, staticPage) {
-    let cachedPageId = this.get('cachedPageId');
+    this.async(() => {
+      let cachedPageId = this.get('cachedPageId');
 
-    if (typeof pageId !== 'undefined' && typeof staticPage !== 'undefined') {
-      if (cachedPageId !== pageId) {
-        this.set('cachedPageId', pageId);
-        this.set('currentPageId', pageId);
-        if (staticPage) {
-          this._setupStaticRequest(pageId);
+      if (typeof pageId !== 'undefined' && typeof staticPage !== 'undefined') {
+        if (cachedPageId !== pageId) {
+          this.set('cachedPageId', pageId);
+          this.set('currentPageId', pageId);
+          if (staticPage) {
+            this._setupStaticRequest(pageId);
+          } else {
+            this._setupStoryRequest(pageId);
+          } 
         } else {
-          this._setupStoryRequest(pageId);
-        } 
-      } else {
-        let cachedResponse = this.get('cachedResponse');
-        this.set('currentPageId', pageId);
-        this.set('response', cachedResponse);
+          let cachedResponse = this.get('cachedResponse');
+          this.set('currentPageId', pageId);
+          this.set('response', cachedResponse);
+        }
       }
-    }
+    });
   }
 
   _setupStaticRequest(pageId) {
