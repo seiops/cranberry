@@ -4,10 +4,11 @@ class GoogleDFP {
         this.properties = {
             section: {
                 type: String,
+                value: '',
                 observer: '_sectionChanged'
             },
             sectionParent: String,
-            adElementReady: {
+            adEstablished: {
               type: Boolean,
               value: false
             },
@@ -40,8 +41,11 @@ class GoogleDFP {
         };
     }
 
-    _buildAd(idModifier) {
-      this.async(function() {
+
+    _buildAd() {
+      this.async(() => {
+        let advertisement = Polymer.dom(this.root).querySelector('.advertisement');
+        let idModifier = advertisement.getAttribute('id');
         let childSection = '';
         let adGroup = this.get('adGroup');
         let adGrouping = this.get('adGrouping');
@@ -97,9 +101,9 @@ class GoogleDFP {
 
 
         googletag.cmd.push(function() {
-            googletag.pubads().setTargeting('section', adSection);
+            googletag.pubads().setTargeting('section', sectionParent);
             googletag.pubads().setTargeting('placement', 'development');
-            if (typeof tags !== 'undefined') {
+            if (typeof tags !== 'undefined' && tags.length > 0) {
               googletag.pubads().setTargeting('content', tags);
             }
             googletag.enableServices();
@@ -125,36 +129,30 @@ class GoogleDFP {
     }
 
     _checkGoogle() {
-      let adElementReady = this.get('adElementReady');
-      let dfpPromise = new Promise((resolve, reject) => {
-        setTimeout(() => {
-          if (typeof googletag !== 'undefined' && typeof googletag.pubads === 'function' && typeof googletag.sizeMapping === 'function' && adElementReady) {
-            resolve(true);
-          }
-        }, 50);
-      });
-
-      dfpPromise.then((value) => {
-        let advertisement = Polymer.dom(this.root).querySelector('.advertisement');
-        let id = advertisement.getAttribute('id');
-
-        this._buildAd(id);
-      });
+      setTimeout(() => {
+        let adEstablished = this.get('adEstablished');
+        if (typeof googletag !== 'undefined' && typeof googletag.sizeMapping === 'function' && adEstablished) {
+          this._buildAd();
+        } else {
+          this._checkGoogle();
+        }
+      }, 50);
     }
 
     _sectionChanged(section) {
-      if (typeof section === 'undefined') {
-        this.set('section', 'homepage');
-      }
-
-      this._checkGoogle();
+      this.async(() => {
+        if (typeof section === 'undefined') {
+          this.set('section', 'homepage');
+        }
+        this._checkGoogle();
+      });
     }
 
     _adCount() {
         window.adCounter = window.adCounter || 0;
         window.adCounter += 1;
 
-        this.set('adElementReady', true);
+        this.set('adEstablished', true);
 
         return '_' + window.adCounter;
     }
@@ -162,8 +160,8 @@ class GoogleDFP {
     refresh() {
       let hidden = this.get('hidden');
 
-      if (!hidden && typeof window.slots !== 'undefined') {
-        let advertisement = Polymer.dom(this.root).firstElementChild;
+      if (!hidden) {
+        let advertisement = Polymer.dom(this.root).querySelector('.advertisement');
         let slot = advertisement.getAttribute('id');
 
         if (advertisement !== null && typeof advertisement !== 'undefined' && typeof slot !== 'undefined' && slot !== null) {
