@@ -4,9 +4,14 @@ class GoogleDFP {
         this.properties = {
             section: {
                 type: String,
+                value: '',
                 observer: '_sectionChanged'
             },
             sectionParent: String,
+            adEstablished: {
+              type: Boolean,
+              value: false
+            },
             adSize: Array,
             adSizeMapping: String,
             adPos: String,
@@ -34,7 +39,6 @@ class GoogleDFP {
       this.async(() => {
         let advertisement = Polymer.dom(this.root).querySelector('.advertisement');
         let idModifier = advertisement.getAttribute('id');
-        let parentSection = section;
         let childSection = '';
         let adGroup = this.get('adGroup');
         let adGrouping = this.get('adGrouping');
@@ -89,9 +93,11 @@ class GoogleDFP {
 
 
         googletag.cmd.push(function() {
-            googletag.pubads().setTargeting('section', parentSection);
+            googletag.pubads().setTargeting('section', sectionParent);
             googletag.pubads().setTargeting('placement', 'development');
-            googletag.pubads().setTargeting('content', tags);
+            if (typeof tags !== 'undefined' && tags.length > 0) {
+              googletag.pubads().setTargeting('content', tags);
+            }
             googletag.enableServices();
 
             let dfpURL = adGroup + '/' + adGrouping + '/' + adSubGrouping + '/' + adSection + '/' + position;
@@ -115,30 +121,30 @@ class GoogleDFP {
     }
 
     _checkGoogle() {
-
-      let dfpPromise = new Promise((resolve, reject) => {
-        setTimeout(() => {
-          if (typeof googletag !== 'undefined' && typeof googletag.sizeMapping === 'function') {
-            resolve(true);
-          }
-        }, 50);
-      });
-
-      dfpPromise.then((value) => {
-        this._buildAd();
-      });
+      setTimeout(() => {
+        let adEstablished = this.get('adEstablished');
+        if (typeof googletag !== 'undefined' && typeof googletag.sizeMapping === 'function' && adEstablished) {
+          this._buildAd();
+        } else {
+          this._checkGoogle();
+        }
+      }, 50);
     }
 
     _sectionChanged(section) {
-      if (typeof section === 'undefined') {
-        this.set('section', 'homepage');
-      }
-      this._checkGoogle();
+      this.async(() => {
+        if (typeof section === 'undefined') {
+          this.set('section', 'homepage');
+        }
+        this._checkGoogle();
+      });
     }
 
     _adCount() {
         window.adCounter = window.adCounter || 0;
         window.adCounter += 1;
+
+        this.set('adEstablished', true);
 
         return '_' + window.adCounter;
     }
@@ -147,7 +153,7 @@ class GoogleDFP {
       let hidden = this.get('hidden');
 
       if (!hidden) {
-        let advertisement = Polymer.dom(this.root).firstElementChild;
+        let advertisement = Polymer.dom(this.root).querySelector('.advertisement');
         let slot = advertisement.getAttribute('id');
 
         if (advertisement !== null && typeof advertisement !== 'undefined' && typeof slot !== 'undefined' && slot !== null) {
