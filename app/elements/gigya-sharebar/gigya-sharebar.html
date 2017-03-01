@@ -1,7 +1,5 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
-<link rel="import" href="../../bower_components/iron-icons/image-icons.html">
-<link rel="import" href="../../bower_components/iron-icons/communication-icons.html">
 
 <link rel="import" href="../../bower_components/paper-material/paper-material.html">
 
@@ -13,7 +11,7 @@
     <meta property="fb:app_id" content="{$ config.socialNaming.facebookId $}" />
     <!-- <script type="text/javascript" src="https://cdns.gigya.com/JS/gigya.js?apikey={$ config.gigya.apiKey $}"></script> -->
 
-    <paper-fab icon="social:share" title="Share" id="shareButton" on-tap="_shareButtonHandler" ga-on="click" ga-event-category="Sharebar Button Clicked" ga-event-action="uti_shr_tgl"></paper-fab>
+    <paper-fab icon="cranberry-icons:share" title="Share" id="shareButton" on-tap="_shareButtonHandler" ga-on="click" ga-event-category="Sharebar Button Clicked" ga-event-action="uti_shr_tgl"></paper-fab>
 
     <paper-material elevation="5" id$="{{shareButtonsId}}" class="ut-hide"></paper-material>
 
