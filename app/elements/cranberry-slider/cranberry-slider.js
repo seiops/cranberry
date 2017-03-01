@@ -131,7 +131,7 @@ class cranberrySlider {
     }
   }
 
-  _showNext(e) {
+  _showNext() {
     let imagesHidden = this.get('hideImage');
 
     if (imagesHidden) {
