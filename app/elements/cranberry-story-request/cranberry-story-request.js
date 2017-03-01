@@ -21,6 +21,10 @@ class cranberryStoryRequest {
         value: {},
         notify: true
       },
+      hidden: {
+        type: Boolean,
+        value: true
+      },
       pageId: String,
       response: {
         type: Object,
@@ -34,7 +38,10 @@ class cranberryStoryRequest {
       },
       staticPage: Boolean
     }
-    this.observers = ['_setupRequest(pageId, staticPage)']
+    this.observers = [
+      '_setupRequest(pageId, staticPage)',
+      '_hiddenChanged(hidden)'
+    ]
   }
 
   // Lifycyle Methods
@@ -75,6 +82,65 @@ class cranberryStoryRequest {
     }
   }
 
+  _hiddenChanged(hidden) {
+    this.async(() => {
+      if (typeof hidden !== 'undefined' && !hidden) {
+        let cachedPageId = this.get('cachedPageId');
+        let pageId = this.get('pageId');
+
+        if (typeof cachedPageId !== 'undefined' && cachedPageId !== '' && typeof pageId !== 'undefined') {
+          if (cachedPageId === pageId) {
+            let cachedResponse = this.get('cachedResponse');
+            this._sendCachedPageview(cachedResponse);
+            this._refreshStoryAds();
+          }
+          
+        } 
+      }
+    });
+  }
+
+  _refreshStoryAds() {
+    this.async(() => {
+      let app = Polymer.dom(document).querySelector('cranberry-base');
+      let story = Polymer.dom(app.root).querySelector('cranberry-story');
+
+      story.refreshDFP();
+    })
+  }
+
+  _sendCachedPageview(story) {
+      console.info('\<cranberry-story-request\> sending cached pageview');
+      var { byline: { inputByline: byline }, sectionInformation: { section }, published: published, tags: tags, itemId: storyId } = story;
+
+      if (typeof story.byline !== 'undefined') {
+        if (typeof story.byline.title !== 'undefined') {
+          byline = story.byline.title;
+        }
+      }
+
+      if (section === '') {
+        section = story.sectionInformation.sectionParentName;
+      }
+
+      let data = {
+        dimension1: (typeof byline !== 'undefined') ? byline : '',
+        dimension3: (typeof published !== 'undefined') ? published : '',
+        dimension6: 'Story',
+        dimension8: (typeof tags !== 'undefined') ? tags : ''
+      };
+    
+      // Send pageview event with iron-signals
+      this.fire('iron-signal', {name: 'track-page', data: { path: '/story/' + storyId, data } });
+
+      // Send Chartbeat
+      this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/story/' + storyId, data: {'sections': section, 'authors': byline } } });
+
+      // Fire Youneeq Page Hit Request
+      this.fire('iron-signal', {name: 'page-hit'});
+      this.fire('iron-signal', {name: 'observe', data: {content: story}});
+  }
+
   _setupRequest(pageId, staticPage) {
     this.async(() => {
       let cachedPageId = this.get('cachedPageId');
@@ -92,6 +158,7 @@ class cranberryStoryRequest {
           let cachedResponse = this.get('cachedResponse');
           this.set('currentPageId', pageId);
           this.set('response', cachedResponse);
+          this._sendCachedPageview(cachedResponse);
         }
       }
     });

@@ -55,13 +55,10 @@ class CranberryStory {
     console.info('\<cranberry-story\> attached');
     let routeId = this.get('routeData.id');
     let storyId = this.get('storyId');
-
-    this.refreshDFP();
   }
 
   detached() {
     console.info('\<cranberry-story\> detached');
-    this.set('loading', true);
   }
 
   // Public Methods
@@ -134,6 +131,7 @@ class CranberryStory {
   _storyDoneLoading(paragraphsLoading, requestLoading) {
     this.async(() => {
       if (typeof paragraphsLoading !== 'undefined' && typeof requestLoading !== 'undefined') {
+
         if (requestLoading && !paragraphsLoading) {
           this.set('paragraphsLoading', true);
         }

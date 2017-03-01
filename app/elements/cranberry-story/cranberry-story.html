@@ -39,7 +39,8 @@
                              response="{{response}}"
                              request-in-progress="{{requestLoading}}"
                              static-page$="[[staticPage]]"
-                             current-page-id="{{storyId}}">
+                             current-page-id="{{storyId}}"
+                             hidden$="[[hidden]]">
     </cranberry-story-request>
 
     <div class="cranberry-story">
@@ -122,7 +123,8 @@
                                             section-information="[[response.sectionInformation]]"
                                             static-page$="[[staticPage]]"
                                             base-domain="{$ config.baseDomain $}"
-                                            paragraphs="[[response.paragraphs]]">
+                                            paragraphs="[[response.paragraphs]]"
+                                            hidden$="[[hidden]]">
                 </cranberry-story-paragraphs>
                 <div class="ntv-ad-div"></div>
               </div>

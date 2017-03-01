@@ -29,7 +29,7 @@ class cranberryStoryParagraphs {
         value: false
       },
       toutUid: String
-    }
+    };
   }
 
   // Lifycyle Methods
@@ -97,10 +97,6 @@ class cranberryStoryParagraphs {
   _setupParagraphs(paragraphs) {
     this.async(() => {
       if (typeof paragraphs !== 'undefined' && paragraphs.length > 0) {
-
-        console.log('Setting up paragraphs');
-        console.dir(paragraphs);
-
         // Variables for Display
         let story = this.get('story');
         let staticPage = this.get('staticPage');
