@@ -81,7 +81,7 @@
 
             <div class="headline">
               <h1 class="story-title">[[response.title]]</h1>
-              <p class="time-stamp">[[response.updated]]</p>
+              <p class="time-stamp" hidden$="[[staticPage]]">[[response.updated]]</p>
             </div>
 
             <div class="media-asset">
@@ -101,7 +101,7 @@
             </div>
 
             <!-- Story Byline -->
-            <div class="byline-container">
+            <div class="byline-container" hidden$="[[staticPage]]">
               <cranberry-story-byline byline="[[response.byline]]"
                                       base-domain="{$ config.baseDomain $}"
                                       display-byline="{{byline}}">
