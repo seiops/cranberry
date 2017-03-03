@@ -48,6 +48,7 @@ div.story-content {
 
 div.story-content div {
   @apply(--layout-vertical);
+  @apply(--paper-font-story-font);
   max-width: 100%;
 }
 
