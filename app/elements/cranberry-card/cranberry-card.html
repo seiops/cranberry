@@ -17,7 +17,7 @@
            ga-event-category="Content Card Clicked"
            ga-event-action$="[[_setupTracking(item)]]">
           <div class="card-header">
-            <div class="card-icons"><iron-icon icon="image:photo-camera" hidden$="[[!_checkGallery(item.contentType)]]"></iron-icon></div>
+            <div class="card-icons"><iron-icon icon="cranberry-icons:photo-camera" hidden$="[[!_checkGallery(item.contentType)]]"></iron-icon></div>
             <div class="card-header-overlay" hidden$="[[!item.mediaAssets.images.0.small]]"></div>
             <template is="dom-if" if="[[item.mediaAssets.images.0.medium]]">
               <iron-image
@@ -42,7 +42,7 @@
                                       ga-event-category="Content Card Section Clicked"
                                       ga-event-action$="uti_crd_sec_[[_scrubTag(item.sectionInformation)]]">[[_scrubTag(item.sectionInformation)]]</a>
           </div>
-          <div class="content-comments"><a href$="[[_computeUrl(item)]]">[[item.socialInformation.comments]] &nbsp;<iron-icon icon="communication:chat"></iron-icon></a></div>
+          <div class="content-comments"><a href$="[[_computeUrl(item)]]">[[item.socialInformation.comments]] &nbsp;<iron-icon icon="cranberry-icons:chat"></iron-icon></a></div>
         </div>
       </template>
       <content></content>

@@ -52,6 +52,7 @@ gulp.task('lint-js', ['ensureFiles'], function() {
       'app/scripts/**/*.js',
       '!app/scripts/analytics.js',
       '!app/scripts/gpt.js',
+      '!app/scripts/widgets.js',
       'app/elements/**/*.js',
       'gulpfile.js'
     ]);
@@ -98,7 +99,7 @@ gulp.task('copy', function() {
   var icons = gulp.src(['app/themes/' + config.appTheme + '/icons.html'])
     .pipe(gulp.dest('dist/themes/' + config.appTheme));
 
-  var scripts = gulp.src(['app/scripts/analytics.js', 'app/scripts/gpt.js'])
+  var scripts = gulp.src(['app/scripts/analytics.js', 'app/scripts/gpt.js', 'app/scripts/widgets.js'])
     .pipe(gulp.dest('dist/scripts'));
 
   return merge(app, bower, elements, icons, scripts)
@@ -240,7 +241,7 @@ gulp.task('serve', ['js', 'lint', 'lint-js', 'styles'], function() {
     'app/views/**/*.html',
     'app/content/**/*.md',
     'app/metadata/*.js'
-  ], ['styles', reload]);
+  ], { interval: 500 }, ['styles', reload]);
   gulp.watch(['app/{elements,themes}/**/*.{css,html}'], ['styles', reload]);
   gulp.watch(['app/themes/**/*.js'], ['styles', reload]);
   gulp.watch(['app/{elements,scripts}/**/*.js'], ['lint-js', 'js', reload]);
@@ -286,8 +287,11 @@ gulp.task('download:analytics', require(task('download-analytics'))($, gulp));
 // Download newest script gpt.js from Google for DFP
 gulp.task('download:dfp', require(task('download-dfp'))($, gulp));
 
-// Download newest script gpt.js from Google for DFP
+// Download newest script autotrack.js
 gulp.task('download:autotrack', require(task('download-autotrack'))($, gulp));
+
+// Download newest script widgets.js from Twitter for timeline
+gulp.task('download:widgets', require(task('download-widgets'))($, gulp));
 
 // Fix paths before revision task
 gulp.task('fix-paths-before-revision', require(task('fix-paths'))($, gulp, merge, 'before'));
@@ -331,7 +335,7 @@ gulp.task('default', ['clean'], function(cb) {
 // Initializing app
 gulp.task('init', function(cb) {
   runSequence(
-    ['download:analytics', 'download:dfp', 'download:fonts', 'download:autotrack'],
+    ['download:analytics', 'download:dfp', 'download:fonts', 'download:autotrack', 'download:widgets'],
     cb);
 });
 

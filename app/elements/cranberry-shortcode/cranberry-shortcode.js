@@ -8,6 +8,10 @@ class cranberryShortcode {
             shortcodeObject: {
                 type: Object
             },
+            shortcodeRendered: {
+              type: Boolean,
+              value: false
+            },
             baseUrl: {
                 type: String
             },
@@ -20,19 +24,22 @@ class cranberryShortcode {
 
     // Attached function to handle all data passed to shortcode Element
     attached() {
+      console.info('\<cranberry-shortcode\> attached');
       let foundObject = {};
       let story = this.get('storyObject');
       let shortcode = this.get('shortcodeObject');
+      let shortcodeRendered = this.get('shortcodeRendered');
 
       this.async(() => {
-        if (typeof story !== 'undefined' && typeof shortcode !== 'undefined') {
-          // Establish found object from the return of findAssetObject
-          // foundObject = this._findAssetObject(story, shortcode);
-
+        if (typeof story !== 'undefined' && typeof shortcode !== 'undefined' && !shortcodeRendered) {
           this._setupShortcode(story, shortcode);
         }
       });
       
+    }
+
+    detached() {
+      console.info('\<cranberry-shortcode\> detached');
     }
 
     _setupShortcode(story, shortcode) {
@@ -364,6 +371,8 @@ class cranberryShortcode {
           Polymer.dom(this.$.shortcode).appendChild(shortcodeEl);
         }
       }
+
+      this.set('shortcodeRendered', true);
     }
 }
 Polymer(cranberryShortcode);

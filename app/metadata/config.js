@@ -96,34 +96,34 @@ module.exports = {
     },
     needHelp: [
       {
-        logo: 'icons:shopping-basket',
+        logo: 'cranberry-icons:shopping-basket',
         label: 'Retail Advertising',
         phone: '419-502-2121'
       },
       {
-        logo: 'icons:find-in-page',
+        logo: 'cranberry-icons:find-in-page',
         label: 'Classifieds',
         phone: '419-502-2120'
       },
       {
-        logo: 'icons:card-membership',
+        logo: 'cranberry-icons:card-membership',
         label: 'Member Services',
         phone: '419-625-5500'
       },
       {
-        logo: 'icons:lightbulb-outline',
+        logo: 'cranberry-icons:lightbulb-outline',
         label: 'News Tip',
         phone: '419-502-2060',
         link: true,
         linkUrl: 'http://tellus.sanduskyregister.com/'
       },
       {
-        logo: 'icons:chrome-reader-mode',
+        logo: 'cranberry-icons:chrome-reader-mode',
         label: 'Newsroom',
         phone: '419-502-2060'
       },
       {
-        logo: 'hardware:laptop',
+        logo: 'cranberry-icons:laptop',
         label: 'Web Dept.',
         phone: '419-609-5861'
       }

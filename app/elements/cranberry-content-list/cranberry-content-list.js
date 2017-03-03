@@ -19,6 +19,9 @@ class CranberryContentList {
         reflectToAttribute: true,
         value: true
       },
+      homepage: {
+        type: Boolean
+      },
       displayTout: {
         type: Boolean,
         value: false
@@ -78,6 +81,14 @@ class CranberryContentList {
       return true;
     } else {
       return;
+    }
+  }
+
+  _checkNativeShareThrough(homepage, index) {
+    if (homepage && index === 2) {
+      return true;
+    } else {
+      return false;
     }
   }
 

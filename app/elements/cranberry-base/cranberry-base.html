@@ -1,6 +1,6 @@
 <!-- Polymer base element -->
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/iron-lazy-pages/iron-lazy-pages.html">
+<link rel="import" href="../../bower_components/iron-lazy-pages/neon-lazy-pages.html">
 
 <!-- App routing elements -->
 <link rel="import" href="../../bower_components/app-route/app-location.html">
@@ -15,12 +15,6 @@
 
 <!-- Iron elements -->
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
-<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
-<link rel="import" href="../../bower_components/iron-icons/communication-icons.html">
-<link rel="import" href="../../bower_components/iron-icons/social-icons.html">
-<link rel="import" href="../../bower_components/iron-icons/image-icons.html">
-<link rel="import" href="../../bower_components/iron-icons/maps-icons.html">
-<link rel="import" href="../../bower_components/iron-icons/hardware-icons.html">
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../../bower_components/iron-localstorage/iron-localstorage.html">
 <link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
@@ -50,7 +44,6 @@
 <link rel="import" href="../cranberry-script-loader/cranberry-script-loader.html">
 <link rel="import" href="../cranberry-contact-page/cranberry-contact-page.html">
 <link rel="import" href="../cranberry-gallery/cranberry-gallery.html">
-<link rel="import" href="../cranberry-story/cranberry-story.html">
 <link rel="import" href="../cranberry-section/cranberry-section.html">
 <link rel="import" href="../cranberry-story/cranberry-story.html">
 <link rel="import" href="../cranberry-styles/cranberry-styles.html">
@@ -67,6 +60,8 @@
 <link rel="import" href="../cranberry-profile-page/cranberry-profile-page.html">
 <link rel="import" href="../cranberry-chart-beat/cranberry-chart-beat.html">
 <link rel="import" href="../cranberry-main-navigation/cranberry-main-navigation.html">
+<link rel="import" href="../cranberry-font-awesome/cranberry-font-awesome.html">
+<link rel="import" href="../cranberry-icons/cranberry-icons.html">
 <link rel="import" href="../youneeq-tracker/youneeq-tracker.html">
 <link rel="import" href="../google-dfp/google-dfp.html">
 
@@ -147,7 +142,7 @@
       <paper-toast id="infoToast" class="Toast" duration="4000" always-on-top></paper-toast>
 
       <!-- Global Tout LIVE CHANNEL element -->
-      <tout-element slot="live-player" player="live_channel" tout-uid="{$ config.tout.toutUid $}"></tout-element>
+      <!--<tout-element slot="live-player" player="live_channel" tout-uid="{$ config.tout.toutUid $}"></tout-element>-->
     </app-drawer-layout>
 
   </template>
