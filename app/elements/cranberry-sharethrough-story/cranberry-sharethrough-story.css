@@ -1,0 +1,76 @@
+:host {
+  background-color: var(--primary-background-color);
+}
+
+/* Advertisment Styles */
+div.banner-advertisement {
+  @apply(--layout-center-justified);
+  @apply(--layout-center);
+  margin-bottom: 12px;
+}
+
+/* Main Story Styles */
+div.cranberry-sharethrough-story {
+  @apply(--layout-vertical);
+}
+
+/* Headline Styles */
+div.headline h1.story-title {
+  @apply(--paper-font-display1);
+  margin-bottom: 0;
+}
+
+/* Byline Styles */
+div.byline-container {
+  @apply(--paper-font-story-font);
+}
+
+div.byline-wrapper {
+  @apply(--layout-horizontal);
+}
+
+div.byline-info p {
+  margin: 0;
+  padding: 15px 0 0 0;
+}
+
+/* Story Content Styles */
+div.content-wrapper {
+  @apply(--layout-around-justified);
+  @apply(--layout-horizontal);
+  @apply(--layout-wrap);
+}
+
+/* The minimum and maximum widths will need to be adjusted based on the new break points element */
+div.story-content {
+  flex: 1 1 500px;
+}
+
+div.story-content div {
+  @apply(--layout-vertical);
+  max-width: 100%;
+}
+
+div.right-rail {
+  flex: 1 1 auto;
+  max-width: 300px;
+  margin-left: 12px;
+}
+
+div.right-rail div {
+  @apply(--layout-vertical);
+  @apply(--layout-center);
+}
+
+div.right-rail div > * {
+  margin: 12px;
+}
+
+div.right-rail gigya-top-comments {
+  min-height: 0;
+  min-width: 300px;
+}
+
+div.right-rail gigya-top-comments::shadow div.wrapper {
+  margin: 0;
+}
