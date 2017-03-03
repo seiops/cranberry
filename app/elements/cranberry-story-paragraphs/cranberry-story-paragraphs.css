@@ -1,0 +1,7 @@
+:host {
+  display: block;
+}
+
+div.body-text {
+  @apply(--paper-font-story-font);
+}

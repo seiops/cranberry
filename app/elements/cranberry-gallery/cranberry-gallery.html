@@ -2,8 +2,7 @@
 <link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
 <link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
-<link rel="import" href="../../bower_components/iron-icons/social-icons.html">
-<link rel="import" href="../../bower_components/iron-icons/editor-icons.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../bower_components/iron-signals/iron-signals.html">
 <link rel="import" href="../../bower_components/page-title/page-title.html">
 <link rel="import" href="../cranberry-slider/cranberry-slider.html">
@@ -52,7 +51,7 @@
             <span class="content-tag">{{tags.0}}</span>
           </div>
           <div class="expand-link">
-            <paper-button raised class="rounded-button" on-tap="_openModal"><iron-icon icon="icons:fullscreen"></iron-icon></paper-button>
+            <paper-button raised class="rounded-button" on-tap="_openModal"><iron-icon icon="cranberry-icons:fullscreen"></iron-icon></paper-button>
           </div>
           <div class="share-buttons">
             <paper-button id="buyButton" 
@@ -62,7 +61,7 @@
                           ga-event-category="Buy Imaged Clicked"
                           ga-event-action="uti_exlk_byim"
                           raised>
-              <iron-icon icon="editor:attach-money"></iron-icon>
+              <iron-icon icon="cranberry-icons:attach-money"></iron-icon>
             </paper-button>
             <gigya-sharebar share-buttons-id="gigya-share-buttons-gallery" title="[[gallery.title]]" route="[[route]]"></gigya-sharebar>
           </div>

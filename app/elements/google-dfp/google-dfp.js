@@ -18,6 +18,13 @@ class GoogleDFP {
             adGroup: Number,
             adGrouping: String,
             adSubGrouping: String,
+            shareThrough: {
+              type: Boolean,
+              value: false
+            },
+            shareThroughId: {
+              type: String
+            },
             tags: String,
             outOfPage: {
               type: Boolean,
@@ -86,9 +93,10 @@ class GoogleDFP {
               addSize([0, 0], [300, 250]).
               addSize([400, 400], [[300, 250]]).
               addSize([850, 200], [[728, 90], [300, 50]]).
-              addSize([1050, 200], [[970, 250], [970, 90], [728, 90]]).
+              addSize([1050, 200], [[970, 250], [970, 90], [728, 90], [1,1]]).
               build();
           }
+
         }
 
 

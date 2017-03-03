@@ -1,0 +1,27 @@
+:host {
+  display: block;
+}
+
+/* Byline Styles */
+a.byline-link {
+  @apply(--paper-font-story-font);
+  text-decoration: none;
+}
+
+div.byline-wrapper {
+  @apply(--layout-horizontal);
+}
+
+div.byline-wrapper iron-image {
+  width: 55px;
+  height: 55px;
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+
+div.byline-info p {
+  margin: 0;
+  padding: 0 0 0 15px;
+}

@@ -22,7 +22,11 @@ class CranberrySection {
         reflectToAttribute: true,
         value: true
       },
-      isHomepage: Boolean,
+      isHomepage: {
+        type: Boolean,
+        reflectToAttribute: true,
+        value: false
+      },
       route: Object,
       routeData: Object,
       sectionTitle: {
@@ -30,8 +34,8 @@ class CranberrySection {
         value: ''
       },
       selected: {
-          type: Number,
-          value: 0
+        type: Number,
+        value: 0
       },
       start: {
         type: Number,

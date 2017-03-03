@@ -1,4 +1,4 @@
-<iron-lazy-pages class="Main-content" attr-for-selected="data-route" selected="[[data.page]]" default-selected="">
+<neon-lazy-pages class="Main-content" attr-for-selected="data-route" selected="[[data.page]]" default-selected="" loading="{{loading}}" entry-animation="fade-in-animation" exit-animation="fade-out-animation" load-async>
   <template is="iron-lazy-page" data-route="">
     {% include "cranberry-base/views/pages/home.html" %}
   </template>
@@ -62,7 +62,10 @@
   <template is="iron-lazy-page" data-route="discovernorwalk">
     {% include "cranberry-base/views/pages/discovernorwalk.html" %}
   </template>
+  <template is="iron-lazy-page" data-route="page">
+    {% include "cranberry-base/views/pages/staticPage.html" %}
+  </template>
   <template is="iron-lazy-page" data-route="profile">
     {% include "cranberry-base/views/pages/profile.html" %}
   </template>
-</iron-lazy-pages>
+</neon-lazy-pages>
