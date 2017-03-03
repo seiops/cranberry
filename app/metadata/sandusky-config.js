@@ -208,9 +208,9 @@ module.exports = {
       linkText: 'Norwalk Reflector',
       linkUrl: 'http://www.norwalkreflector.com'
     },
-        {
-      linkText: 'Today&#8217;s ads',
-      linkUrl: 'http://local.sanduskyregister.com/ads'
+    {
+      label: 'Contests',
+      link: 'http://www.tandemnetwork.com/contests-and-promotions/'
     },
     {
       linkText: 'Local Guide',
