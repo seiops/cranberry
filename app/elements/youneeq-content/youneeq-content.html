@@ -10,12 +10,13 @@
       @import "youneeq-content/youneeq-content";
     </style>
 
-    <iron-signals on-iron-signal-youneeq-suggestions="suggestionsRecieved"></iron-signals>
+    <iron-signals on-iron-signal-youneeq-suggestions="suggestionsRecieved" on-iron-signal-youneeq-callbackid="callbackIdRecieved"></iron-signals>
     
     <iron-media-query
       query="(max-width:640px)"
       query-matches="{{mobile}}">
     </iron-media-query>
+    
 
     <byutv-jsonp
       on-response="_handleResponse"
