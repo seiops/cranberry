@@ -59,8 +59,6 @@ class GoogleDFP {
         let tags = this.get('tags');
         let outOfPage = this.get('outOfPage');
 
-        console.log('BUILDING AD');
-        console.log(position);
         // Logical statement to make default section news if no section is provided
         // This is mainly a provision for gallery pages that do not have a section by default
         if (typeof adSection === 'undefined' || adSection.length === 0) {
@@ -143,8 +141,6 @@ class GoogleDFP {
 
     _sectionChanged(section) {
       this.async(() => {
-        console.dir(section);
-        console.log(this);
         if (typeof section !== 'undefined') {
           if (section === '') {
             this.set('section', 'homepage');

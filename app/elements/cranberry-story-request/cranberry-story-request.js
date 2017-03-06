@@ -83,12 +83,13 @@ class cranberryStoryRequest {
   }
 
   _hiddenChanged(hidden) {
+    let cachedPageId = this.get('cachedPageId');
+
     this.async(() => {
       if (typeof hidden !== 'undefined' && !hidden) {
-        let cachedPageId = this.get('cachedPageId');
         let pageId = this.get('pageId');
 
-        if (typeof cachedPageId !== 'undefined' && cachedPageId !== '' && typeof pageId !== 'undefined') {
+        if (typeof cachedPageId !== 'undefined' && cachedPageId !== '' && typeof pageId !== 'undefined' && pageId !== '') {
           if (cachedPageId === pageId) {
             let cachedResponse = this.get('cachedResponse');
             this._sendCachedPageview(cachedResponse);
@@ -111,11 +112,15 @@ class cranberryStoryRequest {
 
   _sendCachedPageview(story) {
       console.info('\<cranberry-story-request\> sending cached pageview');
-      var { byline: { inputByline: byline }, sectionInformation: { section }, published: published, tags: tags, itemId: storyId } = story;
+      var { sectionInformation: { section }, published: published, tags: tags, itemId: storyId } = story;
 
       if (typeof story.byline !== 'undefined') {
-        if (typeof story.byline.title !== 'undefined') {
-          byline = story.byline.title;
+        var byline = story.byline;
+      }
+
+      if (typeof byline !== 'undefined') {
+        if (typeof byline.title !== 'undefined') {
+          byline = byline.title;
         }
       }
 
@@ -155,10 +160,12 @@ class cranberryStoryRequest {
             this._setupStoryRequest(pageId);
           } 
         } else {
-          let cachedResponse = this.get('cachedResponse');
-          this.set('currentPageId', pageId);
-          this.set('response', cachedResponse);
-          this._sendCachedPageview(cachedResponse);
+          if (typeof cachedPageId !== 'undefined' && cachedPageId !== '') {
+            let cachedResponse = this.get('cachedResponse');
+            this.set('currentPageId', pageId);
+            this.set('response', cachedResponse);
+            this._sendCachedPageview(cachedResponse);
+          }
         }
       }
     });
