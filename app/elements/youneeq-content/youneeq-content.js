@@ -55,12 +55,6 @@ class youneeqContent {
     }
   }
 
-  _index(index) {
-    if (index === 3) {
-      return true;
-    }
-  }
-
   _computeSectionName(sectionName) {
     if (typeof sectionName === 'undefined' || sectionName === '') {
       return 'news';

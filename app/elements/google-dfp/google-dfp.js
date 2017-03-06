@@ -141,10 +141,13 @@ class GoogleDFP {
 
     _sectionChanged(section) {
       this.async(() => {
-        if (typeof section === 'undefined') {
-          this.set('section', 'homepage');
+        if (typeof section !== 'undefined') {
+          if (section === '') {
+            this.set('section', 'homepage');
+          } else {
+            this._checkGoogle();
+          }
         }
-        this._checkGoogle();
       });
     }
 

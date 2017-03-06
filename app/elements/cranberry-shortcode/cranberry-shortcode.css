@@ -26,3 +26,7 @@ div#shortcode::shadow iron-image {
 div#shortcode::shadow google-youtube {
   height: 400px;
 }
+
+div#facebook-post {
+  width: 75%;
+}

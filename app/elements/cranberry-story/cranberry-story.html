@@ -90,7 +90,7 @@
                 base-domain="{$ config.baseDomain $}"
                 content="[[response]]"
                 has-shortcode$="[[hasLeadShortcode]]"
-                hidden="[[hidden]]"
+                hidden="[[staticPage]]"
                 lead-shortcode-type="[[leadShortcodeType]]"
                 lead-shortcode-content="[[leadShortcodeContent]]"
                 media="[[response.mediaAssets.images]]"
@@ -182,50 +182,53 @@
               </google-dfp>
             </div>
 
-            <!-- Comments -->
-            <div class="comments-wrappper" hidden$="[[staticPage]]">
-              <gigya-comments stream-id="[[response.genericLink]]" content="[[response]]" config-id="{$ config.gigya.commentsId $}"></gigya-comments>
-            </div>
+            <template is="dom-if" if="[[!staticPage]]">
+              <!-- Comments -->
+              <div class="comments-wrappper">
+                <gigya-comments stream-id="[[response.genericLink]]" content="[[response]]" config-id="{$ config.gigya.commentsId $}"></gigya-comments>
+              </div>
+              
+              <!-- Bottom Ad -->
+              <div class="banner-advertisement">
+                <google-dfp
+                  section="[[response.sectionInformation.sectionName]]"
+                  section-parent="[[response.sectionInformation.sectionParentName]]"
+                  tags="[[response.tags]]"
+                  ad-pos="Bottom_of_Stream"
+                  ad-size-mapping="mobileLeader"
+                  ad-size="[[970, 250],[970, 90],[728, 90],[300, 250]]"
+                  ad-group="{$ config.dfpAdStructure.adGroupID $}"
+                  ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
+                  ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
+                  hidden$="[[hidden]]">
+                </google-dfp>
+              </div>
 
-            <!-- Bottom Ad -->
-            <div class="banner-advertisement">
-              <google-dfp
-                section="[[response.sectionInformation.sectionName]]"
-                section-parent="[[response.sectionInformation.sectionParentName]]"
-                tags="[[response.tags]]"
-                ad-pos="Last_of_Stream"
-                ad-size-mapping="mobileLeader"
-                ad-size="[[970, 250],[970, 90],[728, 90],[300, 250]]"
-                ad-group="{$ config.dfpAdStructure.adGroupID $}"
-                ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
-                ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
-                hidden$="[[hidden]]">
-              </google-dfp>
+              <!-- Youneeq Content Area -->
+              <div class="youneeq-wrapper">
+                <youneeq-content content="[[response]]" domain="{$ config.baseDomain $}" hidden$="[[hidden]]"></youneeq-content>
+              </div>
             </div>
-
-            <!-- Youneeq Content Area -->
-            <div class="youneeq-wrapper" hidden$="[[staticPage]]">
-              <youneeq-content content="[[response]]" domain="{$ config.baseDomain $}" hidden$="[[hidden]]"></youneeq-content>
-            </div>
-          </div>
+          </template>
         </template>
-      </template>
       
-      <!-- Last Ad -->
-      <div class="banner-advertisement">
-        <google-dfp
-          section="[[response.sectionInformation.sectionName]]"
-          section-parent="[[response.sectionInformation.sectionParentName]]"
-          tags="[[response.tags]]"
-          ad-pos="Last_of_Stream"
-          ad-size-mapping="leaderboard"
-          ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
-          ad-group="{$ config.dfpAdStructure.adGroupID $}"
-          ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
-          ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
-          hidden$="[[hidden]]">
-        </google-dfp>
-      </div>
+      <template is="dom-if" if="[[!staticPage]]">
+        <!-- Last Ad -->
+        <div class="banner-advertisement">
+          <google-dfp
+            section="[[response.sectionInformation.sectionName]]"
+            section-parent="[[response.sectionInformation.sectionParentName]]"
+            tags="[[response.tags]]"
+            ad-pos="Last_of_Stream"
+            ad-size-mapping="leaderboard"
+            ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
+            ad-group="{$ config.dfpAdStructure.adGroupID $}"
+            ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
+            ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
+            hidden$="[[hidden]]">
+          </google-dfp>
+        </div>
+      </template>
 
       <google-dfp
         section="[[response.sectionInformation.sectionName]]"

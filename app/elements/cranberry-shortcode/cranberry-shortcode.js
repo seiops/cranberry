@@ -65,6 +65,7 @@ class cranberryShortcode {
           case 'twitterhash':
           case 'twitteruser':
           case 'quote':
+          case 'facebookpost':
             break;
           // Types that do need object finding
           default:
@@ -354,6 +355,23 @@ class cranberryShortcode {
           quote.credit = content.unscrubbedValue.substr(lastIndex, length).replace(',', '').trim();
           quote.text = content.unscrubbedValue.substr(firstIndex, lastIndex - (firstIndex)).trim();
           shortcodeEl.quote = quote;
+          break;
+        case 'facebookpost':
+          let facebookScript = document.querySelector('#facebook-jssdk');
+
+          if (!facebookScript) {
+            let app = Polymer.dom(document).querySelector('cranberry-base');
+            let loader = Polymer.dom(app.root).querySelector('cranberry-script-loader');
+
+            loader.loadScript('https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5', 'facebook-jssdk');
+          }
+
+          shortcodeEl = document.createElement('div');
+          shortcodeEl.className = 'fb-post';
+          shortcodeEl.setAttribute('data-href', value);
+          shortcodeEl.setAttribute('data-width', '350');
+          shortcodeEl.setAttribute('data-show-text', 'true');
+          shortcodeEl.setAttribute('data-allowfullscreen', 'true');
           break;
       }
 

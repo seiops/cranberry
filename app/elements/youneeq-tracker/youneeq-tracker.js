@@ -157,7 +157,7 @@ class youneeqTracker {
       observe[0] = observeObj;
 
       suggestObj.type = 'node';
-      suggestObj.count = 5;
+      suggestObj.count = 6;
       suggestObj.categories = [];
       suggestObj.is_panel_detailed = true;
       suggestObj.isAllClientDomains = false;
