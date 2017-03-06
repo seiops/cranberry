@@ -18,11 +18,21 @@ class youneeqContent {
       response: {
         type: Object,
         observer: '_responseChanged'
+      },
+      yqCallbackId: {
+        type: Object
       }
     };
     this.listeners = {
-      'youneeq-suggestions': 'suggestionsRecieved'
-    };
+      'youneeq-callbackid': 'callbackIdRecieved',
+      'youneeq-suggestions': 'suggestionsRecieved',
+    }
+  };
+  
+  callbackIdRecieved(event) {
+    let callbackId = event.detail.content;
+
+    this.set('yqCallbackId', callbackId);
   }
 
   suggestionsRecieved(event) {
@@ -32,18 +42,16 @@ class youneeqContent {
     this.set('items', suggestions);
   }
 
+  _generateId() {
+		return Math.floor(10000000 + Math.random() * 89999999).toString();
+	}
+
   _checkImage(image) {
     if (image !== '' && image.charAt(0) === '/') {
       let domain = this.get('domain');
       return domain + image;
     } else {
       return image;
-    }
-  }
-
-  _index(index) {
-    if (index === 3) {
-      return true;
     }
   }
 
@@ -69,6 +77,7 @@ class youneeqContent {
     let profile = document.querySelector('youneeq-tracker').youneeqId;
     let requestUrl = 'http://ype.youneeq.ca/api/panelaction';
     let currentUrl = window.location.href;
+    let callbackId = this.get("yqCallbackId");
 
     let panel_click_data = {
       domain_name: window.location.hostname,
@@ -83,6 +92,19 @@ class youneeqContent {
 
     request.url = requestUrl;
     request.params.json = JSON.stringify(panel_click_data);
+    
+    try {
+      if (!callbackId.sessionId){
+        callbackId.sessionId = this._generateId();
+      }
+      callbackId.requestCount++;
+      this.fire('iron-signal', {name: 'yq-callback-id', data: {content: callbackId}});
+      let now = new Date().getTime();
+      request.setAttribute('callback-value', "yq_" + callbackId.sessionId + "_" + callbackId.pageId + "_" + now + "_" + callbackId.requestCount);
+    }
+    catch(exception) {
+
+    }
 
     request.generateRequest();
     console.info('<\youneeq-content\> click tracked sent');

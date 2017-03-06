@@ -13,15 +13,15 @@ div.media-container {
 }
 
 div.media-container[mobile-layout] .main-media-item {
-  height: 445px;
-}
-
-div.media-container[tablet-layout] .main-media-item {
   height: 545px;
 }
 
-div.media-container[desktop-layout] .main-media-item {
+div.media-container[tablet-layout] .main-media-item {
   height: 645px;
+}
+
+div.media-container[desktop-layout] .main-media-item {
+  height: 745px;
 }
 
 /* Single Image Styles */

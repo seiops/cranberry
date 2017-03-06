@@ -76,6 +76,19 @@ class cranberryMainNavigation {
     }
   }
 
+  _scrubIcon(icon) {
+    if (typeof icon !== 'undefined' && icon.length > 0) {
+      let colonIndex = icon.indexOf(':');
+
+      if (colonIndex !== -1) {
+        let simpleIcon = icon.slice(colonIndex + 1);
+        return simpleIcon;
+      } else {
+        return icon;
+      }
+    }
+  }
+
   _drawerItemSelected(e) {
     setTimeout(() => {
       this._checkDrawer();

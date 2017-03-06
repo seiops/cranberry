@@ -8,6 +8,10 @@ class cranberryShortcode {
             shortcodeObject: {
                 type: Object
             },
+            shortcodeRendered: {
+              type: Boolean,
+              value: false
+            },
             baseUrl: {
                 type: String
             },
@@ -20,19 +24,22 @@ class cranberryShortcode {
 
     // Attached function to handle all data passed to shortcode Element
     attached() {
+      console.info('\<cranberry-shortcode\> attached');
       let foundObject = {};
       let story = this.get('storyObject');
       let shortcode = this.get('shortcodeObject');
+      let shortcodeRendered = this.get('shortcodeRendered');
 
       this.async(() => {
-        if (typeof story !== 'undefined' && typeof shortcode !== 'undefined') {
-          // Establish found object from the return of findAssetObject
-          // foundObject = this._findAssetObject(story, shortcode);
-
+        if (typeof story !== 'undefined' && typeof shortcode !== 'undefined' && !shortcodeRendered) {
           this._setupShortcode(story, shortcode);
         }
       });
       
+    }
+
+    detached() {
+      console.info('\<cranberry-shortcode\> detached');
     }
 
     _setupShortcode(story, shortcode) {
@@ -58,6 +65,7 @@ class cranberryShortcode {
           case 'twitterhash':
           case 'twitteruser':
           case 'quote':
+          case 'facebookpost':
             break;
           // Types that do need object finding
           default:
@@ -348,6 +356,23 @@ class cranberryShortcode {
           quote.text = content.unscrubbedValue.substr(firstIndex, lastIndex - (firstIndex)).trim();
           shortcodeEl.quote = quote;
           break;
+        case 'facebookpost':
+          let facebookScript = document.querySelector('#facebook-jssdk');
+
+          if (!facebookScript) {
+            let app = Polymer.dom(document).querySelector('cranberry-base');
+            let loader = Polymer.dom(app.root).querySelector('cranberry-script-loader');
+
+            loader.loadScript('https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5', 'facebook-jssdk');
+          }
+
+          shortcodeEl = document.createElement('div');
+          shortcodeEl.className = 'fb-post';
+          shortcodeEl.setAttribute('data-href', value);
+          shortcodeEl.setAttribute('data-width', '350');
+          shortcodeEl.setAttribute('data-show-text', 'true');
+          shortcodeEl.setAttribute('data-allowfullscreen', 'true');
+          break;
       }
 
       // Append shortcodeEl
@@ -364,6 +389,8 @@ class cranberryShortcode {
           Polymer.dom(this.$.shortcode).appendChild(shortcodeEl);
         }
       }
+
+      this.set('shortcodeRendered', true);
     }
 }
 Polymer(cranberryShortcode);

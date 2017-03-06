@@ -2,9 +2,6 @@
 <link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
 <link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
-<link rel="import" href="../../bower_components/iron-icons/social-icons.html">
-<link rel="import" href="../../bower_components/iron-icons/image-icons.html">
-<link rel="import" href="../../bower_components/iron-icons/communication-icons.html">
 <link rel="import" href="../../bower_components/app-layout/app-grid/app-grid-style.html">
 <link rel="import" href="../google-dfp/google-dfp.html">
 <link rel="import" href="../cranberry-card/cranberry-card.html">
@@ -51,7 +48,16 @@
                   <li class="item">
                     <div class="ntv-ad-div">
                       <cranberry-card index="[[index]]" advertisement>
-                        <google-dfp section="[[trackedSection]]" section-parent="[[trackedParentSection]]" tags="[[tag]]" ad-pos="Middle_of_Stream" ad-size="[[300, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}" hidden$="[[hidden]]"></google-dfp>
+                        {% if config.baseEndpointUrl == "http://srstgcore.libercus.net/rest.json" %}
+                          <template is="dom-if" if="[[_checkNativeShareThrough(homepage, index)]]" restamp>
+                            <google-dfp section="[[trackedSection]]" section-parent="[[trackedParentSection]]" tags="[[tag]]" ad-pos="Native_ATF" ad-size="[[1, 1]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}" hidden$="[[hidden]]" share-through share-through-id="pPCfDMJVx6FpNaJS64Ym8qiZ"></google-dfp>
+                          </template>
+                          <template is="dom-if" if="[[!_checkNativeShareThrough(homepage, index)]]" restamp>
+                            <google-dfp section="[[trackedSection]]" section-parent="[[trackedParentSection]]" tags="[[tag]]" ad-pos="Middle_of_Stream" ad-size="[[300, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}" hidden$="[[hidden]]"></google-dfp>
+                          </template>
+                        {% else %}
+                          <google-dfp section="[[trackedSection]]" section-parent="[[trackedParentSection]]" tags="[[tag]]" ad-pos="Middle_of_Stream" ad-size="[[300, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}" hidden$="[[hidden]]"></google-dfp>
+                        {% endif %}
                       </cranberry-card>
                     </div>
                   </li>
@@ -64,7 +70,11 @@
                     <div class="leaderboard-advertisement-wrapper">
                       <div class="leaderboard-advertisement">
                         <template is="dom-if" if="[[_checkAdPos(index, 8)]]">
-                          <google-dfp section="[[trackedSection]]" section-parent="[[trackedParentSection]]" tags="[[tag]]" ad-pos="Middle_Of_Stream" ad-size-mapping="mobileLeader" ad-size="[[970, 250],[970, 90],[728, 90],[300, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}" hidden$="[[hidden]]"></google-dfp>
+                          {% if config.baseEndpointUrl == "http://srstgcore.libercus.net/rest.json" %}
+                            <google-dfp section="[[trackedSection]]" section-parent="[[trackedParentSection]]" tags="[[tag]]" ad-pos="Middle_Of_Stream" ad-size-mapping="mobileLeader" ad-size="[[970, 250],[970, 90],[728, 90],[300, 250],[1,1]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}" hidden$="[[hidden]]" share-through share-through-id="sKV197p6S3xVeTdwavvCNGUr"></google-dfp>
+                          {% else %}
+                            <google-dfp section="[[trackedSection]]" section-parent="[[trackedParentSection]]" tags="[[tag]]" ad-pos="Middle_Of_Stream" ad-size-mapping="mobileLeader" ad-size="[[970, 250],[970, 90],[728, 90],[300, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}" hidden$="[[hidden]]"></google-dfp>
+                          {% endif %}
                         </template>
                         <template is="dom-if" if="[[_checkAdPos(index, 17)]]">
                           <google-dfp section="[[trackedSection]]" section-parent="[[trackedParentSection]]" tags="[[tag]]" ad-pos="Last_Of_Stream" ad-size-mapping="mobileLeader" ad-size="[[970, 250],[970, 90],[728, 90],[300, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}" hidden$="[[hidden]]"></google-dfp>

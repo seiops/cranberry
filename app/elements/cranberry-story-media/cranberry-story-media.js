@@ -85,7 +85,6 @@ class cranberryStoryMedia {
 
   _buyImage() {
     let slider = Polymer.dom(this.root).querySelector('#mainSlider');
-    console.log(slider);
     let currentImage = Polymer.dom(slider.root).querySelector('iron-image').src;
     let myCapture = this.get('myCaptureUrl');
 
@@ -146,6 +145,16 @@ class cranberryStoryMedia {
     });
   }
 
+  // Lifycyle Methods
+  attached() {
+    console.info('\<cranberry-story-media\> attached');
+  }
+
+  detached() {
+    console.info('\<cranberry-story-media\> detached');
+  }
+
+  // Private Methods
   _scrollToComments() {
     this.fire('iron-signal', {name: 'scroll-to-comments'});
   }

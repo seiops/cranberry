@@ -9,7 +9,16 @@
       @import "google-dfp/google-dfp";
     </style>
 
-    <div id="{{adPos}}{{_adCount()}}" class="advertisement"></div>
+    <template is="dom-if" if="[[shareThrough]]">
+      <div data-str-set-targeting-placement$="[[shareThroughId]]" style="display: none;"></div>
+      <div id="[[adPos]][[_adCount()]]" class="advertisement"></div>
+    </template>
+
+    <template is="dom-if" if="[[!shareThrough]]">
+      <div id="[[adPos]][[_adCount()]]" class="advertisement"></div>
+    </template>
+
+    
 
     <iron-signals on-iron-signal-refresh-ad="refresh"></iron-signals>
   </template>
