@@ -17,7 +17,8 @@ class CranberryStory {
       },
       hidden: {
         type: Boolean,
-        value: false
+        value: true,
+        reflectToAttribute: true
       },
       loading: {
         type: Boolean,
