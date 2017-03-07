@@ -1,113 +1,112 @@
-<!doctype html>
+<!doctype html>
 <!--
 @license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
-<html lang="{$ lang $}">
+<html lang="{$ lang $}">
 
-<meta name="fragment" content="!">
+<meta name="fragment" content="!">
 
-{% include "head.html" %}
+{% include "head.html" %}
 
-<!-- Don't use <body unresolved>. It's a simple FOUC solution, but hides
-     the page until imports and Polymer are loaded. Intead, control FOUC manually with
-     a skeleton. -->
+<!-- Don't use <body unresolved>. It's a simple FOUC solution, but hides
+     the page until imports and Polymer are loaded. Intead, control FOUC manually with
+     a skeleton. -->
 <body>
-  <span id="browser-sync-binding"></span>
+  <span id="browser-sync-binding"></span>
 
-  <!-- GOOGLE TRACKING PIXEL -->
-  <img id="analytics-tracker-pixel" src="" style="display: none;"/>
+  <!-- GOOGLE TRACKING PIXEL -->
+  <img id="analytics-tracker-pixel" src="" style="display: none;"/>
 
-  <!-- Light weight skeleton is outside of Polymer/imports and styled by
-       the main page. 1st paint is fast, even on polyfilled browsers. Alternatively,
-       one could create an "app shell" and style the page's un-upgraded elements
-       similar to their final upgraded version. -->
-  <div id="skeleton" class="Skeleton">
-    <!-- main panel -->
-    <div class="Skeleton-main">
-      <div class="Skeleton-middleContent">
-        <img src="/images/logos/{$ theme.global.fileName $}/logo.png" />
-        <div>
-          <p>Loading {$ config.urlTitle $}</p>
-          <div>
-            <div id="spinner">
-              <div id="spinnerContainer" class="active">
-                <div class="spinner-layer">
-                  <div class="circle-clipper left"></div>
-                  <div class="circle-clipper right"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!-- Light weight skeleton is outside of Polymer/imports and styled by
+       the main page. 1st paint is fast, even on polyfilled browsers. Alternatively,
+       one could create an "app shell" and style the page's un-upgraded elements
+       similar to their final upgraded version. -->
+  <div id="skeleton" class="Skeleton">
+    <!-- main panel -->
+    <div class="Skeleton-main">
+      <div class="Skeleton-middleContent">
+        <img src="/images/logos/{$ theme.global.fileName $}/logo.png" />
+        <div>
+          <p>Loading {$ config.urlTitle $}</p>
+          <div>
+            <div id="spinner">
+              <div id="spinnerContainer" class="active">
+                <div class="spinner-layer">
+                  <div class="circle-clipper left"></div>
+                  <div class="circle-clipper right"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <!-- Elements wait on the page and are upgraded when elements/base-bundle.html loads. -->
-  <cranberry-base id="app"></cranberry-base>
+  <!-- Elements wait on the page and are upgraded when elements/base-bundle.html loads. -->
+  <cranberry-base id="app"></cranberry-base>
 
-  <!-- <cranberry-base-libercus-section id="app"></cranberry-base-libercus-section> -->
+  <!-- <cranberry-base-libercus-section id="app"></cranberry-base-libercus-section> -->
 
-  <!-- Service Worker support -->
-   <!--<platinum-sw-register auto-register
-                        clients-claim
-                        skip-waiting
-                        base-uri="bower_components/platinum-sw/bootstrap"> -->
+  <!-- Service Worker support -->
+   <!--<platinum-sw-register auto-register
+                        clients-claim
+                        skip-waiting
+                        base-uri="bower_components/platinum-sw/bootstrap"> -->
 
-    <!-- Google Analytics offline support -->
-    <!-- <platinum-sw-offline-analytics></platinum-sw-offline-analytics> -->
+    <!-- Google Analytics offline support -->
+    <!-- <platinum-sw-offline-analytics></platinum-sw-offline-analytics> -->
 
-    <!-- Offline caching support -->
-     <!--<platinum-sw-cache default-cache-strategy="fastest"
-                       cache-config-file="cache-config.json">
-    </platinum-sw-cache>
-  </platinum-sw-register> -->
+    <!-- Offline caching support -->
+     <!--<platinum-sw-cache default-cache-strategy="fastest"
+                       cache-config-file="cache-config.json">
+    </platinum-sw-cache>
+  </platinum-sw-register> -->
 
 
-  <script type="text/javascript">
-    var analyticsTracker = document.querySelector('#analytics-tracker-pixel');
+  <script type="text/javascript">
+    var analyticsTracker = document.querySelector('#analytics-tracker-pixel');
 
-    function guid() {
-      function s4() {
-        return Math.floor((1 + Math.random()) * 0x10000)
-          .toString(16)
-          .substring(1);
-      }
-      return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-        s4() + '-' + s4() + s4() + s4();
-    }
+    function guid() {
+      function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+          .toString(16)
+          .substring(1);
+      }
+      return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+        s4() + '-' + s4() + s4() + s4();
+    }
 
-    function getRandomInt(min, max) {
-      min = Math.ceil(min);
-      max = Math.floor(max);
-      return Math.floor(Math.random() * (max - min)) + min;
-    }
-    
-    var analyticsObject = {
-      uid: guid(),
-      tid: "{$ config.google.initialTracker $}",
-      cacheBuster: getRandomInt(1,999999999999)
-    };
+    function getRandomInt(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min)) + min;
+    }
+    
+    var analyticsObject = {
+      uid: guid(),
+      tid: "{$ config.google.initialTracker $}",
+      cacheBuster: getRandomInt(1,999999999999)
+    };
 
-    var analyticsURL = 'https://www.google-analytics.com/collect?v=1&tid=' + analyticsObject.tid + '&uid=' + analyticsObject.uid + '&t=event&ec=Cranberry&ea=Requested&ni=1&z=' + analyticsObject.cahceBuster;
+    var analyticsURL = 'https://www.google-analytics.com/collect?v=1&tid=' + analyticsObject.tid + '&uid=' + analyticsObject.uid  + '&t=event&ec=Cranberry&ea=Requested&ni=1&z=' + analyticsObject.cacheBuster;
 
-    analyticsTracker.setAttribute('src', analyticsURL);
-  </script>
+    analyticsTracker.setAttribute('src', analyticsURL);
+  </script>
 
-  <!-- build:js scripts/app.min.js async -->
-  <script src="scripts/app.js"></script>
-  <!-- endbuild-->
-  <!-- Google Analytics tracker -->
-  <!-- <start-google-analytics-tracker code="{$ config.google.analytics $}"></start-google-analytics-tracker> -->
+  <!-- build:js scripts/app.min.js async -->
+  <script src="scripts/app.js"></script>
+  <!-- endbuild-->
+  <!-- Google Analytics tracker -->
+  <!-- <start-google-analytics-tracker code="{$ config.google.analytics $}"></start-google-analytics-tracker> -->
 
 </body>
 
 </html>
-
