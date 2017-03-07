@@ -301,5 +301,9 @@ class CranberryGallery {
 
     shareBar.close();
   }
+
+  _scrollToComments() {
+    this.fire('iron-signal', {name: 'scroll-to-comments'});
+  }
 }
 Polymer(CranberryGallery);
