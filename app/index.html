@@ -96,7 +96,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       cacheBuster: getRandomInt(1,999999999999)
     };
 
-    var analyticsURL = `https://www.google-analytics.com/collect?v=1&tid=${analyticsObject.tid}&uid=${analyticsObject.uid}&t=event&ec=Cranberry&ea=Requested&ni=1&z=${analyticsObject.cahceBuster}`;
+    var analyticsURL = 'https://www.google-analytics.com/collect?v=1&tid=' + analyticsObject.tid + '&uid=' + analyticsObject.uid  + '&t=event&ec=Cranberry&ea=Requested&ni=1&z=' + analyticsObject.cacheBuster;
 
     analyticsTracker.setAttribute('src', analyticsURL);
   </script>
