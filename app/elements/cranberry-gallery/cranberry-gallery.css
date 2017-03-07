@@ -55,7 +55,7 @@ div.gallery-slider-container cranberry-slider div.gallery-tag {
   left: 0;
   background-color: var(--accent-color);
   color: var(--text-dark-accent-color);
-  padding: 6px;
+  padding: 6px 15px;
 }
 
 div.gallery-slider-container cranberry-slider div.expand-link {
