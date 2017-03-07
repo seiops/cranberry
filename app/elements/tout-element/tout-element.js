@@ -42,24 +42,42 @@ class toutElement {
 
       if (typeof story.title !== 'undefined') {
         let metaTag = Polymer.dom(document).querySelector('meta[property="og:title"]');
-        metaTag.setAttribute('content', story.title);
+        let currentContent = metaTag.getAttribute('content');
+        if (currentContent !== story.title) {
+          console.log(metaTag);
+          metaTag.setAttribute('content', story.title);
+        } 
       }
     }
 
     if (typeof storyId !== 'undefined' && storyId !== '') {
       let metaTag = Polymer.dom(document).querySelector('meta[property="tout:article:id"]');
-      metaTag.setAttribute('content', storyId);
+      let currentContent = metaTag.getAttribute('content');
+      if (currentContent !== storyId) {
+        console.log(metaTag);
+        metaTag.setAttribute('content', storyId);
+      } 
+      
     }
     
 
     let slot = this.get('slot');
     let slotName = 'tout-slot-' + slot;
-    let player = this.get('player');
+    let slotSelector = '#tout-slot-' + slot;
+    let playerName = this.get('player');
 
     this.set('slotName', slotName);
 
     TOUT.onReady(function(){
-      TOUT.players.create(player, { selector: '#' + slotName });
+      var myPlayer;
+      console.log(playerName);
+      console.log(slotSelector);
+      var toutPromise = TOUT.players.create(playerName, { selector: slotSelector });
+
+      toutPromise.then(function(player) {
+        console.log(player);
+        myPlayer = player;
+      });
     });
   }
 
