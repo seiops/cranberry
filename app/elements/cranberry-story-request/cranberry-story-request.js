@@ -57,9 +57,15 @@ class cranberryStoryRequest {
   _handleResponse(json) {
     console.info('\<cranberry-story-response\> json response received');
     let result = {};
-    if (typeof json !== 'undefined' && typeof json.detail !== 'undefined' && json.detail.Result !== 'undefined') {
+    if (typeof json !== 'undefined' && typeof json.detail !== 'undefined' && typeof json.detail.Result !== 'undefined') {
+      let beforeParse = json.detail.Result;
+
+      if (typeof beforeParse === 'string' && beforeParse.length > 0) {
+        beforeParse = JSON.parse(beforeParse);
+      }
+
       // Handle Empty Return Case
-      if (Object.keys(json.detail.Result).length === 0) {
+      if (Object.keys(beforeParse).length === 0) {
         let error = {
           errorMessage: "No content fetched.",
           errorCode: 2
