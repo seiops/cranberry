@@ -85,6 +85,12 @@ div.gallery-slider-container cranberry-slider div.share-buttons paper-button {
   bottom: -5px;
 }
 
+div.gallery-slider-container cranberry-slider div.share-buttons paper-button.comment-button {
+  width: 40px;
+  height: 40px;
+  bottom: -12px;
+}
+
 /* Description Text Styles */
 div.gallery-description-container p.gallery-date {
   @apply(--paper-font-caption);
