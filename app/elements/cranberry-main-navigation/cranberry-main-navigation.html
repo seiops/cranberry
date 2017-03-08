@@ -12,7 +12,7 @@
       @import "cranberry-main-navigation/cranberry-main-navigation";
     </style>
 
-    <byutv-jsonp on-response="_handleResponse" id="request"></byutv-jsonp>
+    <byutv-jsonp on-response="_handleResponse" id="request" cache></byutv-jsonp>
 
     <paper-menu id="menu" class="Navigation Navigation--menu list" attr-for-selected="data-route" selected="[[route.path]]" items="[[navigationItems]]">
       <template is="dom-repeat" items="{{navigationItems}}">

@@ -29,6 +29,7 @@ class cranberryMainNavigation {
       let route = this.get('route');
 
       request.setAttribute('url', restUrl);
+      request.setAttribute('callback-value', 'mainNavigation');
       request.params = params;
 
       request.generateRequest();

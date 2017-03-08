@@ -71,9 +71,11 @@ class cranberryBreakingBar {
     let params = this.get('params');
 
     if (params.length !== 0) {
-      this.$.request.url = this.rest;
-      this.$.request.params = params;
-      this.$.request.generateRequest();
+      let request = this.$.request;
+      request.url = this.rest;
+      request.setAttribute('callback-value', 'breakingBar');
+      request.params = params;
+      request.generateRequest();
     }
   }
 
