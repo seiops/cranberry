@@ -227,5 +227,15 @@ class cranberryBreakingBar {
       return trunc;
     }
   }
+
+  _showNextPrev() {
+    let items = this.get('items');
+
+    if (typeof items !== 'undefined' && items.length > 1) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
 Polymer(cranberryBreakingBar);

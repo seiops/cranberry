@@ -33,23 +33,25 @@
             </div>
           </a>
           <div class="breaking-bar-buttons">
-            <paper-icon-button icon="icons:expand-less"
-                               on-tap="_showPrevious"
-                               hidden$="{{mobile}}"
-                               hidden$="{{tablet}}"
-                               ga-on="click"
-                               ga-event-category="Breaking Bar Navigation Clicked"
-                               ga-event-action="uti_brk_nav_prev">
-            </paper-icon-button>
-            <paper-icon-button icon="icons:expand-more"
-                               on-tap="_showNext"
-                               hidden$="{{mobile}}"
-                               hidden$="{{tablet}}"
-                               ga-on="click"
-                               ga-event-category="Breaking Bar Navigation Clicked"
-                               ga-event-action="uti_brk_nav_next">
-            </paper-icon-button>
-            <paper-icon-button icon="icons:close"
+            <template is="dom-if" if="[[_showNextPrev()]]">
+              <paper-icon-button icon="cranberry-icons:expand-less"
+                                on-tap="_showPrevious"
+                                hidden$="{{mobile}}"
+                                hidden$="{{tablet}}"
+                                ga-on="click"
+                                ga-event-category="Breaking Bar Navigation Clicked"
+                                ga-event-action="uti_brk_nav_prev">
+              </paper-icon-button>
+              <paper-icon-button icon="cranberry-icons:expand-more"
+                                on-tap="_showNext"
+                                hidden$="{{mobile}}"
+                                hidden$="{{tablet}}"
+                                ga-on="click"
+                                ga-event-category="Breaking Bar Navigation Clicked"
+                                ga-event-action="uti_brk_nav_next">
+              </paper-icon-button>
+            </template>
+            <paper-icon-button icon="cranberry-icons:close"
                                on-tap="_closeBar"
                                ga-on="click"
                                ga-event-category="Breaking Bar Exit Clicked"
