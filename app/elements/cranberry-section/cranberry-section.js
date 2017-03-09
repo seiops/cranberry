@@ -170,6 +170,8 @@ class CranberrySection {
       } else {
         return 18;
       }
+    } else {
+      return 18;
     }
   }
 }

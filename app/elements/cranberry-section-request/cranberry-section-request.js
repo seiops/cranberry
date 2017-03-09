@@ -7,6 +7,10 @@ class cranberrySectionRequest {
         type: Array,
         notify: true
       },
+      count: {
+        type: Number,
+        value: 0
+      },
       featuredItems: {
         type: Array,
         notify: true
@@ -44,6 +48,7 @@ class cranberrySectionRequest {
       },
       start: {
         type: Number,
+        value: 1,
         observer: '_startChanged'
       },
       tags: String,
@@ -142,7 +147,6 @@ class cranberrySectionRequest {
         this.$.request.abortRequest(currentRequest);
       }
 
-
       this.set('items', []);
 
       let jsonp = {};
@@ -151,7 +155,8 @@ class cranberrySectionRequest {
       let gallerySection = this.get('galleries');
       let homepageFlag;
       let start = this.get('start');
-      
+      let count = this.get('count');
+
       jsonp.request = 'content-list';
 
       if (typeof gallerySection !== undefined && gallerySection) {
@@ -175,12 +180,12 @@ class cranberrySectionRequest {
         jsonp.featuredHomepage = 1;
         if (typeof start === 'undefined' || start === 1) {
           jsonp.auxJailMugs = 1;
-          jsonp.desiredCount = 17;
         } else {
           jsonp.auxJailMugs = 0;
-          jsonp.desiredCount = 18;
         }
       }
+
+      jsonp.desiredCount = count;
 
       this.set('params', jsonp);
     });
