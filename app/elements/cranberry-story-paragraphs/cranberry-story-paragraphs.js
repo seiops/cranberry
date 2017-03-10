@@ -22,8 +22,18 @@ class cranberryStoryParagraphs {
         type: Boolean,
         value: false
       },
-      surveysOff: Boolean,
-      toutOff: Boolean,
+      story: {
+        type: Object,
+        value: {}
+      },
+      surveysOff: {
+        type: Boolean,
+        computed: '_computeSurveysOff(story.surveyOff, mobile)'
+      },
+      toutOff: {
+        type: Boolean,
+        computed: '_computeToutOff(story.toutOff)'
+      },
       toutShortcode: {
         type: Boolean,
         value: false
@@ -62,6 +72,27 @@ class cranberryStoryParagraphs {
         toutDiv.appendChild(tout);
       }
     });
+  }
+
+  _computeSurveysOff(surveyOff, mobile) {
+    // Shut surveys off for anything but mobile.
+    if (!mobile) {
+      return true;
+    }
+
+    if (typeof surveyOff !== 'undefined' && surveyOff) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  _computeToutOff(toutOff) {
+    if (typeof toutOff !== 'undefined' && toutOff) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   _refreshTout() {
