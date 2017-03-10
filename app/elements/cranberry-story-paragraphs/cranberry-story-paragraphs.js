@@ -18,21 +18,22 @@ class cranberryStoryParagraphs {
         value: true
       },
       sectionInformation: Object,
-      staticPage: {
-        type: Boolean,
-        value: false
-      },
+      staticPage: Boolean,
       story: {
         type: Object,
         value: {}
       },
       surveysOff: {
         type: Boolean,
-        computed: '_computeSurveysOff(story.surveyOff, mobile)'
+        computed: '_computeSurveysOff(story.surveyOff, mobile, staticPage)'
+      },
+      surveyIndex: {
+        type: Number,
+        computed: '_computeSurveyIndex(story.surveyIndex)'
       },
       toutOff: {
         type: Boolean,
-        computed: '_computeToutOff(story.toutOff)'
+        computed: '_computeToutOff(story.toutOff, staticPage, story.sectionInformation.section)'
       },
       toutShortcode: {
         type: Boolean,
@@ -57,6 +58,14 @@ class cranberryStoryParagraphs {
     this.async(function()  {
       let contentArea = this.$.paragraphs;
       let toutDiv = contentArea.querySelector('#tempToutDiv');
+      if (toutDiv === null) {
+        let surveyDiv = contentArea.querySelector('google-survey');
+
+        if (surveyDiv !== null) {
+          toutDiv = surveyDiv.querySelector('#tempToutDiv');
+        }
+      }
+
       let toutUid = this.get('toutUid');
 
       if (toutDiv !== null) {
@@ -74,21 +83,27 @@ class cranberryStoryParagraphs {
     });
   }
 
-  _computeSurveysOff(surveyOff, mobile) {
+  _computeSurveysOff(surveyOff, mobile, staticPage, section) {
     // Shut surveys off for anything but mobile.
-    if (!mobile) {
+    if (!mobile || staticPage || (section === 'Obituary' ||  section === 'Death_Notice')) {
       return true;
     }
 
-    if (typeof surveyOff !== 'undefined' && surveyOff) {
+    if (surveyOff) {
       return true;
     } else {
       return false;
     }
   }
 
-  _computeToutOff(toutOff) {
-    if (typeof toutOff !== 'undefined' && toutOff) {
+  _computeSurveyIndex(surveyIndex) {
+    if (typeof surveyIndex !== 'undefined') {
+      return parseInt(surveyIndex);
+    }
+  }
+
+  _computeToutOff(toutOff, staticPage, section) {
+    if (toutOff || staticPage || (section === 'Obituary' ||  section === 'Death_Notice')) {
       return true;
     } else {
       return false;
@@ -99,7 +114,7 @@ class cranberryStoryParagraphs {
     this.async(function()  {
       let touts = Polymer.dom(this.root).querySelectorAll('tout-element');
 
-      touts.forEach(function(value, index) {
+      touts.forEach((value, index) => {
         value.refresh();
       });
     });
@@ -127,90 +142,76 @@ class cranberryStoryParagraphs {
     this._setParagraphsLoading(false);
   }
 
+  _establishParagraph(value, index, array) {
+    let toutOff = this.get('toutOff');
+
+    if (value.shortcode) {
+      let story = this.get('story');
+      let baseDomain = this.get('baseDomain');
+      let toutUid = this.get('toutUid');
+
+      // Paragraph is shortcode
+      if (value.key === 'tout' && !toutOff) {
+        if (index < 4) {
+          toutOff = true;
+        }
+        this._toutShortcodeFlagged();
+      }
+
+      let shortcodeEl = document.createElement('cranberry-shortcode');
+
+      shortcodeEl.set('shortcodeObject', value);
+      shortcodeEl.set('storyObject', story);
+      shortcodeEl.set('baseUrl', baseDomain);
+      shortcodeEl.set('toutUid', toutUid);
+
+      array.push(shortcodeEl);
+    } else {
+      // Paragraph is just text
+      // Establish temp div for Tout placement
+      if (index === 4 && !toutOff) {
+        let tempDiv = document.createElement('div');
+        tempDiv.setAttribute('id', 'tempToutDiv');
+
+        array.push(tempDiv);
+      }
+
+      let paragraphEl = document.createElement('p');
+      paragraphEl.innerHTML = value.text;
+
+      array.push(paragraphEl);
+    }
+
+    return array;
+  }
+
   _setupParagraphs(paragraphs) {
     this.async(() => {
       if (typeof paragraphs !== 'undefined' && paragraphs.length > 0) {
         // Variables for Display
         let story = this.get('story');
-        let staticPage = this.get('staticPage');
         let baseDomain = this.get('baseDomain');
         let toutUid = this.get('toutUid');
         let surveysOff = this.get('surveysOff');
-        let toutOff = this.get('toutOff');
         let surveyIndex = this.get('surveyIndex');
         let gcsSurveyId = this.get('gcsSurveyId');
-        let mobile = this.get('mobile');
+        let distributeToSurveys = false;
         let surveyParagraphs = [];
         let elementsArray = [];
-        let distributeToSurveys = false;
-        let hasTout = false;
 
         this._setParagraphsLoading(true);
-
-        // Turn surveys and Tout off
-        if (staticPage) {
-          surveysOff = true;
-          toutOff = true;
-        }
-
-        // Turn Surveys off for anything but mobile
-        if (!mobile) {
-          surveysOff = true;
-        }
-
-        // Setup Survey Index
-        if (typeof surveysOff !== 'undefined' && !surveysOff) {
-          if (typeof surveyIndex === 'undefined' || surveyIndex === '0') {
-            surveyIndex = 3;
-          } else {
-            surveyIndex = Number(surveyIndex);
-          }
-        }
-
-        // Turn Off Tout for specific sections
-        if (typeof story !=='undefined' && (story.sectionInformation.section === 'Obituary' || story.sectionInformation.section === 'Death_Notice')) {
-          toutOff = true;
-        }
-
+        
         paragraphs.forEach((value, index) => {
-          // UNCOMMENT FOR DEV ENVIRONMENT SURVEYS
+
+          // Survey Logical Switch
           if (index === surveyIndex && !surveysOff) {
             distributeToSurveys = true;
           }
 
           if (!distributeToSurveys) {
-            if (value.shortcode) {
-              // Paragraph is shortcode
-              if (value.key === 'tout' && !toutOff) {
-                hasTout = true;
-                this._toutShortcodeFlagged();
-              }
-
-              let shortcodeEl = document.createElement('cranberry-shortcode');
-
-              shortcodeEl.set('shortcodeObject', value);
-              shortcodeEl.set('storyObject', story);
-              shortcodeEl.set('baseUrl', baseDomain);
-              shortcodeEl.set('toutUid', toutUid);
-
-              elementsArray.push(shortcodeEl);
-            } else {
-              // Paragraph is just text
-              // Establish temp div for Tout placement
-              if (index === 4 && !hasTout && !toutOff) {
-                let tempDiv = document.createElement('div');
-                tempDiv.setAttribute('id', 'tempToutDiv');
-
-                elementsArray.push(tempDiv);
-              }
-
-              let paragraphEl = document.createElement('p');
-              paragraphEl.innerHTML = value.text;
-
-              elementsArray.push(paragraphEl);
-            }
+            elementsArray = this._establishParagraph(value, index, elementsArray);
           } else {
-            surveyParagraphs.push(value);
+            surveyParagraphs = this._establishParagraph(value, index, surveyParagraphs);
           }          
         });
 

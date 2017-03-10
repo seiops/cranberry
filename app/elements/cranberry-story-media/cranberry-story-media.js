@@ -20,7 +20,7 @@ class cranberryStoryMedia {
       hasShortcode: Boolean,
       hidden: {
         type: Boolean,
-        value: true
+        value: false
       },
       hideContent: {
         type: Boolean,

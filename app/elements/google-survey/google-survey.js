@@ -4,20 +4,31 @@ class googleSurvey {
     this.properties = {
       gcsSurveyId: {
         type: String
+      },
+      paragraphs: Array,
+      paragraphsEstablished: {
+        type: Boolean,
+        value: false
+      },
+      scriptAppended: {
+        type: Boolean,
+        value: false
       }
-    }
+    };
+    this.observers = ['_distributeElement(paragraphs)']
   }
 
-  // Registration functions
-  ready() {
-
-  }
-
+  // Lifecycle methods
   attached() {
+    console.info('\<google-survey\> attached');
+    let paragraphsEstablished = this.get('paragraphsEstablished');
+    let scriptAppended = this.get('scriptAppended');
 
+    this._checkSetup();
   }
 
   detached() {
+    console.info('\<google-survey\> detached');
     let script = Polymer.dom(document).querySelector('#googleSurveyScript');
     if (typeof script !== 'undefined' && script !== null) {
       let parent = script.parentNode;
@@ -27,26 +38,43 @@ class googleSurvey {
   }
 
   // Private functions
-  _checkSetup(index) {
-    let paragraphs = this.get('paragraphs');
-    let length = paragraphs.length;
+  _checkSetup() {
+    setTimeout(() => {
+      let paragraphsEstablished = this.get('paragraphsEstablished');
+      let scriptAppended = this.get('scriptAppended');
 
-    if (index + 1 === length) {
-      this._setupSurveyScript();
-    }
+      if (paragraphsEstablished && !scriptAppended) {
+        this._setupSurveyScript();
+      } else {
+        this._checkSetup();
+      }
+    }, 50);
   }
-  _createTextNode(text, index) {
-    let elementsArray = this.querySelectorAll('.p402_hide');
-    let appendElement = elementsArray[index];
-    let paragraph = document.createElement('p');
 
-    paragraph.innerHTML = text;
+  _distributeElement(paragraphs) {
+    console.info('\<google-survey\> establishing paragraphs');
+    let docFragment = document.createDocumentFragment();
+
+    paragraphs.forEach((value, index) => {
+      let wrapper = document.createElement('div');
+      wrapper.classList.add('p402_hide');
+
+      wrapper.appendChild(value);
+
+      docFragment.appendChild(wrapper);
+    });
     
-    appendElement.appendChild(paragraph);
-    this._checkSetup(index);
+    
+
+    let staticWrapper = this.querySelector('.p402_premium');
+    staticWrapper.appendChild(docFragment);
+
+    this.set('paragraphsEstablished', true);
   }
 
   _setupSurveyScript() {
+    this.set('scriptAppended', true);
+
     let gcsSurveyId = this.get('gcsSurveyId');
     
     let ARTICLE_URL = window.location.href;

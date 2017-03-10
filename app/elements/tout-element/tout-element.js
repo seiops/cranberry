@@ -10,7 +10,7 @@ class toutElement {
       },
       hidden: {
         type: Boolean,
-        value: true
+        value: false
       },
       player: Object,
       playerName: String,
