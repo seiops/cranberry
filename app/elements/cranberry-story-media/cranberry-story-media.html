@@ -2,6 +2,7 @@
 <link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
 <link rel="import" href="../gigya-sharebar/gigya-sharebar.html">
 <link rel="import" href="../cranberry-slider/cranberry-slider.html">
+<link rel="import" href="../tout-element/tout-element.html">
 
 <dom-module id="cranberry-story-media">
   <template>
@@ -18,6 +19,9 @@
 
     <div class="parent-media-container">
       <div class="media-container" mobile-layout$="[[mobile]]" tablet-layout$="[[tablet]]" desktop-layout$="[[desktop]]">
+        <!-- TAP TOUT -->
+        <tout-element slot="top-article" player-name="top_article_embed" tout-uid="{$ config.tout.toutUid $}" story="[[content]]" has-player="{{hideContent}}" hidden$="[[hidden]]"></tout-element>
+
         <template is="dom-if" if="[[hasContentToDisplay]]" restamp>
           <!-- No lead shortcode logic -->
           <template is="dom-if" if="[[!hasShortcode]]" restamp>

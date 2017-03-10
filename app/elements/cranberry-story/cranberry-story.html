@@ -90,7 +90,8 @@
                 base-domain="{$ config.baseDomain $}"
                 content="[[response]]"
                 has-shortcode$="[[hasLeadShortcode]]"
-                hidden="[[staticPage]]"
+                hidden$="[[staticPage]]"
+                hidden$="[[hidden]]"
                 lead-shortcode-type="[[leadShortcodeType]]"
                 lead-shortcode-content="[[leadShortcodeContent]]"
                 media="[[response.mediaAssets.images]]"
@@ -112,7 +113,6 @@
             <div class="content-wrapper">
               <!-- Contains story paragraphs -->
               <div class="story-content">
-                <tout-element slot="top-article" player="top_article_embed" tout-uid="[[toutUid]]" story="[[response]]"></tout-element>
                 <cranberry-story-paragraphs paragraphs-loading="{{paragraphsLoading}}"
                                             story="[[response]]"
                                             tout-uid="{$ config.tout.toutUid $}"

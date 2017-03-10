@@ -2,41 +2,112 @@ class toutElement {
   beforeRegister() {
     this.is = 'tout-element';
     this.properties = {
-      story: {
-        type: Object
+      hasPlayer: {
+        type: Boolean,
+        value: false,
+        notify: true,
+        reflectToAttribute: true
       },
-      storyId: {
-        type: Object
+      hidden: {
+        type: Boolean,
+        value: true
       },
-      slot: {
-        type: String
-      },
+      player: Object,
+      playerName: String,
       route: {
         type: Object,
         observer: 'onRouteChanged'
       },
-      player: String,
-      hidden: {
-        type: Boolean,
-        observer: 'onHiddenChanged'
-      },
+      routeData: Object,
+      slot: String,
       slotName: String,
-      routeData: {
-        type: Object
-      },
-      toutUid: {
-        type: String
-      }
+      story: Object,
+      storyId: String,
+      toutUid: String
     };
-    this.observers = ['_routeChanged(routeData.page)'];
+    this.observers = [
+      '_routeChanged(routeData.page)',
+      '_hiddenChanged(hidden)'
+    ];
   }
 
+  // Lifecycle methods
   attached() {
     console.info('\<tout-element\> attached');
-    this._setupToutScript();
+    this._setupToutScript();    
+    this._setMetaData();
+    this._createTout();
+  }
 
+  // Public Methods
+  refresh() {
+    this._createTout();
+  }
+
+  destroy() {
+    this.async(() => {
+      let player = this.get('player');
+      console.dir(player);
+      if (typeof player !== 'undefined' && Object.keys(player).length > 0 && typeof player.destroy === 'function') {
+        console.info('\<tout-element\> destroying player: ' + this.get('playerName'));
+        player.destroy();
+      }
+    });
+  }
+
+  // Private Methods
+  _createTout() {
+    let slot = this.get('slot');
+    let slotName = 'tout-slot-' + slot;
+    let slotSelector = '#tout-slot-' + slot;
+    let playerName = this.get('playerName');
+
+    this.set('slotName', slotName);
+
+    console.info('\<tout-element\> building: ' + playerName + ' : in slot: ' + slotName);
+
+    TOUT.onReady(() => {
+      var toutPromise = TOUT.players.create(playerName, { selector: slotSelector });
+
+      toutPromise.then((player) => {
+        
+        if (typeof player !== 'undefined' && Object.keys(player).length > 0) {
+          console.info('\<tout-element\> player recieved');
+          this.set('player', player);
+          this.set('hasPlayer', true);  
+        } else {
+          console.info('\<tout-element\> no player recieved');
+          this.set('hasPlayer', false);
+        }
+      });
+    });
+  }
+
+  _hiddenChanged(hidden) {
+    let hasPlayer = this.get('hasPlayer');
+    this.async(() => {
+      if (hasPlayer) {
+        if (hidden) {
+          this.destroy();
+        } else {
+          this.refresh();
+        }
+      }
+    });
+  }
+
+  _routeChanged(page) {
+    // if (page === 'section' || page === '') {
+    //   this.destroy(true);
+    // } else {
+    //   this.destroy();
+    // }
+  }
+
+  _setMetaData() {
     let story = this.get('story');
     let storyId = '';
+
     if (typeof story !== 'undefined' && typeof story.itemId !== 'undefined') {
       storyId = story.itemId;
 
@@ -44,7 +115,6 @@ class toutElement {
         let metaTag = Polymer.dom(document).querySelector('meta[property="og:title"]');
         let currentContent = metaTag.getAttribute('content');
         if (currentContent !== story.title) {
-          console.log(metaTag);
           metaTag.setAttribute('content', story.title);
         } 
       }
@@ -54,31 +124,9 @@ class toutElement {
       let metaTag = Polymer.dom(document).querySelector('meta[property="tout:article:id"]');
       let currentContent = metaTag.getAttribute('content');
       if (currentContent !== storyId) {
-        console.log(metaTag);
         metaTag.setAttribute('content', storyId);
       } 
-      
     }
-    
-
-    let slot = this.get('slot');
-    let slotName = 'tout-slot-' + slot;
-    let slotSelector = '#tout-slot-' + slot;
-    let playerName = this.get('player');
-
-    this.set('slotName', slotName);
-
-    TOUT.onReady(function(){
-      var myPlayer;
-      console.log(playerName);
-      console.log(slotSelector);
-      var toutPromise = TOUT.players.create(playerName, { selector: slotSelector });
-
-      toutPromise.then(function(player) {
-        console.log(player);
-        myPlayer = player;
-      });
-    });
   }
 
   _setupToutScript() {
@@ -90,85 +138,6 @@ class toutElement {
         TOUT.init(toutUid);
       })(toutUid);
     }
-  }
-
-  detached() {
-    console.info('\<tout-element\> detached');
-    this.destroy();
-  }
-
-  refresh() {
-    this.async(function() {
-      let player = this.get('player');
-      let slotName = this.get('slotName');
-
-      TOUT.onReady(function(){
-        TOUT.slotManager.slotReady(player, '#' + slotName);
-      });
-    });
-  }
-
-  destroy(autoRefresh) {
-    let el = this;
-    let slotName = this.get('slotName');
-
-    let toutDefined = new Promise(
-      function(resolve, reject) {
-        function timeoutFunction() {
-          setTimeout(function() {
-            if (typeof TOUT !== 'undefined' && typeof TOUT.onReady === 'function') {
-              resolve(true);
-              return;
-            } else {
-              timeoutFunction();
-            }
-          }, 50);
-        }
-        timeoutFunction();
-      }
-    );
-
-    toutDefined.then(function(val) {
-      TOUT.onReady(function(){
-        let $slot = TOUT.$('#' + slotName);
-        let players = TOUT.players.getAll();
-        let player = players.find(function(player) {
-          return $slot.has(player._player.$el);
-        });
-
-        if(typeof player !== 'undefined' && typeof player.instanceID !== 'undeinfed' && player.instanceID !== ''){
-          player.destroy();
-
-          let toutWrapper = el.querySelector('#' + slotName);
-          toutWrapper.innerHTML = '';
-
-          if (autoRefresh) {
-            el.refresh();
-          }
-        }
-      });
-    });
-  }
-
-  _routeChanged(page) {
-    if (page === 'section' || page === '') {
-      this.destroy(true);
-    } else {
-      this.destroy();
-    }
-  }
-
-    // check if Tout API is loaded
-  _checkTout() {
-    let el = this;
-
-    setTimeout(function() {
-      if (typeof TOUT !== 'undefined') {
-        return true;
-      } else {
-        el._checkTout();
-      }
-    }, 50);
   }
 }
 Polymer(toutElement);
