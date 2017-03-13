@@ -153,6 +153,20 @@ module.exports = {
         label: 'Archive',
         link: '/archive'
       }
+    ],
+    formDepartments: [
+      {
+        name: 'Newsroom',
+        email: 'news@sanduskyregister.com'
+      },
+      {
+        name: 'Circulation',
+        email: 'circulation@sanduskyregister.com'
+      },
+      {
+        name: 'Advertising',
+        email: 'advertising@sanduskyregister.com'
+      }
     ]
   },
   archiveCards: [
