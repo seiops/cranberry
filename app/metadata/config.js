@@ -2,7 +2,7 @@ module.exports = {
   // URL Structure
   baseUrl: '/',
   baseDomain: 'http://www.sanduskyregister.com',
-  baseEndpointUrl: 'http://srdevcore.libercus.net/rest.json',
+  baseEndpointUrl: 'http://srstgcore.libercus.net/rest.json',
   appVersion: '<0.1',
   baseCanonicalUrl: 'https://github.com/seiops/cranberry/',
   calendarDomain: 'sanduskyregister',
@@ -120,7 +120,7 @@ module.exports = {
       {
         logo: 'cranberry-icons:chrome-reader-mode',
         label: 'Newsroom',
-        phone: '419-502-2060'
+        phone: '419-502-2160'
       },
       {
         logo: 'cranberry-icons:laptop',

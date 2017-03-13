@@ -120,7 +120,7 @@ module.exports = {
       {
         logo: 'cranberry-icons:chrome-reader-mode',
         label: 'Newsroom',
-        phone: '419-502-2060'
+        phone: '419-502-2160'
       },
       {
         logo: 'cranberry-icons:laptop',
