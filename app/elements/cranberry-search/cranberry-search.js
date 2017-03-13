@@ -2,77 +2,69 @@ class cranberrySearch {
   beforeRegister() {
     this.is = 'cranberry-search';
     this.properties = {
-      route: {
-        type: Object
-      },
-      queryString: {
-        type: String
-      },
       displayQuery: {
         type: String,
         value: 'Search'
       },
+      hidden: {
+        type: Boolean,
+        reflectToAttribute: true,
+        value: false,
+        observer: '_clearResults'
+      },
+      isSearching: {
+        type: Boolean,
+        value: false
+      },
+      items: Object,
+      loadSection: {
+        type: String,
+        value: 'news'
+      },
+      noQuery: {
+        type: Boolean,
+        value: true
+      },
+      queryString: String,
       response: {
         type: Object,
         observer: '_parseResponse'
       },
       request: Object,
-      items: {
-        type: Object
+      rest: String,
+      route: Object,
+      sortOrder: {
+        type: String,
+        value: 'Relevance',
+        observer: '_sortOrderChanged'
       },
       start: {
         type: Number,
         value: 1,
         observer: '_onStartChanged'
       },
-      totalResults: {
-        type: Number
-      },
-      isSearching: {
-        type: Boolean,
-        value: false
-      },
-      loadSection: {
-        type: String,
-        value: 'news'
-      },
-      hidden: {
-        type: Boolean,
-        reflectToAttribute: true,
-        value: true
-      },
-      rest: {
-        type: String
-      },
-      noQuery: {
-        type: Boolean,
-        value: true
-      }
+      totalResults: Number 
     };
-    // this.listeners = {
-    //   'next.tap': '_paginate',
-    //   'prev.tap': '_paginate'
-    // };
     this.observers = ['_requestSearch(queryString)',
-                      '_clearResults(hidden)',
                       '_onRouteChanged(route)']
   }
 
-  _clearResults(hidden) {
-    if (hidden === true) {
+  _clearResults(hidden, oldHidden) {
+    if (typeof hidden !== 'undefined' && typeof oldHidden !== 'undefined') {
+      if (hidden) {
+        this._checkCurrentRequest();
 
-      this._checkCurrentRequest();
+        let results = this.$.searchContent;
 
-      let results = this.$.searchContent;
-
-      if (Polymer.dom(results).firstChild) {
-        this._resetParams();
+        if (Polymer.dom(results).firstChild) {
+          this._resetParams();
+        }
+      } else {
+        this.async(function() {
+          let queryString = this.get('queryString');
+          this._requestSearch(queryString);
+        });
       }
-    } else {
-      this.async(function() {
-        let queryString = this.get('queryString');
-        this._requestSearch(queryString);
-      });
     }
   }
 
@@ -82,11 +74,9 @@ class cranberrySearch {
     this.set('items', []);
     this.set('start', 1);
     this.set('displayQuery', 'Search');
-    // this.$.searchRe._clear();
   }
 
-  _requestSearch(queryString, move) {
-
+  _requestSearch(queryString, move, sortOrder) {
     if (typeof queryString !== 'undefined' && queryString !== '') {
       this.set('noQuery', false);
       this.set('isSearching', true);
@@ -104,6 +94,10 @@ class cranberrySearch {
       params.key = 'AIzaSyCMGfdDaSfjqv5zYoS0mTJnOT3e9MURWkU';
       params.num = 10;
       params.q = queryString;
+      
+      if (typeof sortOrder !== 'undefined' && sortOrder === 'Date') {
+        params.sort = 'date';
+      }
 
       if (typeof move !== 'undefined') {
         params.start = move;
@@ -135,20 +129,22 @@ class cranberrySearch {
   }
 
   _onStartChanged(newValue, oldValue) {
-    let hidden = this.get('hidden');
-    // Reload the ads
-    if (!hidden || typeof hidden === 'undefined') {
-      // Set location to undefined to trigger the same value being placed in as a new value ** Ad refresh**
-      this.set('loadSection', undefined);
-      this.set('loadSection', 'news');
+    if (typeof oldValue !== 'undefined') {
+      let hidden = this.get('hidden');
+      // Reload the ads
+      if (!hidden || typeof hidden === 'undefined') {
+        // Set location to undefined to trigger the same value being placed in as a new value ** Ad refresh**
+        this.set('loadSection', undefined);
+        this.set('loadSection', 'news');
+      }
+      // Get the current query string
+      let query = this.get('queryString');
+
+      // Genereate new card request based on new start value
+      this._requestSearch(query, newValue);
+
+      window.scrollTo(0,0);
     }
-    // Get the current query string
-    let query = this.get('queryString');
-
-    // Genereate new card request based on new start value
-    this._requestSearch(query, newValue);
-
-    window.scrollTo(0,0);
   }
 
   _handleLoad() {
@@ -160,7 +156,6 @@ class cranberrySearch {
   }
 
   _parseResponse(response) {
-      console.dir(response);
       if (typeof response !== 'undefined' && typeof response.items !== 'undefined') {
         this.set('items', response.items);
 
@@ -230,6 +225,15 @@ class cranberrySearch {
       return trunc;
     } else {
       return '';
+    }
+  }
+
+  _sortOrderChanged(sortOrder, oldSortOrder) {
+    if (typeof sortOrder !== 'undefined' && typeof oldSortOrder !== 'undefined' && sortOrder !== '') {
+      console.info('<\cranberry-search\> sort order changed: ', sortOrder);
+      let queryString = this.get('queryString');
+      this._resetParams();
+      this._requestSearch(queryString, undefined, sortOrder);
     }
   }
 }

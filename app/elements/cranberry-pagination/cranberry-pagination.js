@@ -86,6 +86,8 @@ class cranberryPagination {
   _startChanged(start) {
     if (typeof start !=='undefined' && start !== 1) {
       this._showPreviousButton();
+    } else {
+      this.set('hidePreviousButton', true);
     }
   }
 
