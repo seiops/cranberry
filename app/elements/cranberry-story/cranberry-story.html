@@ -44,22 +44,24 @@
     </cranberry-story-request>
 
     <div class="cranberry-story">
-      <!-- Main Header Ad -->
-      <div class="banner-advertisement">
-        <google-dfp
-          section="[[response.sectionInformation.sectionName]]"
-          section-parent="[[response.sectionInformation.sectionParentName]]"
-          tags="[[response.tags]]"
-          ad-pos="leaderboard"
-          ad-size-mapping="leaderboard"
-          ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
-          ad-group="{$ config.dfpAdStructure.adGroupID $}"
-          ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
-          ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
-          id="topAd"
-          hidden$="[[hidden]]">
-        </google-dfp>
-      </div>
+      <template is="dom-if" if="[[!staticPage]]">
+        <!-- Main Header Ad -->
+        <div class="banner-advertisement">
+          <google-dfp
+            section="[[response.sectionInformation.sectionName]]"
+            section-parent="[[response.sectionInformation.sectionParentName]]"
+            tags="[[response.tags]]"
+            ad-pos="leaderboard"
+            ad-size-mapping="leaderboard"
+            ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
+            ad-group="{$ config.dfpAdStructure.adGroupID $}"
+            ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
+            ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
+            id="topAd"
+            hidden$="[[hidden]]">
+          </google-dfp>
+        </div>
+      </template>
       
       <!-- Loading Content Display -->
       <template is="dom-if" if="[[loading]]">

@@ -55,7 +55,7 @@ div.gallery-slider-container cranberry-slider div.gallery-tag {
   left: 0;
   background-color: var(--accent-color);
   color: var(--text-dark-accent-color);
-  padding: 6px;
+  padding: 6px 15px;
 }
 
 div.gallery-slider-container cranberry-slider div.expand-link {
@@ -83,6 +83,12 @@ div.gallery-slider-container cranberry-slider div.share-buttons paper-button {
   color: var(--text-dark-accent-color);
   margin-right: 25px;
   bottom: -5px;
+}
+
+div.gallery-slider-container cranberry-slider div.share-buttons paper-button.comment-button {
+  width: 40px;
+  height: 40px;
+  bottom: -12px;
 }
 
 /* Description Text Styles */

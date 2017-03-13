@@ -113,7 +113,7 @@ module.exports = {
       {
         logo: 'cranberry-icons:lightbulb-outline',
         label: 'News Tip',
-        phone: '419-502-2060',
+        phone: '419-502-2160',
         link: true,
         linkUrl: 'http://tellus.sanduskyregister.com/'
       },
