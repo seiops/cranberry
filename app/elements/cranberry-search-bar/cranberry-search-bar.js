@@ -65,8 +65,6 @@ class cranberrySearchBar {
 
     query = this._cleanQuery(query);
 
-    console.log(query);
-
     this.async(function() {
       // Change the app location to match search and the query string
       let appLocation = document.querySelector('app-location');

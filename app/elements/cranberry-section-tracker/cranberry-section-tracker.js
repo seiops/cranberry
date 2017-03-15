@@ -52,14 +52,20 @@ class cranberrySectionTracker {
   }
 
   _handleResponse(response) {
-    var result = JSON.parse(response.detail.Result);
+    if (typeof response.detail !== 'undefined' && response.detail.Result !== 'undefined' && response.detail.Result !== '') {
+      let result = JSON.parse(response.detail.Result);
 
-    this.set('section', result.sectionId.replace(/_/g, '-'));
-    if (typeof result.sectionParent === 'undefined') {
-      this.set('parentSection', '');
+      this.set('section', result.sectionId.replace(/_/g, '-'));
+      if (typeof result.sectionParent === 'undefined') {
+        this.set('parentSection', '');
+      } else {
+        this.set('parentSection', result.sectionParent);
+      }
     } else {
-      this.set('parentSection', result.sectionParent);
+      this.set('section', 'news');
+      this.set('parentSection', '');
     }
+    
   }
 
 }

@@ -12,6 +12,10 @@ class cranberrySearch {
         value: false,
         observer: '_clearResults'
       },
+      firstSearch: {
+        type: Boolean,
+        value: true
+      },
       isSearching: {
         type: Boolean,
         value: false
@@ -78,6 +82,15 @@ class cranberrySearch {
 
   _requestSearch(queryString, move, sortOrder) {
     if (typeof queryString !== 'undefined' && queryString !== '') {
+
+      let firstSearch = this.get('firstSearch');
+
+      if (!firstSearch) {
+        this._refreshAds();
+      } else {
+        this.set('firstSearch', false);
+      }
+
       this.set('noQuery', false);
       this.set('isSearching', true);
       
@@ -119,24 +132,25 @@ class cranberrySearch {
     if (newValue.path !== null && typeof newValue.path !== 'undefined') {
       let queryString = newValue.path.replace('/', '');
       this.set('queryString', queryString);
-
-      if (!hidden || typeof hidden === 'undefined') {
-        // Set location to undefined to trigger the same value being placed in as a new value ** Ad refresh**
-        this.set('loadSection', undefined);
-        this.set('loadSection', 'news');
-      }
     }
+  }
+
+  _refreshAds() {
+    this.async(() => {
+      console.info('<\cranberry-search\> refreshing ads');
+      let ads = Polymer.dom(this.root).querySelectorAll('google-dfp');
+
+      if (ads.length > 0) {
+        ads.forEach((value, index) => {
+          value.refresh();
+        });
+      }
+    });
   }
 
   _onStartChanged(newValue, oldValue) {
     if (typeof oldValue !== 'undefined') {
       let hidden = this.get('hidden');
-      // Reload the ads
-      if (!hidden || typeof hidden === 'undefined') {
-        // Set location to undefined to trigger the same value being placed in as a new value ** Ad refresh**
-        this.set('loadSection', undefined);
-        this.set('loadSection', 'news');
-      }
       // Get the current query string
       let query = this.get('queryString');
 
