@@ -60,7 +60,7 @@ div.search-header-container div.sort {
   @apply(--layout-flex-end);
   @apply(--layout-end-justified);
   display: flex;
-  flex: 1 1 auto;
+  flex: 1 1 auto; 
 }
 
 h1.result-header {

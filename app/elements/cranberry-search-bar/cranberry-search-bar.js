@@ -62,6 +62,11 @@ class cranberrySearchBar {
     this._checkQueryStatus();
     // Get the query string
     let query = this.get('query');
+
+    query = this._cleanQuery(query);
+
+    console.log(query);
+
     this.async(function() {
       // Change the app location to match search and the query string
       let appLocation = document.querySelector('app-location');
@@ -78,6 +83,12 @@ class cranberrySearchBar {
 
       this._sendEvent();
     });
+  }
+
+  _cleanQuery(query) {
+    if (typeof query !== 'undefined' && query !== '') {
+      return query.replace(/[?&:%*<>#"]/g, '').replace(/  /g, ' ');
+    }
   }
 
   _clearInput() {
