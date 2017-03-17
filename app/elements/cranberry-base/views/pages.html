@@ -1,4 +1,4 @@
-<neon-lazy-pages class="Main-content" attr-for-selected="data-route" selected="[[data.page]]" default-selected="" loading="{{loading}}" entry-animation="fade-in-animation" exit-animation="fade-out-animation">
+<iron-lazy-pages class="Main-content" attr-for-selected="data-route" selected="[[data.page]]" default-selected="" load-async>
   <template is="iron-lazy-page" data-route="">
     {% include "cranberry-base/views/pages/home.html" %}
   </template>
@@ -71,4 +71,4 @@
   <template is="iron-lazy-page" data-route="profile">
     {% include "cranberry-base/views/pages/profile.html" %}
   </template>
-</neon-lazy-pages>
+</iron-lazy-pages>

@@ -6,6 +6,9 @@
 <link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
 <link rel="import" href="../../bower_components/page-title/page-title.html">
 <link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/fade-out-animation.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/fade-in-animation.html">
+<link rel="import" href="../../bower_components/neon-animation/neon-animation-runner-behavior.html">
 <link rel="import" href="../cranberry-content-list/cranberry-content-list.html">
 <link rel="import" href="../cranberry-featured-content/cranberry-featured-content.html">
 <link rel="import" href="../cranberry-search-bar/cranberry-search-bar.html">
@@ -32,7 +35,16 @@
     <page-title base-title="{$ config.title $}" title="[[sectionTitle]]"></page-title>
 
     <!-- Section Tracker -->
-    <cranberry-section-tracker rest="{$ config.baseEndpointUrl $}" page="[[routeData.section]]" parent-section="{{trackerParentSection}}" section="{{trackerSection}}" tags$="{{tags}}" hidden$="[[hidden]]"></cranberry-section-tracker>
+    <cranberry-section-tracker rest="{$ config.baseEndpointUrl $}"
+                               page="[[routeData.section]]"
+                               parent-section="{{trackerParentSection}}"
+                               section="{{trackerSection}}"
+                               tags$="{{tags}}"
+                               disable-featured="{{disableFeatured}}"
+                               is-galleries$="[[galleries]]"
+                               loading="{{sectionTrackingInProgress}}"
+                               hidden$="[[hidden]]">
+    </cranberry-section-tracker>
 
     <!-- Section Reuqest -->
     <cranberry-section-request 
@@ -43,24 +55,33 @@
       start="[[start]]"
       count="[[_computeCount(isHomepage, currentPage)]]"
       hidden$="[[hidden]]"
+      disable-featured$="[[disableFeatured]]"
       featured-items="{{featuredItems}}"
       content-items="{{contentItems}}"
       parent-section="[[trackerParentSection]]"
       section="[[trackerSection]]"
       load-section="[[loadSection]]"
-      request-in-progress="{{contentLoading}}"
+      loading="{{contentLoading}}"
       author="{$ config.socialNaming.twitter $}">
     </cranberry-section-request>
 
-    <div class="header-advertisement">
+    <div class="section-wrapper" hidden$="[[loading]]">
+      <div class="header-advertisement">
         <google-dfp section="[[trackerSection]]" section-parent="[[trackerParentSection]]" tags="[[tag]]" ad-size-mapping="leaderboard" ad-pos="leaderboard" ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}" hidden$="[[hidden]]"></google-dfp>
-    </div>
+      </div>
 
-    <scorestream-widget rest="{$ config.baseEndpointUrl $}" route="{{routeData}}" section="[[loadSection]]" hidden$="[[hidden]]"></scorestream-widget>
+      <scorestream-widget rest="{$ config.baseEndpointUrl $}" route="{{routeData}}" section="[[loadSection]]" hidden$="[[hidden]]"></scorestream-widget>
 
-    <div class="section-wrapper" hidden$="[[contentLoading]]">
-      <!-- FEATURED CONTENT ELEMENT -->
-      <cranberry-featured-content items="{{featuredItems}}" sections="[[loadSection]]" hidden$="[[featuredHidden]]" hidden$="[[requestLoading]]" main-hidden$="[[hidden]]" homepage$="[[isHomepage]]"></cranberry-featured-content>
+      <template is="dom-if" if="[[!_computeDisableFeatured(disableFeatured)]]" restamp>
+        <!-- FEATURED CONTENT ELEMENT -->
+        <cranberry-featured-content items="{{featuredItems}}"
+                                    sections="[[loadSection]]"
+                                    loading$="[[requestLoading]]"
+                                    displayFeatured$="[[disableFeatured]]"
+                                    hidden$="[[hidden]]"
+                                    homepage$="[[isHomepage]]">
+        </cranberry-featured-content>
+      </template>
 
       <div hidden$="[[_isLatest(selected)]]">
         <paper-material elevation="1">
@@ -80,15 +101,31 @@
 
       <template is="dom-if" if="[[_isLatest(selected)]]">
         <!-- CONTENT LIST ELEMENT -->
-        <cranberry-content-list items="[[contentItems]]" sections="[[loadSection]]" section="[[section]]" tracked-section="[[trackerSection]]" tracked-parent-section="[[trackerParentSection]]" tags="[[tags]]" tag="[[tag]]" homepage$="[[isHomepage]]" hidden$="[[contentLoading]]" hidden$="[[hidden]]"></cranberry-content-list>
+        <cranberry-content-list items="[[contentItems]]"
+                                sections="[[loadSection]]"
+                                section="[[section]]"
+                                tracked-section="[[trackerSection]]"
+                                tracked-parent-section="[[trackerParentSection]]"
+                                tags="[[tags]]"
+                                tag="[[tag]]"
+                                homepage$="[[isHomepage]]"
+                                hidden$="[[contentLoading]]"
+                                hidden$="[[hidden]]">
+        </cranberry-content-list>
         <div class="pagination-wrapper">
-          <cranberry-pagination start="{{start}}" current-page="{{currentPage}}" section="[[trackerSection]]" parent="[[trackerParentSection]]" count="[[_computeCount(isHomepage, currentPage)]]" hidden$="[[hidden]]"></cranberry-pagination>
+          <cranberry-pagination start="{{start}}"
+                                current-page="{{currentPage}}"
+                                section="[[trackerSection]]"
+                                parent="[[trackerParentSection]]"
+                                count="[[_computeCount(isHomepage, currentPage)]]"
+                                hidden$="[[hidden]]">
+          </cranberry-pagination>
         </div>
       </template>
     </div>
 
-    <div class="loading-container" hidden$="[[!contentLoading]]">
-      <paper-spinner active$="[[contentLoading]]"></paper-spinner>
+    <div class="loading-container" id="loader" hidden$="[[!loading]]">
+      <paper-spinner active$="[[loading]]"></paper-spinner>
       <p>Fetching Your Content...</p>
     </div>
     <!-- <template is="dom-if" if="[[_isLocal(selected)]]">

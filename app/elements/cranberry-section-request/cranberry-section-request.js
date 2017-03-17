@@ -11,6 +11,7 @@ class cranberrySectionRequest {
         type: Number,
         value: 0
       },
+      disableFeatured: Boolean,
       featuredItems: {
         type: Array,
         notify: true
@@ -18,6 +19,11 @@ class cranberrySectionRequest {
       hidden: Boolean,
       items: {
         type: Object
+      },
+      loading: {
+        type: Boolean,
+        computed: '_computeLoading(requestInProgress, requestGenerated)',
+        notify: true
       },
       loadSection: {
         type: String,
@@ -36,10 +42,13 @@ class cranberrySectionRequest {
         type: Object,
         observer: '_parseResponse'
       },
+      requestGenerated: {
+        type: Boolean,
+        value: false
+      },
       requestInProgress: {
         type: Boolean,
-        value: false,
-        notify: true
+        value: true
       },
       routeData: String,
       section: {
@@ -78,25 +87,34 @@ class cranberrySectionRequest {
       let tagSection = this.get('tagSection');
       let tags = this.get('tags');
       if (!hidden) {
-          if (!tagSection) {
-            if (parentSection === '') {
+        if (!tagSection) {
+          if (parentSection === '') {
+            this.set('loadSection', section);
+          } else {
+            if (section !== '') {
               this.set('loadSection', section);
             } else {
-              if (section !== '') {
-                this.set('loadSection', section);
-              } else {
-                this.set('loadSection', parentSection);
-              }  
-            }
-          } else {
-            this.set('loadSection', tags);
+              this.set('loadSection', parentSection);
+            }  
           }
-          this._firePageview();
-          this._fireNativo();
+        } else {
+          this.set('loadSection', tags);
         }
+
+        this._firePageview();
+        this._fireNativo();
+      }
     }, 50);
   }
 
+  _computeLoading(requestLoading, requestGenerated) {
+    if (requestGenerated && !requestLoading) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+  
   _sectionChanged(section, parentSection, hidden) {
     this.async(() => {
       this.debouncedChanged(section, parentSection, hidden);
@@ -139,7 +157,7 @@ class cranberrySectionRequest {
   }
 
   _updateParams(loadSection) {
-    this.async(function () {
+    this.async(() => {
       let currentRequest = this.get('request');
 
       if (typeof currentRequest !== 'undefined' && currentRequest.loading === true) {
@@ -151,6 +169,7 @@ class cranberrySectionRequest {
 
       let jsonp = {};
       let sections = (typeof loadSection !== 'undefined') ? loadSection : this.get('loadSection');
+      let disableFeatured = this.get('disableFeatured');
       let tagSection = this.get('tagSection');
       let gallerySection = this.get('galleries');
       let homepageFlag;
@@ -173,6 +192,7 @@ class cranberrySectionRequest {
         jsonp.desiredSection = sections;
       }
       
+      jsonp.disableFeatured = disableFeatured;
       jsonp.desiredContent = this._isGalleries(this.get('galleries'));
       jsonp.desiredStart = start;
 
@@ -198,6 +218,7 @@ class cranberrySectionRequest {
       this.$.request.setAttribute('callback-value', 'callback');
       this.$.request.params = params;
       this.$.request.generateRequest();
+      this.set('requestGenerated', true);
     }
   }
 
