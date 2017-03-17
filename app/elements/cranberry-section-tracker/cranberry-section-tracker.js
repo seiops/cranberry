@@ -58,8 +58,8 @@ class cranberrySectionTracker {
   }
 
   _computeAppSection(page, isGalleries, hidden) {
-    console.log(`page: ${page} hidden: ${hidden} isGalleries: ${isGalleries}`);
-    if (!hidden && page !== 'section') {
+    if (!hidden && page !== 'section' && page !== 'story' && page !== 'photo-gallery' && page !== 'profile' && page !== 'contact'
+    && page !== 'archive' && page !== 'forecast' && page !== 'jail-mugs') {
       if (page === 'galleries' && isGalleries) {
         this.set('sectionToFetch', page);
       }
