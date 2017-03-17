@@ -113,14 +113,14 @@ module.exports = {
       {
         logo: 'cranberry-icons:lightbulb-outline',
         label: 'News Tip',
-        phone: '419-502-2060',
+        phone: '419-502-2160',
         link: true,
         linkUrl: 'http://tellus.sanduskyregister.com/'
       },
       {
         logo: 'cranberry-icons:chrome-reader-mode',
         label: 'Newsroom',
-        phone: '419-502-2060'
+        phone: '419-502-2160'
       },
       {
         logo: 'cranberry-icons:laptop',
@@ -152,6 +152,20 @@ module.exports = {
       {
         label: 'Archive',
         link: '/archive'
+      }
+    ],
+    formDepartments: [
+      {
+        name: 'Newsroom',
+        email: 'news@sanduskyregister.com'
+      },
+      {
+        name: 'Circulation',
+        email: 'circulation@sanduskyregister.com'
+      },
+      {
+        name: 'Advertising',
+        email: 'advertising@sanduskyregister.com'
       }
     ]
   },
@@ -210,8 +224,8 @@ module.exports = {
       linkUrl: 'http://www.norwalkreflector.com'
     },
     {
-      label: 'Contests',
-      link: 'http://www.tandemnetwork.com/contests-and-promotions/'
+      linkText: 'Contests',
+      linkUrl: 'http://www.tandemnetwork.com/contests-and-promotions/'
     },
     {
       linkText: 'Local Guide',

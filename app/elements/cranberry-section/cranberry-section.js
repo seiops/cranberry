@@ -1,7 +1,26 @@
 class CranberrySection {
+  get behaviors() {
+    return [Polymer.NeonAnimationRunnerBehavior]
+  }
   beforeRegister() {
     this.is = 'cranberry-section';
     this.properties = {
+      animationConfig: {
+        value: function() {
+          return {
+            'entry': {
+              name: 'fade-in-animation',
+              node: this,
+              timing: {duration: 1500}
+            }
+          }
+        }
+      },
+      contentLoading: {
+        type: Boolean,
+        value: true,
+        observer: '_loadingChanged'
+      },
       contentItems: Array,
       count: {
         type: Number,
@@ -11,6 +30,10 @@ class CranberrySection {
         type: Number,
         value: 1,
         observer: '_currentPageChanged'
+      },
+      disableFeatured: {
+        type: Boolean,
+        value: true
       },
       featuredItems: Array,
       galleries: {
@@ -27,12 +50,22 @@ class CranberrySection {
         reflectToAttribute: true,
         value: false
       },
+      loading: {
+        type: Boolean,
+        computed: '_computeLoading(contentLoading, sectionTrackingInProgress)'
+      },
+      previousLoading: Boolean,
+      refreshAds: {
+        type: Boolean,
+        computed: '_computeRefreshAds(hidden, loading)'
+      },
       route: Object,
       routeData: Object,
       sectionTitle: {
         type: String,
         value: ''
       },
+      sectionTrackingInProgress: Boolean,
       selected: {
         type: Number,
         value: 0
@@ -47,9 +80,63 @@ class CranberrySection {
       tags: {
         type: Boolean,
         value: false
+      },
+      willGenerateRequest: {
+        type: Boolean,
+        value: true
       }
     };
-    this.observers = ['_hiddenChanged(hidden, routeData)'];
+    this.observers = [
+      '_hiddenChanged(hidden, routeData.section)',
+      '_refreshAds(refreshAds)'
+    ];
+  }
+
+  _computeRefreshAds(hidden, loading) {
+    let previousLoading = this.get('previousLoading');
+    let returnValue = false;
+    if (!hidden && previousLoading === loading && !loading && !previousLoading) {
+      returnValue = true;
+    }
+
+    this.set('previousLoading', loading);
+
+    return returnValue;
+  }
+
+  _refreshAds(refreshAds) {
+    if (refreshAds) {
+
+
+      this.async(() => {
+          let sectionAds = Polymer.dom(this.root).querySelectorAll('google-dfp');
+          let contentList = Polymer.dom(this.root).querySelector('cranberry-content-list');
+          let contentListAds = Polymer.dom(contentList.root).querySelectorAll('google-dfp');
+          let ads = sectionAds.concat(contentListAds);
+
+          ads.forEach((value, index) => {
+            value.refresh();
+          });
+      });
+    }
+  }
+
+  _computeLoading(contentLoading, sectionLoading) {
+    let willGenerateRequest = this.get('willGenerateRequest');
+
+    if (sectionLoading) {
+      this.set('willGenerateRequest', true);
+    }
+
+    if (contentLoading) {
+      this.set('willGenerateRequest', false);
+    }
+
+    if (!contentLoading && !sectionLoading && !willGenerateRequest) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   attached() {
@@ -73,6 +160,14 @@ class CranberrySection {
       tabs.addEventListener('iron-select', function() {
           this.set('selected', tabs.selected);
       });
+  }
+
+  _computeDisableFeatured(disableFeatured) {
+    if (typeof disableFeatured === 'undefined') {
+      return true;
+    } else {
+      return disableFeatured;
+    }
   }
 
   _equal(a, b) {
@@ -132,34 +227,42 @@ class CranberrySection {
     }
   }
 
-  _hiddenChanged(hidden, routeData) {
+  _hiddenChanged(hidden, section) {
     if (!hidden) {
       let title = '';
-      if(typeof routeData.section !== 'undefined' && routeData.section !== 'section') {
-        if (routeData.section === '') {
+      if(typeof section !== 'undefined' && section !== 'section') {
+        if (section === '') {
           title = 'Home';
-        } else if(routeData.section === 'tags') {
+        } else if(section === 'tags') {
           let route = this.get('route');
           let path = route.path;
           path = path[0].toUpperCase() + path.slice(1)
           title = path;
         } else {
-          let route = routeData.section;
+          let route = section;
           route = route[0].toUpperCase() + route.slice(1);
           title = route;
         }
       }
       this.set('sectionTitle', title);
+    }
+  }
 
-      this.fire('iron-signal', {name: 'refresh-ad' });
+  _loadingChanged(loading, oldLoading) {
+    if (!loading) {
+      this.playAnimation('entry');
     }
   }
 
   _currentPageChanged(newValue, oldValue) {
-    if (typeof newValue !== 'undefined' && newValue > 1) {
-      this.set('featuredHidden', true);
-    } else {
-      this.set('featuredHidden', false);
+    if (typeof newValue !== 'undefined') {
+      if (newValue > 1) {
+        this.set('disableFeatured', true);
+      } else {
+        if (typeof oldValue !== 'undefined') {
+          this.set('disableFeatured', false);
+        }
+      }
     }
   }
 
