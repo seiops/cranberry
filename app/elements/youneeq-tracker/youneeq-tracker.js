@@ -17,7 +17,9 @@ class youneeqTracker {
       },
       previousURL: {
         type: String,
-        value: document.referrer
+        value: function() {
+          document.referrer
+        }
       },
       youneeqId: {
         type: String,
