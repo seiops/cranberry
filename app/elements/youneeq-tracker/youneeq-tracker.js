@@ -98,11 +98,9 @@ class youneeqTracker {
 
   sendPageHit(event) {
     console.info('<\youneeq-tracker\> page hit event received');
-    if(event.detail){
+    if(typeof event.detail !== 'undefined' && typeof event.detail.content !== 'undefined'){
       let content = event.detail.content;
-      this._pageHitChanged(content);
-    } else {
-      this._pageHitChanged(event);
+      this.set('content', content);
     }
   }
 
