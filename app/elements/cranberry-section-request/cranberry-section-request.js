@@ -7,6 +7,11 @@ class cranberrySectionRequest {
         type: Array,
         notify: true
       },
+      count: {
+        type: Number,
+        value: 0
+      },
+      disableFeatured: Boolean,
       featuredItems: {
         type: Array,
         notify: true
@@ -14,6 +19,11 @@ class cranberrySectionRequest {
       hidden: Boolean,
       items: {
         type: Object
+      },
+      loading: {
+        type: Boolean,
+        computed: '_computeLoading(requestInProgress, requestGenerated)',
+        notify: true
       },
       loadSection: {
         type: String,
@@ -32,10 +42,13 @@ class cranberrySectionRequest {
         type: Object,
         observer: '_parseResponse'
       },
+      requestGenerated: {
+        type: Boolean,
+        value: false
+      },
       requestInProgress: {
         type: Boolean,
-        value: false,
-        notify: true
+        value: true
       },
       routeData: String,
       section: {
@@ -44,6 +57,7 @@ class cranberrySectionRequest {
       },
       start: {
         type: Number,
+        value: 1,
         observer: '_startChanged'
       },
       tags: String,
@@ -73,25 +87,34 @@ class cranberrySectionRequest {
       let tagSection = this.get('tagSection');
       let tags = this.get('tags');
       if (!hidden) {
-          if (!tagSection) {
-            if (parentSection === '') {
+        if (!tagSection) {
+          if (parentSection === '') {
+            this.set('loadSection', section);
+          } else {
+            if (section !== '') {
               this.set('loadSection', section);
             } else {
-              if (section !== '') {
-                this.set('loadSection', section);
-              } else {
-                this.set('loadSection', parentSection);
-              }  
-            }
-          } else {
-            this.set('loadSection', tags);
+              this.set('loadSection', parentSection);
+            }  
           }
-          this._firePageview();
-          this._fireNativo();
+        } else {
+          this.set('loadSection', tags);
         }
+
+        this._firePageview();
+        this._fireNativo();
+      }
     }, 50);
   }
 
+  _computeLoading(requestLoading, requestGenerated) {
+    if (requestGenerated && !requestLoading) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+  
   _sectionChanged(section, parentSection, hidden) {
     this.async(() => {
       this.debouncedChanged(section, parentSection, hidden);
@@ -134,7 +157,7 @@ class cranberrySectionRequest {
   }
 
   _updateParams(loadSection) {
-    this.async(function () {
+    this.async(() => {
       let currentRequest = this.get('request');
 
       if (typeof currentRequest !== 'undefined' && currentRequest.loading === true) {
@@ -142,16 +165,17 @@ class cranberrySectionRequest {
         this.$.request.abortRequest(currentRequest);
       }
 
-
       this.set('items', []);
 
       let jsonp = {};
       let sections = (typeof loadSection !== 'undefined') ? loadSection : this.get('loadSection');
+      let disableFeatured = this.get('disableFeatured');
       let tagSection = this.get('tagSection');
       let gallerySection = this.get('galleries');
       let homepageFlag;
       let start = this.get('start');
-      
+      let count = this.get('count');
+
       jsonp.request = 'content-list';
 
       if (typeof gallerySection !== undefined && gallerySection) {
@@ -168,6 +192,7 @@ class cranberrySectionRequest {
         jsonp.desiredSection = sections;
       }
       
+      jsonp.disableFeatured = disableFeatured;
       jsonp.desiredContent = this._isGalleries(this.get('galleries'));
       jsonp.desiredStart = start;
 
@@ -175,12 +200,12 @@ class cranberrySectionRequest {
         jsonp.featuredHomepage = 1;
         if (typeof start === 'undefined' || start === 1) {
           jsonp.auxJailMugs = 1;
-          jsonp.desiredCount = 17;
         } else {
           jsonp.auxJailMugs = 0;
-          jsonp.desiredCount = 18;
         }
       }
+
+      jsonp.desiredCount = count;
 
       this.set('params', jsonp);
     });
@@ -193,6 +218,7 @@ class cranberrySectionRequest {
       this.$.request.setAttribute('callback-value', 'callback');
       this.$.request.params = params;
       this.$.request.generateRequest();
+      this.set('requestGenerated', true);
     }
   }
 

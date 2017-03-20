@@ -26,19 +26,6 @@
     <h3 class="youneeq-header" hidden$="{{!hasItems}}">Recommended for you:</h3>
     <div class="youneeq-container" mobile$="{{mobile}}">
       <template is="dom-repeat" items="{{items}}">
-        <template is="dom-if" if="{{_index(index)}}">
-          <div>
-            <google-dfp
-              section="[[_computeSectionName(content.sectionInformation.sectionName)]]"
-              section-parent="[[content.sectionInformation.sectionParentName]]"
-              ad-pos="Bottom_of_stream" ad-size="[[300, 250]]"
-              ad-group="{$ config.dfpAdStructure.adGroupID $}"
-              ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
-              ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
-              hidden$="[[hidden]]">
-            </google-dfp>
-          </div>
-        </template>
         <a href="[[item.url]]"
            ga-on="click"
            ga-event-category="Youneeq Content Clicked"

@@ -44,8 +44,23 @@ div.right-rail div.ad-container {
 }
 
 div.search-header-container {
-  width: 100%;
+  @apply(--layout-horizontal);
+  @apply(--layout-center-justified);
+  @apply(--layout-center);
+  flex: 1 1 auto;
   margin-top: 20px;
+}
+
+div.search-header-container div.results {
+  @apply(--layout-vertical);
+  flex: 1 1 auto;
+}
+
+div.search-header-container div.sort {
+  @apply(--layout-flex-end);
+  @apply(--layout-end-justified);
+  display: flex;
+  flex: 1 1 auto; 
 }
 
 h1.result-header {

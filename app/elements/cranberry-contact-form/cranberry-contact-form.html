@@ -14,6 +14,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/paper-input/paper-textarea.html">
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="../../bower_components/re-captcha/re-captcha.html">
 <link rel="import" href="../../bower_components/gold-phone-input/gold-phone-input.html">
 
@@ -23,6 +24,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       @import "cranberry-contact-form/cranberry-contact-form";
     </style>
     <byutv-jsonp on-response="handleResponse" debounce-duration="300" id="request"></byutv-jsonp>
+    <paper-dropdown-menu label="Department" selected-item="{{selectedDepartment}}" always-float-label>
+      <paper-listbox class="dropdown-content" selected="0">
+        <template is="dom-repeat" items="[[departments]]" as="department">
+          <paper-item value="[[department.email]]">[[department.name]]</paper-item>
+        </template>
+      </paper-listbox>
+    </paper-dropdown-menu>
     <form is="iron-form" action="/" id="form">
       <paper-input name="name" label="Name" required auto-validate error-message="You must provide a name." allowed-pattern="[A-zA-Z ]" auto-complete></paper-input>
       <paper-input name="email" label="Email" required auto-validate error-message="You must provide a email." allowed-pattern="[\@\.A-zA-Z0-9]"></paper-input>

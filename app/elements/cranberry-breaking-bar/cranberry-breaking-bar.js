@@ -24,7 +24,8 @@ class cranberryBreakingBar {
         value: {
           'request': 'content-list',
           'desiredTags': 'Alert|Breaking',
-          'desiredContent': 'story'
+          'desiredContent': 'story',
+          'breakingbar': 'true'
         }
       },
       index: {
@@ -71,9 +72,11 @@ class cranberryBreakingBar {
     let params = this.get('params');
 
     if (params.length !== 0) {
-      this.$.request.url = this.rest;
-      this.$.request.params = params;
-      this.$.request.generateRequest();
+      let request = this.$.request;
+      request.url = this.rest;
+      request.setAttribute('callback-value', 'breakingBar');
+      request.params = params;
+      request.generateRequest();
     }
   }
 
@@ -95,26 +98,17 @@ class cranberryBreakingBar {
   _parseResponse(response) {
     var result = JSON.parse(response.Result);
 
-    let concatResult = [];
+    let content = result.content;
+    this.set('count', content.length);
 
-    result.content.forEach(function(value, index) {
-      concatResult.push(value);
-    });
-
-    result.featured.forEach(function(value, index) {
-      concatResult.push(value);
-    });
-
-    this.set('count', concatResult.length);
-
-    if (concatResult.length > 1) {
+    if (content.length > 1) {
       this.set('setTimer', true);
       window.breakingBarTimer = window.setInterval(this.timer, 7000);
     } else {
       this.set('hideSelectors', true);
     }
 
-    this.set('items', concatResult);
+    this.set('items', content);
   }
 
   _computeShow(item) {
@@ -225,6 +219,16 @@ class cranberryBreakingBar {
           trunc += '...';
       }
       return trunc;
+    }
+  }
+
+  _showNextPrev() {
+    let items = this.get('items');
+
+    if (typeof items !== 'undefined' && items.length > 1) {
+      return true;
+    } else {
+      return false;
     }
   }
 }

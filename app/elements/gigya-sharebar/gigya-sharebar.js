@@ -41,7 +41,7 @@ class gigyaSharebar {
                     tooltip:'Share on Twitter',
                     defaultText: 'Twitter message'
 
-                },,
+                },
                 { // Pinterest button
                     provider: 'pinterest'
                 },

@@ -86,13 +86,17 @@ class cranberryPagination {
   _startChanged(start) {
     if (typeof start !=='undefined' && start !== 1) {
       this._showPreviousButton();
+    } else {
+      this.set('hidePreviousButton', true);
     }
   }
 
   _sectionChanged(parent, section) {
-    if (typeof parent !== 'undefined' || typeof section !== 'undefined') {
-      this.set('start', 1);
-      this.set('currentPage', 1);
+    if (!this.hidden) {
+      if (typeof parent !== 'undefined' || typeof section !== 'undefined') {
+        this.set('start', 1);
+        this.set('currentPage', 1);
+      }
     }
   }
 }

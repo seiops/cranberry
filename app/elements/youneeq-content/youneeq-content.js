@@ -55,17 +55,15 @@ class youneeqContent {
 	}
 
   _checkImage(image) {
-    if (image !== '' && image.charAt(0) === '/') {
-      let domain = this.get('domain');
-      return domain + image;
+    if (image !== '') {
+      if (image.charAt(0) === '/') {
+        let domain = this.get('domain');
+        return domain + image;
+      } else {
+        return image;
+      }
     } else {
-      return image;
-    }
-  }
-
-  _index(index) {
-    if (index === 3) {
-      return true;
+      return '../images/story/unavail.png';
     }
   }
 

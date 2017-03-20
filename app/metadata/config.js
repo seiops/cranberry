@@ -96,34 +96,34 @@ module.exports = {
     },
     needHelp: [
       {
-        logo: 'icons:shopping-basket',
+        logo: 'cranberry-icons:shopping-basket',
         label: 'Retail Advertising',
         phone: '419-502-2121'
       },
       {
-        logo: 'icons:find-in-page',
+        logo: 'cranberry-icons:find-in-page',
         label: 'Classifieds',
         phone: '419-502-2120'
       },
       {
-        logo: 'icons:card-membership',
+        logo: 'cranberry-icons:card-membership',
         label: 'Member Services',
         phone: '419-625-5500'
       },
       {
-        logo: 'icons:lightbulb-outline',
+        logo: 'cranberry-icons:lightbulb-outline',
         label: 'News Tip',
-        phone: '419-502-2060',
+        phone: '419-502-2160',
         link: true,
         linkUrl: 'http://tellus.sanduskyregister.com/'
       },
       {
-        logo: 'icons:chrome-reader-mode',
+        logo: 'cranberry-icons:chrome-reader-mode',
         label: 'Newsroom',
-        phone: '419-502-2060'
+        phone: '419-502-2160'
       },
       {
-        logo: 'hardware:laptop',
+        logo: 'cranberry-icons:laptop',
         label: 'Web Dept.',
         phone: '419-609-5861'
       }
@@ -152,6 +152,20 @@ module.exports = {
       {
         label: 'Archive',
         link: '/archive'
+      }
+    ],
+    formDepartments: [
+      {
+        name: 'Newsroom',
+        email: 'news@sanduskyregister.com'
+      },
+      {
+        name: 'Circulation',
+        email: 'circulation@sanduskyregister.com'
+      },
+      {
+        name: 'Advertising',
+        email: 'advertising@sanduskyregister.com'
       }
     ]
   },
@@ -209,9 +223,9 @@ module.exports = {
       linkText: 'Norwalk Reflector',
       linkUrl: 'http://www.norwalkreflector.com'
     },
-        {
-      linkText: 'Today&#8217;s ads',
-      linkUrl: 'http://local.sanduskyregister.com/ads'
+    {
+      linkText: 'Contests',
+      linkUrl: 'http://www.tandemnetwork.com/contests-and-promotions/'
     },
     {
       linkText: 'Local Guide',

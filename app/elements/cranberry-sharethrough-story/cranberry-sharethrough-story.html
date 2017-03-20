@@ -1,0 +1,47 @@
+<!-- Bower Dependencies -->
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<!-- Custom Dependencies -->
+<link rel="import" href="../gigya-top-comments/gigya-top-comments.html">
+<link rel="import" href="../youneeq-content/youneeq-content.html">
+
+<dom-module id="cranberry-sharethrough-story">
+  <template>
+    <style>
+      @import "cranberry-sharethrough-story/cranberry-sharethrough-story";
+    </style>
+
+    <div class="cranberry-sharethrough-story">
+      <div class="story-content-wrapper">
+        <div class="headline">
+          <h1 class="story-title"><span data-str-title></span></h1>
+        </div>
+        
+        <div class="byline-container">
+          <div class="byline-wrapper">
+            <div class="byline-info">
+              <p>Promoted by: <span data-str-brand></span></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Story Content Area -->
+        <div class="content-wrapper">
+          <!-- Contains story paragraphs -->
+          <div class="story-content">
+            <div class="body-text"><span data-str-content></span></div>
+          </div>
+          <!-- Contains Right Rail -->
+          <div class="right-rail">
+            <div>
+              <gigya-top-comments count="5" age="90"></gigya-top-comments>
+
+              <div class="tout-sdk tout-right-rail-embed"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+    <script src="cranberry-sharethrough-story.js"></script>
+</dom-module>

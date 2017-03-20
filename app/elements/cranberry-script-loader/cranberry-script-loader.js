@@ -21,16 +21,13 @@ class CranberryScriptLoader {
     }
     
     embed.src = url;
-    
+
     if (typeof attribute !== 'undefined') {
-      if (attribute === 'defer') {
-        embed.defer = true;
-      } else if (attribute === 'async') {
-        embed.async = true;
+      if (typeof attribute.attributeName !== 'undefined' && typeof attribute.attributeValue !== 'undefined') {
+        embed.setAttribute(attribute.attributeName, attribute.attributeValue);
       }
-    } else {
-      embed.async = true;
     }
+    
     if (typeof appendToBody !== 'undefined' && appendToBody) {
       let body = document.getElementsByTagName('body')[0];
       body.appendChild(embed);

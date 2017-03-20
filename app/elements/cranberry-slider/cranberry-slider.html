@@ -34,8 +34,8 @@
               <paper-button class="ad-button" raised on-tap="_closeAd">Close</paper-button>
             </div>
           </template>
-          <div class="overlay-previous" on-tap="_showPrevious" mobile-layout$="{{mobileLayout}}" ga-on="click" ga-event-category="Gallery Navigation Clicked" ga-event-action$="uti_gprv_[[displayIndex]]"><span><</span></div>
-          <div class="overlay-next" on-tap="_showNext" mobile-layout$="{{mobileLayout}}" ga-on="click" ga-event-category="Gallery Navigation Clicked" ga-event-action$="uti_gnxt_[[displayIndex]]"><span>></span></div>
+          <div class="overlay-previous" on-tap="_showPrevious" mobile-layout$="{{mobileLayout}}" ga-on="click" ga-event-category="Gallery Navigation Clicked" ga-event-action$="uti_gprv_[[displayIndex]]"><span><iron-icon icon="cranberry-icons:chevron-left"></iron-icon></span></div>
+          <div class="overlay-next" on-tap="_showNext" mobile-layout$="{{mobileLayout}}" ga-on="click" ga-event-category="Gallery Navigation Clicked" ga-event-action$="uti_gnxt_[[displayIndex]]"><span><iron-icon icon="cranberry-icons:chevron-right"></iron-icon></span></div>
           <!-- For Absolute Placed content -->
             <template is="dom-if" if="{{!hideImage}}" restamp>
               <content></content>
@@ -47,7 +47,7 @@
         </div>
       </div>
       <div class="info" white-text$="{{whiteText}}" hidden$="{{noCaption}}">
-        <span class="index">{{displayIndex}} / [[count]]</span><p class="caption"><iron-icon icon="image:panorama"></iron-icon>[[currentImage.caption]] -- [[currentImage.credit]]</p>
+        <span class="index">{{displayIndex}} / [[count]]</span><p class="caption"><iron-icon icon="cranberry-icons:panorama"></iron-icon>[[currentImage.caption]] -- [[currentImage.credit]]</p>
       </div>
     </div>
 

@@ -12,6 +12,7 @@
 <link rel="import" href="../gigya-login/gigya-login.html">
 <link rel="import" href="../gigya-register/gigya-register.html">
 <link rel="import" href="../gigya-finalize-register/gigya-finalize-register.html">
+<link rel="import" href="../cranberry-icons/cranberry-icons.html">
 
 <dom-module id="gigya-socialize">
   <template>
@@ -27,7 +28,7 @@
               <paper-icon-button icon="arrow-back" dialog-dismiss></paper-icon-button>
               <div class="user-title">[[user.firstName]] [[user.lastName]]</div>
             </div>
-            <paper-icon-button icon="close" dialog-dismiss></paper-icon-button>
+            <paper-icon-button icon="cranberry-icons:close" dialog-dismiss></paper-icon-button>
           </paper-toolbar>
           <paper-toolbar>
             <paper-tabs id="accountTabs" selected="{{userSelected}}" autoselect>
@@ -90,7 +91,7 @@
               <paper-tab>Register</paper-tab>
               <paper-tab>Forgot Password</paper-tab>
             </paper-tabs>
-            <paper-icon-button icon="close" dialog-confirm></paper-icon-button>
+            <paper-icon-button icon="cranberry-icons:close" dialog-confirm></paper-icon-button>
           </paper-toolbar>
           <div class="user-content">
             <div hidden$="{{!_equal(guestSelected, 0)}}">

@@ -29,6 +29,7 @@ class cranberryMainNavigation {
       let route = this.get('route');
 
       request.setAttribute('url', restUrl);
+      request.setAttribute('callback-value', 'mainNavigation');
       request.params = params;
 
       request.generateRequest();
@@ -73,6 +74,19 @@ class cranberryMainNavigation {
         }
       }
       
+    }
+  }
+
+  _scrubIcon(icon) {
+    if (typeof icon !== 'undefined' && icon.length > 0) {
+      let colonIndex = icon.indexOf(':');
+
+      if (colonIndex !== -1) {
+        let simpleIcon = icon.slice(colonIndex + 1);
+        return simpleIcon;
+      } else {
+        return icon;
+      }
     }
   }
 

@@ -131,9 +131,7 @@ class cranberrySlider {
     }
   }
 
-  _showNext(e) {
-    e.preventDefault();
-
+  _showNext() {
     let imagesHidden = this.get('hideImage');
 
     if (imagesHidden) {
@@ -200,10 +198,11 @@ class cranberrySlider {
       if (clicks % 2 === 0 && !modal) {
       // Refresh Ad Units
       let app = Polymer.dom(document).querySelector('cranberry-base');
+      let content = Polymer.dom(app.root).querySelector(galleryType);
+      let gallery = Polymer.dom(content.root);
       
-      let gallery = app.querySelector(galleryType);
-      let topAd = gallery.$.topAd;
-      let sideAd = gallery.$.sideAd;
+      let topAd = Polymer.dom(gallery).querySelector('#topAd');
+      let sideAd = Polymer.dom(gallery).querySelector('#sideAd');
 
       topAd.refresh();
       sideAd.refresh();
@@ -255,6 +254,8 @@ class cranberrySlider {
 
     // Send pageview event with iron-signals
     this.fire('iron-signal', {name: 'track-page', data: { path: path + galleryObject.itemId, gaData } });
+    // Fire Youneeq Page Hit Request
+    this.fire('iron-signal', {name: 'page-hit', data: {content: galleryObject}});
   }
 
   goTo(imageIndex) {
@@ -263,6 +264,7 @@ class cranberrySlider {
       this.set('requestIndex', imageIndex);
       let template = this.$.sliderRepeat;
       template.render();
+      this._registerClick()
     }
   }
 
