@@ -101,6 +101,9 @@ class youneeqTracker {
     if(typeof event.detail !== 'undefined' && typeof event.detail.content !== 'undefined'){
       let content = event.detail.content;
       this.set('content', content);
+    } else {
+      // Set content to the event to ensure that stale data doesn't sit within content.
+      this.set('content', event);
     }
   }
 
@@ -191,7 +194,6 @@ class youneeqTracker {
       this.fire('iron-signal', {name: 'youneeq-callbackid', data: { content: callbackId }});
       let now = new Date().getTime();
       request.setAttribute('callback-value', "yq_" + callbackId.sessionId + "_" + callbackId.pageId + "_" + now + "_" + callbackId.requestCount);
-
 
       request.generateRequest();
     }
