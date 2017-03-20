@@ -17,7 +17,7 @@ class youneeqTracker {
       },
       previousURL: {
         type: String,
-        value: ''
+        value: document.referrer
       },
       youneeqId: {
         type: String,
@@ -134,7 +134,7 @@ class youneeqTracker {
   }
 
   _contentChanged(content, oldContent) {
-    if (typeof content !== 'undefined' && Object.keys(content).length > 0) {
+    if (typeof content !== 'undefined' && Object.keys(content).length > 0 && !this.hidden) {
       // Content has CHANGED
       let fullObject = {};
       let observe = [];
@@ -198,7 +198,7 @@ class youneeqTracker {
   }
 
   _pageHitChanged(content, oldContent) {    
-    if (typeof content !== 'undefined' && Object.keys(content).length > 0) {
+    if (typeof content !== 'undefined' && Object.keys(content).length > 0 && !this.hidden) {
       let fullObject = {};
       let pageHit = {};
       let observeHit = [];
