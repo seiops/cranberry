@@ -59,7 +59,8 @@ class CranberryGoogleAnalytics {
 
     let event = {
       category: 'Cranberry',
-      action: 'Loaded'
+      action: 'Loaded',
+      nonInteraction: true
     };
   
     // Send pageview event with iron-signals
@@ -123,12 +124,19 @@ class CranberryGoogleAnalytics {
   trackEvent(e) {
     setTimeout(() => {
       if (typeof ga !== 'undefined') {
+        let eventDetails = e.detail.event;
+        let eventObject = {
+          eventCategory: eventDetails.category,
+          eventAction: eventDetails.action,
+          nonInteraction: (typeof eventDetails.nonInteraction !== 'undefined' && eventDetails.nonInteraction ? true : false)
+        };
+
         let trackerIds = this.get('trackerIds');
         console.info('\<cranberry-google-analytics\> event sent with data on default');
-        ga('send', 'event', e.detail.event.category, e.detail.event.action);
+        ga('send', 'event', eventObject.eventCategory, eventObject.eventAction, '', { nonInteraction: eventObject.nonInteraction });
         trackerIds.forEach((value, index) => {
           console.info('\<cranberry-google-analytics\> event sent with data on ' + value);
-          ga( value + '.send', 'event', e.detail.event.category, e.detail.event.action);
+          ga( value + '.send', 'event', eventObject.eventCategory, eventObject.eventAction, '', { nonInteraction: eventObject.nonInteraction });
         });
       } else {
         this.trackEvent(e);
