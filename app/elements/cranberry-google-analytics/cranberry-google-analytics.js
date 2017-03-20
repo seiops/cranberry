@@ -124,9 +124,8 @@ class CranberryGoogleAnalytics {
   trackEvent(e) {
     setTimeout(() => {
       if (typeof ga !== 'undefined') {
-        let eventDetails = e.detail;
+        let eventDetails = e.detail.event;
         let eventObject = {
-          hitType: 'event',
           eventCategory: eventDetails.category,
           eventAction: eventDetails.action,
           nonInteraction: (typeof eventDetails.nonInteraction !== 'undefined' && eventDetails.nonInteraction ? true : false)
@@ -134,10 +133,10 @@ class CranberryGoogleAnalytics {
 
         let trackerIds = this.get('trackerIds');
         console.info('\<cranberry-google-analytics\> event sent with data on default');
-        ga('send', eventObject);
+        ga('send', 'event', eventObject.eventCategory, eventObject.eventAction, '', { nonInteraction: eventObject.nonInteraction });
         trackerIds.forEach((value, index) => {
           console.info('\<cranberry-google-analytics\> event sent with data on ' + value);
-          ga( value + '.send', eventObject);
+          ga( value + '.send', 'event', eventObject.eventCategory, eventObject.eventAction, '', { nonInteraction: eventObject.nonInteraction });
         });
       } else {
         this.trackEvent(e);
