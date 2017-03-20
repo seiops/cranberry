@@ -30,16 +30,24 @@ class youneeqContent {
   };
   
   callbackIdRecieved(event) {
-    let callbackId = event.detail.content;
+    let hidden = this.get('hidden');
 
-    this.set('yqCallbackId', callbackId);
+    if (typeof hidden !== 'undefined' && !hidden) {
+      let callbackId = event.detail.content;
+
+      this.set('yqCallbackId', callbackId);
+    }
   }
 
   suggestionsRecieved(event) {
-    let suggestions = event.detail.content;
+    let hidden = this.get('hidden');
 
-    this.set('hasItems', true);
-    this.set('items', suggestions);
+    if (typeof hidden !== 'undefined' && !hidden) {
+      let suggestions = event.detail.content;
+
+      this.set('hasItems', true);
+      this.set('items', suggestions);
+    }
   }
 
   _generateId() {

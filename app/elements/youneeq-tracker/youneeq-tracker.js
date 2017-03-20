@@ -136,7 +136,7 @@ class youneeqTracker {
   }
 
   _contentChanged(content, oldContent) {
-    if (typeof content !== 'undefined' && Object.keys(content).length > 0 && !this.hidden) {
+    if (typeof content !== 'undefined' && Object.keys(content).length > 0) {
       // Content has CHANGED
       let fullObject = {};
       let observe = [];
@@ -200,7 +200,7 @@ class youneeqTracker {
   }
 
   _pageHitChanged(content, oldContent) {    
-    if (typeof content !== 'undefined' && Object.keys(content).length > 0 && !this.hidden) {
+    if (typeof content !== 'undefined' && Object.keys(content).length > 0) {
       let fullObject = {};
       let pageHit = {};
       let observeHit = [];
