@@ -24,7 +24,8 @@ class cranberryBreakingBar {
         value: {
           'request': 'content-list',
           'desiredTags': 'Alert|Breaking',
-          'desiredContent': 'story'
+          'desiredContent': 'story',
+          'breakingbar': 'true'
         }
       },
       index: {
@@ -97,26 +98,17 @@ class cranberryBreakingBar {
   _parseResponse(response) {
     var result = JSON.parse(response.Result);
 
-    let concatResult = [];
+    let content = result.content;
+    this.set('count', content.length);
 
-    result.content.forEach(function(value, index) {
-      concatResult.push(value);
-    });
-
-    result.featured.forEach(function(value, index) {
-      concatResult.push(value);
-    });
-
-    this.set('count', concatResult.length);
-
-    if (concatResult.length > 1) {
+    if (content.length > 1) {
       this.set('setTimer', true);
       window.breakingBarTimer = window.setInterval(this.timer, 7000);
     } else {
       this.set('hideSelectors', true);
     }
 
-    this.set('items', concatResult);
+    this.set('items', content);
   }
 
   _computeShow(item) {

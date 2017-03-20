@@ -164,17 +164,18 @@ class GoogleDFP {
     }
 
     refresh() {
-      let hidden = this.get('hidden');
+      this.async(() => {
+        let hidden = this.get('hidden');
+        if (!hidden) {
+          let advertisement = Polymer.dom(this.root).querySelector('.advertisement');
+          let slot = advertisement.getAttribute('id');
 
-      if (!hidden) {
-        let advertisement = Polymer.dom(this.root).querySelector('.advertisement');
-        let slot = advertisement.getAttribute('id');
-
-        if (advertisement !== null && typeof advertisement !== 'undefined' && typeof slot !== 'undefined' && slot !== null) {
-          googletag.pubads().refresh([window.slots[slot]]);
+          if (advertisement !== null && typeof advertisement !== 'undefined' && typeof slot !== 'undefined' && slot !== null) {
+            console.info('\<google-dfp\> refreshing: ' + slot);
+            googletag.pubads().refresh([window.slots[slot]]);
+          }
         }
-      }
-      
+      });
     }
 }
 

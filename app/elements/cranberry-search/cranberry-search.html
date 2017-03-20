@@ -58,8 +58,18 @@
           <!-- Main content area for search results. -->
           <div id="searchContent" class="search-container" hidden$="[[_hideResultsArea(isSearching, noQuery)]]">
             <div class="search-header-container">
-              <h1 class="result-header">Results for: [[displayQuery]]</h1>
-              <p class="total-results">About: [[totalResults]] results</p>
+              <div class="results">
+                <h1 class="result-header">Results for: [[displayQuery]]</h1>
+                <p class="total-results">About: [[totalResults]] results</p>
+              </div>
+              <div class="sort">
+                <paper-dropdown-menu label="Sort Order" selected-item-label="{{sortOrder}}" always-float-label>
+                  <paper-listbox class="dropdown-content" selected="0">
+                    <paper-item>Relevance</paper-item>
+                    <paper-item>Date</paper-item>
+                  </paper-listbox>
+                </paper-dropdown-menu>
+              </div>
             </div>
             <template is="dom-repeat" items="{{items}}" restamp>
               <a href="[[item.link]]"

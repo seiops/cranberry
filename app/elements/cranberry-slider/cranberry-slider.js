@@ -262,6 +262,7 @@ class cranberrySlider {
       this.set('requestIndex', imageIndex);
       let template = this.$.sliderRepeat;
       template.render();
+      this._registerClick()
     }
   }
 

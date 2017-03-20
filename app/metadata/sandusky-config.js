@@ -153,6 +153,20 @@ module.exports = {
         label: 'Archive',
         link: '/archive'
       }
+    ],
+    formDepartments: [
+      {
+        name: 'Newsroom',
+        email: 'news@sanduskyregister.com'
+      },
+      {
+        name: 'Circulation',
+        email: 'circulation@sanduskyregister.com'
+      },
+      {
+        name: 'Advertising',
+        email: 'advertising@sanduskyregister.com'
+      }
     ]
   },
   archiveCards: [
@@ -210,8 +224,8 @@ module.exports = {
       linkUrl: 'http://www.norwalkreflector.com'
     },
     {
-      label: 'Contests',
-      link: 'http://www.tandemnetwork.com/contests-and-promotions/'
+      linkText: 'Contests',
+      linkUrl: 'http://www.tandemnetwork.com/contests-and-promotions/'
     },
     {
       linkText: 'Local Guide',

@@ -2,8 +2,14 @@ class cranberryContactForm {
   beforeRegister() {
     this.is = 'cranberry-contact-form';
     this.properties = {
-      recipient: {
-        type: String
+      departments: {
+        type: Array,
+        value: []
+      },
+      recipient: String,
+      selectedDepartment: {
+        type: Object,
+        observer: '_selectedDepartmentChanged'
       },
       submitting: {
         type: Boolean,
@@ -37,7 +43,7 @@ class cranberryContactForm {
       params.captcha = '';
       params.message = form.message.value;
       // Passed in value for recipient
-      params.recipient = this.recipient;
+      params.recipient = this.get('recipient');
 
       // Set params on the request
       request.params = params;
@@ -55,6 +61,14 @@ class cranberryContactForm {
     this.$.recap.reset();
     // Fire a change event on the form to re-validate
     form.fire('change');
+  }
+
+  _selectedDepartmentChanged(element) {
+    if (typeof element !== 'undefined' && element) {
+      let email = element.value;
+      this.set('recipient', email);
+    }
+    
   }
 
   ready() {
