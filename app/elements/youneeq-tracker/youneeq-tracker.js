@@ -102,15 +102,20 @@ class youneeqTracker {
       let content = event.detail.content;
       this.set('content', content);
     } else {
-      // Set content to the event to ensure that stale data doesn't sit within content.
-      this.set('content', event);
+      // Set content to the dummy object with timestamp to ensure no stale content
+      this.set('content', {noContent: true, timestamp: new Date()});
     }
   }
 
   // Method to send the observe object and get in return the suggest object
   sendObserve(event) {
-    let content = event.detail.content;
-    this._contentChanged(content);
+    if (typeof event.detail !== 'undefined' && typeof event.detail.content !== 'undefined') {
+      let content = event.detail.content;
+      this.set('content', content);
+    } else {
+      // Set content to the dummy object with timestamp to ensure no stale content
+      this.set('content', {noContent: true, timestamp: new Date()});
+    }
   }
 
   _handleLoad() {
