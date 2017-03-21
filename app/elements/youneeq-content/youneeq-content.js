@@ -5,15 +5,20 @@ class youneeqContent {
       content: {
         type: Object
       },
-      items: {
-        type: Object
+      domain: {
+        type: String
       },
       hasItems: {
         type: Boolean,
         value: false
       },
-      domain: {
-        type: String
+      hidden: {
+        type: Boolean,
+        value: true,
+        reflectToAttribute: true
+      },
+      items: {
+        type: Object
       },
       response: {
         type: Object,
@@ -30,24 +35,30 @@ class youneeqContent {
   };
   
   callbackIdRecieved(event) {
-    let hidden = this.get('hidden');
+    this.async(() => {
+      console.info('<\youneeq-content\> CallbackId recieved');
+      let hidden = this.get('hidden');
 
-    if (typeof hidden !== 'undefined' && !hidden) {
-      let callbackId = event.detail.content;
+      if (typeof hidden !== 'undefined' && !hidden) {
+        let callbackId = event.detail.content;
 
-      this.set('yqCallbackId', callbackId);
-    }
+        this.set('yqCallbackId', callbackId);
+      }
+    });
   }
 
   suggestionsRecieved(event) {
-    let hidden = this.get('hidden');
+    this.async(() => {
+      console.info('<\youneeq-content\> Suggestion event recieved');
+      let hidden = this.get('hidden');
 
-    if (typeof hidden !== 'undefined' && !hidden) {
-      let suggestions = event.detail.content;
+      if (typeof hidden !== 'undefined' && !hidden) {
+        let suggestions = event.detail.content;
 
-      this.set('hasItems', true);
-      this.set('items', suggestions);
-    }
+        this.set('hasItems', true);
+        this.set('items', suggestions);
+      }
+    });
   }
 
   _generateId() {

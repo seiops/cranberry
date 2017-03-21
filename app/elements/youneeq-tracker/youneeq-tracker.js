@@ -12,8 +12,7 @@ class youneeqTracker {
         type: String
       },
       pageHit: {
-        type: Object,
-        observer: '_pageHitChanged'
+        type: Object
       },
       previousURL: {
         type: String,
@@ -46,6 +45,10 @@ class youneeqTracker {
       'page-hit': 'sendPageHit',
       'observe': 'sendObserve'
     };
+    this.observers = [
+      '_pageHitChanged(content)',
+      '_contentChanged(content)'
+    ];
   }
 
   callbackIdRecieved(event) {
@@ -97,24 +100,22 @@ class youneeqTracker {
   }
 
   sendPageHit(event) {
-    console.info('<\youneeq-tracker\> page hit event received');
-    if(typeof event.detail !== 'undefined' && typeof event.detail.content !== 'undefined'){
-      let content = event.detail.content;
-      this.set('content', content);
-    } else {
-      // Set content to the dummy object with timestamp to ensure no stale content
-      this.set('content', {noContent: true, timestamp: new Date()});
-    }
+    this._handleEvent(event, 'page-hit');
   }
 
-  // Method to send the observe object and get in return the suggest object
   sendObserve(event) {
-    if (typeof event.detail !== 'undefined' && typeof event.detail.content !== 'undefined') {
+    this._handleEvent(event, 'observe');
+  }
+
+  _handleEvent(event, eventName) {
+    console.info('<\youneeq-tracker\> ' + eventName + ' event received');
+
+    if(typeof event.detail !== 'undefined' && event.detail && typeof event.detail.content !== 'undefined'){
       let content = event.detail.content;
       this.set('content', content);
     } else {
       // Set content to the dummy object with timestamp to ensure no stale content
-      this.set('content', {noContent: true, timestamp: new Date()});
+      this.set('content', {noContent: true, timestamp: event.timestamp});
     }
   }
 
@@ -141,8 +142,9 @@ class youneeqTracker {
     console.info('<\youneeq-tracker\> page hit sent');
   }
 
-  _contentChanged(content, oldContent) {
-    if (typeof content !== 'undefined' && Object.keys(content).length > 0) {
+  _contentChanged(content) {
+    if (typeof content !== 'undefined' && Object.keys(content).length > 0 && !content.noContent) {
+      console.info('<\youneeq-tracker\> Content changed');
       // Content has CHANGED
       let fullObject = {};
       let observe = [];
@@ -152,8 +154,7 @@ class youneeqTracker {
       let domain = this.get('domain');
       let user = this.get('user');
       let callbackId = this.get("yqCallbackId");
-      
-      observeObj.type = 'node';
+
       observeObj.title = content.title;
       observeObj.categories = [content.sectionInformation.section];
       observeObj.description = content.preview;
@@ -204,8 +205,9 @@ class youneeqTracker {
     }
   }
 
-  _pageHitChanged(content, oldContent) {    
+  _pageHitChanged(content) {    
     if (typeof content !== 'undefined' && Object.keys(content).length > 0) {
+      console.info('<\youneeq-tracker\> Page Hit changed');
       let fullObject = {};
       let pageHit = {};
       let observeHit = [];
@@ -224,7 +226,7 @@ class youneeqTracker {
 
       // GENERATE THE PAGEHIT REQUEST AND SEND IT OFF   
       fullObject.domain = domain;
-      fullObject.content_id = content.itemId;
+      fullObject.content_id = (typeof content.itemId !== 'undefined' ? content.itemId : '');
       fullObject.page_hit = pageHit;   
       fullObject.bof_profile = bof_profile;
       fullObject.href = window.location.href;
