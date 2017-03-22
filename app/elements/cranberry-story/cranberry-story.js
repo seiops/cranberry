@@ -126,9 +126,9 @@ class CranberryStory {
       // Fire Youneeq Page Hit Request
       this.fire('iron-signal', {name: 'page-hit', data: {content: story}});
       this.fire('iron-signal', {name: 'observe', data: {content: story}});
-
+      
       // Fire Mather
-      this.fire('iron-signal', {name: 'mather-hit', data: { data: {'sections': section, 'authors': byline, 'publishDate': publishedISO, 'pageType': 'story' } } });
+      this.fire('iron-signal', {name: 'mather-hit', data: { data: {'sections': section, 'authors': byline, 'publishDate': publishedISO, 'pageType': 'story', timeStamp: new Date() } } });
     });
   }
 

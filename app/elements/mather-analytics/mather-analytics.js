@@ -11,8 +11,7 @@ class matherAnalytics {
       matherName: String,
       matherq: {
         type: Array,
-        computed: '_setupMatherQArray(matherId, matherName, user, content)',
-        observer: '_matherqChanged'
+        computed: '_setupMatherQArray(matherId, matherName, user, content)'
       },
       globalMatherq: {
         type: Array,
@@ -43,10 +42,7 @@ class matherAnalytics {
   }
 
   _setupMatherQArray(matherId, matherName, user, content) {
-    console.info('\<mather-analytics\> setting up mather array');
-
-    console.log('This is your content');
-    console.log(content);
+    console.info('\<mather-analytics\> sending page view');
 
     let _matherq;
 
@@ -95,10 +91,6 @@ class matherAnalytics {
     var s = Polymer.dom(document).querySelectorAll('script')[0]; s.parentNode.insertBefore(sp, s);
 
     this.set('loadMatherScript', false);
-  }
-
-  _matherqChanged(matherq, oldMatherq) {
-    console.info('\<mather-analytics\> matherq changed');
   }
 
   matherHit(e) {

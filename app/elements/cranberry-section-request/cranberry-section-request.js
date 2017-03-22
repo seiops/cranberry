@@ -136,7 +136,7 @@ class cranberrySectionRequest {
         // Fire Youneeq Page Hit Request
         this.fire('iron-signal', {name: 'page-hit'});
         // Fire Mather
-        this.fire('iron-signal', {name: 'mather-hit', data: { data: {'sections': loadSection, 'authors': author, 'pageType': 'tags' } }});
+        this.fire('iron-signal', {name: 'mather-hit', data: { data: {'sections': loadSection, 'authors': author, 'pageType': 'tags', timeStamp: new Date() } }});
       } else {
         // Fire Google Analytics Pageview
         this.fire('iron-signal', {name: 'track-page', data: { path: '/section/' + section, data: { 'dimension7': section } } });
@@ -145,7 +145,7 @@ class cranberrySectionRequest {
         // Fire Youneeq Page Hit Request
         this.fire('iron-signal', {name: 'page-hit'});
         // Fire Mather
-        this.fire('iron-signal', {name: 'mather-hit', data: { data: {'sections': section, 'authors': author, 'pageType': (section === 'homepage' ? 'home' : 'section') } } });
+        this.fire('iron-signal', {name: 'mather-hit', data: { data: {'sections': section, 'authors': author, 'pageType': (section === 'homepage' ? 'home' : 'section'), timeStamp: new Date() } } });
       }
     });
   }
