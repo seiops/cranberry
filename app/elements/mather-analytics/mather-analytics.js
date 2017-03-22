@@ -56,7 +56,7 @@ class matherAnalytics {
     }
 
     let loadMatherScript = this.get('loadMatherScript');
-  
+
     // Setup Initial Matherq Array
     _matherq.push(['setCollectorUrl', 'www.i.matheranalytics.com']);
     _matherq.push(['setAppId', 'v1']);
@@ -64,9 +64,9 @@ class matherAnalytics {
     _matherq.push(['setMarket', matherId]);
     _matherq.push(['setUserId', '']);
     _matherq.push(['enableActivityTracking', 30, 10]);
-    _matherq.push(['setHierarchy', 'parent/child']);
+    _matherq.push(['setHierarchy', (typeof content.hierarchy !== 'undefined' ? content.hierarchy : '')]);
     _matherq.push(['setPageType', (typeof content.pageType !== 'undefined' ? content.pageType : '')]);
-    _matherq.push(['setSection', (typeof content.sections !== 'undefined' ? content.sections : '')]);
+    _matherq.push(['setSection', (typeof content.section !== 'undefined' ? content.section : '')]);
     _matherq.push(['setAuthor', (typeof content.authors !== 'undefined' ? content.authors : matherName)]);
     _matherq.push(['setArticlePublishTime', (typeof content.publishDate !== 'undefined' ? content.publishDate : '')]);
 
@@ -94,6 +94,7 @@ class matherAnalytics {
   }
 
   matherHit(e) {
+    console.log(e);
     this.set('content', e.detail.data);
   }
 }

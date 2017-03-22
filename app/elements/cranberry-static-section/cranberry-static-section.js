@@ -104,7 +104,7 @@ class cranberryStaticSection {
       this.fire('iron-signal', {name: 'page-hit'});
 
       // Fire Mather
-      this.fire('iron-signal', {name: 'mather-hit', data: { data: {'sections': staticSection, 'pageType': 'static', timeStamp: new Date() } } });
+      this.fire('iron-signal', {name: 'mather-hit', data: { data: {'sections': staticSection, hierarchy: staticSection, 'pageType': 'static', timeStamp: new Date() } } });
     });
     
   }
