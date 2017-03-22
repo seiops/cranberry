@@ -198,7 +198,7 @@ class CranberryGallery {
       this.fire('iron-signal', {name: 'observe', data: {content: result}});
 
       // Fire Mather
-      this.fire('iron-signal', {name: 'mather-hit', data: { data: {'sections': result.sectionInformation.sectionName, 'authors': result.byline, 'publishedDate': result.publishedISO, 'pageType': 'gallery' } } });
+      this.fire('iron-signal', {name: 'mather-hit', data: { data: {'sections': result.sectionInformation.sectionName, 'authors': result.byline, 'publishedDate': result.publishedISO, 'pageType': 'gallery', timeStamp: new Date() } } });
 
       this.set('sendInitialView', false);
     }
@@ -288,7 +288,7 @@ class CranberryGallery {
           this.fire('iron-signal', {name: 'refresh-ad' });
 
           // Fire Mather
-          this.fire('iron-signal', {name: 'mather-hit', data: { data: {'sections': gallery.sectionInformation.sectionName, 'authors': gallery.byline, 'publishedDate': gallery.publishedISO, 'pageType': 'gallery' } } });
+          this.fire('iron-signal', {name: 'mather-hit', data: { data: {'sections': gallery.sectionInformation.sectionName, 'authors': gallery.byline, 'publishedDate': gallery.publishedISO, 'pageType': 'gallery', timeStamp: new Date() } } });
         }
       }
     });
