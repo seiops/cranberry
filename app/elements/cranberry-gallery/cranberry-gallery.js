@@ -129,33 +129,6 @@ class CranberryGallery {
 
         topAd.refresh();
         sideAd.refresh();
-
-        let gaData = {};
-        let gallery = this.get('gallery');
-
-        /*// Data settings for pageview
-        gaData.dimension6 = 'Gallery';
-
-        if (typeof gallery.byline !== 'undefined') {
-          gaData.dimension1 = gallery.byline;
-        }
-
-        if (typeof gallery.published !== 'undefined') {
-          gaData.dimension3 = gallery.published;
-        }
-
-        if (typeof gallery.tags !== 'undefined') {
-          gaData.dimension8 = gallery.tags;
-        }
-
-        // Send pageview event with iron-signals
-        this.fire('iron-signal', {name: 'track-page', data: { path: '/photo-gallery/' + gallery.itemId, gaData } });
-
-        //Send Chartbeat
-        this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/photo-gallery/' + gallery.itemId, data: {'sections': gallery.sectionInformation.sectionName, 'authors': gallery.byline } } });
-
-        // Fire Mather
-        this.fire('iron-signal', {name: 'mather-hit', data: { data: {'sections': gallery.sectionInformation.sectionName, 'authors': gallery.byline, 'publishedDate': gallery.publishedISO, 'pageType': 'gallery' } } });*/
       }
     });
   }
