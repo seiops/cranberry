@@ -3,6 +3,11 @@ class CranberryCalendar {
   beforeRegister() {
     this.is = 'cranberry-calendar';
     this.properties = {
+      hidden: {
+        type: Boolean,
+        value: true,
+        reflectToAttribute: true
+      },
       loaded: {
         type: Boolean,
         value: false
@@ -13,7 +18,7 @@ class CranberryCalendar {
       },
       route: {
         type: Object,
-        observer: '_routeChange'
+        observer: '_routeChanged'
       },
       calendarDomain: {
         type: String
@@ -26,6 +31,7 @@ class CranberryCalendar {
   // attached to document
   attached() {
     console.info('\<cranberry-calendar\> attached');
+    this._firePageviews();
   }
 
   // private methods
@@ -57,31 +63,45 @@ class CranberryCalendar {
   }
 
   // detect route and visibility
-  _routeChange(section, oldSection) {
+  _routeChanged(section, oldSection) {
     this.async(() => {
-      if (section.path.includes('/calendar') && section.path !== oldSection.path) {
-        console.info('\<cranberry-calendar\> route change');
-
-        let hidden = this.hidden;
-
-        if (!hidden) {
-          // Send pageview event with iron-signals
-          this.fire('iron-signal', {name: 'track-page', data: { path: window.location.pathname } });
-
-          // Send Chartbeat
-          this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: window.location.pathname } });
-
-          let loaded = this.get('loaded');
-
-          if(loaded === false){
+      let hidden = this.get('hidden');
+      let loaded = this.get('loaded');
+      
+      if (!hidden) {
+        console.info('\<cranberry-calendar\> route changed');
+        console.dir(section);
+        if (section.path === '/calendar') {
+          console.info('\<cranberry-calendar\> section path matches root');
+          if(loaded === false) {
             this._injectScript();
           } else {
+            console.info('\<cranberry-calendar\> reloading calendar');
             // reload calendar-ui method supplied by SpinGo
             angular.bootstrap(document.documentElement, ['sgCalendarUI']);
+          }
+        } else if (section.path.includes('/calendar/')){
+          console.info('\<cranberry-calendar\> section path matches a sub');
+          if (typeof oldSection !== 'undefined' && section.path !== oldSection.path) {
+            this._firePageviews();
+          }
+
+          if (!loaded) {
+            this._injectScript();
           }
         }
       }
     });
+  }
+
+  _firePageviews() {
+    console.info('\<cranberry-calendar\> sending pageviews');
+    // Fire Google Analytics Pageview
+    this.fire('iron-signal', {name: 'track-page', data: { path: '/calendar', data: { 'dimension7': 'calendar' } } });
+    // Fire Chartbeat pageview
+    this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/calendar', data: {'sections': 'calendar' } } });
+    // Fire Youneeq Page Hit Request
+    this.fire('iron-signal', {name: 'page-hit'});
   }
 }
 Polymer(CranberryCalendar);

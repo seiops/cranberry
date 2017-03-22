@@ -78,6 +78,14 @@ class CranberryStory {
   }
 
   // Private Methods
+  _computeMediaHidden(staticPage, hidden) {
+    if (staticPage || hidden) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   _destroyNativo() {
     let nativoAds = Polymer.dom(this).querySelectorAll('.ntv-ad-div');
 

@@ -6,18 +6,7 @@
     <style>
       @import "google-survey/google-survey";
     </style>
-    <div class="p402_premium">
-      <template is="dom-repeat" items="{{paragraphs}}" id="paragraphTemplate">
-        <div class="p402_hide" id$="[[index]]">
-          <template is="dom-if" if="{{item.shortcode}}">
-            <cranberry-shortcode shortcode-object="[[item]]" story-object="[[storyObject]]" base-url="[[baseUrl]]" tout-uid="[[toutUid]]"></cranberry-shortcode>
-          </template>
-          <template is="dom-if" if="{{!item.shortcode}}">
-            [[_createTextNode(item.text,index)]]
-          </template>
-        </div>
-      </template>
-    </div>
+    <div class="p402_premium"></div>
 
   </template>
     <script src="google-survey.js"></script>
