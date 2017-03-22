@@ -40,7 +40,7 @@ class cranberryContactPage {
       this.fire('iron-signal', {name: 'page-hit'});
 
       // Fire Mather
-      this.fire('iron-signal', {name: 'mather-hit', data: { data: {'sections': 'contact', 'pageType': 'contact', timeStamp: new Date() } } });
+      this.fire('iron-signal', {name: 'mather-hit', data: { data: {'section': 'contact', 'hierarchy': '/contact', 'pageType': 'contact', timeStamp: new Date() } } });
     });
   }
 

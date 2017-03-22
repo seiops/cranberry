@@ -123,8 +123,10 @@ class cranberrySectionRequest {
 
   _firePageview() {
     let tagSection = this.get('tagSection');
-    let section = this.get('section');
+    let section = this.get('section').toLowerCase();
+    let parentSection = this.get('parentSection').toLowerCase();
     let loadSection = this.get('loadSection');
+    let matherSections = (typeof parentSection !== 'undefined' && parentSection !== '' ? parentSection + '/' + section : section + '/');
     let author = this.get('author');
 
     this.async(() => {
@@ -136,7 +138,7 @@ class cranberrySectionRequest {
         // Fire Youneeq Page Hit Request
         this.fire('iron-signal', {name: 'page-hit'});
         // Fire Mather
-        this.fire('iron-signal', {name: 'mather-hit', data: { data: {'sections': loadSection, 'authors': author, 'pageType': 'tags', timeStamp: new Date() } }});
+        this.fire('iron-signal', {name: 'mather-hit', data: { data: {'section': loadSection, 'hierarchy': matherSections, 'authors': author, 'pageType': 'tags', timeStamp: new Date() } }});
       } else {
         // Fire Google Analytics Pageview
         this.fire('iron-signal', {name: 'track-page', data: { path: '/section/' + section, data: { 'dimension7': section } } });
@@ -145,7 +147,7 @@ class cranberrySectionRequest {
         // Fire Youneeq Page Hit Request
         this.fire('iron-signal', {name: 'page-hit'});
         // Fire Mather
-        this.fire('iron-signal', {name: 'mather-hit', data: { data: {'sections': section, 'authors': author, 'pageType': (section === 'homepage' ? 'home' : 'section'), timeStamp: new Date() } } });
+        this.fire('iron-signal', {name: 'mather-hit', data: { data: {'section': loadSection, 'hierarchy': matherSections, 'authors': author, 'pageType': (section === 'homepage' ? 'home' : 'section'), timeStamp: new Date() } } });
       }
     });
   }

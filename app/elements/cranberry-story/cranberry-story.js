@@ -108,6 +108,9 @@ class CranberryStory {
 
       var { byline: { inputByline: byline }, sectionInformation: { section }, published: published, publishedISO: publishedISO, tags: tags, itemId: storyId } = story;
 
+      let parentSection = story.sectionInformation.sectionParentName.toLowerCase();
+      let matherSections = (typeof parentSection !== 'undefined' && parentSection !== '' ? parentSection + '/' + section.toLowerCase() : section.toLowerCase() + '/');
+
       if (typeof story.byline !== 'undefined') {
         if (typeof story.byline.title !== 'undefined') {
           byline = story.byline.title;
@@ -136,7 +139,7 @@ class CranberryStory {
       this.fire('iron-signal', {name: 'observe', data: {content: story}});
       
       // Fire Mather
-      this.fire('iron-signal', {name: 'mather-hit', data: { data: {'sections': section, 'authors': byline, 'publishDate': publishedISO, 'pageType': 'story', timeStamp: new Date() } } });
+      this.fire('iron-signal', {name: 'mather-hit', data: { data: {'section': section, 'hierarchy': matherSections, 'authors': byline, 'publishDate': publishedISO, 'pageType': 'story', timeStamp: new Date() } } });
     });
   }
 
