@@ -102,6 +102,9 @@ class cranberryStaticSection {
       this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/' + staticSection } });
 
       this.fire('iron-signal', {name: 'page-hit'});
+
+      // Fire Mather
+      this.fire('iron-signal', {name: 'mather-hit', data: { data: {'sections': staticSection, 'pageType': 'static' } } });
     });
     
   }

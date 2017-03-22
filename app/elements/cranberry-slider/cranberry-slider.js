@@ -191,6 +191,7 @@ class cranberrySlider {
   }
 
   _clicksChanged(clicks) {
+    console.log('Clicks Changed');
     let modal = this.get('whiteText');
     let galleryType = this.get('galleryType');
 
@@ -222,7 +223,8 @@ class cranberrySlider {
   }
 
   _sendPageview() {
-    let galleryObject = this.get('gallery');
+    console.log('Firing pageview from slider!');
+    let gallery = this.get('gallery');
     let galleryType = this.get('galleryType');
 
     let path = 'photo-gallery/';
@@ -235,25 +237,29 @@ class cranberrySlider {
       path = 'story/';
     }
   
-    let gaData = {};
-
     // Data settings for pageview
     gaData.dimension6 = 'Gallery';
 
-    if (typeof galleryObject.byline !== 'undefined') {
-      gaData.dimension1 = galleryObject.byline;
+    if (typeof gallery.byline !== 'undefined') {
+      gaData.dimension1 = gallery.byline;
     }
 
-    if (typeof galleryObject.published !== 'undefined') {
-      gaData.dimension3 = galleryObject.published;
+    if (typeof gallery.published !== 'undefined') {
+      gaData.dimension3 = gallery.published;
     }
 
-    if (typeof galleryObject.tags !== 'undefined') {
-      gaData.dimension8 = galleryObject.tags;
+    if (typeof gallery.tags !== 'undefined') {
+      gaData.dimension8 = gallery.tags;
     }
 
     // Send pageview event with iron-signals
-    this.fire('iron-signal', {name: 'track-page', data: { path: path + galleryObject.itemId, gaData } });
+    this.fire('iron-signal', {name: 'track-page', data: { path: '/photo-gallery/' + gallery.itemId, gaData } });
+
+    //Send Chartbeat
+    this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/photo-gallery/' + gallery.itemId, data: {'sections': gallery.sectionInformation.sectionName, 'authors': gallery.byline } } });
+
+    // Fire Mather
+    this.fire('iron-signal', {name: 'mather-hit', data: { data: {'sections': gallery.sectionInformation.sectionName, 'authors': gallery.byline, 'publishedDate': gallery.publishedISO, 'pageType': 'gallery' } } });
   }
 
   goTo(imageIndex) {

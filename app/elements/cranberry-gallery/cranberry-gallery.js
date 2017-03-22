@@ -133,7 +133,7 @@ class CranberryGallery {
         let gaData = {};
         let gallery = this.get('gallery');
 
-        // Data settings for pageview
+        /*// Data settings for pageview
         gaData.dimension6 = 'Gallery';
 
         if (typeof gallery.byline !== 'undefined') {
@@ -153,6 +153,9 @@ class CranberryGallery {
 
         //Send Chartbeat
         this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/photo-gallery/' + gallery.itemId, data: {'sections': gallery.sectionInformation.sectionName, 'authors': gallery.byline } } });
+
+        // Fire Mather
+        this.fire('iron-signal', {name: 'mather-hit', data: { data: {'sections': gallery.sectionInformation.sectionName, 'authors': gallery.byline, 'publishedDate': gallery.publishedISO, 'pageType': 'gallery' } } });*/
       }
     });
   }
@@ -193,6 +196,9 @@ class CranberryGallery {
       // Fire Youneeq Page Hit Request
       this.fire('iron-signal', {name: 'page-hit', data: {content: result}});
       this.fire('iron-signal', {name: 'observe', data: {content: result}});
+
+      // Fire Mather
+      this.fire('iron-signal', {name: 'mather-hit', data: { data: {'sections': result.sectionInformation.sectionName, 'authors': result.byline, 'publishedDate': result.publishedISO, 'pageType': 'gallery' } } });
 
       this.set('sendInitialView', false);
     }
@@ -280,6 +286,9 @@ class CranberryGallery {
           this.fire('iron-signal', {name: 'observe', data: {content: gallery}});
 
           this.fire('iron-signal', {name: 'refresh-ad' });
+
+          // Fire Mather
+          this.fire('iron-signal', {name: 'mather-hit', data: { data: {'sections': gallery.sectionInformation.sectionName, 'authors': gallery.byline, 'publishedDate': gallery.publishedISO, 'pageType': 'gallery' } } });
         }
       }
     });
