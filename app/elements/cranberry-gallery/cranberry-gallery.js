@@ -1,7 +1,21 @@
 class CranberryGallery {
+  get behaviors() {
+    return [Polymer.NeonAnimationRunnerBehavior]
+  }
   beforeRegister() {
     this.is = 'cranberry-gallery';
     this.properties = {
+      animationConfig: {
+        value: function() {
+          return {
+            'entry': {
+              name: 'fade-in-animation',
+              node: this,
+              timing: {duration: 1500}
+            }
+          }
+        }
+      },
       baseUrl: String,
       gallery: {
         type: Object
@@ -26,6 +40,11 @@ class CranberryGallery {
       },
       rest: {
         type: String
+      },
+      requestInProgress: {
+        type: Boolean,
+        value: true,
+        observer: '_requestInProgressChanged'
       },
       routeData: Object,
       tags: {
@@ -304,6 +323,15 @@ class CranberryGallery {
 
   _scrollToComments() {
     this.fire('iron-signal', {name: 'scroll-to-comments'});
+  }
+
+  _requestInProgressChanged(loading, oldLoading) {
+    this.async(() => {
+      if (!loading) {
+        console.log('playing animation');
+        this.playAnimation('entry');
+      }
+    });
   }
 }
 Polymer(CranberryGallery);
