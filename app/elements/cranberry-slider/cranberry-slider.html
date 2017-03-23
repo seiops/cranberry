@@ -34,16 +34,18 @@
               <paper-button class="ad-button" raised on-tap="_closeAd">Close</paper-button>
             </div>
           </template>
-          <div class="overlay-previous" on-tap="_showPrevious" mobile-layout$="{{mobileLayout}}" ga-on="click" ga-event-category="Gallery Navigation Clicked" ga-event-action$="uti_gprv_[[displayIndex]]"><span><iron-icon icon="cranberry-icons:chevron-left"></iron-icon></span></div>
-          <div class="overlay-next" on-tap="_showNext" mobile-layout$="{{mobileLayout}}" ga-on="click" ga-event-category="Gallery Navigation Clicked" ga-event-action$="uti_gnxt_[[displayIndex]]"><span><iron-icon icon="cranberry-icons:chevron-right"></iron-icon></span></div>
+          <template is="dom-if" if="[[_checkItemsLength(items)]]">
+            <div class="overlay-previous" on-tap="_showPrevious" mobile-layout$="{{mobileLayout}}" ga-on="click" ga-event-category="Gallery Navigation Clicked" ga-event-action$="uti_gprv_[[displayIndex]]"><span><iron-icon icon="cranberry-icons:chevron-left"></iron-icon></span></div>
+            <div class="overlay-next" on-tap="_showNext" mobile-layout$="{{mobileLayout}}" ga-on="click" ga-event-category="Gallery Navigation Clicked" ga-event-action$="uti_gnxt_[[displayIndex]]"><span><iron-icon icon="cranberry-icons:chevron-right"></iron-icon></span></div>
+          </template>
           <!-- For Absolute Placed content -->
             <template is="dom-if" if="{{!hideImage}}" restamp>
               <content></content>
             </template>
         </div>
-        <div class="loading-container" hidden$="{{!imageLoading}}">
-          <!--<paper-spinner active$="{{imageLoading}}" hidden$="{{!imageLoading}}"></paper-spinner>-->
-          Loading...
+        <div class="loading-container" hidden$="[[!imageLoading]]">
+          <paper-spinner active$="[[imageLoading]]" hidden$="[[!imageLoading]]"></paper-spinner>
+          <p>Loading...</p>
         </div>
       </div>
       <div class="info" white-text$="{{whiteText}}" hidden$="{{noCaption}}">

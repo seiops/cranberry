@@ -67,6 +67,11 @@ class cranberrySlider {
         type: Boolean,
         reflectToAttribute: true,
         value: true
+      },
+      showBuyButton: {
+        type: Boolean,
+        value: false,
+        notify: true
       }
     };
     this.observers = ['_itemsLoaded(items)'];
@@ -107,6 +112,16 @@ class cranberrySlider {
     });
   }
 
+  _checkItemsLength(items) {
+    if (typeof items !== 'undefined') {
+      if (items.length > 1) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+
   _itemsLoaded(items) {
     if (typeof items !== 'undefined' && items.length > 0) {
       this.set('count', items.length);
@@ -118,13 +133,16 @@ class cranberrySlider {
   }
 
   _computeShow(item) {
-    let index = this.items.indexOf(item);
+    let items = this.get('items');
+    let index = items.indexOf(item);
     let requestIndex = this.get('requestIndex');
 
     if (index === requestIndex) {
       this.set('currentImage', item);
       this.set('displayIndex', index + 1);
       this.fire('sliderMoved', {index: index + 1});
+
+      this.set('showBuyButton', !item.noSell);
       return true;
     } else {
       return false;

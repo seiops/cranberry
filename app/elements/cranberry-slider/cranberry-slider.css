@@ -57,6 +57,10 @@ div.loading-container {
   left: 0;
 }
 
+div.loading-container p {
+  color: #fff;
+}
+
 div.overlay-previous,
 div.overlay-next {
   @apply(--layout-horizontal);
