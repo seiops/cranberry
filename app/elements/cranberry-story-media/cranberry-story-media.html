@@ -1,5 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../../bower_components/google-youtube/google-youtube.html">
 <link rel="import" href="../gigya-sharebar/gigya-sharebar.html">
 <link rel="import" href="../cranberry-slider/cranberry-slider.html">
 
@@ -17,7 +18,7 @@
     <iron-media-query query="(max-width:719px)" query-matches="{{mobile}}"></iron-media-query>
 
     <div class="parent-media-container">
-      <div class="media-container" mobile-layout$="[[mobile]]" tablet-layout$="[[tablet]]" desktop-layout$="[[desktop]]">
+      <div class="media-container" mobile-layout$="[[mobile]]" tablet-layout$="[[tablet]]" desktop-layout$="[[desktop]]" image-shortcode$="[[imageShortcode]]">
         <template is="dom-if" if="[[hasContentToDisplay]]" restamp>
           <!-- No lead shortcode logic -->
           <template is="dom-if" if="[[!hasShortcode]]" restamp>
@@ -62,7 +63,7 @@
             <template is="dom-if" if="[[imageShortcode]]" restamp>
               <div class="single-image-container">
                 <!-- Single Image -->
-                <iron-image class="main-media-item" sizing="cover" src$="[[_computeImageUrl(leadShortcodeContent)]]"></iron-image>
+                <iron-image class="main-media-item" sizing="contain" src$="[[_computeImageUrl(leadShortcodeContent)]]"></iron-image>
                 <!-- Button Overlay -->
                 <div class="single-image-overlay">
                   <paper-button raised class="rounded-button comment-button" on-tap="_scrollToComments"><iron-icon icon="cranberry-icons:chat-bubble"></iron-icon></paper-button>
@@ -76,6 +77,7 @@
             </template>
 
             <template is="dom-if" if="[[youtubeShortcode]]" restamp>
+              <google-youtube video-id="[[content.url]]" height="100%" width="100%"></google-youtube>
             </template>
           </template>
         </template>
