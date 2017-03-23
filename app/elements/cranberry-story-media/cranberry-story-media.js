@@ -7,7 +7,7 @@ class cranberryStoryMedia {
       content: Object,
       displaySlider: {
         type: Boolean,
-        value: false
+        value: true
       },
       firstTag: {
         type: String,
@@ -30,18 +30,6 @@ class cranberryStoryMedia {
       '_contentChanged(content)',
       '_checkShortcodeType(hasShortcode)'
     ];
-  }
-
-  _checkMediaLength(media) {
-    if (typeof media !== 'undefined') {
-      if (media.length > 1) {
-        this.set('displaySlider', true);
-      } else {
-        this.set('displaySlider', false);
-      }
-    } else {
-      this.set('displaySlider', false);
-    }
   }
 
   _checkTags(tags) {

@@ -1,5 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../../bower_components/google-youtube/google-youtube.html">
 <link rel="import" href="../gigya-sharebar/gigya-sharebar.html">
 <link rel="import" href="../cranberry-slider/cranberry-slider.html">
 
@@ -17,29 +18,22 @@
     <iron-media-query query="(max-width:719px)" query-matches="{{mobile}}"></iron-media-query>
 
     <div class="parent-media-container">
-      <div class="media-container" mobile-layout$="[[mobile]]" tablet-layout$="[[tablet]]" desktop-layout$="[[desktop]]">
+      <div class="media-container" mobile-layout$="[[mobile]]" tablet-layout$="[[tablet]]" desktop-layout$="[[desktop]]" image-shortcode$="[[imageShortcode]]">
         <template is="dom-if" if="[[hasContentToDisplay]]" restamp>
           <!-- No lead shortcode logic -->
           <template is="dom-if" if="[[!hasShortcode]]" restamp>
-            <!-- Single Image Logic -->
-            <template is="dom-if" if="[[!displaySlider]]" restamp>
-              <div class="single-image-container">
-                <!-- Single Image -->
-                <iron-image class="main-media-item" sizing="cover" src$="[[_computeImageUrl(media.0)]]" hidden$="[[hasLeadShortcode]]"></iron-image>
-                <!-- Button Overlay -->
-                <div class="single-image-overlay">
-                  <paper-button raised class="rounded-button comment-button" on-tap="_scrollToComments"><iron-icon icon="cranberry-icons:chat-bubble"></iron-icon></paper-button>
-                  <gigya-sharebar share-buttons-id="gigya-share-buttons-story" title="[[content.title]]" route="[[route]]"></gigya-sharebar>
-                </div>
-              </div>
-              <!-- Caption / Credit Information -->
-              <div class="single-image-information" mobile-layout$="[[mobile]]" tablet-layout$="[[tablet]]">
-                <p class="caption" hidden$="[[_displayCaption(media.0)]]">[[media.0.caption]] <span>--[[media.0.credit]]</p>
-              </div>
-            </template>
             <!-- Slider Logic -->
             <template is="dom-if" if="[[displaySlider]]" restamp>
-              <cranberry-slider class="main-media-item" id="mainSlider" base-url="{$ config.baseDomain $}" items="[[media]]" mobile-layout$="[[mobile]]" gallery="[[content]]" gallery-type="cranberry-story" hidden$="[[hidden]]">
+              <cranberry-slider class="main-media-item" 
+                                id="mainSlider"
+                                base-url="{$ config.baseDomain $}"
+                                items="[[media]]"
+                                mobile-layout$="[[mobile]]"
+                                gallery="[[content]]"
+                                gallery-type="cranberry-story"
+                                hidden$="[[hidden]]"
+                                show-buy-button="{{showBuyButton}}">
+
                 <div class="slider-tag" hidden$="[[_checkTags(content.tags)]]">
                   <span class="content-tag">[[firstTag]]</span>
                 </div>
@@ -48,15 +42,17 @@
                 </div>
                 <div class="share-buttons">
                   <paper-button raised class="rounded-button comment-button" on-tap="_scrollToComments"><iron-icon icon="cranberry-icons:chat-bubble"></iron-icon></paper-button>
-                  <paper-button id="buyButton" 
-                                class="rounded-button" 
-                                on-tap="_buyImage" 
-                                ga-on="click" 
-                                ga-event-category="Buy Imaged Clicked"
-                                ga-event-action="uti_exlk_byim"
-                                raised>
-                    <iron-icon icon="cranberry-icons:attach-money"></iron-icon>
-                  </paper-button>
+                  <template is="dom-if" if="[[showBuyButton]]">
+                    <paper-button id="buyButton" 
+                                  class="rounded-button" 
+                                  on-tap="_buyImage" 
+                                  ga-on="click" 
+                                  ga-event-category="Buy Imaged Clicked"
+                                  ga-event-action="uti_exlk_byim"
+                                  raised>
+                      <iron-icon icon="cranberry-icons:attach-money"></iron-icon>
+                    </paper-button>
+                  </template>
                   <gigya-sharebar share-buttons-id="gigya-share-buttons-story" title="[[content.title]]" route="[[route]]"></gigya-sharebar>
                 </div>
               </cranberry-slider>
@@ -67,7 +63,7 @@
             <template is="dom-if" if="[[imageShortcode]]" restamp>
               <div class="single-image-container">
                 <!-- Single Image -->
-                <iron-image class="main-media-item" sizing="cover" src$="[[_computeImageUrl(leadShortcodeContent)]]"></iron-image>
+                <iron-image class="main-media-item" sizing="contain" src$="[[_computeImageUrl(leadShortcodeContent)]]"></iron-image>
                 <!-- Button Overlay -->
                 <div class="single-image-overlay">
                   <paper-button raised class="rounded-button comment-button" on-tap="_scrollToComments"><iron-icon icon="cranberry-icons:chat-bubble"></iron-icon></paper-button>
@@ -81,8 +77,8 @@
             </template>
 
             <template is="dom-if" if="[[youtubeShortcode]]" restamp>
+              <google-youtube video-id="[[content.url]]" height="100%" width="100%"></google-youtube>
             </template>
-            <p>I am a lead shortcode!</p>
           </template>
         </template>
       </div>

@@ -25,6 +25,18 @@ div.media-container[desktop-layout] .main-media-item {
 }
 
 /* Single Image Styles */
+div.media-container[mobile-layout][image-shortcode] .main-media-item {
+  height: 200px;
+}
+
+div.media-container[tablet-layout][image-shortcode] .main-media-item {
+  height: 400px;
+}
+
+div.media-container[desktop-layout][image-shortcode] .main-media-item {
+  height: 700px;
+}
+
 div.media-container iron-image {
   @apply(--layout-vertical);
   height: 100%;
