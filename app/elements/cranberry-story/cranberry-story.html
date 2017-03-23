@@ -4,6 +4,8 @@
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
 <link rel="import" href="../../bower_components/page-title/page-title.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/fade-in-animation.html">
+<link rel="import" href="../../bower_components/neon-animation/neon-animation-runner-behavior.html">
 <!-- Custom Dependencies -->
 <link rel="import" href="../cranberry-related-content/cranberry-related-content.html">
 <link rel="import" href="../cranberry-story-byline/cranberry-story-byline.html">
@@ -42,37 +44,28 @@
                              current-page-id="{{storyId}}"
                              hidden$="[[hidden]]">
     </cranberry-story-request>
+    <!-- Content Loaded Display -->
+    <div hidden$="[[!storyDoneLoading]]">
+      <div class="cranberry-story">
+        <template is="dom-if" if="[[!staticPage]]">
+          <!-- Main Header Ad -->
+          <div class="banner-advertisement">
+            <google-dfp
+              section="[[response.sectionInformation.sectionName]]"
+              section-parent="[[response.sectionInformation.sectionParentName]]"
+              tags="[[response.tags]]"
+              ad-pos="leaderboard"
+              ad-size-mapping="leaderboard"
+              ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
+              ad-group="{$ config.dfpAdStructure.adGroupID $}"
+              ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
+              ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
+              id="topAd"
+              hidden$="[[hidden]]">
+            </google-dfp>
+          </div>
+        </template> 
 
-    <div class="cranberry-story">
-      <template is="dom-if" if="[[!staticPage]]">
-        <!-- Main Header Ad -->
-        <div class="banner-advertisement">
-          <google-dfp
-            section="[[response.sectionInformation.sectionName]]"
-            section-parent="[[response.sectionInformation.sectionParentName]]"
-            tags="[[response.tags]]"
-            ad-pos="leaderboard"
-            ad-size-mapping="leaderboard"
-            ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
-            ad-group="{$ config.dfpAdStructure.adGroupID $}"
-            ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
-            ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
-            id="topAd"
-            hidden$="[[hidden]]">
-          </google-dfp>
-        </div>
-      </template>
-      
-      <!-- Loading Content Display -->
-      <template is="dom-if" if="[[loading]]">
-        <div class="loading-container" hidden$="[[!loading]]">
-          <paper-spinner active$="[[loading]]"></paper-spinner>
-          <p>Fetching Your Content...</p>
-        </div>
-      </template>
-
-      <!-- Content Loaded Display -->
-      <template is="dom-if" if="[[!requestLoading]]">
         <!-- Error Display -->
         <template is="dom-if" if="[[error.errorCode]]">
           <h1>[[error.errorMessage]]</h1>
@@ -209,27 +202,28 @@
               <div class="youneeq-wrapper">
                 <youneeq-content content="[[response]]" domain="{$ config.baseDomain $}" hidden$="[[hidden]]"></youneeq-content>
               </div>
-            </div>
-          </template>
+            </template>
+          </div>
         </template>
-      
-      <template is="dom-if" if="[[!staticPage]]">
-        <!-- Last Ad -->
-        <div class="banner-advertisement">
-          <google-dfp
-            section="[[response.sectionInformation.sectionName]]"
-            section-parent="[[response.sectionInformation.sectionParentName]]"
-            tags="[[response.tags]]"
-            ad-pos="Last_of_Stream"
-            ad-size-mapping="leaderboard"
-            ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
-            ad-group="{$ config.dfpAdStructure.adGroupID $}"
-            ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
-            ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
-            hidden$="[[hidden]]">
-          </google-dfp>
-        </div>
-      </template>
+        
+        <template is="dom-if" if="[[!staticPage]]">
+          <!-- Last Ad -->
+          <div class="banner-advertisement">
+            <google-dfp
+              section="[[response.sectionInformation.sectionName]]"
+              section-parent="[[response.sectionInformation.sectionParentName]]"
+              tags="[[response.tags]]"
+              ad-pos="Last_of_Stream"
+              ad-size-mapping="leaderboard"
+              ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
+              ad-group="{$ config.dfpAdStructure.adGroupID $}"
+              ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
+              ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
+              hidden$="[[hidden]]">
+            </google-dfp>
+          </div>
+        </template>
+      </div>
 
       <google-dfp
         section="[[response.sectionInformation.sectionName]]"
@@ -253,6 +247,14 @@
         hidden$="[[hidden]]">
       </google-dfp>
     </div>
+
+    <!-- Loading Content Display -->
+    <template is="dom-if" if="[[!storyDoneLoading]]">
+      <div class="loading-container" hidden$="[[storyDoneLoading]]">
+        <paper-spinner active$="[[!storyDoneLoading]]"></paper-spinner>
+        <p>Fetching Your Content...</p>
+      </div>
+    </template>
   </template>
 
   <!-- Add cranberry-story Polymer Object script -->

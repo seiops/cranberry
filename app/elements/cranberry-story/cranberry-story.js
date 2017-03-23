@@ -1,7 +1,21 @@
 class CranberryStory {
+  get behaviors() {
+    return [Polymer.NeonAnimationRunnerBehavior]
+  }
   beforeRegister() {
     this.is = 'cranberry-story';
     this.properties = {
+      animationConfig: {
+        value: function() {
+          return {
+            'entry': {
+              name: 'fade-in-animation',
+              node: this,
+              timing: {duration: 1500}
+            }
+          }
+        }
+      },
       baseUrl: String,
       byline: {
         type: Object,
@@ -37,6 +51,11 @@ class CranberryStory {
       staticPage: {
         type: Boolean,
         value: false
+      },
+      storyDoneLoading: {
+        type: Boolean,
+        value: false,
+        observer: '_loadingChanged'
       },
       storyId: {
         type: String,
@@ -153,13 +172,24 @@ class CranberryStory {
 
         if (!paragraphsLoading && !requestLoading) {
           this.set('loading', false);
+          this.set('storyDoneLoading', true);
           this._sendPageview();
 
           // Fire nativo
           if (typeof window.PostRelease !== 'undefined' && typeof window.PostRelease.Start === 'function') {
             PostRelease.Start();
           }
+        } else {
+          this.set('storyDoneLoading', false);
         }
+      }
+    });
+  }
+
+  _loadingChanged(loading, oldLoading) {
+    this.async(() => {
+      if (loading) {
+        this.playAnimation('entry');
       }
     });
   }
