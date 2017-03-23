@@ -25,6 +25,10 @@ class CranberryGallery {
         value: 0,
         observer: '_galleryIdChanged'
       },
+      goToIndex: {
+        type: Number,
+        value: 0
+      },
       jsonp: {
         type: Object,
         value: {
@@ -131,18 +135,20 @@ class CranberryGallery {
   }
 
   _goToSlide (e) {
-    let mainSlider = this.querySelector('#mainSlider');
-    let imageIndex = Number(e.target.parentElement.dataset.index);
-
-    mainSlider.goTo(imageIndex);
-
+    this.set('goToIndex', Number(e.target.parentElement.dataset.index));
     this.fire('iron-signal', { name: 'app-scroll', data: { scrollPosition: 0, scrollSpeed: 1500, scrollAnimation: 'easeInOutQuint', afterScroll: true } });
   }
   
   scrollComplete() {
     let hidden = this.get('hidden');
+    let goToIndex = this.get('goToIndex');
     this.async(() => {
       if (!hidden) {
+        let mainSlider = this.querySelector('#mainSlider');
+        let imageIndex = goToIndex;
+
+        mainSlider.goTo(imageIndex);
+
         let topAd = this.$.topAd;
         let sideAd = this.$.sideAd;
 
