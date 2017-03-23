@@ -18,6 +18,14 @@ class cranberryStoryMedia {
         value: false
       },
       hasShortcode: Boolean,
+      hidden: {
+        type: Boolean,
+        value: false
+      },
+      hideContent: {
+        type: Boolean,
+        value: false
+      },
       leadShortcodeType: String,
       leadShortcodeContent: Object,
       media: Array,
@@ -28,7 +36,8 @@ class cranberryStoryMedia {
     this.observers = [
       '_checkMediaLength(media)',
       '_contentChanged(content)',
-      '_checkShortcodeType(hasShortcode)'
+      '_checkShortcodeType(hasShortcode)',
+      '_hideContent(hideContent)'
     ];
   }
 
@@ -129,6 +138,14 @@ class cranberryStoryMedia {
         } else {
           this.set('youtubeShortcode', false);
         }
+      }
+    });
+  }
+
+  _hideContent(hideContent) {
+    this.async(() => {
+      if (typeof hideContent !== 'undefined' && hideContent) {
+        this.set('hasContentToDisplay', false);
       }
     });
   }

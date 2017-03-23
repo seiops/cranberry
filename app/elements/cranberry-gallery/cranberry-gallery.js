@@ -129,30 +129,6 @@ class CranberryGallery {
 
         topAd.refresh();
         sideAd.refresh();
-
-        let gaData = {};
-        let gallery = this.get('gallery');
-
-        // Data settings for pageview
-        gaData.dimension6 = 'Gallery';
-
-        if (typeof gallery.byline !== 'undefined') {
-          gaData.dimension1 = gallery.byline;
-        }
-
-        if (typeof gallery.published !== 'undefined') {
-          gaData.dimension3 = gallery.published;
-        }
-
-        if (typeof gallery.tags !== 'undefined') {
-          gaData.dimension8 = gallery.tags;
-        }
-
-        // Send pageview event with iron-signals
-        this.fire('iron-signal', {name: 'track-page', data: { path: '/photo-gallery/' + gallery.itemId, gaData } });
-
-        //Send Chartbeat
-        this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/photo-gallery/' + gallery.itemId, data: {'sections': gallery.sectionInformation.sectionName, 'authors': gallery.byline } } });
       }
     });
   }
@@ -163,6 +139,9 @@ class CranberryGallery {
     let result = JSON.parse(data.detail.Result);
     let gaData = {};
 
+    let parentSection = result.sectionInformation.sectionParentName.toLowerCase();
+    let section = result.sectionInformation.sectionName.toLowerCase();
+    let matherSections = (typeof parentSection !== 'undefined' && parentSection !== '' ? parentSection + '/' + section : section + '/');
     // Data settings for pageview
     gaData.dimension6 = 'Gallery';
 
@@ -193,6 +172,9 @@ class CranberryGallery {
       // Fire Youneeq Page Hit Request
       this.fire('iron-signal', {name: 'page-hit', data: {content: result}});
       this.fire('iron-signal', {name: 'observe', data: {content: result}});
+
+      // Fire Mather
+      this.fire('iron-signal', {name: 'mather-hit', data: { data: {'section': section, 'hierarchy': matherSections, 'authors': result.byline, 'publishedDate': result.publishedISO, 'pageType': 'gallery', timeStamp: new Date() } } });
 
       this.set('sendInitialView', false);
     }
@@ -269,17 +251,24 @@ class CranberryGallery {
         this._destroyNativo();
       } else {
         if (typeof gallery !== 'undefined' && typeof gallery.itemId !== 'undefined' && !sendInitialView) {
+          let parentSection = gallery.sectionInformation.sectionParentName.toLowerCase();
+          let section = gallery.sectionInformation.sectionName.toLowerCase();
+          let matherSections = (typeof parentSection !== 'undefined' && parentSection !== '' ? parentSection + '/' + section : section + '/');
+          
           // Send pageview event with iron-signals
           this.fire('iron-signal', {name: 'track-page', data: { path: '/photo-gallery/' + gallery.itemId, gaData } });
 
           //Send Chartbeat
-          this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/photo-gallery/' + gallery.itemId, data: {'sections': gallery.sectionInformation.sectionName, 'authors': gallery.byline } } });
+          this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/photo-gallery/' + gallery.itemId, data: {'sections': section,  'authors': gallery.byline } } });
           
           // Fire Youneeq Page Hit Request
           this.fire('iron-signal', {name: 'page-hit', data: {content: gallery}});
           this.fire('iron-signal', {name: 'observe', data: {content: gallery}});
 
           this.fire('iron-signal', {name: 'refresh-ad' });
+
+          // Fire Mather
+          this.fire('iron-signal', {name: 'mather-hit', data: { data: {'section': section, 'hierarchy': matherSections, 'authors': gallery.byline, 'publishedDate': gallery.publishedISO, 'pageType': 'gallery', timeStamp: new Date() } } });
         }
       }
     });

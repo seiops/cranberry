@@ -118,7 +118,10 @@ class cranberryStoryRequest {
 
   _sendCachedPageview(story) {
       console.info('\<cranberry-story-request\> sending cached pageview');
-      var { sectionInformation: { section }, published: published, tags: tags, itemId: storyId } = story;
+      var { sectionInformation: { section }, published: published, publishedISO: publishedISO, tags: tags, itemId: storyId } = story;
+
+      let parentSection = story.sectionInformation.sectionParentName.toLowerCase();
+      let matherSections = (typeof parentSection !== 'undefined' && parentSection !== '' ? parentSection + '/' + section.toLowerCase() : section.toLowerCase() + '/');
 
       if (typeof story.byline !== 'undefined') {
         var byline = story.byline;
@@ -150,6 +153,9 @@ class cranberryStoryRequest {
       // Fire Youneeq Page Hit Request
       this.fire('iron-signal', {name: 'page-hit'});
       this.fire('iron-signal', {name: 'observe', data: {content: story}});
+
+      // Fire Mather
+      this.fire('iron-signal', {name: 'mather-hit', data: { data: {'section': section, 'hierarchy': matherSections, 'authors': byline, 'publishDate': publishedISO, 'pageType': 'story', timeStamp: new Date() } } });
   }
 
   _setupRequest(pageId, staticPage) {

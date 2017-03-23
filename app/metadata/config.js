@@ -12,6 +12,11 @@ module.exports = {
   urlTitle: 'SanduskyRegister.com',
   epaperLink: 'http://digital.olivesoftware.com/Olive/ODN/SanduskyRegister/default.aspx',
   ludiPortal: 'sanduskyregister',
+  // Mather
+  mather: {
+    id: 76022441,
+    name: 'Sandusky Register'
+  },
   promo: {
     image: '../../images/promo/sandusky/promo.png',
     link: 'http://www.sanduskyoffers.com'
