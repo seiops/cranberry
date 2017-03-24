@@ -251,9 +251,18 @@ class CranberryGallery {
         this._destroyNativo();
       } else {
         if (typeof gallery !== 'undefined' && typeof gallery.itemId !== 'undefined' && !sendInitialView) {
-          let parentSection = gallery.sectionInformation.sectionParentName.toLowerCase();
-          let section = gallery.sectionInformation.sectionName.toLowerCase();
-          let matherSections = (typeof parentSection !== 'undefined' && parentSection !== '' ? parentSection + '/' + section : section + '/');
+          let parentSection;
+          let section;
+
+          if (typeof gallery.sectionInformation.sectionParentName !== 'undefined' && gallery.sectionInformation.sectionParentName !== '') {
+            parentSection = gallery.sectionInformation.sectionParentName.toLowerCase();
+          }
+
+          if (typeof gallery.sectionInformation.sectionName !== 'undefined' && gallery.sectionInformation.sectionName !== '') {
+            section = gallery.sectionInformation.sectionName.toLowerCase();
+          }
+
+          let matherSections = (parentSection !== '' ? parentSection + '/' + section : section + '/');
           
           // Send pageview event with iron-signals
           this.fire('iron-signal', {name: 'track-page', data: { path: '/photo-gallery/' + gallery.itemId, gaData } });
