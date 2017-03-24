@@ -99,8 +99,12 @@ class CranberryStory {
       let story = this.get('response');
 
       var { byline: { inputByline: byline }, sectionInformation: { section }, published: published, publishedISO: publishedISO, tags: tags, itemId: storyId } = story;
+      let parentSection;
 
-      let parentSection = story.sectionInformation.sectionParentName.toLowerCase();
+      if (typeof story.sectionInformation.sectionParentName !== 'undefined' && story.sectionInformation.sectionParentName !== '') {
+        parentSection = story.sectionInformation.sectionParentName.toLowerCase();
+      }
+      
       let matherSections = (typeof parentSection !== 'undefined' && parentSection !== '' ? parentSection + '/' + section.toLowerCase() : section.toLowerCase() + '/');
 
       if (typeof story.byline !== 'undefined') {
