@@ -3,6 +3,11 @@ class cranberrySectionRequest {
     this.is = 'cranberry-section-request';
     this.properties = {
       author: String,
+      disableFeatured: {
+        type: Boolean,
+        value: false,
+        notify: true
+      },
       contentItems: {
         type: Array,
         notify: true
@@ -11,31 +16,18 @@ class cranberrySectionRequest {
         type: Number,
         value: 0
       },
-      disableFeatured: Boolean,
       featuredItems: {
         type: Array,
         notify: true
       },
-      hidden: Boolean,
-      items: {
-        type: Object
+      hidden: {
+        type: Boolean,
+        reflectToAttribute: true,
+        value: true
       },
       loading: {
         type: Boolean,
         computed: '_computeLoading(requestInProgress, requestGenerated)',
-        notify: true
-      },
-      loadSection: {
-        type: String,
-        notify: true
-      },
-      params: {
-        type: Object,
-        value: [],
-        observer: '_changeParams'
-      },
-      parentSection: {
-        type: String,
         notify: true
       },
       response: {
@@ -50,61 +42,85 @@ class cranberrySectionRequest {
         type: Boolean,
         value: true
       },
-      routeData: String,
-      section: {
-        type: String,
-        notify: true
+      sectionObject: {
+        type: Object,
+        value: function() {
+          return {};
+        }
       },
       start: {
         type: Number,
         value: 1,
         observer: '_startChanged'
       },
-      tags: String,
-      tagSection: {
+      tagsPage: {
         type: Boolean,
         value: false
-      },
-      tempHidden: Boolean,
-      tempParent: {
-        type: String,
-        value: 'default'
-      },
-      tempSection: {
-        type: String,
-        value: 'default'
       }
     }
-    this.observers = [
-      '_sectionChanged(section, parentSection, hidden)',
-      '_updateParams(loadSection)'  
-    ]
+    this.listeners = { 'cranberry-request-content': '_setupRequest' };
   }
 
-  debouncedChanged(section, parentSection, hidden) {
-    // Debounce function to ensure that all values are properly set.
-    this.debounce('debouncedChanged', ()  => {
-      let tagSection = this.get('tagSection');
-      let tags = this.get('tags');
-      if (!hidden) {
-        if (!tagSection) {
-          if (parentSection === '') {
-            this.set('loadSection', section);
-          } else {
-            if (section !== '') {
-              this.set('loadSection', section);
-            } else {
-              this.set('loadSection', parentSection);
-            }  
-          }
-        } else {
-          this.set('loadSection', tags);
-        }
+  _generateRequest(section = this.get('sectionObject.section'), parent = this.get('sectionObject.parent'), tagName = this.get('sectionObject.tagName'), disableFeatured = this.get('sectionObject.disableFeatured'), start = this.get('start'), count = this.get('count')) {
+    let currentRequest = this.get('request');
+    let requester = this.$.request;
 
-        this._firePageview();
-        this._fireNativo();
+    if (typeof currentRequest !== 'undefined' && currentRequest.loading === true) {
+      console.info('<\cranberry-section-request\> aborting previous request');
+      requester.abortRequest(currentRequest);
+    }
+
+    let sectionToFetch = (typeof parent !== 'undefined' && parent !== '' ? parent : section);
+    let tagsPage = (typeof tagName !== 'undefined' && tagName !== '' ? true : false);
+    let galleriesPage = (section === 'galleries' ? true : false);
+    let homepage = (section === 'homepage' ? true : false);
+    start = (typeof start !== 'undefined' ? start : this.get('start'));
+    count = (typeof count !== 'undefined' ? count : this.get('count'));
+
+    let jsonp = {
+      disableFeatured: (start === 1 ? disableFeatured : true),
+      request: 'content-list',
+      desiredSection: (!tagsPage ? sectionToFetch : ''),
+      auxJailMugs: 0,
+      desiredStart: start,
+      desiredCount: count,
+      desiredContent: (galleriesPage ? 'gallery' : 'story_gallery'),
+      desiredTags: (tagsPage ? tagName : '')
+    };
+
+    this.set('disableFeatured', jsonp.disableFeatured);
+
+    if (homepage) {
+      // Homepage Logic
+      if (start === 1) {
+        jsonp.auxJailMugs = 1;
+      } else {
+        jsonp.auxJailMugs = 0;
       }
-    }, 50);
+    }
+
+    requester.setAttribute('callback-value', 'callback');
+    requester.params = jsonp;
+    requester.generateRequest();
+    this.set('requestGenerated', true);
+  }
+
+  _setupRequest(e) {
+    let hidden = this.get('hidden');
+    this.async(() => {
+      if (!hidden) {
+        this.set('sectionObject', e.detail.data);
+        let sectionInformation = e.detail.data;
+        var { disableFeatured, parent, section, tagName } = sectionInformation;
+        let start = this.get('start');
+        let count = this.get('count');
+
+        this.set('section', section);
+
+        this.set('requestGenerated', true);
+        this._generateRequest(section, parent, tagName, disableFeatured, start, count);
+      }
+    });
   }
 
   _computeLoading(requestLoading, requestGenerated) {
@@ -115,19 +131,13 @@ class cranberrySectionRequest {
     }
   }
   
-  _sectionChanged(section, parentSection, hidden) {
-    this.async(() => {
-      this.debouncedChanged(section, parentSection, hidden);
-    });
-  }
-
   _firePageview() {
-    let tagSection = this.get('tagSection');
+    let tagsPage = this.get('tagsPage');
     let section = this.get('section');
     let author = this.get('author');
 
     this.async(() => {
-      if (tagSection) {
+      if (tagsPage) {
         // Fire Google Analytics Pageview
         this.fire('iron-signal', {name: 'track-page', data: { path: '/tags/' + section, data: { 'dimension7': section } } });
         // Fire Chartbeat pageview
@@ -156,72 +166,6 @@ class cranberrySectionRequest {
     console.info('\<cranberry-section-request\> attached');
   }
 
-  _updateParams(loadSection) {
-    this.async(() => {
-      let currentRequest = this.get('request');
-
-      if (typeof currentRequest !== 'undefined' && currentRequest.loading === true) {
-        console.info('<\cranberry-section-request\> aborting previous request');
-        this.$.request.abortRequest(currentRequest);
-      }
-
-      this.set('items', []);
-
-      let jsonp = {};
-      let sections = (typeof loadSection !== 'undefined') ? loadSection : this.get('loadSection');
-      let disableFeatured = this.get('disableFeatured');
-      let tagSection = this.get('tagSection');
-      let gallerySection = this.get('galleries');
-      let homepageFlag;
-      let start = this.get('start');
-      let count = this.get('count');
-
-      jsonp.request = 'content-list';
-
-      if (typeof gallerySection !== undefined && gallerySection) {
-        jsonp.desiredSection = 'galleries';
-      } else if (typeof tagSection !== 'undefined' && tagSection) {
-        sections = sections.replace(/-/g, ' ');
-        jsonp.desiredTags = sections;
-      } else {
-        if (sections === 'homepage') {
-          sections = 'useHomepageVariable';
-          homepageFlag = true;
-          
-        }
-        jsonp.desiredSection = sections;
-      }
-      
-      jsonp.disableFeatured = disableFeatured;
-      jsonp.desiredContent = this._isGalleries(this.get('galleries'));
-      jsonp.desiredStart = start;
-
-      if (typeof homepageFlag !== 'undefined' && homepageFlag) {
-        jsonp.featuredHomepage = 1;
-        if (typeof start === 'undefined' || start === 1) {
-          jsonp.auxJailMugs = 1;
-        } else {
-          jsonp.auxJailMugs = 0;
-        }
-      }
-
-      jsonp.desiredCount = count;
-
-      this.set('params', jsonp);
-    });
-  }
-
-  _changeParams() {
-    let params = this.get('params');
-    
-    if (params.length !== 0) {
-      this.$.request.setAttribute('callback-value', 'callback');
-      this.$.request.params = params;
-      this.$.request.generateRequest();
-      this.set('requestGenerated', true);
-    }
-  }
-
   _handleLoad() {
     console.info('<\cranberry-section-request\> load received');
   }
@@ -232,30 +176,20 @@ class cranberrySectionRequest {
 
   _parseResponse(response) {
     var result = JSON.parse(response.Result);
-
     this.set('featuredItems', result.featured);
     this.set('contentItems', result.content);
 
-    this.set('items', result);
+    this._firePageview();
     this._fireNativo();
   }
 
-  _isGalleries(galleries) {
-    if (galleries) {
-      return 'gallery';
-    } else {
-      return 'story_gallery'
-    }
-  }
-
   _startChanged(start, oldStart) {
-      this.async(function () {
-        if (typeof oldStart !== 'undefined' && typeof start !== 'undefined') {
-          console.info('\<cranberry-section-request\> start changed -\> ' + start);
-          this._updateParams();
-          this._firePageview();
-        }
-      });
-    }
+    this.async(function () {
+      if (typeof oldStart !== 'undefined' && typeof start !== 'undefined') {
+        console.info('\<cranberry-section-request\> start changed -\> ' + start);
+        this._generateRequest();
+      }
+    });
+  }
 }
 Polymer(cranberrySectionRequest);

@@ -11,6 +11,7 @@ class cranberryBreakingBar {
       },
       tags: {
         type: String,
+        value: '',
         observer: '_onTagsChanged'
       },
       type: {
@@ -134,16 +135,18 @@ class cranberryBreakingBar {
   }
 
   _onTagsChanged(tagsString) {
-    let tags = tagsString.split(',');
-    let self = this;
+    console.log(`Tags Changed ${tagsString}`);
+    if (typeof tagString !== 'undefined' && tagString !== '') {
+      let tags = tagsString.split(',');
 
-    tags.forEach(function(value, index) {
-      if (value === 'alert' || value === 'Alert') {
-        self.set('type', 'ALERT: ');
-      } else if (value === 'breaking' || value === 'Breaking') {
-        self.set('type', 'BREAKING: ');
-      }
-    });
+      tags.forEach((value, index) => {
+        if (value === 'alert' || value === 'Alert') {
+          this.set('type', 'ALERT: ');
+        } else if (value === 'breaking' || value === 'Breaking') {
+          this.set('type', 'BREAKING: ');
+        }
+      });
+    }
   }
 
   _showNext() {

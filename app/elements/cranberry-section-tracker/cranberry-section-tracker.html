@@ -1,5 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
+<link rel="import" href="../../bower_components/iron-signals/iron-signals.html">
 
 <dom-module id="cranberry-section-tracker">
   <template>
@@ -7,6 +8,8 @@
       @import "cranberry-section-tracker/cranberry-section-tracker";
     </style>
     
+    <iron-signals on-iron-signal-cranberry-section-route-changed="_sectionRouteChanged"></iron-signals>
+
     <byutv-jsonp on-response="_handleResponse" id="request" loading="{{requestInProgress}}"></byutv-jsonp>
 
   </template>

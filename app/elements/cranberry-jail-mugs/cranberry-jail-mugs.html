@@ -24,6 +24,7 @@
     <div class="header-advertisement">
       <google-dfp
         section="news"
+        section-parent=""
         ad-pos="leaderboard"
         ad-size-mapping="leaderboard"
         ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
@@ -56,13 +57,14 @@
       </div>
       <div class="ad-container">
         <google-dfp section="news"
-                      ad-pos="Top_of_Stream"
-                      ad-size="[[300, 250],[300, 600]]"
-                      ad-group="{$ config.dfpAdStructure.adGroupID $}"
-                      ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
-                      ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
-                      id="sideAd"
-                      hidden$="[[hidden]]">
+                    section-parent=""
+                    ad-pos="Top_of_Stream"
+                    ad-size="[[300, 250],[300, 600]]"
+                    ad-group="{$ config.dfpAdStructure.adGroupID $}"
+                    ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
+                    ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
+                    id="sideAd"
+                    hidden$="[[hidden]]">
           </google-dfp>
       </div>
     </div>
@@ -81,6 +83,7 @@
     <div class="header-advertisement">
       <google-dfp
         section="news"
+        section-parent=""
         ad-pos="middle_of_stream"
         ad-size-mapping="leaderboard"
         ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
@@ -111,6 +114,7 @@
       <div class="ad-container">
         <google-dfp
           section="news"
+          section-parent=""
           ad-pos="bottom_of_Stream"
           ad-size="[[300, 600]]"
           ad-group="{$ config.dfpAdStructure.adGroupID $}"
@@ -124,6 +128,7 @@
     <div class="header-advertisement">
       <google-dfp
         section="news"
+        section-parent=""
         ad-pos="last_of_stream"
         ad-size-mapping="leaderboard"
         ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"

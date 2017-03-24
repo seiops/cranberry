@@ -2,18 +2,10 @@ class cranberrySectionTracker {
   beforeRegister() {
     this.is = 'cranberry-section-tracker';
     this.properties = {
-      appSection: {
+      dfpAdPath: {
         type: String,
-        computed: '_computeAppSection(page, isGalleries, hidden)'
-      },
-      disableFeatured: {
-        type: Boolean,
-        value: true,
+        value: '',
         notify: true
-      },
-      isGalleries: {
-        type: Boolean,
-        value: false
       },
       hidden: {
         type: Boolean,
@@ -25,19 +17,7 @@ class cranberrySectionTracker {
         computed: '_computeLoading(requestInProgress)',
         notify: true
       },
-      page: {
-        type: String,
-        value: 'undefined'
-      },
-      parentSection: {
-        type: String,
-        notify: true
-      },
       rest: String,
-      section: {
-        type: String,
-        notify: true
-      },
       sectionToFetch: {
         type: String,
         observer: '_onRouteChanged'
@@ -46,78 +26,63 @@ class cranberrySectionTracker {
         type: Boolean,
         value: true
       },
-      tags: {
+      tags: String,
+      tagsPage: {
         type: Boolean,
         value: false
       }
     };
+    this.observers = [];
+    this.listeners = { 'cranberry-section-route-changed': '_sectionRouteChanged' };
   }
 
   attached() {
     console.info('\<cranberry-section-tracker\> attached');
   }
 
-  _computeAppSection(page, isGalleries, hidden) {
-    if (!hidden && page !== 'section' && page !== 'story' && page !== 'photo-gallery' && page !== 'profile' && page !== 'contact'
-    && page !== 'archive' && page !== 'forecast' && page !== 'jail-mugs') {
-      if (page === 'galleries' && isGalleries) {
-        this.set('sectionToFetch', page);
-      }
+  _sectionRouteChanged(e) {
+    let hidden = this.get('hidden');
+    this.async(() => {
+      if (!hidden) {
+        let section = e.detail.section;
 
-      if (!isGalleries && page !== 'galleries') {
-        this.set('sectionToFetch', page);
+        this._setupSectionRequest(section);
       }
-      
-      return page;
-    }
+    });
   }
 
-  _onRouteChanged(page, oldPage) {
+  _setupSectionRequest(section) {
     let request = this.$.request;
-    let params = {};
-    let scrubbedPath = '';
-    let tags = this.get('tags');
-    
-    if (page !== 'tags' && page !== 'section' && page !== 'story' && page !== 'photo-gallery' && page !== 'profile' && page !== 'contact'
-    && page !== 'archive' && page !== 'forecast' && page !== 'jail-mugs') {
-      // REQUEST SECTION INFO
-      params.request = 'section';
-      params.desiredSection = (page === '' ? 'homepage' : page);
-      
-      request.setAttribute('url', this.get('rest'));
-      request.setAttribute('callback-value', 'callbackSectionTracker');
-      request.params = params;
+    let rest = this.get('rest');
+    let sectionType = section.sectionType;
+    let sectionName = section.sectionName;
+    let params = {
+      request: 'section',
+      desiredSection: section.sectionName,
+      tagSection: (section.sectionType === 'tags' ? 1 : 0)
+    };
 
-      console.info('\<cranberry-section-tracker\> generating section tracking request');
-      request.generateRequest();
-    }
+    request.setAttribute('url', rest);
+    request.setAttribute('callback-value', 'callbackSectionTracker');
+    request.params = params;
+    request.generateRequest();
   }
 
   _handleResponse(response) {
     console.info('\<cranberry-section-tracker\> response received');
     if (typeof response.detail !== 'undefined' && response.detail.Result !== 'undefined' && response.detail.Result !== '') {
       let result = JSON.parse(response.detail.Result);
-      let section = result.sectionId.replace(/_/g, '-');
-      let parent = result.sectionParent;
 
-      this.set('section', section);
+      let data = {
+        section: (typeof result.sectionId !== 'undefined' && result.sectionId !== '' ? result.sectionId.replace(/_/g, '-') : ''),
+        parent: (typeof result.sectionParent !== 'undefined' && result.sectionParent !== '' ? result.sectionParent.replace(/_/g, '-') : ''),
+        tagName: (typeof result.tagName !== 'undefined' && result.tagName !== '' ? result.tagName.replace(/_/g, '-') : ''),
+        disableFeatured: (typeof result.disableFeatured !== 'undefined' ? result.disableFeatured : false)
+      };
 
-      if (typeof parent === 'undefined') {
-        this.set('parentSection', '');
-      } else {
-        this.set('parentSection', parent);
-      }
-
-      if (typeof result.disableFeatured !== 'undefined' && result.disableFeatured) {
-        this.set('disableFeatured', true);
-      } else {
-        this.set('disableFeatured', false);
-      }
-
-    } else {
-      this.set('section', 'news');
-      this.set('parentSection', '');
-      this.set('disableFeatured', false);
+      this.set('dfpAdPath', result.adSection);
+      this.set('tags', data.tagName);
+      this.fire('iron-signal', { name: 'cranberry-request-content', data: { data } });
     }
   }
 
