@@ -31,10 +31,15 @@ class CranberrySection {
         value: 1,
         observer: '_currentPageChanged'
       },
+      dfpAdPath: {
+        type: String,
+        value: ''
+      },
       disableFeatured: {
         type: Boolean,
         value: true
       },
+      elementAttached: Boolean,
       featuredItems: Array,
       galleries: {
         type: Boolean,
@@ -74,10 +79,8 @@ class CranberrySection {
         type: Number,
         value: 1
       },
-      tag: {
-        type: String
-      },
-      tags: {
+      tags: String,
+      tagsPage: {
         type: Boolean,
         value: false
       },
@@ -88,8 +91,44 @@ class CranberrySection {
     };
     this.observers = [
       '_hiddenChanged(hidden, routeData.section)',
-      '_refreshAds(refreshAds)'
+      '_refreshAds(refreshAds)',
+      '_routeChanged(route, elementAttached, hidden)'
     ];
+  }
+  
+  _routeChanged(route, elementAttached, hidden) {
+    this.async(() => {
+      this._debounceRouteChanged(route, elementAttached, hidden);
+    });
+  }
+
+  _debounceRouteChanged(route, elementAttached, hidden) {
+    this.debounce('debouncedChanged', ()  => {
+      if (!hidden && elementAttached && typeof route !== 'undefined') {
+        let path = route.path;
+        let prefix = route.prefix;
+        let section = {};
+
+        if (path === '/') {
+          section.sectionType = 'section';
+          section.sectionName = 'homepage';
+        } else {
+          if (prefix !== '') {
+            section.sectionType = prefix.replace('/', '').toLowerCase();
+            section.sectionName = path.replace('/', '').toLowerCase();
+          } else {
+            if (path === '/galleries') {
+              section.sectionType = 'galleries';
+              section.sectionName = 'galleries';
+            }
+          }
+        }
+
+        if (Object.keys(section).length > 0) {
+          this.fire('iron-signal', {name: 'cranberry-section-route-changed', data: { section } });
+        }
+      }
+    }, 50);
   }
 
   _computeRefreshAds(hidden, loading) {
@@ -141,6 +180,7 @@ class CranberrySection {
 
   attached() {
       console.info('\<cranberry-section\> attached');
+      this.set('elementAttached', true);
       this._checkTabs();
   }
 
@@ -208,15 +248,6 @@ class CranberrySection {
     } else {
         return false;
     }
-  }
-
-  _isGalleries(galleries) {
-    if (galleries) {
-      return 'gallery';
-    } else {
-      return 'story_gallery'
-    }
-
   }
 
   _setToParent(section, parent) {

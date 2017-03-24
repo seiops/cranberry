@@ -2,11 +2,11 @@ class GoogleDFP {
     beforeRegister() {
         this.is = 'google-dfp';
         this.properties = {
-            section: {
-                type: String,
-                value: '',
-                observer: '_sectionChanged'
+            dfpAdPath: {
+              type: String,
+              observer: '_dfpAdPathChanged'
             },
+            section: String,
             sectionParent: String,
             adEstablished: {
               type: Boolean,
@@ -36,28 +36,48 @@ class GoogleDFP {
               value: true
             }
         };
+        this.observers = ['_sectionChanged(section, sectionParent)'];
         this.listeners = {
           'refresh': 'refresh'
         };
     }
 
+    _dfpAdPathChanged(dfpAdPath, old) {
+      if (typeof dfpAdPath !== 'undefined' && dfpAdPath !== '') {
+        let section = dfpAdPath;
+        let parent = '';
 
-    _buildAd() {
+        if (dfpAdPath.indexOf('/') !== -1) {
+          let sections = dfpAdPath.split('/');
+
+          parent = sections[0];
+          section = sections[1];
+        }
+
+        if (dfpAdPath === 'all updates') {
+          section = 'homepage';
+          parent = '';
+        }
+
+        this.set('sectionParent', parent);
+        this.set('section', section);
+      }
+    }
+
+    _buildAd(section, sectionParent) {
       this.async(() => {
-        let section = this.get('section');
-        
         if (typeof section !== 'undefined') {
           let advertisement = Polymer.dom(this.root).querySelector('.advertisement');
           let idModifier = advertisement.getAttribute('id');
-          let childSection = '';
           let adGroup = this.get('adGroup');
           let adGrouping = this.get('adGrouping');
           let adSubGrouping = this.get('adSubGrouping');
           let adSize = this.get('adSize');
           let adSizeMapping = this.get('adSizeMapping');
           let position = this.get('adPos');
+
+          let childSection = '';
           let adSection = section.replace(/-/g, '_').replace(/\&/g, '').replace(/\s+/g, '_');
-          let sectionParent = this.get('sectionParent');
           let tags = this.get('tags');
           let outOfPage = this.get('outOfPage');
 
@@ -135,21 +155,20 @@ class GoogleDFP {
       setTimeout(() => {
         let adEstablished = this.get('adEstablished');
         if (typeof googletag !== 'undefined' && typeof googletag.sizeMapping === 'function' && adEstablished) {
-          this._buildAd();
+          let section = this.get('section');
+          let parent = this.get('sectionParent');
+
+          this._buildAd(section, parent);
         } else {
           this._checkGoogle();
         }
       }, 50);
     }
 
-    _sectionChanged(section) {
+    _sectionChanged(section, parent) {
       this.async(() => {
         if (typeof section !== 'undefined') {
-          if (section === '') {
-            this.set('section', 'homepage');
-          } else {
-            this._checkGoogle();
-          }
+          this._checkGoogle();
         }
       });
     }

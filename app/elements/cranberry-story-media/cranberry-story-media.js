@@ -34,7 +34,6 @@ class cranberryStoryMedia {
       videos: Array
     };
     this.observers = [
-      '_checkMediaLength(media)',
       '_contentChanged(content)',
       '_checkShortcodeType(hasShortcode)',
       '_hideContent(hideContent)'

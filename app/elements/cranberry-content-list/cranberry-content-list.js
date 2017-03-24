@@ -2,17 +2,10 @@ class CranberryContentList {
   beforeRegister() {
     this.is = 'cranberry-content-list';
     this.properties = {
+      dfpAdPath: String,
       items: {
         type: Object,
         value: []
-      },
-      sections: {
-        type: String
-      },
-      previousSection: String,
-      hidePreviousButton: {
-        type: Boolean,
-        value: true
       },
       hidden: {
         type: Boolean,
@@ -22,25 +15,9 @@ class CranberryContentList {
       homepage: {
         type: Boolean
       },
-      displayTout: {
-        type: Boolean,
-        value: false
-      },
-      tag: {
-        type: String
-      },
-      tags: {
-        type: Boolean,
-        value: false
-      },
-      trackedSection: {
-        type: String,
-        observer: '_setPrevious'
-      },
-      trackedParentSection: String
+      tags: String
     };
     this.observers = [
-      '_displayTout(hidden, trackedSection)',
       '_hiddenChanged(hidden)'
     ];
   }
@@ -132,25 +109,6 @@ class CranberryContentList {
     }
   }
 
-  _displayTout(hidden, section) {
-    this.set('displayTout', false);
-    this.async(function() {
-      if (typeof section !== 'undefined' && section.length > 0) {
-        if (hidden) {
-          this.set('displayTout', false);
-        } else {
-          let previous = this.get('previousSection');
-
-          if (section === previous) {
-            this.set('displayTout', false);
-          } else {
-            this.set('displayTout', true);
-          }
-        }
-      }
-    });
-  }
-
   _hiddenChanged(hidden, oldHidden) {
     if (typeof hidden !== 'undefined' && hidden) {
       this._destroyNativo();
@@ -164,12 +122,6 @@ class CranberryContentList {
       nativoAds.forEach((value, index) => {
         value.innerHTML = '';
       });
-    }
-  }
-
-  _setPrevious(section, oldSection) {
-    if (typeof section !== 'undefined') {
-      this.set('previousSection', oldSection);
     }
   }
 }

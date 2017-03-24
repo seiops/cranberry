@@ -36,48 +36,38 @@
 
     <!-- Section Tracker -->
     <cranberry-section-tracker rest="{$ config.baseEndpointUrl $}"
-                               page="[[routeData.section]]"
-                               parent-section="{{trackerParentSection}}"
-                               section="{{trackerSection}}"
-                               tags$="{{tags}}"
-                               disable-featured="{{disableFeatured}}"
-                               is-galleries$="[[galleries]]"
+                               tags="{{tags}}"
+                               tags-page$="[[tagsPage]]"
                                loading="{{sectionTrackingInProgress}}"
+                               dfp-ad-path="{{dfpAdPath}}"
                                hidden$="[[hidden]]">
     </cranberry-section-tracker>
 
     <!-- Section Reuqest -->
-    <cranberry-section-request 
-      route-data="[[routeData.section]]"
-      tag-section="[[tags]]"
-      tags="[[routeData.section]]"
-      galleries="[[galleries]]"
+    <cranberry-section-request
+      disable-featured="{{disableFeatured}}"
+      tags-page="[[tagsPage]]"
       start="[[start]]"
       count="[[_computeCount(isHomepage, currentPage)]]"
       hidden$="[[hidden]]"
-      disable-featured$="[[disableFeatured]]"
       featured-items="{{featuredItems}}"
       content-items="{{contentItems}}"
-      parent-section="[[trackerParentSection]]"
-      section="[[trackerSection]]"
-      load-section="[[loadSection]]"
       loading="{{contentLoading}}"
       author="{$ config.socialNaming.twitter $}">
     </cranberry-section-request>
 
     <div class="section-wrapper" hidden$="[[loading]]">
       <div class="header-advertisement">
-        <google-dfp section="[[trackerSection]]" section-parent="[[trackerParentSection]]" tags="[[tag]]" ad-size-mapping="leaderboard" ad-pos="leaderboard" ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}" hidden$="[[hidden]]"></google-dfp>
+        <google-dfp section="[[trackerSection]]" section-parent="[[trackerParentSection]]" dfp-ad-path="[[dfpAdPath]]" tags="[[tagsPage]]" ad-size-mapping="leaderboard" ad-pos="leaderboard" ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}" hidden$="[[hidden]]"></google-dfp>
       </div>
 
       <scorestream-widget rest="{$ config.baseEndpointUrl $}" route="{{routeData}}" section="[[loadSection]]" hidden$="[[hidden]]"></scorestream-widget>
 
-      <template is="dom-if" if="[[!_computeDisableFeatured(disableFeatured)]]" restamp>
+      <template is="dom-if" if="[[!disableFeatured]]" restamp>
         <!-- FEATURED CONTENT ELEMENT -->
-        <cranberry-featured-content items="{{featuredItems}}"
+        <cranberry-featured-content items="[[featuredItems]]"
                                     sections="[[loadSection]]"
                                     loading$="[[requestLoading]]"
-                                    displayFeatured$="[[disableFeatured]]"
                                     hidden$="[[hidden]]"
                                     homepage$="[[isHomepage]]">
         </cranberry-featured-content>
@@ -102,12 +92,8 @@
       <template is="dom-if" if="[[_isLatest(selected)]]">
         <!-- CONTENT LIST ELEMENT -->
         <cranberry-content-list items="[[contentItems]]"
-                                sections="[[loadSection]]"
-                                section="[[section]]"
-                                tracked-section="[[trackerSection]]"
-                                tracked-parent-section="[[trackerParentSection]]"
                                 tags="[[tags]]"
-                                tag="[[tag]]"
+                                dfp-ad-path="[[dfpAdPath]]"
                                 homepage$="[[isHomepage]]"
                                 hidden$="[[contentLoading]]"
                                 hidden$="[[hidden]]">
@@ -143,6 +129,7 @@
     <google-dfp
         section="[[trackerSection]]"
         section-parent="[[trackerParentSection]]"
+        dfp-ad-path="[[dfpAdPath]]"
         ad-pos="adhesion"
         ad-group="{$ config.dfpAdStructure.adGroupID $}"
         ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
@@ -154,6 +141,7 @@
       <google-dfp
         section="[[trackerSection]]"
         section-parent="[[trackerParentSection]]"
+        dfp-ad-path="[[dfpAdPath]]"
         ad-pos="interstitial"
         ad-group="{$ config.dfpAdStructure.adGroupID $}"
         ad-grouping="{$ config.dfpAdStructure.adGrouping $}"

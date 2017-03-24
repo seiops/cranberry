@@ -1,11 +1,14 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
+<link rel="import" href="../../bower_components/iron-signals/iron-signals.html">
 
 <dom-module id="cranberry-section-request">
   <template>
     <style>
       @import "cranberry-section-request/cranberry-section-request";
     </style>
+
+    <iron-signals on-iron-signal-cranberry-request-content="_setupRequest"></iron-signals>
 
     <byutv-jsonp
       verbose
