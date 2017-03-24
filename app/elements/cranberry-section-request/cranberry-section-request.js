@@ -123,10 +123,10 @@ class cranberrySectionRequest {
 
   _firePageview() {
     let tagSection = this.get('tagSection');
-    let section = this.get('section').toLowerCase();
-    let parentSection = this.get('parentSection').toLowerCase();
+    let section = this.get('section');
+    let parentSection = this.get('parentSection');
     let loadSection = this.get('loadSection');
-    let matherSections = (typeof parentSection !== 'undefined' && parentSection !== '' ? parentSection + '/' + section : section + '/');
+    let matherSections = (typeof parentSection !== 'undefined' && parentSection.toLowerCase() !== '' ? parentSection.toLowerCase() + '/' + section.toLowerCase() : section.toLowerCase() + '/');
     let author = this.get('author');
 
     this.async(() => {
