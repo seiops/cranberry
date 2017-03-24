@@ -125,10 +125,9 @@ class CranberryStory {
     this.async(() => {
       let story = this.get('response');
 
-      var { byline: { inputByline: byline }, sectionInformation: { section }, published: published, publishedISO: publishedISO, tags: tags, itemId: storyId } = story;
-
-      let parentSection = story.sectionInformation.sectionParentName.toLowerCase();
-      let matherSections = (typeof parentSection !== 'undefined' && parentSection !== '' ? parentSection + '/' + section.toLowerCase() : section.toLowerCase() + '/');
+      var { byline: { inputByline: byline }, sectionInformation: { sectionParentName, sectionName, section  }, published: published, publishedISO: publishedISO, tags: tags, itemId: storyId } = story;
+      
+      let matherSections = (typeof sectionParentName !== 'undefined' && sectionParentName !== '' ? sectionParentName.toLowerCase() + '/' + section.toLowerCase() : section.toLowerCase() + '/');
 
       if (typeof story.byline !== 'undefined') {
         if (typeof story.byline.title !== 'undefined') {

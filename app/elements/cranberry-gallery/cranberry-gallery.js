@@ -164,9 +164,19 @@ class CranberryGallery {
     let result = JSON.parse(data.detail.Result);
     let gaData = {};
 
-    let parentSection = result.sectionInformation.sectionParentName.toLowerCase();
-    let section = result.sectionInformation.sectionName.toLowerCase();
+    let parentSection = result.sectionInformation.sectionParentName;
+    let section = result.sectionInformation.sectionName;
+
+    if (typeof parentSection !== 'undefined') {
+      parentSection = parentSection.toLowerCase();
+    }
+
+    if (typeof section !== 'undefined') {
+      section = section.toLowerCase();
+    }
+
     let matherSections = (typeof parentSection !== 'undefined' && parentSection !== '' ? parentSection + '/' + section : section + '/');
+
     // Data settings for pageview
     gaData.dimension6 = 'Gallery';
 
@@ -276,8 +286,17 @@ class CranberryGallery {
         this._destroyNativo();
       } else {
         if (typeof gallery !== 'undefined' && typeof gallery.itemId !== 'undefined' && !sendInitialView) {
-          let parentSection = gallery.sectionInformation.sectionParentName.toLowerCase();
-          let section = gallery.sectionInformation.sectionName.toLowerCase();
+          let parentSection = gallery.sectionInformation.sectionParentName;
+          let section = gallery.sectionInformation.sectionName;
+
+          if (typeof parentSection !== 'undefined') {
+            parentSection = parentSection.toLowerCase();
+          }
+
+          if (typeof section !== 'undefined') {
+            section = section.toLowerCase();
+          }
+
           let matherSections = (typeof parentSection !== 'undefined' && parentSection !== '' ? parentSection + '/' + section : section + '/');
           
           // Send pageview event with iron-signals
