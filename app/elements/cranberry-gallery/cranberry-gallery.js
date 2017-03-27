@@ -1,7 +1,21 @@
 class CranberryGallery {
+  get behaviors() {
+    return [Polymer.NeonAnimationRunnerBehavior]
+  }
   beforeRegister() {
     this.is = 'cranberry-gallery';
     this.properties = {
+      animationConfig: {
+        value: function() {
+          return {
+            'entry': {
+              name: 'fade-in-animation',
+              node: this,
+              timing: {duration: 1500}
+            }
+          }
+        }
+      },
       baseUrl: String,
       gallery: {
         type: Object
@@ -10,6 +24,10 @@ class CranberryGallery {
         type: Number,
         value: 0,
         observer: '_galleryIdChanged'
+      },
+      goToIndex: {
+        type: Number,
+        value: 0
       },
       jsonp: {
         type: Object,
@@ -26,6 +44,11 @@ class CranberryGallery {
       },
       rest: {
         type: String
+      },
+      requestInProgress: {
+        type: Boolean,
+        value: true,
+        observer: '_requestInProgressChanged'
       },
       routeData: Object,
       tags: {
@@ -112,18 +135,20 @@ class CranberryGallery {
   }
 
   _goToSlide (e) {
-    let mainSlider = this.querySelector('#mainSlider');
-    let imageIndex = Number(e.target.parentElement.dataset.index);
-
-    mainSlider.goTo(imageIndex);
-
+    this.set('goToIndex', Number(e.target.parentElement.dataset.index));
     this.fire('iron-signal', { name: 'app-scroll', data: { scrollPosition: 0, scrollSpeed: 1500, scrollAnimation: 'easeInOutQuint', afterScroll: true } });
   }
   
   scrollComplete() {
     let hidden = this.get('hidden');
+    let goToIndex = this.get('goToIndex');
     this.async(() => {
       if (!hidden) {
+        let mainSlider = this.querySelector('#mainSlider');
+        let imageIndex = goToIndex;
+
+        mainSlider.goTo(imageIndex);
+
         let topAd = this.$.topAd;
         let sideAd = this.$.sideAd;
 
@@ -312,6 +337,15 @@ class CranberryGallery {
 
   _scrollToComments() {
     this.fire('iron-signal', {name: 'scroll-to-comments'});
+  }
+
+  _requestInProgressChanged(loading, oldLoading) {
+    this.async(() => {
+      if (!loading) {
+        console.log('playing animation');
+        this.playAnimation('entry');
+      }
+    });
   }
 }
 Polymer(CranberryGallery);
