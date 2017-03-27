@@ -18,12 +18,23 @@ class cranberryStoryParagraphs {
         value: true
       },
       sectionInformation: Object,
-      staticPage: {
-        type: Boolean,
-        value: false
+      staticPage: Boolean,
+      story: {
+        type: Object,
+        value: {}
       },
-      surveysOff: Boolean,
-      toutOff: Boolean,
+      surveysOff: {
+        type: Boolean,
+        computed: '_computeSurveysOff(story.surveyOff, mobile, staticPage)'
+      },
+      surveyIndex: {
+        type: Number,
+        computed: '_computeSurveyIndex(story.surveyIndex)'
+      },
+      toutOff: {
+        type: Boolean,
+        computed: '_computeToutOff(story.toutOff, staticPage, story.sectionInformation.section)'
+      },
       toutShortcode: {
         type: Boolean,
         value: false
@@ -45,8 +56,16 @@ class cranberryStoryParagraphs {
   // Private Methods
   _checkTout() {
     this.async(function()  {
-      let contentArea = this.$.storyContentArea;
+      let contentArea = this.$.paragraphs;
       let toutDiv = contentArea.querySelector('#tempToutDiv');
+      if (toutDiv === null) {
+        let surveyDiv = contentArea.querySelector('google-survey');
+
+        if (surveyDiv !== null) {
+          toutDiv = surveyDiv.querySelector('#tempToutDiv');
+        }
+      }
+
       let toutUid = this.get('toutUid');
 
       if (toutDiv !== null) {
@@ -54,20 +73,48 @@ class cranberryStoryParagraphs {
 
         tout.set('placement', 'tout-mid-article');
         tout.set('slot', 'mid-article');
-        tout.set('player', 'mid_article_player');
+        tout.set('playerName', 'mid_article_player');
         tout.set('toutUid', toutUid);
         tout.set('storyId', this.get('routeData.id'));
+        tout.set('story', this.get('story'));
 
         toutDiv.appendChild(tout);
       }
     });
   }
 
+  _computeSurveysOff(surveyOff, mobile, staticPage, section) {
+    // Shut surveys off for anything but mobile.
+    if (!mobile || staticPage || (section === 'Obituary' ||  section === 'Death_Notice')) {
+      return true;
+    }
+
+    if (surveyOff) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  _computeSurveyIndex(surveyIndex) {
+    if (typeof surveyIndex !== 'undefined') {
+      return parseInt(surveyIndex);
+    }
+  }
+
+  _computeToutOff(toutOff, staticPage, section) {
+    if (toutOff || staticPage || (section === 'Obituary' ||  section === 'Death_Notice')) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   _refreshTout() {
     this.async(function()  {
       let touts = Polymer.dom(this.root).querySelectorAll('tout-element');
 
-      touts.forEach(function(value, index) {
+      touts.forEach((value, index) => {
         value.refresh();
       });
     });
@@ -88,10 +135,54 @@ class cranberryStoryParagraphs {
 
     contentArea.appendChild(docFragment);
     this._setupDistro();
-
+    this._checkTout();
+    
     console.info('\<cranberry-story-paragraphs\> rendered');
 
     this._setParagraphsLoading(false);
+  }
+
+  _establishParagraph(value, index, array) {
+    let toutOff = this.get('toutOff');
+
+    if (value.shortcode) {
+      let story = this.get('story');
+      let baseDomain = this.get('baseDomain');
+      let toutUid = this.get('toutUid');
+
+      // Paragraph is shortcode
+      if (value.key === 'tout' && !toutOff) {
+        if (index < 4) {
+          toutOff = true;
+        }
+        this._toutShortcodeFlagged();
+      }
+
+      let shortcodeEl = document.createElement('cranberry-shortcode');
+
+      shortcodeEl.set('shortcodeObject', value);
+      shortcodeEl.set('storyObject', story);
+      shortcodeEl.set('baseUrl', baseDomain);
+      shortcodeEl.set('toutUid', toutUid);
+
+      array.push(shortcodeEl);
+    } else {
+      // Paragraph is just text
+      // Establish temp div for Tout placement
+      if (index === 4 && !toutOff) {
+        let tempDiv = document.createElement('div');
+        tempDiv.setAttribute('id', 'tempToutDiv');
+
+        array.push(tempDiv);
+      }
+
+      let paragraphEl = document.createElement('p');
+      paragraphEl.innerHTML = value.text;
+
+      array.push(paragraphEl);
+    }
+
+    return array;
   }
 
   _setupParagraphs(paragraphs) {
@@ -99,85 +190,28 @@ class cranberryStoryParagraphs {
       if (typeof paragraphs !== 'undefined' && paragraphs.length > 0) {
         // Variables for Display
         let story = this.get('story');
-        let staticPage = this.get('staticPage');
         let baseDomain = this.get('baseDomain');
         let toutUid = this.get('toutUid');
         let surveysOff = this.get('surveysOff');
-        let toutOff = this.get('toutOff');
         let surveyIndex = this.get('surveyIndex');
         let gcsSurveyId = this.get('gcsSurveyId');
-        let mobile = this.get('mobile');
+        let distributeToSurveys = false;
         let surveyParagraphs = [];
         let elementsArray = [];
-        let distributeToSurveys = false;
-        let hasTout = false;
 
         this._setParagraphsLoading(true);
-
-        // Turn surveys and Tout off
-        if (staticPage) {
-          surveysOff = true;
-          toutOff = true;
-        }
-
-        // Turn Surveys off for anything but mobile
-        if (!mobile) {
-          surveysOff = true;
-        }
-
-        // Setup Survey Index
-        if (typeof surveysOff !== 'undefined' && !surveysOff) {
-          if (typeof surveyIndex === 'undefined' || surveyIndex === '0') {
-            surveyIndex = 3;
-          } else {
-            surveyIndex = Number(surveyIndex);
-          }
-        }
-
-        // Turn Off Tout for specific sections
-        if (typeof story !=='undefined' && (story.sectionInformation.section === 'Obituary' || story.sectionInformation.section === 'Death_Notice')) {
-          toutOff = true;
-        }
-
+        
         paragraphs.forEach((value, index) => {
-          // UNCOMMENT FOR DEV ENVIRONMENT SURVEYS
+
+          // Survey Logical Switch
           if (index === surveyIndex && !surveysOff) {
             distributeToSurveys = true;
           }
 
           if (!distributeToSurveys) {
-            if (value.shortcode) {
-              // Paragraph is shortcode
-              if (value.key === 'tout' && !toutOff) {
-                hasTout = true;
-                this._toutShortcodeFlagged();
-              }
-
-              let shortcodeEl = document.createElement('cranberry-shortcode');
-
-              shortcodeEl.set('shortcodeObject', value);
-              shortcodeEl.set('storyObject', story);
-              shortcodeEl.set('baseUrl', baseDomain);
-              shortcodeEl.set('toutUid', toutUid);
-
-              elementsArray.push(shortcodeEl);
-            } else {
-              // Paragraph is just text
-              // Establish temp div for Tout placement
-              if (index === 4 && !hasTout && !toutOff) {
-                let tempDiv = document.createElement('div');
-                tempDiv.setAttribute('id', 'tempToutDiv');
-
-                elementsArray.push(tempDiv);
-              }
-
-              let paragraphEl = document.createElement('p');
-              paragraphEl.innerHTML = value.text;
-
-              elementsArray.push(paragraphEl);
-            }
+            elementsArray = this._establishParagraph(value, index, elementsArray);
           } else {
-            surveyParagraphs.push(value);
+            surveyParagraphs = this._establishParagraph(value, index, surveyParagraphs);
           }          
         });
 

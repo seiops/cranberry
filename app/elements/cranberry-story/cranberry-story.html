@@ -85,7 +85,7 @@
                 base-domain="{$ config.baseDomain $}"
                 content="[[response]]"
                 has-shortcode$="[[hasLeadShortcode]]"
-                hidden="[[staticPage]]"
+                hidden$="[[_computeMediaHidden(staticPage, hidden)]]"
                 lead-shortcode-type="[[leadShortcodeType]]"
                 lead-shortcode-content="[[leadShortcodeContent]]"
                 media="[[response.mediaAssets.images]]"

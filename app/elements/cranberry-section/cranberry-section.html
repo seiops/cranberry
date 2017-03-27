@@ -149,6 +149,10 @@
         out-of-page
         hidden$="[[hidden]]">
       </google-dfp>
+
+      <template is="dom-if" if="[[desktop]]">
+        <tout-element slot="live-player" player-name="live_channel" tout-uid="{$ config.tout.toutUid $}" hidden$="[[hidden]]"></tout-element>
+      </template>
   </template>
   <script src="cranberry-section.js"></script>
 </dom-module>
