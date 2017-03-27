@@ -39,6 +39,7 @@
 
 <!-- Analytics elements -->
 <link rel="import" href="../cranberry-google-analytics/cranberry-google-analytics.html">
+<link rel="import" href="../mather-analytics/mather-analytics.html">
 
 <!-- Cranberry elements -->
 <link rel="import" href="../cranberry-script-loader/cranberry-script-loader.html">
@@ -94,6 +95,9 @@
 
     <!-- Google Analytics -->
     <cranberry-google-analytics user="[[user]]" tracking-id='{$ config.google.analytics | dump $}'></cranberry-google-analytics>
+
+    <!-- Mather -->
+    <mather-analytics mather-id="{$ config.mather.id $}" mather-name="{$ config.mather.name $}" user="[[user]]"></mather-analytics>
     
     <!-- Youneeq Tracker -->
     <youneeq-tracker domain="{$ config.baseDomain $}" user="{{user}}"></youneeq-tracker>

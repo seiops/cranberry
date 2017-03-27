@@ -134,16 +134,21 @@ class cranberrySectionRequest {
   _firePageview() {
     let tagsPage = this.get('tagsPage');
     let section = this.get('section');
+    let parentSection = this.get('parentSection');
+    let loadSection = this.get('loadSection');
+    let matherSections = (typeof parentSection !== 'undefined' && parentSection.toLowerCase() !== '' ? parentSection.toLowerCase() + '/' + section.toLowerCase() : section.toLowerCase() + '/');
     let author = this.get('author');
 
     this.async(() => {
       if (tagsPage) {
         // Fire Google Analytics Pageview
-        this.fire('iron-signal', {name: 'track-page', data: { path: '/tags/' + section, data: { 'dimension7': section } } });
+        this.fire('iron-signal', {name: 'track-page', data: { path: '/tags/' + loadSection, data: { 'dimension7': loadSection } } });
         // Fire Chartbeat pageview
-        this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/tags/' + section, data: {'sections': section, 'authors': author } } });
+        this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/tags/' + loadSection, data: {'sections': loadSection, 'authors': author } } });
         // Fire Youneeq Page Hit Request
         this.fire('iron-signal', {name: 'page-hit'});
+        // Fire Mather
+        this.fire('iron-signal', {name: 'mather-hit', data: { data: {'section': loadSection, 'hierarchy': matherSections, 'authors': author, 'pageType': 'tags', timeStamp: new Date() } }});
       } else {
         // Fire Google Analytics Pageview
         this.fire('iron-signal', {name: 'track-page', data: { path: '/section/' + section, data: { 'dimension7': section } } });
@@ -151,6 +156,8 @@ class cranberrySectionRequest {
         this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/section/' + section, data: {'sections': section, 'authors': author } } });
         // Fire Youneeq Page Hit Request
         this.fire('iron-signal', {name: 'page-hit'});
+        // Fire Mather
+        this.fire('iron-signal', {name: 'mather-hit', data: { data: {'section': loadSection, 'hierarchy': matherSections, 'authors': author, 'pageType': (section === 'homepage' ? 'home' : 'section'), timeStamp: new Date() } } });
       }
     });
   }

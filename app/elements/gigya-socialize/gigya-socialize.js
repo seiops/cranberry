@@ -21,7 +21,6 @@ class GigyaSocialize {
       },
       user: {
         type: Object,
-        value: {},
         notify: true
       },
       userSelected: {
@@ -170,6 +169,7 @@ class GigyaSocialize {
       gigya.accounts.getAccountInfo(params);
     } else {
       console.info('\<gigya-socialize\> anonymous user');
+      el.set('user', {});
     }
 
     if (user.status === 'FAIL') {
