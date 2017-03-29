@@ -94,7 +94,6 @@ class matherAnalytics {
   }
 
   matherHit(e) {
-    console.log(e);
     this.set('content', e.detail.data);
   }
 }
