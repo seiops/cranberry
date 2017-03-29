@@ -63,7 +63,7 @@
 
       <scorestream-widget rest="{$ config.baseEndpointUrl $}" route="{{routeData}}" section="[[loadSection]]" hidden$="[[hidden]]"></scorestream-widget>
 
-      <template is="dom-if" if="[[!disableFeatured]]" restamp>
+      <template is="dom-if" if="[[!disableFeatured]]">
         <!-- FEATURED CONTENT ELEMENT -->
         <cranberry-featured-content items="[[featuredItems]]"
                                     sections="[[loadSection]]"

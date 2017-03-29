@@ -92,8 +92,13 @@ class CranberrySection {
     this.observers = [
       '_hiddenChanged(hidden, routeData.section)',
       '_refreshAds(refreshAds)',
-      '_routeChanged(route, elementAttached, hidden)'
+      '_routeChanged(route, elementAttached, hidden)',
+      '_featuredItemsChanged(featuredItems)'
     ];
+  }
+
+  _featuredItemsChanged(featuredItems) {
+    console.log(`Featured Items Changed!`);
   }
   
   _routeChanged(route, elementAttached, hidden) {

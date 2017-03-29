@@ -28,6 +28,14 @@ class CranberryFeaturedContent {
         console.info('<\cranberry-featured-content\> attached');
     }
 
+    _checkItems(items) {
+      if (typeof items !== 'undefined' && items.length > 0) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
     _firstItem(item, index) {
         if (index === 0) {
             return true;

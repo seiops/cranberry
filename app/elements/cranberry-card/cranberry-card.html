@@ -17,10 +17,11 @@
            ga-event-category="Content Card Clicked"
            ga-event-action$="[[_setupTracking(item)]]">
           <div class="card-header">
-            <div class="card-icons"><iron-icon icon="cranberry-icons:photo-camera" hidden$="[[!_checkGallery(item.contentType)]]"></iron-icon></div>
-            <div class="card-header-overlay" hidden$="[[!item.mediaAssets.images.0.small]]"></div>
-            <template is="dom-if" if="[[item.mediaAssets.images.0.medium]]">
+            <div class="card-icons" hidden$="[[!_checkGallery(item.contentType)]]"><iron-icon icon="cranberry-icons:photo-camera"></iron-icon></div>
+            <div class="card-header-overlay" hidden$="[[!_checkShowMainImage(cardStyle)]]"></div>
+            <template is="dom-if" if="[[_checkShowMainImage(cardStyle)]]">
               <iron-image
+                class$="[[_computeImageClass(cardStyle)]]"
                 alt="[[item.title]]"
                 hidden$="[[!item.mediaAssets.images.0.small]]"
                 src$="{$ config.baseDomain $}[[_computeImageSize(item.mediaAssets.images.0)]]"
@@ -29,11 +30,24 @@
                 sizing="cover">
               </iron-image>
             </template>
-            <div hidden$="[[!item.title]]" class$="[[_computeHeadingClass(item.mediaAssets.images.0.small)]]">[[item.title]]</div>
+            <div hidden$="[[!item.title]]" class$="[[_computeHeadingClass(cardStyle)]]">
+              <template is="dom-if" if="[[_checkShowThumbImage(cardStyle)]]">
+                <iron-image
+                  class$="[[_computeImageClass(cardStyle)]]"
+                  alt="[[item.title]]"
+                  hidden$="[[!item.mediaAssets.images.0.small]]"
+                  src$="{$ config.baseDomain $}[[_computeImageSize(item.mediaAssets.images.0)]]"
+                  preload
+                  fade
+                  sizing="cover">
+                </iron-image>
+              </template>
+              <span>[[item.title]]</span>
+            </div>
           </div>
           <div class="card-content" hidden$="[[featured]]">
               <div class="content-date">[[item.firstPublished]]</div>
-              <div class="content-preview">[[item.preview]]</div>
+              <div class="content-preview">[[_trimText(item.preview)]]</div>
           </div>
         </a>
         <div class="card-info" hidden$="[[hideInfo]]">

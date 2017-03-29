@@ -67,8 +67,30 @@ div.card > a > div.card-header > div.card-icons {
 }
 
 /* Card header image needs static positioning, parent element is already relatively positioned */
-div.card > a > div.card-header > iron-image {
- position: static !important;
+div.card > a > div.card-header > iron-image.main-image {
+  position: static !important;
+}
+
+div.card > a > div.card-header div.square-image-title {
+  @apply(--layout-flex);
+  @apply(--layout-horizontal);
+}
+
+div.card > a > div.card-header div.square-image-title > iron-image.square-image {
+  @apply(--layout-flex);
+  @apply(--layout-self-end);
+
+  flex: 1;
+  order: 2;
+  min-height: 118px;
+  min-width: 66px;
+}
+
+div.card > a > div.card-header div.square-image-title > span {
+  @apply(--layout-flex);
+
+  flex: 3;
+  padding-right: 12px;
 }
 
 /* Card header title text WITHOUT image */
@@ -105,7 +127,7 @@ div.card > a > div.card-header > div.title-text.over-image {
 
 /* Card content area */
 div.card > a > div.card-content {
-  @apply(--layout-flex);
+  @apply(--layout-flex-2);
   @apply(--layout-vertical);
 
   background-color: var(--tertiary-background-color);
