@@ -213,6 +213,7 @@ class cranberryStoryParagraphs {
         distroAd.set('adSubGrouping', adSubGrouping);
         distroAd.set('hidden', hidden);
 
+        // Commenting out Distroscale for testing.
         array.push(distroAd);
       }
 
