@@ -230,7 +230,7 @@ module.exports = {
     },
     {
       linkText: 'Contests',
-      linkUrl: 'http://www.tandemnetwork.com/contests-and-promotions/'
+      linkUrl: 'http://www.sanduskyregister.com/page/contests'
     },
     {
       linkText: 'Local Guide',
