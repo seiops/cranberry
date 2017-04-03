@@ -113,12 +113,16 @@
                                             gcs-survey-id="{$ config.google.surveys $}"
                                             distro-id="{$ config.distro.distroId $}"
                                             mobile$="[[mobile]]"
+                                            desktop$="[[desktop]]"
                                             surveys-off="[[response.surveysOff]]"
                                             tout-off="[[response.toutOff]]"
                                             section-information="[[response.sectionInformation]]"
                                             static-page$="[[staticPage]]"
                                             base-domain="{$ config.baseDomain $}"
                                             paragraphs="[[response.paragraphs]]"
+                                            ad-group="{$ config.dfpAdStructure.adGroupID $}"
+                                            ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
+                                            ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
                                             hidden$="[[hidden]]">
                 </cranberry-story-paragraphs>
                 <div class="ntv-ad-div"></div>

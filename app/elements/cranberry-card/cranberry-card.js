@@ -6,19 +6,89 @@ class CranberryCard {
         type: String,
         value: ''
       },
+      cardStyle: {
+        type: String,
+        computed: '_computeCardStyle(item, featured, homepage)'
+      },
+      featured: {
+        type: Boolean,
+        value: false
+      },
+      homepage: {
+        type: Boolean,
+        value: false
+      },
+      index: Number,
       item: {
         type: Object,
-        value: {}
-      },
-      featured: Boolean,
-      index: Number
-    }
+        value: function() {
+          return {};
+        }
+      }
+    };
   }
 
   ready() {}
 
   attached () {}
 
+  _checkShowMainImage(style) {
+    if (style === 'standard' || style === 'gallery' || style === 'featured' || style === 'featured_gallery') {
+      return true;
+    } else {
+      return false
+    }
+  }
+
+  _checkShowThumbImage(style) {
+    if (style === 'square_image') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  _checkStyle(sectionStyle, homeStyle, homepage, featured, numberOfImages) {
+    if (numberOfImages === 0) {
+      return 'text_only';
+    }
+
+    if (featured) {
+      return 'featured';
+    }
+
+    let style = (homepage ? homeStyle : sectionStyle);
+
+    switch (style) {
+      case '1': 
+        return 'standard';
+        break;
+      case '2':
+        this.set('featured', true);
+        return 'featured'
+        break;
+      case '3':
+        return 'text_only';
+        break;
+      case '4':
+        return 'square_image';
+        break;
+    }
+  }
+
+  _computeCardStyle(item, featured, homepage) {
+    if (typeof item !== 'undefined' && Object.keys(item).length > 0) {
+      if (item.contentType === 'Story') {
+        let numberOfImages = (typeof item.mediaAssets.images !== 'undefined' ? item.mediaAssets.images.length : 0);
+        let cardStyle = this._checkStyle(item.sectionStyle, item.homeStyle, homepage, featured, numberOfImages);
+
+        return cardStyle;
+      } else {
+        return (item.contentType === 'Gallery' && featured ? 'featured_gallery' : 'gallery');
+      }
+    }
+  }
+  
   _trimText(text) {
     if(typeof text !== 'undefined'){
       let trunc = text;
@@ -64,11 +134,25 @@ class CranberryCard {
     }
   }
 
-  _computeHeadingClass (image) {
+  _computeHeadingClass (style) {
     let cssClass = 'title-text';
 
-    if (image) {
+    if (style === 'featured' || style === 'standard' || style === 'gallery' || style === 'featured_gallery') {
       cssClass += ' over-image';
+    }
+
+    if (style === 'square_image') {
+      cssClass += ' square-image-title';
+    }
+
+    return cssClass;
+  }
+
+  _computeImageClass(style) {
+    let cssClass = 'main-image';
+
+    if (style === 'square_image') {
+      cssClass = 'square-image';
     }
 
     return cssClass;
@@ -101,10 +185,12 @@ class CranberryCard {
   }
 
   _computeImageSize(image) {
-    let featured = this.get('featured');
-
     if (typeof image !== 'undefined') {
-      if (typeof featured !== 'undefined' && featured) {
+      let cardStyle = this.get('cardStyle');
+
+      if (cardStyle === 'square_image') {
+        return image.thumbnail;
+      } else if (cardStyle === 'featured' || 'featured_gallery') {
         return image.exlarge;
       } else {
         return image.medium;
@@ -113,19 +199,21 @@ class CranberryCard {
   }
 
   _setupTracking(item) {
-    let index = this.get('index');
-    let featured = this.get('featured');
+    if (typeof item !== 'undefined') {
+      let index = this.get('index');
+      let featured = this.get('featured');
 
-    if (featured) {
-      return 'uti_ftrd_' + index + ((item.contentType === 'Story') ? '_stdc' : '_stgc');
-    } else {
-      if (typeof item !== 'undefined') {
-        if (typeof item.mediaAssets.images !== 'undefined' && typeof item.mediaAssets.images[0] !== 'undefined') {
-          return 'uti_strm_' + index + ((item.contentType === 'Story') ? '_stdc' : '_stgc');
-        } else {
-          return 'uti_strm_' + index + '_txtc';
+      if (featured) {
+        return 'uti_ftrd_' + index + ((item.contentType === 'Story') ? '_stdc' : '_stgc');
+      } else {
+        if (typeof item !== 'undefined') {
+          if (typeof item.mediaAssets.images !== 'undefined' && typeof item.mediaAssets.images[0] !== 'undefined') {
+            return 'uti_strm_' + index + ((item.contentType === 'Story') ? '_stdc' : '_stgc');
+          } else {
+            return 'uti_strm_' + index + '_txtc';
+          }
+          
         }
-        
       }
     }
   }

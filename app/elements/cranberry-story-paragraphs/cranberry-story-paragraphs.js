@@ -2,7 +2,15 @@ class cranberryStoryParagraphs {
   beforeRegister() {
     this.is = 'cranberry-story-paragraphs';
     this.properties = {
+      adGroup: String,
+      adGrouping: String,
+      adSubGrouping: String,
       baseDomain: String,
+      desktop: Boolean,
+      distroScaleOff: {
+        type: Boolean,
+        compute: '_computeDistroScaleOff(desktop)'
+      },
       gcsSurveyId: String,
       mobile: Boolean,
       paragraphs: {
@@ -33,7 +41,7 @@ class cranberryStoryParagraphs {
       },
       toutOff: {
         type: Boolean,
-        computed: '_computeToutOff(story.toutOff, staticPage, story.sectionInformation.section)'
+        computed: '_computeToutOff(story.toutOff, staticPage, story.sectionInformation.section, desktop)'
       },
       toutShortcode: {
         type: Boolean,
@@ -83,6 +91,14 @@ class cranberryStoryParagraphs {
     });
   }
 
+  _computeDistroScaleOff(desktop) {
+    if (!desktop) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   _computeSurveysOff(surveyOff, mobile, staticPage, section) {
     // Shut surveys off for anything but mobile.
     if (!mobile || staticPage || (section === 'Obituary' ||  section === 'Death_Notice')) {
@@ -102,8 +118,8 @@ class cranberryStoryParagraphs {
     }
   }
 
-  _computeToutOff(toutOff, staticPage, section) {
-    if (toutOff || staticPage || (section === 'Obituary' ||  section === 'Death_Notice')) {
+  _computeToutOff(toutOff, staticPage, section, desktop) {
+    if (toutOff || staticPage || (section === 'Obituary' ||  section === 'Death_Notice') || desktop) {
       return true;
     } else {
       return false;
@@ -134,7 +150,6 @@ class cranberryStoryParagraphs {
     contentArea.innerHTML = '';
 
     contentArea.appendChild(docFragment);
-    this._setupDistro();
     this._checkTout();
     
     console.info('\<cranberry-story-paragraphs\> rendered');
@@ -144,6 +159,7 @@ class cranberryStoryParagraphs {
 
   _establishParagraph(value, index, array) {
     let toutOff = this.get('toutOff');
+    let distroScaleOff = this.get('distroScaleOff');
 
     if (value.shortcode) {
       let story = this.get('story');
@@ -174,6 +190,31 @@ class cranberryStoryParagraphs {
         tempDiv.setAttribute('id', 'tempToutDiv');
 
         array.push(tempDiv);
+      }
+
+      if (!distroScaleOff && index === 5) {
+        let story = this.get('story');
+        let adGroup = this.get('adGroup');
+        let adGrouping = this.get('adGrouping');
+        let adSubGrouping = this.get('adSubGrouping');
+        let hidden = this.get('hidden');
+        let distroAd = document.createElement('google-dfp');
+        let adSize = [[1, 1]];
+
+        distroAd.set('section', story.sectionInformation.sectionName);
+        distroAd.set('sectionParent', story.sectionInformation.sectionParentName);
+        if (typeof story.tags !== 'undefined' && story.tags !== '') {
+          distroAd.set('tags', story.tags);
+        }
+        distroAd.set('adPos', 'MidArticlePlayer');
+        distroAd.set('adSize', adSize);
+        distroAd.set('adGroup', adGroup);
+        distroAd.set('adGrouping', adGrouping);
+        distroAd.set('adSubGrouping', adSubGrouping);
+        distroAd.set('hidden', hidden);
+
+        // Commenting out Distroscale for testing.
+        array.push(distroAd);
       }
 
       let paragraphEl = document.createElement('p');
@@ -231,33 +272,16 @@ class cranberryStoryParagraphs {
     });
   }
 
-  _setupDistro() {
-    let useragent = navigator.userAgent;
-    if(useragent.indexOf('Mobile') == -1) {
-      let distroDiv = document.createElement('div');
+  _toutShortcodeFlagged() {
+    this.async(function() {
       let contentArea = this.$.paragraphs;
+      let toutDiv = contentArea.querySelector('#tempToutDiv');
 
-      distroDiv.setAttribute('id', 'ds_default_anchor');
-
-      contentArea.appendChild(distroDiv);
-
-      let distroId = this.get('distroId');
-      let loader = document.querySelector('cranberry-script-loader');
-
-      loader.loadScript('http://c.jsrdn.com/s/cs.js?p=' + distroId, 'distroScript');
-    }
+      if (typeof toutDiv !== 'undefined' && toutDiv !== null) {
+        contentArea.removeChild(toutDiv);
+      }
+    });
   }
-
-    _toutShortcodeFlagged() {
-      this.async(function() {
-        let contentArea = this.$.paragraphs;
-        let toutDiv = contentArea.querySelector('#tempToutDiv');
-
-        if (typeof toutDiv !== 'undefined' && toutDiv !== null) {
-          contentArea.removeChild(toutDiv);
-        }
-      });
-    }
 
 }
 Polymer(cranberryStoryParagraphs);
