@@ -108,7 +108,7 @@ module.exports = {
       {
         logo: 'cranberry-icons:find-in-page',
         label: 'Classifieds',
-        phone: '419-502-2120'
+        phone: '419-502-2171'
       },
       {
         logo: 'cranberry-icons:card-membership',
