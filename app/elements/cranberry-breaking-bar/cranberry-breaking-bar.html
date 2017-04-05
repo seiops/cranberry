@@ -27,10 +27,10 @@
              ga-event-category="Breaking Story Clicked"
              ga-event-action$="uti_brk_[[requestIndex]]">
             <div class="breaking-item" hidden$="{{mobile}}" hidden$="{{tablet}}">
-              <span class="breaking-pre-cursor">[[type]]<h3 class="breaking-title">[[item.title]]</h3></span>
+              <span class="breaking-pre-cursor">[[newsType]]<h3 class="breaking-title">[[item.title]]</h3></span>
             </div>
             <div class="breaking-item" hidden$="{{!mobile}}" hidden$="{{!tablet}}">
-              <span class="breaking-pre-cursor">[[type]]<h3 class="breaking-title">[[_truncateText(item.title)]]</h3></span>
+              <span class="breaking-pre-cursor">[[newsType]]<h3 class="breaking-title">[[_truncateText(item.title)]]</h3></span>
             </div>
           </a>
           <div class="breaking-bar-buttons">

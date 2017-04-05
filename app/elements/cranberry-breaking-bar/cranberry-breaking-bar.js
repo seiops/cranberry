@@ -14,8 +14,9 @@ class cranberryBreakingBar {
         value: '',
         observer: '_onTagsChanged'
       },
-      type: {
-        type: String
+      newsType: {
+        type: String,
+        value: ''
       },
       rest: {
         type: String
@@ -135,15 +136,14 @@ class cranberryBreakingBar {
   }
 
   _onTagsChanged(tagsString) {
-    console.log(`Tags Changed ${tagsString}`);
-    if (typeof tagString !== 'undefined' && tagString !== '') {
+    if (typeof tagsString !== 'undefined' && tagsString !== '') {
       let tags = tagsString.split(',');
 
       tags.forEach((value, index) => {
         if (value === 'alert' || value === 'Alert') {
-          this.set('type', 'ALERT: ');
+          this.set('newsType', 'ALERT: ');
         } else if (value === 'breaking' || value === 'Breaking') {
-          this.set('type', 'BREAKING: ');
+          this.set('newsType', 'BREAKING: ');
         }
       });
     }

@@ -214,7 +214,7 @@ class cranberryStoryParagraphs {
         distroAd.set('hidden', hidden);
 
         // Commenting out Distroscale for testing.
-        array.push(distroAd);
+        // array.push(distroAd);
       }
 
       let paragraphEl = document.createElement('p');
