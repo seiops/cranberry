@@ -42,6 +42,10 @@ class cranberrySlider {
         type: Boolean,
         value: true
       },
+      imageLoading: {
+        type: Boolean,
+        value: true
+      },
       height: {
         observer: '_heightChanged',
         type: Number,
@@ -209,7 +213,6 @@ class cranberrySlider {
   }
 
   _clicksChanged(clicks) {
-    console.log('Clicks Changed');
     let modal = this.get('whiteText');
     let galleryType = this.get('galleryType');
 
@@ -241,18 +244,24 @@ class cranberrySlider {
   }
 
   _sendPageview() {
-    console.log('Firing pageview from slider!');
     let gallery = this.get('gallery');
     let galleryType = this.get('galleryType');
+    let timeStamp = new Date();
 
-    let path = 'photo-gallery/';
+    let path = '/photo-gallery/';
 
-    if (typeof galleryType !== 'undefined' && galleryType === 'cranberry-jail-mugs') {
-      path = window.location.pathname;
-    }
-
-    if (typeof galleryType !== 'undefined' && galleryType === 'cranberry-story') {
-      path = 'story/';
+    if (typeof galleryType !== 'undefined') {
+      switch(galleryType) {
+        case 'cranberry-jail-mugs':
+          path = '/jail-mugs/' + gallery.bookingDate;
+          gallery.timeStamp = new Date();
+          break;
+        case 'cranberry-story': 
+          path = '/story/' + gallery.itemId;
+          break;
+        default:
+          path += gallery.itemId;
+      }
     }
   
     // Data settings for pageview
@@ -271,17 +280,27 @@ class cranberrySlider {
     }
 
     // Send pageview event with iron-signals
-    // Fire Youneeq Page Hit Request
-    this.fire('iron-signal', {name: 'page-hit', data: {content: galleryObject}});
-
     // GA
-    this.fire('iron-signal', {name: 'track-page', data: { path: '/photo-gallery/' + gallery.itemId, gaData } });
+    this.fire('iron-signal', {name: 'track-page', data: { path: path, gaData } });
 
     //Send Chartbeat
-    this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/photo-gallery/' + gallery.itemId, data: {'sections': gallery.sectionInformation.sectionName, 'authors': gallery.byline } } });
+    this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: path, data: {'sections': gallery.sectionInformation.sectionName, 'authors': (typeof gallery.byline !== 'undefined' ? gallery.byline : '') } } });
 
     // Fire Mather
-    this.fire('iron-signal', {name: 'mather-hit', data: { data: {'sections': gallery.sectionInformation.sectionName, 'authors': gallery.byline, 'publishedDate': gallery.publishedISO, 'pageType': 'gallery', timeStamp: new Date() } } });
+    this.fire('iron-signal', {name: 'mather-hit', data: { data: {'sections': gallery.sectionInformation.sectionName, 'authors': (typeof gallery.byline !== 'undefined' ? gallery.byline : ''), 'publishedDate': gallery.publishedISO, 'pageType': 'gallery', timeStamp: timeStamp } } });
+
+    // Fire Youneeq Page Hit Request
+    this.fire('iron-signal', {name: 'page-hit', data: { content: gallery } });
+  }
+
+  _checkJailMugs(galleryType) {
+    if (typeof galleryType !== 'undefined') {
+      if (galleryType === 'cranberry-jail-mugs') {
+        return true;
+      } else {
+        return false;
+      }
+    }
   }
 
   goTo(imageIndex) {

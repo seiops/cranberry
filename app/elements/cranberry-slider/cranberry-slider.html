@@ -48,8 +48,18 @@
           <p>Loading...</p>
         </div>
       </div>
-      <div class="info" white-text$="{{whiteText}}" hidden$="{{noCaption}}">
-        <span class="index">{{displayIndex}} / [[count]]</span><p class="caption"><iron-icon icon="cranberry-icons:panorama"></iron-icon>[[currentImage.caption]] -- [[currentImage.credit]]</p>
+      <div class$="info [[galleryType]]" white-text$="{{whiteText}}" hidden$="{{noCaption}}">
+        <template is="dom-if" if="[[_checkJailMugs(galleryType)]]">
+          <div class="slider-description" white-text$="{{whiteText}}">
+            <span>[[displayIndex]] / [[count]]</span>
+            <h3>[[currentImage.caption]]</h3>
+            <p>Charges:</p>
+            <p>[[currentImage.charge]]</p>
+          </div>
+        </template>
+        <template is="dom-if" if="[[!_checkJailMugs(galleryType)]]">
+          <span class="index">{{displayIndex}} / [[count]]</span><p class="caption"><iron-icon icon="cranberry-icons:panorama"></iron-icon>[[currentImage.caption]] -- [[currentImage.credit]]</p>
+        </template>
       </div>
     </div>
 

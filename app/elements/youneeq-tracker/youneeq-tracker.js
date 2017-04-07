@@ -108,10 +108,9 @@ class youneeqTracker {
   }
 
   _handleEvent(event, eventName) {
-    console.info('<\youneeq-tracker\> ' + eventName + ' event received');
-
     if(typeof event.detail !== 'undefined' && event.detail && typeof event.detail.content !== 'undefined'){
       let content = event.detail.content;
+      this.set('content', {});
       this.set('content', content);
     } else {
       // Set content to the dummy object with timestamp to ensure no stale content
@@ -120,14 +119,14 @@ class youneeqTracker {
   }
 
   _handleLoad() {
-    console.info('<\youneeq-tracker\> load received');
+    // console.info('<\youneeq-tracker\> load received');
   }
 
-  _handleResponse() {
-    console.info('<\youneeq-tracker\> response received');
+  _handleResponse(response) {
+    console.info('<\youneeq-tracker\> observe response received');
   }
 
-  _handlePageHitResponse() {
+  _handlePageHitResponse(response) {
     console.info('<\youneeq-tracker\> page hit response received');
   }
 
@@ -139,12 +138,11 @@ class youneeqTracker {
   }
 
   _parsePageHitResponse(response) {
-    console.info('<\youneeq-tracker\> page hit sent');
+    // console.info('<\youneeq-tracker\> page hit sent');
   }
 
   _contentChanged(content) {
     if (typeof content !== 'undefined' && Object.keys(content).length > 0 && !content.noContent) {
-      console.info('<\youneeq-tracker\> Content changed');
       // Content has CHANGED
       let fullObject = {};
       let observe = [];
@@ -187,7 +185,14 @@ class youneeqTracker {
       fullObject.gigya = user;
 
       let request = this.querySelector('#observeRequest');
+      let currentRequest = this.get('request');
+
       let jsonString = JSON.stringify(fullObject);
+
+      if (typeof currentRequest !== 'undefined' && currentRequest.loading === true) {
+        console.info('<\youneeq-tracker\> aborting previous observe request');
+        request.abortRequest(currentRequest);
+      }
 
       request.url = 'http://api.youneeq.ca/api/observe';
       request.params.json = jsonString;
@@ -205,9 +210,9 @@ class youneeqTracker {
     }
   }
 
-  _pageHitChanged(content) {    
+  _pageHitChanged(content) {
     if (typeof content !== 'undefined' && Object.keys(content).length > 0) {
-      console.info('<\youneeq-tracker\> Page Hit changed');
+      // console.info('<\youneeq-tracker\> Page Hit changed');
       let fullObject = {};
       let pageHit = {};
       let observeHit = [];
@@ -233,8 +238,13 @@ class youneeqTracker {
       //fullObject.href = "http://www.sanduskyregister.com";
       let jsonString = JSON.stringify(fullObject);
       let request = this.querySelector('#pageHitRequest');
+      let currentRequest = this.get('request');
       let callbackId = this.get("yqCallbackId");
 
+      if (typeof currentRequest !== 'undefined' && currentRequest.loading === true) {
+        console.info('<\youneeq-tracker\> aborting previous page hit request');
+        request.abortRequest(currentRequest);
+      }
       
       callbackId.pageId = this._generateId();
       this.set("yqCallbackId", callbackId);

@@ -135,10 +135,6 @@ div.info {
   width: 100%;
 }
 
-div.info[white-text] {
-  color: #fff;
-}
-
 div.info p.caption iron-icon {
   padding: 0 10px 0 0;
   width: 16px;
@@ -152,6 +148,36 @@ div.info span.index {
 div.info p.caption {
   display: inline;
   padding: 0 0 0 10px;
+}
+
+/* Caption Styles */
+div.info.cranberry-jail-mugs div.slider-description {
+  @apply(--paper-font-body1);
+  @apply(--layout-vertical);
+  @apply(--layout-center);
+  @apply(--layout-center-justified);
+  margin: 25px 0;
+}
+
+div.info.cranberry-jail-mugs div.slider-description[mobile-layout] {
+  max-width: 100%;
+}
+
+div.info.cranberry-jail-mugs div.slider-description h3 {
+  @apply(--paper-font-display2);
+}
+
+div.info.cranberry-jail-mugs div.slider-description p {
+  @apply(--paper-font-subhead);
+  margin: 0;
+}
+
+div.info[white-text] {
+  color: #fff;
+}
+
+div.info.cranberry-jail-mugs div.slider-description[white-text] > * {
+  color: #fff;
 }
 
 div.inGalleryAd {

@@ -47,7 +47,7 @@ class toutElement {
   destroy() {
     this.async(() => {
       let player = this.get('player');
-      console.dir(player);
+
       if (typeof player !== 'undefined' && Object.keys(player).length > 0 && typeof player.destroy === 'function') {
         console.info('\<tout-element\> destroying player: ' + this.get('playerName'));
         player.destroy();

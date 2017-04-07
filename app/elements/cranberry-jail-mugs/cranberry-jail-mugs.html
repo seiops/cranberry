@@ -12,8 +12,8 @@
       @import "cranberry-jail-mugs/cranberry-jail-mugs";
     </style>
 
-    <byutv-jsonp on-response="_handleResponse" debounce-duration="300" last-request="{{cardRequest}}" id="request"></byutv-jsonp>
-    <byutv-jsonp on-response="_handleSlides" debounce-duration="300" last-request="{{slideRequest}}" id="secondRequest"></byutv-jsonp>
+    <byutv-jsonp on-response="_handleResponse" debounce-duration="300" last-request="{{cardRequest}}" last-response="{{cardResponse}}" id="request"></byutv-jsonp>
+    <byutv-jsonp on-response="_handleSlides" debounce-duration="300" last-request="{{slideRequest}}" last-response="{{sliderResponse}}" id="secondRequest"></byutv-jsonp>
 
     <iron-media-query query="(min-width: 960px)" query-matches="{{desktop}}"></iron-media-query>
     <iron-media-query query="(min-width: 720px) and (max-width:959px)" query-matches="{{tablet}}"></iron-media-query>
@@ -36,16 +36,16 @@
       </google-dfp>
     </div>
 
-    <h1 class="headline">Jail mugs for {{currentHeadline}}</h1>
+    <h1 class="headline">[[sliderJson.title]]</h1>
     <div class="disclaimer">
       <p>The information presented here as a public service is gathered from public data compiled by local county sheriff's offices. The booking mug shots and related information are from arrest records in the order and at the time the data was collected. Those appearing here have not been convicted of the arrest charge and are presumed innocent. Do not rely on this site to determine any person's actual criminal record.</p>
     </div>
 
     <div class="top-media">
       <div class="mug-container" mobile-layout$="{{mobile}}">
-        <cranberry-slider id="mugSlider" base-url="{$ config.baseDomain $}" mobile-layout$="{{mobile}}" gallery="{{sliderJson}}" no-caption gallery-type="cranberry-jail-mugs" hidden$="[[hidden]]" desktop-layout$="{{desktop}}" tablet-layout$="{{tablet}}" mobile-layout$="{{mobile}}">
+        <cranberry-slider id="mugSlider" base-url="{$ config.baseDomain $}" mobile-layout$="{{mobile}}" gallery="[[sliderJson]]" items="[[sliderJson.mediaAssets.images]]" youneeq-data="[[youneeqData]]" gallery-type="cranberry-jail-mugs" hidden$="[[hidden]]" desktop-layout$="{{desktop}}" tablet-layout$="{{tablet}}" mobile-layout$="{{mobile}}">
           <div class="mug-tag" hidden$="{{noTags}}">
-            <span class="content-tag">[[currentHeadline]]</span>
+            <span class="content-tag">[[sliderJson.bookingDateFormatted]]</span>
           </div>
           <div class="expand-link">
             <paper-button raised class="rounded-button" on-tap="_openModal"><iron-icon icon="cranberry-icons:fullscreen"></iron-icon></paper-button>
@@ -54,16 +54,6 @@
             <gigya-sharebar share-buttons-id="gigya-share-buttons-gallery" title="[[currentHeadline]]" route="[[route]]"></gigya-sharebar>
           </div>
         </cranberry-slider>
-        <div class="slider-description" mobile-layout$="{{mobile}}">
-            <div class="info">
-              <span>[[currentIndex]] / [[currentMaxIndex]]</span>
-            </div>
-            <h3>[[currentMugName]]</h3>
-            <p>Charges:</p>
-            <template is="dom-repeat" items="{{currentCharges}}">
-              <p>{{item}}</p>
-            </template>
-          </div>
       </div>
       <div class="ad-container">
         <google-dfp section="news"
@@ -96,14 +86,13 @@
     <div class="main-content">
       <div class="card-container">
         <template is="dom-repeat" items="{{cardsJson}}">
-          <a href="/jail-mugs/{{item.bookingDate}}">
-            <paper-card image="{$ config.baseDomain $}/[[item.image.medium]]">
+          <a href$="/jail-mugs/[[item.bookingDate]]">
+            <paper-card image="{$ config.baseDomain $}/[[item.mediaAssets.images.0.medium]]">
               <div class="card-content">
                 <div class="content-container">
                   <div class="content">
                     <p class="card-body">Jailings on [[item.bookingDateFormatted]]
                   </div>
-                  <!--<paper-icon-button disabled icon="icons:more-vert"></paper-icon-button>-->
                 </div>
               </div>
             </paper-card>

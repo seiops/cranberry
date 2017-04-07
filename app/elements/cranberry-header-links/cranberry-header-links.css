@@ -38,7 +38,7 @@ paper-menu a {
 
 div.link-list a {
   @apply(--paper-font-body2);
-  color: inherit;
+  color: #fff;
   margin-right: 12px;
   text-decoration: none;
 }

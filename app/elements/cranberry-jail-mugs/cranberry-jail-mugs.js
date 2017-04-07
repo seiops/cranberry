@@ -3,52 +3,50 @@ class cranberryJailMugs {
     this.is = 'cranberry-jail-mugs';
     this.properties = {
       baseUrl: String,
-      firstRun: {
-        type: Boolean,
-        value: true
-      },
-      currentIndex: {
-        type: Number,
-        value: 1
-      },
-      currentMaxIndex: {
-        type: Number
-      },
-      start: {
-        type: Number,
-        value: 1
-      },
-      loadSection: {
-        type: String
-      },
-      showPrev: {
-        type: Boolean,
-        value: false
-      },
-      hideNext: {
-        type: Boolean,
-        value: false
-      },
-      route: {
+      cardResponse: {
         type: Object,
-        observer: 'onRouteChanged'
+        observer: '_cardResponseReceived'
       },
       cardsJson: {
         type: Object,
         observer: 'onCardsJsonChanged'
       },
-      sliderJson: {
-        type: Object,
-        observer: 'onSliderJsonChanged'
+      currentMugId: {
+        type: String,
+        observer: '_currentMugIdChanged'
       },
-      rest: {
-        type: String
+      firstRun: {
+        type: Boolean,
+        value: true
       },
-      images: Array,
+      hideNext: {
+        type: Boolean,
+        value: false
+      },
       hidden: {
         type: Boolean,
         reflectToAttribute: true,
         value: true
+      },
+      rest: {
+        type: String
+      },
+      route: {
+        type: Object,
+        observer: 'onRouteChanged'
+      },
+      showPrev: {
+        type: Boolean,
+        value: false
+      },
+      sliderJson: Object,
+      sliderResponse: {
+        type: Object,
+        observer: '_sliderResponseReceived'
+      },
+      start: {
+        type: Number,
+        value: 1
       }
     };
     this.listeners = {
@@ -57,43 +55,27 @@ class cranberryJailMugs {
     };
   }
 
-  onRouteChanged(newValue) {
-    if (newValue.path !== null && typeof newValue.path !== 'undeinfed') {
-      this.async(function() {
-          let hidden = this.hidden;
-
-          if (!hidden) {
-            // Set location to undefined to trigger the same value being placed in as a new value ** Ad refresh**
-            this.set('loadSection', undefined);
-            this.set('loadSection', 'police_fire/jailmugs');
-          }
-      });
-      let routePath = newValue.path.replace('/', '');
+  onRouteChanged(newValue, oldValue) {
+    this.async(() => {
+      let hidden = this.get('hidden');
       let firstRun = this.get('firstRun');
 
-      console.log('THIS IS FIRST RUN:: ' + firstRun);
+      if (!hidden) {
+        let path = (newValue.path === '' ? '' : newValue.path.replace('/', ''));
 
-      // Check if the element has gone through once yet.
-      if (!firstRun) {
-        if (routePath === '') {
+        if (firstRun) {
+          this.set('firstRun', false);
           this._buildCardRequest();
-        } else {
-          this._buildSliderRequest(routePath);
         }
-      } else {
-        // If it hasnt ran through once run both requests
-        this.set('firstRun', false)
-        this._buildCardRequest();
-        if (typeof routePath !== 'undefined' && routePath !== '') {
-          this._buildSliderRequest(routePath);
+
+        if (path !== '') {
+          this.set('currentMugId', path);
         }
       }
-
-    }
+    });
   }
 
   _buildCardRequest(start) {
-    // Generate Request to build the cards at the bottom of the page
     let request = this.$.request;
     let currentRequest = this.get('cardRequest');
 
@@ -105,8 +87,7 @@ class cranberryJailMugs {
     request.setAttribute('callback-value', 'cardCallback');
     let url = this.get('rest');
     let params = {
-      'request': 'congero',
-      'desiredContent': 'jailmugs',
+      'request': 'mugshots',
       'desiredCount': '8',
       'desiredSortOrder': '-publishdate_priority_-contentmodified'
     };
@@ -121,122 +102,56 @@ class cranberryJailMugs {
     request.generateRequest();
   }
 
-  _handleResponse(json) {
-    let result = JSON.parse(json.detail.Result);
+  _cardResponseReceived(response) {
+    let result = JSON.parse(response.Result);
+    let currentMugId = this.get('currentMugId');
 
-    if (result.length < 8) {
-      this.set('hideNext', true);
+    if (typeof currentMugId === 'undefined' || currentMugId === '') {
+      this.set('currentMugId', result.content[0].bookingDate);
+      currentMugId = result.content[0].bookingDate;
     }
-    this.set('cardsJson', result);
+
+    this.set('cardsJson', result.content);
   }
 
-  onCardsJsonChanged(newValue) {
-    let route = this.get('route');
-    let routePath = route.path.replace('/', '');
-
-    // Add previous button if needed
-    this._checkPrevButton(newValue[0].start);
-
-    // Only if the path is empty switch sliders
-    if (routePath === '') {
-      this._buildSliderRequest(newValue[0].bookingDate);
-    }
-  }
-
-  _buildSliderRequest(date) {
-    let request = this.$.secondRequest;
-    let currentRequest = this.get('slideRequest');
-
-    if (typeof currentRequest !== 'undefined' && currentRequest.loading === true) {
-      console.info('<\cranberry-jail-mugs\> aborting previous request');
-      request.abortRequest(currentRequest);
-    }
-    // Generate request for image slider JSON
-    let route = this.get('route');
-    let routePath = route.path.replace('/', '');
-    if (routePath !== '') {
-      date = routePath;
-    }
-    
-    request.setAttribute('callback-value', 'slideCallback');
-    let url = this.get('rest');
-    let params = {
-      'request': 'congero',
-      'desiredContent': 'jailmugsind',
-      'desiredbookingdate': date
-    };
-
-    request.setAttribute('url', url);
-    request.params = params;
-    request.generateRequest();
-  }
-
-  _handleSlides(json) {
-    let result = JSON.parse(json.detail.Result);
-
-    this.set('sliderJson', result);
-
-    let bookingdate = this.get('route.path').replace('/', '');
+  _sliderResponseReceived(response) {
+    let result = JSON.parse(response.Result);
+    let bookingdate = result.bookingDate;
     let data = {};
 
     data.dimension6 = 'jail-mugs';
-    data.dimension3 = result[0].publishDate;
+    data.dimension3 = bookingdate;
 
-    let youneeqData = {
-      title: 'Jail mugs for ' + bookingdate,
-      preview: 'Jail mugs for ' + bookingdate,
-      publishedDate: result[0].publishDate,
-      itemId: bookingdate,
-      mediaAssets: {
-        images: [
-          result[0].mugShot
-        ]
-      },
-      sectionInformation: {
-        section: 'jail-mugs'
-      }
+    this.set('sliderJson', result.content[0]);
 
-    }
-
-    this.set('youneeqData', youneeqData);
-
-    // Send pageview event with iron-signals
+    // // Send pageview event with iron-signals
     this.fire('iron-signal', {name: 'track-page', data: { path: '/jail-mugs/' + bookingdate, data } });
 
-    // Send Chartbeat
+    // // Send Chartbeat
     this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/jail-mugs/' + bookingdate, data: {'sections': 'jail-mugs' } } });
 
-    // Fire Youneeq Page Hit Request
-    this.fire('iron-signal', {name: 'page-hit', data: { content: youneeqData } });
+    // // Fire Youneeq Page Hit Request
+    this.fire('iron-signal', {name: 'page-hit', data: { content: result.content[0] } });
   }
 
-  onSliderJsonChanged(newValue) {
-    // Setup the images array
-    let images = this._setupImages(newValue);
-    let slider = this.$.mugSlider;
-    let currentMaxIndex = this.get('currentMaxIndex');
+  _handleResponse(response) {
+    console.info('<\cranberry-jail-mugs\> Card Response Received');
+  }
 
-    slider.removeEventListener('sliderMoved', this._event);
-    slider.addEventListener('sliderMoved', this._event.bind(this));
+  _handleSlides(response) {
+    console.info('<\cranberry-jail-mugs\> Slider Response Received');
+  }
 
-    // Update slider event, headline, and max index
-    this.set('currentHeadline', newValue[0].bookingDateFormatted);
-    if (newValue.length !== currentMaxIndex) {
-      this.set('currentMaxIndex', newValue.length);
+  onCardsJsonChanged(newValue) {
+    let currentMugId = this.get('currentMugId');
+
+    if (typeof currentMugId === 'undefined' || currentMugId === '') {
+      this.set('currentMudId', newValue[0].bookingdate);
+      currentMugId = newValue[0].bookingdate;
     }
-    slider.set('items', images);
-  }
-
-  _event(e) {
-    let records = this.get('sliderJson');
-    let index = e.detail.index;
-    let currentRecord = records[index - 1];
-
-    let charges = this._computeChargesArray(currentRecord.charge.split(','));
-    // Change mug shot caption and indexes on page
-    this.set('currentMugName', currentRecord.title);
-    this.set('currentCharges', charges);
-    this.set('currentIndex', index);
+    
+    // Add previous button if needed
+    this._checkPrevButton(newValue[0].start);
   }
 
   _checkPrevButton(start) {
@@ -248,28 +163,20 @@ class cranberryJailMugs {
     }
   }
 
-  _setupImages(content) {
-    // Return images from JSON response
-    let images = [];
-    content.forEach(function(value, index) {
-      if (typeof value.mugShot !== 'undefined') {
-        images.push(value.mugShot);
-      }
-    });
+  _currentMugIdChanged(mugId, oldId) {
+    let request = this.$.secondRequest;
+    let url = this.get('rest');
 
-    this.set('images', images);
-    return images;
-  }
+    let params = {
+      'request': 'mugshots',
+      'desiredCount': '999',
+      'desiredBookingDate': mugId
+    };
 
-  _computeChargesArray(charges) {
-    // Remove any empty entries in the array of charges
-    charges.forEach(function(value, index) {
-      if (value === '') {
-        charges.splice(index, 1);
-      }
-    });
-
-    return charges;
+    request.setAttribute('callback-value', 'slideCallback');
+    request.setAttribute('url', url);
+    request.params = params;
+    request.generateRequest();
   }
 
   _loadNewCards(e) {
@@ -311,13 +218,13 @@ class cranberryJailMugs {
   _openModal () {
     let baseUrl = this.get('baseUrl');
     let slider = document.createElement('cranberry-slider');
+    let sliderJson = this.get('sliderJson');
 
-    let images = this.get('images');
-
-
-    slider.set('items', images);
+    slider.set('items', sliderJson.mediaAssets.images);
+    slider.set('gallery', sliderJson);
     slider.set('baseUrl', baseUrl);
     slider.set('whiteText', true);
+    slider.set('galleryType', 'cranberry-jail-mugs');
     slider.set('hidden', false);
 
     let modal = Polymer.dom(document).querySelector('cranberry-base').querySelector('#globalModal');

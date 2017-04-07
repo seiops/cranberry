@@ -20,7 +20,7 @@ div.header-advertisement {
 
 div.ad-container {
   min-width: 300px;
-  margin: 0 0 0 12px;
+  margin: 0 0 16px 16px;
 }
 
 div.top-media {
@@ -58,7 +58,6 @@ div.mug-container[mobile-layout] {
   @apply(--layout-center);
   @apply(--layout-center-justified);
   margin: 25px 0;
-  max-width: 80%;
 }
 
 .slider-description[mobile-layout] {
@@ -148,15 +147,15 @@ paper-button.rounded-button {
 }
 
 div.mug-container cranberry-slider[mobile-layout] {
-  height: 347px;
+  height: 445px;
 }
 
 div.mug-container cranberry-slider[tablet-layout] {
-  height: 466px;
+  height: 645px;
 }
 
 div.mug-container cranberry-slider[desktop-layout] {
-  height: 666px;
+  height: 845px;
 }
 
 /* Absolute positioned icons over mug content */
