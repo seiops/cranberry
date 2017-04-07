@@ -47,6 +47,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   @nest &-headerButton {
     /* postcss-bem-linter: ignore */
     --paper-icon-button-ink-color: var(--text-dark-primary-color);
+    color: var(--text-primary-color);
   }
 
   @nest &-headerTopBar {
@@ -81,6 +82,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   @nest &-siteButtons span.Main-siteNav {
     cursor: pointer;
+    color: var(--text-primary-color);
   }
 
   @nest &-siteNav a {
