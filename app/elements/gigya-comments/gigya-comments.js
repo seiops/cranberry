@@ -5,10 +5,6 @@ class gigyaComments {
       commentsId: {
         type: String
       },
-      streamId: {
-        type: String,
-        value: ''
-      },
       content: {
         type: Object
       },
@@ -16,10 +12,14 @@ class gigyaComments {
         type: String
       }
     };
-    this.observers = ['_updateComments(streamId, content, configId)'];
+    this.observers = ['_updateComments(content, configId)'];
     this.listeners = {
       'scroll-to-comments': 'scrollToComments'
     };
+  }
+
+  attached() {
+    console.info('\<gigya-comments\> attached');
   }
 
   _timeId() {
@@ -38,8 +38,10 @@ class gigyaComments {
     this.$.commentContainer.innerHTML = '';
   }
 
-  _updateComments(id, content, configId) {
-    if (typeof id !== 'undefined' && id.length > 0) {
+  _updateComments(content, configId) {
+    if (typeof content !== 'undefined' && Object.keys(content).length > 0) {
+      console.info('\<gigya-comments\> setting up');
+
       this._destroyOldComments();
       let time = this._timeId();
       this.set('containerId', time);
@@ -54,7 +56,7 @@ class gigyaComments {
         let params = {
           context: Polymer.dom(document).querySelector('gigya-socialize'),
           categoryID: configId,
-          streamID: id,
+          streamID: content.genericLink,
           streamURL: window.location.href,
           version: 2,
           containerID: time,
@@ -83,6 +85,7 @@ class gigyaComments {
 
         gigyaDefined.then(function(val) {
           if (val) {
+            console.info('\<gigya-comments\> setup');
             gigya.comments.showCommentsUI(params);
           }
         });
