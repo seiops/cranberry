@@ -182,11 +182,32 @@ class cranberryJailMugs {
     data.dimension6 = 'jail-mugs';
     data.dimension3 = result[0].publishDate;
 
+    let youneeqData = {
+      title: 'Jail mugs for ' + bookingdate,
+      preview: 'Jail mugs for ' + bookingdate,
+      publishedDate: result[0].publishDate,
+      itemId: bookingdate,
+      mediaAssets: {
+        images: [
+          result[0].mugShot
+        ]
+      },
+      sectionInformation: {
+        section: 'jail-mugs'
+      }
+
+    }
+
+    this.set('youneeqData', youneeqData);
+
     // Send pageview event with iron-signals
     this.fire('iron-signal', {name: 'track-page', data: { path: '/jail-mugs/' + bookingdate, data } });
 
     // Send Chartbeat
     this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/jail-mugs/' + bookingdate, data: {'sections': 'jail-mugs' } } });
+
+    // Fire Youneeq Page Hit Request
+    this.fire('iron-signal', {name: 'page-hit', data: { content: youneeqData } });
   }
 
   onSliderJsonChanged(newValue) {
@@ -275,11 +296,16 @@ class cranberryJailMugs {
     data.dimension6 = 'jail-mugs';
     data.dimension3 = result[0].publishDate;
 
+    let youneeqData = this.get('youneeqData');
+
     // Send pageview event with iron-signals
     this.fire('iron-signal', {name: 'track-page', data: { path: '/jail-mugs/' + bookingdate, data } });
 
     // Send Chartbeat
     this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/jail-mugs/' + bookingdate, data: {'sections': 'jail-mugs' } } });
+
+    // Fire Youneeq Page Hit Request
+    this.fire('iron-signal', {name: 'page-hit', data: { content: youneeqData } });
   }
 
   _openModal () {

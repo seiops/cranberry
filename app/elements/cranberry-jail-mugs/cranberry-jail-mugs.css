@@ -48,19 +48,10 @@ div.mug-container {
   margin-bottom: 34px;
 }
 
+
 div.mug-container[mobile-layout] {
-  height: 445px;
   min-width: 100%;
 }
-
-div.mug-container[tablet-layout] {
-  height: 545px;
-}
-
-div.mug-container[desktop-layout] {
-  height: 745px;
-}
-
 /* Caption Styles */
 .slider-description {
   @apply(--layout-vertical);
@@ -154,6 +145,18 @@ paper-button.rounded-button {
   min-width: 1px;
   height: 50px;
   width: 50px;
+}
+
+div.mug-container cranberry-slider[mobile-layout] {
+  height: 347px;
+}
+
+div.mug-container cranberry-slider[tablet-layout] {
+  height: 466px;
+}
+
+div.mug-container cranberry-slider[desktop-layout] {
+  height: 666px;
 }
 
 /* Absolute positioned icons over mug content */

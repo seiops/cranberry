@@ -42,8 +42,8 @@
     </div>
 
     <div class="top-media">
-      <div class="mug-container" desktop-layout$="{{desktop}}" tablet-layout$="{{tablet}}" mobile-layout$="{{mobile}}">
-        <cranberry-slider id="mugSlider" base-url="{$ config.baseDomain $}" mobile-layout$="{{mobile}}" gallery="{{sliderJson}}" no-caption gallery-type="cranberry-jail-mugs" hidden$="[[hidden]]">
+      <div class="mug-container" mobile-layout$="{{mobile}}">
+        <cranberry-slider id="mugSlider" base-url="{$ config.baseDomain $}" mobile-layout$="{{mobile}}" gallery="{{sliderJson}}" no-caption gallery-type="cranberry-jail-mugs" hidden$="[[hidden]]" desktop-layout$="{{desktop}}" tablet-layout$="{{tablet}}" mobile-layout$="{{mobile}}">
           <div class="mug-tag" hidden$="{{noTags}}">
             <span class="content-tag">[[currentHeadline]]</span>
           </div>
@@ -54,6 +54,16 @@
             <gigya-sharebar share-buttons-id="gigya-share-buttons-gallery" title="[[currentHeadline]]" route="[[route]]"></gigya-sharebar>
           </div>
         </cranberry-slider>
+        <div class="slider-description" mobile-layout$="{{mobile}}">
+            <div class="info">
+              <span>[[currentIndex]] / [[currentMaxIndex]]</span>
+            </div>
+            <h3>[[currentMugName]]</h3>
+            <p>Charges:</p>
+            <template is="dom-repeat" items="{{currentCharges}}">
+              <p>{{item}}</p>
+            </template>
+          </div>
       </div>
       <div class="ad-container">
         <google-dfp section="news"
@@ -67,17 +77,6 @@
                     hidden$="[[hidden]]">
           </google-dfp>
       </div>
-    </div>
-
-    <div class="slider-description" mobile-layout$="{{mobile}}">
-      <div class="info">
-        <span>[[currentIndex]] / [[currentMaxIndex]]</span>
-      </div>
-      <h3>[[currentMugName]]</h3>
-      <p>Charges:</p>
-      <template is="dom-repeat" items="{{currentCharges}}">
-        <p>{{item}}</p>
-      </template>
     </div>
 
     <div class="header-advertisement">
