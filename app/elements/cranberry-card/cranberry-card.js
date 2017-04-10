@@ -190,7 +190,7 @@ class CranberryCard {
 
       if (cardStyle === 'square_image') {
         return image.thumbnail;
-      } else if (cardStyle === 'featured' || 'featured_gallery') {
+      } else if (cardStyle === 'featured' || cardStyle === 'featured_gallery') {
         return image.exlarge;
       } else {
         return image.medium;
