@@ -108,10 +108,15 @@ class youneeqTracker {
   }
 
   _handleEvent(event, eventName) {
-    if(typeof event.detail !== 'undefined' && event.detail && typeof event.detail.content !== 'undefined'){
+    if(typeof event.detail !== 'undefined' && event.detail && typeof event.detail.content !== 'undefined') {
+      console.info('<\youneeq-tracker\> ' + eventName + ' received');
       let content = event.detail.content;
-      this.set('content', {});
-      this.set('content', content);
+
+      if (eventName === 'page-hit') {
+        this._pageHitChanged(content);
+      } else if (eventName === 'observe') {
+        this._contentChanged(content);
+      }
     } else {
       // Set content to the dummy object with timestamp to ensure no stale content
       this.set('content', {noContent: true, timestamp: event.timestamp});
@@ -142,128 +147,113 @@ class youneeqTracker {
   }
 
   _contentChanged(content) {
-    if (typeof content !== 'undefined' && Object.keys(content).length > 0 && !content.noContent) {
-      // Content has CHANGED
-      let fullObject = {};
-      let observe = [];
-      let observeObj = {};
-      let suggest = [];
-      let suggestObj = {};
-      let domain = this.get('domain');
-      let user = this.get('user');
-      let callbackId = this.get("yqCallbackId");
+    this.async(() => {
+      if (typeof content !== 'undefined' && Object.keys(content).length > 0 && !content.noContent) {
+        let domain = this.get('domain');
+        let user = this.get('user');
+        let callbackId = this.get("yqCallbackId");
+        
+        let fullObject = {
+          domain: domain,
+          observe: [{
+            title: content.title,
+            categories: [content.sectionInformation.section],
+            description: content.preview,
+            create_date: content.published,
+            image: (Object.keys(content.mediaAssets). length > 0 ? domain + content.mediaAssets.images[0].exlarge : '')
+          }],
+          suggest: [{
+            type: 'node',
+            count: 6,
+            categories: [],
+            is_panel_detailed: true,
+            isAllClientDomains: false
+          }],
+          content_id: content.itemId,
+          bof_profile: this.get('youneeqId'),
+          href: window.location.href,
+          gigya: user
+        };
+        
+        let request = this.querySelector('#observeRequest');
+        let currentRequest = this.get('request');
 
-      observeObj.title = content.title;
-      observeObj.categories = [content.sectionInformation.section];
-      observeObj.description = content.preview;
-      if (Object.keys(content.mediaAssets).length > 0) {
-        observeObj.image = domain + content.mediaAssets.images[0].exlarge;
+        let jsonString = JSON.stringify(fullObject);
+
+        if (typeof currentRequest !== 'undefined' && currentRequest.loading === true) {
+          console.info('<\youneeq-tracker\> aborting previous observe request');
+          request.abortRequest(currentRequest);
+        }
+
+        request.url = 'http://api.youneeq.ca/api/observe';
+        request.params.json = jsonString;
+
+        if (!callbackId.sessionId){
+          callbackId.sessionId = this._generateId();
+        }
+
+        callbackId.requestCount++;
+        this.fire('iron-signal', {name: 'youneeq-callbackid', data: { content: callbackId }});
+        let now = new Date().getTime();
+        request.setAttribute('callback-value', "yq_" + callbackId.sessionId + "_" + callbackId.pageId + "_" + now + "_" + callbackId.requestCount);
+
+        request.generateRequest();
       }
-      observeObj.create_date = content.published;
-
-      observe[0] = observeObj;
-
-      suggestObj.type = 'node';
-      suggestObj.count = 6;
-      suggestObj.categories = [];
-      suggestObj.is_panel_detailed = true;
-      suggestObj.isAllClientDomains = false;
-
-      suggest[0] = suggestObj;
-      
-
-      fullObject.domain = domain;
-      // For Localhost Testing uncomment below; comment out above line.
-      //fullObject.domain = 'localhost';
-      fullObject.observe = observe;
-      fullObject.suggest = suggest;
-      fullObject.content_id = content.itemId;
-      // For Localhost Testing uncomment this
-      //fullObject.alt_href = 'http://sedev.libercus.net/News/2016/08/18/Ogden-s-STEM-school-makes-its-debut-with-enthusiasm.html';
-      fullObject.bof_profile = this.get('youneeqId');
-      fullObject.href = window.location.href;
-      fullObject.gigya = user;
-
-      let request = this.querySelector('#observeRequest');
-      let currentRequest = this.get('request');
-
-      let jsonString = JSON.stringify(fullObject);
-
-      if (typeof currentRequest !== 'undefined' && currentRequest.loading === true) {
-        console.info('<\youneeq-tracker\> aborting previous observe request');
-        request.abortRequest(currentRequest);
-      }
-
-      request.url = 'http://api.youneeq.ca/api/observe';
-      request.params.json = jsonString;
-
-      if (!callbackId.sessionId){
-        callbackId.sessionId = this._generateId();
-      }
-      callbackId.requestCount++;
-      //this.set('yqCallbackId', callbackId);
-      this.fire('iron-signal', {name: 'youneeq-callbackid', data: { content: callbackId }});
-      let now = new Date().getTime();
-      request.setAttribute('callback-value', "yq_" + callbackId.sessionId + "_" + callbackId.pageId + "_" + now + "_" + callbackId.requestCount);
-
-      request.generateRequest();
-    }
+    });
   }
 
   _pageHitChanged(content) {
-    if (typeof content !== 'undefined' && Object.keys(content).length > 0) {
-      // console.info('<\youneeq-tracker\> Page Hit changed');
-      let fullObject = {};
-      let pageHit = {};
-      let observeHit = [];
-      let domain = this.get('domain');
-      let user = this.get('user');
-      let timeZone = jzTimezoneDetector.determine_timezone();
-      let utcOffset = timeZone.timezone.utc_offset;
-      let timeZoneName = timeZone.timezone.olson_tz;
-      let bof_profile = this.get('youneeqId');
-      let referrer = this.get('previousURL');
-      pageHit.href = window.location.href;
-      //pageHit.href = "http://www.sanduskyregister.com";
-      pageHit.referrer = referrer;
-      pageHit.tz_off = utcOffset;
-      pageHit.tz_name = timeZoneName;
+    this.async(() => {
+      if (typeof content !== 'undefined' && Object.keys(content).length > 0) {
+        let domain = this.get('domain');
+        let timeZone = jzTimezoneDetector.determine_timezone();
+        let utcOffset = timeZone.timezone.utc_offset;
+        let timeZoneName = timeZone.timezone.olson_tz;
+        let bof_profile = this.get('youneeqId');
+        let referrer = this.get('previousURL');
 
-      // GENERATE THE PAGEHIT REQUEST AND SEND IT OFF   
-      fullObject.domain = domain;
-      fullObject.content_id = (typeof content.itemId !== 'undefined' ? content.itemId : '');
-      fullObject.page_hit = pageHit;   
-      fullObject.bof_profile = bof_profile;
-      fullObject.href = window.location.href;
-      //fullObject.href = "http://www.sanduskyregister.com";
-      let jsonString = JSON.stringify(fullObject);
-      let request = this.querySelector('#pageHitRequest');
-      let currentRequest = this.get('request');
-      let callbackId = this.get("yqCallbackId");
+        let fullObject = {
+          domain: domain,
+          content_id: (typeof content.itemId !== 'undefined' ? content.itemId : ''),
+          page_hit: {
+            href: window.location.href,
+            tz_off: utcOffset,
+            tz_name: timeZoneName
+          },
+          bof_profile: bof_profile,
+          href: window.location.href,
 
-      if (typeof currentRequest !== 'undefined' && currentRequest.loading === true) {
-        console.info('<\youneeq-tracker\> aborting previous page hit request');
-        request.abortRequest(currentRequest);
+        };
+
+        let jsonString = JSON.stringify(fullObject);
+        let request = this.querySelector('#pageHitRequest');
+        let currentRequest = this.get('pageHitRequest');
+        let callbackId = this.get("yqCallbackId");
+
+        if (typeof currentRequest !== 'undefined' && currentRequest.loading === true) {
+          console.info('<\youneeq-tracker\> aborting previous page hit request');
+          request.abortRequest(currentRequest);
+        }
+        
+        callbackId.pageId = this._generateId();
+        this.set("yqCallbackId", callbackId);
+        request.url = 'http://api.youneeq.ca/api/observe';
+        request.params.json = jsonString;
+
+        if (!callbackId.sessionId){
+          callbackId.sessionId = this._generateId();
+        }
+
+        callbackId.requestCount++;
+        this.fire('iron-signal', {name: 'youneeq-callbackid', data: { content: callbackId }});
+        let now = new Date().getTime();
+        request.setAttribute('callback-value', "yq_" + callbackId.sessionId + "_" + callbackId.pageId + "_" + now + "_" + callbackId.requestCount);
+
+        request.generateRequest();
+
+        this.set('previousURL', window.location.href);
       }
-      
-      callbackId.pageId = this._generateId();
-      this.set("yqCallbackId", callbackId);
-      request.url = 'http://api.youneeq.ca/api/observe';
-      request.params.json = jsonString;
-
-      if (!callbackId.sessionId){
-        callbackId.sessionId = this._generateId();
-      }
-      callbackId.requestCount++;
-      //this.set('yqCallbackId', callbackId);
-      this.fire('iron-signal', {name: 'youneeq-callbackid', data: { content: callbackId }});
-      let now = new Date().getTime();
-      request.setAttribute('callback-value', "yq_" + callbackId.sessionId + "_" + callbackId.pageId + "_" + now + "_" + callbackId.requestCount);
-
-      request.generateRequest();
-
-      this.set('previousURL', window.location.href);
-    }
+    });
   }
 }
 Polymer(youneeqTracker);
