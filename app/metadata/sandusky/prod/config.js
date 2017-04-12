@@ -31,6 +31,7 @@ module.exports = {
   gigya: gigyaConfig,
   google: googleConfig,
   dfpAdStructure: dfpConfig,
+  dfpAdPlacement: 'production',
   socialNaming: socialConfig.socialNaming,
   socialUrls: socialConfig.socialUrls,
   tout: toutConfig,
