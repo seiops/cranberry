@@ -1,4 +1,7 @@
+var  = require('./google.js');
+
 module.exports = {
+  // THIS IS FROM THE RIGHT CONFIG FILE!
   // URL Structure
   baseUrl: '/',
   baseDomain: 'http://www.sanduskyregister.com',
@@ -28,24 +31,7 @@ module.exports = {
     siteName: 'sanduskyregister.com',
     commentsId: 'Default'
   },
-  // Google
-  google: {
-    initialTracker: 'UA-4700830-1',
-    analytics: [
-      {
-        code: 'UA-4700830-1'
-      },
-      {
-        code: 'UA-4700830-30'
-      },
-      {
-        code: 'UA-4700830-29'
-      }
-    ],
-    maps: 'AIzaSyASMEaZRw3O-fhuvscitnQ8k2YJ3kJn_ZA',
-    surveys: '_ajb2thhwixyz2kel67yunivgzq',
-    siteVerification: 'fZibeoFmCJXMlwdTVWdLhmIoBIawotoXlU1VnWOTyc0'
-  },
+  googleConfig,
   dfpAdStructure: {
     adGroupID: 30103046,
     adGrouping: 'Tandem',

@@ -1,3 +1,4 @@
+// From Config folder struct
 module.exports = {
   appName: 'Cranberry',
   appShortName: 'CRAN',
