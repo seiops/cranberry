@@ -18,7 +18,7 @@ module.exports = {
   appVersion: baseConfig.appVersion,
   baseUrl: baseConfig.baseUrl,
   baseDomain: baseConfig.baseDomain,
-  baseEndpointUrl: baseConfig.stageEndpointUrl,
+  baseEndpointUrl: baseConfig.prodEndpointUrl,
   baseCanonicalUrl: baseConfig.baseCanonicalUrl,
   calendarDomain: baseConfig.calendarDomain,
   epaperLink: baseConfig.epaperLink,

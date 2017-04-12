@@ -58,7 +58,8 @@
     "stylelint": "^4.3.3",
     "stylelint-config-standard": "^3.0.0",
     "vulcanize": ">= 1.4.2",
-    "web-component-tester": "^4.0.0"
+    "web-component-tester": "^4.0.0",
+    "yargs": "^7.0.2"
   },
   "scripts": {
     "deploy:dev": "gulp deploy:dev",

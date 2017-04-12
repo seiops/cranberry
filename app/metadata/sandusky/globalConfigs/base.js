@@ -1,0 +1,15 @@
+module.exports = {
+  appVersion: '<0.1',
+  baseUrl: '/',
+  baseDomain: 'http://www.sanduskyregister.com',
+  devEndpointUrl: 'http://srdevcore.libercus.net/rest.json',
+  stageEndpointUrl: 'http://srstgcore.libercus.net/rest.json',
+  prdEndpointUrl: 'http://srprdcore.libercus.net/rest.json',
+  baseCanonicalUrl: 'https://github.com/seiops/cranberry/',
+  calendarDomain: 'sanduskyregister',
+  epaperLink: 'http://digital.olivesoftware.com/Olive/ODN/SanduskyRegister/default.aspx',
+  ludiPortal: 'sanduskyregister',
+  myCaptureUrl: 'http://sandusky.mycapture.com/mycapture/remoteimage.asp',
+  title: 'Sandusky Register',
+  urlTitle: 'SanduskyRegister.com',
+}

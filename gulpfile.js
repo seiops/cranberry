@@ -29,6 +29,7 @@ var packageJson = require('./package.json');
 var crypto = require('crypto');
 var config = require('./config');
 var requireUncached = require('require-uncached');
+var argv = require('yargs').argv;
 
 // Get a task path
 function task(filename) {
@@ -212,40 +213,47 @@ gulp.task('clean', function(cb) {
 });
 
 // Watch files for changes & reload
-gulp.task('serve', ['js', 'lint', 'lint-js', 'styles'], function() {
-  browserSync({
-    browser: config.browserSync.browser,
-    https: config.browserSync.https,
-    notify: config.browserSync.notify,
-    port: config.browserSync.port,
-    logPrefix: 'PSK+',
-    snippetOptions: {
-      rule: {
-        match: '<span id="browser-sync-binding"></span>',
-        fn: function(snippet) {
-          return snippet;
+gulp.task('serve', function() {
+  runSequence(
+    'copy-general-config',
+    'copy-config',
+    ['js', 'lint', 'lint-js', 'styles'],
+    function() {
+      browserSync({
+        browser: config.browserSync.browser,
+        https: config.browserSync.https,
+        notify: config.browserSync.notify,
+        port: config.browserSync.port,
+        logPrefix: 'PSK+',
+        snippetOptions: {
+          rule: {
+            match: '<span id="browser-sync-binding"></span>',
+            fn: function(snippet) {
+              return snippet;
+            }
+          }
+        },
+        server: {
+          baseDir: ['.tmp', 'app'],
+          middleware: [historyApiFallback()]
+        },
+        ui: {
+          port: config.browserSync.ui.port
         }
-      }
-    },
-    server: {
-      baseDir: ['.tmp', 'app'],
-      middleware: [historyApiFallback()]
-    },
-    ui: {
-      port: config.browserSync.ui.port
-    }
-  });
+      });
 
-  gulp.watch([
-    'app/*.html',
-    'app/views/**/*.html',
-    'app/content/**/*.md',
-    'app/metadata/*.js'
-  ], { interval: 500 }, ['styles', reload]);
-  gulp.watch(['app/{elements,themes}/**/*.{css,html}'], ['styles', reload]);
-  gulp.watch(['app/themes/**/*.js'], ['styles', reload]);
-  gulp.watch(['app/{elements,scripts}/**/*.js'], ['lint-js', 'js', reload]);
-  gulp.watch(['app/images/**/*'], reload);
+      gulp.watch([
+        'app/*.html',
+        'app/views/**/*.html',
+        'app/content/**/*.md',
+        'app/metadata/*.js'
+      ], { interval: 500 }, ['styles', reload]);
+      gulp.watch(['app/{elements,themes}/**/*.{css,html}'], ['styles', reload]);
+      gulp.watch(['app/themes/**/*.js'], ['styles', reload]);
+      gulp.watch(['app/{elements,scripts}/**/*.js'], ['lint-js', 'js', reload]);
+      gulp.watch(['app/images/**/*'], reload);
+    }
+  );
 });
 
 // Build and serve the output from the dist build
@@ -345,12 +353,23 @@ gulp.task('init', function(cb) {
 // Pre-deploy tasks
 gulp.task('pre-deploy', function(cb) {
   runSequence(
+    'copy-general-config',
+    'copy-config',
     'default',
     ['copy-hosting-config', 'fix-paths-before-revision'],
     'revision',
     'fix-paths-after-revision',
     cb);
 });
+
+gulp.task('copy-config', function() {
+  return gulp.src('./app/metadata/' + argv.site + '/' + argv.env + '/config.js').pipe(gulp.dest('./app/metadata/'));
+});
+
+gulp.task('copy-general-config', function() {
+  return gulp.src('./app/metadata/' + argv.site + '/general.js').pipe(gulp.dest('./app/metadata/'));
+});
+
 
 // Deploy to development environment
 gulp.task('deploy:dev', ['pre-deploy'],
