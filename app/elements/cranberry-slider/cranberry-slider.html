@@ -20,16 +20,12 @@
           <template is="dom-if" if="{{hideImage}}" restamp>
             <div class="inGalleryAd">
               <google-dfp 
-                      section="news"
-                      section-parent=""
-                      tags="[[gallery.tags]]"
-                      ad-pos="In_Gallery"
-                      ad-size="[[300, 250]]"
-                      ad-group="{$ config.dfpAdStructure.adGroupID $}"
-                      ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
-                      ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
-                      id="inGallery"
-                      hidden$="[[hidden]]">
+                  ad-path="{$ config.dfpAdStructure.adGroupID $}/{$ config.dfpAdStructure.adGrouping $}/{$ config.dfpAdStructure.adSubGrouping $}/news"
+                  tags="[[gallery.tags]]"
+                  ad-pos="In_Gallery"
+                  ad-size="[[300, 250]]"
+                  id="inGallery"
+                  hidden$="[[hidden]]">
               </google-dfp>
               <paper-button class="ad-button" raised on-tap="_closeAd">Close</paper-button>
             </div>

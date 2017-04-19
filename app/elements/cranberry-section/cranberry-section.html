@@ -58,7 +58,14 @@
 
     <div class="section-wrapper" hidden$="[[loading]]">
       <div class="header-advertisement">
-        <google-dfp section="[[trackerSection]]" section-parent="[[trackerParentSection]]" dfp-ad-path="[[dfpAdPath]]" tags="[[tagsPage]]" ad-size-mapping="leaderboard" ad-pos="leaderboard" ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}" hidden$="[[hidden]]"></google-dfp>
+        <template is="dom-if" if="[[!_computeMainHidden(loading, hidden)]]" restamp>
+          <google-dfp ad-path="[[dfpAdPath]]"
+                      tags="[[tagsPage]]"
+                      ad-size-mapping="leaderboard"
+                      ad-pos="leaderboard"
+                      ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
+                      hidden$="[[hidden]]"></google-dfp>
+        </template>
       </div>
 
       <scorestream-widget rest="{$ config.baseEndpointUrl $}" route="{{routeData}}" section="[[loadSection]]" hidden$="[[hidden]]"></scorestream-widget>
@@ -93,10 +100,9 @@
         <!-- CONTENT LIST ELEMENT -->
         <cranberry-content-list items="[[contentItems]]"
                                 tags="[[tags]]"
-                                dfp-ad-path="[[dfpAdPath]]"
+                                ad-path="[[dfpAdPath]]"
                                 homepage$="[[isHomepage]]"
-                                hidden$="[[contentLoading]]"
-                                hidden$="[[hidden]]">
+                                hidden$="[[_computeMainHidden(loading, hidden)]]">
         </cranberry-content-list>
         <div class="pagination-wrapper">
           <cranberry-pagination start="{{start}}"
@@ -126,29 +132,21 @@
       <cranberry-content-list rest="{$ config.baseEndpointUrl $}" type="[[_isGalleries(galleries)]]" sections="[[loadSection]]" count="18" start="1" tags="[[tags]]" tag="[[tag]]"></cranberry-content-list>
     </template> -->
 
-    <google-dfp
-        section="[[trackerSection]]"
-        section-parent="[[trackerParentSection]]"
-        dfp-ad-path="[[dfpAdPath]]"
-        ad-pos="adhesion"
-        ad-group="{$ config.dfpAdStructure.adGroupID $}"
-        ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
-        ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
-        out-of-page
-        hidden$="[[hidden]]">
-      </google-dfp>
+    <template is="dom-if" if="[[!_computeMainHidden(loading, hidden)]]" restamp>
+      <google-dfp
+          ad-path="[[dfpAdPath]]"
+          ad-pos="adhesion"
+          out-of-page
+          hidden$="[[hidden]]">
+        </google-dfp>
 
       <google-dfp
-        section="[[trackerSection]]"
-        section-parent="[[trackerParentSection]]"
-        dfp-ad-path="[[dfpAdPath]]"
+        ad-path="[[dfpAdPath]]"
         ad-pos="interstitial"
-        ad-group="{$ config.dfpAdStructure.adGroupID $}"
-        ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
-        ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
         out-of-page
         hidden$="[[hidden]]">
       </google-dfp>
+    </template>
 
       <template is="dom-if" if="[[desktop]]">
         <tout-element slot="live-player" player-name="live_channel" tout-uid="{$ config.tout.toutUid $}" hidden$="[[hidden]]"></tout-element>

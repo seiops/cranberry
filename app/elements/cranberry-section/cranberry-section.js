@@ -18,7 +18,6 @@ class CranberrySection {
       },
       contentLoading: {
         type: Boolean,
-        value: true,
         observer: '_loadingChanged'
       },
       contentItems: Array,
@@ -60,10 +59,6 @@ class CranberrySection {
         computed: '_computeLoading(contentLoading, sectionTrackingInProgress)'
       },
       previousLoading: Boolean,
-      refreshAds: {
-        type: Boolean,
-        computed: '_computeRefreshAds(hidden, loading)'
-      },
       route: Object,
       routeData: Object,
       sectionTitle: {
@@ -91,7 +86,6 @@ class CranberrySection {
     };
     this.observers = [
       '_hiddenChanged(hidden, routeData.section)',
-      '_refreshAds(refreshAds)',
       '_routeChanged(route, elementAttached, hidden)'
     ];
   }
@@ -129,35 +123,6 @@ class CranberrySection {
         }
       }
     }, 50);
-  }
-
-  _computeRefreshAds(hidden, loading) {
-    let previousLoading = this.get('previousLoading');
-    let returnValue = false;
-    if (!hidden && previousLoading === loading && !loading && !previousLoading) {
-      returnValue = true;
-    }
-
-    this.set('previousLoading', loading);
-
-    return returnValue;
-  }
-
-  _refreshAds(refreshAds) {
-    if (refreshAds) {
-
-
-      this.async(() => {
-          let sectionAds = Polymer.dom(this.root).querySelectorAll('google-dfp');
-          let contentList = Polymer.dom(this.root).querySelector('cranberry-content-list');
-          let contentListAds = Polymer.dom(contentList.root).querySelectorAll('google-dfp');
-          let ads = sectionAds.concat(contentListAds);
-
-          ads.forEach((value, index) => {
-            value.refresh();
-          });
-      });
-    }
   }
 
   _computeLoading(contentLoading, sectionLoading) {
@@ -276,13 +241,18 @@ class CranberrySection {
         }
       }
       this.set('sectionTitle', title);
+    } else {
+      this.set('contentLoading', true);
     }
   }
 
   _loadingChanged(loading, oldLoading) {
+    this.async(() => {
     if (!loading) {
       this.playAnimation('entry');
     }
+    });
+    
   }
 
   _currentPageChanged(newValue, oldValue) {
@@ -307,6 +277,15 @@ class CranberrySection {
     } else {
       return 18;
     }
+  }
+
+  _computeMainHidden(loading, hidden) {
+    if (hidden || loading) {
+      return true;
+    } else {
+      return false;
+    }
+
   }
 }
 

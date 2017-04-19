@@ -27,7 +27,8 @@ class cranberrySectionRequest {
       },
       loading: {
         type: Boolean,
-        computed: '_computeLoading(requestInProgress, requestGenerated)',
+        value: true,
+        computed: '_computeLoading(requestInProgress, requestGenerated, response)',
         notify: true
       },
       response: {
@@ -60,7 +61,7 @@ class cranberrySectionRequest {
     }
     this.listeners = { 'cranberry-request-content': '_setupRequest' };
   }
-
+  
   _generateRequest(section = this.get('sectionObject.section'), parent = this.get('sectionObject.parent'), tagName = this.get('sectionObject.tagName'), disableFeatured = this.get('sectionObject.disableFeatured'), start = this.get('start'), count = this.get('count')) {
     let currentRequest = this.get('request');
     let requester = this.$.request;
@@ -123,8 +124,8 @@ class cranberrySectionRequest {
     });
   }
 
-  _computeLoading(requestLoading, requestGenerated) {
-    if (requestGenerated && !requestLoading) {
+  _computeLoading(requestLoading, requestGenerated, response) {
+    if (!requestLoading && Object.keys(response.Result).length > 0) {
       return false;
     } else {
       return true;

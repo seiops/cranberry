@@ -2,199 +2,218 @@ class GoogleDFP {
     beforeRegister() {
         this.is = 'google-dfp';
         this.properties = {
-            dfpAdPath: {
-              type: String,
-              observer: '_dfpAdPathChanged'
-            },
-            section: String,
-            sectionParent: String,
-            adEstablished: {
-              type: Boolean,
-              value: false
-            },
-            adSize: Array,
-            adSizeMapping: String,
-            adPos: String,
-            adGroup: Number,
-            adGrouping: String,
-            adSubGrouping: String,
-            shareThrough: {
-              type: Boolean,
-              value: false
-            },
-            shareThroughId: {
-              type: String
-            },
-            tags: String,
-            outOfPage: {
-              type: Boolean,
-              value: false
-            },
-            hidden: {
-              type: Boolean,
-              reflectToAttribute: true,
-              value: true
-            }
+          adPath: String,
+          adPresent: {
+            type: Boolean,
+            value: false
+          },
+          adEstablished: {
+            type: Boolean,
+            value: false
+          },
+          adSize: Array,
+          adSizeMapping: String,
+          adPos: String,
+          dfpObject: Object,
+          googleReady: {
+            type: Boolean,
+            value: false
+          },
+          shareThrough: {
+            type: Boolean,
+            value: false
+          },
+          shareThroughId: {
+            type: String
+          },
+          slotId: {
+            type: String,
+            value: ''
+          },
+          tags: String,
+          outOfPage: {
+            type: Boolean,
+            value: false
+          },
+          hidden: {
+            type: Boolean,
+            reflectToAttribute: true,
+            value: true
+          },
+          previousPath: {
+            type: String,
+            value: ''
+          }
         };
-        this.observers = ['_sectionChanged(section, sectionParent)'];
+        this.observers = [
+          '_adPathChanged(dfpObject, hidden)'
+        ];
         this.listeners = {
           'refresh': 'refresh'
         };
     }
 
-    _dfpAdPathChanged(dfpAdPath, old) {
-      if (typeof dfpAdPath !== 'undefined' && dfpAdPath !== '') {
-        let section = dfpAdPath;
-        let parent = '';
+    attached() {
+      this.logger('DFP ATTACHED');
+    }
 
-        if (dfpAdPath.indexOf('/') !== -1) {
-          let sections = dfpAdPath.split('/');
+    detached() {
+      this.destroy();
+    }
 
-          parent = sections[0];
-          section = sections[1];
+    logger(text, payload) {
+      let color = '#000';
+
+      if (typeof payload !== 'undefined') {
+        switch (payload.type) {
+          case 'destroy':
+            color = '#8C1F00';
+            break;
+          case 'build':
+            color = '#E34213';
+            break;
         }
+      }
 
-        if (dfpAdPath === 'all updates') {
-          section = 'homepage';
-          parent = '';
+      console.info('\<google-dfp\> %c' + text, 'background: #FF8F6E; color: ' + color + '; display: block;');
+    }
+
+    _adPathChanged(dfpObject, hidden) {
+      if (!hidden) {
+        if (typeof dfpObject !== 'undefined' && Object.keys(dfpObject).length > 0) {
+          this._setupAdvertisement(dfpObject);
         }
-
-        this.set('sectionParent', parent);
-        this.set('section', section);
       }
     }
 
-    _buildAd(section, sectionParent) {
+    _setupAdvertisement(dfpObject) {
       this.async(() => {
-        if (typeof section !== 'undefined') {
-          let advertisement = Polymer.dom(this.root).querySelector('.advertisement');
-          let idModifier = advertisement.getAttribute('id');
-          let adGroup = this.get('adGroup');
-          let adGrouping = this.get('adGrouping');
-          let adSubGrouping = this.get('adSubGrouping');
-          let adSize = this.get('adSize');
-          let adSizeMapping = this.get('adSizeMapping');
-          let position = this.get('adPos');
+        let advertisementContainer = this.querySelector('.advertisement');
+        let id = advertisementContainer.getAttribute('id');
 
-          let childSection = '';
-          let adSection = section.replace(/-/g, '_').replace(/\&/g, '').replace(/\s+/g, '_');
-          let tags = this.get('tags');
-          let outOfPage = this.get('outOfPage');
+        this.set('slotId', id);
 
-          // Logical statement to make default section news if no section is provided
-          // This is mainly a provision for gallery pages that do not have a section by default
-          if (typeof adSection === 'undefined' || adSection.length === 0) {
-            adSection = 'news';
+        this._buildAdvertisement(dfpObject, id);
+
+      });
+    }
+
+    _adCount() {
+      window.adCounter = window.adCounter || 0;
+      window.adCounter += 1;
+
+      this.set('adEstablished', true);
+
+      return '_' + window.adCounter;
+    }
+
+    _buildAdvertisement(dfpObject, id) {
+      let adSize = this.get('adSize');
+      let adSizeMapping = this.get('adSizeMapping');
+      let position = this.get('adPos');
+      let content = dfpObject.content;
+      let outOfPage = this.get('outOfPage');
+
+      this.async(() => {
+        this.logger(`Building ${id} using ${dfpObject.adSection}`, { type: 'build' });
+
+        if (typeof window.slots === 'undefined') {
+          window.slots = {};
+        }
+
+        if (typeof adSizeMapping !== 'undefined') {
+          var mapping;
+
+          if (adSizeMapping === 'leaderboard') {
+            mapping = googletag.sizeMapping().
+              addSize([0, 0], [320, 50]).
+              addSize([400, 400], [[320, 50]]).
+              addSize([850, 200], [[728, 90], [300, 50]]).
+              addSize([1050, 200], [[970, 250], [970, 90], [728, 90]]).
+              build();
           }
 
-          if (typeof sectionParent !== 'undefined' && sectionParent.length > 0) {
-            let parent = sectionParent.replace(/-/g, '_').replace(/\&/g, '').replace(/\s+/g, '_');
+          if (adSizeMapping === 'mobileLeader') {
+            mapping = googletag.sizeMapping().
+              addSize([0, 0], [300, 250]).
+              addSize([400, 400], [[300, 250]]).
+              addSize([850, 200], [[728, 90], [300, 50]]).
+              addSize([1050, 200], [[970, 250], [970, 90], [728, 90], [1,1]]).
+              build();
+          }
+        }
 
-            adSection = parent + '/' + adSection;
+        let splitAdPath = dfpObject.adSection.split('/');
+        let section = (splitAdPath.length > 0 && splitAdPath.length === 5 ? splitAdPath[4] : splitAdPath[3]);
+        let host = window.location.hostname;
+        let placement = dfpObject.placement;
+
+        googletag.cmd.push(function() {
+          googletag.pubads().setTargeting('section', section);
+          googletag.pubads().setTargeting('placement', placement);
+
+          if (typeof content !== 'undefined' && content.length > 0) {
+            googletag.pubads().setTargeting('content', content);
+          }
+          
+          googletag.enableServices();
+
+          let dfpURL = dfpObject.adSection + '/' + position;
+
+          if (!outOfPage) {
+            window.slots[id] = googletag.defineSlot(dfpURL, adSize, id).addService(googletag.pubads()).setCollapseEmptyDiv(true);
+          } else {
+            window.slots[id] = googletag.defineOutOfPageSlot(dfpURL, id).addService(googletag.pubads()).setCollapseEmptyDiv(true);
           }
 
-          window.slots = window.slots || {};
-          if (Polymer.dom(this.root).querySelector('.advertisement').firstChild) {
-            googletag.destroySlots([window.slots[idModifier]]);
-          }
+
+          window.slots[id].setTargeting('position', position);
 
           if (typeof adSizeMapping !== 'undefined') {
-            var mapping;
-
-            if (adSizeMapping === 'leaderboard') {
-              mapping = googletag.sizeMapping().
-                addSize([0, 0], [320, 50]).
-                addSize([400, 400], [[320, 50]]).
-                addSize([850, 200], [[728, 90], [300, 50]]).
-                addSize([1050, 200], [[970, 250], [970, 90], [728, 90]]).
-                build();
-            }
-
-            if (adSizeMapping === 'mobileLeader') {
-              mapping = googletag.sizeMapping().
-                addSize([0, 0], [300, 250]).
-                addSize([400, 400], [[300, 250]]).
-                addSize([850, 200], [[728, 90], [300, 50]]).
-                addSize([1050, 200], [[970, 250], [970, 90], [728, 90], [1,1]]).
-                build();
-            }
-
+            window.slots[id].defineSizeMapping(mapping);
           }
 
-
-          googletag.cmd.push(function() {
-              googletag.pubads().setTargeting('section', sectionParent);
-              googletag.pubads().setTargeting('placement', 'development');
-              if (typeof tags !== 'undefined' && tags.length > 0) {
-                googletag.pubads().setTargeting('content', tags);
-              }
-              googletag.enableServices();
-
-              let dfpURL = adGroup + '/' + adGrouping + '/' + adSubGrouping + '/' + adSection + '/' + position;
-
-              if (!outOfPage) {
-                window.slots[idModifier] = googletag.defineSlot(dfpURL, adSize, idModifier).addService(googletag.pubads()).setCollapseEmptyDiv(true);
-              } else {
-                window.slots[idModifier] = googletag.defineOutOfPageSlot(dfpURL, idModifier).addService(googletag.pubads()).setCollapseEmptyDiv(true);
-              }
-
-
-              window.slots[idModifier].setTargeting('position', position);
-
-              if (typeof adSizeMapping !== 'undefined') {
-                slots[idModifier].defineSizeMapping(mapping);
-              }
-
-              googletag.display(idModifier);
-          });
-        }
+          googletag.display(id);
+        });        
       });
     }
 
     _checkGoogle() {
       setTimeout(() => {
-        let adEstablished = this.get('adEstablished');
-        if (typeof googletag !== 'undefined' && typeof googletag.sizeMapping === 'function' && adEstablished) {
-          let section = this.get('section');
-          let parent = this.get('sectionParent');
-
-          this._buildAd(section, parent);
+        if (typeof googletag !== 'undefined' && typeof googletag.sizeMapping === 'function') {
+          this.set('googleReady', true);
+          // this._buildAd(section, parent);
         } else {
           this._checkGoogle();
         }
       }, 50);
     }
 
-    _sectionChanged(section, parent) {
-      this.async(() => {
-        if (typeof section !== 'undefined') {
-          this._checkGoogle();
-        }
-      });
-    }
-
-    _adCount() {
-        window.adCounter = window.adCounter || 0;
-        window.adCounter += 1;
-
-        this.set('adEstablished', true);
-
-        return '_' + window.adCounter;
-    }
-
     refresh() {
-      this.async(() => {
-        let hidden = this.get('hidden');
-        if (!hidden) {
-          let advertisement = Polymer.dom(this.root).querySelector('.advertisement');
-          let slot = advertisement.getAttribute('id');
+      let slot = this.get('slotId');
+      let hidden = this.get('hidden');
 
-          if (advertisement !== null && typeof advertisement !== 'undefined' && typeof slot !== 'undefined' && slot !== null) {
-            console.info('\<google-dfp\> refreshing: ' + slot);
-            googletag.pubads().refresh([window.slots[slot]]);
-          }
+      if (!hidden) {
+        if (typeof slot !== 'undefined' && slot !== '') {
+          console.info('\<google-dfp\> refreshing: ' + slot);
+          googletag.pubads().refresh([window.slots[slot]]);
         }
-      });
+      }
+    }
+
+    destroy(message = 'default') {
+      let slot = this.get('slotId');
+
+      if (typeof slot !== 'undefined' && slot !== '') {
+        this.logger(`Destorying ${slot} MESSAGE::: ${message}`, { type: 'destroy' });
+        googletag.destroySlots([window.slots[slot]]);
+
+        delete window.slots[slot];
+
+        this.set('slotId', '');
+        this.set('dfpObject', {});
+
+      }
     }
 }
 

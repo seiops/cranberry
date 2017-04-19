@@ -23,16 +23,12 @@
 
     <div class="header-advertisement">
       <google-dfp
-        section="news"
-        section-parent=""
-        ad-pos="leaderboard"
-        ad-size-mapping="leaderboard"
-        ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
-        ad-group="{$ config.dfpAdStructure.adGroupID $}"
-        ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
-        ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
-        id="topAd"
-        hidden$="[[hidden]]">
+          ad-path="{$ config.dfpAdStructure.adGroupID $}/{$ config.dfpAdStructure.adGrouping $}/{$ config.dfpAdStructure.adSubGrouping $}/news"
+          ad-pos="leaderboard"
+          ad-size-mapping="leaderboard"
+          ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
+          id="topAd"
+          hidden$="[[hidden]]">
       </google-dfp>
     </div>
 
@@ -56,30 +52,23 @@
         </cranberry-slider>
       </div>
       <div class="ad-container">
-        <google-dfp section="news"
-                    section-parent=""
-                    ad-pos="Top_of_Stream"
-                    ad-size="[[300, 250],[300, 600]]"
-                    ad-group="{$ config.dfpAdStructure.adGroupID $}"
-                    ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
-                    ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
-                    id="sideAd"
-                    hidden$="[[hidden]]">
-          </google-dfp>
+        <google-dfp
+            ad-path="{$ config.dfpAdStructure.adGroupID $}/{$ config.dfpAdStructure.adGrouping $}/{$ config.dfpAdStructure.adSubGrouping $}/news"
+            ad-pos="Top_of_Stream"
+            ad-size="[[300, 250],[300, 600]]"
+            id="sideAd"
+            hidden$="[[hidden]]">
+        </google-dfp>
       </div>
     </div>
 
     <div class="header-advertisement">
       <google-dfp
-        section="news"
-        section-parent=""
-        ad-pos="middle_of_stream"
-        ad-size-mapping="leaderboard"
-        ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
-        ad-group="{$ config.dfpAdStructure.adGroupID $}"
-        ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
-        ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
-        hidden$="[[hidden]]">
+          ad-path="{$ config.dfpAdStructure.adGroupID $}/{$ config.dfpAdStructure.adGrouping $}/{$ config.dfpAdStructure.adSubGrouping $}/news"
+          ad-pos="middle_of_stream"
+          ad-size-mapping="leaderboard"
+          ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
+          hidden$="[[hidden]]">
       </google-dfp>
     </div>
 
@@ -101,29 +90,21 @@
       </div>
       <div class="ad-container">
         <google-dfp
-          section="news"
-          section-parent=""
-          ad-pos="bottom_of_Stream"
-          ad-size="[[300, 600]]"
-          ad-group="{$ config.dfpAdStructure.adGroupID $}"
-          ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
-          ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
-          hidden$="[[hidden]]">
+            ad-path="{$ config.dfpAdStructure.adGroupID $}/{$ config.dfpAdStructure.adGrouping $}/{$ config.dfpAdStructure.adSubGrouping $}/news"
+            ad-pos="bottom_of_Stream"
+            ad-size="[[300, 600]]"
+            hidden$="[[hidden]]">
         </google-dfp>
       </div>
     </div>
 
     <div class="header-advertisement">
       <google-dfp
-        section="news"
-        section-parent=""
-        ad-pos="last_of_stream"
-        ad-size-mapping="leaderboard"
-        ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
-        ad-group="{$ config.dfpAdStructure.adGroupID $}"
-        ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
-        ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
-        hidden$="[[hidden]]">
+          ad-path="{$ config.dfpAdStructure.adGroupID $}/{$ config.dfpAdStructure.adGrouping $}/{$ config.dfpAdStructure.adSubGrouping $}/news"
+          ad-pos="last_of_stream"
+          ad-size-mapping="leaderboard"
+          ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
+          hidden$="[[hidden]]">
       </google-dfp>
     </div>
 

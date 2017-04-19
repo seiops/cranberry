@@ -2,16 +2,19 @@ class cranberryStoryParagraphs {
   beforeRegister() {
     this.is = 'cranberry-story-paragraphs';
     this.properties = {
-      adGroup: String,
-      adGrouping: String,
-      adSubGrouping: String,
       baseDomain: String,
       desktop: Boolean,
+      dfpObject: Object,
       distroScaleOff: {
         type: Boolean,
         compute: '_computeDistroScaleOff(desktop)'
       },
       gcsSurveyId: String,
+      hidden: {
+        type: Boolean,
+        value: true,
+        reflectToAttribute: true
+      },
       mobile: Boolean,
       paragraphs: {
         type: Array,
@@ -145,7 +148,6 @@ class cranberryStoryParagraphs {
     });
 
     let contentArea = this.$.paragraphs;
-
     // Destroy Old Content
     contentArea.innerHTML = '';
 
@@ -193,28 +195,20 @@ class cranberryStoryParagraphs {
       }
 
       if (!distroScaleOff && index === 5) {
+        let dfpObject = this.get('dfpObject');
         let story = this.get('story');
-        let adGroup = this.get('adGroup');
-        let adGrouping = this.get('adGrouping');
-        let adSubGrouping = this.get('adSubGrouping');
         let hidden = this.get('hidden');
         let distroAd = document.createElement('google-dfp');
         let adSize = [[1, 1]];
 
-        distroAd.set('section', story.sectionInformation.sectionName);
-        distroAd.set('sectionParent', story.sectionInformation.sectionParentName);
-        if (typeof story.tags !== 'undefined' && story.tags !== '') {
-          distroAd.set('tags', story.tags);
-        }
+        distroAd.setAttribute('id', 'distroAd');
         distroAd.set('adPos', 'MidArticlePlayer');
         distroAd.set('adSize', adSize);
-        distroAd.set('adGroup', adGroup);
-        distroAd.set('adGrouping', adGrouping);
-        distroAd.set('adSubGrouping', adSubGrouping);
+        distroAd.set('dfpObject', dfpObject);
         distroAd.set('hidden', hidden);
 
         // Commenting out Distroscale for testing.
-        // array.push(distroAd);
+        array.push(distroAd);
       }
 
       let paragraphEl = document.createElement('p');
@@ -266,7 +260,7 @@ class cranberryStoryParagraphs {
 
           elementsArray.push(surveyElement);
         }
-                
+        
         this._renderParagraphs(elementsArray);
       }
     });

@@ -36,10 +36,26 @@
                   <li class="item">
                     <cranberry-card index="[[index]]" advertisement>
                       <template is="dom-if" if="[[_checkAdPos(index,2)]]">
-                        <google-dfp section="[[trackedSection]]" section-parent="[[trackedParentSection]]" dfp-ad-path="[[dfpAdPath]]" tags="[[tags]]" ad-pos="Top_Of_Stream" ad-size="[[300, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}" hidden$="[[hidden]]"></google-dfp>
+                        <template is="dom-if" if="[[!hidden]]" restamp>
+                          <google-dfp
+                              ad-path="[[adPath]]"
+                              tags="[[tags]]"
+                              ad-pos="Top_Of_Stream"
+                              ad-size="[[300, 250]]"
+                              hidden$="[[hidden]]">
+                          </google-dfp>
+                        </template>
                       </template>
                       <template is="dom-if" if="[[_checkAdPos(index,11)]]">
-                        <google-dfp section="[[trackedSection]]" section-parent="[[trackedParentSection]]" dfp-ad-path="[[dfpAdPath]]" tags="[[tags]]" ad-pos="Bottom_Of_Stream" ad-size="[[300, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}" hidden$="[[hidden]]"></google-dfp>
+                        <template is="dom-if" if="[[!hidden]]" restamp>
+                          <google-dfp
+                              ad-path="[[adPath]]"
+                              tags="[[tags]]"
+                              ad-pos="Bottom_Of_Stream"
+                              ad-size="[[300, 250]]"
+                              hidden$="[[hidden]]">
+                          </google-dfp>
+                        </template>
                       </template>
                     </cranberry-card>
                   </li>
@@ -49,10 +65,28 @@
                     <div class="ntv-ad-div">
                       <cranberry-card index="[[index]]" advertisement>
                           <template is="dom-if" if="[[_checkNativeShareThrough(homepage, index)]]" restamp>
-                            <google-dfp section="[[trackedSection]]" section-parent="[[trackedParentSection]]" dfp-ad-path="[[dfpAdPath]]" tags="[[tags]]" ad-pos="Native_ATF" ad-size="[[1, 1]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}" hidden$="[[hidden]]" share-through share-through-id="pPCfDMJVx6FpNaJS64Ym8qiZ"></google-dfp>
+                            <template is="dom-if" if="[[!hidden]]" restamp>
+                              <google-dfp
+                                  ad-path="[[adPath]]"
+                                  tags="[[tags]]"
+                                  ad-pos="Native_ATF"
+                                  ad-size="[[1, 1]]"
+                                  hidden$="[[hidden]]"
+                                  share-through
+                                  share-through-id="pPCfDMJVx6FpNaJS64Ym8qiZ">
+                              </google-dfp>
+                            </template>
                           </template>
                           <template is="dom-if" if="[[!_checkNativeShareThrough(homepage, index)]]" restamp>
-                            <google-dfp section="[[trackedSection]]" section-parent="[[trackedParentSection]]" dfp-ad-path="[[dfpAdPath]]" tags="[[tags]]" ad-pos="Middle_of_Stream" ad-size="[[300, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}" hidden$="[[hidden]]"></google-dfp>
+                            <template is="dom-if" if="[[!hidden]]" restamp>
+                              <google-dfp
+                                  ad-path="[[adPath]]"
+                                  tags="[[tags]]"
+                                  ad-pos="Middle_of_Stream"
+                                  ad-size="[[300, 250]]"
+                                  hidden$="[[hidden]]">
+                              </google-dfp>
+                            </template>
                           </template>
                       </cranberry-card>
                     </div>
@@ -66,10 +100,30 @@
                     <div class="leaderboard-advertisement-wrapper">
                       <div class="leaderboard-advertisement">
                         <template is="dom-if" if="[[_checkAdPos(index, 8)]]">
-                            <google-dfp section="[[trackedSection]]" section-parent="[[trackedParentSection]]" dfp-ad-path="[[dfpAdPath]]" tags="[[tags]]" ad-pos="Middle_Of_Stream" ad-size-mapping="mobileLeader" ad-size="[[970, 250],[970, 90],[728, 90],[300, 250],[1,1]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}" hidden$="[[hidden]]" share-through share-through-id="sKV197p6S3xVeTdwavvCNGUr"></google-dfp>
+                          <template is="dom-if" if="[[!hidden]]" restamp>
+                            <google-dfp
+                                ad-path="[[adPath]]"
+                                tags="[[tags]]"
+                                ad-pos="Middle_Of_Stream"
+                                ad-size-mapping="mobileLeader"
+                                ad-size="[[970, 250],[970, 90],[728, 90],[300, 250],[1,1]]"
+                                hidden$="[[hidden]]"
+                                share-through
+                                share-through-id="sKV197p6S3xVeTdwavvCNGUr">
+                            </google-dfp>
+                          </template>
                         </template>
                         <template is="dom-if" if="[[_checkAdPos(index, 17)]]">
-                          <google-dfp section="[[trackedSection]]" section-parent="[[trackedParentSection]]" dfp-ad-path="[[dfpAdPath]]" tags="[[tags]]" ad-pos="Last_Of_Stream" ad-size-mapping="mobileLeader" ad-size="[[970, 250],[970, 90],[728, 90],[300, 250]]" ad-group="{$ config.dfpAdStructure.adGroupID $}" ad-grouping="{$ config.dfpAdStructure.adGrouping $}" ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}" hidden$="[[hidden]]"></google-dfp>
+                          <template is="dom-if" if="[[!hidden]]" restamp>
+                            <google-dfp
+                                ad-path="[[adPath]]"
+                                tags="[[tags]]"
+                                ad-pos="Last_Of_Stream"
+                                ad-size-mapping="mobileLeader"
+                                ad-size="[[970, 250],[970, 90],[728, 90],[300, 250]]"
+                                hidden$="[[hidden]]">
+                            </google-dfp>
+                          </template>
                         </template>
                       </div>
                     </div>

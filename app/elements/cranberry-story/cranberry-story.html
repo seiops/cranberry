@@ -50,20 +50,17 @@
         <template is="dom-if" if="[[!staticPage]]">
           <!-- Main Header Ad -->
           <div class="banner-advertisement">
-            <google-dfp
-              section="[[response.sectionInformation.sectionName]]"
-              section-parent="[[response.sectionInformation.sectionParentName]]"
-              tags="[[response.tags]]"
-              ad-pos="leaderboard"
-              ad-size-mapping="leaderboard"
-              ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
-              ad-group="{$ config.dfpAdStructure.adGroupID $}"
-              ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
-              ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
-              ad-placement="{$ config.dfpAdPlacement $}"
-              id="topAd"
-              hidden$="[[hidden]]">
-            </google-dfp>
+            <template is="dom-if" if="[[storyDoneLoading]]" restamp>
+              <google-dfp
+                dfp-object="[[response.dfp]]"
+                tags="[[response.tags]]"
+                ad-pos="leaderboard"
+                ad-size-mapping="leaderboard"
+                ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
+                id="topAd"
+                hidden$="[[!storyDoneLoading]]">
+              </google-dfp>
+            </template>
           </div>
         </template> 
 
@@ -108,60 +105,56 @@
             <div class="content-wrapper">
               <!-- Contains story paragraphs -->
               <div class="story-content">
-                <cranberry-story-paragraphs paragraphs-loading="{{paragraphsLoading}}"
-                                            story="[[response]]"
-                                            tout-uid="{$ config.tout.toutUid $}"
-                                            gcs-survey-id="{$ config.google.surveys $}"
-                                            distro-id="{$ config.distro.distroId $}"
-                                            mobile$="[[mobile]]"
-                                            desktop$="[[desktop]]"
-                                            surveys-off="[[response.surveysOff]]"
-                                            tout-off="[[response.toutOff]]"
-                                            section-information="[[response.sectionInformation]]"
-                                            static-page$="[[staticPage]]"
-                                            base-domain="{$ config.baseDomain $}"
-                                            paragraphs="[[response.paragraphs]]"
-                                            ad-group="{$ config.dfpAdStructure.adGroupID $}"
-                                            ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
-                                            ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
-                                            hidden$="[[hidden]]">
-                </cranberry-story-paragraphs>
+                <template is="dom-if" if="[[!hidden]]" restamp>
+                  <cranberry-story-paragraphs paragraphs-loading="{{paragraphsLoading}}"
+                                              story="[[response]]"
+                                              tout-uid="{$ config.tout.toutUid $}"
+                                              gcs-survey-id="{$ config.google.surveys $}"
+                                              distro-id="{$ config.distro.distroId $}"
+                                              mobile$="[[mobile]]"
+                                              desktop$="[[desktop]]"
+                                              surveys-off="[[response.surveysOff]]"
+                                              tout-off="[[response.toutOff]]"
+                                              section-information="[[response.sectionInformation]]"
+                                              static-page$="[[staticPage]]"
+                                              base-domain="{$ config.baseDomain $}"
+                                              dfp-object="[[response.dfp]]"
+                                              paragraphs="[[response.paragraphs]]"
+                                              hidden$="[[hidden]]">
+                  </cranberry-story-paragraphs>
+                </template>
                 <div class="ntv-ad-div"></div>
               </div>
               <!-- Contains Right Rail -->
               <div class="right-rail">
                 <div>
-                  <google-dfp
-                    section="[[response.sectionInformation.sectionName]]"
-                    section-parent="[[response.sectionInformation.sectionParentName]]"
-                    tags="[[response.tags]]"
-                    ad-pos="Top_of_Stream"
-                    ad-size="[[300, 250],[300, 600]]"
-                    ad-group="{$ config.dfpAdStructure.adGroupID $}"
-                    ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
-                    ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
-                    ad-placement="{$ config.dfpAdPlacement $}"
-                    id="sideAd"
-                    hidden$="[[hidden]]">
-                  </google-dfp>
+                  <template is="dom-if" if="[[storyDoneLoading]]" restamp>
+                    <google-dfp
+                      dfp-object="[[response.dfp]]"
+                      ad-path="[[response.sectionInformation.adSection]]"
+                      tags="[[response.tags]]"
+                      ad-pos="Top_of_Stream"
+                      ad-size="[[300, 250],[300, 600]]"
+                      id="sideAd"
+                      hidden$="[[!storyDoneLoading]]">
+                    </google-dfp>
+                  </template>
 
                   <gigya-top-comments count="5" age="90"></gigya-top-comments>
 
                   <cranberry-related-content related-items="[[response.relatedContent]]" story></cranberry-related-content>
                   <div class="ntv-ad-div"></div>
                   <div class="tout-sdk tout-right-rail-embed"></div>
-                  <google-dfp
-                    section="[[response.sectionInformation.sectionName]]"
-                    section-parent="[[response.sectionInformation.sectionParentName]]"
-                    tags="[[response.tags]]"
-                    ad-pos="Sidebar_promo"
-                    ad-size="[[300, 100],[300, 250],[300, 600]]"
-                    ad-group="{$ config.dfpAdStructure.adGroupID $}"
-                    ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
-                    ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
-                    ad-placement="{$ config.dfpAdPlacement $}"
-                    hidden$="[[hidden]]">
-                  </google-dfp>
+                  <template is="dom-if" if="[[storyDoneLoading]]" restamp>
+                    <google-dfp
+                      dfp-object="[[response.dfp]]"
+                      ad-path="[[response.sectionInformation.adSection]]"
+                      tags="[[response.tags]]"
+                      ad-pos="Sidebar_promo"
+                      ad-size="[[300, 100],[300, 250],[300, 600]]"
+                      hidden$="[[!storyDoneLoading]]">
+                    </google-dfp>
+                  </template>
                   <cranberry-related-content related-items="[[response.relatedContent]]" gallery></cranberry-related-content>
                 </div>
               </div>
@@ -169,19 +162,16 @@
 
             <!-- Middle Ad -->
             <div class="banner-advertisement">
-              <google-dfp
-                section="[[response.sectionInformation.sectionName]]"
-                section-parent="[[response.sectionInformation.sectionParentName]]"
-                tags="[[response.tags]]"
-                ad-pos="Middle_of_Stream"
-                ad-size-mapping="mobileLeader"
-                ad-size="[[970, 250],[970, 90],[728, 90],[300, 250]]"
-                ad-group="{$ config.dfpAdStructure.adGroupID $}"
-                ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
-                ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
-                ad-placement="{$ config.dfpAdPlacement $}"
-                hidden$="[[hidden]]">
-              </google-dfp>
+              <template is="dom-if" if="[[storyDoneLoading]]" restamp>
+                <google-dfp
+                  dfp-object="[[response.dfp]]"
+                  tags="[[response.tags]]"
+                  ad-pos="Middle_of_Stream"
+                  ad-size-mapping="mobileLeader"
+                  ad-size="[[970, 250],[970, 90],[728, 90],[300, 250]]"
+                  hidden$="[[!storyDoneLoading]]">
+                </google-dfp>
+              </template>
             </div>
 
             <template is="dom-if" if="[[!staticPage]]">
@@ -192,19 +182,16 @@
               
               <!-- Bottom Ad -->
               <div class="banner-advertisement">
-                <google-dfp
-                  section="[[response.sectionInformation.sectionName]]"
-                  section-parent="[[response.sectionInformation.sectionParentName]]"
-                  tags="[[response.tags]]"
-                  ad-pos="Bottom_of_Stream"
-                  ad-size-mapping="mobileLeader"
-                  ad-size="[[970, 250],[970, 90],[728, 90],[300, 250]]"
-                  ad-group="{$ config.dfpAdStructure.adGroupID $}"
-                  ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
-                  ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
-                  ad-placement="{$ config.dfpAdPlacement $}"
-                  hidden$="[[hidden]]">
-                </google-dfp>
+                <template is="dom-if" if="[[storyDoneLoading]]" restamp>
+                  <google-dfp
+                    dfp-object="[[response.dfp]]"
+                    tags="[[response.tags]]"
+                    ad-pos="Bottom_of_Stream"
+                    ad-size-mapping="mobileLeader"
+                    ad-size="[[970, 250],[970, 90],[728, 90],[300, 250]]"
+                    hidden$="[[!storyDoneLoading]]">
+                  </google-dfp>
+                </template>
               </div>
 
               <!-- Youneeq Content Area -->
@@ -218,46 +205,34 @@
         <template is="dom-if" if="[[!staticPage]]">
           <!-- Last Ad -->
           <div class="banner-advertisement">
-            <google-dfp
-              section="[[response.sectionInformation.sectionName]]"
-              section-parent="[[response.sectionInformation.sectionParentName]]"
-              tags="[[response.tags]]"
-              ad-pos="Last_of_Stream"
-              ad-size-mapping="leaderboard"
-              ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
-              ad-group="{$ config.dfpAdStructure.adGroupID $}"
-              ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
-              ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
-              ad-placement="{$ config.dfpAdPlacement $}"
-              hidden$="[[hidden]]">
-            </google-dfp>
+            <template is="dom-if" if="[[storyDoneLoading]]" restamp>
+              <google-dfp
+                dfp-object="[[response.dfp]]"
+                tags="[[response.tags]]"
+                ad-pos="Last_of_Stream"
+                ad-size-mapping="leaderboard"
+                ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
+                hidden$="[[!storyDoneLoading]]">
+              </google-dfp>
+            </template>
           </div>
         </template>
       </div>
+      <template is="dom-if" if="[[storyDoneLoading]]" restamp>
+        <google-dfp
+          dfp-object="[[response.dfp]]"
+          ad-pos="adhesion"
+          out-of-page
+          hidden$="[[!storyDoneLoading]]">
+        </google-dfp>
 
-      <google-dfp
-        section="[[response.sectionInformation.sectionName]]"
-        section-parent="[[response.sectionInformation.sectionParentName]]"
-        ad-pos="adhesion"
-        ad-group="{$ config.dfpAdStructure.adGroupID $}"
-        ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
-        ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
-        ad-placement="{$ config.dfpAdPlacement $}"
-        out-of-page
-        hidden$="[[hidden]]">
-      </google-dfp>
-
-      <google-dfp
-        section="[[response.sectionInformation.sectionName]]"
-        section-parent="[[response.sectionInformation.sectionParentName]]"
-        ad-pos="interstitial"
-        ad-group="{$ config.dfpAdStructure.adGroupID $}"
-        ad-grouping="{$ config.dfpAdStructure.adGrouping $}"
-        ad-sub-grouping="{$ config.dfpAdStructure.adSubGrouping $}"
-        ad-placement="{$ config.dfpAdPlacement $}"
-        out-of-page
-        hidden$="[[hidden]]">
-      </google-dfp>
+        <google-dfp
+          dfp-object="[[response.dfp]]"
+          ad-pos="interstitial"
+          out-of-page
+          hidden$="[[!storyDoneLoading]]">
+        </google-dfp>
+      </template>
     </div>
 
     <!-- Loading Content Display -->

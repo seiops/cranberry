@@ -1,5 +1,6 @@
 :host {
   display: block;
+  overflow: hidden;
 }
 
 /* IE 10 support for HTML5 hidden attr */

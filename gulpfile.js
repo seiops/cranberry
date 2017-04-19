@@ -258,28 +258,35 @@ gulp.task('serve', function() {
 
 // Build and serve the output from the dist build
 gulp.task('serve:dist', ['default'], function() {
-  browserSync({
-    browser: config.browserSync.browser,
-    https: config.browserSync.https,
-    notify: config.browserSync.notify,
-    port: config.browserSync.port,
-    logPrefix: 'PSK+',
-    snippetOptions: {
-      rule: {
-        match: '<span id="browser-sync-binding"></span>',
-        fn: function(snippet) {
-          return snippet;
+  runSequence(
+    'copy-general-config',
+    'copy-config',
+    ['default'],
+    function() {
+      browserSync({
+        browser: config.browserSync.browser,
+        https: config.browserSync.https,
+        notify: config.browserSync.notify,
+        port: config.browserSync.port,
+        logPrefix: 'PSK+',
+        snippetOptions: {
+          rule: {
+            match: '<span id="browser-sync-binding"></span>',
+            fn: function(snippet) {
+              return snippet;
+            }
+          }
+        },
+        server: {
+          baseDir: 'dist',
+          middleware: [historyApiFallback()]
+        },
+        ui: {
+          port: config.browserSync.ui.port
         }
-      }
-    },
-    server: {
-      baseDir: 'dist',
-      middleware: [historyApiFallback()]
-    },
-    ui: {
-      port: config.browserSync.ui.port
+      });
     }
-  });
+  );
 });
 
 // Clean dist directory
