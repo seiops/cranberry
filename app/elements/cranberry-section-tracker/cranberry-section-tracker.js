@@ -2,9 +2,8 @@ class cranberrySectionTracker {
   beforeRegister() {
     this.is = 'cranberry-section-tracker';
     this.properties = {
-      dfpAdPath: {
-        type: String,
-        value: '',
+      dfpObject: {
+        type: Object,
         notify: true
       },
       hidden: {
@@ -80,7 +79,7 @@ class cranberrySectionTracker {
         disableFeatured: (typeof result.disableFeatured !== 'undefined' ? result.disableFeatured : false)
       };
 
-      this.set('dfpAdPath', result.adSection);
+      this.set('dfpObject', result.dfp);
       this.set('tags', data.tagName);
       this.fire('iron-signal', { name: 'cranberry-request-content', data: { data } });
     }

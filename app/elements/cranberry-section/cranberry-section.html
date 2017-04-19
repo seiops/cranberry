@@ -39,7 +39,7 @@
                                tags="{{tags}}"
                                tags-page$="[[tagsPage]]"
                                loading="{{sectionTrackingInProgress}}"
-                               dfp-ad-path="{{dfpAdPath}}"
+                               dfp-object="{{dfpObject}}"
                                hidden$="[[hidden]]">
     </cranberry-section-tracker>
 
@@ -59,7 +59,7 @@
     <div class="section-wrapper" hidden$="[[loading]]">
       <div class="header-advertisement">
         <template is="dom-if" if="[[!_computeMainHidden(loading, hidden)]]" restamp>
-          <google-dfp ad-path="[[dfpAdPath]]"
+          <google-dfp dfp-object="[[dfpObject]]"
                       tags="[[tagsPage]]"
                       ad-size-mapping="leaderboard"
                       ad-pos="leaderboard"
@@ -100,7 +100,7 @@
         <!-- CONTENT LIST ELEMENT -->
         <cranberry-content-list items="[[contentItems]]"
                                 tags="[[tags]]"
-                                ad-path="[[dfpAdPath]]"
+                                dfp-object="[[dfpObject]]"
                                 homepage$="[[isHomepage]]"
                                 hidden$="[[_computeMainHidden(loading, hidden)]]">
         </cranberry-content-list>
@@ -134,14 +134,14 @@
 
     <template is="dom-if" if="[[!_computeMainHidden(loading, hidden)]]" restamp>
       <google-dfp
-          ad-path="[[dfpAdPath]]"
+          dfp-object="[[dfpObject]]"
           ad-pos="adhesion"
           out-of-page
           hidden$="[[hidden]]">
         </google-dfp>
 
       <google-dfp
-        ad-path="[[dfpAdPath]]"
+        dfp-object="[[dfpObject]]"
         ad-pos="interstitial"
         out-of-page
         hidden$="[[hidden]]">

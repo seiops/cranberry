@@ -2,7 +2,7 @@ class CranberryContentList {
   beforeRegister() {
     this.is = 'cranberry-content-list';
     this.properties = {
-      adPath: String,
+      dfpObject: Object,
       items: {
         type: Object,
         value: []

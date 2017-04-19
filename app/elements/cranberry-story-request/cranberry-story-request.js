@@ -39,8 +39,7 @@ class cranberryStoryRequest {
       staticPage: Boolean
     }
     this.observers = [
-      '_setupRequest(pageId, staticPage)',
-      '_hiddenChanged(hidden)'
+      '_setupRequest(pageId, staticPage, hidden)'
     ]
   }
 
@@ -86,25 +85,6 @@ class cranberryStoryRequest {
       // Set Response
       this.set('response', result);
     }
-  }
-
-  _hiddenChanged(hidden) {
-    let cachedPageId = this.get('cachedPageId');
-
-    this.async(() => {
-      if (typeof hidden !== 'undefined' && !hidden) {
-        let pageId = this.get('pageId');
-
-        if (typeof cachedPageId !== 'undefined' && cachedPageId !== '' && typeof pageId !== 'undefined' && pageId !== '') {
-          if (cachedPageId === pageId) {
-            let cachedResponse = this.get('cachedResponse');
-            this._sendCachedPageview(cachedResponse);
-            this._refreshStoryAds();
-          }
-          
-        } 
-      }
-    });
   }
 
   _refreshStoryAds() {
@@ -158,12 +138,12 @@ class cranberryStoryRequest {
       this.fire('iron-signal', {name: 'mather-hit', data: { data: {'section': section, 'hierarchy': matherSections, 'authors': byline, 'publishDate': publishedISO, 'pageType': 'story', timeStamp: new Date() } } });
   }
 
-  _setupRequest(pageId, staticPage) {
+  _setupRequest(pageId, staticPage, hidden) {
     this.async(() => {
-      let cachedPageId = this.get('cachedPageId');
+      // let cachedPageId = this.get('cachedPageId');
 
-      if (typeof pageId !== 'undefined' && typeof staticPage !== 'undefined') {
-        if (cachedPageId !== pageId) {
+      if (!hidden) {
+        if (typeof pageId !== 'undefined' && typeof staticPage !== 'undefined') {
           this.set('cachedPageId', pageId);
           this.set('currentPageId', pageId);
           if (staticPage) {
@@ -172,12 +152,7 @@ class cranberryStoryRequest {
             this._setupStoryRequest(pageId);
           } 
         } else {
-          if (typeof cachedPageId !== 'undefined' && cachedPageId !== '') {
-            let cachedResponse = this.get('cachedResponse');
-            this.set('currentPageId', pageId);
-            this.set('response', cachedResponse);
-            this._sendCachedPageview(cachedResponse);
-          }
+          
         }
       }
     });

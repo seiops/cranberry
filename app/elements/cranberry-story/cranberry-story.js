@@ -66,15 +66,22 @@ class CranberryStory {
     };
     this.observers = [
       '_storyDoneLoading(paragraphsLoading, requestLoading)',
-      '_errorHandler(error)'
+      '_errorHandler(error)',
+      '_hiddenChanged(hidden)'
     ]
+  }
+
+  _hiddenChanged(hidden) {
+    let response = this.get('response');
+
+    if (hidden && typeof response !== 'undefined') {
+      this.set('response', {});
+    }
   }
 
   // Life-Cycle Methods
   attached() {
     console.info('\<cranberry-story\> attached');
-    let routeId = this.get('routeData.id');
-    let storyId = this.get('storyId');
   }
 
   detached() {

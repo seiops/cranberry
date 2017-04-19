@@ -38,7 +38,7 @@
                       <template is="dom-if" if="[[_checkAdPos(index,2)]]">
                         <template is="dom-if" if="[[!hidden]]" restamp>
                           <google-dfp
-                              ad-path="[[adPath]]"
+                              dfp-object="[[dfpObject]]"
                               tags="[[tags]]"
                               ad-pos="Top_Of_Stream"
                               ad-size="[[300, 250]]"
@@ -49,7 +49,7 @@
                       <template is="dom-if" if="[[_checkAdPos(index,11)]]">
                         <template is="dom-if" if="[[!hidden]]" restamp>
                           <google-dfp
-                              ad-path="[[adPath]]"
+                              dfp-object="[[dfpObject]]"
                               tags="[[tags]]"
                               ad-pos="Bottom_Of_Stream"
                               ad-size="[[300, 250]]"
@@ -67,7 +67,7 @@
                           <template is="dom-if" if="[[_checkNativeShareThrough(homepage, index)]]" restamp>
                             <template is="dom-if" if="[[!hidden]]" restamp>
                               <google-dfp
-                                  ad-path="[[adPath]]"
+                                  dfp-object="[[dfpObject]]"
                                   tags="[[tags]]"
                                   ad-pos="Native_ATF"
                                   ad-size="[[1, 1]]"
@@ -80,7 +80,7 @@
                           <template is="dom-if" if="[[!_checkNativeShareThrough(homepage, index)]]" restamp>
                             <template is="dom-if" if="[[!hidden]]" restamp>
                               <google-dfp
-                                  ad-path="[[adPath]]"
+                                  dfp-object="[[dfpObject]]"
                                   tags="[[tags]]"
                                   ad-pos="Middle_of_Stream"
                                   ad-size="[[300, 250]]"
@@ -102,7 +102,7 @@
                         <template is="dom-if" if="[[_checkAdPos(index, 8)]]">
                           <template is="dom-if" if="[[!hidden]]" restamp>
                             <google-dfp
-                                ad-path="[[adPath]]"
+                                dfp-object="[[dfpObject]]"
                                 tags="[[tags]]"
                                 ad-pos="Middle_Of_Stream"
                                 ad-size-mapping="mobileLeader"
@@ -116,7 +116,7 @@
                         <template is="dom-if" if="[[_checkAdPos(index, 17)]]">
                           <template is="dom-if" if="[[!hidden]]" restamp>
                             <google-dfp
-                                ad-path="[[adPath]]"
+                                dfp-object="[[dfpObject]]"
                                 tags="[[tags]]"
                                 ad-pos="Last_Of_Stream"
                                 ad-size-mapping="mobileLeader"
