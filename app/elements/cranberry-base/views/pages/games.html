@@ -1,3 +1,11 @@
 <section class="Page" tabindex="-1">
-  <cranberry-static-section static-section="games-page" ludi-portal="{$ config.ludiPortal $}" base-url="{$ config.baseDomain $}" hidden$="{{!_equal(data.page, 'games-page')}}" user="[[user]]" advantage-items='{$ config.advantagePage[0].images | dump $}'></cranberry-static-section>
+  <cranberry-static-section
+    static-section="games-page"
+    ludi-portal="{$ config.ludiPortal $}"
+    base-url="{$ config.baseDomain $}"
+    hidden$="{{!_equal(data.page, 'games-page')}}"
+    user="[[user]]"
+    advantage-items='{$ config.advantagePage[0].images | dump $}'
+    dfp-ad-section="{$ config.dfpAdStructure.adGroupID $}/{$ config.dfpAdStructure.adGrouping $}/{$ config.dfpAdStructure.adSubGrouping $}/static">
+  </cranberry-static-section>
 </section>

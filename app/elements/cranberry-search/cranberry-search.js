@@ -2,6 +2,11 @@ class cranberrySearch {
   beforeRegister() {
     this.is = 'cranberry-search';
     this.properties = {
+      dfpAdSection: String,
+      dfpObject: {
+        type: Object,
+        computed: '_computeDfpObject(dfpAdSection)'
+      },
       displayQuery: {
         type: String,
         value: 'Search'
@@ -21,10 +26,6 @@ class cranberrySearch {
         value: false
       },
       items: Object,
-      loadSection: {
-        type: String,
-        value: 'news'
-      },
       noQuery: {
         type: Boolean,
         value: true
@@ -51,6 +52,14 @@ class cranberrySearch {
     };
     this.observers = ['_requestSearch(queryString)',
                       '_onRouteChanged(route)']
+  }
+
+  _computeDfpObject(dfpAdSection) {
+    return {
+            adSection: this.dfpAdSection,
+            content: 'search',
+            placement: (window.location.host === 'www.sanduskyregister.com' ? 'production' : 'development')
+          };
   }
 
   _clearResults(hidden, oldHidden) {

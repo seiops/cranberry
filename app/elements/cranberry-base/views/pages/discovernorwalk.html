@@ -1,3 +1,8 @@
 <section class="Page" tabindex="-1">
-  <cranberry-static-section static-section="discovernorwalk" hidden$="{{!_equal(data.page, 'discovernorwalk')}}" user="[[user]]"></cranberry-static-section>
+  <cranberry-static-section
+    static-section="discovernorwalk"
+    hidden$="{{!_equal(data.page, 'discovernorwalk')}}"
+    user="[[user]]"
+    dfp-ad-section="{$ config.dfpAdStructure.adGroupID $}/{$ config.dfpAdStructure.adGrouping $}/{$ config.dfpAdStructure.adSubGrouping $}/static">
+  </cranberry-static-section>
 </section>

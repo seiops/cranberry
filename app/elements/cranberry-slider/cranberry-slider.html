@@ -20,7 +20,7 @@
           <template is="dom-if" if="{{hideImage}}" restamp>
             <div class="inGalleryAd">
               <google-dfp 
-                  ad-path="{$ config.dfpAdStructure.adGroupID $}/{$ config.dfpAdStructure.adGrouping $}/{$ config.dfpAdStructure.adSubGrouping $}/news"
+                  dfp-object="[[gallery.dfp]]"
                   tags="[[gallery.tags]]"
                   ad-pos="In_Gallery"
                   ad-size="[[300, 250]]"

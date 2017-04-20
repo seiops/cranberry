@@ -28,14 +28,16 @@
     </byutv-jsonp>
 
     <div class="ad-container">
-      <google-dfp
-          ad-path="{$ config.dfpAdStructure.adGroupID $}/{$ config.dfpAdStructure.adGrouping $}/{$ config.dfpAdStructure.adSubGrouping $}/news"
-          ad-pos="leaderboard"
-          ad-size-mapping="leaderboard"
-          ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
-          id="topAd"
-          hidden$="[[hidden]]">
-      </google-dfp>
+      <template is="dom-if" if="[[!hidden]]" restamp>
+        <google-dfp
+            dfp-object="[[dfpObject]]"
+            ad-pos="leaderboard"
+            ad-size-mapping="leaderboard"
+            ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
+            id="topAd"
+            hidden$="[[hidden]]">
+        </google-dfp>
+      </template>
     </div>
 
     <paper-material elevation=1>
@@ -87,12 +89,14 @@
         </div>
         <div class="right-rail">
           <div class="ad-container">
-            <google-dfp
-                ad-path="{$ config.dfpAdStructure.adGroupID $}/{$ config.dfpAdStructure.adGrouping $}/{$ config.dfpAdStructure.adSubGrouping $}/news"
-                ad-pos="Top_of_Stream"
-                ad-size="[[300, 250],[300, 600]]"
-                hidden$="[[hidden]]">
-            </google-dfp>
+            <template is="dom-if" if="[[!hidden]]" restamp>
+              <google-dfp
+                  dfp-object="[[dfpObject]]"
+                  ad-pos="Top_of_Stream"
+                  ad-size="[[300, 250],[300, 600]]"
+                  hidden$="[[hidden]]">
+              </google-dfp>
+            </template>
           </div>
         </div>
       </div>

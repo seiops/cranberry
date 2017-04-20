@@ -1,3 +1,12 @@
 <section class="Page" tabindex="-1">
-  <cranberry-story route="[[storyTail]]" base-url="{$ config.baseDomain $}" rest="{$ config.baseEndpointUrl $}" tout-uid="{$ config.tout.toutUid $}" gcs-survey-id="{$ config.google.surveys $}" hidden$="{{!_equal(data.page, 'story')}}" user="[[user]]" distro-id="{$ config.distro.distroId $}"></cranberry-story>
+  <cranberry-story
+    route="[[storyTail]]"
+    base-url="{$ config.baseDomain $}"
+    rest="{$ config.baseEndpointUrl $}"
+    tout-uid="{$ config.tout.toutUid $}"
+    gcs-survey-id="{$ config.google.surveys $}"
+    hidden$="{{!_equal(data.page, 'story')}}"
+    user="[[user]]"
+    distro-id="{$ config.distro.distroId $}">
+  </cranberry-story>
 </section>

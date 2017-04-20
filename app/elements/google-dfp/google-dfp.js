@@ -54,7 +54,6 @@ class GoogleDFP {
     }
 
     attached() {
-      this.logger('DFP ATTACHED');
     }
 
     detached() {
@@ -195,7 +194,7 @@ class GoogleDFP {
 
       if (!hidden) {
         if (typeof slot !== 'undefined' && slot !== '') {
-          console.info('\<google-dfp\> refreshing: ' + slot);
+          this.logger('refreshing: ' + slot);
           googletag.pubads().refresh([window.slots[slot]]);
         }
       }

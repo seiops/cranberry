@@ -15,6 +15,11 @@ class cranberryJailMugs {
         type: String,
         observer: '_currentMugIdChanged'
       },
+      dfpAdSection: String,
+      dfpObject: {
+        type: Object,
+        computed: '_computeDfpObject(dfpAdSection)'
+      },
       firstRun: {
         type: Boolean,
         value: true
@@ -114,14 +119,26 @@ class cranberryJailMugs {
     this.set('cardsJson', result.content);
   }
 
+  _computeDfpObject(dfpAdSection) {
+    return {
+            adSection: this.dfpAdSection,
+            content: 'jail-mugs',
+            placement: (window.location.host === 'www.sanduskyregister.com' ? 'production' : 'development')
+          };
+  }
+
   _sliderResponseReceived(response) {
     let result = JSON.parse(response.Result);
     let bookingdate = result.bookingDate;
     let data = {};
+    let dfpObject = this.get('dfpObject');
 
     data.dimension6 = 'jail-mugs';
     data.dimension3 = bookingdate;
 
+    let modifiedResult = result.content[0];
+
+    modifiedResult.dfp = dfpObject;
     this.set('sliderJson', result.content[0]);
 
     // // Send pageview event with iron-signals

@@ -2,6 +2,11 @@ class cranberryStaticSection {
   beforeRegister() {
     this.is = 'cranberry-static-section';
     this.properties = {
+      dfpAdSection: String,
+      dfpObject: {
+        type: Object,
+        computed: '_computeDfpObject(dfpAdSection, staticSection)'
+      },
       hidden: {
           type: Boolean,
           reflectToAttribute: true,
@@ -47,6 +52,14 @@ class cranberryStaticSection {
     }
     this.observers = ['_setupStaticPage(hidden, staticSection)',
                       '_setupGames(hidden, hideGames)']
+  }
+
+  _computeDfpObject(dfpAdSection, staticSection) {
+    return {
+            adSection: this.dfpAdSection,
+            content: this.staticSection,
+            placement: (window.location.host === 'www.sanduskyregister.com' ? 'production' : 'development')
+          };
   }
 
   _setupStaticPage(hidden, staticSection) {

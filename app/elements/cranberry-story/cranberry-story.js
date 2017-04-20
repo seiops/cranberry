@@ -71,14 +71,6 @@ class CranberryStory {
     ]
   }
 
-  _hiddenChanged(hidden) {
-    let response = this.get('response');
-
-    if (hidden && typeof response !== 'undefined') {
-      this.set('response', {});
-    }
-  }
-
   // Life-Cycle Methods
   attached() {
     console.info('\<cranberry-story\> attached');
@@ -104,6 +96,13 @@ class CranberryStory {
   }
 
   // Private Methods
+
+  _hiddenChanged(hidden) {
+    if (hidden) {
+      this.set('response', {});
+    }
+  }
+  
   _computeMediaHidden(staticPage, hidden) {
     if (staticPage || hidden) {
       return true;

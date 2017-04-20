@@ -55,6 +55,13 @@ class CranberryBase {
     // https://github.com/Polymer/polymer/issues/2653
     this.fire('upgraded');
     this.set('upgraded', true);
+
+    this.async(function() {
+      // If the path is blank, redirect to /
+      if (!this.route.path) {
+        this.set('route.path', '/');
+      }
+    });
   }
 
   _setCanonical(route) {
@@ -141,6 +148,7 @@ class CranberryBase {
   }
 
   _equal(a, b) {
+    console.log(`${a} ::::: ${b}`);
     if (a === b) {
       return true;
     } else {

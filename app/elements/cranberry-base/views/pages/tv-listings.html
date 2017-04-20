@@ -1,3 +1,9 @@
 <section class="Page" tabindex="-1">
-  <cranberry-static-section static-section="tv-listings" base-url="{$ config.baseDomain $}" hidden$="{{!_equal(data.page, 'tv-listings')}}" user="[[user]]"></cranberry-static-section>
+  <cranberry-static-section
+    static-section="tv-listings"
+    base-url="{$ config.baseDomain $}"
+    hidden$="{{!_equal(data.page, 'tv-listings')}}"
+    user="[[user]]"
+    dfp-ad-section="{$ config.dfpAdStructure.adGroupID $}/{$ config.dfpAdStructure.adGrouping $}/{$ config.dfpAdStructure.adSubGrouping $}/static">
+  </cranberry-static-section>
 </section>

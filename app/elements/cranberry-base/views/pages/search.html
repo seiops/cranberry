@@ -1,3 +1,9 @@
 <section class="Page" tabindex="-1">
-  <cranberry-search route="[[searchTail]]" rest="{$ config.baseEndpointUrl $}" load-section="news" author="{$ config.socialNaming.twitter $}" hidden$="{{!_equal(data.page, 'search')}}"></cranberry-search>
+  <cranberry-search
+    route="[[searchTail]]"
+    rest="{$ config.baseEndpointUrl $}"
+    author="{$ config.socialNaming.twitter $}"
+    hidden$="{{!_equal(data.page, 'search')}}"
+    dfp-ad-section="{$ config.dfpAdStructure.adGroupID $}/{$ config.dfpAdStructure.adGrouping $}/{$ config.dfpAdStructure.adSubGrouping $}/news">
+  </cranberry-search>
 </section>

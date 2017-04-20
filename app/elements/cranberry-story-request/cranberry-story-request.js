@@ -96,52 +96,8 @@ class cranberryStoryRequest {
     })
   }
 
-  _sendCachedPageview(story) {
-      console.info('\<cranberry-story-request\> sending cached pageview');
-      var { sectionInformation: { section }, published: published, publishedISO: publishedISO, tags: tags, itemId: storyId } = story;
-
-      let parentSection = story.sectionInformation.sectionParentName.toLowerCase();
-      let matherSections = (typeof parentSection !== 'undefined' && parentSection !== '' ? parentSection + '/' + section.toLowerCase() : section.toLowerCase() + '/');
-
-      if (typeof story.byline !== 'undefined') {
-        var byline = story.byline;
-      }
-
-      if (typeof byline !== 'undefined') {
-        if (typeof byline.title !== 'undefined') {
-          byline = byline.title;
-        }
-      }
-
-      if (section === '') {
-        section = story.sectionInformation.sectionParentName;
-      }
-
-      let data = {
-        dimension1: (typeof byline !== 'undefined') ? byline : '',
-        dimension3: (typeof published !== 'undefined') ? published : '',
-        dimension6: 'Story',
-        dimension8: (typeof tags !== 'undefined') ? tags : ''
-      };
-    
-      // Send pageview event with iron-signals
-      this.fire('iron-signal', {name: 'track-page', data: { path: '/story/' + storyId, data } });
-
-      // Send Chartbeat
-      this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/story/' + storyId, data: {'sections': section, 'authors': byline } } });
-
-      // Fire Youneeq Page Hit Request
-      this.fire('iron-signal', {name: 'page-hit'});
-      this.fire('iron-signal', {name: 'observe', data: {content: story}});
-
-      // Fire Mather
-      this.fire('iron-signal', {name: 'mather-hit', data: { data: {'section': section, 'hierarchy': matherSections, 'authors': byline, 'publishDate': publishedISO, 'pageType': 'story', timeStamp: new Date() } } });
-  }
-
   _setupRequest(pageId, staticPage, hidden) {
-    this.async(() => {
-      // let cachedPageId = this.get('cachedPageId');
-
+    this.debounce('_setupRequest', () => {
       if (!hidden) {
         if (typeof pageId !== 'undefined' && typeof staticPage !== 'undefined') {
           this.set('cachedPageId', pageId);
@@ -174,6 +130,8 @@ class cranberryStoryRequest {
 
   _setupStoryRequest(pageId) {
     let request = this.$.request;
+    let currentRequest = this.get('request');
+
     let params = {
       desiredItemID: pageId,
       preview: 1,

@@ -1,3 +1,9 @@
 <section class="Page" tabindex="-1">
-  <cranberry-story route="[[staticTail]]" static-page base-url="{$ config.baseDomain $}" rest="{$ config.baseEndpointUrl $}" hidden$="{{!_equal(data.page, 'page')}}" user="[[user]]"></cranberry-story>
+  <cranberry-story
+    route="[[staticTail]]"
+    static-page base-url="{$ config.baseDomain $}"
+    rest="{$ config.baseEndpointUrl $}"
+    hidden$="{{!_equal(data.page, 'page')}}"
+    user="[[user]]">
+  </cranberry-story>
 </section>
