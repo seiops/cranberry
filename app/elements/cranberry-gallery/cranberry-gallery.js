@@ -149,8 +149,8 @@ class CranberryGallery {
 
         mainSlider.goTo(imageIndex);
 
-        let topAd = this.$.topAd;
-        let sideAd = this.$.sideAd;
+        let topAd = Polymer.dom(this.root).querySelector('#topAd');
+        let sideAd = Polymer.dom(this.root).querySelector('#sideAd');
 
         topAd.refresh();
         sideAd.refresh();

@@ -218,7 +218,7 @@ class cranberryJailMugs {
     let data = {};
 
     data.dimension6 = 'jail-mugs';
-    data.dimension3 = result[0].publishDate;
+    data.dimension3 = bookingdate;
 
     let youneeqData = this.get('youneeqData');
 
