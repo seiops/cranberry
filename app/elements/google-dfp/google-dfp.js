@@ -200,11 +200,11 @@ class GoogleDFP {
       }
     }
 
-    destroy(message = 'default') {
+    destroy() {
       let slot = this.get('slotId');
 
       if (typeof slot !== 'undefined' && slot !== '') {
-        this.logger(`Destorying ${slot} MESSAGE::: ${message}`, { type: 'destroy' });
+        this.logger(`Destorying ${slot}`, { type: 'destroy' });
         googletag.destroySlots([window.slots[slot]]);
 
         delete window.slots[slot];

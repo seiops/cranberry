@@ -148,7 +148,6 @@ class CranberryBase {
   }
 
   _equal(a, b) {
-    console.log(`${a} ::::: ${b}`);
     if (a === b) {
       return true;
     } else {

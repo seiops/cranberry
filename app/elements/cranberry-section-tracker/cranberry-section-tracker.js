@@ -21,6 +21,7 @@ class cranberrySectionTracker {
         type: String,
         observer: '_onRouteChanged'
       },
+      request: Object,
       requestInProgress: {
         type: Boolean,
         value: true
@@ -52,25 +53,45 @@ class cranberrySectionTracker {
 
   _setupSectionRequest(section) {
     let request = this.$.request;
-    let rest = this.get('rest');
-    let sectionType = section.sectionType;
-    let sectionName = section.sectionName;
-    let params = {
-      request: 'section',
-      desiredSection: section.sectionName,
-      tagSection: (section.sectionType === 'tags' ? 1 : 0)
-    };
+    let lastRequest = this.get('request');
 
-    request.setAttribute('url', rest);
-    request.setAttribute('callback-value', 'callbackSectionTracker');
-    request.params = params;
-    request.generateRequest();
+    if (typeof lastRequest !== 'undefined' && lastRequest.loading === true) {
+      console.info('<\cranberry-section-tracker\> aborting previous request');
+      request.abortRequest(lastRequest);
+      this._buildRequest(section);
+    } else {
+      this._buildRequest(section);
+    }
   }
 
-  _handleResponse(response) {
+  _buildRequest(section) {
+    this.async(() => {
+      let request = this.$.request;
+      let rest = this.get('rest');
+      let sectionType = section.sectionType;
+      let sectionName = section.sectionName;
+
+      
+
+      let params = {
+        request: 'section',
+        desiredSection: sectionName,
+        tagSection: (sectionType === 'tags' ? 1 : 0)
+      };
+
+      request.setAttribute('url', rest);
+      request.setAttribute('callback-value', 'callbackSectionTracker' + sectionName);
+      request.params = params;
+      request.generateRequest(); 
+    });
+  }
+
+  _handleResponse(event) {
+    let response = this.get('response');
+
     console.info('\<cranberry-section-tracker\> response received');
-    if (typeof response.detail !== 'undefined' && response.detail.Result !== 'undefined' && response.detail.Result !== '') {
-      let result = JSON.parse(response.detail.Result);
+    if (typeof response !== 'undefined' && response.Result !== 'undefined' && response.Result !== '') {
+      let result = JSON.parse(response.Result);
 
       let data = {
         section: (typeof result.sectionId !== 'undefined' && result.sectionId !== '' ? result.sectionId.replace(/_/g, '-') : ''),

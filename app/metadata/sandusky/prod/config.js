@@ -13,6 +13,7 @@ var distroConfig = require('./sandusky/globalConfigs/distro.js');
 var toutConfig = require('./sandusky/globalConfigs/tout.js');
 var promoConfig = require('./sandusky/globalConfigs/promo.js');
 var advantageConfig = require('./sandusky/globalConfigs/advantage.js');
+var icons = require('./sandusky/globalConfigs/icons.js');
 
 module.exports = {
   appVersion: baseConfig.appVersion,
@@ -41,5 +42,11 @@ module.exports = {
   advantagePage: advantageConfig,
   advantageUrl: advantageConfig.advantageUrl,
   topMenu: topMenuConfig.topMenu,
-  weather: weatherConfig
+  weather: weatherConfig,
+  favicon: icons.favIcon,
+  icon152: icons.icon152,
+  icon120: icons.icon120,
+  icon76: icons.icon76,
+  icon60: icons.icon60,
+  icon32: icons.icon32
 };

@@ -10,7 +10,7 @@
     
     <iron-signals on-iron-signal-cranberry-section-route-changed="_sectionRouteChanged"></iron-signals>
 
-    <byutv-jsonp on-response="_handleResponse" id="request" loading="{{requestInProgress}}"></byutv-jsonp>
+    <byutv-jsonp cache on-complete="_handleResponse" id="request" loading="{{requestInProgress}}" last-request="{{request}}" last-response="{{response}}"></byutv-jsonp>
 
   </template>
     <script src="cranberry-section-tracker.js"></script>

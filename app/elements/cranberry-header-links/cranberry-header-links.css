@@ -42,3 +42,7 @@ div.link-list a {
   margin-right: 12px;
   text-decoration: none;
 }
+
+.dropdown-trigger {
+  color: #fff;
+}

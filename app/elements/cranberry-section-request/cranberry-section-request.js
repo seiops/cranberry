@@ -71,7 +71,7 @@ class cranberrySectionRequest {
       requester.abortRequest(currentRequest);
     }
 
-    let sectionToFetch = (typeof parent !== 'undefined' && parent !== '' ? parent : section);
+    let sectionToFetch = section;
     let tagsPage = (typeof tagName !== 'undefined' && tagName !== '' ? true : false);
     let galleriesPage = (section === 'galleries' ? true : false);
     let homepage = (section === 'homepage' ? true : false);

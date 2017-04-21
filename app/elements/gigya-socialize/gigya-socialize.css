@@ -76,6 +76,10 @@ paper-dialog > *:last-child {
   margin-bottom: 0;
 }
 
+paper-tab {
+  color: #fff;
+}
+
 paper-tab[disabled] {
   color: var(--soft-grey);
 }

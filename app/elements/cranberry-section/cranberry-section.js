@@ -122,7 +122,7 @@ class CranberrySection {
           this.fire('iron-signal', {name: 'cranberry-section-route-changed', data: { section } });
         }
       }
-    }, 50);
+    });
   }
 
   _computeLoading(contentLoading, sectionLoading) {

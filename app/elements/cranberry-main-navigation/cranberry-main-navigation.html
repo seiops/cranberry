@@ -59,30 +59,6 @@
             <paper-item data-route$="[[item.url]]">[[item.title]]</paper-item>
           </a>
         </template>
-        <!--<a class="Navigation-link" 
-            data-route$="[[item.url]]"
-            href$="[[item.url]]"
-            target$="[[item.target]]"
-            on-tap="_drawerItemSelected"
-            ga-on="click"
-            ga-event-category="Side Navigation Clicked"
-            ga-event-action$="[[item.tracking]]">
-          <iron-icon class="Navigation-icon" icon="[[item.icon]]"></iron-icon>
-          <span class="Navigation-text">[[item.title]]</span>
-        </a>
-        <template is="dom-if" if="_checkChildren(item.children)">
-          <template is="dom-repeat" items="{{item.children}}">
-            <a class="Navigation-child-link" 
-                data-route$="[[item.url]]"
-                href$="[[item.url]]"
-                target$="[[item.target]]"
-                on-tap="_drawerItemSelected"
-                ga-on="click"
-                ga-event-category="Side Navigation Clicked"
-                ga-event-action$="[[item.tracking]]">
-              <span class="Navigation-child-text">[[item.title]]</span>
-            </a>
-          </template>-->
         </template>
       </template>
     </paper-menu>
