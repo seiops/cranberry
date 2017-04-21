@@ -80,7 +80,7 @@ class cranberrySectionTracker {
       };
 
       request.setAttribute('url', rest);
-      request.setAttribute('callback-value', 'callbackSectionTracker' + sectionName);
+      request.setAttribute('callback-value', 'callbackSectionTracker' + sectionName.replace(/-/g, ''));
       request.params = params;
       request.generateRequest(); 
     });

@@ -8,8 +8,11 @@ class cranberryMainNavigation {
       },
       params: {
         type: Object,
-        value: {
-          request: 'menu'
+        value: function() {
+          return {
+            request: 'menu',
+            desiredMenu: 'sideMenu'
+          }
         }
       },
       rest: String,
@@ -26,7 +29,6 @@ class cranberryMainNavigation {
       let request = this.$.request;
       let restUrl = this.get('rest');
       let params = this.get('params');
-      let route = this.get('route');
 
       request.setAttribute('url', restUrl);
       request.setAttribute('callback-value', 'mainNavigation');
@@ -36,7 +38,6 @@ class cranberryMainNavigation {
 
       let menu = this.$.menu;
     });
-    
   }
 
   _checkChildren(children) {

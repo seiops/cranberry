@@ -6,11 +6,14 @@
     <style>
       @import "cranberry-header-links/cranberry-header-links";
     </style>
+
+    <byutv-jsonp on-response="_handleResponse" id="request" cache></byutv-jsonp>
+
     <iron-media-query query="(min-width: 1280px)" query-matches="{{showLinks}}"></iron-media-query>
 
     <div class="link-list" hidden$="[[!showLinks]]">
       <template is="dom-repeat" items="{{items}}">
-        <a href="[[item.linkUrl]]" target="_blank" ga-on="click" ga-event-category="Header Navigation Item Clicked" ga-event-action$="uti_hnpnldsk_lnk_[[index]]">[[item.linkText]]</a>
+        <a href="[[item.url]]" target="[[item.target]]" ga-on="click" ga-event-category="Header Navigation Item Clicked" ga-event-action$="[[item.tracking]]">[[item.title]]</a>
       </template>
     </div>
     <paper-menu-button no-overlap
@@ -24,8 +27,8 @@
       <paper-icon-button icon="cranberry-icons:apps" class="dropdown-trigger" hidden$="{{showLinks}}"></paper-icon-button>
       <paper-menu class="dropdown-content">
         <template is="dom-repeat" items="{{items}}">
-          <a href="[[item.linkUrl]]" target="_blank" ga-on="click" ga-event-category="Header Navigation Item Clicked" ga-event-action$="uti_hnpnlmob_lnk_[[index]]">
-            <paper-item>[[item.linkText]]</paper-item>
+          <a href="[[item.url]]" target="[[item.target]]" ga-on="click" ga-event-category="Header Navigation Item Clicked" ga-event-action$="[[item.mobileTracking]]">
+            <paper-item>[[item.title]]</paper-item>
           </a>
         </template>
       </paper-menu>

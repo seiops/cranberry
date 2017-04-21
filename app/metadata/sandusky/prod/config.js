@@ -6,7 +6,6 @@ var dfpConfig = require('./sandusky/globalConfigs/dfp.js');
 var socialConfig = require('./sandusky/globalConfigs/social.js');
 var contactConfig = require('./sandusky/globalConfigs/contact.js');
 var archiveConfig = require('./sandusky/globalConfigs/archive.js');
-var topMenuConfig = require('./sandusky/globalConfigs/menu.js');
 var weatherConfig = require('./sandusky/globalConfigs/weather.js');
 var jobsConfig = require('./sandusky/globalConfigs/jobs.js');
 var distroConfig = require('./sandusky/globalConfigs/distro.js');
@@ -41,7 +40,6 @@ module.exports = {
   archiveCards: archiveConfig.archiveCards,
   advantagePage: advantageConfig,
   advantageUrl: advantageConfig.advantageUrl,
-  topMenu: topMenuConfig.topMenu,
   weather: weatherConfig,
   favicon: icons.favIcon,
   icon152: icons.icon152,

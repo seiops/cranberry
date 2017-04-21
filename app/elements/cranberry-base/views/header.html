@@ -21,7 +21,7 @@
           </a>
         </div>
         <div class="Main-siteButtons">
-          <cranberry-header-links items='{$ config.topMenu | dump $}'></cranberry-header-links>
+          <cranberry-header-links rest="{$ config.baseEndpointUrl $}"></cranberry-header-links>
           <paper-icon-button class="Main-headerButton"
                              icon="search"
                              on-tap="_focusSearch"
