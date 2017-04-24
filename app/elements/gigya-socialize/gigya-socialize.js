@@ -140,8 +140,6 @@ class GigyaSocialize {
   _loadAccount(account) {
     console.info('\<gigya-socialize\> account loaded');
 
-    console.dir(account);
-
     let el = account.context;
     el.set('account', account);
 

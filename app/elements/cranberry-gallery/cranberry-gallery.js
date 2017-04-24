@@ -158,11 +158,11 @@ class CranberryGallery {
     });
   }
 
-  _handleResponse (data) {
+  _handleResponse (response) {
     console.info('\<cranberry-gallery\> json response received');
 
-    let result = JSON.parse(data.detail.Result);
-    let gaData = {};
+    let result = JSON.parse(response.detail.Result);
+    let data = {};
 
     let parentSection = result.sectionInformation.sectionParentName;
     let section = result.sectionInformation.sectionName;
@@ -178,18 +178,18 @@ class CranberryGallery {
     let matherSections = (typeof parentSection !== 'undefined' && parentSection !== '' ? parentSection + '/' + section : section + '/');
 
     // Data settings for pageview
-    gaData.dimension6 = 'Gallery';
+    data.dimension6 = 'Gallery';
 
     if (typeof result.byline !== 'undefined') {
-      gaData.dimension1 = result.byline;
+      data.dimension1 = result.byline;
     }
 
     if (typeof result.published !== 'undefined') {
-      gaData.dimension3 = result.published;
+      data.dimension3 = result.published;
     }
 
     if (typeof result.tags !== 'undefined') {
-      gaData.dimension8 = result.tags;
+      data.dimension8 = result.tags;
     }
 
     // Assign restResponse to data bound object gallery
@@ -199,7 +199,7 @@ class CranberryGallery {
 
     if (sendInitialView) {
       // Send pageview event with iron-signals
-      this.fire('iron-signal', {name: 'track-page', data: { path: '/photo-gallery/' + result.itemId, gaData } });
+      this.fire('iron-signal', {name: 'track-page', data: { path: '/photo-gallery/' + result.itemId, data } });
 
       //Send Chartbeat
       this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/photo-gallery/' + result.itemId, data: {'sections': result.sectionInformation.sectionName, 'authors': result.byline } } });
@@ -297,10 +297,26 @@ class CranberryGallery {
             section = section.toLowerCase();
           }
 
+          let data = {};
+          // Data settings for pageview
+          data.dimension6 = 'Gallery';
+
+          if (typeof gallery.byline !== 'undefined') {
+            data.dimension1 = gallery.byline;
+          }
+
+          if (typeof gallery.published !== 'undefined') {
+            data.dimension3 = gallery.published;
+          }
+
+          if (typeof gallery.tags !== 'undefined') {
+            data.dimension8 = gallery.tags;
+          }
+
           let matherSections = (typeof parentSection !== 'undefined' && parentSection !== '' ? parentSection + '/' + section : section + '/');
           
           // Send pageview event with iron-signals
-          this.fire('iron-signal', {name: 'track-page', data: { path: '/photo-gallery/' + gallery.itemId, gaData } });
+          this.fire('iron-signal', {name: 'track-page', data: { path: '/photo-gallery/' + gallery.itemId, data } });
 
           //Send Chartbeat
           this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/photo-gallery/' + gallery.itemId, data: {'sections': section,  'authors': gallery.byline } } });
@@ -342,7 +358,6 @@ class CranberryGallery {
   _requestInProgressChanged(loading, oldLoading) {
     this.async(() => {
       if (!loading) {
-        console.log('playing animation');
         this.playAnimation('entry');
       }
     });
