@@ -9,15 +9,10 @@ class cranberryContentRequest {
   }
 
   attached() {
-    console.log('EVENT LISTENER ATTACHED');
   }
 
   _requestContent(event) {
-    console.log('EVENT RECEIVED');
     if (typeof event.detail !== 'undefined') {
-      console.log('This is your event detail');
-      console.dir(event.detail);
-
       let requester = Polymer.dom(this.root).querySelector('#request');
       let requestDetails = event.detail;
       let params = {
@@ -40,7 +35,6 @@ class cranberryContentRequest {
 
       switch(requestType) {
         case 'gallery':
-          console.log('Gallery response event fired');
           this.fire('iron-signal', { name: 'gallery-content-received', data: { result } });
           break;   
       }

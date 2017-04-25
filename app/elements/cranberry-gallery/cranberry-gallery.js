@@ -55,7 +55,6 @@ class CranberryGallery {
   }
 
   _checkTags(tags) {
-    console.log(tags);
     if (typeof tags !== 'undefined' && tags.length > 0) {
       this._setDisplayTag(tags);
       return true;
@@ -67,7 +66,7 @@ class CranberryGallery {
   _setDisplayTag(tags) {
     let tagsArr = tags.split(',');
     let tag = tagsArr[0];
-    
+
     this.set('displayTag', tag);
   }
 
@@ -117,7 +116,6 @@ class CranberryGallery {
 
   _sendPageView() {
     this.async(() => {
-      console.log('Sending pageview');
       let gallery = this.get('gallery');
       let data = {};
 
