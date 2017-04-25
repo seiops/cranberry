@@ -20,9 +20,8 @@
     </style>
 
     <app-route route="{{route}}" pattern="/:id" data="{{routeData}}"></app-route>
-    <byutv-jsonp on-response="_handleResponse" id="request" loading="{{requestInProgress}}"></byutv-jsonp>
 
-    <iron-signals on-iron-signal-scroll-complete="scrollComplete"></iron-signals>
+    <iron-signals on-iron-signal-scroll-complete="_scrollComplete" on-iron-signal-gallery-content-received="_contentReceived"></iron-signals>
 
     <iron-media-query query="(min-width: 960px)" query-matches="{{desktop}}"></iron-media-query>
     <iron-media-query query="(min-width: 720px) and (max-width:959px)" query-matches="{{tablet}}"></iron-media-query>
@@ -31,11 +30,11 @@
     <page-title base-title="{$ config.title $}" title="[[gallery.title]]"></page-title>
 
     <!-- Main Div For Cranberry-Gallery -->
-    <div class="cranberry-gallery" hidden$="[[requestInProgress]]">
+    <div class="cranberry-gallery" hidden$="[[loading]]">
 
       <!-- Main Header Advertisement -->
       <div class="header-advertisement">
-        <template is="dom-if" if="[[!hidden]]" restamp>
+        <template is="dom-if" if="[[!loading]]" restamp>
           <google-dfp
               dfp-object="[[gallery.dfp]]"
               tags="[[gallery.tags]]"
@@ -52,8 +51,8 @@
       <div class="top-media">
         <div class="gallery-slider-container" desktop-layout$="{{desktop}}" tablet-layout$="{{tablet}}" mobile-layout$="{{mobile}}">
           <cranberry-slider id="mainSlider" base-url="{$ config.baseDomain $}" items="{{gallery.mediaAssets.images}}" mobile-layout$="{{mobile}}" gallery="{{gallery}}" hidden$="[[hidden]]">
-            <div class="gallery-tag" hidden$="{{noTags}}" >
-              <span class="content-tag">{{tags.0}}</span>
+            <div class="gallery-tag" hidden$="[[!_checkTags(gallery.tags)]]" >
+              <span class="content-tag">[[displayTag]]</span>
             </div>
             <div class="expand-link">
               <paper-button raised class="rounded-button" on-tap="_openModal"><iron-icon icon="cranberry-icons:fullscreen"></iron-icon></paper-button>
@@ -74,14 +73,16 @@
           </cranberry-slider>
         </div>
         <div class="ad-container">
-          <google-dfp
-              dfp-object="[[gallery.dfp]]"
-              tags="[[gallery.tags]]"
-              ad-pos="Top_of_Stream"
-              ad-size="[[300, 250],[300, 600]]"
-              id="sideAd"
-              hidden$="[[hidden]]">
-          </google-dfp>
+          <template is="dom-if" if="[[!loading]]" restamp>
+            <google-dfp
+                dfp-object="[[gallery.dfp]]"
+                tags="[[gallery.tags]]"
+                ad-pos="Top_of_Stream"
+                ad-size="[[300, 250],[300, 600]]"
+                id="sideAd"
+                hidden$="[[hidden]]">
+            </google-dfp>
+          </template>
         </div>
       </div>
       <!-- Gallery Description and Content Area -->
@@ -107,7 +108,7 @@
           </template>
         </div>
         <div class="gallery-container-ad">
-          <template is="dom-if" if="[[!hidden]]" restamp>
+          <template is="dom-if" if="[[!loading]]" restamp>
             <google-dfp 
                 dfp-object="[[gallery.dfp]]"
                 tags="[[gallery.tags]]"
@@ -122,7 +123,7 @@
       </div>
 
       <div class="header-advertisement">
-        <template is="dom-if" if="[[!hidden]]" restamp>
+        <template is="dom-if" if="[[!loading]]" restamp>
           <google-dfp
               dfp-object="[[gallery.dfp]]"
               tags="[[gallery.tags]]"
@@ -148,7 +149,7 @@
         <gigya-comments content="[[gallery]]"  config-id="{$ config.gigya.commentsId $}"></gigya-comments>
       </div>
 
-      <template is="dom-if" if="[[!hidden]]" restamp>
+      <template is="dom-if" if="[[!loading]]" restamp>
         <div class="header-advertisement">
           <google-dfp
               dfp-object="[[gallery.dfp]]"
@@ -173,13 +174,13 @@
             out-of-page
             hidden$="[[hidden]]">
         </google-dfp>
-      </div>
-    </template>
+      </template>
+    </div>
 
     <!-- Loading Content Display -->
-    <template is="dom-if" if="[[requestInProgress]]">
-      <div class="loading-container" hidden$="[[!requestInProgress]]">
-        <paper-spinner active$="[[requestInProgress]]"></paper-spinner>
+    <template is="dom-if" if="[[loading]]">
+      <div class="loading-container" hidden$="[[!loading]]">
+        <paper-spinner active$="[[loading]]"></paper-spinner>
         <p>Fetching Your Content...</p>
       </div>
     </template>

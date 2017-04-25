@@ -64,6 +64,7 @@
 <link rel="import" href="../cranberry-font-awesome/cranberry-font-awesome.html">
 <link rel="import" href="../cranberry-icons/cranberry-icons.html">
 <link rel="import" href="../cranberry-sharethrough-story/cranberry-sharethrough-story.html">
+<link rel="import" href="../cranberry-content-request/cranberry-content-request.html">
 <link rel="import" href="../youneeq-tracker/youneeq-tracker.html">
 <link rel="import" href="../google-dfp/google-dfp.html">
 
@@ -107,6 +108,9 @@
 
     <!-- Gigya socialize/accounts integration -->
     <gigya-socialize user="{{user}}" route="[[route]]" api-key="{$ config.gigya.apiKey $}"></gigya-socialize>
+
+    <!-- Content Request Element -->
+    <cranberry-content-request></cranberry-content-request>
 
     <!-- local browser storage -->
     <iron-localstorage id="localStorage" name="{$ config.appNameId $}"

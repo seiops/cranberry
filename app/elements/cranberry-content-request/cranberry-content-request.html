@@ -1,0 +1,24 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
+<link rel="import" href="../../bower_components/iron-signals/iron-signals.html">
+
+<dom-module id="cranberry-content-request">
+  <template>
+    <style>
+      @import "cranberry-content-request/cranberry-content-request";
+    </style>
+
+    <iron-signals on-iron-signal-request-content="_requestContent"></iron-signals>
+
+    <byutv-jsonp
+      cache
+      url="{$ config.baseEndpointUrl $}"
+      on-response="_handleResponse"
+      last-request="{{request}}"
+      last-error="{{responseError}}"
+      loading="{{requestInProgress}}"
+      id="request"></byutv-jsonp>
+
+  </template>
+    <script src="cranberry-content-request.js"></script>
+</dom-module>

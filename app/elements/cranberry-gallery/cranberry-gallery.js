@@ -17,64 +17,162 @@ class CranberryGallery {
         }
       },
       baseUrl: String,
+      elementAttached: {
+        type: Boolean,
+        value: false
+      },
       gallery: {
         type: Object
       },
       galleryId: {
         type: Number,
-        value: 0,
+        computed: '_computeGalleryId(routeData.id, hidden, elementAttached)',
         observer: '_galleryIdChanged'
       },
       goToIndex: {
         type: Number,
         value: 0
       },
-      jsonp: {
-        type: Object,
-        value: {
-          request: 'gallery'
-        }
-      },
-      myCaptureUrl: {
-        type: String
-      },
-      params: {
-        type: Object,
-        value: {}
-      },
-      rest: {
-        type: String
-      },
-      requestInProgress: {
-        type: Boolean,
-        value: true,
-        observer: '_requestInProgressChanged'
-      },
-      routeData: Object,
-      tags: {
-        type: Array
-      },
-      noTags: {
-        type: Boolean,
-        value: true
-      },
       hidden: {
         type: Boolean,
         reflectToAttribute: true,
         value: true
       },
-      sendInitialView: {
+      loading: {
         type: Boolean,
         value: true
-      }
+      },
+      myCaptureUrl: {
+        type: String
+      },
+      routeData: Object
     };
-    this.observers = ['_checkParams(routeData.id)', '_hiddenChanged(hidden, routeData.id)'];
-    this.listeners = { 'scroll-complete': 'scrollComplete' };
+    this.observers = ['_hiddenChanged(hidden)'];
+    this.listeners = { 
+      'scroll-complete': '_scrollComplete',
+      'gallery-content-received': '_contentReceived'
+    };
+  }
+
+  _checkTags(tags) {
+    console.log(tags);
+    if (typeof tags !== 'undefined' && tags.length > 0) {
+      this._setDisplayTag(tags);
+      return true;
+    } else {
+      return false
+    }
+  }
+
+  _setDisplayTag(tags) {
+    let tagsArr = tags.split(',');
+    let tag = tagsArr[0];
+    
+    this.set('displayTag', tag);
+  }
+
+  _contentReceived(event) {
+    if (typeof event.detail.result !== 'undefined') {
+      this.set('gallery', event.detail.result);
+      this.set('loading', false);
+      this._sendPageView();
+    }
+  }
+
+  _computeGalleryId(routeId, hidden, attached) {
+    if (attached) {
+      let routeIdNumber = parseInt(routeId);
+      let currentGalleryId = this.get('galleryId');
+
+      if (routeIdNumber !== currentGalleryId) {
+        if (!hidden) {
+          return routeIdNumber;
+        } else {
+          this.destroyGallery();
+        }
+      } else {
+        return currentGalleryId;
+      }
+    } else {
+      return 0;
+    }
+  }
+
+  // Observer method for when the story id changes.
+  _galleryIdChanged (galleryId, oldGalleryId) {
+    this.async(() => {
+      if (typeof galleryId !== 'undefined' && galleryId !== 0) {
+        this.set('loading', true);
+        this.fire('iron-signal', { name: 'request-content', data:{request: 'gallery', desiredItemID: galleryId, callbackId: 'cranberryGalleryRequest'}});
+      }
+    });
+  }
+
+  _hiddenChanged(hidden) {
+    let gallery = this.get('gallery');
+    if (hidden && typeof gallery !== 'undefined' && Object.keys(gallery).length > 0) {
+      this.destroyGallery();
+    }
+  }
+
+  _sendPageView() {
+    this.async(() => {
+      console.log('Sending pageview');
+      let gallery = this.get('gallery');
+      let data = {};
+
+      let parentSection = (typeof gallery.sectionInformation.sectionParentName !== 'undefined' ? gallery.sectionInformation.sectionParentName.toLowerCase() : '');
+      let section = (typeof gallery.sectionInformation.sectionName !== 'undefined' ? gallery.sectionInformation.sectionName.toLowerCase() : '');
+      let matherSections = (typeof parentSection !== 'undefined' && parentSection !== '' ? parentSection + '/' + section : section + '/');
+
+      // Data settings for pageview
+      data.dimension6 = 'Gallery';
+
+      if (typeof gallery.byline !== 'undefined') {
+        data.dimension1 = gallery.byline;
+      }
+
+      if (typeof gallery.published !== 'undefined') {
+        data.dimension3 = gallery.published;
+      }
+
+      if (typeof gallery.tags !== 'undefined') {
+        data.dimension8 = gallery.tags;
+      }
+      // Send pageview event with iron-signals
+      this.fire('iron-signal', {name: 'track-page', data: { path: '/photo-gallery/' + gallery.itemId, data } });
+
+      //Send Chartbeat
+      this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/photo-gallery/' + gallery.itemId, data: {'sections': section, 'authors': gallery.byline } } });
+
+      // Fire Youneeq Page Hit Request
+      this.fire('iron-signal', {name: 'page-hit', data: {content: gallery}});
+      this.fire('iron-signal', {name: 'observe', data: {content: gallery}});
+
+      // Fire Mather
+      this.fire('iron-signal', {name: 'mather-hit', data: { data: {'section': section, 'hierarchy': matherSections, 'authors': gallery.byline, 'publishedDate': gallery.publishedISO, 'pageType': 'gallery', timeStamp: new Date() } } });
+
+      this.set('sendInitialView', false);
+    });
   }
 
   // Public methods.
   attached() {
     console.info('\<cranberry-gallery\> attached');
+    this.set('elementAttached', true);
+  }
+
+  detached() {
+    this.destroyGallery();
+  }
+
+  destroyGallery() {
+    this.set('loading', true);
+    this.set('gallery', {});
+    this.set('elementAttached', false);
+
+    this._destroyNativo();
+    this._closeShare();
   }
 
   // Private methods.
@@ -97,49 +195,12 @@ class CranberryGallery {
     capture.setImgParams();
   }
 
-  // Called by observer when params object is changed.
-  _changeParams () {
-    let params = this.get('params');
-    let galleryId = this.get('galleryId');
-
-    this.set('gallery', {});
-
-    if (params.length !== 0 && galleryId !== 0) {
-      this.$.request.url = this.rest;
-      this.$.request.params = params;
-
-      this.$.request.generateRequest();
-    }
-  }
-
-  // Updates id value from route.
-  _checkParams() {
-    let galleryId = this.get('routeData.id');
-    let currentId = this.get('galleryId');
-
-    if (typeof galleryId !== 'undefined' && currentId !== galleryId) {
-      console.info('\<cranberry-gallery\> setting new gallery id -\> ' + galleryId);
-
-      this.set('galleryId', galleryId);
-    }
-  }
-
-  // Observer method for when the story id changes.
-  _galleryIdChanged (galleryId, oldGalleryId) {
-    if (galleryId !== 0 && galleryId !== oldGalleryId) {
-      console.info('\<cranberry-gallery\> galleryId set to ' + galleryId);
-
-      this._updateGalleryId(galleryId);
-    }
-
-  }
-
   _goToSlide (e) {
     this.set('goToIndex', Number(e.target.parentElement.dataset.index));
     this.fire('iron-signal', { name: 'app-scroll', data: { scrollPosition: 0, scrollSpeed: 1500, scrollAnimation: 'easeInOutQuint', afterScroll: true } });
   }
   
-  scrollComplete() {
+  _scrollComplete() {
     let hidden = this.get('hidden');
     let goToIndex = this.get('goToIndex');
     this.async(() => {
@@ -156,86 +217,6 @@ class CranberryGallery {
         sideAd.refresh();
       }
     });
-  }
-
-  _handleResponse (response) {
-    console.info('\<cranberry-gallery\> json response received');
-
-    let result = JSON.parse(response.detail.Result);
-    let data = {};
-
-    let parentSection = result.sectionInformation.sectionParentName;
-    let section = result.sectionInformation.sectionName;
-
-    if (typeof parentSection !== 'undefined') {
-      parentSection = parentSection.toLowerCase();
-    }
-
-    if (typeof section !== 'undefined') {
-      section = section.toLowerCase();
-    }
-
-    let matherSections = (typeof parentSection !== 'undefined' && parentSection !== '' ? parentSection + '/' + section : section + '/');
-
-    // Data settings for pageview
-    data.dimension6 = 'Gallery';
-
-    if (typeof result.byline !== 'undefined') {
-      data.dimension1 = result.byline;
-    }
-
-    if (typeof result.published !== 'undefined') {
-      data.dimension3 = result.published;
-    }
-
-    if (typeof result.tags !== 'undefined') {
-      data.dimension8 = result.tags;
-    }
-
-    // Assign restResponse to data bound object gallery
-    this.set('gallery', result);
-
-    let sendInitialView = this.get('sendInitialView');
-
-    if (sendInitialView) {
-      // Send pageview event with iron-signals
-      this.fire('iron-signal', {name: 'track-page', data: { path: '/photo-gallery/' + result.itemId, data } });
-
-      //Send Chartbeat
-      this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/photo-gallery/' + result.itemId, data: {'sections': result.sectionInformation.sectionName, 'authors': result.byline } } });
-
-      // Fire Youneeq Page Hit Request
-      this.fire('iron-signal', {name: 'page-hit', data: {content: result}});
-      this.fire('iron-signal', {name: 'observe', data: {content: result}});
-
-      // Fire Mather
-      this.fire('iron-signal', {name: 'mather-hit', data: { data: {'section': section, 'hierarchy': matherSections, 'authors': result.byline, 'publishedDate': result.publishedISO, 'pageType': 'gallery', timeStamp: new Date() } } });
-
-      this.set('sendInitialView', false);
-    }
-
-    // Fire nativo
-    if (typeof window.PostRelease !== 'undefined' && typeof window.PostRelease.Start === 'function') {
-      PostRelease.Start();
-    }
-
-    if (typeof result.tags !== 'undefined' && result.tags.length > 0) {
-      // Set tags variable to the tags response
-      this.set('tags', result.tags.split(','));
-      this.set('noTags', false);
-    } else {
-      this.set('noTags', true);
-    }
-  }
-
-  _onRouteChanged (newValue, oldValue) {
-    if (typeof oldValue !== 'undefined') {
-      if (newValue.path.replace('/', '') === 'gallery-content') {
-        let mainSlider = this.querySelector('#mainSlider');
-
-        mainSlider.endLoading(slider, 0, 'next');
-      }
-    }
   }
 
   _openModal () {
@@ -261,79 +242,6 @@ class CranberryGallery {
     });
   }
 
-  // Update story id in request parameters.
-  _updateGalleryId (galleryid) {
-    this.debounce('_updateGalleryId', ()  => {
-      this.set('tags', []);
-      this.set('jsonp.desiredItemID', galleryid);
-
-      let request = this.get('jsonp');
-
-      this.set('params', request);
-
-      this._changeParams();
-    });
-  }
-
-  _hiddenChanged(hidden, routeId) {
-    this.async(()  => {
-      let gallery = this.get('gallery');
-      let galleryId = this.get('galleryId');
-      let sendInitialView = this.get('sendInitialView');
-
-      if (typeof hidden !== 'undefined' && hidden) {
-        this._closeShare();
-        this._destroyNativo();
-      } else {
-        if (typeof gallery !== 'undefined' && typeof gallery.itemId !== 'undefined' && !sendInitialView) {
-          let parentSection = gallery.sectionInformation.sectionParentName;
-          let section = gallery.sectionInformation.sectionName;
-
-          if (typeof parentSection !== 'undefined') {
-            parentSection = parentSection.toLowerCase();
-          }
-
-          if (typeof section !== 'undefined') {
-            section = section.toLowerCase();
-          }
-
-          let data = {};
-          // Data settings for pageview
-          data.dimension6 = 'Gallery';
-
-          if (typeof gallery.byline !== 'undefined') {
-            data.dimension1 = gallery.byline;
-          }
-
-          if (typeof gallery.published !== 'undefined') {
-            data.dimension3 = gallery.published;
-          }
-
-          if (typeof gallery.tags !== 'undefined') {
-            data.dimension8 = gallery.tags;
-          }
-
-          let matherSections = (typeof parentSection !== 'undefined' && parentSection !== '' ? parentSection + '/' + section : section + '/');
-          
-          // Send pageview event with iron-signals
-          this.fire('iron-signal', {name: 'track-page', data: { path: '/photo-gallery/' + gallery.itemId, data } });
-
-          //Send Chartbeat
-          this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/photo-gallery/' + gallery.itemId, data: {'sections': section,  'authors': gallery.byline } } });
-          
-          // Fire Youneeq Page Hit Request
-          this.fire('iron-signal', {name: 'page-hit', data: {content: gallery}});
-          this.fire('iron-signal', {name: 'observe', data: {content: gallery}});
-
-          this.fire('iron-signal', {name: 'refresh-ad' });
-
-          // Fire Mather
-          this.fire('iron-signal', {name: 'mather-hit', data: { data: {'section': section, 'hierarchy': matherSections, 'authors': gallery.byline, 'publishedDate': gallery.publishedISO, 'pageType': 'gallery', timeStamp: new Date() } } });
-        }
-      }
-    });
-  }
-
   _destroyNativo() {
     let nativoAds = Polymer.dom(this).querySelectorAll('.ntv-ad-div');
 
@@ -353,14 +261,6 @@ class CranberryGallery {
 
   _scrollToComments() {
     this.fire('iron-signal', {name: 'scroll-to-comments'});
-  }
-
-  _requestInProgressChanged(loading, oldLoading) {
-    this.async(() => {
-      if (!loading) {
-        this.playAnimation('entry');
-      }
-    });
   }
 }
 Polymer(CranberryGallery);
