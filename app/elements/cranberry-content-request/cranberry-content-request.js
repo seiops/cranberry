@@ -2,13 +2,31 @@ class cranberryContentRequest {
   beforeRegister() {
     this.is = 'cranberry-content-request';
     this.properties = {
+      request: Object,
+      requestInFlight: Boolean
     };
     this.listeners = {
-      'request-content': '_requestContent'
+      'request-content': '_requestContent',
+      'cancel-request-content': '_cancelRequestContent'
     };
   }
 
   attached() {
+  }
+
+  _cancelRequestContent() {
+    let requestInFlight = this.get('requestInFlight');
+
+    if (requestInFlight) {
+      let currentRequest = this.get('request');
+
+      if (typeof currentRequest !== 'undefined' && currentRequest.loading) {
+        let requester = Polymer.dom(this.root).querySelector('#request');
+
+        console.info('<\cranberry-content-request\> aborting previous request');
+        requester.abortRequest(currentRequest);
+      }
+    }
   }
 
   _requestContent(event) {

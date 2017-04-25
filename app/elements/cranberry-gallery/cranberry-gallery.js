@@ -109,7 +109,7 @@ class CranberryGallery {
 
   _hiddenChanged(hidden) {
     let gallery = this.get('gallery');
-    if (hidden && typeof gallery !== 'undefined' && Object.keys(gallery).length > 0) {
+    if (hidden) {
       this.destroyGallery();
     }
   }
@@ -165,6 +165,8 @@ class CranberryGallery {
   }
 
   destroyGallery() {
+    console.log('destroying gallery');
+    this.fire('iron-signal', {name: 'cancel-request-content'});
     this.set('loading', true);
     this.set('gallery', {});
     this.set('elementAttached', false);

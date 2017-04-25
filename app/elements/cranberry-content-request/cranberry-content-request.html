@@ -8,7 +8,7 @@
       @import "cranberry-content-request/cranberry-content-request";
     </style>
 
-    <iron-signals on-iron-signal-request-content="_requestContent"></iron-signals>
+    <iron-signals on-iron-signal-request-content="_requestContent" on-iron-signal-cancel-request-content="_cancelRequestContent"></iron-signals>
 
     <byutv-jsonp
       cache
@@ -16,7 +16,7 @@
       on-response="_handleResponse"
       last-request="{{request}}"
       last-error="{{responseError}}"
-      loading="{{requestInProgress}}"
+      loading="{{requestInFlight}}"
       id="request"></byutv-jsonp>
 
   </template>
