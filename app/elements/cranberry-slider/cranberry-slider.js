@@ -247,8 +247,13 @@ class cranberrySlider {
     let gallery = this.get('gallery');
     let galleryType = this.get('galleryType');
     let timeStamp = new Date();
+    let data = {};
 
     let path = '/photo-gallery/';
+
+    let parentSection = (typeof gallery.sectionInformation.sectionParentName !== 'undefined' ? gallery.sectionInformation.sectionParentName.toLowerCase() : '');
+    let section = (typeof gallery.sectionInformation.sectionName !== 'undefined' ? gallery.sectionInformation.sectionName.toLowerCase() : '');
+    let matherSections = (typeof parentSection !== 'undefined' && parentSection !== '' ? parentSection + '/' + section : section + '/');
 
     if (typeof galleryType !== 'undefined') {
       switch(galleryType) {
@@ -265,29 +270,31 @@ class cranberrySlider {
     }
   
     // Data settings for pageview
-    gaData.dimension6 = 'Gallery';
+    data.dimension6 = 'Gallery';
 
     if (typeof gallery.byline !== 'undefined') {
-      gaData.dimension1 = gallery.byline;
+      data.dimension1 = gallery.byline;
     }
 
     if (typeof gallery.published !== 'undefined') {
-      gaData.dimension3 = gallery.published;
+      data.dimension3 = gallery.published;
     }
 
     if (typeof gallery.tags !== 'undefined') {
-      gaData.dimension8 = gallery.tags;
+      data.dimension8 = gallery.tags;
     }
+
+    data.dimension7 = matherSections;
 
     // Send pageview event with iron-signals
     // GA
-    this.fire('iron-signal', {name: 'track-page', data: { path: path, gaData } });
+    this.fire('iron-signal', {name: 'track-page', data: { path: path, data } });
 
     //Send Chartbeat
     this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: path, data: {'sections': gallery.sectionInformation.sectionName, 'authors': (typeof gallery.byline !== 'undefined' ? gallery.byline : '') } } });
 
     // Fire Mather
-    this.fire('iron-signal', {name: 'mather-hit', data: { data: {'sections': gallery.sectionInformation.sectionName, 'authors': (typeof gallery.byline !== 'undefined' ? gallery.byline : ''), 'publishedDate': gallery.publishedISO, 'pageType': 'gallery', timeStamp: timeStamp } } });
+    this.fire('iron-signal', {name: 'mather-hit', data: { data: {'section': section, 'hierarchy': matherSections, 'authors': gallery.byline, 'publishedDate': gallery.publishedISO, 'pageType': 'gallery', timeStamp: new Date() } } });
 
     // Fire Youneeq Page Hit Request
     this.fire('iron-signal', {name: 'page-hit', data: { content: gallery } });

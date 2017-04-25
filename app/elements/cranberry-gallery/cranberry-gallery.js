@@ -11,24 +11,14 @@ class CranberryGallery {
             'entry': {
               name: 'fade-in-animation',
               node: this,
-              timing: {duration: 1500}
+              timing: {duration: 2500}
             }
           }
         }
       },
       baseUrl: String,
-      elementAttached: {
-        type: Boolean,
-        value: false
-      },
-      gallery: {
-        type: Object
-      },
-      galleryId: {
-        type: Number,
-        computed: '_computeGalleryId(routeData.id, hidden, elementAttached)',
-        observer: '_galleryIdChanged'
-      },
+      elementAttached: Boolean,
+      gallery: Object,
       goToIndex: {
         type: Number,
         value: 0
@@ -36,7 +26,7 @@ class CranberryGallery {
       hidden: {
         type: Boolean,
         reflectToAttribute: true,
-        value: true
+        value: false
       },
       loading: {
         type: Boolean,
@@ -47,11 +37,26 @@ class CranberryGallery {
       },
       routeData: Object
     };
-    this.observers = ['_hiddenChanged(hidden)'];
+    this.observers = [
+      '_compoundObserver(hidden, routeData.id, elementAttached)'
+    ];
     this.listeners = { 
       'scroll-complete': '_scrollComplete',
       'gallery-content-received': '_contentReceived'
     };
+  }
+
+  _compoundObserver(hidden, id, attached) {
+    this.debounce('_compoundObserver', () => {
+      if (!hidden) {
+        if (attached) {
+          this.set('loading', true);
+          this.fire('iron-signal', { name: 'request-content', data:{request: 'gallery', desiredItemID: id, callbackId: 'cranberryGalleryRequest'}});
+        }
+      } else {
+        this.destroyGallery();
+      }
+    });
   }
 
   _checkTags(tags) {
@@ -75,42 +80,7 @@ class CranberryGallery {
       this.set('gallery', event.detail.result);
       this.set('loading', false);
       this._sendPageView();
-    }
-  }
-
-  _computeGalleryId(routeId, hidden, attached) {
-    if (attached) {
-      let routeIdNumber = parseInt(routeId);
-      let currentGalleryId = this.get('galleryId');
-
-      if (routeIdNumber !== currentGalleryId) {
-        if (!hidden) {
-          return routeIdNumber;
-        } else {
-          this.destroyGallery();
-        }
-      } else {
-        return currentGalleryId;
-      }
-    } else {
-      return 0;
-    }
-  }
-
-  // Observer method for when the story id changes.
-  _galleryIdChanged (galleryId, oldGalleryId) {
-    this.async(() => {
-      if (typeof galleryId !== 'undefined' && galleryId !== 0) {
-        this.set('loading', true);
-        this.fire('iron-signal', { name: 'request-content', data:{request: 'gallery', desiredItemID: galleryId, callbackId: 'cranberryGalleryRequest'}});
-      }
-    });
-  }
-
-  _hiddenChanged(hidden) {
-    let gallery = this.get('gallery');
-    if (hidden) {
-      this.destroyGallery();
+      this.playAnimation('entry');
     }
   }
 
@@ -137,6 +107,9 @@ class CranberryGallery {
       if (typeof gallery.tags !== 'undefined') {
         data.dimension8 = gallery.tags;
       }
+
+      data.dimension7 = matherSections;
+
       // Send pageview event with iron-signals
       this.fire('iron-signal', {name: 'track-page', data: { path: '/photo-gallery/' + gallery.itemId, data } });
 
@@ -161,15 +134,15 @@ class CranberryGallery {
   }
 
   detached() {
+    console.info('\<cranberry-gallery\> detached');
     this.destroyGallery();
   }
 
   destroyGallery() {
-    console.log('destroying gallery');
+    console.info('\<cranberry-gallery\> destroying gallery');
     this.fire('iron-signal', {name: 'cancel-request-content'});
     this.set('loading', true);
     this.set('gallery', {});
-    this.set('elementAttached', false);
 
     this._destroyNativo();
     this._closeShare();

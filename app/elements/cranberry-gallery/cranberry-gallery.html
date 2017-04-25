@@ -30,7 +30,7 @@
     <page-title base-title="{$ config.title $}" title="[[gallery.title]]"></page-title>
 
     <!-- Main Div For Cranberry-Gallery -->
-    <div class="cranberry-gallery" hidden$="[[loading]]">
+    <div class="cranberry-gallery" id="container" hidden$="[[loading]]">
 
       <!-- Main Header Advertisement -->
       <div class="header-advertisement">
@@ -179,7 +179,7 @@
 
     <!-- Loading Content Display -->
     <template is="dom-if" if="[[loading]]">
-      <div class="loading-container" hidden$="[[!loading]]">
+      <div class="loading-container" id="loadingContainer" hidden$="[[!loading]]">
         <paper-spinner active$="[[loading]]"></paper-spinner>
         <p>Fetching Your Content...</p>
       </div>
