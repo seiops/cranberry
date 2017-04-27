@@ -54,6 +54,7 @@ class cranberrySectionRequest {
         value: 1,
         observer: '_startChanged'
       },
+      tag: String,
       tagsPage: {
         type: Boolean,
         value: false
@@ -116,7 +117,10 @@ class cranberrySectionRequest {
         let start = this.get('start');
         let count = this.get('count');
 
+        console.dir(sectionInformation);
         this.set('section', section);
+        this.set('parentSection', parent);
+        this.set('tag', tagName.replace(/ /g, '-'));
 
         this.set('requestGenerated', true);
         this._generateRequest(section, parent, tagName, disableFeatured, start, count);
@@ -136,30 +140,32 @@ class cranberrySectionRequest {
     let tagsPage = this.get('tagsPage');
     let section = this.get('section');
     let parentSection = this.get('parentSection');
-    let loadSection = this.get('loadSection');
-    let matherSections = (typeof parentSection !== 'undefined' && parentSection.toLowerCase() !== '' ? parentSection.toLowerCase() + '/' + section.toLowerCase() : section.toLowerCase() + '/');
+    let tag = this.get('tag');
+    let matherSections = (typeof parentSection !== 'undefined' && parentSection !== '' ? parentSection.toLowerCase() + '/' + section.toLowerCase() : section.toLowerCase() + '/');
     let author = this.get('author');
+    let data = {
+      'dimension6': (section ==='homepage' ? 'homepage' : 'section'),
+      'dimension7': section
+    }
+
+    let pageType = (section === 'homepage' ? 'home' : 'section');
+
+    if (tagsPage) {
+      data.dimension8 = tag;
+      pageType = 'tags';
+    }
+
+    let path = (tagsPage ? `/tags/${tag}` : `/section/${section}`); 
 
     this.async(() => {
-      if (tagsPage) {
-        // Fire Google Analytics Pageview
-        this.fire('iron-signal', {name: 'track-page', data: { path: '/tags/' + loadSection, data: { 'dimension7': loadSection } } });
-        // Fire Chartbeat pageview
-        this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/tags/' + loadSection, data: {'sections': loadSection, 'authors': author } } });
-        // Fire Youneeq Page Hit Request
-        this.fire('iron-signal', {name: 'page-hit'});
-        // Fire Mather
-        this.fire('iron-signal', {name: 'mather-hit', data: { data: {'section': loadSection, 'hierarchy': matherSections, 'authors': author, 'pageType': 'tags', timeStamp: new Date() } }});
-      } else {
-        // Fire Google Analytics Pageview
-        this.fire('iron-signal', {name: 'track-page', data: { path: '/section/' + section, data: { 'dimension7': section } } });
-        // Fire Chartbeat pageview
-        this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/section/' + section, data: {'sections': section, 'authors': author } } });
-        // Fire Youneeq Page Hit Request
-        this.fire('iron-signal', {name: 'page-hit'});
-        // Fire Mather
-        this.fire('iron-signal', {name: 'mather-hit', data: { data: {'section': loadSection, 'hierarchy': matherSections, 'authors': author, 'pageType': (section === 'homepage' ? 'home' : 'section'), timeStamp: new Date() } } });
-      }
+      // Fire Google Analytics Pageview
+      this.fire('iron-signal', {name: 'track-page', data: { path: path, data: data } });
+      // Fire Chartbeat pageview
+      this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: path, data: {'sections': section, 'authors': author } } });
+      // Fire Youneeq Page Hit Request
+      this.fire('iron-signal', {name: 'page-hit'});
+      // Fire Mather
+      this.fire('iron-signal', {name: 'mather-hit', data: { data: {'section': section, 'hierarchy': matherSections, 'authors': author, 'pageType': pageType, timeStamp: new Date() } }});
     });
   }
 
