@@ -17,7 +17,34 @@
       last-request="{{request}}"
       last-error="{{responseError}}"
       loading="{{requestInFlight}}"
-      id="request"></byutv-jsonp>
+      id="requester1"></byutv-jsonp>
+
+    <byutv-jsonp
+      cache
+      url="{$ config.baseEndpointUrl $}"
+      on-response="_handleResponse"
+      last-request="{{request}}"
+      last-error="{{responseError}}"
+      loading="{{requestTwoInFlight}}"
+      id="requester2"></byutv-jsonp>
+
+    <byutv-jsonp
+      cache
+      url="{$ config.baseEndpointUrl $}"
+      on-response="_handleResponse"
+      last-request="{{request}}"
+      last-error="{{responseError}}"
+      loading="{{requestThreeInFlight}}"
+      id="requester3"></byutv-jsonp>
+
+    <byutv-jsonp
+      cache
+      url="{$ config.baseEndpointUrl $}"
+      on-response="_handleResponse"
+      last-request="{{request}}"
+      last-error="{{responseError}}"
+      loading="{{requestFourInFlight}}"
+      id="requester4"></byutv-jsonp>
 
   </template>
     <script src="cranberry-content-request.js"></script>

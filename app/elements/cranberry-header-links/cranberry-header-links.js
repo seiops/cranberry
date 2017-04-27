@@ -5,41 +5,29 @@ class cranberryHeaderLinks {
       items: {
         type: Object,
         value: []
-      },
-      params: {
-        type: Object,
-        value: function() {
-          return {
-            request: 'menu',
-            desiredMenu: 'topMenu'
-          }
-        }
-      },
-      rest: String,
-    }
+      }
+    };
+    this.listeners = { 
+      'top-menu-content-received': '_contentReceived',
+      'top-menu-request-info': '_requestReceived'
+    };
   }
 
   attached() {
     this.async(() => {
-      let request = this.$.request;
-      let restUrl = this.get('rest');
-      let params = this.get('params');
-
-      request.setAttribute('url', restUrl);
-      request.setAttribute('callback-value', 'topNavigation');
-      request.params = params;
-
-      request.generateRequest();
-
-      let menu = this.$.menu;
+      this.fire('iron-signal', { name: 'request-content', data:{request: 'menu', desiredMenu: 'top-menu', callbackId: 'topNavigation'}});
     });
   }
 
-  _handleResponse(response) {
-    if (typeof response.detail.Result !== 'undefined') {
-      let result = JSON.parse(response.detail.Result);
-      
-      this.set('items', result.items);
+  _contentReceived(event) {
+    if (typeof event.detail.result.items !== 'undefined') {
+      this.set('items', event.detail.result.items);
+    }
+  }
+
+  _requestReceived(event) {
+    if (typeof event.detail.request !== 'undefined') {
+      this.set('currentRequest', event.detail.request);
     }
   }
 }

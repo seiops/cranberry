@@ -5,6 +5,7 @@
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../../bower_components/paper-item/paper-icon-item.html">
+<link rel="import" href="../../bower_components/iron-signals/iron-signals.html">
 
 <dom-module id="cranberry-main-navigation">
   <template>
@@ -14,6 +15,11 @@
 
     <byutv-jsonp on-response="_handleResponse" id="request" cache></byutv-jsonp>
 
+    <iron-signals
+      on-iron-signal-side-menu-content-received="_contentReceived"
+      on-iron-signal-side-menu-request-info="_requestReceived">
+    </iron-signals>
+    
     <paper-menu id="menu" class="Navigation Navigation--menu list" attr-for-selected="data-route" selected="[[route.path]]" items="[[navigationItems]]">
       <template is="dom-repeat" items="{{navigationItems}}">
         <template is="dom-if" if="[[_checkChildren(item.children)]]">

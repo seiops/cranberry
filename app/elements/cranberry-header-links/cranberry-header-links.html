@@ -1,5 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-menu-button/paper-menu-button.html">
+<link rel="import" href="../../bower_components/iron-signals/iron-signals.html">
 
 <dom-module id="cranberry-header-links">
   <template>
@@ -7,7 +8,10 @@
       @import "cranberry-header-links/cranberry-header-links";
     </style>
 
-    <byutv-jsonp on-response="_handleResponse" id="request" cache></byutv-jsonp>
+    <iron-signals
+      on-iron-signal-top-menu-content-received="_contentReceived"
+      on-iron-signal-top-menu-request-info="_requestReceived">
+    </iron-signals>
 
     <iron-media-query query="(min-width: 1280px)" query-matches="{{showLinks}}"></iron-media-query>
 

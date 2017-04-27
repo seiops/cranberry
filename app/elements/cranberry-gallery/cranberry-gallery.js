@@ -42,7 +42,8 @@ class CranberryGallery {
     ];
     this.listeners = { 
       'scroll-complete': '_scrollComplete',
-      'gallery-content-received': '_contentReceived'
+      'gallery-content-received': '_contentReceived',
+      'gallery-request-info': '_requestReceived'
     };
   }
 
@@ -75,8 +76,17 @@ class CranberryGallery {
     this.set('displayTag', tag);
   }
 
+  _requestReceived(event) {
+    console.dir(event);
+    if (typeof event.detail.request !== 'undefined') {
+      this.set('currentRequest', event.detail.request);
+      this.set('currentRequester', event.detail.requester);
+    }
+  }
+
   _contentReceived(event) {
     if (typeof event.detail.result !== 'undefined') {
+      console.dir(event.detail.result);
       this.set('gallery', event.detail.result);
       this.set('loading', false);
       this._sendPageView();
@@ -140,7 +150,10 @@ class CranberryGallery {
 
   destroyGallery() {
     console.info('\<cranberry-gallery\> destroying gallery');
-    this.fire('iron-signal', {name: 'cancel-request-content'});
+    let currentRequest = this.get('currentRequest');
+    let currentRequester = this.get('currentRequester');
+
+    this.fire('iron-signal', {name: 'cancel-request-content', data: {request: currentRequest, requester: currentRequester}});
     this.set('loading', true);
     this.set('gallery', {});
 

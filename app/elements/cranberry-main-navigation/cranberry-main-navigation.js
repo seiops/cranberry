@@ -6,37 +6,27 @@ class cranberryMainNavigation {
         type: Array,
         value: []
       },
-      params: {
-        type: Object,
-        value: function() {
-          return {
-            request: 'menu',
-            desiredMenu: 'sideMenu'
-          }
-        }
-      },
-      rest: String,
       route: Object,
       submenuSelected: {
         type: Object,
         observer: '_submenuSelectedChanged'
       }
+    };
+    this.listeners = { 
+      'side-menu-content-received': '_contentReceived',
+      'side-menu-request-info': '_requestReceived'
+    };
+  }
+
+  _contentReceived(event) {
+    if (typeof event.detail.result.items !== 'undefined') {
+      this.set('navigationItems', event.detail.result.items);
     }
   }
 
   attached() {
     this.async(() => {
-      let request = this.$.request;
-      let restUrl = this.get('rest');
-      let params = this.get('params');
-
-      request.setAttribute('url', restUrl);
-      request.setAttribute('callback-value', 'mainNavigation');
-      request.params = params;
-
-      request.generateRequest();
-
-      let menu = this.$.menu;
+      this.fire('iron-signal', { name: 'request-content', data:{request: 'menu', desiredMenu: 'side-menu', callbackId: 'mainNavigation'}});
     });
   }
 
@@ -57,6 +47,12 @@ class cranberryMainNavigation {
         drawer.close();
       }
     });
+  }
+
+  _requestReceived(event) {
+    if (typeof event.detail.request !== 'undefined') {
+      this.set('currentRequest', event.detail.request);
+    }
   }
 
   _submenuSelectedChanged(value, oldValue) {
@@ -95,11 +91,6 @@ class cranberryMainNavigation {
     setTimeout(() => {
       this._checkDrawer();
     }, 150);
-  }
-
-  _handleResponse(response) {
-    let result = JSON.parse(response.detail.Result);
-    this.set('navigationItems', result.items);
   }
 }
 Polymer(cranberryMainNavigation);

@@ -21,7 +21,11 @@
 
     <app-route route="{{route}}" pattern="/:id" data="{{routeData}}"></app-route>
 
-    <iron-signals on-iron-signal-scroll-complete="_scrollComplete" on-iron-signal-gallery-content-received="_contentReceived"></iron-signals>
+    <iron-signals
+      on-iron-signal-scroll-complete="_scrollComplete"
+      on-iron-signal-gallery-content-received="_contentReceived"
+      on-iron-signal-gallery-request-info="_requestReceived">
+    </iron-signals>
 
     <iron-media-query query="(min-width: 960px)" query-matches="{{desktop}}"></iron-media-query>
     <iron-media-query query="(min-width: 720px) and (max-width:959px)" query-matches="{{tablet}}"></iron-media-query>
