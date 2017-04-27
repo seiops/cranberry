@@ -3,19 +3,19 @@ class CranberryContentList {
     this.is = 'cranberry-content-list';
     this.properties = {
       dfpObject: Object,
-      items: {
-        type: Object,
-        value: []
-      },
+      galleries: Boolean,
       hidden: {
         type: Boolean,
         reflectToAttribute: true,
         value: true
       },
-      homepage: {
-        type: Boolean
+      homepage: Boolean,
+      items: {
+        type: Object,
+        value: []
       },
-      tags: String
+      tags: String,
+      tagsPage: Boolean
     };
     this.observers = [
       '_hiddenChanged(hidden)'
@@ -123,6 +123,27 @@ class CranberryContentList {
         value.innerHTML = '';
       });
     }
+  }
+
+  _computeNativoId(index) {
+    let homepage = this.get('homepage');
+    let galleries = this.get('galleries');
+    let tagsPage = this.get('tagsPage');
+    
+    let id = 'nativo-';
+    if (homepage) {
+      id += 'homepage-';
+    } else if (galleries) {
+      id += 'galleries-';
+    } else if (tagsPage) {
+      id += 'tags-'
+    } else {
+      id += 'section-'
+    }
+
+    id +=  + (index === 2 ? '1' : '2');
+
+    return id;
   }
 }
 

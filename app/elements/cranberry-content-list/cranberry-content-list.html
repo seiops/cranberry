@@ -62,7 +62,7 @@
                 </template>
                 <template is="dom-if" if="[[_checkNativeAd(index)]]">
                   <li class="item">
-                    <div class="ntv-ad-div">
+                    <div class="ntv-ad-div" id$="[[_computeNativoId(index)]]">
                       <cranberry-card index="[[index]]" advertisement>
                           <template is="dom-if" if="[[_checkNativeShareThrough(homepage, index)]]" restamp>
                             <template is="dom-if" if="[[!hidden]]" restamp>
