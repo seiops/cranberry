@@ -143,7 +143,7 @@ class cranberrySectionRequest {
     let matherSections = (typeof parentSection !== 'undefined' && parentSection !== '' ? parentSection.toLowerCase() + '/' + section.toLowerCase() : section.toLowerCase() + '/');
     let author = this.get('author');
     let data = {
-      dimension6: (section ==='homepage' ? 'homepage' : 'section'),
+      dimension6: 'section',
       dimension7: section
     }
 
