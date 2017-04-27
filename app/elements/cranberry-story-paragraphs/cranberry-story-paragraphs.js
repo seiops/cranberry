@@ -44,7 +44,8 @@ class cranberryStoryParagraphs {
       },
       toutOff: {
         type: Boolean,
-        computed: '_computeToutOff(story.toutOff, staticPage, story.sectionInformation.section, desktop)'
+        computed: '_computeToutOff(story.toutOff, staticPage, story.sectionInformation.section, desktop)',
+        notify: true
       },
       toutShortcode: {
         type: Boolean,

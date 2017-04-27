@@ -108,8 +108,13 @@ class cranberryStaticSection {
 
   _sendPageviews(staticSection) {
     this.async(() => {
+      let data = {
+        dimension6: 'Static Section',
+        dimension7: staticSection
+      };
+
       // Send pageview event with iron-signals
-      this.fire('iron-signal', {name: 'track-page', data: { path: '/' + staticSection } });
+      this.fire('iron-signal', {name: 'track-page', data: { path: '/' + staticSection, data } });
 
       // Send Chartbeat
       this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/' + staticSection } });

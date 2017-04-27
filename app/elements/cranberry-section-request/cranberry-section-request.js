@@ -117,7 +117,6 @@ class cranberrySectionRequest {
         let start = this.get('start');
         let count = this.get('count');
 
-        console.dir(sectionInformation);
         this.set('section', section);
         this.set('parentSection', parent);
         this.set('tag', tagName.replace(/ /g, '-'));
@@ -144,8 +143,8 @@ class cranberrySectionRequest {
     let matherSections = (typeof parentSection !== 'undefined' && parentSection !== '' ? parentSection.toLowerCase() + '/' + section.toLowerCase() : section.toLowerCase() + '/');
     let author = this.get('author');
     let data = {
-      'dimension6': (section ==='homepage' ? 'homepage' : 'section'),
-      'dimension7': section
+      dimension6: (section ==='homepage' ? 'homepage' : 'section'),
+      dimension7: section
     }
 
     let pageType = (section === 'homepage' ? 'home' : 'section');
@@ -159,7 +158,7 @@ class cranberrySectionRequest {
 
     this.async(() => {
       // Fire Google Analytics Pageview
-      this.fire('iron-signal', {name: 'track-page', data: { path: path, data: data } });
+      this.fire('iron-signal', {name: 'track-page', data: { path: path, data } });
       // Fire Chartbeat pageview
       this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: path, data: {'sections': section, 'authors': author } } });
       // Fire Youneeq Page Hit Request

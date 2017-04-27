@@ -61,6 +61,7 @@ class CranberryStory {
         type: String,
         value: ''
       },
+      toutOff: Boolean,
       toutUid: String,
       user: Object
     };
@@ -130,33 +131,35 @@ class CranberryStory {
   _sendPageview() {
     this.async(() => {
       let story = this.get('response');
+      let toutOff = this.get('toutOff');
+      let staticPage = this.get('staticPage');
 
       var { byline: { inputByline: byline }, sectionInformation: { sectionParentName, sectionName, section  }, published: published, publishedISO: publishedISO, tags: tags, itemId: storyId } = story;
       
       let matherSections = (typeof sectionParentName !== 'undefined' && sectionParentName !== '' ? sectionParentName.toLowerCase() + '/' + section.toLowerCase() : section.toLowerCase() + '/');
-
-      if (typeof story.byline !== 'undefined') {
-        if (typeof story.byline.title !== 'undefined') {
-          byline = story.byline.title;
-        }
-      }
+      byline = (typeof story.byline !== 'undefined' && typeof story.byline.title !== 'undefined' ? story.byline.title : '');
 
       if (section === '') {
         section = story.sectionInformation.sectionParentName;
       }
 
+      let path = (staticPage ? `/page/${encodeURI(section.toLowerCase())}` : `/story/${storyId}`);
+
       let data = {
         dimension1: (typeof byline !== 'undefined') ? byline : '',
         dimension3: (typeof published !== 'undefined') ? published : '',
-        dimension6: 'Story',
-        dimension8: (typeof tags !== 'undefined') ? tags : ''
+        dimension4: toutOff,
+        dimension5: storyId,
+        dimension6: (staticPage ? 'Static' : 'Story'),
+        dimension7: (staticPage ? section.replace(/ /g, '-') : section),
+        dimension8: (typeof tags !== 'undefined' ? tags : '')
       };
-    
+      
       // Send pageview event with iron-signals
-      this.fire('iron-signal', {name: 'track-page', data: { path: '/story/' + storyId, data } });
+      this.fire('iron-signal', {name: 'track-page', data: { path: path, data } });
 
       // Send Chartbeat
-      this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/story/' + storyId, data: {'sections': section, 'authors': byline } } });
+      this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: path, data: {'sections': section, 'authors': byline } } });
 
       // Fire Youneeq Page Hit Request
       this.fire('iron-signal', {name: 'page-hit', data: {content: story}});
