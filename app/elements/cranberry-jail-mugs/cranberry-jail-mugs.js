@@ -215,18 +215,19 @@ class cranberryJailMugs {
     this._buildCardRequest(totalMove);
 
     let bookingdate = this.get('route.path').replace('/', '');
-    let data = {};
-
-    data.dimension6 = 'jail-mugs';
-    data.dimension3 = bookingdate;
+    let path = `/jail-mugs/${bookingdate}`;
+    let data = {
+      dimension3: bookingdate,
+      dimension6: 'Jail Mugs'
+    };
 
     let youneeqData = this.get('youneeqData');
 
     // Send pageview event with iron-signals
-    this.fire('iron-signal', {name: 'track-page', data: { path: '/jail-mugs/' + bookingdate, data } });
+    this.fire('iron-signal', {name: 'track-page', data: { path: path, data } });
 
     // Send Chartbeat
-    this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/jail-mugs/' + bookingdate, data: {'sections': 'jail-mugs' } } });
+    this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: path, data: {'sections': 'jail-mugs' } } });
 
     // Fire Youneeq Page Hit Request
     this.fire('iron-signal', {name: 'page-hit', data: { content: youneeqData } });
