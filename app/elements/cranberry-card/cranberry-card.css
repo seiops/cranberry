@@ -1,6 +1,5 @@
 :host {
   display: block;
-  overflow: hidden;
 }
 
 /* IE 10 support for HTML5 hidden attr */
@@ -27,6 +26,7 @@ div.card[advertisement] {
   background-color: transparent;
   box-shadow: none;
   margin: 0 auto;
+  max-width: 100%;
 }
 
 div.card[advertisement] ::content google-dfp {
