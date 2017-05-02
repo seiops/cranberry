@@ -109,7 +109,7 @@ class GigyaUpdateProfile {
     let base = Polymer.dom(document).querySelector('cranberry-base');
     let socialize = base.querySelector('gigya-socialize');
 
-    socialize.set('userSelected', 4);
+    socialize.set('userSelected', 3);
   }
 
   _submit() {
