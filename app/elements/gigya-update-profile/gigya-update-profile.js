@@ -126,16 +126,18 @@ class GigyaUpdateProfile {
       context: this,
       username: form.username.value,
       profile: {
-        firstName: form.firstName.value,
-        lastName: form.lastName.value,
+        firstName: (form.firstName.value !== '' ? form.firstName.value : null),
+        lastName: (form.lastName.value !== '' ? form.lastName.value : null),
         email: form.email.value,
-        gender: form.gender.value,
-        birthDay: form.birthDay.value,
-        birthMonth: form.birthMonth.value,
-        birthYear: form.birthYear.value,
-        zip: form.zip.value
+        gender: (form.gender.value !== '' ? form.gender.value : null),
+        birthDay: (form.birthDay.value !== '' ? form.birthDay.value : null),
+        birthMonth: (form.birthMonth.value !== '' ? form.birthMonth.value : null),
+        birthYear: (form.birthYear.value !== '' ? form.birthYear.value : null),
+        zip: (form.zip.value !== '' ? form.zip.value : null)
       }
     };
+
+    console.dir(params);
 
     gigya.accounts.setAccountInfo(params);
   }
