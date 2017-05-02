@@ -86,6 +86,16 @@ class GigyaSocialize {
         onLogout: el._logoutUser
       });
     });
+
+    let dialog = this.$.userModal;
+    
+    dialog.addEventListener('opened-changed', function(){
+      if(dialog.opened) {
+        Polymer.IronDropdownScrollManager.pushScrollLock(dialog);
+      } else {
+        Polymer.IronDropdownScrollManager.removeScrollLock(dialog);
+      }
+    });
   }
 
   // check Gigya user
@@ -197,7 +207,7 @@ class GigyaSocialize {
 
   // show profile update form
   _showAccountSettings() {
-    this.set('userSelected', 3);
+    this.set('userSelected', 2);
   }
 
   // Method to check if queryParams has a value of verifyAccount

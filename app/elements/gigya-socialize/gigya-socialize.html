@@ -23,21 +23,21 @@
     <paper-dialog id="userModal" modal>
       <paper-dialog-scrollable>
         <template is="dom-if" if="[[user.isLoggedIn]]">
-          <paper-toolbar>
-            <div class="user-toolbar">
+          <paper-toolbar class="medium-tall top-bar">
+            <div class="top user-toolbar">
               <paper-icon-button icon="arrow-back" dialog-dismiss></paper-icon-button>
               <div class="user-title">[[user.firstName]] [[user.lastName]]</div>
             </div>
-            <paper-icon-button icon="cranberry-icons:close" dialog-dismiss></paper-icon-button>
-          </paper-toolbar>
-          <paper-toolbar>
-            <paper-tabs id="accountTabs" selected="{{userSelected}}" autoselect>
+
+            <paper-tabs id="accountTabs" class="middle" selected="{{userSelected}}" autoselect>
               <paper-tab>My Profile</paper-tab>
               <paper-tab disabled>Membership</paper-tab>
               <!-- <paper-tab disabled>Newsletters</paper-tab> -->
               <paper-tab>Settings</paper-tab>
               <paper-tab>Password</paper-tab>
             </paper-tabs>
+
+            <paper-icon-button icon="cranberry-icons:close" dialog-dismiss></paper-icon-button>
           </paper-toolbar>
           <div class="user-content">
             <div hidden$="{{!_equal(userSelected, 0)}}">

@@ -19,6 +19,7 @@ div.profile-tabs {
 }
 
 div.user-content {
+  margin-top: 120px;
   padding: 24px;
 }
 
@@ -45,6 +46,7 @@ paper-toolbar.user-toolbar paper-icon-button {
 
 div.user-title {
   @apply(--paper-font-display2);
+  color: #fff;
 }
 
 paper-toolbar ::content #topBar {
@@ -82,4 +84,16 @@ paper-tab {
 
 paper-tab[disabled] {
   color: var(--soft-grey);
+}
+
+paper-tabs#profileTabs paper-tab.iron-selected {
+  color: #000;
+}
+
+paper-toolbar.top-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
 }
