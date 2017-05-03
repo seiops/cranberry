@@ -169,3 +169,7 @@ div.loading-container {
   @apply(--layout-center-justified);
   height: 85vh;
 }
+
+google-dfp.right-rail-dfp {
+  margin-bottom: 24px;
+}

@@ -91,6 +91,10 @@ class CranberryGallery {
       this.set('loading', false);
       this._sendPageView();
       this.playAnimation('entry');
+
+      if (typeof window.PostRelease !== 'undefined' && typeof window.PostRelease.Start === 'function') {
+        PostRelease.Start();
+      }
     }
   }
 
