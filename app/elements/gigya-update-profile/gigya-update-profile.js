@@ -105,11 +105,14 @@ class GigyaUpdateProfile {
     this._enableForm();
   }
 
-  _showChangePassword() {
-    let base = Polymer.dom(document).querySelector('cranberry-base');
-    let socialize = base.querySelector('gigya-socialize');
+  _showChangePassword(e) {
+    e.preventDefault();
+    this.async(() => {
+      let base = Polymer.dom(document).querySelector('cranberry-base');
+      let socialize = base.querySelector('gigya-socialize');
 
-    socialize.set('userSelected', 3);
+      socialize.set('userSelected', 3);
+    }, 25);
   }
 
   _submit() {

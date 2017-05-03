@@ -21,6 +21,11 @@ class GigyaSocialize {
       },
       user: {
         type: Object,
+        value: function() {
+          return {
+              isLoggedIn: false
+            }
+        },
         notify: true
       },
       userSelected: {
@@ -40,6 +45,9 @@ class GigyaSocialize {
         type: Boolean,
         value: false
       }
+    };
+    this.listeners = { 
+      'open-user-modal': '_handleOpen'
     };
   }
 
@@ -86,16 +94,6 @@ class GigyaSocialize {
         onLogout: el._logoutUser
       });
     });
-
-    let dialog = this.$.userModal;
-    
-    dialog.addEventListener('opened-changed', function(){
-      if(dialog.opened) {
-        Polymer.IronDropdownScrollManager.pushScrollLock(dialog);
-      } else {
-        Polymer.IronDropdownScrollManager.removeScrollLock(dialog);
-      }
-    });
   }
 
   // check Gigya user
@@ -110,26 +108,25 @@ class GigyaSocialize {
   }
 
   // open modal window
-  openModal() {
-    this.$.userModal.toggle();
+  _handleOpen() {
+    this._openModal();
   }
 
-  // private methods
+  _openModal() {
+    let dialog = Polymer.dom(this.root).querySelector('#userModal');
 
-  // check if Gigya API is loaded
-  // _checkGigya() {
-  //   let el = this;
+    dialog.addEventListener('opened-changed', function() {
+      if(dialog.opened) {
+        Polymer.IronDropdownScrollManager.pushScrollLock(dialog);
+      } else {
+        Polymer.IronDropdownScrollManager.removeScrollLock(dialog);
+      }
+    });
 
-  //   setTimeout(function() {
-  //     if (typeof gigya !== 'undefined' && typeof gigya.socialize !== 'undefined' && typeof gigya.socialize.getUserInfo === 'function') {
-  //       el.checkUser();
-
-  //       return true;
-  //     } else {
-  //       el._checkGigya();
-  //     }
-  //   }, 50);
-  // }
+    dialog.toggle();
+    dialog.refit();
+    dialog.center();
+  }
 
   _equal(a, b) {
     if (a === b) {
@@ -152,8 +149,14 @@ class GigyaSocialize {
 
     let el = account.context;
     el.set('account', account);
-
+    
     gigya.socialize.refreshUI();
+
+    let dialog = Polymer.dom(this.root).querySelector('#userModal');
+
+    if (dialog) {
+      dialog.resetFit();
+    }
   }
 
   // load Gigya user information
@@ -206,8 +209,11 @@ class GigyaSocialize {
   }
 
   // show profile update form
-  _showAccountSettings() {
-    this.set('userSelected', 2);
+  _showAccountSettings(e) {
+    e.preventDefault();
+    this.async(() => {
+      this.set('userSelected', 2);
+    }, 25);
   }
 
   // Method to check if queryParams has a value of verifyAccount

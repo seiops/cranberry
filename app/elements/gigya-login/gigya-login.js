@@ -102,11 +102,14 @@ class GigyaLogin {
   }
 
   // handle register link click
-  _handleRegister() {
-    let base = Polymer.dom(document).querySelector('cranberry-base');
-    let socialize = base.querySelector('gigya-socialize');
+  _handleRegister(event) {
+    event.preventDefault();
+    this.async(() => {
+      let base = Polymer.dom(document).querySelector('cranberry-base');
+      let socialize = base.querySelector('gigya-socialize');
 
-    socialize.set('guestSelected', 1);
+      socialize.set('guestSelected', 1);
+    }, 25);
   }
 
   // handle reset form, clear notices

@@ -164,9 +164,10 @@ class CranberryBase {
   }
 
   openUserModal() {
-    let el = Polymer.dom(this.root).querySelector('gigya-socialize');
+    this.fire('iron-signal', { name: 'open-user-modal'});
+    // let gigyaSocialize = Polymer.dom(this).querySelector('gigya-socialize');
 
-    el.openModal();
+    // gigyaSocialize.openModal();
   }
 
   _isLocal(selected) {

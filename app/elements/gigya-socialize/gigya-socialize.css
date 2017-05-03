@@ -19,7 +19,6 @@ div.profile-tabs {
 }
 
 div.user-content {
-  margin-top: 120px;
   padding: 24px;
 }
 
@@ -70,6 +69,11 @@ paper-dialog {
   }
 }
 
+paper-dialog > * {
+  margin-top: 0;
+  padding: 0;
+}
+
 paper-dialog > *:first-child {
   margin-top: 0;
 }
@@ -88,12 +92,4 @@ paper-tab[disabled] {
 
 paper-tabs#profileTabs paper-tab.iron-selected {
   color: #000;
-}
-
-paper-toolbar.top-bar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 999;
 }
