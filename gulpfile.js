@@ -53,7 +53,6 @@ gulp.task('lint-js', ['ensureFiles'], function() {
       'app/scripts/**/*.js',
       '!app/scripts/analytics.js',
       '!app/scripts/gpt.js',
-      '!app/scripts/widgets.js',
       'app/elements/**/*.js',
       'gulpfile.js'
     ]);
@@ -100,7 +99,7 @@ gulp.task('copy', function() {
   var icons = gulp.src(['app/themes/' + config.appTheme + '/icons.html'])
     .pipe(gulp.dest('dist/themes/' + config.appTheme));
 
-  var scripts = gulp.src(['app/scripts/analytics.js', 'app/scripts/gpt.js', 'app/scripts/widgets.js'])
+  var scripts = gulp.src(['app/scripts/analytics.js', 'app/scripts/gpt.js'])
     .pipe(gulp.dest('dist/scripts'));
 
   return merge(app, bower, elements, icons, scripts)
@@ -189,7 +188,8 @@ gulp.task('cache-config', function(callback) {
     'index.html?utm_source=web_app_manifest',
     './?utm_source=web_app_manifest',
     './',
-    'bower_components/webcomponentsjs/webcomponents-lite.min.js',
+    'bower_components/webcomponents-platform/webcomponents-platform.js',
+    'bower_components/webcomponentsjs/webcomponents-lite.js',
     '{elements,scripts,themes}/**/*.*'],
     {cwd: dir}, function(error, files) {
     if (error) {
@@ -305,9 +305,6 @@ gulp.task('download:dfp', require(task('download-dfp'))($, gulp));
 // Download newest script autotrack.js
 gulp.task('download:autotrack', require(task('download-autotrack'))($, gulp));
 
-// Download newest script widgets.js from Twitter for timeline
-gulp.task('download:widgets', require(task('download-widgets'))($, gulp));
-
 // Fix paths before revision task
 gulp.task('fix-paths-before-revision', require(task('fix-paths'))($, gulp, merge, 'before'));
 
@@ -350,7 +347,7 @@ gulp.task('default', ['clean'], function(cb) {
 // Initializing app
 gulp.task('init', function(cb) {
   runSequence(
-    ['download:analytics', 'download:dfp', 'download:fonts', 'download:autotrack', 'download:widgets'],
+    ['download:analytics', 'download:dfp', 'download:fonts', 'download:autotrack'],
     cb);
 });
 

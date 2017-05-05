@@ -48,6 +48,14 @@ class scorestreamWidget {
     this.observers = ['_turnOnOff(masterSwitch, scoreboardSwitch)'];
   }
 
+  _computeShow(widgetUrl, isOff) {
+    if (widgetUrl.length > 0 && !isOff) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   _handleLoad() {
       console.info('<\scorestream-widget\> load received');
   }

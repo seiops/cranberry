@@ -5,8 +5,7 @@ module.exports = function ($, gulp) { return function () {
   return gulp.src([
       'app/{scripts,elements}/**/*.js',
       '!app/scripts/analytics.js',
-      '!app/scripts/gpt.js',
-      '!app/scripts/widgets.js'
+      '!app/scripts/gpt.js'
     ])
     .pipe($.plumber())
     .pipe($.sourcemaps.init())

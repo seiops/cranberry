@@ -1,21 +1,7 @@
 class CranberrySection {
-  get behaviors() {
-    return [Polymer.NeonAnimationRunnerBehavior]
-  }
   beforeRegister() {
     this.is = 'cranberry-section';
     this.properties = {
-      animationConfig: {
-        value: function() {
-          return {
-            'entry': {
-              name: 'fade-in-animation',
-              node: this,
-              timing: {duration: 1500}
-            }
-          }
-        }
-      },
       contentLoading: {
         type: Boolean,
         observer: '_loadingChanged'
@@ -247,12 +233,6 @@ class CranberrySection {
   }
 
   _loadingChanged(loading, oldLoading) {
-    this.async(() => {
-    if (!loading) {
-      this.playAnimation('entry');
-    }
-    });
-    
   }
 
   _currentPageChanged(newValue, oldValue) {

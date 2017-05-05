@@ -14,12 +14,17 @@ module.exports = function ($, gulp) { return function () {
     /^\/cache-config.json/g,
     /^\/index.html/g,
     /^\/sw-import.js/g,
-    /^\/bower_components\/zxcvbn\/dist\/zxcvbn.js/g
+    /^\/bower_components\/zxcvbn\/dist\/zxcvbn.js/g,
+    /^\/bower_components\/webcomponentsjs\/webcomponents-lite.js/g,
+    /^\/bower_components\/webcomponents-platform\/webcomponents-platform.js/g,
+    /^\/bower_components\/fetch\/fetch.js/g
   ], dontUpdateReference: [
     /^\/app.yaml/g,
     /^\/cache-config.json/g,
     /^\/index.html/g,
-    /^\/sw-import.js/g
+    /^\/bower_components\/webcomponentsjs\/webcomponents-lite.js/g,
+    /^\/bower_components\/webcomponents-platform\/webcomponents-platform.js/g,
+    /^\/bower_components\/fetch\/fetch.js/g
   ]});
 
   return gulp.src('dist/**')

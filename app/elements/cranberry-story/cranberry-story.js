@@ -1,7 +1,4 @@
 class CranberryStory {
-  get behaviors() {
-    return [Polymer.NeonAnimationRunnerBehavior]
-  }
   beforeRegister() {
     this.is = 'cranberry-story';
     this.properties = {
@@ -195,11 +192,6 @@ class CranberryStory {
   }
 
   _loadingChanged(loading, oldLoading) {
-    this.async(() => {
-      if (loading) {
-        this.playAnimation('entry');
-      }
-    });
   }
 }
 Polymer(CranberryStory);

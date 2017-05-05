@@ -30,12 +30,7 @@ class CranberryBase {
   // attached to document
   attached() {
     let skeleton = document.getElementById('skeleton');
-    if (typeof skeleton.remove !== 'undefined') {
-      skeleton.remove();
-    } else {
-      let body = Polymer.dom(document).querySelector('body');
-      body.removeChild(skeleton);
-    }
+    document.body.removeChild(skeleton);
     
 
     if (typeof window.performance !== 'undefined' && typeof window.performance.timing !== 'undefined') {
@@ -46,7 +41,7 @@ class CranberryBase {
     }
     
 
-    this._setupSurvey();
+    // this._setupSurvey();
   }
 
   // element ready
@@ -55,13 +50,6 @@ class CranberryBase {
     // https://github.com/Polymer/polymer/issues/2653
     this.fire('upgraded');
     this.set('upgraded', true);
-
-    this.async(function() {
-      // If the path is blank, redirect to /
-      if (!this.route.path) {
-        this.set('route.path', '/');
-      }
-    });
   }
 
   _setCanonical(route) {

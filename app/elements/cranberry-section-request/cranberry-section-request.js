@@ -128,8 +128,14 @@ class cranberrySectionRequest {
   }
 
   _computeLoading(requestLoading, requestGenerated, response) {
-    if (!requestLoading && Object.keys(response.Result).length > 0) {
-      return false;
+    if (!requestLoading && typeof response !== 'undefined' && typeof response.Result !== 'undefined') {
+      let result = JSON.parse(response.Result);
+
+      if (Object.keys(result).length > 0) {
+        return false;
+      } else {
+        return true;
+      }
     } else {
       return true;
     }

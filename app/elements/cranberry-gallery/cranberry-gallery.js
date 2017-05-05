@@ -1,21 +1,7 @@
 class CranberryGallery {
-  get behaviors() {
-    return [Polymer.NeonAnimationRunnerBehavior]
-  }
   beforeRegister() {
     this.is = 'cranberry-gallery';
     this.properties = {
-      animationConfig: {
-        value: function() {
-          return {
-            'entry': {
-              name: 'fade-in-animation',
-              node: this,
-              timing: {duration: 2500}
-            }
-          }
-        }
-      },
       baseUrl: String,
       elementAttached: Boolean,
       gallery: Object,
@@ -90,7 +76,6 @@ class CranberryGallery {
       this.set('gallery', event.detail.result);
       this.set('loading', false);
       this._sendPageView();
-      this.playAnimation('entry');
 
       if (typeof window.PostRelease !== 'undefined' && typeof window.PostRelease.Start === 'function') {
         PostRelease.Start();

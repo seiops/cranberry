@@ -41,11 +41,13 @@
           </div>
         </template>
       </div>
-      <div class="livestream-content" hidden$="[[!livestream]]">
-        <div class="livestream">
-          <iframe src="[[_computeLivestreamURL(livestreamItem.url)]]" id="livestreamPlayer" frameborder="0" scrolling="no" width="620px" height="400px"></iframe>
+      <template is="dom-if" if="[[livestream]]" restamp>
+        <div class="livestream-content" hidden$="[[!livestream]]">
+          <div class="livestream">
+            <iframe src="[[_computeLivestreamURL(livestreamItem.url)]]" id="livestreamPlayer" frameborder="0" scrolling="no" width="620px" height="400px"></iframe>
+          </div>
         </div>
-      </div>
+      </template>
     </template>
   </template>
   <script src="cranberry-featured-content.js"></script>

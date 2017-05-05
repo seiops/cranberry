@@ -42,11 +42,7 @@ class cranberrySearchBar {
 
     });
   }
-
-  _onNeonAnimationFinish() {
-    //Abstract add here if needed
-  }
-
+  
   _checkQueryStatus() {
     // Get the search request BYUTV element
     let request = document.querySelector('#searchRequest');

@@ -7,6 +7,7 @@
     @apply(--paper-font-body1);
     color: var(--primary-text-color);
     padding: 0;
+    height: 48px;
   };
 
   /* postcss-bem-linter: ignore */
@@ -54,6 +55,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     color: var(--primary-text-color);
     min-height: 48px;
+    height: 48px;
     padding-left: 12px;
     padding-right: 12px;
     text-decoration: none;

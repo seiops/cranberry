@@ -70,7 +70,25 @@ class youneeqTracker {
 
   _setYouneeqId() {
     let el = this;
-    fetch('http://api.youneeq.ca/app/sessionid')
+
+    let fetchDefined = new Promise(
+      function(resolve, reject) {
+        function timeoutFunction() {
+          setTimeout(function() {
+            if (typeof window.fetch !== 'undefined' && typeof window.fetch === 'function') {
+              resolve(true);
+              return;
+            } else {
+              timeoutFunction();
+            }
+          }, 50);
+        }
+        timeoutFunction();
+      }
+    );
+
+    fetchDefined.then(function(val) {
+      fetch('http://api.youneeq.ca/app/sessionid')
       .then(function(response) {
         return response.text();
       }).then(function(text) {
@@ -97,6 +115,7 @@ class youneeqTracker {
 
         el.set('youneeqId', bof_session);
       });
+    });
   }
 
   sendPageHit(event) {

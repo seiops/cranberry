@@ -5,7 +5,11 @@ module.exports = function (del) { return function (cb) {
   return del([
     'dist/bower_components/**/*',
     '!dist/bower_components/webcomponentsjs',
-    '!dist/bower_components/webcomponentsjs/webcomponents-lite.min.js',
+    '!dist/bower_components/webcomponents-platform',
+    '!dist/bower_components/webcomponentsjs/webcomponents-lite.js',
+    '!dist/bower_components/webcomponents-platform/webcomponents-platform.js',
+    '!dist/bower_components/fetch',
+    '!dist/bower_components/fetch/fetch.js',
     '!dist/bower_components/platinum-sw',
     '!dist/bower_components/platinum-sw/service-worker.js',
     '!dist/bower_components/platinum-sw/bootstrap/**',

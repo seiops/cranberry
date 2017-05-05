@@ -37,24 +37,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     'import' in document.createElement('link') &&
     'content' in document.createElement('template'));
 
-  function finishLazyLoading() {
-    // // (Optional) Use native Shadow DOM if it's available in the browser.
-    // // WARNING! This will mess up the page.js router which uses event delegation
-    // // and expects to receive events from anchor tags. These events get re-targeted
-    // // by the Shadow DOM to point to <cranberry-base>
-    // // window.Polymer = window.Polymer || {dom: 'shadow'};
+  var fetchSupported = (typeof window.fetch === 'function' ? true : false);
 
+  if (!fetchSupported) {
+    var fetchPolyfill = document.createElement('script');
+    fetchPolyfill.src = 'bower_components/fetch/fetch.js';
+
+    document.body.appendChild(fetchPolyfill);
+  }
+
+  function finishLazyLoading() {
     // // When base-bundle.html with elements is loaded
     var onImportLoaded = function() {
       logger('Imports loaded and elements registered.');
 
-    //   // Remove skeleton
-      // var skeleton = document.getElementById('skeleton');
-      // skeleton.remove();
-
       if (webComponentsSupported) {
-        // Emulate WebComponentsReady event for browsers supporting Web Components natively
-        // (Chrome, Opera, Vivaldi)
         document.dispatchEvent(
           new CustomEvent('WebComponentsReady', {bubbles: true})
         );
@@ -62,10 +59,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     };
 
     var elementsBaseBundle = document.getElementById('elementsBaseBundle');
-
-    // Go if the async Import loaded quickly. Otherwise wait for it.
-    // crbug.com/504944 - readyState never goes to complete until Chrome 46.
-    // crbug.com/505279 - Resource Timing API is not available until Chrome 46.
+    
     if (elementsBaseBundle.import && elementsBaseBundle.import.readyState === 'complete') {
       onImportLoaded();
     } else {
@@ -73,18 +67,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
   }
 
-  finishLazyLoading();
-  // if (!webComponentsSupported) {
-  //   logger('Web Components aren\'t supported!');
-  //   var script = document.createElement('script');
-  //   script.async = true;
-  //   script.src = 'bower_components/webcomponentsjs/webcomponents-lite.min.js';
-  //   script.onload = finishLazyLoading;
-  //   document.head.appendChild(script);
-  // } else {
-  //   logger('\[Cranberry Core\]\: Web Component support detected');
-  //   finishLazyLoading();
-  // }
+  // finishLazyLoading();
+  if (!webComponentsSupported) {
+    logger('Web Components aren\'t supported!');
+    var preScript = document.createElement('script');
+    
+    preScript.src = 'bower_components/webcomponents-platform/webcomponents-platform.js';
+    preScript.onload = appendWebComp;
+    document.body.appendChild(preScript);
+  } else {
+    logger('\[Cranberry Core\]\: Web Component support detected');
+    finishLazyLoading();
+  }
+
+  function appendWebComp() {
+    var script = document.createElement('script');
+    script.src = 'bower_components/webcomponentsjs/webcomponents-lite.js';
+    script.onload = finishLazyLoading;
+    document.body.appendChild(script);
+  }
 
   // Listen for template bound event to know when bindings
   // have resolved and content has been stamped to the page

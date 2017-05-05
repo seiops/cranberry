@@ -66,6 +66,21 @@ class cranberryContentRequest {
     let id = Object.keys(requestersState).find(key => requestersState[key] === false);
 
     if (typeof id !== 'undefined' && id !== '') {
+      switch(id) {
+        case 'requester1': 
+          this.set('requestInFlight', true);
+          break;
+        case 'requester2': 
+          this.set('requestTwoInFlight', true);
+          break;
+        case 'requester3': 
+          this.set('requestThreeInFlight', true);
+          break;
+        case 'requester4': 
+          this.set('requestFourInFlight', true);
+          break;
+      }
+
       // Return the DOM element of the requester
       return Polymer.dom(this.root).querySelector('#' + id);
     } else {
@@ -93,7 +108,7 @@ class cranberryContentRequest {
           this.set('overflow', overflow);
         }
       }
-    }, 50);
+    }, 75);
   }
 
   _setupParams(details) {

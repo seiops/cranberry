@@ -14,10 +14,12 @@
       last-request="{{request}}"
       last-error="{{error}}"
       id="request"></byutv-jsonp>
-
-    <div class="scorestream-container" hidden$="[[isOff]]">
-      <iframe src="[[widgetUrl]]" title="Realtime sports scoreboard widget"  scrolling="no" frameBorder="0"></iframe>
-    </div>
+    
+    <template is="dom-if" if="[[_computeShow(widgetUrl, isOff)]]" restamp>
+      <div class="scorestream-container" hidden$="[[isOff]]">
+        <iframe src="[[widgetUrl]]" title="Realtime sports scoreboard widget"  scrolling="no" frameBorder="0"></iframe>
+      </div>
+    </template>
 
   </template>
     <script src="scorestream-widget.js"></script>
