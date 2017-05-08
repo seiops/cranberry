@@ -80,7 +80,24 @@ class GoogleDFP {
     _adPathChanged(dfpObject, hidden) {
       if (!hidden) {
         if (typeof dfpObject !== 'undefined' && Object.keys(dfpObject).length > 0) {
-          this._setupAdvertisement(dfpObject);
+          let googleTagDefined = new Promise(
+            function(resolve, reject) {
+              function timeoutFunction() {
+                setTimeout(() => {
+                  if (typeof googletag !== 'undefined' && googletag.apiReady) {
+                    resolve(true);
+                    return;
+                  } else {
+                    timeoutFunction();
+                  }
+                }, 50);
+              }
+              timeoutFunction();
+            }
+          );
+          googleTagDefined.then((val) => {
+              this._setupAdvertisement(dfpObject);
+          });
         }
       }
     }
