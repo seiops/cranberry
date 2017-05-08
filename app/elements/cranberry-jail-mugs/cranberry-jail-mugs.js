@@ -65,7 +65,7 @@ class cranberryJailMugs {
       let hidden = this.get('hidden');
       let firstRun = this.get('firstRun');
 
-      if (!hidden) {
+      if (!hidden && newValue.path !== null) {
         let path = (newValue.path === '' ? '' : newValue.path.replace('/', ''));
 
         if (firstRun) {
