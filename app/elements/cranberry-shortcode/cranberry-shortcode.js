@@ -275,9 +275,7 @@ class cranberryShortcode {
           shortcodeEl = '';
         case 'youtube':
           shortcodeEl = document.createElement('google-youtube');
-          let videoAttribute = document.createAttribute('video-id');
-          videoAttribute.value = content.url;
-          shortcodeEl.setAttributeNode(videoAttribute);
+          shortcodeEl.set('videoId', content.url);
           shortcodeEl.height = '100%';
           shortcodeEl.width = '100%';
           break;
