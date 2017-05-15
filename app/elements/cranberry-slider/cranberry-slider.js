@@ -280,15 +280,18 @@ class cranberrySlider {
 
     let byline = '';
 
-    if (typeof gallery.byline !== 'undefined') {
-      if (typeof gallery.byline.title !== 'undefined' && gallery.byline.title !== '') {
-        byline = gallery.byline.title;
-      } else {
-        byline = gallery.byline.inputByline;
+    if (typeof galleryType !== 'undefined' && galleryType !== 'cranberry-jail-mugs') {
+      if (typeof gallery.byline !== 'undefined') {
+        if (typeof gallery.byline.title !== 'undefined' && gallery.byline.title !== '') {
+          byline = gallery.byline.title;
+        } else {
+          byline = gallery.byline.inputByline;
+        }
       }
-    }
 
-    data.dimension1 = byline;
+      data.dimension1 = byline;
+    }
+    
 
     if (typeof gallery.published !== 'undefined') {
       data.dimension3 = gallery.published;
