@@ -76,7 +76,8 @@ class cranberrySlider {
         type: Boolean,
         value: false,
         notify: true
-      }
+      },
+      toutOff: Boolean
     };
     this.observers = ['_itemsLoaded(items)'];
   }
@@ -254,15 +255,20 @@ class cranberrySlider {
     let parentSection = (typeof gallery.sectionInformation.sectionParentName !== 'undefined' ? gallery.sectionInformation.sectionParentName.toLowerCase() : '');
     let section = (typeof gallery.sectionInformation.sectionName !== 'undefined' ? gallery.sectionInformation.sectionName.toLowerCase() : '');
     let matherSections = (typeof parentSection !== 'undefined' && parentSection !== '' ? parentSection + '/' + section : section + '/');
-
+    let contentType = 'Gallery';
+    
     if (typeof galleryType !== 'undefined') {
       switch(galleryType) {
         case 'cranberry-jail-mugs':
           path = '/jail-mugs/' + gallery.bookingDate;
           gallery.timeStamp = new Date();
+          contentType = 'Jail Mugs';
           break;
         case 'cranberry-story': 
           path = '/story/' + gallery.itemId;
+          contentType = 'Story';
+          let toutOff = this.get('toutOff');
+          data.dimension4 = toutOff;
           break;
         default:
           path += gallery.itemId;
@@ -270,11 +276,19 @@ class cranberrySlider {
     }
   
     // Data settings for pageview
-    data.dimension6 = 'Gallery';
+    data.dimension6 = contentType;
+
+    let byline = '';
 
     if (typeof gallery.byline !== 'undefined') {
-      data.dimension1 = gallery.byline;
+      if (typeof gallery.byline.title !== 'undefined' && gallery.byline.title !== '') {
+        byline = gallery.byline.title;
+      } else {
+        byline = gallery.byline.inputByline;
+      }
     }
+
+    data.dimension1 = byline;
 
     if (typeof gallery.published !== 'undefined') {
       data.dimension3 = gallery.published;

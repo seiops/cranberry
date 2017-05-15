@@ -171,6 +171,8 @@ class CranberryGoogleAnalytics {
             ga( value + '.send', 'pageview');
           });
         }
+
+        console.log('\<cranberry-google-analytics\> pageview object', e.detail.data);
         return;
       } else {
         this.trackPage(e);

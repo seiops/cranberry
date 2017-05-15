@@ -134,7 +134,15 @@ class CranberryStory {
       var { byline: { inputByline: byline }, sectionInformation: { sectionParentName, sectionName, section  }, published: published, publishedISO: publishedISO, tags: tags, itemId: storyId } = story;
       
       let matherSections = (typeof sectionParentName !== 'undefined' && sectionParentName !== '' ? sectionParentName.toLowerCase() + '/' + section.toLowerCase() : section.toLowerCase() + '/');
-      byline = (typeof story.byline !== 'undefined' && typeof story.byline.title !== 'undefined' ? story.byline.title : '');
+      byline = '';
+
+      if (typeof story.byline !== 'undefined') {
+        if (typeof story.byline.title !== 'undefined' && story.byline.title !== '') {
+          byline = story.byline.title;
+        } else {
+          byline = story.byline.inputByline;
+        }
+      }
 
       if (section === '') {
         section = story.sectionInformation.sectionParentName;

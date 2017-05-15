@@ -63,7 +63,6 @@ class CranberryGallery {
   }
 
   _requestReceived(event) {
-    console.dir(event);
     if (typeof event.detail.request !== 'undefined') {
       this.set('currentRequest', event.detail.request);
       this.set('currentRequester', event.detail.requester);
@@ -91,13 +90,20 @@ class CranberryGallery {
       let parentSection = (typeof gallery.sectionInformation.sectionParentName !== 'undefined' ? gallery.sectionInformation.sectionParentName.toLowerCase() : '');
       let section = (typeof gallery.sectionInformation.sectionName !== 'undefined' ? gallery.sectionInformation.sectionName.toLowerCase() : '');
       let matherSections = (typeof parentSection !== 'undefined' && parentSection !== '' ? parentSection + '/' + section : section + '/');
+      let byline = '';
+
+      if (typeof gallery.byline !== 'undefined') {
+        if (typeof gallery.byline.title !== 'undefined' && gallery.byline.title !== '') {
+          byline = gallery.byline.title;
+        } else {
+          byline = gallery.byline.inputByline;
+        }
+      }
 
       // Data settings for pageview
       data.dimension6 = 'Gallery';
 
-      if (typeof gallery.byline !== 'undefined') {
-        data.dimension1 = gallery.byline;
-      }
+      data.dimension1 = byline;
 
       if (typeof gallery.published !== 'undefined') {
         data.dimension3 = gallery.published;

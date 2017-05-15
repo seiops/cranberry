@@ -36,7 +36,7 @@ class cranberryStoryParagraphs {
       },
       surveysOff: {
         type: Boolean,
-        computed: '_computeSurveysOff(story.surveyOff, mobile, staticPage)'
+        computed: '_computeSurveysOff(story.surveyOff, mobile, staticPage, story.sectionInformation.section)'
       },
       surveyIndex: {
         type: Number,

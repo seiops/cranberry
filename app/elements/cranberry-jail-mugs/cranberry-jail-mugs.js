@@ -129,17 +129,15 @@ class cranberryJailMugs {
 
   _sliderResponseReceived(response) {
     let result = JSON.parse(response.Result);
-    let bookingdate = result.bookingDate;
+    let content = result.content[0];
+    let bookingdate = content.bookingDate;
     let data = {};
     let dfpObject = this.get('dfpObject');
 
-    data.dimension6 = 'jail-mugs';
+    data.dimension6 = 'Jail Mugs';
     data.dimension3 = bookingdate;
 
-    let modifiedResult = result.content[0];
-
-    modifiedResult.dfp = dfpObject;
-    this.set('sliderJson', result.content[0]);
+    this.set('sliderJson', content);
 
     // // Send pageview event with iron-signals
     this.fire('iron-signal', {name: 'track-page', data: { path: '/jail-mugs/' + bookingdate, data } });
@@ -148,7 +146,7 @@ class cranberryJailMugs {
     this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/jail-mugs/' + bookingdate, data: {'sections': 'jail-mugs' } } });
 
     // // Fire Youneeq Page Hit Request
-    this.fire('iron-signal', {name: 'page-hit', data: { content: result.content[0] } });
+    this.fire('iron-signal', {name: 'page-hit', data: { content: content } });
   }
 
   _handleResponse(response) {

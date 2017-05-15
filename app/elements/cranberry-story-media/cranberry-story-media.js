@@ -30,6 +30,7 @@ class cranberryStoryMedia {
       leadShortcodeContent: Object,
       media: Array,
       myCaptureUrl: String,
+      toutOff: Boolean,
       route: Object,
       videos: Array
     };
