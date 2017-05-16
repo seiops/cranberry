@@ -101,16 +101,16 @@ class cranberryShortcode {
     _buildShortcode({ type, lookForObject, searchingIndex, attachments, images, videos, relatedContent, storyInfo, unscrubbedValue, value: searchingValue } = opts) {
       let foundObject = {};
       if (lookForObject) {
-        if (type.includes('image')) {
+        if (type.indexOf('image') >= 0) {
           foundObject = this._findAsset(images, searchingIndex, searchingValue);
         }
-        if (type.includes('video') || type.includes('youtube')) {
+        if (type.indexOf('video') >= 0 || type.indexOf('youtube') >= 0) {
           foundObject = this._findAsset(videos, searchingIndex, searchingValue);
         }
-        if (type.includes('livestream')) {
+        if (type.indexOf('livestream') >= 0) {
           foundObject = this._findAsset(videos, "delivery", "3");
         }
-        if (type.includes('pdf') || type.includes('audio')) {
+        if (type.indexOf('pdf') >= 0 || type.indexOf('audio') >= 0) {
           foundObject = this._findAsset(attachments, searchingIndex, searchingValue);
         }
         if (type === 'singlegallery') {
@@ -119,11 +119,11 @@ class cranberryShortcode {
         if (type === 'gallery') {
           foundObject = relatedContent;
         }
-        if (type.includes('revealer')) {
+        if (type.indexOf('revealer') >= 0) {
           foundObject = this._findAssets(images, searchingIndex, searchingValue);
         }
       } else {
-        if (type.includes('map')) {
+        if (type.indexOf('map') >= 0) {
           if (searchingValue === '') {
             foundObject = storyInfo;
           } else {
