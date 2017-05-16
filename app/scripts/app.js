@@ -17,6 +17,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   // and give it some initial binding values
   // Learn more about auto-binding templates at http://goo.gl/Dx1u2g
   let app = document.getElementById('app');
+  let skeleton = document.getElementById('skeleton');
+  let loadingSplash = document.getElementById('loadingSplash');
+  let blockingSplash = document.getElementById('blockingSplash');
 
   // Debug mode
   app.debug = true;
@@ -46,6 +49,42 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     document.body.appendChild(fetchPolyfill);
   }
 
+  // Check browser version if web components are not supported
+  if (!webComponentsSupported) {
+    if (typeof navigator !== 'undefined' && navigator.userAgent !== 'undefined') {
+      let userAgent = navigator.userAgent;
+      if (userAgent.indexOf("Trident/7.0") > 0) {
+        console.log('I am IE 11');
+        showBlockingSplash();
+      } else if (userAgent.indexOf("Trident/6.0") > 0) {
+        console.log('I am IE 10');
+      } else if (userAgent.indexOf("Trident/5.0") > 0) {
+        console.log('I am IE 9');
+      } else {
+        console.log('I am not a triggered version of IE');
+      }
+    }
+  }
+
+  function showBlockingSplash() {
+    app.setAttribute('hidden', true);
+    loadingSplash.setAttribute('hidden', true);
+    blockingSplash.removeAttribute('hidden');
+
+    let showCoreButton = document.getElementById('showCoreButton');
+
+    showCoreButton.addEventListener('click', showCore, false);
+  }
+
+  function showCore(e) {
+    e.preventDefault();
+
+    console.log('Show the core please!');
+
+    app.removeAttribute('hidden');
+    loadingSplash.removeAttribute('hidden');
+    blockingSplash.setAttribute('hidden', true);
+  }
   function finishLazyLoading() {
     // // When base-bundle.html with elements is loaded
     var onImportLoaded = function() {

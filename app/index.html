@@ -31,9 +31,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <div class="Skeleton-main">
       <div class="Skeleton-middleContent">
         <img src="/images/logos/{$ theme.global.fileName $}/logo.png" />
-        <div>
-          <p>Loading {$ config.urlTitle $}</p>
-          <div>
+        <div id="loading-section">
+          <div id="loadingSplash">
+            <p>Loading {$ config.urlTitle $}</p>
             <div id="spinner">
               <div id="spinnerContainer" class="active">
                 <div class="spinner-layer">
@@ -43,6 +43,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               </div>
             </div>
           </div>
+        </div>
+        <div id="blockingSplash" hidden>
+          <p class="blocking-description">
+            We have detected that your browser will not give an optimum experience.
+            Due to this we recommend that you install <a href="https://www.google.com/chrome/browser/" target="_blank" rel="noopener">Google Chrome</a> on your device.
+          </p>
+          <a href="https://www.google.com/chrome/browser/" target="_blank" rel="noopener"><img src="/images/browser/chrome.png" /></a>
+          <p> Continue knowing you won't get the best experience</p>
+          <button id="showCoreButton">Continue</button>
         </div>
       </div>
     </div>

@@ -29,19 +29,23 @@ class CranberryBase {
 
   // attached to document
   attached() {
-    let skeleton = document.getElementById('skeleton');
-    document.body.removeChild(skeleton);
-    
+    let hidden = this.get('hidden');
 
-    if (typeof window.performance !== 'undefined' && typeof window.performance.timing !== 'undefined') {
-      let start = performance.timing.navigationStart;
-      let now = new Date().getTime();
+    if (!hidden) {
+      let skeleton = document.getElementById('skeleton');
+      document.body.removeChild(skeleton);
+      
 
-      this.set('cranberryBaseTiming', now - start);
+      if (typeof window.performance !== 'undefined' && typeof window.performance.timing !== 'undefined') {
+        let start = performance.timing.navigationStart;
+        let now = new Date().getTime();
+
+        this.set('cranberryBaseTiming', now - start);
+      }
+      
+
+      // this._setupSurvey();
     }
-    
-
-    // this._setupSurvey();
   }
 
   // element ready

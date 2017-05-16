@@ -11,3 +11,4 @@ TODO.md
 .tmp
 .publish/
 **/.DS_Store
+**/.vscode
