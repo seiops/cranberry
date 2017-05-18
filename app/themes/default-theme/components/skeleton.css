@@ -1,5 +1,10 @@
 .Skeleton {
-  @apply(--paper-font-menu);
+  font-family: 'Roboto', 'Noto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.018em;
+  line-height: 24px;
   height: 100%;
 
   @nest &-main {
@@ -45,8 +50,12 @@
   animation: container-rotate 1568ms linear infinite;
 }
 
+div.blocking-splash {
+  padding: 24px;
+}
+
 button#showCoreButton {
-  background-color: var(--primary-color);
+  background-color: var(--light-accent-color);
   @apply(--paper-font-button);
   color: #fff;
   border: none;
@@ -55,6 +64,35 @@ button#showCoreButton {
   text-decoration: none;
   display: inline-block;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.018em;
+  line-height: 24px;
+}
+
+div.browser-images {
+  padding: 24px 0 0 0;
+}
+
+div.browser-images a {
+  padding: 12px;
+}
+
+div.segue {
+  padding: 12px;
+}
+
+div.segue h3 {
+  color: #fff;
+  font-weight: 700;
+  margin-bottom: 0px;
+}
+
+div.segue hr {
+  width: 50px;
+  margin-top: 0px;
+  color: #fff;
+  border: 1px solid #fff;
 }
 
 @keyframes container-rotate {
