@@ -1,7 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
 <dom-module id="google-dfp">
-
   <template>
     <style>
       @import "google-dfp/google-dfp";
@@ -9,25 +8,14 @@
 
     <template is="dom-if" if="[[shareThrough]]">
       <div data-str-set-targeting-placement$="[[shareThroughId]]" style="display: none;"></div>
-      <div id="[[adPos]][[_adCount()]]" class="advertisement"></div>
+      <div class="advertisement"></div>
     </template>
 
     <template is="dom-if" if="[[!shareThrough]]">
-      <div id="[[adPos]][[_adCount()]]" class="advertisement"></div>
+      <div class="advertisement"></div>
     </template>
 
   </template>
-
-  <!-- Declare googletag var and cmd. Setup default ad structure object-->
-  <script>
-    var googletag = window.googletag || {};
-    googletag.cmd = googletag.cmd || [];
-  </script>
-
-  <!-- Add gpt.js from scripts DIR -->
-  <script src="../../scripts/gpt.js"></script>
-
   <!-- Add google-dfp Polymer Object script -->
   <script src="google-dfp.js"></script>
-
 </dom-module>

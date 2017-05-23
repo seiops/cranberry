@@ -14,10 +14,7 @@ class toutElement {
       },
       player: Object,
       playerName: String,
-      route: {
-        type: Object,
-        observer: 'onRouteChanged'
-      },
+      route: Object,
       routeData: Object,
       slot: String,
       slotName: String,
@@ -97,11 +94,11 @@ class toutElement {
   }
 
   _routeChanged(page) {
-    // if (page === 'section' || page === '') {
-    //   this.destroy(true);
-    // } else {
-    //   this.destroy();
-    // }
+    if (page === 'section' || page === '') {
+      this.destroy(true);
+    } else {
+      this.destroy();
+    }
   }
 
   _setMetaData() {

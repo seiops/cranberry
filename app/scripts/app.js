@@ -46,8 +46,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     let fetchPolyfill = document.createElement('script');
     fetchPolyfill.src = 'bower_components/fetch/fetch.js';
 
-    document.body.appendChild(fetchPolyfill);
+    document.head.appendChild(fetchPolyfill);
   }
+
+  Array.prototype.find = Array.prototype.find || function(callback) {
+    if (this === null) {
+      throw new TypeError('Array.prototype.find called on null or undefined');
+    } else if (typeof callback !== 'function') {
+      throw new TypeError('callback must be a function');
+    }
+    var list = Object(this);
+    // Makes sures is always has an positive integer as length.
+    var length = list.length >>> 0;
+    var thisArg = arguments[1];
+    for (var i = 0; i < length; i++) {
+      var element = list[i];
+      if ( callback.call(thisArg, element, i, list) ) {
+        return element;
+      }
+    }
+  };
 
   // Establish Browser Versioning Object
   app.browser = get_browser();
@@ -56,6 +74,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   if (!webComponentsSupported) {
     switch(app.browser.name) {
       case 'IE':
+        // appendMemLeakFix();
         showBlockingSplash();
         break;
     }
@@ -86,6 +105,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     };
  }
 
+ function appendMemLeakFix() {
+   let script = document.createElement('script');
+   script.src = 'scripts/ie-mem-leak-fix.js';
+
+    document.head.appendChild(script);
+ } 
+
   function showBlockingSplash() {
     app.setAttribute('hidden', true);
     loadingSplash.setAttribute('hidden', true);
@@ -99,16 +125,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   function showCore(e) {
     e.preventDefault();
 
-    console.log('Show the core please!');
-
     app.removeAttribute('hidden');
     loadingSplash.removeAttribute('hidden');
     blockingSplash.setAttribute('hidden', true);
   }
+
   function finishLazyLoading() {
     // // When base-bundle.html with elements is loaded
-    var onImportLoaded = function() {
+    let onImportLoaded = function() {
       logger('Imports loaded and elements registered.');
+
+      appendOtherScripts();
 
       if (webComponentsSupported) {
         document.dispatchEvent(
@@ -117,7 +144,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     };
 
-    var elementsBaseBundle = document.getElementById('elementsBaseBundle');
+    let elementsBaseBundle = document.getElementById('elementsBaseBundle');
     
     if (elementsBaseBundle.import && elementsBaseBundle.import.readyState === 'complete') {
       onImportLoaded();
@@ -129,21 +156,38 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   // finishLazyLoading();
   if (!webComponentsSupported) {
     logger('Web Components aren\'t supported!');
-    var preScript = document.createElement('script');
+    let preScript = document.createElement('script');
     
-    preScript.src = 'bower_components/webcomponents-platform/webcomponents-platform.js';
-    preScript.onload = appendWebComp;
+    preScript.src = 'bower_components/webcomponentsjs/webcomponents.js';
+    preScript.onload = appendWebCompPlatform;
     document.body.appendChild(preScript);
   } else {
     logger('\[Cranberry Core\]\: Web Component support detected');
     finishLazyLoading();
   }
 
-  function appendWebComp() {
-    var script = document.createElement('script');
-    script.src = 'bower_components/webcomponentsjs/webcomponents-lite.js';
+  function appendWebCompPlatform() {
+    let script = document.createElement('script');
+    script.src = 'bower_components/webcomponents-platform/webcomponents-platform.js';
     script.onload = finishLazyLoading;
     document.body.appendChild(script);
+  }
+
+  function appendOtherScripts() {
+    let gpt = document.createElement('script');
+    let shareThrough = document.createElement('script');
+    let nativo = document.createElement('script');
+    let sonobi = document.createElement('script');
+
+    gpt.src = 'scripts/gpt.js';
+    shareThrough.src = 'http://native.sharethrough.com/assets/sfp.js';
+    nativo.src = 'http://s.ntv.io/serve/load.js';
+    sonobi.src='http://mtrx.go.sonobi.com/morpheus.sanduskynewsgroup.1582.js';
+
+    document.head.appendChild(gpt);
+    document.head.appendChild(shareThrough);
+    document.head.appendChild(nativo);
+    document.head.appendChild(sonobi);
   }
 
   // Listen for template bound event to know when bindings

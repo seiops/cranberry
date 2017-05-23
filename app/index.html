@@ -47,10 +47,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <div id="blockingSplash" hidden>
           <div class="blocking-container">
             <p class="blocking-description">
-              For an optimal expereince download the latest version of Chrome.
+              For an optimal experience, please download the most current version of the following browsers.
             </p>
             <div class="browser-images">
+              <a href="https://www.microsoft.com/en-us/windows/microsoft-edge" target="_blank" rel="noopener"><img src="/images/browser/edge.png" /></a>
               <a href="https://www.google.com/chrome/browser/" target="_blank" rel="noopener"><img src="/images/browser/chrome.png" /></a>
+              <a href="www.mozilla.org/firefox‎" target="_blank" rel="noopener"><img src="/images/browser/ff.png" /></a>
             </div>
           </div>
           <div class="segue">
@@ -68,24 +70,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <!-- Elements wait on the page and are upgraded when elements/base-bundle.html loads. -->
   <cranberry-base id="app"></cranberry-base>
-
-  <!-- <cranberry-base-libercus-section id="app"></cranberry-base-libercus-section> -->
-
-  <!-- Service Worker support -->
-   <!--<platinum-sw-register auto-register
-                        clients-claim
-                        skip-waiting
-                        base-uri="bower_components/platinum-sw/bootstrap"> -->
-
-    <!-- Google Analytics offline support -->
-    <!-- <platinum-sw-offline-analytics></platinum-sw-offline-analytics> -->
-
-    <!-- Offline caching support -->
-     <!--<platinum-sw-cache default-cache-strategy="fastest"
-                       cache-config-file="cache-config.json">
-    </platinum-sw-cache>
-  </platinum-sw-register> -->
-
 
   <script type="text/javascript">
     var analyticsTracker = document.querySelector('#analytics-tracker-pixel');
@@ -120,8 +104,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <!-- build:js scripts/app.min.js async -->
   <script src="scripts/app.js"></script>
   <!-- endbuild-->
-  <!-- Google Analytics tracker -->
-  <!-- <start-google-analytics-tracker code="{$ config.google.analytics $}"></start-google-analytics-tracker> -->
 
 </body>
 

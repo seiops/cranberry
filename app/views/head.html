@@ -24,9 +24,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     _prx.push(['cfg.SetNoAutoStart']);
   </script>
 
-  <!-- NATIVO SCRIPT CALL -->
-  <script type="text/javascript" src="//s.ntv.io/serve/load.js" async></script>
-
   <base href="{$ config.baseUrl $}">
   <meta charset="{$ charset $}">
   <meta name="description" content="{$ description $}">
@@ -66,9 +63,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   
   
   <meta name="google-site-verification" content="{$ config.google.siteVerification $}" />
-  <!-- Because this project uses vulcanize this should be your only html import
-       in this file. All other imports should go in base-bundle.html -->
-  <link rel="import" id="elementsBaseBundle" href="elements/base-bundle.html" async>
 
   {% include "meta.html" %}
 
@@ -97,9 +91,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     };
   </script>
 
-  <!-- SHARETHROUGH SCRIPT -->
-  <script type="text/javascript" src="//native.sharethrough.com/assets/sfp.js" async></script>
+  <script>
+    var googletag = window.googletag || {};
+    googletag.cmd = googletag.cmd || [];
+  </script>
 
-  <!-- SONOBI SCRIPT -->
-  <script type="text/javascript" src="//mtrx.go.sonobi.com/morpheus.sanduskynewsgroup.1582.js"></script> 
+  <!-- Because this project uses vulcanize this should be your only html import
+       in this file. All other imports should go in base-bundle.html -->
+  <link rel="import" id="elementsBaseBundle" href="elements/base-bundle.html" async>
 </head>

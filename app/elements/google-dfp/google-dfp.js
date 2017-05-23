@@ -48,9 +48,6 @@ class GoogleDFP {
         this.observers = [
           '_adPathChanged(dfpObject, hidden)'
         ];
-        this.listeners = {
-          'refresh': 'refresh'
-        };
     }
 
     attached() {
@@ -84,7 +81,7 @@ class GoogleDFP {
             function(resolve, reject) {
               function timeoutFunction() {
                 setTimeout(() => {
-                  if (typeof googletag !== 'undefined' && googletag.apiReady) {
+                  if (typeof googletag !== 'undefined' && typeof googletag.apiReady !== 'undefined' && googletag.apiReady) {
                     resolve(true);
                     return;
                   } else {
@@ -104,13 +101,12 @@ class GoogleDFP {
 
     _setupAdvertisement(dfpObject) {
       this.async(() => {
-        let advertisementContainer = this.querySelector('.advertisement');
-        let id = advertisementContainer.getAttribute('id');
-
+        let adPos = this.get('adPos');
+        let id = adPos + this._adCount();
+        let advertisementContainer = Polymer.dom(this.root).querySelector('.advertisement');
+        advertisementContainer.setAttribute('id', id);
         this.set('slotId', id);
-
         this._buildAdvertisement(dfpObject, id);
-
       });
     }
 
@@ -124,47 +120,46 @@ class GoogleDFP {
     }
 
     _buildAdvertisement(dfpObject, id) {
-      let adSize = this.get('adSize');
-      let adSizeMapping = this.get('adSizeMapping');
-      let position = this.get('adPos');
-      let content = dfpObject.content;
-      let outOfPage = this.get('outOfPage');
+        googletag.cmd.push(() => {
+          let adSize = this.get('adSize');
+          let adSizeMapping = this.get('adSizeMapping');
+          let position = this.get('adPos');
+          let content = dfpObject.content;
+          let outOfPage = this.get('outOfPage');
 
-      this.async(() => {
-        this.logger(`Building ${id} using ${dfpObject.adSection}`, { type: 'build' });
+          this.logger(`Building ${id} using ${dfpObject.adSection}`, { type: 'build' });
 
-        if (typeof window.slots === 'undefined') {
-          window.slots = {};
-        }
-
-        if (typeof adSizeMapping !== 'undefined') {
-          var mapping;
-
-          if (adSizeMapping === 'leaderboard') {
-            mapping = googletag.sizeMapping().
-              addSize([0, 0], [320, 50]).
-              addSize([400, 400], [[320, 50]]).
-              addSize([850, 200], [[728, 90], [300, 50]]).
-              addSize([1050, 200], [[970, 250], [970, 90], [728, 90]]).
-              build();
+          if (typeof window.slots === 'undefined') {
+            window.slots = {};
           }
 
-          if (adSizeMapping === 'mobileLeader') {
-            mapping = googletag.sizeMapping().
-              addSize([0, 0], [300, 250]).
-              addSize([400, 400], [[300, 250]]).
-              addSize([850, 200], [[728, 90], [300, 50]]).
-              addSize([1050, 200], [[970, 250], [970, 90], [728, 90], [1,1]]).
-              build();
+          if (typeof adSizeMapping !== 'undefined') {
+            var mapping;
+
+            if (adSizeMapping === 'leaderboard') {
+              mapping = googletag.sizeMapping().
+                addSize([0, 0], [320, 50]).
+                addSize([400, 400], [[320, 50]]).
+                addSize([850, 200], [[728, 90], [300, 50]]).
+                addSize([1050, 200], [[970, 250], [970, 90], [728, 90]]).
+                build();
+            }
+
+            if (adSizeMapping === 'mobileLeader') {
+              mapping = googletag.sizeMapping().
+                addSize([0, 0], [300, 250]).
+                addSize([400, 400], [[300, 250]]).
+                addSize([850, 200], [[728, 90], [300, 50]]).
+                addSize([1050, 200], [[970, 250], [970, 90], [728, 90], [1,1]]).
+                build();
+            }
           }
-        }
 
-        let splitAdPath = dfpObject.adSection.split('/');
-        let section = (splitAdPath.length > 0 && splitAdPath.length === 5 ? splitAdPath[4] : splitAdPath[3]);
-        let host = window.location.hostname;
-        let placement = dfpObject.placement;
+          let splitAdPath = dfpObject.adSection.split('/');
+          let section = (splitAdPath.length > 0 && splitAdPath.length === 5 ? splitAdPath[4] : splitAdPath[3]);
+          let host = window.location.hostname;
+          let placement = dfpObject.placement;
 
-        googletag.cmd.push(function() {
           googletag.pubads().setTargeting('section', section);
           googletag.pubads().setTargeting('placement', placement);
 
@@ -190,31 +185,7 @@ class GoogleDFP {
           }
 
           googletag.display(id);
-        });        
-      });
-    }
-
-    _checkGoogle() {
-      setTimeout(() => {
-        if (typeof googletag !== 'undefined' && typeof googletag.sizeMapping === 'function') {
-          this.set('googleReady', true);
-          // this._buildAd(section, parent);
-        } else {
-          this._checkGoogle();
-        }
-      }, 50);
-    }
-
-    refresh() {
-      let slot = this.get('slotId');
-      let hidden = this.get('hidden');
-
-      if (!hidden) {
-        if (typeof slot !== 'undefined' && slot !== '') {
-          this.logger('refreshing: ' + slot);
-          googletag.pubads().refresh([window.slots[slot]]);
-        }
-      }
+        });
     }
 
     destroy() {

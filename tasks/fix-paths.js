@@ -80,7 +80,10 @@ module.exports = function($, gulp, merge, order) {
       appWebComponent = gulp.src('deploy/scripts/app.min.*.js').pipe(
         $.replace('bower_components/',
           'libercus/default/bower_components/')
-      ).pipe(gulp.dest('deploy/scripts'));
+      ).pipe($.replace(
+        '\'scripts/',
+        '\'libercus/default/scripts/'
+      )).pipe(gulp.dest('deploy/scripts'));
 
       return merge(baseBundleJs, baseBundleElement, swToolboxSetup, appWebComponent);
     }

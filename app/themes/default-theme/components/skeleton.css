@@ -55,8 +55,8 @@ div.blocking-splash {
 }
 
 button#showCoreButton {
+  cursor: pointer;
   background-color: var(--light-accent-color);
-  @apply(--paper-font-button);
   color: #fff;
   border: none;
   padding: 15px 32px;

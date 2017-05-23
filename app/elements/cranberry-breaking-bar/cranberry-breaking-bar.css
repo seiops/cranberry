@@ -3,6 +3,7 @@
 }
 
 div.breaking-bar-wrapper {
+  @apply(--layout-flex);
   @apply(--layout-horizontal);
   @apply(--layout-justified);
   @apply(--layout-center);
@@ -12,10 +13,10 @@ div.breaking-bar-wrapper {
 
 a.breaking-item-link {
   text-decoration: none;
+  width: 100%;
 }
 
 div.breaking-item {
-
   padding: 10px;
 }
 
@@ -28,6 +29,11 @@ h3.breaking-title {
 h3.breaking-title {
   margin: 0;
   display: inline-block;
+}
+
+div.breaking-bar-buttons {
+  display: flex;
+  flex: 1 1 auto;
 }
 
 div.breaking-bar-buttons paper-icon-button {
