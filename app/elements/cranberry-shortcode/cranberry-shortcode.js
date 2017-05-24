@@ -66,6 +66,7 @@ class cranberryShortcode {
           case 'twitteruser':
           case 'quote':
           case 'facebookpost':
+          case 'newsletter':
             break;
           // Types that do need object finding
           default:
@@ -371,6 +372,8 @@ class cranberryShortcode {
           shortcodeEl.setAttribute('data-show-text', 'true');
           shortcodeEl.setAttribute('data-allowfullscreen', 'true');
           break;
+        case 'newsletter':
+          shortcodeEl = document.createElement('cranberry-newsletter');
       }
 
       // Append shortcodeEl
