@@ -1,0 +1,30 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-signals/iron-signals.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<dom-module id="cranberry-newsletter">
+  <template>
+    <style>
+      @import "cranberry-newsletter/cranberry-newsletter";
+    </style>
+
+    <iron-signals on-iron-signal-account-changed="_accountChanged"></iron-signals>
+
+    <div class="newsletter-signup-container">
+      <paper-material class="signup-background">
+        <div class="internal-container">
+          <template is="dom-if" if="[[user.isLoggedIn]]">
+            <paper-button raised on-tap="_openSignup">Sign Up Now</paper-button>
+          </template>
+
+          <template is="dom-if" if="[[!user.isLoggedIn]]">
+            <paper-button raised on-tap="_openLogin">Login</paper-button>
+          </template>
+        </div>
+      </paper-material>
+    </div>
+  </template>
+
+  <!-- Add cranberry-newsletter Polymer Object script -->
+  <script src="cranberry-newsletter.js"></script>
+</dom-module>

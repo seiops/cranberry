@@ -353,7 +353,7 @@ class CranberryBase {
       return thumbnail;
     } else {
       // Return canned image currently
-      return '../images/story/unavail.png';
+      return '../images/user/default.png';
     }
   }
 

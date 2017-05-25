@@ -30,7 +30,8 @@ class GigyaSocialize {
       },
       userSelected: {
         type: Number,
-        value: 0
+        value: 0,
+        observer: '_tabChanged'
       },
       route: {
         type: Object,
@@ -108,7 +109,13 @@ class GigyaSocialize {
   }
 
   // open modal window
-  _handleOpen() {
+  _handleOpen(e) {
+    
+    if (e.detail) {
+      this.set('userSelected', e.detail.goToScreen);
+    } else {
+      this.set('userSelected', 0);
+    }
     this._openModal();
   }
 
@@ -124,6 +131,12 @@ class GigyaSocialize {
     });
 
     dialog.toggle();
+    dialog.refit();
+    dialog.center();
+  }
+
+  _tabChanged(userSelected, oldUserSelected) {
+    let dialog = Polymer.dom(this.root).querySelector('#userModal');
     dialog.refit();
     dialog.center();
   }
@@ -157,6 +170,8 @@ class GigyaSocialize {
     if (dialog) {
       dialog.resetFit();
     }
+
+    el.fire('iron-signal', { name : 'account-changed', data: { account: account } });
   }
 
   // load Gigya user information
@@ -203,6 +218,8 @@ class GigyaSocialize {
     el.set('user', {});
 
     gigya.socialize.refreshUI();
+
+    el.fire('iron-signal', { name : 'account-changed', data: { account: {} } });
   }
 
   _loginUser(eventObj) {

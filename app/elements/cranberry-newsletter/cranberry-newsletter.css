@@ -1,0 +1,31 @@
+:host {
+  width: 100%;
+}
+
+div.newsletter-signup-container {
+  height: 240px;
+}
+
+paper-material.signup-background {
+  height: 100%;
+}
+
+div.internal-container {
+  @apply(--layout-vertical);
+  @apply(--layout-center-justified);
+  background: url('/images/newsletter/newsletter-large.jpg') no-repeat center center;
+  background-size: cover;
+  height: 100%;
+  justify-content: flex-end;
+}
+
+paper-button {
+  background-color: var(--light-accent-color);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  width: 130px;
+  padding: 2px;
+  margin-bottom: 12px;
+}

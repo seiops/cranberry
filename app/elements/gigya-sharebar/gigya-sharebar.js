@@ -48,11 +48,6 @@ class gigyaSharebar {
                 { // Email button
                     provider:'email',
                     tooltip:'Email this'
-                },
-                { // General Share Button
-                    provider:'share',
-                    tooltip:'General Share Button',
-                    userMessage:'default user message'
                 }
             ],
             noButtonBorders: true,

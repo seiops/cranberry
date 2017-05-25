@@ -10,6 +10,7 @@
 <link rel="import" href="../gigya-user-card/gigya-user-card.html">
 <link rel="import" href="../gigya-change-password/gigya-change-password.html">
 <link rel="import" href="../gigya-forgot-password/gigya-forgot-password.html">
+<link rel="import" href="../gigya-newsletter-signup/gigya-newsletter-signup.html">
 <link rel="import" href="../gigya-login/gigya-login.html">
 <link rel="import" href="../gigya-register/gigya-register.html">
 <link rel="import" href="../gigya-finalize-register/gigya-finalize-register.html">
@@ -35,8 +36,8 @@
 
             <paper-tabs id="accountTabs" class="middle" selected="{{userSelected}}" autoselect>
               <paper-tab>My Profile</paper-tab>
-              <paper-tab disabled>Membership</paper-tab>
-              <!-- <paper-tab disabled>Newsletters</paper-tab> -->
+              <!--<paper-tab disabled>Membership</paper-tab>-->
+               <paper-tab>Newsletters</paper-tab> 
               <paper-tab>Settings</paper-tab>
               <paper-tab>Password</paper-tab>
             </paper-tabs>
@@ -70,8 +71,8 @@
                   <div class="user-tabs">
                     <paper-tabs id="profileTabs" selected="{{profileSelected}}" autoselect>
                       <paper-tab>My Comments</paper-tab>
-                      <paper-tab disabled>My Photos</paper-tab>
-                      <paper-tab disabled>My Stories</paper-tab>
+                      <!--<paper-tab disabled>My Photos</paper-tab>
+                      <paper-tab disabled>My Stories</paper-tab>-->
                     </paper-tabs>
                   </div>
                 </div>
@@ -88,13 +89,13 @@
                 </div>
               </div>
             </div>
-            <div hidden$="{{!_equal(userSelected, 1)}}">
+            <!--<div hidden$="{{!_equal(userSelected, 1)}}">
               My Membership
-            </div>
+            </div>-->
             <!-- Newsletter section commented out for future. Reset indexes below if uncommented -->
-            <!-- <div hidden$="{{!_equal(userSelected, 2)}}">
-              Newsletters
-            </div> -->
+             <div hidden$="{{!_equal(userSelected, 1)}}">
+              <gigya-newsletter-signup user="[[user]]" account="[[account]]" newsletters='{$ config.gigya.newsletters | dump $}'></gigya-newsletter-signup>
+            </div> 
             <div hidden$="{{!_equal(userSelected, 2)}}">
               <gigya-update-profile user="[[user]]" account="[[account]]"></gigya-update-profile>
             </div>

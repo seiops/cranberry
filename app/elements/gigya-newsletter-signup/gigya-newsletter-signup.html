@@ -1,0 +1,24 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html">
+
+<dom-module id="gigya-newsletter-signup">
+  <template>
+    <style include="shared-styles">
+      @import "theme.css";
+      @import "gigya-newsletter-signup/gigya-newsletter-signup";
+    </style>
+    <style include="gigya-styles"></style>
+    <h2>Newsletters</h2>
+    <form is="iron-form" action="/" id="updateProfileForm">
+      <template is="dom-repeat" items="[[newsletters]]">
+        <paper-checkbox name="[[item.linking]]" value="[[item.name]]">[[item.name]]</paper-checkbox>
+      </template>
+      <div class="form-buttons">
+        <paper-spinner id="spinner"></paper-spinner>
+        <paper-button on-tap="_handleUpdateProfile" id="submit">Sign-up for newsletters</paper-button>
+      </div>
+    </form>
+
+  </template>
+  <script src="gigya-newsletter-signup.js"></script>
+</dom-module>
