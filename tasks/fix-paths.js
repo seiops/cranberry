@@ -29,8 +29,8 @@ module.exports = function($, gulp, merge, order) {
         '"scripts/',
         '"libercus/default/scripts/'
       )).pipe($.replace(
-        '../images/story',
-        '/libercus/default/images/story'
+        '../images/',
+        '/libercus/default/images/'
       )).pipe(gulp.dest('deploy/elements'));
 
       indexElement = gulp.src('deploy/index.html').pipe($.replace(

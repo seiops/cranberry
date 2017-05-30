@@ -6,6 +6,10 @@ div.newsletter-signup-container {
   height: 240px;
 }
 
+div.newsletter-signup-container[desktop-layout] {
+  height: 340px;
+}
+
 paper-material.signup-background {
   height: 100%;
 }

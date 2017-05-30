@@ -1,6 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-signals/iron-signals.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
 
 <dom-module id="cranberry-newsletter">
   <template>
@@ -8,9 +9,12 @@
       @import "cranberry-newsletter/cranberry-newsletter";
     </style>
 
+    <iron-media-query query="(min-width: 1700px)" query-matches="{{desktop}}"></iron-media-query>
+
     <iron-signals on-iron-signal-account-changed="_accountChanged"></iron-signals>
 
-    <div class="newsletter-signup-container">
+
+    <div class="newsletter-signup-container" desktop-layout$="[[desktop]]">
       <paper-material class="signup-background">
         <div class="internal-container">
           <template is="dom-if" if="[[user.isLoggedIn]]">

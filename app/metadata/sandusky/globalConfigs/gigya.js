@@ -5,12 +5,52 @@ module.exports = {
   commentsId: 'Default',
   newsletters: [
     {
-      name: 'Test 1',
-      linking: 'srNewsletter.test1'
+      displayName: 'Breaking News',
+      name: 'breaking',
+      linking: 'srNewsletters.breaking',
+      naming: 'srNewslettersBreaking'
     },
     {
-      name: 'Test 2',
-      linking: 'srNewsletter.test2'
+      displayName: 'Inbox - Daily Headlines',
+      name: 'inbox',
+      linking: 'srNewsletters.inbox',
+      naming: 'srNewslettersInbox'
+    },
+    {
+      displayName: 'Obituaries',
+      name: 'obits',
+      linking: 'srNewsletters.obits',
+      naming: 'srNewslettersObits'
+    },
+    {
+      displayName: 'Sports',
+      name: 'sports',
+      linking: 'srNewsletters.sports',
+      naming: 'srNewslettersSports'
+    },
+    {
+      displayName: 'Weather Alerts',
+      name: 'weather',
+      linking: 'srNewsletters.weather',
+      naming: 'srNewslettersWeather'
+    },
+    {
+      displayName: 'Gardening',
+      name: 'gardening',
+      linking: 'srNewsletters.gardening',
+      naming: 'srNewslettersGardening'
     }
+    // {
+    //   displayName: 'News Alerts',
+    //   name: 'news',
+    //   linking: 'srNewsletters.news',
+    //   naming: 'srNewslettersNews'
+    // },
+    // {
+    //   displayName: 'Career Advice',
+    //   name: 'career',
+    //   linking: 'srNewsletters.career',
+    //   naming: 'srNewslettersCareer'
+    // }
   ]
 }
