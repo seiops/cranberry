@@ -48,9 +48,9 @@ class GigyaNewsletterSignup {
   }
 
   _getNewsletterValue(account, item) {
-    let accountNewsletters = (typeof account.data !== 'undefined' ? account.data.srNewsletters : {});
+    let accountNewsletters = (typeof account.data !== 'undefined' && typeof account.data.srNewsletters !== 'undefined' ? account.data.srNewsletters : {});
     let name = item.name;
-
+    
     return (typeof accountNewsletters[name] !== 'undefined' ? accountNewsletters[name] : false);
   }
 
