@@ -1,4 +1,4 @@
 module.exports = {
   image: '../../images/promo/sandusky/promo.png',
-  link: 'http://www.sanduskyoffers.com'
+  link: 'https://sanduskyoh.circulationpro.com/scripts/WebObjects.exe/SanduskyOHSubscriberSelfService'
 }
