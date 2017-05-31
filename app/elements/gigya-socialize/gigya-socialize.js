@@ -62,9 +62,18 @@ class GigyaSocialize {
     
     if (!scriptAttached) {
       let apiKey = this.get('apiKey');
-      let loader = document.querySelector('cranberry-script-loader');
-
-      loader.loadScript('https://cdns.gigya.com/JS/gigya.js?apikey=' + apiKey);
+      this.dispatchEvent(
+        new CustomEvent(
+          'load-script',
+          {
+            bubbles: true,
+            composed: true,
+            detail: {
+              url: 'https://cdns.gigya.com/JS/gigya.js?apikey=' + apiKey
+            }
+          }
+        )
+      );
       this.set('scriptAttached', true);
     }
 

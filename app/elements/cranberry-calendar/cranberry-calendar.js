@@ -56,9 +56,19 @@ class CranberryCalendar {
 
     let calendarDomain = this.get('calendarDomain');
 
-    let loader = document.querySelector('cranberry-script-loader');
+    this.dispatchEvent(
+      new CustomEvent(
+        'load-script',
+        {
+          bubbles: true,
+          composed: true,
+          detail: {
+            url: 'http://' + calendarDomain + '.spingo.com/embed.js'
+          }
+        }
+      )
+    );
 
-    loader.loadScript('http://' + calendarDomain + '.spingo.com/embed.js');
     this.set('loaded', true);
   }
 

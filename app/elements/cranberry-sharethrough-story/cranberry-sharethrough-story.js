@@ -14,9 +14,26 @@ class cranberrySharethroughStory {
     console.info('\<cranberry-sharethrough-story\> attached');
     
     let app = Polymer.dom(document).querySelector('cranberry-base');
-    let loader = Polymer.dom(app.root).querySelector('cranberry-script-loader');
 
-    loader.loadScript('//native.sharethrough.com/assets/sfp-sponsored-page.js', 'sharethrough-script', {attributeName: 'data-str-publisher-key', attributeValue: '6505a16f'});
+    this.dispatchEvent(
+      new CustomEvent(
+        'load-script',
+        {
+          bubbles: true,
+          composed: true,
+          detail: {
+            url: '//native.sharethrough.com/assets/sfp-sponsored-page.js',
+            id: 'sharethrough-script',
+            attributes: [
+              {
+                name: 'data-str-publisher-key',
+                value: '6505a16f'
+              }
+            ]
+          }
+        }
+      )
+    );
   }
 
   detached() {

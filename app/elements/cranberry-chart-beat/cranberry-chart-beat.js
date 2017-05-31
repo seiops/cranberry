@@ -107,10 +107,20 @@ class cranberryChartBeat {
 
     if (!chartbeatLoaded) {
       window._sf_endpt = (new Date()).getTime();
-    
-      let loader = document.querySelector('cranberry-script-loader');
-
-      loader.loadScript('http://static.chartbeat.com/js/chartbeat.js');
+      
+      // Load Chartbeat Script
+      this.dispatchEvent(
+        new CustomEvent(
+          'load-script',
+          {
+            bubbles: true,
+            composed: true,
+            detail: {
+              url: 'http://static.chartbeat.com/js/chartbeat.js'
+            }
+          }
+        )
+      );
 
       this.set('chartbeatLoaded', true);
     }

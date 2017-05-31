@@ -14,10 +14,19 @@ class toutEmbedElement {
 
   attached() {
     let slot = this.get('slot');
-
-    let loader = document.querySelector('cranberry-script-loader');
-
-    loader.loadScript('http://player.tout.com/embeds/feeds/6f7f6f.js?&autoplay=false&element_id=tout-embed-' + slot + '&height=auto&width=auto', 'toutEmbedScript-' + slot);
+    this.dispatchEvent(
+      new CustomEvent(
+        'load-script',
+        {
+          bubbles: true,
+          composed: true,
+          detail: {
+            url: 'http://player.tout.com/embeds/feeds/6f7f6f.js?&autoplay=false&element_id=tout-embed-' + slot + '&height=auto&width=auto',
+            id: 'toutEmbedScript-' + slot
+          }
+        }
+      )
+    );
   }
 
   detached() {

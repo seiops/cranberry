@@ -68,9 +68,18 @@ class cranberryStaticSection {
         let scriptLoaded = this.get('weatherScriptLoaded');
 
         if (!scriptLoaded) {
-          let loader = document.querySelector('cranberry-script-loader');
-
-          loader.loadScript('http://oap.accuweather.com/launch.js');
+          this.dispatchEvent(
+            new CustomEvent(
+              'load-script',
+              {
+                bubbles: true,
+                composed: true,
+                detail: {
+                  url: 'http://oap.accuweather.com/launch.js'
+                }
+              }
+            )
+          );
           this.set('weatherScriptLoaded', true);
           this.set('tags', 'weather, forecast');
         }

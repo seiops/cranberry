@@ -44,7 +44,7 @@ class CranberryBase {
       }
       
 
-      // this._setupSurvey();
+      this._setupSurvey();
     }
   }
 
@@ -67,12 +67,22 @@ class CranberryBase {
   }
   
   _setupSurvey() {
-    let loader = document.querySelector('cranberry-script-loader');
-
-    loader.loadScript('https://apps.ignitefeedback.com/assets/javascripts/igniter.js');
-
-    window._igniter = window._igniter || [];
-    window._igniter.push(['or-V23', 'https://apps.ignitefeedback.com']);
+    this.async(() => {
+      this.dispatchEvent(
+        new CustomEvent(
+          'load-script',
+          {
+            bubbles: true,
+            composed: true,
+            detail: {
+              url: 'https://apps.ignitefeedback.com/assets/javascripts/igniter.js'
+            }
+          }
+        )
+      );
+      window._igniter = window._igniter || [];
+      window._igniter.push(['or-V23', 'https://apps.ignitefeedback.com']);
+    });
   }
 
   // private methods

@@ -360,9 +360,19 @@ class cranberryShortcode {
 
           if (!facebookScript) {
             let app = Polymer.dom(document).querySelector('cranberry-base');
-            let loader = Polymer.dom(app.root).querySelector('cranberry-script-loader');
-
-            loader.loadScript('https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5', 'facebook-jssdk');
+            this.dispatchEvent(
+              new CustomEvent(
+                'load-script',
+                {
+                  bubbles: true,
+                  composed: true,
+                  detail: {
+                    url: 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5',
+                    id: 'facebook-jssdk'
+                  }
+                }
+              )
+            );
           }
 
           shortcodeEl = document.createElement('div');
