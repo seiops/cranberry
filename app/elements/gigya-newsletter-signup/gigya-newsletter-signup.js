@@ -10,6 +10,7 @@ class GigyaNewsletterSignup {
           return [];
         }
       },
+      newsletterNamespace: String,
       notices: {
         type: Object,
         value: []
@@ -48,7 +49,8 @@ class GigyaNewsletterSignup {
   }
 
   _getNewsletterValue(account, item) {
-    let accountNewsletters = (typeof account.data !== 'undefined' && typeof account.data.srNewsletters !== 'undefined' ? account.data.srNewsletters : {});
+    let newsletterNamespace = this.get('newsletterNamespace');
+    let accountNewsletters = (typeof account.data !== 'undefined' && typeof account.data[newsletterNamespace] !== 'undefined' ? account.data[newsletterNamespace] : {});
     let name = item.name;
     
     return (typeof accountNewsletters[name] !== 'undefined' ? accountNewsletters[name] : false);
@@ -92,8 +94,6 @@ class GigyaNewsletterSignup {
 
       params.data[newsletter.linking] = value;
     }
-
-    console.dir(params);
 
     gigya.accounts.setAccountInfo(params);
   }
@@ -159,6 +159,5 @@ class GigyaNewsletterSignup {
 
     this._enableForm();
   }
-
 }
 Polymer(GigyaNewsletterSignup);

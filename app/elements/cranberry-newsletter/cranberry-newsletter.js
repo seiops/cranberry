@@ -42,7 +42,6 @@ class cranberryNewsletter {
   }
 
   _setupUserVariable(account, oldAccount) {
-    console.dir(account);
     if (typeof account !== 'undefined' && account.userInfo) {
       this.set('user', account.userInfo);
     } else {

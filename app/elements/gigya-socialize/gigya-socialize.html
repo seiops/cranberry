@@ -94,7 +94,7 @@
             </div>-->
             <!-- Newsletter section commented out for future. Reset indexes below if uncommented -->
              <div hidden$="{{!_equal(userSelected, 1)}}">
-              <gigya-newsletter-signup user="[[user]]" account="[[account]]" newsletters='{$ config.gigya.newsletters | dump $}'></gigya-newsletter-signup>
+              <gigya-newsletter-signup user="[[user]]" account="[[account]]" newsletters='{$ config.gigya.newsletters | dump $}' newsletter-namespace="{$ config.newsletter $}"></gigya-newsletter-signup>
             </div> 
             <div hidden$="{{!_equal(userSelected, 2)}}">
               <gigya-update-profile user="[[user]]" account="[[account]]"></gigya-update-profile>

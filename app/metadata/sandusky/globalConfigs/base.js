@@ -12,4 +12,5 @@ module.exports = {
   myCaptureUrl: 'http://sandusky.mycapture.com/mycapture/remoteimage.asp',
   title: 'Sandusky Register',
   urlTitle: 'SanduskyRegister.com',
+  newsletter: 'srNewsletters',
 }
