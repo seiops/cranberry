@@ -26,6 +26,7 @@ module.exports = {
   myCaptureUrl: baseConfig.myCaptureUrl,
   title: baseConfig.title,
   urlTitle: baseConfig.urlTitle,
+  newsletter: baseConfig.newsletter,
   mather: matherConfig,
   promo: promoConfig,
   gigya: gigyaConfig,

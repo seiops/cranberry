@@ -36,7 +36,7 @@ module.exports = {
       naming: 'srNewslettersWeather'
     },
     {
-      displayName: 'Gardening',
+      displayName: 'Gardening Tips',
       name: 'gardening',
       linking: 'srNewsletters.gardening',
       naming: 'srNewslettersGardening'
