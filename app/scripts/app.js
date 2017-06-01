@@ -157,8 +157,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   if (!webComponentsSupported) {
     logger('Web Components aren\'t supported!');
     let preScript = document.createElement('script');
+
+    if(document.head.createShadowRoot || document.head.attachShadow) {
+        // I can shadow DOM
+        preScript.src = 'bower_components/webcomponentsjs/webcomponents-lite.js';
+    } else {
+        // I can't
+        preScript.src = 'bower_components/webcomponentsjs/webcomponents.js';
+    }
     
-    preScript.src = 'bower_components/webcomponentsjs/webcomponents.js';
     preScript.onload = appendWebCompPlatform;
     document.body.appendChild(preScript);
   } else {

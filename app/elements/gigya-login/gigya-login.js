@@ -28,7 +28,7 @@ class GigyaLogin {
   attached() {
     console.info('\<gigya-login\> attached');
 
-    this.async(function() {
+    this.async(() => {
       let el = this;
       let form = Polymer.dom(this.root).querySelector('#loginForm');
 
