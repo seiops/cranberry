@@ -113,7 +113,7 @@ class GigyaNewsletterSignup {
 
       let notice = {
         type: 'success',
-        message: 'Sign-up successful.'
+        message: 'Subscriptions Updated Successfully'
       };
 
       el.push('notices', notice);
