@@ -46,6 +46,7 @@ div.content-wrapper {
 
 /* The minimum and maximum widths will need to be adjusted based on the new break points element */
 div.story-content {
+  max-width: 100%;
   flex: 1 1 500px;
 }
 

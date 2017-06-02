@@ -74,7 +74,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   if (!webComponentsSupported) {
     switch(app.browser.name) {
       case 'IE':
-        // appendMemLeakFix();
         showBlockingSplash();
         break;
     }
@@ -104,13 +103,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       version: M[1]
     };
  }
-
- function appendMemLeakFix() {
-   let script = document.createElement('script');
-   script.src = 'scripts/ie-mem-leak-fix.js';
-
-    document.head.appendChild(script);
- } 
 
   function showBlockingSplash() {
     app.setAttribute('hidden', true);

@@ -52,7 +52,16 @@ class CranberryBase {
   ready() {
     // Let the world know we're ready to receive data
     // https://github.com/Polymer/polymer/issues/2653
-    this.fire('upgraded');
+
+    this.dispatchEvent(
+      new CustomEvent(
+        'upgraded',
+        {
+          bubbles: true,
+          composed: true
+        }
+      )
+    );
     this.set('upgraded', true);
   }
 
@@ -103,7 +112,7 @@ class CranberryBase {
 
   closeDrawer(e) {
     e.preventDefault();
-    this.$.paperDrawerPanel.closeDrawer();
+    Polymer.dom(this.root).querySelector('#paperDrawerPanel').closeDrawer();
   }
 
   onAccentColorSwatchPickerSelected() {
@@ -111,7 +120,7 @@ class CranberryBase {
   }
 
   onConfirmToastTap() {
-    this.$.confirmToast.hide();
+    Polymer.dom(this.root).querySelector('#confirmToast').hide();
   }
 
   onDarkThemeToggleChange() {
@@ -137,8 +146,9 @@ class CranberryBase {
 
   _checkDrawer() {
     this.async(() => {
-      if (!this.$.drawer.persistent) {
-        this.$.drawer.close();
+      let drawer = Polymer.dom(this.root).querySelector('#drawer');
+      if (!drawer.persistent) {
+        drawer.close();
       }
     });
   }
@@ -167,9 +177,6 @@ class CranberryBase {
 
   openUserModal() {
     this.fire('iron-signal', { name: 'open-user-modal'});
-    // let gigyaSocialize = Polymer.dom(this).querySelector('gigya-socialize');
-
-    // gigyaSocialize.openModal();
   }
 
   _isLocal(selected) {
@@ -332,18 +339,18 @@ class CranberryBase {
   }
 
   _focusSearch() {
-    let drawer = this.$.drawer;
-    let drawerBar = this.$.drawerSearch;
+    let drawer = Polymer.dom(this.root).querySelector('#drawer');
+    let drawerBar = Polymer.dom(drawer).querySelector('#drawerSearch');
 
     if (!drawer.opened) {
       // If the drawer is closed open it
-      this.$.drawer.open();
+      drawer.open();
       // Timeout function to ensure the input is not hidden anymore
       setTimeout(function() {
-        drawerBar.$.input.focus()
+        drawerBar.querySelector('input').focus();
       }, 250);
     } else {
-      drawerBar.$.input.focus();
+      drawerBar.querySelector('#input').focus();
     }
   }
 
