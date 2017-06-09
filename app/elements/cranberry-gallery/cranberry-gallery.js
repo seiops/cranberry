@@ -173,24 +173,6 @@ class CranberryGallery {
 
       window.open(myCaputreUrl, '_blank');
     }
-  
-    // let slider = this.$.mainSlider;
-    // let currentImage = slider.querySelector('iron-image').src;
-    // let myCapture = this.get('myCaptureUrl');
-
-    // let capture = {
-    //     sDomain: myCapture,
-    //     setImgParams: () => {
-    //         let sImg = currentImage;
-    //         capture.sImage = "?image=" + encodeURIComponent(sImg); // formatted sImg for preview
-    //         capture.sNotes = "&notes=" + encodeURIComponent(sImg.replace(sImg.split('/')[7] + "/", "")); // full res image for auto image retrieval
-    //         capture.sBackURL = "&backurl=" + encodeURIComponent(window.location.origin + window.location.pathname + window.location.hash);
-            
-    //         let sMyCapURL = capture.sDomain + capture.sImage + capture.sNotes + capture.sBackText + capture.sBackURL;
-    //         window.open(sMyCapURL, '_blank');
-    //     }
-    // };
-    // capture.setImgParams();
   }
 
   _checkMyCaptureReady(myCapture) {
