@@ -53,7 +53,7 @@
       <!-- Main Media Area -->
       <div class="top-media">
         <div class="gallery-slider-container" desktop-layout$="{{desktop}}" tablet-layout$="{{tablet}}" mobile-layout$="{{mobile}}">
-          <cranberry-slider id="mainSlider" base-url="{$ config.baseDomain $}" items="{{gallery.mediaAssets.images}}" mobile-layout$="{{mobile}}" gallery="{{gallery}}" hidden$="[[hidden]]">
+          <cranberry-slider id="mainSlider" base-url="{$ config.baseDomain $}" items="{{gallery.mediaAssets.images}}" mobile-layout$="{{mobile}}" gallery="{{gallery}}" my-capture="{{myCapture}}" hidden$="[[hidden]]">
             <div class="gallery-tag" hidden$="[[!_checkTags(gallery.tags)]]" >
               <span class="content-tag">[[displayTag]]</span>
             </div>
@@ -68,7 +68,8 @@
                             ga-on="click" 
                             ga-event-category="Buy Imaged Clicked"
                             ga-event-action="uti_exlk_byim"
-                            raised>
+                            raised
+                            disabled$="[[!myCaptureReady]]">
                 <iron-icon icon="cranberry-icons:attach-money"></iron-icon>
               </paper-button>
               <gigya-sharebar share-buttons-id="gigya-share-buttons-gallery" title="[[gallery.title]]" route="[[route]]"></gigya-sharebar>

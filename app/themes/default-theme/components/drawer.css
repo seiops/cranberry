@@ -30,7 +30,7 @@ app-header {
     height: 164px;
   }
   @media (--header-breakpoint-alt) {
-    height: 64px;
+    height: 54px;
   }
   --app-header-background-rear-layer: {
     background-color: var(--dark-primary-color);
@@ -58,7 +58,7 @@ app-drawer ::content #contentContainer {
     right: 0;
     z-index: 2;
     width: 156px;
-    height: 48px;
+    height: 57px;
     margin: auto;
   }
 
@@ -89,7 +89,7 @@ app-drawer ::content #contentContainer {
   @nest &-header {
     background-color: var(--dark-primary-color);
     color: var(--primary-text-color);
-    height: 64px !important;
+    height: 54px !important;
   }
 
   @nest &-link {

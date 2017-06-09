@@ -17,12 +17,12 @@
              ga-on="click"
              ga-event-category="Home Logo Clicked"
              ga-event-action="uti_hml_mob">
-             <iron-image src="{$ theme.global.logo $}" fade hidden$="[[logo]]" sizing="cover"></iron-image>
+             <iron-image src="{$ theme.global.logo $}" fade hidden$="[[logo]]" sizing="contain"></iron-image>
           </a>
         </div>
         <div class="Main-siteButtons">
           <cranberry-header-links rest="{$ config.baseEndpointUrl $}"></cranberry-header-links>
-          <paper-icon-button class="Main-headerButton"
+          <paper-icon-button class="Main-headerButton Main-searchButton"
                              icon="search"
                              on-tap="_focusSearch"
                              ga-on="click"
@@ -37,7 +37,7 @@
                ga-event-action="uti_usr"><iron-image width="24" height="24" style="padding:8px;border-radius:48px" preload src="[[_computeThumbnail(user.thumbnailURL)]]" fade sizing="cover"></iron-image></a>
           </div>
           <div hidden$="[[_computeDefaultHide(user.thumbnailURL)]]" on-tap="openUserModal" ga-on="click" ga-event-category="User Logo Clicked" ga-event-action="uti_usr_lgn">
-            <span hidden$="[[mobile]]" class="Main-siteNav">Log In</span><paper-icon-button class="Main-headerButton" icon="cranberry-icons:account-circle"></paper-icon-button>
+            <span hidden$="[[mobile]]" class="Main-siteNav Main-loginText">Log In</span><paper-icon-button class="Main-headerButton" icon="cranberry-icons:account-circle"></paper-icon-button>
           </div>
         </div>
       </div>

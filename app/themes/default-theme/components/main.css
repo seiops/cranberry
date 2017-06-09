@@ -50,6 +50,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     color: var(--text-primary-color);
   }
 
+  @nest &-searchButton {
+    margin-right: 7px;
+  }
+
+  /*@nest &-loginText {
+    font-size: 12px;
+  }*/
+
   @nest &-headerTopBar {
     @apply(--layout-flex);
     @apply(--layout-horizontal);
@@ -62,6 +70,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   @nest &-headerToolbar {
     @apply(--layout-flex);
     @apply(--layout-horizontal);
+    max-height: 54px;
   }
 
   @nest &-siteTitle {

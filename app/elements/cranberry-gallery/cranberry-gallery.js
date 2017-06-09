@@ -21,6 +21,12 @@ class CranberryGallery {
       myCaptureUrl: {
         type: String
       },
+      myCaptureReady: {
+        type: Boolean,
+        computed: '_checkMyCaptureReady(myCapture)',
+        value: false
+      },
+      myCapture: Object,
       routeData: Object
     };
     this.observers = [
@@ -158,22 +164,41 @@ class CranberryGallery {
 
   // Private methods.
   _buyImage() {
-    let slider = this.$.mainSlider;
-    let currentImage = slider.querySelector('iron-image').src;
-    let myCapture = this.get('myCaptureUrl');
+    let myCapture = this.get('myCapture');
 
-    let capture = {
-        sDomain: myCapture,
-        setImgParams: function () {
-            var sImg = currentImage;
-            capture.sImage = "?image=" + encodeURIComponent(sImg); // formatted sImg for preview
-            capture.sNotes = "&notes=" + encodeURIComponent(sImg.replace(sImg.split('/')[7] + "/", "")); // full res image for auto image retrieval
-            capture.sBackURL = "&backurl=" + encodeURIComponent(window.location.origin + window.location.pathname + window.location.hash);
-            var sMyCapURL = capture.sDomain + capture.sImage + capture.sNotes + capture.sBackText + capture.sBackURL;
-            window.open(sMyCapURL, '_blank');
-        }
-    };
-    capture.setImgParams();
+    if (typeof myCapture !== 'undefined') {
+      let myCaptureDomain = this.get('myCaptureUrl');
+
+      let myCaputreUrl = `${myCaptureDomain}?image=${myCapture.preview}&notes=${myCapture.fullRes}&backurl=${myCapture.backURL}`
+
+      window.open(myCaputreUrl, '_blank');
+    }
+  
+    // let slider = this.$.mainSlider;
+    // let currentImage = slider.querySelector('iron-image').src;
+    // let myCapture = this.get('myCaptureUrl');
+
+    // let capture = {
+    //     sDomain: myCapture,
+    //     setImgParams: () => {
+    //         let sImg = currentImage;
+    //         capture.sImage = "?image=" + encodeURIComponent(sImg); // formatted sImg for preview
+    //         capture.sNotes = "&notes=" + encodeURIComponent(sImg.replace(sImg.split('/')[7] + "/", "")); // full res image for auto image retrieval
+    //         capture.sBackURL = "&backurl=" + encodeURIComponent(window.location.origin + window.location.pathname + window.location.hash);
+            
+    //         let sMyCapURL = capture.sDomain + capture.sImage + capture.sNotes + capture.sBackText + capture.sBackURL;
+    //         window.open(sMyCapURL, '_blank');
+    //     }
+    // };
+    // capture.setImgParams();
+  }
+
+  _checkMyCaptureReady(myCapture) {
+    if (typeof myCapture !== 'undefined') {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   _goToSlide (e) {

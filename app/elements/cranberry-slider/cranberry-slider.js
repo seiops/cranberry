@@ -77,7 +77,12 @@ class cranberrySlider {
         value: false,
         notify: true
       },
-      toutOff: Boolean
+      toutOff: Boolean,
+      myCapture: {
+        type: Object,
+        computed: '_computeMyCapture(currentImage)',
+        notify: true
+      }
     };
     this.observers = ['_itemsLoaded(items)'];
   }
@@ -324,6 +329,20 @@ class cranberrySlider {
       } else {
         return false;
       }
+    }
+  }
+
+  _computeMyCapture(currentImage) {
+    if (currentImage.url !== 'undefined' && currentImage.small !== 'undefined') {
+      let baseUrl = this.get('baseUrl');
+
+      let myCaptureImage = {
+        preview: encodeURIComponent(baseUrl +currentImage.exlarge),
+        fullRes: encodeURIComponent(baseUrl +currentImage.url),
+        backURL: encodeURIComponent(window.location.origin + window.location.pathname + window.location.hash)
+      }
+
+      return myCaptureImage;
     }
   }
 
