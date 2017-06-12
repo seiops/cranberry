@@ -43,10 +43,20 @@
       </div>
 
       <div>
-        <cranberry-content-list items="{{content}}" tracked-section="news" hidden$="[[hideContent]]"></cranberry-content-list>
-        <div class="pagination-wrapper" hidden$="[[hideContent]]">
-          <cranberry-pagination start="{{start}}" current-page="{{currentPage}}" section="[[trackerSection]]" parent="[[trackerParentSection]]"></cranberry-pagination>
-        </div>
+        <template is="dom-if" if="[[!hidden]]" restamp>
+          <!-- Section Tracker -->
+          <cranberry-section-tracker rest="{$ config.baseEndpointUrl $}"
+                                    tags="{{tags}}"
+                                    tags-page$="[[tagsPage]]"
+                                    loading="{{sectionTrackingInProgress}}"
+                                    dfp-object="{{dfpObject}}"
+                                    hidden$="[[hidden]]">
+          </cranberry-section-tracker>
+          <cranberry-content-list items="{{content}}" dfp-object="[[dfpObject]]" homepage$="[[isHomepage]]" galleries$="[[galleries]]" tags-page$="[[tagsPage]]" hidden$="[[hideContent]]"></cranberry-content-list>
+          <div class="pagination-wrapper" hidden$="[[hideContent]]">
+            <cranberry-pagination start="{{start}}" current-page="{{currentPage}}" section="[[trackerSection]]" parent="[[trackerParentSection]]"></cranberry-pagination>
+          </div>
+        </template>
       </div>
     </div>
 

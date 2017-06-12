@@ -3,19 +3,28 @@ class CranberryContentList {
     this.is = 'cranberry-content-list';
     this.properties = {
       dfpObject: Object,
-      galleries: Boolean,
+      galleries: {
+        type: Boolean,
+        value: false
+      },
       hidden: {
         type: Boolean,
         reflectToAttribute: true,
         value: true
       },
-      homepage: Boolean,
+      homepage: {
+        type: Boolean,
+        value: false
+      },
       items: {
         type: Object,
         value: []
       },
       tags: String,
-      tagsPage: Boolean
+      tagsPage: {
+        type: Boolean,
+        value: false
+      }
     };
     this.observers = [
       '_hiddenChanged(hidden)'

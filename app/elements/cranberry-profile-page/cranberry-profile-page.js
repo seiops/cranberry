@@ -26,6 +26,11 @@ class cranberryProfilePage {
       },
       rest: String,
       baseUrl: String,
+      hidden: {
+        type: Boolean,
+        reflectToAttribute: true,
+        value: true
+      },
       hideContent: {
         type: Boolean,
         value: true
@@ -116,6 +121,7 @@ class cranberryProfilePage {
         }
         
         params.desiredFeaturedCount = '1';
+        params.disableFeatured = 'false';
         params.desiredStoryByline = fname + ' ' + lname;
 
         requester.set('params', params);
@@ -182,14 +188,14 @@ class cranberryProfilePage {
 
     let result = JSON.parse(json.detail.Result);
 
-    if (result.featured.length > 0) {
+    if (typeof result.featured !== 'undefined' && result.featured.length > 0) {
       this.set('featuredContent', result.featured[0]);
       this.set('hideFeatured', false);
     } else {
       this.set('hideFeatured', true);
     }
     
-    if (result.content.length > 0) {
+    if (typeof result.content !== 'undefined' && result.content.length > 0) {
       this.set('content', result.content);
       this.set('hideContent', false);
     } else {
@@ -197,6 +203,7 @@ class cranberryProfilePage {
     }
 
     this._firePageview();
+    this.fire('iron-signal', {name: 'cranberry-section-route-changed', data: { section: { sectionType: 'section', sectionName: 'news' } } });
   }
 
   _firePageview() {
