@@ -13,34 +13,33 @@
     <iron-media-query query="(min-width: 960px)" query-matches="{{desktop}}"></iron-media-query>
     <iron-media-query query="(min-width: 720px) and (max-width:959px)" query-matches="{{tablet}}"></iron-media-query>
     <iron-media-query query="(max-width: 719px)" query-matches="{{mobile}}"></iron-media-query>
-
+    
     <paper-dialog id="browserDetectionModal"
                   entry-animation="scale-up-animation"
                   exit-animation="fade-out-animation"
                   modal>
       <paper-button dialog-dismiss raised>X</paper-button>
-
       <div class="content" desktop-layout$="[[desktop]]" tablet-layout$="[[tablet]]" mobile-layout$="[[mobile]]"> 
         <div class="browser-icons">
-          <a href="www.mozilla.org/firefox" class$="browser-link [[_checkBorder(desktop)]]" target="_blank" rel="noopener">
+          <a href="https://www.mozilla.org/en-US/firefox/" class$="browser-link[[_checkBorder(desktop)]]" target="_blank" rel="noopener" on-tap="_handleBrowserLinkClick">
             <div class="browser-link-content">
               <img src="/images/browser/ff.png" />
               <p class="browser-link-text">Firefox</p>
             </div>
           </a>
-          <a href="https://www.google.com/chrome/browser/" class$="browser-link [[_checkBorder(desktop)]]" target="_blank" rel="noopener">
+          <a href="https://www.google.com/chrome/browser/" class$="browser-link[[_checkBorder(desktop)]]" target="_blank" rel="noopener">
             <div class="browser-link-content">
               <img src="/images/browser/chrome.png" />
               <p class="browser-link-text">Chrome</p>
             </div>
           </a>
-          <a href="https://www.microsoft.com/en-us/windows/microsoft-edge" class$="browser-link [[_checkBorder(desktop)]]" target="_blank" rel="noopener">
+          <a href="https://www.microsoft.com/en-us/windows/microsoft-edge" class$="browser-link[[_checkBorder(desktop)]]" target="_blank" rel="noopener">
             <div class="browser-link-content">
               <img src="/images/browser/edge.png" />
               <p class="browser-link-text">Edge</p>
             </div>
           </a>
-          <a href="https://support.apple.com/downloads/safari" class$="browser-link [[_checkBorder(desktop)]]" target="_blank" rel="noopener">
+          <a href="https://support.apple.com/downloads/safari" class$="browser-link[[_checkBorder(desktop)]]" target="_blank" rel="noopener">
             <div class="browser-link-content">
               <img src="/images/browser/safari.png" />
               <p class="browser-link-text">Safari</p>
@@ -49,8 +48,8 @@
         </div>
 
         <div class="write-up">
-            <p class="main-write-up">Opps! It looks like you'll need to update your browser in order to enjoy our website</p>
-            <p class="linking-write-up">Click the link abvove for the latest versions.</p>
+            <p class="main-write-up">For an optimal experience, we recommend you download a more recent browser.</p>
+            <p class="linking-write-up">Click the link above for the latest versions.</p>
         </div>
       </div>
     </paper-dialog>

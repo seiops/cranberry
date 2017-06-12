@@ -3,6 +3,12 @@ class CranberryGoogleAnalytics {
   beforeRegister() {
     this.is = 'cranberry-google-analytics';
     this.properties = {
+      gaReady: {
+        type: Boolean,
+        notify: true,
+        value: false,
+        reflectToAttribute: true
+      },
       trackingId: Array,
       trackerIds: {
         type: Array,
@@ -56,22 +62,26 @@ class CranberryGoogleAnalytics {
         this._createGA(value.code, index);
       });
     }
+    this.async(() => {
+      let event = {
+        category: 'Cranberry',
+        action: 'Loaded',
+        nonInteraction: true
+      };
+    
+      // Send pageview event with iron-signals
+      this.trackEvent({detail: { event: event } });
+      if (typeof window.performance !== 'undefined' && typeof window.performance.timing !== 'undefined') {
+        this.trackTiming();
+      }
 
-    let event = {
-      category: 'Cranberry',
-      action: 'Loaded',
-      nonInteraction: true
-    };
-  
-    // Send pageview event with iron-signals
-    this.trackEvent({detail: { event: event } });
-    if (typeof window.performance !== 'undefined' && typeof window.performance.timing !== 'undefined') {
-      this.trackTiming();
-    }
+      this.set('gaReady', true);
+    });
   }
 
   _createGA(id, index) {
     this.async(() => {
+      let user = this.get('user');
       let trackerId = '';
       let trackerIds = this.get('trackerIds');
 
@@ -132,10 +142,10 @@ class CranberryGoogleAnalytics {
         };
 
         let trackerIds = this.get('trackerIds');
-        console.info('\<cranberry-google-analytics\> event sent with data on default');
+        console.info(`\<cranberry-google-analytics\> event ${eventObject.eventCategory} sent with data on default`);
         ga('send', 'event', eventObject.eventCategory, eventObject.eventAction, '', { nonInteraction: eventObject.nonInteraction });
         trackerIds.forEach((value, index) => {
-          console.info('\<cranberry-google-analytics\> event sent with data on ' + value);
+          console.info(`\<cranberry-google-analytics\> event ${eventObject.eventCategory} sent with data on ${value}`);
           ga( value + '.send', 'event', eventObject.eventCategory, eventObject.eventAction, '', { nonInteraction: eventObject.nonInteraction });
         });
       } else {

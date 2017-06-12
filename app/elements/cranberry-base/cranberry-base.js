@@ -3,6 +3,10 @@ class CranberryBase {
   beforeRegister() {
     this.is = 'cranberry-base';
     this.properties = {
+      gaReady: {
+        type: Boolean,
+        reflectToAttribute: true
+      },
       data: Object,
       upgraded: Boolean,
       storage: {
@@ -463,7 +467,7 @@ class CranberryBase {
 
   _getBrowser() {
     let browser = app.browser;
-    
+
     return browser;
   }
 }

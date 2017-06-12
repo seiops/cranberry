@@ -95,7 +95,7 @@
     <cranberry-script-loader></cranberry-script-loader>
 
     <!-- Google Analytics -->
-    <cranberry-google-analytics user="[[user]]" tracking-id='{$ config.google.analytics | dump $}'></cranberry-google-analytics>
+    <cranberry-google-analytics user="[[user]]" tracking-id='{$ config.google.analytics | dump $}' ga-ready="{{gaReady}}"></cranberry-google-analytics>
 
     <!-- Mather -->
     <mather-analytics mather-id="{$ config.mather.id $}" mather-name="{$ config.mather.name $}" user="[[user]]"></mather-analytics>
@@ -113,7 +113,7 @@
     <cranberry-content-request></cranberry-content-request>
 
     <!-- Browser Version Detection GUI -->
-    <cranberry-browser-detection browser="[[_getBrowser()]]"></cranberry-browser-detection>
+    <cranberry-browser-detection browser="[[_getBrowser()]]" ga-ready="{{gaReady}}"></cranberry-browser-detection>
 
     <!-- local browser storage -->
     <iron-localstorage id="localStorage" name="{$ config.appNameId $}"

@@ -133,9 +133,9 @@ class GigyaSocialize {
 
     dialog.addEventListener('opened-changed', function() {
       if(dialog.opened) {
-        Polymer.IronDropdownScrollManager.pushScrollLock(dialog);
+        Polymer.dom(document.body).classList.add('no-scroll');
       } else {
-        Polymer.IronDropdownScrollManager.removeScrollLock(dialog);
+        Polymer.dom(document.body).classList.remove('no-scroll');
       }
     });
 

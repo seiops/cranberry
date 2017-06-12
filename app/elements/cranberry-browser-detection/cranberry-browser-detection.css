@@ -98,5 +98,8 @@ div.write-up p.main-write-up {
 div.write-up p.linking-write-up {
   @apply(--paper-font-menu);
   font-size: 14px;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: inherit;
   color: #fff;
 }
