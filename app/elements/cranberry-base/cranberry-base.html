@@ -66,6 +66,7 @@
 <link rel="import" href="../cranberry-sharethrough-story/cranberry-sharethrough-story.html">
 <link rel="import" href="../cranberry-content-request/cranberry-content-request.html">
 <link rel="import" href="../youneeq-tracker/youneeq-tracker.html">
+<link rel="import" href="../cranberry-browser-detection/cranberry-browser-detection.html">
 
 <dom-module id="cranberry-base">
   <template>
@@ -140,6 +141,8 @@
 
         <!-- content area -->
         <cranberry-breaking-bar rest="{$ config.baseEndpointUrl $}" mobile="[[mobile]]" tablet="[[tablet]]" desktop="[[desktop]]"></cranberry-breaking-bar>
+
+        <cranberry-browser-detection browser="[[_getBrowser()]]"></cranberry-browser-detection>
 
         {% include "cranberry-base/views/pages.html" %}
       </app-header-layout>

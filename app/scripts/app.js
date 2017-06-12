@@ -98,6 +98,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       M.splice(1,1,tem[1]);
     }
     
+    console.log('From App JS');
+    console.dir({name: M[0],version: M[1]});
+
     return {
       name: M[0],
       version: M[1]

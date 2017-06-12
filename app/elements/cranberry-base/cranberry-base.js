@@ -460,6 +460,13 @@ class CranberryBase {
     // call it once to get started
     tick();
   }
+
+  _getBrowser() {
+    let browser = app.browser;
+
+    console.dir(browser);
+    return browser;
+  }
 }
 // Change accent color
 Polymer(
