@@ -40,6 +40,17 @@ Typography mixins are from file on URL https://github.com/PolymerElements/paper-
 
   /* Material Font Styles */
 
+  --paper-font-display5: {
+    @apply(--paper-font-common-base);
+    @apply(--paper-font-common-nowrap);
+    @apply(--paper-font-common-uppercase);
+
+    font-size: 7px;
+    font-weight: 700;
+    letter-spacing: -0.024em;
+    line-height: normal;
+  };
+
   --paper-font-display4: {
     @apply(--paper-font-common-base);
     @apply(--paper-font-common-nowrap);

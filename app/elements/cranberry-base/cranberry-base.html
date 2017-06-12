@@ -112,6 +112,9 @@
     <!-- Content Request Element -->
     <cranberry-content-request></cranberry-content-request>
 
+    <!-- Browser Version Detection GUI -->
+    <cranberry-browser-detection browser="[[_getBrowser()]]"></cranberry-browser-detection>
+
     <!-- local browser storage -->
     <iron-localstorage id="localStorage" name="{$ config.appNameId $}"
       value="{{storage}}"
@@ -141,8 +144,6 @@
 
         <!-- content area -->
         <cranberry-breaking-bar rest="{$ config.baseEndpointUrl $}" mobile="[[mobile]]" tablet="[[tablet]]" desktop="[[desktop]]"></cranberry-breaking-bar>
-
-        <cranberry-browser-detection browser="[[_getBrowser()]]"></cranberry-browser-detection>
 
         {% include "cranberry-base/views/pages.html" %}
       </app-header-layout>

@@ -16,6 +16,8 @@
 <link rel="import" href="../gigya-finalize-register/gigya-finalize-register.html">
 <link rel="import" href="../cranberry-icons/cranberry-icons.html">
 <link rel="import" href="../../bower_components/iron-signals/iron-signals.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/scale-up-animation.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/fade-out-animation.html">
 
 <dom-module id="gigya-socialize">
   <template>
@@ -26,7 +28,7 @@
 
     <iron-signals on-iron-signal-open-user-modal="_handleOpen"><iron-signals>
 
-    <paper-dialog id="userModal" modal>
+    <paper-dialog id="userModal" modal entry-animation="scale-up-animation" exit-animation="fade-out-animation">
       <template is="dom-if" if="[[user.isLoggedIn]]" restamp>
         <paper-toolbar class="medium-tall top-bar">
             <div class="top user-toolbar">

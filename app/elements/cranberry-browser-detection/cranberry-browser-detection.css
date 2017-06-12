@@ -1,3 +1,102 @@
 :host {
   @apply(--layout-flex);
 }
+
+paper-dialog {
+  background-color: var(--accent-color);
+  width: 80%;
+}
+
+paper-dialog div > * {
+  color: #fff;
+}
+
+paper-button {
+  @apply(--paper-font-button);
+  color: #000;
+  background: #fff;
+  border-radius: 100%;
+  width: 35px;
+  min-width: 35px;
+  height: 35px;
+  min-height: 35px;
+  font-size: 18px;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: -16px;
+  right: -16px;
+}
+
+div.content[desktop-layout] {
+  @apply(--layout-vertical);
+  padding: 96px;
+}
+
+div.content[tablet-layout] {
+  padding: 72px;
+}
+
+div.content[mobile-layout] {
+  padding: 24px;
+}
+
+div.browser-icons {
+  @apply(--layout-horizontal);
+  @apply(--layout-wrap);
+  @apply(--layout-around-justified);
+  padding-bottom: 50px;
+}
+
+a.browser-link {
+  @apply(--layout-flex);
+  flex: 1 1 auto;
+  text-decoration: none;
+}
+
+a.browser-link.border {
+  border-right: 1px solid #fff;
+}
+
+a.browser-link:nth-child(4) {
+  border-right: none;
+}
+
+div.content[mobile-layout] a.browser-link {
+  padding: 12px;
+}
+
+div.browser-link-content {
+  @apply(--layout-vertical);
+  @apply(--layout-center-justified);
+  @apply(--layout-center);
+}
+
+div.browser-link-content p.browser-link-text {
+  @apply(--paper-font-display5);
+  font-size: 10px;
+  color: #fff;
+}
+
+div.write-up {
+  @apply(--paper-font-body1);
+  @apply(--layout-center-justified);
+  @apply(--layout-center);
+
+  text-align: center;
+}
+
+div.write-up p.main-write-up {
+ @apply(--paper-font-display3);
+ font-size: 14px;
+ white-space: normal;
+ overflow: visible;
+ text-overflow: inherit;
+ color: #fff;
+}
+
+div.write-up p.linking-write-up {
+  @apply(--paper-font-menu);
+  font-size: 14px;
+  color: #fff;
+}

@@ -49,6 +49,10 @@ section > div.layout.horizontal.center-justified {
   @apply(--layout-wrap);
 }
 
+.paper-font-display5 {
+  @apply(--paper-font-display5);
+}
+
 .paper-font-display4 {
   @apply(--paper-font-display4);
 }

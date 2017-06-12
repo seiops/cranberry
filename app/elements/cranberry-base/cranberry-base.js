@@ -463,8 +463,7 @@ class CranberryBase {
 
   _getBrowser() {
     let browser = app.browser;
-
-    console.dir(browser);
+    
     return browser;
   }
 }

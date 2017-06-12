@@ -1,12 +1,59 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/scale-up-animation.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/fade-out-animation.html">
 
 <dom-module id="cranberry-browser-detection">
   <template>
     <style>
       @import "cranberry-browser-detection/cranberry-browser-detection";
     </style>
-      <p>[[browser.name]]</p>
-      <p>[[browser.version]]</p>
+
+    <iron-media-query query="(min-width: 960px)" query-matches="{{desktop}}"></iron-media-query>
+    <iron-media-query query="(min-width: 720px) and (max-width:959px)" query-matches="{{tablet}}"></iron-media-query>
+    <iron-media-query query="(max-width: 719px)" query-matches="{{mobile}}"></iron-media-query>
+
+    <paper-dialog id="browserDetectionModal"
+                  entry-animation="scale-up-animation"
+                  exit-animation="fade-out-animation"
+                  modal>
+      <paper-button dialog-dismiss raised>X</paper-button>
+
+      <div class="content" desktop-layout$="[[desktop]]" tablet-layout$="[[tablet]]" mobile-layout$="[[mobile]]"> 
+        <div class="browser-icons">
+          <a href="www.mozilla.org/firefox" class$="browser-link [[_checkBorder(desktop)]]" target="_blank" rel="noopener">
+            <div class="browser-link-content">
+              <img src="/images/browser/ff.png" />
+              <p class="browser-link-text">Firefox</p>
+            </div>
+          </a>
+          <a href="https://www.google.com/chrome/browser/" class$="browser-link [[_checkBorder(desktop)]]" target="_blank" rel="noopener">
+            <div class="browser-link-content">
+              <img src="/images/browser/chrome.png" />
+              <p class="browser-link-text">Chrome</p>
+            </div>
+          </a>
+          <a href="https://www.microsoft.com/en-us/windows/microsoft-edge" class$="browser-link [[_checkBorder(desktop)]]" target="_blank" rel="noopener">
+            <div class="browser-link-content">
+              <img src="/images/browser/edge.png" />
+              <p class="browser-link-text">Edge</p>
+            </div>
+          </a>
+          <a href="https://support.apple.com/downloads/safari" class$="browser-link [[_checkBorder(desktop)]]" target="_blank" rel="noopener">
+            <div class="browser-link-content">
+              <img src="/images/browser/safari.png" />
+              <p class="browser-link-text">Safari</p>
+            </div>
+          </a>
+        </div>
+
+        <div class="write-up">
+            <p class="main-write-up">Opps! It looks like you'll need to update your browser in order to enjoy our website</p>
+            <p class="linking-write-up">Click the link abvove for the latest versions.</p>
+        </div>
+      </div>
+    </paper-dialog>
   </template>
 
   <script src="cranberry-browser-detection.js"></script>
