@@ -194,14 +194,16 @@ div.segue hr {
   overflow: hidden;
   border-color: inherit;
 }
+
 /**
   * Patch the gap that appear between the two adjacent div.circle-clipper while the
   * spinner is rotating (appears on Chrome 50, Safari 9.1.1, and Edge).
   */
 .spinner-layer::after {
-  left: 45%;
-  width: 10%;
-  border-top-style: solid;
+    left: 50%;
+    top: 0% !important;
+    border: solid;
+    border-width: 2px !important;
 }
 .spinner-layer::after,
 .circle-clipper::after {
@@ -209,7 +211,7 @@ div.segue hr {
   box-sizing: border-box;
   position: absolute;
   top: 0;
-  border-width: 6px;
+  border-width: 4px;
   border-color: inherit;
   border-radius: 50%;
 }
