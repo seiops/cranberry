@@ -225,6 +225,16 @@ class CranberryGallery {
 
       modalContent.appendChild(slider);
 
+      modal.addEventListener('opened-changed', function() {
+        if(modal.opened) {
+          Polymer.dom(document.body).classList.add('no-scroll');
+          Polymer.dom(document.documentElement).classList.add('no-scroll');
+        } else {
+          Polymer.dom(document.body).classList.remove('no-scroll');
+          Polymer.dom(document.documentElement).classList.remove('no-scroll');
+        }
+      });
+
       modal.open();
       modal.refit();
     });

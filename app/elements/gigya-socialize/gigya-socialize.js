@@ -134,8 +134,10 @@ class GigyaSocialize {
     dialog.addEventListener('opened-changed', function() {
       if(dialog.opened) {
         Polymer.dom(document.body).classList.add('no-scroll');
+        Polymer.dom(document.documentElement).classList.add('no-scroll');
       } else {
         Polymer.dom(document.body).classList.remove('no-scroll');
+        Polymer.dom(document.documentElement).classList.remove('no-scroll');
       }
     });
 

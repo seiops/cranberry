@@ -58,7 +58,7 @@ a.browser-link.border {
   border-right: 1px solid #fff;
 }
 
-a.browser-link:nth-child(4) {
+a.browser-link:last-child {
   border-right: none;
 }
 

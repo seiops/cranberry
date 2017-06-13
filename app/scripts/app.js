@@ -80,7 +80,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   }
 
   function get_browser() {
-    let ua = navigator.userAgent,tem,M=ua.match(/(opera|chrome|safari|firefox|msie|edge|trident(?=\/))\/?\s*(\d+)/i) || [];
+    let ua = navigator.userAgent,tem,M=ua.match(/(opera|chrome|safari|firefox|msie|edge|trident|crios(?=\/))\/?\s*(\d+)/i) || [];
 
     if (/trident/i.test(M[1])) {
       tem=/\brv[ :]+(\d+)/g.exec(ua) || []; 
@@ -96,6 +96,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       tem=ua.match(/Edge\/(\d+)/)
       if(tem!=null)   {
         return {name:'Edge', version:tem[1]};
+      }
+    }
+
+    if (M[1]==='CriOS') {
+      tem=ua.match(/\bCriOS\/(\d+)/)
+      if(tem!=null)   {
+        return {name:'Chrome', version:tem[1]};
       }
     }
 

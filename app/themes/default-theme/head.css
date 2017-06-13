@@ -52,5 +52,7 @@ a.igtfb__icon__text {
 }
 
 .no-scroll {
-  overflow: hidden
+  position: relative;
+  overflow: hidden;
+  height: 100%;
 }

@@ -9,28 +9,28 @@ class CranberryBrowserDetection {
         }
       },
       chromeVersion: {
-        type: String,
-        value: '56'
+        type: Number,
+        value: 56
       },
       edgeVersion: {
-        type: String,
-        value: '14'
+        type: Number,
+        value: 14
       },
       firefoxVersion: {
-        type: String,
-        value: '51'
+        type: Number,
+        value: 51
       },
       gaReady: {
         type: Boolean,
         reflectToAttribute: true
       },
       operaVersion: {
-        type: String,
-        value: '43'
+        type: Number,
+        value: 43
       },
       safariVersion: {
-        type: String,
-        value: '8'
+        type: Number,
+        value: 8
       }
     }
     this.observers = ['_checkBrowser(browser, gaReady)']
@@ -43,6 +43,7 @@ class CranberryBrowserDetection {
 
   attached() {
     console.info('\<cranberry-browser-detection\> attached');
+    this.set('appUserAgent', window.navigator.userAgent);
   }
 
   detached() {
@@ -55,30 +56,41 @@ class CranberryBrowserDetection {
   // Private Methods
   _checkCookie(browser) {
     let browserWarn = this._getCookie('browserWarn');
+    
     if (browserWarn === '') {
       let supportedBrowserVersion = '';
-      let currentBrowserVersion = browser.version;
+      let currentBrowserVersion = parseInt(browser.version);
 
       switch(browser.name) {
         case 'Chrome':
           supportedBrowserVersion = this.get('chromeVersion');
-          this._handleOpen(supportedBrowserVersion, currentBrowserVersion);
+          this.async(() => {
+            this._handleOpen(supportedBrowserVersion, currentBrowserVersion);
+          });
           break;
         case 'Firefox':
           supportedBrowserVersion = this.get('firefoxVersion');
-          this._handleOpen(supportedBrowserVersion, currentBrowserVersion);
+          this.async(() => {
+            this._handleOpen(supportedBrowserVersion, currentBrowserVersion);
+          });
           break;
         case 'Safari':
           supportedBrowserVersion = this.get('safariVersion');
-          this._handleOpen(supportedBrowserVersion, currentBrowserVersion);
+          this.async(() => {
+            this._handleOpen(supportedBrowserVersion, currentBrowserVersion);
+          });
           break;
         case 'Edge':
           supportedBrowserVersion = this.get('edgeVersion');
-          this._handleOpen(supportedBrowserVersion, currentBrowserVersion);
+          this.async(() => {
+            this._handleOpen(supportedBrowserVersion, currentBrowserVersion);
+          });
           break;
         case 'Opera':
           supportedBrowserVersion = this.get('operaVersion');
-          this._handleOpen(supportedBrowserVersion, currentBrowserVersion);
+          this.async(() => {
+            this._handleOpen(supportedBrowserVersion, currentBrowserVersion);
+          });
           break;
       }
     }
@@ -116,14 +128,13 @@ class CranberryBrowserDetection {
 
   _checkBrowser(browser, gaReady) {
     this.async(() => {
-      if (Object.keys(browser).length > 0 && gaReady) {
+      if (Object.keys(browser).length > 0 && browser.name !== '' && gaReady) {
         this._checkCookie(browser);
       }
     });
   }
 
   _handleOpen(supportedBrowserVersion, currentBrowserVersion) {
-
     if (currentBrowserVersion < supportedBrowserVersion) {
       this._setCookie('browserWarn', true, 7);
       let browserModal = Polymer.dom(this.root).querySelector('#browserDetectionModal');
@@ -131,8 +142,10 @@ class CranberryBrowserDetection {
       browserModal.addEventListener('opened-changed', function() {
         if(browserModal.opened) {
           Polymer.dom(document.body).classList.add('no-scroll');
+          Polymer.dom(document.documentElement).classList.add('no-scroll');
         } else {
           Polymer.dom(document.body).classList.remove('no-scroll');
+          Polymer.dom(document.documentElement).classList.remove('no-scroll');
         }
       });
 
