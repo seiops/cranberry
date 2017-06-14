@@ -174,7 +174,13 @@ class CranberryCard {
 
   _scrubTagUrl(sectionInformation) {
     if (typeof sectionInformation !== 'undefined' && sectionInformation.sectionLabel !== 'undefined' && sectionInformation.sectionLabel !== 'jail-mugs') {
-      let temp = '/section/' + sectionInformation.sectionLabel.replace(/_/g, '-').replace('-and', '').toLowerCase();
+      let temp;
+      if (sectionInformation.sectionLabel === 'frontpage') {
+        temp = '/';
+      }
+      else {
+        temp = '/section/' + sectionInformation.sectionLabel.replace(/_/g, '-').replace('-and', '').toLowerCase();
+      }
 
       return temp;
     } else if (typeof sectionInformation !== 'undefined' && sectionInformation.sectionLabel !== 'undefined' && sectionInformation.sectionLabel === 'jail-mugs') {

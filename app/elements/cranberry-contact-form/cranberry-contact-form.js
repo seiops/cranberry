@@ -54,11 +54,16 @@ class cranberryContactForm {
   }
 
   _handleReset() {
-    let form = this.$.form;
+    let form = Polymer.dom(this.root).querySelector('#form');
     // Reset inputs, checkboxes, and radio buttons
     form.reset();
     // Reset reCaptcha
     this.$.recap.reset();
+
+    let listbox = Polymer.dom(this.root).querySelector('#departmentSelector');
+    
+    listbox.set('selected', '0');
+
     // Fire a change event on the form to re-validate
     form.fire('change');
   }
@@ -114,7 +119,7 @@ class cranberryContactForm {
 
     this.set('submitting', false);
     let submit = this.$.submitButton;
-    submit.disabled = false;
+    submit.disabled = true;
 
   }
 

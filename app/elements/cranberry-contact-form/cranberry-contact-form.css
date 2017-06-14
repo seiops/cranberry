@@ -14,3 +14,7 @@ paper-textarea {
 paper-button {
   @apply(--paper-font-button);
 }
+
+re-captcha {
+  padding-top: 12px;
+}
