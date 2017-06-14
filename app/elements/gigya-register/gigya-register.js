@@ -8,8 +8,10 @@ class GigyaRegister {
         value: true
       },
       notices: {
-        type: Object,
-        value: []
+        type: Array,
+        value: function() {
+          return [];
+        }
       },
       verify: {
         type: Object,
@@ -157,7 +159,27 @@ class GigyaRegister {
       console.dir(error);
     }
 
-    this.push('notices', notice);
+    this._deDupNoticies(notice);
+    // this.push('notices', notice);
+  }
+
+  _deDupNoticies(notice) {
+    this.async(() => {
+      let notices = this.get('notices');
+      let shouldPush = true;
+
+      notices.forEach((value) => {
+        if (value.message === notice.message) {
+          console.info('\<gigya-register\> API validation error :: Duplicate Error');
+          shouldPush = false;
+          return false;
+        }
+      });
+
+      if (shouldPush) {
+        this.push('notices', notice);
+      }
+    });
   }
 
   // submit register form data with Gigya token
@@ -209,8 +231,6 @@ class GigyaRegister {
   // callback for registration from Gigya
   _registerCallback(data) {
     console.info('\<gigya-register\> register callback');
-
-    console.dir(data);
 
     let el = data.context;
 
