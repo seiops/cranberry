@@ -56,7 +56,7 @@ class gigyaComments {
         let params = {
           context: Polymer.dom(document).querySelector('gigya-socialize'),
           categoryID: configId,
-          streamID: content.itemId,
+          streamID: content.genericLink,
           streamURL: window.location.href,
           version: 2,
           containerID: time,

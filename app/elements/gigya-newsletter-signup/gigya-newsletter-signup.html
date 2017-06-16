@@ -9,6 +9,7 @@
     </style>
     <style include="gigya-styles"></style>
     <h2>Newsletters</h2>
+    <p>Be one of the first to know. Never be out of the loop by signing up for one of our newsletters that fits your interest best. Whether it’s sports, weather alerts or breaking local news, we got it covered. All you have to do is signup.</p>
     <div class="update-profile">
       <div class="register-messages">
         <template is="dom-repeat" items="{{notices}}">
@@ -22,9 +23,13 @@
       </div>
     </div>
     <form is="iron-form" action="/" id="newsletterForm">
-      <template is="dom-repeat" items="[[newsletters]]">
-        <paper-checkbox name="[[item.naming]]" value="[[_getNewsletterValue(account, item)]]" checked="[[_getNewsletterValue(account, item)]]">[[item.displayName]]</paper-checkbox>
-      </template>
+      <div class="newsletter-checkbox-container">
+        <template is="dom-repeat" items="[[newsletters]]">
+          <div class="checkbox-wrapper">
+            <paper-checkbox name="[[item.naming]]" value="[[_getNewsletterValue(account, item)]]" checked="[[_getNewsletterValue(account, item)]]">[[item.displayName]]</paper-checkbox>
+          </div>
+        </template>
+      </div>
       <div class="form-buttons">
         <paper-spinner id="spinner"></paper-spinner>
         <paper-button on-tap="_handleUpdateAccount" id="submit">Update Subscriptions</paper-button>

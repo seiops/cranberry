@@ -15,6 +15,10 @@ paper-button {
   @apply(--paper-font-button);
 }
 
+paper-button#submitButton {
+  margin-left: 0;
+}
+
 re-captcha {
-  padding-top: 12px;
+  padding: 12px 0;
 }

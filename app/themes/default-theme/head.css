@@ -56,3 +56,42 @@ a.igtfb__icon__text {
   overflow: hidden;
   height: 100%;
 }
+
+.gig-comments-rss {
+  display: none !important;
+}
+
+*.gig-comments-linksContainer li:after {
+  width: 0px !important;
+}
+
+.gig-comment-body {
+  font-family: 'Roboto', 'Noto', sans-serif !important;
+  -webkit-font-smoothing: antialiased !important;
+  color: rgba(0, 0, 0, 0.87) !important;
+  font-size: 14px !important;
+}
+
+.gig-comments-header-left > * {
+  font-family: 'Roboto', 'Noto', sans-serif !important;
+  -webkit-font-smoothing: antialiased !important;
+  color: rgba(0, 0, 0, 0.87) !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+}
+
+.gig-comment-header-left > * {
+  font-family: 'Roboto', 'Noto', sans-serif !important;
+  -webkit-font-smoothing: antialiased !important;
+  color: rgba(0, 0, 0, 0.87) !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+}
+
+.gig-composebox-header-left > * {
+  font-family: 'Roboto', 'Noto', sans-serif !important;
+  -webkit-font-smoothing: antialiased !important;
+  color: rgba(0, 0, 0, 0.87) !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+}

@@ -2,6 +2,18 @@
   width: 100%;
 }
 
+div.newsletter-checkbox-container {
+  @apply(--layout-horizontal);
+  @apply(--layout-wrap);
+}
+
+div.checkbox-wrapper {
+  @apply(--layout-flex);
+  flex: 1 1 auto;
+  min-width: 300px;
+}
+
 paper-checkbox {
   padding: 6px;
+  margin: 6px;
 }

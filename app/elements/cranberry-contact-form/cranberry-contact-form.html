@@ -28,8 +28,8 @@
       <paper-input name="address" label="Address" required auto-validate error-message="You must provide a address." allowed-pattern="[.A-zA-Z0-9 ]"></paper-input>
       <!-- <paper-input name="telephone" label="Telephone" required auto-validate error-message="You must provide a phone number." allowed-pattern="[0-9]"></paper-input> -->
       <gold-phone-input name="telephone" label="Telephone" country-code="1" phone-number-pattern="XXX-XXX-XXXX" required auto-validate error-message="You must provide a phone number."></gold-phone-input>
-      <re-captcha sitekey="{$ config.contactInformation.recaptchaKey $}" response="{{recapResponse}}" id="recap"></re-captcha>
       <paper-textarea name="message" label="Message" value="" char-counter maxlength="350"></paper-textarea>
+      <re-captcha sitekey="{$ config.contactInformation.recaptchaKey $}" response="{{recapResponse}}" id="recap"></re-captcha>
       <paper-button on-tap="_handleSubmit" id="submitButton" disabled>Submit</paper-button>
       <paper-button on-tap="_handleReset">Reset</paper-button>
 
