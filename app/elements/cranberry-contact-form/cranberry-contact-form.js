@@ -53,19 +53,23 @@ class cranberryContactForm {
     }
   }
 
-  _handleReset() {
-    let form = Polymer.dom(this.root).querySelector('#form');
-    // Reset inputs, checkboxes, and radio buttons
-    form.reset();
-    // Reset reCaptcha
-    this.$.recap.reset();
-
+  _handleReset(event) {
+    // Reset department selection box
     let listbox = Polymer.dom(this.root).querySelector('#departmentSelector');
-    
     listbox.set('selected', '0');
 
-    // Fire a change event on the form to re-validate
-    form.fire('change');
+    // Reset inputs, checkboxes, and radio buttons
+    let form = Polymer.dom(event).localTarget.parentElement;
+    form.reset();
+
+    // Reset reCaptcha
+    let recap = form.querySelector('re-captcha');
+    recap.reset();
+
+    this.async(() => {
+      let focused = form.querySelector('[focused]');
+      focused.blur();
+    }, 100);
   }
 
   _selectedDepartmentChanged(element) {
@@ -91,12 +95,15 @@ class cranberryContactForm {
     });
 
     form.addEventListener('change', function(event) {
-      // Validate the form
-      let formValid = form.validate();
       // If the form is valid and the re-captcha has been successfully completed enable the submit button else ensure button is disabled.
-      if (formValid && captchaValidated) {
-        // Button is no longer disabled
-        submitButton.disabled = false;
+      if (captchaValidated) {
+        // Validate the form
+        let formValid = form.validate();
+
+        if (formValid) {
+          // Button is no longer disabled
+          submitButton.disabled = false;
+        }
       } else {
         // Button remains disabled
         submitButton.disabled = true;

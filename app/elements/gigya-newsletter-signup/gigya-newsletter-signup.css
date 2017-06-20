@@ -17,3 +17,7 @@ paper-checkbox {
   padding: 6px;
   margin: 6px;
 }
+
+.bolded-text {
+  font-weight: 900;
+}
