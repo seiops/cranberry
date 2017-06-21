@@ -59,7 +59,7 @@ class cranberryContactForm {
     listbox.set('selected', '0');
 
     // Reset inputs, checkboxes, and radio buttons
-    let form = Polymer.dom(event).localTarget.parentElement;
+    let form = Polymer.dom(this.root).querySelector('#form');
     form.reset();
 
     // Reset reCaptcha
@@ -68,7 +68,9 @@ class cranberryContactForm {
 
     this.async(() => {
       let focused = form.querySelector('[focused]');
-      focused.blur();
+      if (focused) {
+        focused.blur();
+      }
     }, 100);
   }
 

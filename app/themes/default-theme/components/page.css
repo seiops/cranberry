@@ -95,3 +95,9 @@ paper-dialog#globalModal paper-dialog-scrollable paper-button.modal-close {
   background-color: #fff;
   margin: 0 auto;
 }
+
+paper-toast#infoToast {
+  @apply(--paper-font-subhead);
+  background-color: rgba(92,184,92,.90);
+  color: #fff;
+}
