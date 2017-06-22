@@ -1,3 +1,6 @@
 <section class="Page" tabindex="-1">
-  <cranberry-section route="[[route]]" is-homepage hidden$="{{!_equal(data.page, '')}}"></cranberry-section>
+  <template is="dom-if" if="{{_equal(data.page, '')}}" restamp>
+    <cranberry-homepage route="[[route]]"></cranberry-homepage>
+  </template>
+  <!--<cranberry-section route="[[route]]" is-homepage hidden$="{{!_equal(data.page, '')}}"></cranberry-section>-->
 </section>

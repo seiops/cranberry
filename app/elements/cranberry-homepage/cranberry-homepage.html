@@ -1,0 +1,115 @@
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../cranberry-section-styles/cranberry-section-styles.html">
+<link rel="import" href="../cranberry-behaviors/cranberry-section-behaviors.html">
+
+<dom-module id="cranberry-homepage">
+  <template>
+    <style include="cranberry-section-styles">
+      @import "cranberry-homepage/cranberry-homepage";
+    </style>
+    <byutv-jsonp
+      verbose
+      cache
+      url="{$ config.baseEndpointUrl $}"
+      on-response="_handleResponse"
+      on-load="_handleLoad"
+      on-error="_handleError"
+      id="request">
+    </byutv-jsonp>
+
+    <div class="section-wrapper" hidden$="[[loading]]">
+      <div class="header-advertisement">
+        <template is="dom-if" if="[[!loading]]" restamp>
+          <google-dfp dfp-object="[[dfpObject]]"
+                      ad-size-mapping="leaderboard"
+                      ad-pos="leaderboard"
+                      ad-size="[[970, 250],[970, 90],[728, 90],[320, 50]]"
+                      hidden$="[[loading]]"></google-dfp>
+        </template>
+      </div>
+
+      <scorestream-widget rest="{$ config.baseEndpointUrl $}" route="{{routeData}}" section="[[loadSection]]" hidden$="[[loading]]"></scorestream-widget>
+
+      <template is="dom-if" if="[[!section.disableFeatured]]">
+        <!-- FEATURED CONTENT ELEMENT -->
+        <cranberry-featured-content items="[[featuredItems]]"
+                                    hidden$="[[loading]]"
+                                    homepage>
+        </cranberry-featured-content>
+      </template>
+
+      <div hidden$="[[_isLatest(selected)]]">
+        <paper-material elevation="1">
+          <paper-toolbar>
+            <div hidden$="{{mobile}}">
+              <cranberry-search-bar class="Drawer-search" id="tabSearch" label="SEARCH"></cranberry-search-bar>
+            </div>
+            <paper-tabs id="tabs" selected="{{selected}}">
+              <paper-tab>LATEST</paper-tab>
+               <!--<paper-tab>LOCAL</paper-tab>
+              <paper-tab>POPULAR</paper-tab>
+              <paper-tab>FEATURED</paper-tab> -->
+            </paper-tabs>
+          </paper-toolbar>
+        </paper-material>
+      </div>
+
+      <template is="dom-if" if="[[_isLatest(selected)]]">
+        <!-- CONTENT LIST ELEMENT -->
+        <cranberry-content-list items="[[contentItems]]"
+                                dfp-object="[[dfpObject]]"
+                                homepage
+                                hidden$="[[loading]]">
+        </cranberry-content-list>
+        <div class="pagination-wrapper">
+          <cranberry-pagination start="{{start}}"
+                                current-page="{{page}}"
+                                section="[[section.sectionName]]"
+                                parent="[[section.sectionParent]]"
+                                count="[[_computeCount(page)]]"
+                                hidden$="[[loading]]">
+          </cranberry-pagination>
+        </div>
+      </template>
+    </div>
+
+    <div class="loading-container" id="loader" hidden$="[[!loading]]">
+      <paper-spinner active$="[[loading]]"></paper-spinner>
+      <p>Fetching Your Content...</p>
+    </div>
+    <!-- <template is="dom-if" if="[[_isLocal(selected)]]">
+      <cranberry-content-list rest="{$ config.baseEndpointUrl $}" type="[[_isGalleries(galleries)]]" sections="[[loadSection]]" count="18" start="1" tags="[[tags]]" tag="[[tag]]"></cranberry-content-list>
+    </template> -->
+
+  <!-- <template is="dom-if" if="[[_isPopular(selected)]]">
+      <cranberry-content-list type="story_gallery" sections="news" count="10" start="1"></cranberry-content-list></div>
+    </template> -->
+
+    <!-- <template is="dom-if" if="[[_isFeatured(selected)]]">
+      <cranberry-content-list rest="{$ config.baseEndpointUrl $}" type="[[_isGalleries(galleries)]]" sections="[[loadSection]]" count="18" start="1" tags="[[tags]]" tag="[[tag]]"></cranberry-content-list>
+    </template> -->
+
+    <template is="dom-if" if="[[!loading]]" restamp>
+      <google-dfp
+          dfp-object="[[dfpObject]]"
+          ad-pos="adhesion"
+          out-of-page
+          hidden$="[[loading]]">
+        </google-dfp>
+
+      <google-dfp
+        dfp-object="[[dfpObject]]"
+        ad-pos="interstitial"
+        out-of-page
+        hidden$="[[loading]]">
+      </google-dfp>
+    </template>
+
+      <template is="dom-if" if="[[desktop]]">
+        <tout-element slot="live-player" player-name="live_channel" tout-uid="{$ config.tout.toutUid $}" hidden$="[[loading]]"></tout-element>
+      </template>
+  </template>
+
+  <script src="cranberry-homepage.js"></script>
+</dom-module>

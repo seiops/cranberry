@@ -1,0 +1,49 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="cranberry-section-styles">
+  <template>
+    <style>
+      :host {
+        display: block;
+
+        --paper-tabs: {
+          @apply(--layout-center-justified);
+          @apply(--layout-flex);
+        };
+
+        --paper-toolbar: {
+          background-color: #F2F2F4;
+          color: var(--text-light-primary-color);
+          @apply(--layout-center);
+        };
+
+        --paper-tabs-selection-bar-color: var(--accent-color);
+      }
+
+      div.header-advertisement {
+        @apply(--layout-center-justified);
+        @apply(--layout-horizontal);
+        padding: 0 16px 16px;
+      }
+
+      cranberry-search-bar#tabSearch ::content paper-input ::content .unfocused-line,
+      cranberry-search-bar#tabSearch ::content paper-input ::content .focused-line {
+        background-color: transparent;
+      }
+
+      div.pagination-wrapper {
+        @apply(--layout-center);
+        @apply(--layout-flex);
+        @apply(--layout-vertical);
+        margin-top: 24px;
+      }
+
+      div.loading-container {
+        @apply(--layout-vertical);
+        @apply(--layout-center);
+        @apply(--layout-center-justified);
+        height: 85vh;
+      }
+    </style>
+  </template>
+</dom-module>

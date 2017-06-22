@@ -1,0 +1,46 @@
+<script>
+  var CranberryBehaviors = CranberryBehaviors || {};
+
+  CranberryBehaviors.SectionRequestBehavior = {
+    properties: {
+      restDomain: {
+        type: String,
+        value: '{$ config.baseEndpointUrl $}'
+      }
+    },
+    listeners: {
+      requestSection: '_requestSection'
+    },
+    _requestSection(event) {
+      this.fire('iron-signal', { name: 'app-scroll', data: { scrollPosition: 0, scrollSpeed: 1500, scrollAnimation: 'easeInOutQuint', afterScroll: true } });
+      if (typeof event.detail !== 'undefined') {
+        let detail = event.detail;
+
+        let request = Polymer.dom(this.root).querySelector('#request');
+
+        console.log(request);
+
+        request.params = detail;
+        request.setAttribute('callback-value', `${detail.desiredSection}Callback`);
+        request.generateRequest();
+      }
+    },
+    _handleResponse(response) {
+      console.dir(response);
+      if (typeof response.detail !== 'undefined' && typeof response.detail.Result !== 'undefined') {
+        let result = JSON.parse(response.detail.Result);
+        console.log('DISPATCHING EVENT!!!!!');
+        this.dispatchEvent(
+          new CustomEvent('response-received', {detail: result})
+        );
+      }
+    },
+    _handleLoad(load) {
+      // abstract
+    },
+    _handleError(error) {
+      console.log('ERROR WAS HANDLED!');
+      console.dir(error);
+    }
+  }
+</script>

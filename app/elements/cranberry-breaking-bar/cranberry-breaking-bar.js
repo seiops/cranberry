@@ -25,9 +25,9 @@ class cranberryBreakingBar {
         type: Object,
         value: {
           'request': 'content-list',
-          'desiredTags': 'Alert|Breaking',
-          'desiredContent': 'story',
-          'breakingbar': 'true'
+          'sectionType': 'tags',
+          'desiredSection': 'Alert|Breaking',
+          'disableFeatured': 'true'
         }
       },
       index: {
