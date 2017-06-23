@@ -1,13 +1,14 @@
 class cranberryHomepage {
   get behaviors () {
-    return [CranberryBehaviors.SectionRequestBehavior];
+    return [CranberryBehaviors.SectionRequestBehavior, Polymer.NeonAnimationRunnerBehavior];
   }
   beforeRegister() {
     this.is = 'cranberry-homepage';
     this.properties = {
       loading: {
         type: Boolean,
-        value: true
+        value: true,
+        observer: '_loadingChanged'
       },
       page: {
         type: Number,
@@ -28,8 +29,9 @@ class cranberryHomepage {
       }
     };
     this.observers = [
-      '_sendRequest(requestObject)'
-    ]
+      '_sendRequest(requestObject)',
+      '_routeChanged(route)'
+    ];
   }
 
   ready() {
@@ -99,8 +101,6 @@ class cranberryHomepage {
   }
 
   _responseHandler(response) {
-    console.log('HANDLING THE RESPONSE!!!!');
-    console.dir(response);
     let data = response.detail;
 
     this.set('section', data.section);

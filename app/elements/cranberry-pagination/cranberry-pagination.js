@@ -70,6 +70,9 @@ class cranberryPagination {
     this.set('start', offset);
     this.set('currentPage', currentPage + 1);
 
+    window.history.pushState({}, null, `?page=${currentPage + 1}`);
+    window.dispatchEvent(new CustomEvent('location-changed'));
+
     this._showPreviousButton();
   }
 

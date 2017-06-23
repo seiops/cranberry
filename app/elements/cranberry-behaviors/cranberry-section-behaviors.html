@@ -1,8 +1,46 @@
+<!-- Neon Animations Imports -->
+<link rel="import" href="../../bower_components/neon-animation/animations/fade-in-animation.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/fade-out-animation.html">
+
 <script>
   var CranberryBehaviors = CranberryBehaviors || {};
 
   CranberryBehaviors.SectionRequestBehavior = {
     properties: {
+      animationConfig: {
+        value: function() {
+          return {
+            'load-in': [{
+              name: 'fade-in-animation',
+              node: this.$.loadElement,
+              timing: {
+                duration: 325,
+                delay: 750
+              }
+            },{
+              name: 'fade-out-animation',
+              node: this.$.contentElement,
+              timing: {
+                duration: 750
+              }
+            }],
+            'load-out': [{
+              name: 'fade-out-animation',
+              node: this.$.loadElement,
+              timing: {
+                duration: 325
+              }
+            }, {
+              name: 'fade-in-animation',
+              node: this.$.contentElement,
+              timing: {
+                duration: 750,
+                delay: 325
+              }
+            }]
+          }
+        }
+      },
       restDomain: {
         type: String,
         value: '{$ config.baseEndpointUrl $}'
@@ -18,8 +56,6 @@
 
         let request = Polymer.dom(this.root).querySelector('#request');
 
-        console.log(request);
-
         request.params = detail;
         request.setAttribute('callback-value', `${detail.desiredSection}Callback`);
         request.generateRequest();
@@ -29,7 +65,6 @@
       console.dir(response);
       if (typeof response.detail !== 'undefined' && typeof response.detail.Result !== 'undefined') {
         let result = JSON.parse(response.detail.Result);
-        console.log('DISPATCHING EVENT!!!!!');
         this.dispatchEvent(
           new CustomEvent('response-received', {detail: result})
         );
@@ -41,6 +76,17 @@
     _handleError(error) {
       console.log('ERROR WAS HANDLED!');
       console.dir(error);
+    },
+    _loadingChanged(loading, oldLoading) {
+      if (loading) {
+        this.playAnimation('load-in');
+        this.$.loadElement.style.display = 'block';
+        this.$.contentElement.style.display = 'none';
+      } else {
+        this.playAnimation('load-out');
+        this.$.loadElement.style.display = 'none';
+        this.$.contentElement.style.display = 'block';
+      }
     }
   }
 </script>

@@ -1,0 +1,6 @@
+div {
+  @apply(--layout-vertical);
+  @apply(--layout-center);
+  @apply(--layout-center-justified);
+  height: 85vh;
+}

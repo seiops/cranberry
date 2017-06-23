@@ -1,0 +1,16 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
+
+<dom-module id="cranberry-load-sequence">
+  <template>
+    <style>
+      @import "cranberry-load-sequence/cranberry-load-sequence";
+    </style>
+
+    <div class="loading-container">
+      <paper-spinner active$="[[loading]]"></paper-spinner>
+      <p>[[displayText]]</p>
+    </div>
+  </template>
+  <script src="cranberry-load-sequence.js"></script>
+</dom-module>
