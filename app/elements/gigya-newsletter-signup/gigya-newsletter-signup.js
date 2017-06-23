@@ -73,8 +73,7 @@ class GigyaNewsletterSignup {
     this.$.spinner.active = true;
 
     let form = Polymer.dom(this.root).querySelector('#newsletterForm');
-
-    form = Polymer.dom(form);
+    let checkboxes = Polymer.dom(form.root).querySelectorAll('.newsletter-checkbox');
 
     let params = {
       callback: this._updateNewsletterCallback,
@@ -84,7 +83,8 @@ class GigyaNewsletterSignup {
     };
 
     for (let newsletter of newsletters) {
-      let correctChild = form.children.filter((element) => {
+      let correctChild = checkboxes.filter((element) => {
+        let checkbox = element.child
         if (element.name === newsletter.naming) {
           return element;
         }

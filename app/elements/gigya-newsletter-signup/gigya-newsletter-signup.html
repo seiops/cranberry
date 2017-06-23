@@ -24,10 +24,10 @@
       </div>
     </div>
     <form is="iron-form" action="/" id="newsletterForm">
-      <div class="newsletter-checkbox-container">
+      <div class="newsletter-checkbox-container" id="checkboxes">
         <template is="dom-repeat" items="[[newsletters]]">
           <div class="checkbox-wrapper">
-            <paper-checkbox name="[[item.naming]]" value="[[_getNewsletterValue(account, item)]]" checked="[[_getNewsletterValue(account, item)]]">[[item.displayName]]</paper-checkbox>
+            <paper-checkbox class="newsletter-checkbox" name="[[item.naming]]" value="[[_getNewsletterValue(account, item)]]" checked="[[_getNewsletterValue(account, item)]]">[[item.displayName]]</paper-checkbox>
           </div>
         </template>
       </div>
