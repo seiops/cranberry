@@ -11,6 +11,10 @@ class GigyaUpdateProfile {
         type: Object,
         value: []
       },
+      spinnerActive: {
+        type: Boolean,
+        value: false
+      },
       user: {
         type: Object,
         value: {}
@@ -100,7 +104,7 @@ class GigyaUpdateProfile {
 
     this.push('notices', notice);
 
-    this.$.spinner.active = false;
+    this.set('spinnerActive', false);
 
     this._enableForm();
   }
@@ -120,7 +124,7 @@ class GigyaUpdateProfile {
 
     this.set('notices', []);
 
-    this.$.spinner.active = true;
+    this.set('spinnerActive', true);
 
     let form = Polymer.dom(this.root).querySelector('#updateProfileForm');
 
@@ -170,7 +174,7 @@ class GigyaUpdateProfile {
       el._processError(data);
     }
 
-    el.$.spinner.active = false;
+    el.set('spinnerActive', false);
     el._enableForm();
 
   }

@@ -193,10 +193,10 @@ class GigyaSocialize {
       let app = Polymer.dom(document).querySelector('#app');
       console.info('\<gigya-socialize\> user loaded');
 
-      if (app) {
-        app.$.infoToast.text = 'Logged in, loading user information.';
-        app.$.infoToast.show();
-      }
+      // if (app) {
+      //   app.$.infoToast.text = 'Logged in, loading user information.';
+      //   app.$.infoToast.show();
+      // }
 
       el.set('user', user.user);
 

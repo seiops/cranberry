@@ -4,6 +4,7 @@
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
 <link rel="import" href="../gigya-styles/gigya-styles.html">
 
 <dom-module id="gigya-login">
@@ -13,26 +14,14 @@
       @import "gigya-login/gigya-login";
     </style>
     <style include="gigya-styles"></style>
+
+    <iron-media-query query="(min-width: 960px)" query-matches="{{desktop}}"></iron-media-query>
+    <iron-media-query query="(min-width: 720px) and (max-width:959px)" query-matches="{{tablet}}"></iron-media-query>
+    <iron-media-query query="(max-width:719px)" query-matches="{{mobile}}"></iron-media-query>
+
     <byutv-jsonp on-response="_handleResponse" debounce-duration="300" id="request"></byutv-jsonp>
+
     <h2>Login</h2>
-    <div class="user-messages">
-      <template is="dom-repeat" items="{{notices}}">
-        <div class$="notice {{item.type}}">
-          <div class="notice-info">
-            <div class="notice-message">{{item.message}}</div>
-            <div hidden>{{item.code}}</div>
-          </div>
-          <div class="notice-action" hidden$="{{!item.verify}}">
-            <paper-input id="verifyEmail" name="verificationEmail" label="E-mail" auto-validate allowed-pattern="[\@\.A-zA-Z0-9]" placeholder="Optional"></paper-input>
-            <paper-button on-tap="_resendVerification" raised>Resend Verification</paper-button>
-          </div>
-          <div class="notice-action" hidden$="{{!item.finalize}}">
-            <gigya-finalize-register user="{{tmpUser}}" token="{{regToken}}"></gigya-finalize-register>
-            <!-- <paper-button on-tap="_finalizeRegistration">Finalize Registration</paper-button> -->
-          </div>
-        </div>
-      </template>
-    </div>
     <div class="user-login">
       <div class="social-login">
         <div class="social-login-info">
@@ -59,10 +48,27 @@
               <a on-tap="_handleForgotPassword" id="forgot">Forgot Password?</a>
               <a on-tap="_handleRegister" id="register">Create New Account</a>
             </div>
-            <div class="form-buttons">
-              <paper-spinner id="spinner"></paper-spinner>
+            <div class="user-messages">
+              <template is="dom-repeat" items="{{notices}}">
+                <div class$="notice {{item.type}}">
+                  <div class="notice-info">
+                    <div class="notice-message">{{item.message}}</div>
+                    <div hidden>{{item.code}}</div>
+                  </div>
+                  <div class="notice-action" hidden$="{{!item.verify}}">
+                    <paper-input id="verifyEmail" name="verificationEmail" label="E-mail" auto-validate allowed-pattern="[\@\.A-zA-Z0-9]" placeholder="Optional"></paper-input>
+                    <paper-button on-tap="_resendVerification" raised>Resend Verification</paper-button>
+                  </div>
+                  <div class="notice-action" hidden$="{{!item.finalize}}">
+                    <gigya-finalize-register user="{{tmpUser}}" token="{{regToken}}"></gigya-finalize-register>
+                    <!-- <paper-button on-tap="_finalizeRegistration">Finalize Registration</paper-button> -->
+                  </div>
+                </div>
+              </template>
+            </div>
+            <div class="form-buttons" mobile-layout$="{{mobile}}">
+              <paper-spinner id="spinner" active$="[[spinnerActive]]" hidden$="[[!spinnerActive]]"></paper-spinner>
               <paper-button on-tap="_handleLogin" id="submit" raised>Login</paper-button>
-              <!-- <paper-button on-tap="_handleReset" id="reset">Reset</paper-button> -->
             </div>
           </form>
         </div>

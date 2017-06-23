@@ -8,30 +8,26 @@
 <link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/gold-email-input/gold-email-input.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
 <link rel="import" href="../gigya-styles/gigya-styles.html">
 
 <dom-module id="gigya-update-profile">
   <template>
     <style include="shared-styles">
-    @import "theme.css";
-    @import "gigya-update-profile/gigya-update-profile";
+      @import "theme.css";
+      @import "gigya-update-profile/gigya-update-profile";
     </style>
     <style include="gigya-styles"></style>
+
+    <iron-media-query query="(min-width: 960px)" query-matches="{{desktop}}"></iron-media-query>
+    <iron-media-query query="(min-width: 720px) and (max-width:959px)" query-matches="{{tablet}}"></iron-media-query>
+    <iron-media-query query="(max-width:719px)" query-matches="{{mobile}}"></iron-media-query>
+
     <h2>Update Profile</h2>
     <div class="user-header-links">
       <paper-button on-tap="_showChangePassword" raised>Change Password</paper-button>
     </div>
     <div class="update-profile">
-      <div class="register-messages">
-        <template is="dom-repeat" items="{{notices}}">
-          <div class$="notice {{item.type}}">
-            <div class="notice-info">
-              <div class="notice-message">{{item.message}}</div>
-              <div hidden>{{item.code}}</div>
-            </div>
-          </div>
-        </template>
-      </div>
       <div class="update-profile-form">
         <form is="iron-form" action="/" id="updateProfileForm">
           <div class="form-input">
@@ -194,10 +190,19 @@
           <div class="form-links">
             <div>* indicates required field</div>
           </div>
-          <div class="form-buttons">
-            <paper-spinner id="spinner"></paper-spinner>
-            <paper-button on-tap="_handleUpdateProfile" id="submit" raised>Save Account Information</paper-button>
-            <!-- <paper-button on-tap="_handleReset" id="reset">Reset</paper-button> -->
+          <div class="register-messages">
+            <template is="dom-repeat" items="{{notices}}">
+              <div class$="notice {{item.type}}">
+                <div class="notice-info">
+                  <div class="notice-message">{{item.message}}</div>
+                  <div hidden>{{item.code}}</div>
+                </div>
+              </div>
+            </template>
+          </div>
+          <div class="form-buttons" mobile-layout$="{{mobile}}">
+            <paper-spinner id="spinner" active$="[[spinnerActive]]" hidden$="[[!spinnerActive]]"></paper-spinner>
+            <paper-button class="long-text" on-tap="_handleUpdateProfile" id="submit" raised>Save Account Information</paper-button>
           </div>
         </form>
       </div>

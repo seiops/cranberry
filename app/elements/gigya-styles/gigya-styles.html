@@ -21,10 +21,27 @@
       @apply(--layout-center);
     }
 
+    div.form-buttons[mobile-layout] {
+      @apply(--layout-center-justified);
+    }
+
     div.form-buttons paper-button {
       background: var(--dark-primary-color);
       color: #fff;
       margin: 24px 0;
+      padding: 0.7em 4em;
+    }
+
+    div.form-buttons paper-button.long-text {
+      padding: 0.7em 2.5em;
+    }
+
+    div.form-buttons[mobile-layout] paper-button {
+      font-size: 12px;
+    }
+
+    paper-spinner {
+      padding-right: 12px;
     }
 
     div.form-links {
@@ -82,7 +99,12 @@
     div.notice {
       @apply(--layout-vertical);
       @apply(--layout-center);
-      margin-bottom: 24px;
+      margin-bottom: 0;
+    }
+
+    div.notice.success {
+      color: rgba(92,184,92,1);
+      font-weight: 600;
     }
 
     div.notice.error {
@@ -108,6 +130,10 @@
 
     .focus-target {
       outline: none;
+    }
+
+    paper-button.profile-button {
+      font-size: 12px;
     }
     </style>
   </template>

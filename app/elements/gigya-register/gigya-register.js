@@ -13,6 +13,10 @@ class GigyaRegister {
           return [];
         }
       },
+      spinnerActive: {
+        type: Boolean,
+        value: false
+      },
       verify: {
         type: Object,
         value: {}
@@ -66,7 +70,7 @@ class GigyaRegister {
   // handle social login button click
   _handleLoginSocial(event) {
     this._disableForm();
-    this.$.spinner.active = true;
+    this.set('spinnerActive', true);
 
     let provider = Polymer.dom(event).localTarget.getAttribute('provider');
 
@@ -130,7 +134,7 @@ class GigyaRegister {
 
     this.push('notices', notice);
 
-    this.$.spinner.active = false;
+    this.set('spinnerActive', false);
 
     this._enableForm();
   }
@@ -218,7 +222,7 @@ class GigyaRegister {
 
     this.set('notices', []);
 
-    this.$.spinner.active = true;
+    this.set('spinnerActive', true);
 
     let params = {
       callback: this._register,
@@ -253,7 +257,7 @@ class GigyaRegister {
       }
     }
 
-    el.$.spinner.active = false;
+    el.set('spinnerActive', false);
     el._enableForm();
   }
 }

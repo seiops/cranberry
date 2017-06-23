@@ -15,6 +15,10 @@ class GigyaNewsletterSignup {
         type: Object,
         value: []
       },
+      spinnerActive: {
+        type: Boolean,
+        value: false
+      },
       user: Object
     }
   }
@@ -70,7 +74,7 @@ class GigyaNewsletterSignup {
     let newsletters = this.get('newsletters');
     this.set('notices', []);
 
-    this.$.spinner.active = true;
+    this.set('spinnerActive', true);
 
     let form = Polymer.dom(this.root).querySelector('#newsletterForm');
     let checkboxes = Polymer.dom(form.root).querySelectorAll('.newsletter-checkbox');
@@ -106,10 +110,10 @@ class GigyaNewsletterSignup {
     if (data.errorCode === 0) {
       console.info('\<gigya-newsletter-signup\> user updated');
 
-      let base = Polymer.dom(document).querySelector('cranberry-base');
-      let socialize = base.querySelector('gigya-socialize');
+      // let base = Polymer.dom(document).querySelector('cranberry-base');
+      // let socialize = base.querySelector('gigya-socialize');
 
-      socialize.checkUser();
+      // socialize.checkUser();
 
       let notice = {
         type: 'success',
@@ -123,7 +127,7 @@ class GigyaNewsletterSignup {
       el._processError(data);
     }
 
-    el.$.spinner.active = false;
+    el.set('spinnerActive', false);
     el._enableForm();
 
   }
@@ -155,7 +159,7 @@ class GigyaNewsletterSignup {
 
     this.push('notices', notice);
 
-    this.$.spinner.active = false;
+    this.set('spinnerActive', false);
 
     this._enableForm();
   }

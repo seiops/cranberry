@@ -137,6 +137,8 @@ class cranberryJailMugs {
     data.dimension6 = 'Jail Mugs';
     data.dimension3 = bookingdate;
 
+    content.dfp = this.get('dfpObject');
+    
     this.set('sliderJson', content);
 
     // // Send pageview event with iron-signals
