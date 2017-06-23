@@ -17,6 +17,10 @@ class GigyaLogin {
         type: Object,
         value: {}
       },
+      spinnerActive: {
+        type: Boolean,
+        value: false
+      },
       verify: {
         type: Object,
         value: {}
@@ -77,7 +81,7 @@ class GigyaLogin {
   // handle social login button click
   _handleLoginSocial(event) {
     this._disableForm();
-    this.$.spinner.active = true;
+    this.set('spinnerActive', false);
 
     let provider = Polymer.dom(event).localTarget.getAttribute('provider');
 
@@ -150,7 +154,7 @@ class GigyaLogin {
       }
       if ((detail.loginProvider === 'site' && detail.errorCode === 0) || (detail.loginProvider !== 'site' && detail.errorCode === '0')) {
         el._checkUser();
-        el.$.spinner.active = false;
+        el.set('spinnerActive', false);
         el._handleReset();
         el._enableForm();
       } else if ((detail.loginProvider === 'site' && detail.errorCode !== 0) || (detail.loginProvider !== 'site' && detail.errorCode !== '0')) {
@@ -243,7 +247,7 @@ class GigyaLogin {
 
     this.push('notices', notice);
 
-    this.$.spinner.active = false;
+    this.set('spinnerActive', false);
 
     this._enableForm();
   }
@@ -287,7 +291,7 @@ class GigyaLogin {
       console.info('\<gigya-login\> submit gigya');
 
       this.set('notices', []);
-      this.$.spinner.active = true;
+      this.set('spinnerActive', true);
 
       let form = Polymer.dom(this.root).querySelector('#loginForm');
       let request = Polymer.dom(this.root).querySelector('#request');

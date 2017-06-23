@@ -22,9 +22,10 @@
 <dom-module id="gigya-socialize">
   <template>
     <style include="shared-styles">
-    @import "theme.css";
-    @import "gigya-socialize/gigya-socialize";
+      @import "theme.css";
+      @import "gigya-socialize/gigya-socialize";
     </style>
+    <style include="gigya-styles"></style>
 
     <iron-signals on-iron-signal-open-user-modal="_handleOpen"><iron-signals>
 
@@ -67,12 +68,12 @@
                 <div class="user-info">
                   <gigya-user-card user="[[user]]" account="[[account]]"></gigya-user-card>
                   <div class="user-settings">
-                    <paper-button on-tap="_showAccountSettings" raised>Account Settings</paper-button>
-                    <paper-button on-tap="_handleLogout" raised>Logout</paper-button>
+                    <paper-button class="profile-button" on-tap="_showAccountSettings" raised>Account Settings</paper-button>
+                    <paper-button class="profile-button" on-tap="_handleLogout" raised>Logout</paper-button>
                   </div>
                   <div class="user-tabs">
                     <paper-tabs id="profileTabs" selected="{{profileSelected}}" autoselect>
-                      <paper-tab>My Comments</paper-tab>
+                      <!--<paper-tab>My Comments</paper-tab>-->
                       <!--<paper-tab disabled>My Photos</paper-tab>
                       <paper-tab disabled>My Stories</paper-tab>-->
                     </paper-tabs>
@@ -81,7 +82,7 @@
               </paper-material>
               <div class="profile-tabs">
                 <div hidden$="{{!_equal(profileSelected, 0)}}">
-                  <gigya-user-comments></gigya-user-comments>
+                  <!--<gigya-user-comments></gigya-user-comments>-->
                 </div>
                 <div hidden$="{{!_equal(profileSelected, 1)}}">
                   My Photos

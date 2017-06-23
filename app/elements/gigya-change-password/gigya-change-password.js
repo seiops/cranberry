@@ -10,6 +10,10 @@ class GigyaChangePassword {
         type: Object,
         value: {},
         notify: true
+      },
+      spinnerActive: {
+        type: Boolean,
+        value: false
       }
     };
   }
@@ -51,6 +55,7 @@ class GigyaChangePassword {
       el._processError(data);
     }
 
+    el.set('spinnerActive', false);
     el._enableForm();
   }
 
@@ -74,6 +79,8 @@ class GigyaChangePassword {
     this.debounce('submit', function() {
       form.submit();
     }, 100);
+
+    this.set('spinnerActive', true);
   }
 
   _handleReset(event) {
@@ -117,7 +124,7 @@ class GigyaChangePassword {
 
     this.push('notices', notice);
 
-    this.$.spinner.active = false;
+    this.set('spinnerActive', false);
 
     this._enableForm();
   }

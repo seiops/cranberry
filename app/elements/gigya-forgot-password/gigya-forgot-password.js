@@ -9,6 +9,10 @@ class GigyaForgotPassword {
       notices: {
         type: Object,
         value: []
+      },
+      spinnerActive: {
+        type: Boolean,
+        value: false
       }
     };
   }
@@ -57,7 +61,7 @@ class GigyaForgotPassword {
       }
     }
 
-    el.$.spinner.active = false;
+    el.set('spinnerActive', false);
     el._enableForm();
   }
 
@@ -127,7 +131,7 @@ class GigyaForgotPassword {
 
     this.push('notices', notice);
 
-    this.$.spinner.active = false;
+    this.set('spinnerActive', false);
 
     this._enableForm();
   }
