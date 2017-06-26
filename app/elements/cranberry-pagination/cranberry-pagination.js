@@ -28,8 +28,7 @@ class cranberryPagination {
       }
     };
     this.observers = [
-      '_sectionChanged(parent, section)',
-      '_startChanged(start, urlPage, currentPage)'
+      '_sectionChanged(parent, section)'
     ]
   }
 
@@ -54,14 +53,6 @@ class cranberryPagination {
 
     this.set('start', offset);
     this.set('currentPage', currentPage - 1);
-    
-    if (currentPage - 1 === 1) {
-      window.history.pushState({}, null, ``);
-    } else {
-      window.history.pushState({}, null, `?page=${currentPage - 1}`);
-    }
-    
-    window.dispatchEvent(new CustomEvent('location-changed'));
 
     this._showPreviousButton();
   }
@@ -84,9 +75,6 @@ class cranberryPagination {
     this.set('start', offset);
     this.set('currentPage', currentPage + 1);
 
-    window.history.pushState({}, null, `?page=${currentPage + 1}`);
-    window.dispatchEvent(new CustomEvent('location-changed'));
-
     this._showPreviousButton();
   }
 
@@ -100,12 +88,7 @@ class cranberryPagination {
     }
   }
 
-  _startChanged(start, urlPage, currentPage) {
-    console.log(`Something in start changed chagned start: ${start} and urlPage ${urlPage}`);
-    if (typeof urlPage !== 'undefined' && urlPage > 1 && urlPage !== currentPage) {
-      this._setNewStart();
-    }
-
+  _startChanged(start) {
     if (typeof start !=='undefined' && start !== 1) {
       this._showPreviousButton();
     } else {
@@ -120,10 +103,6 @@ class cranberryPagination {
         this.set('currentPage', 1);
       }
     }
-  }
-
-  _setNewStart() {
-    console.log('We should figure out the new start value!');
   }
 }
 Polymer(cranberryPagination);

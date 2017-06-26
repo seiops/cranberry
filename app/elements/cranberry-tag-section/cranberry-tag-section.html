@@ -4,6 +4,9 @@
 <link rel="import" href="../cranberry-behaviors/cranberry-section-behaviors.html">
 <link rel="import" href="../../bower_components/neon-animation/neon-animation-runner-behavior.html">
 
+<!-- App Imports -->
+<link rel="import" href="../../bower_components/app-route/app-route.html">
+
 <!-- Iron Elements -->
 <link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
 
@@ -25,12 +28,14 @@
 <link rel="import" href="../tout-element/tout-element.html">
 <link rel="import" href="../google-dfp/google-dfp.html">
 
-<dom-module id="cranberry-homepage">
+<dom-module id="cranberry-tag-section">
   <template>
     <style include="cranberry-section-styles">
-      @import "cranberry-homepage/cranberry-homepage";
+      @import "cranberry-tag-section/cranberry-tag-section";
     </style>
 
+    <app-route route="{{route}}" pattern="/:type/:section" data="{{routeData}}"></app-route>
+    
     <byutv-jsonp
       verbose
       cache
@@ -40,7 +45,7 @@
       on-error="_handleError"
       id="request">
     </byutv-jsonp>
-
+  
     <iron-media-query query="(min-width: 960px)" query-matches="{{desktop}}"></iron-media-query>
     <iron-media-query query="(min-width: 720px) and (max-width:959px)" query-matches="{{tablet}}"></iron-media-query>
     <iron-media-query query="(max-width:719px)" query-matches="{{mobile}}"></iron-media-query>
@@ -137,5 +142,5 @@
       </template>
   </template>
 
-  <script src="cranberry-homepage.js"></script>
+  <script src="cranberry-tag-section.js"></script>
 </dom-module>

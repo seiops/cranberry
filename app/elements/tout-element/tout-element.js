@@ -81,16 +81,16 @@ class toutElement {
   }
 
   _hiddenChanged(hidden) {
-    let hasPlayer = this.get('hasPlayer');
-    this.async(() => {
-      if (hasPlayer) {
-        if (hidden) {
-          this.destroy();
-        } else {
-          this.refresh();
-        }
-      }
-    });
+    // let hasPlayer = this.get('hasPlayer');
+    // this.async(() => {
+    //   if (hasPlayer) {
+    //     if (hidden) {
+    //       this.destroy();
+    //     } else {
+    //       this.refresh();
+    //     }
+    //   }
+    // });
   }
 
   _routeChanged(page) {

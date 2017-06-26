@@ -44,33 +44,23 @@ var CranberryBehaviors = CranberryBehaviors || {};
     listeners: {
       requestSection: '_requestSection'
     },
-    _requestSection(event) {
-      this.fire('iron-signal', { name: 'app-scroll', data: { scrollPosition: 0, scrollSpeed: 1500, scrollAnimation: 'easeInOutQuint', afterScroll: true } });
-      if (typeof event.detail !== 'undefined') {
-        let detail = event.detail;
-
-        let request = Polymer.dom(this.root).querySelector('#request');
-
-        request.params = detail;
-        request.setAttribute('callback-value', `${detail.desiredSection}Callback`);
-        request.generateRequest();
-      }
+    _cleanSection(section) {
+      return section.replace(/\-/g, '');
+    },
+    _handleError(error) {
+      console.log('ERROR WAS HANDLED!');
+      console.dir(error);
+    },
+    _handleLoad(load) {
+      // abstract
     },
     _handleResponse(response) {
-      console.dir(response);
       if (typeof response.detail !== 'undefined' && typeof response.detail.Result !== 'undefined') {
         let result = JSON.parse(response.detail.Result);
         this.dispatchEvent(
           new CustomEvent('response-received', {detail: result})
         );
       }
-    },
-    _handleLoad(load) {
-      // abstract
-    },
-    _handleError(error) {
-      console.log('ERROR WAS HANDLED!');
-      console.dir(error);
     },
     _loadingChanged(loading, oldLoading) {
       if (loading) {
@@ -82,7 +72,25 @@ var CranberryBehaviors = CranberryBehaviors || {};
         this.$.loadElement.style.display = 'none';
         this.$.contentElement.style.display = 'block';
       }
-    }
+    },
+    _requestSection(event) {
+      this.fire('iron-signal', { name: 'app-scroll', data: { scrollPosition: 0, scrollSpeed: 1500, scrollAnimation: 'easeInOutQuint', afterScroll: true } });
+      if (typeof event.detail !== 'undefined') {
+        let detail = event.detail;
+
+        let request = Polymer.dom(this.root).querySelector('#request');
+
+        request.params = detail;
+        request.setAttribute('callback-value', `${this._cleanSection(detail.desiredSection)}Callback`);
+        request.generateRequest();
+      }
+    },
+    _removeInProgressRequest() {
+      let request = Polymer.dom(this.root).querySelector('#request');
+
+      request.abortRequest();
+    },
+    _routeChanged(route) {}
   }
 
   CranberryBehaviors.PageviewBehavior = {
@@ -98,7 +106,7 @@ var CranberryBehaviors = CranberryBehaviors || {};
       };
 
       if (page.type === 'tags') {
-        data.dimension8 = section.tag;
+        data.dimension8 = page.tag;
       } 
 
       this.async(() => {
