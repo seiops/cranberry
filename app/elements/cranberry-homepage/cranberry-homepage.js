@@ -1,10 +1,14 @@
 class cranberryHomepage {
   get behaviors () {
-    return [CranberryBehaviors.SectionRequestBehavior, Polymer.NeonAnimationRunnerBehavior];
+    return [CranberryBehaviors.SectionRequestBehavior, CranberryBehaviors.PageviewBehavior, Polymer.NeonAnimationRunnerBehavior];
   }
   beforeRegister() {
     this.is = 'cranberry-homepage';
     this.properties = {
+      computedCount: {
+        type: Number,
+        computed: '_computeCount(page, urlPage)'
+      },
       loading: {
         type: Boolean,
         value: true,
@@ -24,6 +28,10 @@ class cranberryHomepage {
         value: 0
       },
       start: {
+        type: Number,
+        value: 1
+      },
+      urlPage: {
         type: Number,
         value: 1
       }
@@ -71,7 +79,9 @@ class cranberryHomepage {
     }
   }
 
-  _computeCount(currentPage) {
+  _computeCount(currentPage, urlPage) {
+    console.log(`The URLPAGE: ${urlPage} and the currentPage ${currentPage}`);
+
     if (typeof currentPage !== 'undefined') {
       if (currentPage === 1) {
         return 17;
@@ -93,6 +103,11 @@ class cranberryHomepage {
 
   _routeChanged(route) {
     console.dir(route);
+    
+    if (typeof route.__queryParams !== 'undefined' && typeof route.__queryParams.page !== 'undefined') {
+      console.log(`The route query params ${route.__queryParams.page}`);
+      this.set('urlPage', route.__queryParams.page);
+    }
   }
 
   _sendRequest(requestObject) {
@@ -109,6 +124,7 @@ class cranberryHomepage {
     this.set('featuredItems', data.featured);
 
     this.async(() => {
+      this._sendPageview(data.section);
       this.set('loading', false);
     });
   }

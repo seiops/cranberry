@@ -4,6 +4,9 @@
 <link rel="import" href="../cranberry-behaviors/cranberry-section-behaviors.html">
 <link rel="import" href="../../bower_components/neon-animation/neon-animation-runner-behavior.html">
 
+<!-- Iron Elements -->
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+
 <!-- Paper Elements -->
 <link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
 <link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
@@ -27,6 +30,7 @@
     <style include="cranberry-section-styles">
       @import "cranberry-homepage/cranberry-homepage";
     </style>
+
     <byutv-jsonp
       verbose
       cache
@@ -36,6 +40,10 @@
       on-error="_handleError"
       id="request">
     </byutv-jsonp>
+
+    <iron-media-query query="(min-width: 960px)" query-matches="{{desktop}}"></iron-media-query>
+    <iron-media-query query="(min-width: 720px) and (max-width:959px)" query-matches="{{tablet}}"></iron-media-query>
+    <iron-media-query query="(max-width:719px)" query-matches="{{mobile}}"></iron-media-query>
 
     <div class="section-wrapper" id="contentElement">
       <div class="header-advertisement">
@@ -84,9 +92,10 @@
         <div class="pagination-wrapper">
           <cranberry-pagination start="{{start}}"
                                 current-page="{{page}}"
+                                url-page="[[urlPage]]"
                                 section="[[section.sectionName]]"
                                 parent="[[section.sectionParent]]"
-                                count="[[_computeCount(page)]]"
+                                count="[[computedCount]]"
                                 hidden$="[[loading]]">
           </cranberry-pagination>
         </div>
