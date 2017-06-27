@@ -107,7 +107,7 @@
       </template>
     </div>
 
-    <cranberry-load-sequence id="loadElement" loading="[[loading]]"></cranberry-load-sequence>
+    <cranberry-load-sequence id="loadElement" display-text$="Loading [[_upperCaseSection(routeData.section)]] Headlines" loading="[[loading]]"></cranberry-load-sequence>
 
     <!-- <template is="dom-if" if="[[_isLocal(selected)]]">
       <cranberry-content-list rest="{$ config.baseEndpointUrl $}" type="[[_isGalleries(galleries)]]" sections="[[loadSection]]" count="18" start="1" tags="[[tags]]" tag="[[tag]]"></cranberry-content-list>

@@ -1,3 +1,6 @@
 <section class="Page" tabindex="-1">
-  <cranberry-section route="[[route]]" hidden$="{{!_equal(data.page, 'galleries')}}" galleries></cranberry-section>
+  <template is="dom-if" if="{{_equal(data.page, 'galleries')}}" restamp>
+    <cranberry-galleries-section route="[[route]]"></cranberry-galleries-section>
+  </template>
+  <!--<cranberry-section route="[[route]]" hidden$="{{!_equal(data.page, 'galleries')}}" galleries></cranberry-section>-->
 </section>

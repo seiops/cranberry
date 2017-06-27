@@ -90,7 +90,22 @@ var CranberryBehaviors = CranberryBehaviors || {};
 
       request.abortRequest();
     },
-    _routeChanged(route) {}
+    _routeChanged(route) {},
+    _upperCaseSection(section) {
+      let returnSection = '';
+      let sectionTrimmed = section.replace(/\-/g, ' ');
+
+      let sectionArray = sectionTrimmed.split(' ');
+
+      if (sectionArray.length > 1) {
+        for (let word of sectionArray) {
+          returnSection += word.charAt(0).toUpperCase() + word.slice(1) + ' ';
+        }
+      } else {
+        returnSection = sectionArray[0].charAt(0).toUpperCase() + sectionArray[0].slice(1);
+      }
+      return returnSection;
+    }
   }
 
   CranberryBehaviors.PageviewBehavior = {
