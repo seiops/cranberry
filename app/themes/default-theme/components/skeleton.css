@@ -30,14 +30,14 @@
   }
 }
 
-#spinner {
+div.Skeleton #spinner {
   display: inline-block;
   position: relative;
   width: 28px;
   height: 28px;
 }
 
-#spinnerContainer {
+div.Skeleton #spinnerContainer {
   width: 100%;
   height: 100%;
   /* The spinner does not have any contents that would have to be
@@ -46,15 +46,15 @@
   direction: ltr;
 }
 
-#spinnerContainer.active {
-  animation: container-rotate 1568ms linear infinite;
+div.Skeleton #spinnerContainer.active {
+  animation: skeleton-container-rotate 1568ms linear infinite;
 }
 
-div.blocking-splash {
+div.Skeleton div.blocking-splash {
   padding: 24px;
 }
 
-button#showCoreButton {
+div.Skeleton button#showCoreButton {
   cursor: pointer;
   background-color: var(--light-accent-color);
   color: #fff;
@@ -70,35 +70,36 @@ button#showCoreButton {
   line-height: 24px;
 }
 
-div.browser-images {
+div.Skeleton div.browser-images {
   padding: 24px 0 0 0;
 }
 
-div.browser-images a {
+div.Skeleton div.browser-images a {
   padding: 12px;
 }
 
-div.segue {
+div.Skeleton div.segue {
   padding: 12px;
 }
 
-div.segue h3 {
+div.Skeleton div.segue h3 {
   color: #fff;
   font-weight: 700;
   margin-bottom: 0px;
 }
 
-div.segue hr {
+div.Skeleton div.segue hr {
   width: 50px;
   margin-top: 0px;
   color: #fff;
   border: 1px solid #fff;
 }
 
-@keyframes container-rotate {
+@keyframes skeleton-container-rotate {
   to { transform: rotate(360deg) }
 }
-.spinner-layer {
+
+div.Skeleton .spinner-layer {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -106,46 +107,48 @@ div.segue hr {
   white-space: nowrap;
   border-color: #4285f4;
 }
-.layer-1 {
+
+div.Skeleton .layer-1 {
   border-color: #4285f4;
 }
-.layer-2 {
+
+div.Skeleton .layer-2 {
   border-color: #db4437;
 }
-.layer-3 {
+
+div.Skeleton .layer-3 {
   border-color: #f4b400;
 }
-.layer-4 {
+
+div.Skeleton .layer-4 {
   border-color: #0f9d58;
 }
-/**
-  * IMPORTANT NOTE ABOUT CSS ANIMATION PROPERTIES (keanulee):
-  *
-  * iOS Safari (tested on iOS 8.1) does not handle animation-delay very well - it doesn't
-  * guarantee that the animation will start _exactly_ after that value. So we avoid using
-  * animation-delay and instead set custom keyframes for each color (as layer-2undant as it
-  * seems).
-  */
-.active .spinner-layer {
-  animation-name: fill-unfill-rotate;
+
+div.Skeleton .active .spinner-layer {
+  animation-name: skeleton-fill-unfill-rotate;
   animation-duration: 5332ms;
   animation-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);
   animation-iteration-count: infinite;
   opacity: 1;
 }
-.active .spinner-layer.layer-1 {
-  animation-name: fill-unfill-rotate, layer-1-fade-in-out;
+
+div.Skeleton .active .spinner-layer.layer-1 {
+  animation-name: skeleton-fill-unfill-rotate, skeleton-layer-1-fade-in-out;
 }
-.active .spinner-layer.layer-2 {
-  animation-name: fill-unfill-rotate, layer-2-fade-in-out;
+
+div.Skeleton .active .spinner-layer.layer-2 {
+  animation-name: skeleton-fill-unfill-rotate, skeleton-layer-2-fade-in-out;
 }
-.active .spinner-layer.layer-3 {
-  animation-name: fill-unfill-rotate, layer-3-fade-in-out;
+
+div.Skeleton .active .spinner-layer.layer-3 {
+  animation-name: skeleton-fill-unfill-rotate, skeleton-layer-3-fade-in-out;
 }
-.active .spinner-layer.layer-4 {
-  animation-name: fill-unfill-rotate, layer-4-fade-in-out;
+
+div.Skeleton .active .spinner-layer.layer-4 {
+  animation-name: skeleton-fill-unfill-rotate, skeleton-layer-4-fade-in-out;
 }
-@keyframes fill-unfill-rotate {
+
+@keyframes skeleton-fill-unfill-rotate {
   12.5% { transform: rotate(135deg) } /* 0.5 * ARCSIZE */
   25%   { transform: rotate(270deg) } /* 1   * ARCSIZE */
   37.5% { transform: rotate(405deg) } /* 1.5 * ARCSIZE */
@@ -155,7 +158,8 @@ div.segue hr {
   87.5% { transform: rotate(945deg) } /* 3.5 * ARCSIZE */
   to    { transform: rotate(1080deg) } /* 4   * ARCSIZE */
 }
-@keyframes layer-1-fade-in-out {
+
+@keyframes skeleton-layer-1-fade-in-out {
   0% { opacity: 1 }
   25% { opacity: 1 }
   26% { opacity: 0 }
@@ -163,7 +167,8 @@ div.segue hr {
   90% { opacity: 1 }
   to { opacity: 1 }
 }
-@keyframes layer-2-fade-in-out {
+
+@keyframes skeleton-layer-2-fade-in-out {
   0% { opacity: 0 }
   15% { opacity: 0 }
   25% { opacity: 1 }
@@ -171,7 +176,8 @@ div.segue hr {
   51% { opacity: 0 }
   to { opacity: 0 }
 }
-@keyframes layer-3-fade-in-out {
+
+@keyframes skeleton-layer-3-fade-in-out {
   0% { opacity: 0 }
   40% { opacity: 0 }
   50% { opacity: 1 }
@@ -179,14 +185,16 @@ div.segue hr {
   76% { opacity: 0 }
   to { opacity: 0 }
 }
-@keyframes layer-4-fade-in-out {
+
+@keyframes skeleton-layer-4-fade-in-out {
   0% { opacity: 0 }
   65% { opacity: 0 }
   75% { opacity: 1 }
   90% { opacity: 1 }
   to { opacity: 0 }
 }
-.circle-clipper {
+
+div.Skeleton .circle-clipper {
   display: inline-block;
   position: relative;
   width: 50%;
@@ -195,18 +203,15 @@ div.segue hr {
   border-color: inherit;
 }
 
-/**
-  * Patch the gap that appear between the two adjacent div.circle-clipper while the
-  * spinner is rotating (appears on Chrome 50, Safari 9.1.1, and Edge).
-  */
-.spinner-layer::after {
+div.Skeleton .spinner-layer::after {
     left: 50%;
     top: 0% !important;
     border: solid;
     border-width: 2px !important;
 }
-.spinner-layer::after,
-.circle-clipper::after {
+
+div.Skeleton .spinner-layer::after,
+div.Skeleton .circle-clipper::after {
   content: '';
   box-sizing: border-box;
   position: absolute;
@@ -215,48 +220,58 @@ div.segue hr {
   border-color: inherit;
   border-radius: 50%;
 }
-.circle-clipper::after {
+
+div.Skeleton .circle-clipper::after {
   bottom: 0;
   width: 200%;
   border-style: solid;
   border-bottom-color: transparent !important;
 }
-.circle-clipper.left::after {
+
+div.Skeleton .circle-clipper.left::after {
   left: 0;
   border-right-color: transparent !important;
   transform: rotate(129deg);
 }
-.circle-clipper.right::after {
+
+div.Skeleton .circle-clipper.right::after {
   left: -100%;
   border-left-color: transparent !important;
   transform: rotate(-129deg);
 }
-.active .gap-patch::after,
-.active .circle-clipper::after {
+
+div.Skeleton .active .gap-patch::after,
+div.Skeleton .active .circle-clipper::after {
   animation-duration: 1333ms;
   animation-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);
   animation-iteration-count: infinite;
 }
-.active .circle-clipper.left::after {
-  animation-name: left-spin;
+
+div.Skeleton .active .circle-clipper.left::after {
+  animation-name: skeleton-left-spin;
 }
-.active .circle-clipper.right::after {
-  animation-name: right-spin;
+
+div.Skeleton .active .circle-clipper.right::after {
+  animation-name: skeleton-right-spin;
 }
-@keyframes left-spin {
+
+@keyframes skeleton-left-spin {
   0% { transform: rotate(130deg) }
   50% { transform: rotate(-5deg) }
   to { transform: rotate(130deg) }
 }
-@keyframes right-spin {
+
+@keyframes skeleton-right-spin {
   0% { transform: rotate(-130deg) }
   50% { transform: rotate(5deg) }
   to { transform: rotate(-130deg) }
 }
-#spinnerContainer.cooldown {
-  animation: container-rotate 1568ms linear infinite, fade-out 400ms cubic-bezier(0.4, 0.0, 0.2, 1);
+
+div.Skeleton #spinnerContainer.cooldown {
+  animation: skeleton-container-rotate 1568ms linear infinite, skeleton-fade-out 400ms cubic-bezier(0.4, 0.0, 0.2, 1);
 }
-@keyframes fade-out {
+
+@keyframes skeleton-fade-out {
   0% { opacity: 1 }
   to { opacity: 0 }
 }
