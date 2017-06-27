@@ -152,7 +152,7 @@ class cranberrySlider {
       this.set('displayIndex', index + 1);
       this.fire('sliderMoved', {index: index + 1});
 
-      this.set('showBuyButton', !item.noSell);
+      // this.set('showBuyButton', !item.noSell);
       return true;
     } else {
       return false;
