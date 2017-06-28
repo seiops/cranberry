@@ -9,14 +9,7 @@ var CranberryBehaviors = CranberryBehaviors || {};
               name: 'fade-in-animation',
               node: this.$.loadElement,
               timing: {
-                duration: 325,
-                delay: 750
-              }
-            },{
-              name: 'fade-out-animation',
-              node: this.$.contentElement,
-              timing: {
-                duration: 750
+                duration: 325
               }
             }],
             'load-out': [{
@@ -44,9 +37,6 @@ var CranberryBehaviors = CranberryBehaviors || {};
     listeners: {
       requestSection: '_requestSection'
     },
-    _cleanSection(section) {
-      return section.replace(/\-/g, '');
-    },
     _handleError(error) {
       console.log('ERROR WAS HANDLED!');
       console.dir(error);
@@ -73,22 +63,42 @@ var CranberryBehaviors = CranberryBehaviors || {};
         this.$.contentElement.style.display = 'block';
       }
     },
-    _requestSection(event) {
-      this.fire('iron-signal', { name: 'app-scroll', data: { scrollPosition: 0, scrollSpeed: 1500, scrollAnimation: 'easeInOutQuint', afterScroll: true } });
-      if (typeof event.detail !== 'undefined') {
-        let detail = event.detail;
+    _responseHandler(response) {
+      if (typeof response !== 'undefined' && typeof response.detail !== 'undefined' && typeof response.detail.section !== 'undefined') {
+        let data = response.detail;
 
-        let request = Polymer.dom(this.root).querySelector('#request');
-
-        request.params = detail;
-        request.setAttribute('callback-value', `${this._cleanSection(detail.desiredSection)}Callback`);
-        request.generateRequest();
+        this.set('section', data.section);
+        this.set('dfpObject', data.section.dfp);
+        this.set('contentItems', data.content);
+        this.set('featuredItems', data.featured);
+      
+        this.async(() => {
+            this._sendPageview(data.section);
+            this.set('loading', false);
+        });
       }
     },
+    _requestSection(event) {
+        this.fire('iron-signal', { name: 'app-scroll', data: { scrollPosition: 0, scrollSpeed: 1500, scrollAnimation: 'easeInOutQuint', afterScroll: true } });
+        if (typeof event.detail !== 'undefined') {
+          let detail = event.detail;
+
+          let request = Polymer.dom(this.root).querySelector('#request');
+          this.async(() => {
+            request.setAttribute('callback-value', `${detail.desiredSection.replace(/\-/g, '')}Callback`);
+            request.params = detail;
+            request.generateRequest();
+          });
+        }
+    },
     _removeInProgressRequest() {
+      console.info('Removing in progress requests');
+
       let request = Polymer.dom(this.root).querySelector('#request');
 
-      request.abortRequest();
+      if (request) {
+        request.abortRequest();
+      }
     },
     _routeChanged(route) {},
     _upperCaseSection(section) {

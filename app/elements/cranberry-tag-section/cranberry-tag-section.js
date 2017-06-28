@@ -54,7 +54,7 @@ class cranberryTagSection {
 
   _computeRequestObject(start, routeData) {
     this.debounce('debouncedChanged', ()  => {
-      if (typeof routeData !== 'undefined' && typeof routeData.section !== 'undefined') {
+      if (typeof routeData !== 'undefined' && typeof routeData.section !== 'undefined' && routeData.type === 'tags') {
         if (typeof start !== 'undefined') {
           let params = {
             disableFeatured: false,
@@ -72,7 +72,7 @@ class cranberryTagSection {
           this.set('requestObject', params);
         }
       }
-    });
+    }, 50);
   }
 
   _computeCount(currentPage) {
@@ -90,22 +90,7 @@ class cranberryTagSection {
   _sendRequest(requestObject) {
     this.set('loading', true);
     this.dispatchEvent(new CustomEvent('requestSection', {detail: requestObject }));
-  }
-
-  _responseHandler(response) {
-    let data = response.detail;
-
-    this.set('section', data.section);
-    this.set('dfpObject', data.section.dfp);
-    this.set('contentItems', data.content);
-    this.set('featuredItems', data.featured);
-
-    this.async(() => {
-      this._sendPageview(data.section);
-      this.set('loading', false);
-    });
-  }
-  
+  }  
 }
 
 Polymer(cranberryTagSection);
