@@ -13,7 +13,7 @@ div.media-container {
 }
 
 div.media-container[mobile-layout] .main-media-item {
-  height: 545px;
+  height: 600px;
 }
 
 div.media-container[tablet-layout] .main-media-item {
