@@ -19,7 +19,7 @@ div.gallery-slider-container {
 }
 
 div.gallery-slider-container[mobile-layout] {
-  height: 445px;
+  height: 600px;
   min-width: 100%;
 }
 
