@@ -320,6 +320,20 @@ class cranberrySlider {
 
     // Fire Youneeq Page Hit Request
     this.fire('iron-signal', {name: 'page-hit', data: { content: gallery } });
+
+    // Cxense
+    this.dispatchEvent(
+      new CustomEvent(
+        'send-cxense-pageview',
+        {
+          bubbles: true,
+          composed: true,
+          detail: {
+            location: window.location.href
+          }
+        }
+      )
+    );
   }
 
   _checkJailMugs(galleryType) {

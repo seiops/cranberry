@@ -112,6 +112,20 @@ class CranberryCalendar {
     this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/calendar', data: {'sections': 'calendar' } } });
     // Fire Youneeq Page Hit Request
     this.fire('iron-signal', {name: 'page-hit'});
+
+    // Cxense
+    this.dispatchEvent(
+      new CustomEvent(
+        'send-cxense-pageview',
+        {
+          bubbles: true,
+          composed: true,
+          detail: {
+            location: window.location.href
+          }
+        }
+      )
+    );
   }
 }
 Polymer(CranberryCalendar);

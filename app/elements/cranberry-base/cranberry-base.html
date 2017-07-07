@@ -39,6 +39,7 @@
 
 <!-- Analytics elements -->
 <link rel="import" href="../cranberry-google-analytics/cranberry-google-analytics.html">
+<link rel="import" href="../cranberry-cxense/cranberry-cxense.html">
 <link rel="import" href="../mather-analytics/mather-analytics.html">
 
 <!-- Cranberry elements -->
@@ -108,6 +109,9 @@
 
     <!-- Chartbeat -->
     <cranberry-chart-beat author="{$ config.socialNaming.twitter $}" site-name="{$ config.chartbeat.domain $}" uid="{$ config.chartbeat.uid $}" route="[[route]]"></cranberry-chart-beat>
+
+    <!-- Cxense -->
+    <cranberry-cxense site-id="{$ config.cxenseSiteId $}"></cranberry-cxense>
 
     <!-- Gigya socialize/accounts integration -->
     <gigya-socialize user="{{user}}" route="[[route]]" api-key="{$ config.gigya.apiKey $}"></gigya-socialize>

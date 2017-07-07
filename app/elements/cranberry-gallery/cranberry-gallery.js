@@ -134,6 +134,20 @@ class CranberryGallery {
       // Fire Mather
       this.fire('iron-signal', {name: 'mather-hit', data: { data: {'section': section, 'hierarchy': matherSections, 'authors': gallery.byline, 'publishedDate': gallery.publishedISO, 'pageType': 'gallery', timeStamp: new Date() } } });
 
+      // Cxense
+      this.dispatchEvent(
+        new CustomEvent(
+          'send-cxense-pageview',
+          {
+            bubbles: true,
+            composed: true,
+            detail: {
+              location: window.location.href
+            }
+          }
+        )
+      );
+
       this.set('sendInitialView', false);
     });
   }

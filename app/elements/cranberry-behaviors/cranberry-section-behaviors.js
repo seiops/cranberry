@@ -143,6 +143,19 @@ var CranberryBehaviors = CranberryBehaviors || {};
         this.fire('iron-signal', {name: 'page-hit'});
         // Fire Mather
         this.fire('iron-signal', {name: 'mather-hit', data: { data: {'section': section, 'hierarchy': matherSections, 'authors': author, 'pageType': pageType, timeStamp: new Date() } }});
+
+        this.dispatchEvent(
+          new CustomEvent(
+            'send-cxense-pageview',
+            {
+              bubbles: true,
+              composed: true,
+              detail: {
+                location: window.location.href
+              }
+            }
+          )
+        );
       });
     }
   }

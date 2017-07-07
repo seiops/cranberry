@@ -41,6 +41,20 @@ class cranberryContactPage {
 
       // Fire Mather
       this.fire('iron-signal', {name: 'mather-hit', data: { data: {'section': 'contact', 'hierarchy': '/contact', 'pageType': 'contact', timeStamp: new Date() } } });
+
+      // Cxense
+      this.dispatchEvent(
+        new CustomEvent(
+          'send-cxense-pageview',
+          {
+            bubbles: true,
+            composed: true,
+            detail: {
+              location: window.location.href
+            }
+          }
+        )
+      );
     });
   }
 
