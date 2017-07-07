@@ -2,9 +2,18 @@ class cranberryCxense {
   beforeRegister() {
     this.is = 'cranberry-cxense';
     this.properties = {
+      currentURL: {
+        type: String,
+        value: ''
+      },
+      domain: String,
       referrerURL: {
         type: String,
         value: ''
+      },
+      route: {
+        type: Object,
+        observer: '_routeChanged'
       },
       siteId: {
         type: String,
@@ -30,21 +39,39 @@ class cranberryCxense {
     window.removedEventListener('send-cxense-pageview', this._setupPageView);
   }
 
-  _setupPageView(e) {
-    let siteId = this.get('siteId');
-    let locationURL = e.detail.location;
-    let referrerURL = this.get('referrerURL');
+  _routeChanged(route, oldRoute) {
+    let domain = this.get('domain');
+    this.set('currentURL', domain + route.path);
 
-    if (typeof referrerURL === 'undefined' || referrerURL === '') {
-      this.set('referrerURL', locationURL);
+    if (typeof oldRoute !== 'undefined') {
+      this.set('referrerURL', domain + oldRoute.path);
+    } else {
+      if (typeof document.referrer !== 'undefined') {
+        this.set('referrerURL', document.referrer);
+      }
     }
+  }
 
-    window.cX = window.cX || {}; cX.callQueue = cX.callQueue || [];
-    cX.callQueue.push(['initializePage']);
-    cX.callQueue.push(['setSiteId', siteId]);
-    cX.callQueue.push(['sendPageViewEvent', { 'location': locationURL, 'referrer':referrerURL}]);
+  _setupPageView(e) {
+    this.async(() => {
+      let siteId = this.get('siteId');
+      let eventLocation = e.detail.location;
+      let currentURL = this.get('currentURL');
+      let locationURL = (eventLocation !== currentURL ? eventLocation : currentURL);
+      let referrerURL = this.get('referrerURL');
 
-    console.info('\<cranberry-cxense\> pageview sent');
+      if (locationURL === referrerURL) {
+        referrerURL = '';
+      }
+
+      window.cX = window.cX || {}; cX.callQueue = cX.callQueue || [];
+      cX.callQueue.push(['initializePage']);
+      cX.callQueue.push(['setSiteId', siteId]);
+      cX.callQueue.push(['sendPageViewEvent', { 'location': locationURL, 'referrer': referrerURL }]);
+
+      console.info(`\<cranberry-cxense\> pageview sent ReferrerURL: ${referrerURL}, locationURL: ${locationURL}`);
+    });
+    
   }
 
 

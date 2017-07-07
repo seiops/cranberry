@@ -13,6 +13,7 @@ var toutConfig = require('./sandusky/globalConfigs/tout.js');
 var promoConfig = require('./sandusky/globalConfigs/promo.js');
 var advantageConfig = require('./sandusky/globalConfigs/advantage.js');
 var icons = require('./sandusky/globalConfigs/icons.js');
+var cxense = require('./sandusky/globalConfigs/cxense.js');
 
 module.exports = {
   appVersion: baseConfig.appVersion,
@@ -21,6 +22,7 @@ module.exports = {
   baseEndpointUrl: baseConfig.prdEndpointUrl,
   baseCanonicalUrl: baseConfig.baseCanonicalUrl,
   calendarDomain: baseConfig.calendarDomain,
+  cxenseSiteId: cxense.siteId,
   epaperLink: baseConfig.epaperLink,
   ludiPortal: baseConfig.ludiPortal,
   myCaptureUrl: baseConfig.myCaptureUrl,

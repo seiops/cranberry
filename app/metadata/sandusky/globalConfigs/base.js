@@ -2,6 +2,8 @@ module.exports = {
   appVersion: '<0.1',
   baseUrl: '/',
   baseDomain: 'http://www.sanduskyregister.com',
+  devDomain: 'http://srdevcore.libercus.net',
+  stageDomain: 'http://srstgcore.libercus.net',
   devEndpointUrl: 'http://srdevcore.libercus.net/rest.json',
   stageEndpointUrl: 'http://srstgcore.libercus.net/rest.json',
   prdEndpointUrl: 'http://srprdcore.libercus.net/rest.json',

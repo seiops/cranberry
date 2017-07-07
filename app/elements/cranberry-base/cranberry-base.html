@@ -111,7 +111,7 @@
     <cranberry-chart-beat author="{$ config.socialNaming.twitter $}" site-name="{$ config.chartbeat.domain $}" uid="{$ config.chartbeat.uid $}" route="[[route]]"></cranberry-chart-beat>
 
     <!-- Cxense -->
-    <cranberry-cxense site-id="{$ config.cxenseSiteId $}"></cranberry-cxense>
+    <cranberry-cxense site-id="{$ config.cxenseSiteId $}" domain="{$ config.baseDomain $}" route="[[route]]"></cranberry-cxense>
 
     <!-- Gigya socialize/accounts integration -->
     <gigya-socialize user="{{user}}" route="[[route]]" api-key="{$ config.gigya.apiKey $}"></gigya-socialize>

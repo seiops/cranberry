@@ -19,7 +19,7 @@ module.exports = {
   appVersion: baseConfig.appVersion,
   cxenseSiteId: cxense.siteId,
   baseUrl: baseConfig.baseUrl,
-  baseDomain: baseConfig.baseDomain,
+  baseDomain: baseConfig.devDomain,
   baseEndpointUrl: baseConfig.devEndpointUrl,
   baseCanonicalUrl: baseConfig.baseCanonicalUrl,
   calendarDomain: baseConfig.calendarDomain,
