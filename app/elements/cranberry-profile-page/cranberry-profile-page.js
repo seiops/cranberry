@@ -123,6 +123,7 @@ class cranberryProfilePage {
         params.desiredFeaturedCount = '1';
         params.disableFeatured = 'false';
         params.desiredStoryByline = fname + ' ' + lname;
+        params.sectionType = 'profile';
 
         requester.set('params', params);
         requester.generateRequest();
@@ -201,6 +202,8 @@ class cranberryProfilePage {
     } else {
       this.set('hideContent', true);
     }
+
+    this.set('dfpObject', result.section.dfp);
 
     this._firePageview();
     this.fire('iron-signal', {name: 'cranberry-section-route-changed', data: { section: { sectionType: 'section', sectionName: 'news' } } });
