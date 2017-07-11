@@ -116,8 +116,7 @@ app-drawer ::content #contentContainer {
     @apply(--layout-center-justified);
   }
 
-  @nest &-promoImage {
-    width: 250px;
-    height: 55px;
+  @nest &-promoAd {
+    padding: 12px 0;
   }
 }

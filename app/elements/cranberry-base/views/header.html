@@ -2,7 +2,9 @@
   <app-toolbar class="Main-headerToolbar">
       <!-- Main Toolbar -->
       <div class="Main-headerTopBar">
-        <paper-icon-button class="Main-headerButton" icon="menu" drawer-toggle ga-on="click" ga-event-category="Header Main Navigation Button Clicked" ga-event-action="uti_hmnd"></paper-icon-button>
+        <template is="dom-if" if="[[!logo]]">
+          <paper-icon-button class="Main-headerButton" icon="menu" on-tap="openDrawer" ga-on="click" ga-event-category="Header Main Navigation Button Clicked" ga-event-action="uti_hmnd"></paper-icon-button>
+        </template>
         <!-- Hidden container examples -->
         <div class="Main-siteTitle">
           <!-- <div >[[_siteTitle(route)]]</div> -->

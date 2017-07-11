@@ -8,6 +8,20 @@ class CranberryBase {
         reflectToAttribute: true
       },
       data: Object,
+      hidden: {
+        type: Boolean,
+        value: false
+      },
+      promoDFP: {
+        type: Object,
+        value: function() {
+          return {
+            adSection: '30103046/Tandem/Sandusky',
+            content: 'navigation',
+            placement: (window.location.host === 'www.sanduskyregister.com' ? 'production' : 'development')
+          }
+        }
+      },
       upgraded: Boolean,
       storage: {
         type: Object
@@ -114,9 +128,14 @@ class CranberryBase {
     this.$.headerPanelMain.scrollToTop(true);
   }
 
+  openDrawer(e) {
+    e.preventDefault();
+    Polymer.dom(this.root).querySelector('app-drawer').open();
+  }
+
   closeDrawer(e) {
     e.preventDefault();
-    Polymer.dom(this.root).querySelector('#paperDrawerPanel').closeDrawer();
+    Polymer.dom(this.root).querySelector('app-drawer').close();
   }
 
   onAccentColorSwatchPickerSelected() {
