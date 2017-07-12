@@ -74,6 +74,12 @@ p.total-results {
   margin: 0;
 }
 
+p.timestamp {
+  @apply(--paper-font-caption);
+  color: var(--accent-color);
+  margin: 0;
+}
+
 div.search-container {
   @apply(--layout-flex-4);
   @apply(--layout-horizontal);
@@ -97,10 +103,13 @@ div.story-content {
   @apply(--layout-wrap);
 }
 
-div.story-content p {
+div.story-content div.story-description-wrapper {
   @apply(--layout-flex-4);
-  @apply(--paper-font-subhead);
   padding: 0 25px 25px 25px;
+}
+
+div.story-content p.story-description {
+  @apply(--paper-font-subhead);
   margin: 0;
 }
 

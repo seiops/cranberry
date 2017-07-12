@@ -40,7 +40,7 @@ class cranberrySearch {
       route: Object,
       sortOrder: {
         type: String,
-        value: 'Relevance',
+        value: 'relevance',
         observer: '_sortOrderChanged'
       },
       start: {
@@ -48,7 +48,7 @@ class cranberrySearch {
         value: 1,
         observer: '_onStartChanged'
       },
-      totalResults: Number 
+      totalResults: Number
     };
     this.observers = ['_requestSearch(queryString)',
                       '_onRouteChanged(route)']
@@ -89,7 +89,9 @@ class cranberrySearch {
     this.set('displayQuery', 'Search');
   }
 
-  _requestSearch(queryString, move, sortOrder) {
+  _requestSearch(queryString, move) {
+    let sortOrder = this.get('sortOrder').toLowerCase();
+
     if (typeof queryString !== 'undefined' && queryString !== '') {
 
       let firstSearch = this.get('firstSearch');
@@ -117,10 +119,10 @@ class cranberrySearch {
       params.num = 10;
       params.q = queryString;
       
-      if (typeof sortOrder !== 'undefined' && sortOrder === 'Date') {
-        params.sort = 'date';
+      if (sortOrder === 'date') {
+        params.sort = sortOrder;
       }
-
+      
       if (typeof move !== 'undefined') {
         params.start = move;
       } else {
@@ -180,6 +182,7 @@ class cranberrySearch {
 
   _parseResponse(response) {
       if (typeof response !== 'undefined' && typeof response.items !== 'undefined') {
+        console.dir(response.items);
         this.set('items', response.items);
 
         this.set('totalResults', parseInt(response.searchInformation.totalResults));
@@ -256,8 +259,14 @@ class cranberrySearch {
       console.info('<\cranberry-search\> sort order changed: ', sortOrder);
       let queryString = this.get('queryString');
       this._resetParams();
-      this._requestSearch(queryString, undefined, sortOrder);
+      this._requestSearch(queryString, undefined);
     }
+  }
+
+  _parseItemLink(link) {
+    let parser = document.createElement('a');
+    parser.href = link;
+    return parser.pathname;
   }
 }
 Polymer(cranberrySearch);

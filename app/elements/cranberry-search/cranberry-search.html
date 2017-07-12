@@ -47,7 +47,7 @@
             <p class="landing-text">Enter your search below to start:</p>
           </div>
           <paper-material elevation=2>
-            <cranberry-search-bar></cranberry-search-bar>
+            <cranberry-search-bar query="[[displayQuery]]"></cranberry-search-bar>
           </paper-material>
           <!-- Overlay spinner for user notification of loading -->
           <div id="loader" class="loading" hidden$="[[!isSearching]]">
@@ -58,7 +58,6 @@
           <div id="searchContent" class="search-container" hidden$="[[_hideResultsArea(isSearching, noQuery)]]">
             <div class="search-header-container">
               <div class="results">
-                <h1 class="result-header">Results for: [[displayQuery]]</h1>
                 <p class="total-results">About: [[totalResults]] results</p>
               </div>
               <div class="sort">
@@ -71,7 +70,7 @@
               </div>
             </div>
             <template is="dom-repeat" items="{{items}}" restamp>
-              <a href="[[item.link]]"
+              <a href="[[_parseItemLink(item.link)]]"
                  ga-on="click"
                  ga-event-category="Search Result Clicked"
                  ga-event-action$="uti_srch_item_[[index]]">
@@ -80,7 +79,10 @@
                   <template is="dom-if" if="[[_hasImage(item.pagemap.cse_image.0.src)]]">
                     <iron-image src="[[item.pagemap.cse_image.0.src]]" style="background-color: lightgray;" sizing="contain" preload></iron-image>
                   </template>
-                  <p class="story-description">[[_trimText(item.pagemap.newsarticle.0.description, desktop, tablet, mobile)]]</p>
+                  <div class="story-description-wrapper">
+                    <p class="timestamp">[[item.pagemap.metatags.0.article:section]] -- [[item.pagemap.newsarticle.0.datepublished]]</p>
+                    <p class="story-description">[[_trimText(item.pagemap.newsarticle.0.articlebody, desktop, tablet, mobile)]]</p>
+                  </div>
                 </div>
               </a>
               <hr class="break" />
