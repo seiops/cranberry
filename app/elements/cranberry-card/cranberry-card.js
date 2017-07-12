@@ -14,6 +14,10 @@ class CranberryCard {
         type: Boolean,
         value: false
       },
+      subFeatured: {
+        type: Boolean,
+        value: false
+      },
       homepage: {
         type: Boolean,
         value: false

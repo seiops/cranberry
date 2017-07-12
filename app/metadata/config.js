@@ -17,12 +17,12 @@ var cxense = require('./sandusky/globalConfigs/cxense.js');
 
 module.exports = {
   appVersion: baseConfig.appVersion,
-  cxenseSiteId: cxense.siteId,
   baseUrl: baseConfig.baseUrl,
   baseDomain: baseConfig.devDomain,
   baseEndpointUrl: baseConfig.devEndpointUrl,
   baseCanonicalUrl: baseConfig.baseCanonicalUrl,
   calendarDomain: baseConfig.calendarDomain,
+  cxenseSiteId: cxense.siteId,
   epaperLink: baseConfig.epaperLink,
   ludiPortal: baseConfig.ludiPortal,
   myCaptureUrl: baseConfig.myCaptureUrl,

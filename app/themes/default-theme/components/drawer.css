@@ -26,9 +26,9 @@ app-header ::content #backgroundFrontLayer {
 /* Base header stylings */
 app-header {
   background-color: var(--dark-primary-color);
-  @media (--header-breakpoint) {
+  /*@media (--header-breakpoint) {
     height: 164px;
-  }
+  }*/
   @media (--header-breakpoint-alt) {
     height: 54px;
   }
