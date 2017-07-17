@@ -118,8 +118,10 @@ class cranberrySearch {
       params.key = 'AIzaSyCMGfdDaSfjqv5zYoS0mTJnOT3e9MURWkU';
       params.num = 10;
       params.q = queryString;
+      params.exactTerms = queryString;
       
       if (sortOrder === 'date') {
+        params.sort = 'date-publisheddate:d:s';
         params.sort = sortOrder;
       }
       
@@ -267,6 +269,10 @@ class cranberrySearch {
     let parser = document.createElement('a');
     parser.href = link;
     return parser.pathname;
+  }
+
+  _parseSection(section) {
+    return section.replace(/-/g, ' ').toUpperCase();
   }
 }
 Polymer(cranberrySearch);

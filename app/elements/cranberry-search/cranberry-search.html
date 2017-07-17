@@ -80,7 +80,7 @@
                     <iron-image src="[[item.pagemap.cse_image.0.src]]" style="background-color: lightgray;" sizing="contain" preload></iron-image>
                   </template>
                   <div class="story-description-wrapper">
-                    <p class="timestamp">[[item.pagemap.metatags.0.article:section]] -- [[item.pagemap.newsarticle.0.datepublished]]</p>
+                    <p class="timestamp">[[_parseSection(item.pagemap.metatags.0.article:section)]] -- [[item.pagemap.newsarticle.0.datepublished]]</p>
                     <p class="story-description">[[_trimText(item.pagemap.newsarticle.0.articlebody, desktop, tablet, mobile)]]</p>
                   </div>
                 </div>
