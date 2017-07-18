@@ -2,25 +2,38 @@ class cranberrySearchBar {
   beforeRegister() {
     this.is = 'cranberry-search-bar';
     this.properties = {
+      clearInput: {
+        type: Boolean,
+        value: false
+      },
+      placeholder: {
+        type: String,
+        value: 'Search...'
+      },
       query: {
         type: String,
         value: ''
+      },
+      searchQuery: {
+        type: String,
+        value: '',
+        notify: true
       },
       showClear: {
         type: Boolean,
         value: false
       }
     };
-    // this.observers = ['_setPlaceholder(noLabel)'];
   }
+  
   attached() {
-    this.async(function() {
+    this.async(() => {
       let el = this;
       let form = Polymer.dom(this.root).querySelector('#searchForm');
       let input = Polymer.dom(this.root).querySelector('#input');
       let value = this.get('query');
 
-      form.addEventListener('iron-form-submit', function() {
+      form.addEventListener('iron-form-submit', () => {
         console.info('\<cranberry-search-bar\> search submit event');
 
         el._search();
@@ -58,6 +71,9 @@ class cranberrySearchBar {
     this._checkQueryStatus();
     // Get the query string
     let query = this.get('query');
+    let clearInput = this.get('clearInput');
+
+    this.set('searchQuery', query);
 
     query = this._cleanQuery(query);
 
@@ -66,7 +82,9 @@ class cranberrySearchBar {
       let appLocation = document.querySelector('app-location');
       appLocation.set('path', '/search/' + query);
 
-      this._clearInput();
+      if (clearInput) {
+        this._clearInput();
+      }
 
       let base = Polymer.dom(document).querySelector('cranberry-base');
       let drawer = base.querySelector('app-drawer');

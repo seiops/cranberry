@@ -18,6 +18,7 @@
     <app-route route="{{route}}" pattern="/:section" data="{{routeData}}"></app-route>
 
     <byutv-jsonp
+      verbose
       url="https://www.googleapis.com/customsearch/v1"
       on-response="_handleResponse"
       on-load="_handleLoad"
@@ -47,11 +48,11 @@
             <p class="landing-text">Enter your search below to start:</p>
           </div>
           <paper-material elevation=2>
-            <cranberry-search-bar query="[[displayQuery]]"></cranberry-search-bar>
+            <cranberry-search-bar query="{{inputQuery}}"></cranberry-search-bar>
           </paper-material>
           <!-- Overlay spinner for user notification of loading -->
           <div id="loader" class="loading" hidden$="[[!isSearching]]">
-            <p>Finding Stories Containing "[[displayQuery]]"...</p>
+            <p>Finding Stories Containing "[[inputQuery]]"...</p>
             <paper-spinner active="[[isSearching]]"></paper-spinner>
           </div>
           <!-- Main content area for search results. -->
@@ -76,11 +77,11 @@
                  ga-event-action$="uti_srch_item_[[index]]">
                 <h2 class="story-headline">[[item.title]]</h2>
                 <div class="story-content">
-                  <template is="dom-if" if="[[_hasImage(item.pagemap.cse_image.0.src)]]">
-                    <iron-image src="[[item.pagemap.cse_image.0.src]]" style="background-color: lightgray;" sizing="contain" preload></iron-image>
+                  <template is="dom-if" if="[[_hasImage(item.pagemap.cse_image.0.src)]]" restamp>
+                    <iron-image class="search-image" src="[[item.pagemap.cse_image.0.src]]" style="background-color: lightgray;" sizing="contain" preload></iron-image>
                   </template>
                   <div class="story-description-wrapper">
-                    <p class="timestamp">[[_parseSection(item.pagemap.metatags.0.article:section)]] -- [[item.pagemap.newsarticle.0.datepublished]]</p>
+                    <p class="timestamp">[[_parseSection(item.pagemap.metatags.0.article:section)]][[item.pagemap.newsarticle.0.datepublished]]</p>
                     <p class="story-description">[[_trimText(item.pagemap.newsarticle.0.articlebody, desktop, tablet, mobile)]]</p>
                   </div>
                 </div>

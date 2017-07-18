@@ -2,24 +2,28 @@ class cranberrySearch {
   beforeRegister() {
     this.is = 'cranberry-search';
     this.properties = {
-      dfpAdSection: String,
       dfpObject: {
         type: Object,
         computed: '_computeDfpObject(dfpAdSection)'
       },
-      displayQuery: {
-        type: String,
-        value: 'Search'
+      firstSearch: {
+        type: Boolean,
+        value: true
+      },
+      googleQueryParams: {
+        type: Object,
+        computed: '_computeGoogleQueryParams(inputQuery, start, sortOrder)',
+        observer: '_googleQueryParamsChanged'
       },
       hidden: {
         type: Boolean,
         reflectToAttribute: true,
         value: false,
-        observer: '_clearResults'
+        observer: '_hiddenChanged'
       },
-      firstSearch: {
-        type: Boolean,
-        value: true
+      inputQuery: {
+        type: String,
+        computed: '_computeInputQuery(route)'
       },
       isSearching: {
         type: Boolean,
@@ -30,7 +34,6 @@ class cranberrySearch {
         type: Boolean,
         value: true
       },
-      queryString: String,
       response: {
         type: Object,
         observer: '_parseResponse'
@@ -40,111 +43,72 @@ class cranberrySearch {
       route: Object,
       sortOrder: {
         type: String,
-        value: 'relevance',
-        observer: '_sortOrderChanged'
+        value: 'Relevance'
       },
       start: {
         type: Number,
-        value: 1,
-        observer: '_onStartChanged'
+        value: 1
       },
       totalResults: Number
     };
-    this.observers = ['_requestSearch(queryString)',
-                      '_onRouteChanged(route)']
   }
 
-  _computeDfpObject(dfpAdSection) {
-    return {
-            adSection: this.dfpAdSection,
-            content: 'search',
-            placement: (window.location.host === 'www.sanduskyregister.com' ? 'production' : 'development')
-          };
-  }
-
-  _clearResults(hidden, oldHidden) {
-    if (typeof hidden !== 'undefined' && typeof oldHidden !== 'undefined') {
-      if (hidden) {
-        this._checkCurrentRequest();
-
-        let results = this.$.searchContent;
-
-        if (Polymer.dom(results).firstChild) {
-          this._resetParams();
-        }
-      } else {
-        this.async(function() {
-          let queryString = this.get('queryString');
-          this._requestSearch(queryString);
-        });
-      }
+  _computeInputQuery(route) {
+    if (route.path !== null && typeof route.path !== 'undefined') {
+      let queryString = route.path.replace('/', '');
+      this.set('noQuery', false);
+      return queryString;
     }
   }
 
-  _resetParams() {
-    // Run through a reset of all params for the search page
-    this.set('route', {});
-    this.set('items', []);
-    this.set('start', 1);
-    this.set('displayQuery', 'Search');
+  _computeGoogleQueryParams(inputQuery, start, sortOrder) {
+    if (typeof sortOrder !== 'undefined' && sortOrder !== '') {
+      this.fire('iron-signal', { name: 'app-scroll', data: { scrollPosition: 0, scrollSpeed: 1500, scrollAnimation: 'easeInOutQuint', afterScroll: false } });
+      let params = {
+        cref: 'www.sanduskyregister.com',
+        cx: '011196976410573082968:7m7hlyxbyte',
+        siteSearch: 'www.sanduskyregister.com',
+        key: 'AIzaSyCMGfdDaSfjqv5zYoS0mTJnOT3e9MURWkU',
+        num: 10,
+        start: start
+      }
+
+      if (typeof inputQuery !== 'undefined' && inputQuery !== '') {
+        params.q = inputQuery;
+        params.exactTerms = inputQuery;
+      }
+
+      if (sortOrder.toLowerCase() === 'date') {
+        params.sort = 'date';
+      }
+      
+      return params;
+    }
   }
 
-  _requestSearch(queryString, move) {
-    let sortOrder = this.get('sortOrder').toLowerCase();
-
-    if (typeof queryString !== 'undefined' && queryString !== '') {
-
-      let firstSearch = this.get('firstSearch');
-
-      if (!firstSearch) {
-        this._refreshAds();
-      } else {
-        this.set('firstSearch', false);
-      }
-
-      this.set('noQuery', false);
-      this.set('isSearching', true);
-      
-      // Set the display string for the query to display to the user
-      let displayQuery = decodeURI(queryString);
-      this.set('displayQuery', displayQuery);
-
-      // Establish the JSONP parameters
-      let params = {};
-
-      params.cref = 'www.sanduskyregister.com';
-      params.cx = '011196976410573082968:7m7hlyxbyte';
-      params.siteSearch = 'www.sanduskyregister.com';
-      params.key = 'AIzaSyCMGfdDaSfjqv5zYoS0mTJnOT3e9MURWkU';
-      params.num = 10;
-      params.q = queryString;
-      params.exactTerms = queryString;
-      
-      if (sortOrder === 'date') {
-        params.sort = 'date-publisheddate:d:s';
-        params.sort = sortOrder;
-      }
-      
-      if (typeof move !== 'undefined') {
-        params.start = move;
-      } else {
-        this.set('start', 1);
-        params.start = 1;
-      }
-
+  _googleQueryParamsChanged(newParams, oldParams) {
+    if (typeof newParams !== 'undefined' && Object.keys(newParams).length > 0) {
+      this._checkCurrentRequest();
       let request = this.$.searchRequest;
-
-      request.params = params;
+      this.set('isSearching', true);
+      request.params = newParams;
       request.generateRequest();
     }
   }
 
-  _onRouteChanged(newValue) {
-    let hidden = this.get('hidden');
-    // Check if route.path is valid
-    if (newValue.path !== null && typeof newValue.path !== 'undefined') {
-      let queryString = newValue.path.replace('/', '');
-      this.set('queryString', queryString);
+  _computeDfpObject(dfpAdSection) {
+    return {
+      adSection: this.dfpAdSection,
+      content: 'search',
+      placement: (window.location.host === 'www.sanduskyregister.com' ? 'production' : 'development')
+    };
+  }
+
+  _hiddenChanged(hidden, oldHidden) {
+    if (oldHidden && !hidden) {
+      console.log('Hidden changed send stuff!!!');
+      this._refreshAds();
+      this._sendPageviews();
     }
   }
 
@@ -161,19 +125,6 @@ class cranberrySearch {
     });
   }
 
-  _onStartChanged(newValue, oldValue) {
-    if (typeof oldValue !== 'undefined') {
-      let hidden = this.get('hidden');
-      // Get the current query string
-      let query = this.get('queryString');
-
-      // Genereate new card request based on new start value
-      this._requestSearch(query, newValue);
-
-      window.scrollTo(0,0);
-    }
-  }
-
   _handleLoad() {
       console.info('<\cranberry-search\> load received');
   }
@@ -183,14 +134,21 @@ class cranberrySearch {
   }
 
   _parseResponse(response) {
-      if (typeof response !== 'undefined' && typeof response.items !== 'undefined') {
-        console.dir(response.items);
-        this.set('items', response.items);
+    if (typeof response !== 'undefined' && typeof response.items !== 'undefined') {
+      this.set('items', response.items);
 
-        this.set('totalResults', parseInt(response.searchInformation.totalResults));
-        this._sendPageviews();
+      this.set('totalResults', parseInt(response.searchInformation.totalResults));
+      let firstSearch = this.get('firstSearch');
+      
+      if (firstSearch) {
+        this.set('firstSearch', false);
+      } else {
+        this._refreshAds();
       }
-      this.set('isSearching', false);
+      
+      this._sendPageviews();
+    }
+    this.set('isSearching', false);
   }
 
   _sendPageviews() {
@@ -207,7 +165,6 @@ class cranberrySearch {
   _hasImage(image) {
     if (typeof image !== 'undefined') {
       let staticImage = image.includes('/libercus/default/staticImages/static.jpg');
-
       if (!staticImage) {
         return true;
       } else {
@@ -256,15 +213,6 @@ class cranberrySearch {
     }
   }
 
-  _sortOrderChanged(sortOrder, oldSortOrder) {
-    if (typeof sortOrder !== 'undefined' && typeof oldSortOrder !== 'undefined' && sortOrder !== '') {
-      console.info('<\cranberry-search\> sort order changed: ', sortOrder);
-      let queryString = this.get('queryString');
-      this._resetParams();
-      this._requestSearch(queryString, undefined);
-    }
-  }
-
   _parseItemLink(link) {
     let parser = document.createElement('a');
     parser.href = link;
@@ -272,7 +220,9 @@ class cranberrySearch {
   }
 
   _parseSection(section) {
-    return section.replace(/-/g, ' ').toUpperCase();
+    if (typeof section !== 'undefined' && section !== '') {
+      return section.replace(/-/g, ' ').toUpperCase() + ' -- ';
+    }
   }
 }
 Polymer(cranberrySearch);

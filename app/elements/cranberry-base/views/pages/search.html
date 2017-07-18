@@ -3,6 +3,7 @@
     route="[[searchTail]]"
     rest="{$ config.baseEndpointUrl $}"
     author="{$ config.socialNaming.twitter $}"
+    no-image-src="{$ theme.global.logo $}"
     hidden$="{{!_equal(data.page, 'search')}}"
     dfp-ad-section="{$ config.dfpAdStructure.adGroupID $}/{$ config.dfpAdStructure.adGrouping $}/{$ config.dfpAdStructure.adSubGrouping $}/news">
   </cranberry-search>

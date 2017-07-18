@@ -105,7 +105,7 @@ div.story-content {
 
 div.story-content div.story-description-wrapper {
   @apply(--layout-flex-4);
-  padding: 0 25px 25px 25px;
+  padding-bottom: 24px;
 }
 
 div.story-content p.story-description {
@@ -116,6 +116,7 @@ div.story-content p.story-description {
 div.story-content iron-image {
   width: 150px;
   height: 84px;
+  margin-right: 24px;
 }
 
 div.pagination-wrapper {
