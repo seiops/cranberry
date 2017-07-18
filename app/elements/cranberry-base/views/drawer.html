@@ -22,16 +22,12 @@
     </div>
     <nav class="Drawer-widget">
       <cranberry-search-bar class="Drawer-search" id="drawerSearch"></cranberry-search-bar>
-      <cranberry-main-navigation rest="{$ config.baseEndpointUrl $}" route="[[route]]"></cranberry-main-navigation>
       <div class="Drawer-promo">
-        <google-dfp
-            class="Drawer-promoAd"
-            dfp-object="[[promoDFP]]"
-            ad-pos="Nav_Promo"
-            ad-size="[[250,250]]"
-            hidden$="[[hidden]]">
-        </google-dfp>
+        <a href="{$ config.promo.link $}" target="_blank" on-tap="_drawerItemSelected" ga-on="click" ga-event-category="Promo Image Clicked" ga-event-action="uti_exlk_promo">
+          <iron-image class="Drawer-promoImage" src="{$ config.promo.image $}" sizing="contain"></iron-image>
+        </a>
       </div>
+      <cranberry-main-navigation rest="{$ config.baseEndpointUrl $}" route="[[route]]"></cranberry-main-navigation>
     </nav>
 
     <span class="u-spacer"></span>
