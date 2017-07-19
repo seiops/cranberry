@@ -62,6 +62,7 @@ class cranberrySearch {
     if (route.path !== null && typeof route.path !== 'undefined' && route.path !== '') {
       let queryString = route.path.replace('/', '');
       this.set('noQuery', false);
+      this.set('noResults', false);
       this.set('start', 1);
       return queryString;
     }
@@ -148,8 +149,6 @@ class cranberrySearch {
   }
 
   _parseResponse(response) {
-    console.log('RESPONSE GOTTEN');
-    console.dir(response);
     if (typeof response !== 'undefined' && typeof response.items !== 'undefined') {
       this.set('noResults', false);
       this.set('items', response.items);
