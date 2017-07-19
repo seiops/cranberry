@@ -12,7 +12,6 @@ class cranberrySearch {
       },
       googleQueryParams: {
         type: Object,
-        computed: '_computeGoogleQueryParams(inputQuery, start, sortOrder)',
         observer: '_googleQueryParamsChanged'
       },
       hidden: {
@@ -43,7 +42,8 @@ class cranberrySearch {
       route: Object,
       sortOrder: {
         type: String,
-        value: 'Relevance'
+        value: 'Relevance',
+        observer: '_sortOrderChanged'
       },
       start: {
         type: Number,
@@ -51,39 +51,43 @@ class cranberrySearch {
       },
       totalResults: Number
     };
+    this.observers = ['_computeGoogleQueryParams(inputQuery, start, sortOrder)'];
   }
 
   _computeInputQuery(route) {
     if (route.path !== null && typeof route.path !== 'undefined') {
       let queryString = route.path.replace('/', '');
       this.set('noQuery', false);
+      this.set('start', 1);
       return queryString;
     }
   }
 
   _computeGoogleQueryParams(inputQuery, start, sortOrder) {
-    if (typeof sortOrder !== 'undefined' && sortOrder !== '') {
-      this.fire('iron-signal', { name: 'app-scroll', data: { scrollPosition: 0, scrollSpeed: 1500, scrollAnimation: 'easeInOutQuint', afterScroll: false } });
-      let params = {
-        cref: 'www.sanduskyregister.com',
-        cx: '011196976410573082968:7m7hlyxbyte',
-        siteSearch: 'www.sanduskyregister.com',
-        key: 'AIzaSyCMGfdDaSfjqv5zYoS0mTJnOT3e9MURWkU',
-        num: 10,
-        start: start
-      }
+    this.debounce('_computeGoogleQueryParams', () => {
+      if (typeof sortOrder !== 'undefined' && sortOrder !== '') {
+        this.fire('iron-signal', { name: 'app-scroll', data: { scrollPosition: 0, scrollSpeed: 1500, scrollAnimation: 'easeInOutQuint', afterScroll: false } });
+        let params = {
+          cref: 'www.sanduskyregister.com',
+          cx: '011196976410573082968:7m7hlyxbyte',
+          siteSearch: 'www.sanduskyregister.com',
+          key: 'AIzaSyCMGfdDaSfjqv5zYoS0mTJnOT3e9MURWkU',
+          num: 10,
+          start: start
+        }
 
-      if (typeof inputQuery !== 'undefined' && inputQuery !== '') {
-        params.q = inputQuery;
-        params.exactTerms = inputQuery;
-      }
+        if (typeof inputQuery !== 'undefined' && inputQuery !== '') {
+          params.q = inputQuery;
+          params.exactTerms = inputQuery;
+        }
 
-      if (sortOrder.toLowerCase() === 'date') {
-        params.sort = 'date';
+        if (sortOrder.toLowerCase() === 'date') {
+          params.sort = 'date';
+        }
+        
+        this.set('googleQueryParams', params);
       }
-      
-      return params;
-    }
+    });
   }
 
   _googleQueryParamsChanged(newParams, oldParams) {
@@ -123,6 +127,12 @@ class cranberrySearch {
         });
       }
     });
+  }
+
+  _sortOrderChanged(newValue, oldValue) {
+    if (typeof oldValue !== 'undefined' && oldValue !== '' && newValue !== oldValue) {
+      this.set('start', 1);
+    }
   }
 
   _handleLoad() {
