@@ -29,6 +29,10 @@ class cranberrySearch {
         value: false
       },
       items: Object,
+      noResults: {
+        type: Boolean,
+        value: false
+      },
       noQuery: {
         type: Boolean,
         value: true
@@ -55,7 +59,7 @@ class cranberrySearch {
   }
 
   _computeInputQuery(route) {
-    if (route.path !== null && typeof route.path !== 'undefined') {
+    if (route.path !== null && typeof route.path !== 'undefined' && route.path !== '') {
       let queryString = route.path.replace('/', '');
       this.set('noQuery', false);
       this.set('start', 1);
@@ -144,7 +148,10 @@ class cranberrySearch {
   }
 
   _parseResponse(response) {
+    console.log('RESPONSE GOTTEN');
+    console.dir(response);
     if (typeof response !== 'undefined' && typeof response.items !== 'undefined') {
+      this.set('noResults', false);
       this.set('items', response.items);
 
       this.set('totalResults', parseInt(response.searchInformation.totalResults));
@@ -157,6 +164,8 @@ class cranberrySearch {
       }
       
       this._sendPageviews();
+    } else {
+      this.set('noResults', true);
     }
     this.set('isSearching', false);
   }
@@ -193,8 +202,8 @@ class cranberrySearch {
     }
   }
 
-  _hideResultsArea(searching, noQuery) {
-    if (searching || noQuery) {
+  _hideResultsArea(searching, noQuery, noResults) {
+    if (searching || noQuery || noResults) {
       return true;
     } else {
       return false;
