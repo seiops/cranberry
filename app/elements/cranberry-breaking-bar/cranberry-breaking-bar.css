@@ -22,7 +22,8 @@ div.breaking-item {
 
 span.breaking-pre-cursor,
 h3.breaking-title {
-  @apply(--paper-font-display2);
+  @apply(--paper-font-subhead);
+  
   color: var(--text-accent-color);
 }
 

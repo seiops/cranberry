@@ -11,12 +11,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 /* Toolbar styles for blending effect at different breakpoints */
 app-header ::content #backgroundFrontLayer {
-  /* THIS COMMENTED OUT BLOCK NOW LIVES IN CRANBERRY-BASE.HTML BECAUSE IT REQUIRES A NUNJUCKS VARIABLE */
-  /*@media (--header-breakpoint) {
-    background: var(--dark-primary-color) url("/images/logos/sandusky/location.png");
-    background-size: cover;
-    background-position: bottom;
-  }*/
   @media (--header-breakpoint-alt) {
     background-image: none !important;
     background-color: var(--dark-primary-color) !important;
@@ -114,6 +108,7 @@ app-drawer ::content #contentContainer {
   @nest &-promo {
     @apply(--layout-horizontal);
     @apply(--layout-center-justified);
+    margin-bottom: 18px;
   }
 
   @nest &-promoImage {
