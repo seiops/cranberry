@@ -47,3 +47,7 @@ div.user-register {
     @apply(--layout-vertical);
   }
 }
+
+a.terms-link {
+  padding: 0 4px;
+}

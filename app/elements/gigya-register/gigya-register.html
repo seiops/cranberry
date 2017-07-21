@@ -48,7 +48,7 @@
               <gold-password-input name="password"  label="Password *" minlength="6" maxlength="24" validator="gold-password-input-validator" auto-validate required reveal strength-meter error-message="A password between 6-24 characters is required."></gold-password-input>
               <!-- <gold-password-input name="confirmPassword" validator="gold-password-input-validator" label="Confirm Password" auto-validate required reveal strength-meter error-message="A password containing only letters and digits is required."></gold-password-input> -->
               <!--<paper-checkbox name="updates">Sign up for news updates</paper-checkbox>-->
-              <paper-checkbox name="terms" required error-message="You must agree to the site terms of use.">I agree to the <a href="{$ config.baseDomain $}/page/terms%20of%20use" target="_blank" rel="noopener">Terms of Use</a> for {$ config.urlTitle $} *</paper-checkbox>
+              <paper-checkbox name="terms" required error-message="You must agree to the site terms of use.">I agree to the {$ config.urlTitle $} </paper-checkbox><a class="terms-link" href="{$ config.baseDomain $}/page/terms%20of%20use" target="_blank" rel="noopener">Terms of Use </a>*
             </div>
             <div class="form-links">
               <div>* indicates required field</div>

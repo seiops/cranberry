@@ -11,6 +11,7 @@ div.checkbox-wrapper {
   @apply(--layout-flex);
   flex: 1 1 auto;
   min-width: 300px;
+  max-width: 300px;
   padding-bottom: 12px;
 }
 

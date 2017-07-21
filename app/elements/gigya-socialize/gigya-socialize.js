@@ -75,6 +75,20 @@ class GigyaSocialize {
         )
       );
       this.set('scriptAttached', true);
+
+      let el = this;
+      let dialog = Polymer.dom(this.root).querySelector('#userModal');
+      window.addEventListener('resize', (e) => {
+        e.preventDefault();
+        el.debounce('resize', () => {
+          this.async(() => {
+          if (dialog.opened) {
+            console.log('Browser Window Resized. Refitting Modal.');
+            dialog.notifyResize();
+          }
+          }, 100);
+        }, 100);
+      });
     }
 
     let el = this;
@@ -278,7 +292,7 @@ class GigyaSocialize {
 
   // Notify resize event for Safari fix
   resize() {
-    this.$.userModal.notifyResize();
+    // this.$.userModal.notifyResize();
   }
 }
 

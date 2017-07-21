@@ -60,8 +60,8 @@ paper-dialog {
   padding: 0;
   top: 88px;
   width: 100%;
-  @media (--sm-viewport) {
-    top: 64px;
+  @media (--phone-breakpoint) {
+    top: 0;
     left: 0;
     margin: 0;
     position: fixed;

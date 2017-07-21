@@ -37,16 +37,19 @@ https://github.com/suitcss/suit/blob/master/doc/naming-conventions.md
 /* Phone Breakpoints */
 @custom-media --sm-phone           (orientation: portrait) and (max-width: 359px);
 @custom-media --md-phone           (orientation: portrait) and (min-width: 360px) and (max-width: 399px);
-@custom-media --lg-phone           (orientation: portrait) and (min-width: 400px);
+@custom-media --lg-phone           (orientation: portrait) and (min-width: 400px) and (max-width: 420px);
 @custom-media --sm-phone-landscape (orientation: landscape) and (max-width: 599px);
 @custom-media --md-phone-landscape (orientation: landscape) and (min-width: 600px) and (max-width: 719px);
-@custom-media --lg-phone-landscape (orientation: landscape) and (min-width: 720px);
+@custom-media --lg-phone-landscape (orientation: landscape) and (min-width: 720px) and (max-width: 740px);
 
 /* Tablet Breakpoints */
 @custom-media --sm-tablet           (orientation: portrait) and (max-width: 719px);
 @custom-media --lg-tablet           (orientation: portrait) and (min-width: 720px);
 @custom-media --sm-tablet-landscape (orientation: landscape) and (max-width: 1023px);
 @custom-media --lg-tablet-landscape (orientation: landscape) and (min-width: 1024px);
+
+/* Custom Breakpoint for User Modal */
+@custom-media --phone-breakpoint (min-width: 359px) and (max-width: 737px);
 
 /* Query order hack for CSS MQPacker
    https://github.com/hail2u/node-css-mqpacker#known-issues
@@ -112,5 +115,9 @@ https://github.com/suitcss/suit/blob/master/doc/naming-conventions.md
 }
 
 @media (--lg-tablet-landscape) {
+  /* */
+}
+
+@media (--phone-breakpoint) {
   /* */
 }

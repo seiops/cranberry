@@ -260,6 +260,11 @@ class GigyaRegister {
     el.set('spinnerActive', false);
     el._enableForm();
   }
+
+  _handleTerms(e) {
+    e.stopPropagation();
+    e.preventDefault();
+  }
 }
 
 Polymer(GigyaRegister);

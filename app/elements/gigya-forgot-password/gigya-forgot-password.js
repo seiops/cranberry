@@ -41,8 +41,6 @@ class GigyaForgotPassword {
     if (data.errorCode === 0) {
       console.info('\<gigya-forgot-password\> password reset email sent');
 
-      el.set('showForm', false);
-
       let notice = {
         type: 'success',
         message: 'An email was sent with instructions on resetting your password.'

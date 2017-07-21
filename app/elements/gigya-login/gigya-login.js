@@ -23,7 +23,9 @@ class GigyaLogin {
       },
       verify: {
         type: Object,
-        value: {}
+        value: function () {
+          return {}
+        }
       }
     };
   }
@@ -73,7 +75,7 @@ class GigyaLogin {
 
     let form = Polymer.dom(this.root).querySelector('#loginForm');
 
-    this.debounce('submit', function() {
+    this.debounce('submit', () => {
       form.submit();
     }, 100);
   }
@@ -287,7 +289,7 @@ class GigyaLogin {
 
   // submit login form data
   _submit() {
-    this.async(function(){
+    this.async(() => {
       console.info('\<gigya-login\> submit gigya');
 
       this.set('notices', []);
