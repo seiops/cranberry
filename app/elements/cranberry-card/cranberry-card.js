@@ -14,6 +14,18 @@ class CranberryCard {
         type: Boolean,
         value: false
       },
+      mainFeatured: {
+        type: Boolean,
+        value: false
+      },
+      mobileFeatured: {
+        type: Boolean,
+        value: false
+      },
+      mobileLargeImage: {
+        type: Boolean,
+        value: false
+      },
       homepage: {
         type: Boolean,
         value: false
@@ -31,6 +43,14 @@ class CranberryCard {
   ready() {}
 
   attached () {}
+
+  _computeMobileImageClass(mobileLargeImage) {
+    if (mobileLargeImage) {
+      return 'mobile-featured-artwork-large';
+    } else {
+      return 'mobile-featured-artwork';
+    }
+  }
 
   _checkShowMainImage(style) {
     if (style === 'standard' || style === 'gallery' || style === 'featured' || style === 'featured_gallery') {

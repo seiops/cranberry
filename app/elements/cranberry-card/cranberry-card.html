@@ -10,28 +10,17 @@
       @import "theme.css";
       @import "cranberry-card/cranberry-card";
     </style>
-    <div class="card" advertisement$="[[advertisement]]">
-      <template is="dom-if" if="[[item.contentType]]" index-as="itemIndex">
-        <a href$="[[_computeUrl(item)]]"
-           ga-on="click"
-           ga-event-category="Content Card Clicked"
-           ga-event-action$="[[_setupTracking(item)]]">
-          <div class="card-header">
-            <div class="card-icons" hidden$="[[!_checkGallery(item.contentType)]]"><iron-icon icon="cranberry-icons:photo-camera"></iron-icon></div>
-            <div class="card-header-overlay" hidden$="[[!_checkShowMainImage(cardStyle)]]"></div>
-            <template is="dom-if" if="[[_checkShowMainImage(cardStyle)]]">
-              <iron-image
-                class$="[[_computeImageClass(cardStyle)]]"
-                alt="[[item.title]]"
-                hidden$="[[!item.mediaAssets.images.0.small]]"
-                src$="{$ config.baseDomain $}[[_computeImageSize(item.mediaAssets.images.0)]]"
-                preload
-                fade
-                sizing="cover">
-              </iron-image>
-            </template>
-            <div hidden$="[[!item.title]]" class$="[[_computeHeadingClass(cardStyle)]]">
-              <template is="dom-if" if="[[_checkShowThumbImage(cardStyle)]]">
+    <template is="dom-if" if="[[!mobileFeatured]]">
+      <div class="card" advertisement$="[[advertisement]]" featured$="[[featured]]">
+        <template is="dom-if" if="[[item.contentType]]" index-as="itemIndex">
+          <a href$="[[_computeUrl(item)]]"
+            ga-on="click"
+            ga-event-category="Content Card Clicked"
+            ga-event-action$="[[_setupTracking(item)]]">
+            <div class="card-header">
+              <div class="card-icons" hidden$="[[!_checkGallery(item.contentType)]]"><iron-icon icon="cranberry-icons:photo-camera"></iron-icon></div>
+              <div class="card-header-overlay" hidden$="[[!_checkShowMainImage(cardStyle)]]"></div>
+              <template is="dom-if" if="[[_checkShowMainImage(cardStyle)]]">
                 <iron-image
                   class$="[[_computeImageClass(cardStyle)]]"
                   alt="[[item.title]]"
@@ -42,26 +31,77 @@
                   sizing="cover">
                 </iron-image>
               </template>
-              <span>[[item.title]]</span>
+              <div hidden$="[[!item.title]]" class$="[[_computeHeadingClass(cardStyle)]]">
+                <template is="dom-if" if="[[_checkShowThumbImage(cardStyle)]]">
+                  <iron-image
+                    class$="[[_computeImageClass(cardStyle)]]"
+                    alt="[[item.title]]"
+                    hidden$="[[!item.mediaAssets.images.0.small]]"
+                    src$="{$ config.baseDomain $}[[_computeImageSize(item.mediaAssets.images.0)]]"
+                    preload
+                    fade
+                    sizing="cover">
+                  </iron-image>
+                </template>
+                <span>[[item.title]]</span>
+              </div>
             </div>
+            <div class="card-content" hidden$="[[featured]]">
+                <div class="content-date">[[item.firstPublished]]</div>
+                <div class="content-preview">[[_trimText(item.preview)]]</div>
+            </div>
+          </a>
+          <div class="card-info" hidden$="[[hideInfo]]">
+            <div class="content-tag"><a href$="[[_scrubTagUrl(item.sectionInformation)]]"
+                                        ga-on="click"
+                                        ga-event-category="Content Card Section Clicked"
+                                        ga-event-action$="uti_crd_sec_[[_scrubTag(item.sectionInformation)]]">[[_scrubTag(item.sectionInformation)]]</a>
+            </div>
+            <div class="content-comments"><a href$="[[_computeUrl(item)]]">[[item.socialInformation.comments]] &nbsp;<iron-icon icon="cranberry-icons:chat"></iron-icon></a></div>
           </div>
-          <div class="card-content" hidden$="[[featured]]">
-              <div class="content-date">[[item.firstPublished]]</div>
-              <div class="content-preview">[[_trimText(item.preview)]]</div>
+        </template>
+        <content></content>
+      </div>
+    </template>
+    <template is="dom-if" if="[[mobileFeatured]]">
+      <div class="mobile-featured-card" main$="[[mainFeatured]]">
+        <a href$="[[_computeUrl(item)]]"
+           ga-on="click"
+           ga-event-category="Content Card Clicked"
+           ga-event-action$="[[_setupTracking(item)]]">
+          <div class$="[[_computeMobileImageClass(mobileLargeImage)]]">
+            <iron-image class="mobile-featured-image"
+                        alt="[[item.title]]"
+                        hidden$="[[!item.mediaAssets.images.0.small]]"
+                        src$="{$ config.baseDomain $}[[_computeImageSize(item.mediaAssets.images.0)]]"
+                        preload fade sizing="cover">
+            </iron-image>
           </div>
         </a>
-        <div class="card-info" hidden$="[[hideInfo]]">
-          <div class="content-tag"><a href$="[[_scrubTagUrl(item.sectionInformation)]]"
-                                      ga-on="click"
-                                      ga-event-category="Content Card Section Clicked"
-                                      ga-event-action$="uti_crd_sec_[[_scrubTag(item.sectionInformation)]]">[[_scrubTag(item.sectionInformation)]]</a>
+        <div class="mobile-featured-info">
+          <div class="mobile-featured-content-tag">
+            <a href$="[[_scrubTagUrl(item.sectionInformation)]]"
+               ga-on="click"
+               ga-event-category="Content Card Section Clicked"
+               ga-event-action$="uti_crd_sec_[[_scrubTag(item.sectionInformation)]]">
+               [[_scrubTag(item.sectionInformation)]]
+            </a>
           </div>
-          <div class="content-comments"><a href$="[[_computeUrl(item)]]">[[item.socialInformation.comments]] &nbsp;<iron-icon icon="cranberry-icons:chat"></iron-icon></a></div>
+          <div class="mobile-featured-content-comments">
+            <a href$="[[_computeUrl(item)]]">[[item.socialInformation.comments]] &nbsp;<iron-icon icon="cranberry-icons:chat"></iron-icon></a>
+          </div>
         </div>
-      </template>
-      <content></content>
-    </div>
-    <!-- Temporary Fix to ensure Nativos ads come in properly -->
+        <a href$="[[_computeUrl(item)]]"
+           ga-on="click"
+           ga-event-category="Content Card Clicked"
+           ga-event-action$="[[_setupTracking(item)]]">
+          <div class="mobile-featured-content">
+            <h3>[[item.title]]</h3>
+            <p class="mobile-content-date">[[item.publishedFormatted]]</p>
+          </div>
+        </a>
+      </div>
     </template>
+  </template>
     <script src="cranberry-card.js"></script>
 </dom-module>

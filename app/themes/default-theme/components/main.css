@@ -86,7 +86,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     @apply(--paper-font-body2);
     @apply(--layout-horizontal);
     @apply(--layout-center);
-    /*@apply(--layout-end);*/
+    @apply(--layout-end-justified);
   }
 
   @nest &-siteButtons span.Main-siteNav {
@@ -108,7 +108,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   }
 
   @nest &-siteLogo iron-image {
-    width: 156px;
-    height: 48px;
+    width: 130px;
+    height: 40px;
   }
 }

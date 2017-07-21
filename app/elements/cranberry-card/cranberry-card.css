@@ -36,11 +36,14 @@ div.card[advertisement] ::content google-dfp {
   @apply(--layout-center);
 }
 
+a {
+  text-decoration: none;
+}
+
 /* Disable text decoration for links in cards */
 div.card > a {
   @apply(--layout-flex);
   @apply(--layout-vertical);
-  text-decoration: none;
 }
 
 /* Card header */
@@ -190,3 +193,71 @@ div.css-info {
   @apply(--layout-center);
   font-size: 10px;
 }
+
+/*Mobile Featured Card Styles */
+div.mobile-featured-card {
+}
+
+div.mobile-featured-card div.mobile-featured-artwork {
+  @apply(--layout-vertical);
+  @apply(--layout-center);
+  min-height: 100px;
+}
+
+div.mobile-featured-card div.mobile-featured-artwork-large {
+  @apply(--layout-vertical);
+  @apply(--layout-center);
+  min-height: 215px;
+}
+
+div.mobile-featured-card div.mobile-featured-artwork iron-image.mobile-featured-image,
+div.mobile-featured-card div.mobile-featured-artwork-large iron-image.mobile-featured-image {
+  @apply(--layout-flex);
+  flex: 1 1 auto;
+  width: 100%;
+  height: 100%;
+  padding-bottom: 8px;
+}
+
+div.mobile-featured-card div.mobile-featured-info {
+  @apply(--paper-font-common-uppercase);
+
+  @apply(--layout-horizontal);
+  @apply(--layout-justified);
+
+  font-weight: 400;
+  padding: 0px 4px;
+}
+
+div.mobile-featured-card div.mobile-featured-info div.mobile-featured-content-tag > a,
+div.mobile-featured-card div.mobile-featured-info div.mobile-featured-content-comments > * {
+  color: var(--accent-color);
+  font-size: 12px;
+}
+
+div.mobile-featured-card div.mobile-featured-info div.mobile-featured-content-comments iron-icon {
+  width: 16px;
+  height: 16px;
+}
+
+div.mobile-featured-card div.mobile-featured-content {
+  padding: 8px 4px 12px 4px;
+}
+
+div.mobile-featured-card div.mobile-featured-content h3 {
+  @apply(--paper-display2);
+  color: rgba(0,0,0,0.85);
+  font-size: 18px;
+  margin: 0;
+}
+
+div.mobile-featured-card[main] div.mobile-featured-content h3 {
+  font-size: 21px;
+  line-height: 21px;
+}
+
+div.mobile-featured-card div.mobile-featured-content p.mobile-content-date {
+  @apply(--paper-font-caption);
+  margin: 0;
+}
+

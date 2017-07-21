@@ -10,7 +10,7 @@
       @import "cranberry-featured-content/cranberry-featured-content";
     </style>
     <iron-media-query
-      query="(max-width:640px)"
+      query="(max-width:668px)"
       query-matches="{{slider}}">
     </iron-media-query>
 
@@ -30,14 +30,19 @@
           </div>
         </template>
         <template is="dom-if" if="[[slider]]">
-          <div>
-              <l2t-paper-slider total-slides="3" sensitivity="low">
-                <template is="dom-repeat" items="{{items}}">
-                  <paper-slide>
-                    <cranberry-card item="[[item]]" index="[[index]]" homepage$="[[homepage]]" featured></cranberry-card>
-                  </paper-slide>
-                </template>
-              </l2t-paper-slider>
+          <div class="featured-mobile-wrapper">
+            <div class="featured-main-mobile">
+              <cranberry-card item="[[items.0]]" index="0" homepage$="[[homepage]]" main-featured mobile-featured mobile-large-image></cranberry-card>
+            </div>
+            <div class="line-break-container"></div>
+            <div class="sub-featured">
+              <div class="sub-featured-card">
+                <cranberry-card item="[[items.1]]" index="1" homepage$="[[homepage]]" mobile-featured></cranberry-card>
+              </div>
+              <div class="sub-featured-card">
+                <cranberry-card item="[[items.2]]" index="2" homepage$="[[homepage]]" mobile-featured></cranberry-card>
+              </div>
+            </div>
           </div>
         </template>
       </div>
