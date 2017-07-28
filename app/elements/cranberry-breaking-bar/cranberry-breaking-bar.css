@@ -7,7 +7,8 @@ div.breaking-bar-wrapper {
   @apply(--layout-horizontal);
   @apply(--layout-justified);
   @apply(--layout-center);
-  background-image: url("../../images/breaking/repeatable.png");
+  background-color: #A7151D;
+  /* background-image: url("../../images/breaking/repeatable.png"); */
   width: 100%;
 }
 
