@@ -2,9 +2,17 @@ class cranberryContactForm {
   beforeRegister() {
     this.is = 'cranberry-contact-form';
     this.properties = {
+      captchaValidated: {
+        type: Boolean,
+        value: false
+      },
       departments: {
         type: Array,
         value: []
+      },
+      formValid: {
+        type: Boolean,
+        value: false
       },
       recipient: String,
       selectedDepartment: {
@@ -21,9 +29,7 @@ class cranberryContactForm {
   _handleSubmit() {
     let form = this.$.form;
     let request = this.$.request;
-    let submit = this.$.submitButton;
 
-    submit.disabled = true;
     this.set('submitting', true);
     // Check form for validity
     let validForm = form.validate();
@@ -56,7 +62,7 @@ class cranberryContactForm {
   _handleReset(event) {
     // Reset department selection box
     let listbox = Polymer.dom(this.root).querySelector('#departmentSelector');
-    listbox.set('selected', '0');
+    listbox.set('selected', null);
 
     // Reset inputs, checkboxes, and radio buttons
     let form = Polymer.dom(this.root).querySelector('#form');
@@ -65,6 +71,9 @@ class cranberryContactForm {
     // Reset reCaptcha
     let recap = form.querySelector('re-captcha');
     recap.reset();
+
+    this.set('captchaValidated', false);
+    this.set('formValid', false);
 
     this.async(() => {
       let focused = form.querySelector('[focused]');
@@ -76,39 +85,38 @@ class cranberryContactForm {
 
   _selectedDepartmentChanged(element) {
     if (typeof element !== 'undefined' && element) {
-      let email = element.value;
-      this.set('recipient', email);
+      if (element.value !== 'Select Department' && element.value !== '') {
+        let email = element.value;
+        this.set('recipient', email);
+        let form = this.$.form;
+        let formData = form.serialize();
+        if (formData.name !== '' && formData.email !== '' && formData.address !== '' && formData.telephone !== '' && formData['g-recaptcha-response'] !== '') {
+          this.async(() => {
+            let formValid = form.validate();
+            this.set('formValid', formValid);
+          });
+        }
+      }
     }
-    
   }
 
   ready() {
     let form = this.$.form;
     let reCaptcha = this.querySelector('re-captcha');
-    let submitButton = this.$.submitButton;
-    // Boolean for if the captcha is validated
-    let captchaValidated = false;
 
-    reCaptcha.addEventListener('captcha-response', function(e){
-      // Validated is true
-      captchaValidated = true;
+    reCaptcha.addEventListener('captcha-response', (e) => {
+      this.set('captchaValidated', true)
       // Fire form change event to validate
       form.fire('change');
     });
 
-    form.addEventListener('change', function(event) {
+    form.addEventListener('change', (event) => {
+      let captchaValidated = this.get('captchaValidated');
       // If the form is valid and the re-captcha has been successfully completed enable the submit button else ensure button is disabled.
       if (captchaValidated) {
         // Validate the form
         let formValid = form.validate();
-
-        if (formValid) {
-          // Button is no longer disabled
-          submitButton.disabled = false;
-        }
-      } else {
-        // Button remains disabled
-        submitButton.disabled = true;
+        this.set('formValid', formValid);
       }
     });
   }
@@ -127,9 +135,6 @@ class cranberryContactForm {
     }
 
     this.set('submitting', false);
-    let submit = this.$.submitButton;
-    submit.disabled = true;
-
   }
 
   _sendEvent() {
@@ -142,6 +147,13 @@ class cranberryContactForm {
     this.fire('iron-signal', {name: 'track-event', data: { event } });
   }
 
+  _disableButton(formValid, submitting) {
+    if (!formValid || submitting) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
 
 Polymer(cranberryContactForm);
