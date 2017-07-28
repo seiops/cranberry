@@ -6,6 +6,10 @@
   @apply(--paper-font-error);
 }
 
+/* paper-dropdown-menu {
+  min-width: 320px;
+} */
+
 paper-input,
 paper-textarea {
   margin-bottom: 10px;
@@ -21,4 +25,8 @@ paper-button#submitButton {
 
 re-captcha {
   padding: 12px 0;
+}
+
+p.hint {
+  @apply(--paper-font-caption);
 }

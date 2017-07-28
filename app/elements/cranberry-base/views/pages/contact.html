@@ -1,3 +1,5 @@
 <section class="Page" tabindex="-1">
-  <cranberry-contact-page route="[[route]]" need-help='{$ config.contactInformation.needHelp | dump $}' footer-links='{$ config.contactInformation.footerLinks | dump $}' hidden$="{{!_equal(data.page, 'contact')}}"></cranberry-contact-page>
+  <template is="dom-if" if="{{_equal(data.page, 'contact')}}" restamp>
+    <cranberry-contact-page route="[[route]]" need-help='{$ config.contactInformation.needHelp | dump $}' footer-links='{$ config.contactInformation.footerLinks | dump $}'></cranberry-contact-page>
+  </template>
 </section>

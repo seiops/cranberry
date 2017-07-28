@@ -46,11 +46,6 @@ module.exports = {
       logo: 'cranberry-icons:chrome-reader-mode',
       label: 'Newsroom',
       phone: '419-502-2160'
-    },
-    {
-      logo: 'cranberry-icons:laptop',
-      label: 'Web Dept.',
-      phone: '419-609-5861'
     }
   ],
   footerLinks: [
@@ -91,6 +86,10 @@ module.exports = {
     {
       name: 'Advertising',
       email: 'advertising@sanduskyregister.com'
+    },
+    {
+      name: 'Web Department',
+      email: 'web@sanduskyregister.com'
     }
   ]
 }

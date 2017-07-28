@@ -47,18 +47,6 @@
             </div>
           </div>
           <div class="contact-card">
-            <a href="mailto:{$ config.contactInformation.email $}"
-               ga-on="click"
-               ga-event-category="Contact Info Clicked"
-               ga-event-action="uti_email">
-              <paper-button class="rounded-button faux-disabled" raised disabled><iron-icon icon="cranberry-icons:email"></iron-icon></paper-button>
-            </a>
-            <div class="contact-card-info">
-              <h3>EMAIL</h3>
-              <p class="caption-text">{$ config.contactInformation.email $}</p>
-            </div>
-          </div>
-          <div class="contact-card">
             <a href="http://www.google.com/maps?q={$ config.contactInformation.address.unitNumber $}%20{$ config.contactInformation.address.street $}%20{$ config.contactInformation.address.city $}%20{$ config.contactInformation.address.state $}%20{$ config.contactInformation.address.zip $}" 
                target="_blank"
                ga-on="click"

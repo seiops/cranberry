@@ -15,21 +15,31 @@
       @import "cranberry-contact-form/cranberry-contact-form";
     </style>
     <byutv-jsonp on-response="handleResponse" debounce-duration="300" id="request"></byutv-jsonp>
-    <paper-dropdown-menu id="departmentDropdown" label="Department" selected-item="{{selectedDepartment}}" always-float-label tabindex="0">
-      <paper-listbox id="departmentSelector" class="dropdown-content" selected="0">
-        <template is="dom-repeat" items="[[departments]]" as="department">
-          <paper-item value="[[department.email]]">[[department.name]]</paper-item>
-        </template>
-      </paper-listbox>
-    </paper-dropdown-menu>
+
     <form is="iron-form" action="/" id="form">
-      <paper-input name="name" label="Name" required auto-validate error-message="You must provide a name." allowed-pattern="[ A-zA-Z]" auto-complete tabindex="1"></paper-input>
-      <paper-input name="email" label="Email" required auto-validate error-message="You must provide a email." allowed-pattern="[\@\.A-zA-Z0-9]" tabindex="2"></paper-input>
-      <paper-input name="address" label="Address" required auto-validate error-message="You must provide a address." allowed-pattern="[.A-zA-Z0-9 ]" tabindex="3"></paper-input>
-      <paper-input name="telephone" label="Telephone" required auto-validate allowed-pattern="[0-9]" maxlength="10" error-message="You must provide a phone number." tabindex="4"></paper-input>
+      <paper-dropdown-menu
+        id="departmentDropdown"
+        label="Department *"
+        selected-item="{{selectedDepartment}}"
+        always-float-label
+        required
+        error-message="You must select a department."
+        tabindex="0"
+        placeholder="Select Department">
+        <paper-listbox id="departmentSelector" class="dropdown-content">
+          <template is="dom-repeat" items="[[departments]]" as="department">
+            <paper-item value="[[department.email]]">[[department.name]]</paper-item>
+          </template>
+        </paper-listbox>
+      </paper-dropdown-menu>
+      <paper-input name="name" label="Name *" required auto-validate error-message="You must provide a name." allowed-pattern="[ A-zA-Z]" auto-complete tabindex="1"></paper-input>
+      <paper-input name="email" label="Email *" required auto-validate error-message="You must provide a email." allowed-pattern="[\@\.A-zA-Z0-9]" tabindex="2"></paper-input>
+      <paper-input name="address" label="Address *" required auto-validate error-message="You must provide a address." allowed-pattern="[.A-zA-Z0-9 ]" tabindex="3"></paper-input>
+      <paper-input name="telephone" label="Telephone *" required auto-validate allowed-pattern="[0-9]" maxlength="10" error-message="You must provide a phone number." tabindex="4"></paper-input>
       <paper-textarea name="message" label="Message" value="" char-counter maxlength="350" tabindex="5"></paper-textarea>
+      <p class="hint">* indicates required field</p>
       <re-captcha sitekey="{$ config.contactInformation.recaptchaKey $}" response="{{recapResponse}}" id="recap" tabindex="6"></re-captcha>
-      <paper-button on-tap="_handleSubmit" id="submitButton" disabled tabindex="7">Submit</paper-button>
+      <paper-button on-tap="_handleSubmit" id="submitButton" disabled$="[[_disableButton(formValid, submitting)]]" tabindex="7">Submit</paper-button>
       <paper-button on-tap="_handleReset" tabindex="8">Reset</paper-button>
 
       <div class="submitting" hidden$="{{!submitting}}">

@@ -11,22 +11,12 @@ class cranberryContactPage {
       noStaff: {
         type: Boolean,
         value: false
-      },
-      hidden: {
-        type: Boolean,
-        reflectToAttribute: true,
-        value: true,
-        observer: '_hiddenChanged'
-      },
+      }
     }
   }
 
-  _hiddenChanged(hidden, oldHidden) {
-    this.async(() => {
-      if (typeof hidden !== 'undefined' && !hidden) {
-        this._firePageViews();
-      }
-    });
+  attached() {
+    this._firePageViews();
   }
 
   _firePageViews() {
