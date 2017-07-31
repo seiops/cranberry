@@ -73,9 +73,16 @@ var CranberryBehaviors = CranberryBehaviors || {};
         this.set('featuredItems', data.featured);
       
         this.async(() => {
+            this._fireNativo();
             this._sendPageview(data.section);
             this.set('loading', false);
         });
+      }
+    },
+    _fireNativo() {
+      // Fire nativo
+      if (typeof window.PostRelease !== 'undefined' && typeof window.PostRelease.Start === 'function') {
+        PostRelease.Start();
       }
     },
     _requestSection(event) {
