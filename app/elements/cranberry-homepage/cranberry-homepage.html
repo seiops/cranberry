@@ -56,7 +56,7 @@
         </template>
       </div>
 
-      <scorestream-widget rest="{$ config.baseEndpointUrl $}" route="{{routeData}}" section="[[loadSection]]" hidden$="[[loading]]"></scorestream-widget>
+      <scorestream-widget rest="{$ config.baseEndpointUrl $}" route="{{routeData}}" section="[[section.sectionId]]" hidden$="[[loading]]"></scorestream-widget>
 
       <template is="dom-if" if="[[!section.disableFeatured]]">
         <!-- FEATURED CONTENT ELEMENT -->

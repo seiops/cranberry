@@ -108,37 +108,31 @@ class scorestreamWidget {
     }
   }
 
-  _onSectionChanged() {
-    let route = this.get('route');
-    this.async(function() {
-      let hidden = this.get('hidden');
+  _onSectionChanged(section, oldSection) {
+    this.async(() => {
+      console.log('The section has changed in scorestream!');
+      console.log(`Section: ${section}`);
+      if (typeof section !== 'undefined') {
+        let request = this.$.request;
+        let params = {};
 
-      if (!hidden) {
-        if (typeof route.section !== 'undefined') {
-          let section = route.section;
-          let path = route.path;
+        // Wipe current setup
+        this.set('widgetId', '');
+        this.set('widgetUrl', '');
 
-          let request = this.$.request;
-          let params = {};
+        params.request = 'congero';
+        params.desiredContent = 'scorestream';
+        request.setAttribute('url', this.get('rest'));
 
-          // Wipe current setup
-          this.set('widgetId', '');
-          this.set('widgetUrl', '');
-
-          params.request = 'congero';
-          params.desiredContent = 'scorestream';
-          request.setAttribute('url', this.get('rest'));
-
-          // If homepage
-          if (section === '') {
-            params.desiredTeam = 'Home Scoreboard';
-          } else {
-            params.desiredTeam = section.replace(/-/g, ' ');
-          }
-
-          request.params = params;
-          request.generateRequest();
+        // If homepage
+        if (section === 'homepage') {
+          params.desiredTeam = 'Home Scoreboard';
+        } else {
+          params.desiredTeam = section.replace(/-/g, ' ');
         }
+
+        request.params = params;
+        request.generateRequest();
       }
     });
   }
