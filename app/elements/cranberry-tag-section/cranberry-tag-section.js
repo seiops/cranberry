@@ -90,7 +90,13 @@ class cranberryTagSection {
   _sendRequest(requestObject) {
     this.set('loading', true);
     this.dispatchEvent(new CustomEvent('requestSection', {detail: requestObject }));
-  }  
+  }
+
+  _scrubTag(tag) {
+    return tag.replace(/\w\S*/g, (txt) => {
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
+  }
 }
 
 Polymer(cranberryTagSection);

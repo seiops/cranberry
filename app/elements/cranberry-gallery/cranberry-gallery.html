@@ -31,7 +31,7 @@
     <iron-media-query query="(min-width: 720px) and (max-width:959px)" query-matches="{{tablet}}"></iron-media-query>
     <iron-media-query query="(max-width: 719px)" query-matches="{{mobile}}"></iron-media-query>
 
-    <page-title base-title="{$ config.title $}" title="[[gallery.title]]"></page-title>
+    <page-title base-title="{$ config.title $}" divider=" | " page-title="[[gallery.title]]" direction="standard"></page-title>
 
     <!-- Main Div For Cranberry-Gallery -->
     <div class="cranberry-gallery" id="container" hidden$="[[loading]]">
