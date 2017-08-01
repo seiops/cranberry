@@ -16,7 +16,7 @@
 <link rel="import" href="../google-dfp/google-dfp.html">
 <link rel="import" href="../google-survey/google-survey.html">
 <link rel="import" href="../tout-element/tout-element.html">
-<link rel="import" href="../youneeq-content/youneeq-content.html">
+<link rel="import" href="../cxense-recommendation-widget/cxense-recommendation-widget.html">
 
 <dom-module id="cranberry-story">
 
@@ -192,9 +192,9 @@
                 </template>
               </div>
 
-              <!-- Youneeq Content Area -->
-              <div class="youneeq-wrapper">
-                <youneeq-content content="[[response]]" domain="{$ config.baseDomain $}" hidden$="[[hidden]]"></youneeq-content>
+              <!-- Recommended Content Area -->
+              <div class="recommended-content">
+                <cxense-recommendation-widget></cxense-recommendation-widget>
               </div>
             </template>
           </div>

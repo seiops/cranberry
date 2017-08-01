@@ -11,6 +11,7 @@
 <link rel="import" href="../gigya-sharebar/gigya-sharebar.html">
 <link rel="import" href="../google-dfp/google-dfp.html">
 <link rel="import" href="../cranberry-related-content/cranberry-related-content.html">
+<link rel="import" href="../cxense-recommendation-widget/cxense-recommendation-widget.html">
 
 <dom-module id="cranberry-gallery">
   <template>
@@ -141,8 +142,8 @@
       </div>
 
       <div class="recommended-container">
-        <div class="youneeq-container">
-          <youneeq-content user="[[user]]" content="[[gallery]]" domain="{$ config.baseDomain $}" hidden$="[[hidden]]"></youneeq-content>
+        <div class="recommended-content">
+          <cxense-recommendation-widget></cxense-recommendation-widget>
         </div>
         <div class="recommended-content-container">
           <cranberry-related-content related-items="[[gallery.relatedContent]]" story></cranberry-related-content>

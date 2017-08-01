@@ -69,7 +69,6 @@
 <link rel="import" href="../cranberry-icons/cranberry-icons.html">
 <link rel="import" href="../cranberry-sharethrough-story/cranberry-sharethrough-story.html">
 <link rel="import" href="../cranberry-content-request/cranberry-content-request.html">
-<link rel="import" href="../youneeq-tracker/youneeq-tracker.html">
 <link rel="import" href="../cranberry-browser-detection/cranberry-browser-detection.html">
 
 <dom-module id="cranberry-base">
@@ -104,9 +103,6 @@
     <!-- Mather -->
     <mather-analytics mather-id="{$ config.mather.id $}" mather-name="{$ config.mather.name $}" user="[[user]]"></mather-analytics>
     
-    <!-- Youneeq Tracker -->
-    <youneeq-tracker domain="{$ config.baseDomain $}" user="{{user}}"></youneeq-tracker>
-
     <!-- Chartbeat -->
     <cranberry-chart-beat author="{$ config.socialNaming.twitter $}" site-name="{$ config.chartbeat.domain $}" uid="{$ config.chartbeat.uid $}" route="[[route]]"></cranberry-chart-beat>
 

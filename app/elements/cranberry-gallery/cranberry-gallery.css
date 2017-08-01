@@ -140,7 +140,7 @@ div.recommended-container {
   margin-bottom: 24px;
 }
 
-div.recommended-container div.youneeq-container {
+div.recommended-container div.recommended-content {
   @apply(--layout-horizontal);
   flex: 2 2 300px;
   max-width: 100%;
