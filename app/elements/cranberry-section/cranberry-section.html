@@ -17,6 +17,7 @@
 
 <!-- Third Party Elements -->
 <link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
+<link rel="import" href="../../bower_components/page-title/page-title.html">
 
 <!-- Custom Elements -->
 <link rel="import" href="../cranberry-load-sequence/cranberry-load-sequence.html">
@@ -35,6 +36,8 @@
     </style>
 
     <app-route route="{{route}}" pattern="/:type/:section" data="{{routeData}}"></app-route>
+
+    <page-title base-title="{$ config.title $}" divider=" | " page-title="[[section.sectionId]]" direction="standard"></page-title>
     
     <byutv-jsonp
       verbose

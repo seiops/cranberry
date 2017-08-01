@@ -6,12 +6,16 @@
 <link rel="import" href="../cranberry-map/cranberry-map.html">
 <link rel="import" href="../cranberry-staff-list/cranberry-staff-list.html">
 <link rel="import" href="../cranberry-font-awesome/cranberry-font-awesome.html">
+<link rel="import" href="../../bower_components/page-title/page-title.html">
 
 <dom-module id="cranberry-contact-page">
   <template>
     <style>
       @import "cranberry-contact-page/cranberry-contact-page";
     </style>
+
+    <page-title base-title="{$ config.title $}" divider=" | " page-title="Contact Us" direction="standard"></page-title>
+
     <paper-material class="Page-paper" elevation="1">
       <!-- MAIN IMAGE -->
       <div class="main-image">

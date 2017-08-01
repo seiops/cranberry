@@ -14,6 +14,7 @@
 
 <!-- Third Party Elements -->
 <link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
+<link rel="import" href="../../bower_components/page-title/page-title.html">
 
 <!-- Custom Elements -->
 <link rel="import" href="../cranberry-load-sequence/cranberry-load-sequence.html">
@@ -40,10 +41,12 @@
       on-error="_handleError"
       id="request">
     </byutv-jsonp>
-
+    
     <iron-media-query query="(min-width: 960px)" query-matches="{{desktop}}"></iron-media-query>
     <iron-media-query query="(min-width: 720px) and (max-width:959px)" query-matches="{{tablet}}"></iron-media-query>
     <iron-media-query query="(max-width:719px)" query-matches="{{mobile}}"></iron-media-query>
+
+    <page-title base-title="{$ config.title $}" divider=" | " page-title="Galleries" direction="standard"></page-title>
 
     <div class="section-wrapper" id="contentElement">
       <div class="header-advertisement">

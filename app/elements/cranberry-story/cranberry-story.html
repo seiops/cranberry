@@ -31,7 +31,7 @@
 
     <app-route route="{{route}}" pattern="/:id" data="{{routeData}}"></app-route>
 
-    <page-title base-title="{$ config.title $}" title="[[story.title]]"></page-title>
+    <page-title base-title="{$ config.title $}" divider=" | " page-title="[[response.title]]" direction="standard"></page-title>
 
     <!-- Story Request Element -->
     <cranberry-story-request page-id="[[routeData.id]]"

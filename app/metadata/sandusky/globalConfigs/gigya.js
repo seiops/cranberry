@@ -36,11 +36,17 @@ module.exports = {
       naming: 'srNewslettersWeather'
     },
     {
-      displayName: 'Gardening Tips',
-      name: 'gardening',
-      linking: 'srNewsletters.gardening',
-      naming: 'srNewslettersGardening'
-    }
+      displayName: 'Entertainment/Events',
+      name: 'entertainment',
+      linking: 'srNewsletters.entertainment',
+      naming: 'srNewslettersEntertainment'
+    },
+    // {
+    //   displayName: 'Gardening Tips',
+    //   name: 'gardening',
+    //   linking: 'srNewsletters.gardening',
+    //   naming: 'srNewslettersGardening'
+    // },
     // {
     //   displayName: 'News Alerts',
     //   name: 'news',
