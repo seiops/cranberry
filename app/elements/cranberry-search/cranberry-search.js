@@ -83,7 +83,7 @@ class cranberrySearch {
 
         if (typeof inputQuery !== 'undefined' && inputQuery !== '') {
           params.q = inputQuery;
-          params.exactTerms = inputQuery;
+          // params.exactTerms = inputQuery;
         }
 
         if (sortOrder.toLowerCase() === 'date') {
