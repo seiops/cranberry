@@ -1,11 +1,33 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
 
 <dom-module id="cxense-recommendation-widget">
   <template>
     <style>
       @import "cxense-recommendation-widget/cxense-recommendation-widget";
-</style>
-<h1> Recommended for you </h1>
+    </style>
+
+    <iron-media-query
+      query="(max-width:640px)"
+      query-matches="{{mobile}}">
+    </iron-media-query>
+
+    <h3 class="cxense-header" hidden$="[[!hasItems]]">Recommended for you:</h3>
+    <div class="cxense-container" mobile$="[[mobile]]">
+      <template is="dom-repeat" items="[[items]]">
+        <a href="[[item.click_url]]"
+           ga-on="click"
+           ga-event-category="Cxense Content Clicked"
+           ga-event-action$="uti_crfy_[[index]]"
+           on-tap="_trackClick">
+          <div class="cxense-content-item">
+            <iron-image src="[[item.dominantimage]]" sizing="cover"></iron-image>
+            <h3 class="cxense-content-item-title">[[item.title]]</h3>
+          </div>
+        </a>
+      </template>
+    </div>
+
   </template>
     <script src="cxense-recommendation-widget.js"></script>
 </dom-module>

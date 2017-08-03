@@ -64,7 +64,9 @@ class cranberryCxense {
         referrerURL = '';
       }
 
-      window.cX = window.cX || {}; cX.callQueue = cX.callQueue || [];
+      window.cX = window.cX || {};
+      cX.callQueue = cX.callQueue || [];
+      
       cX.callQueue.push(['initializePage']);
       cX.callQueue.push(['setSiteId', siteId]);
       cX.callQueue.push(['sendPageViewEvent', { 'location': locationURL, 'referrer': referrerURL }]);

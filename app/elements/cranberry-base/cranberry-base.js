@@ -62,7 +62,7 @@ class CranberryBase {
       }
       
 
-      this._setupSurvey();
+      // this._setupSurvey();
     }
   }
 
