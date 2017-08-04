@@ -221,16 +221,12 @@ class cranberryJailMugs {
       dimension6: 'Jail Mugs'
     };
 
-    let youneeqData = this.get('youneeqData');
 
     // Send pageview event with iron-signals
     this.fire('iron-signal', {name: 'track-page', data: { path: path, data } });
 
     // Send Chartbeat
     this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: path, data: {'sections': 'jail-mugs' } } });
-
-    // Fire Youneeq Page Hit Request
-    this.fire('iron-signal', {name: 'page-hit', data: { content: youneeqData } });
   }
 
   _openModal () {
