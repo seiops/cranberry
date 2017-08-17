@@ -174,7 +174,7 @@ class cranberrySearch {
     let author = this.get('author');
 
     if (typeof route !== 'undefined' && typeof route.path !== 'undefined') {
-      this.fire('iron-signal', {name: 'track-page', data: { path: '/search' + route.path, data: { 'dimension6': 'Search' } } });
+      this.fire('iron-signal', {name: 'track-page', data: { path: '/search?query=' + route.path.replace('/', ''), data: { 'dimension6': 'Search' } } });
       this.fire('iron-signal', {name: 'chartbeat-track-page', data: { path: '/search' + route.path, data: {'sections': route.path.replace('/', ''), 'authors': author } } });
       this.fire('iron-signal', {name: 'page-hit'});
     }
