@@ -3,6 +3,28 @@
   margin: 12px 0;
 }
 
+div.scorestream-container {
+  margin: 0 16px;
+}
+
+div.scorestream-container[mobile-layout] {
+  margin: 0 0;
+}
+
+div.scorestream-container p.scorestream-sponsor-link {
+  text-decoration: none;
+}
+
+div.scorestream-container p.scorestream-sponsor-text {
+  background: #222;
+  color: #fff;
+  margin-bottom: 0;
+  border-bottom: 1px solid white;
+  font-size: 16px;
+  padding: 10px 16px;
+  border-radius: 3px;
+}
+
 div.scorestream-container iframe {
   width: 100%;
 }

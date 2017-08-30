@@ -1,11 +1,16 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/byutv-jsonp/byutv-jsonp.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
 
 <dom-module id="scorestream-widget">
   <template>
     <style>
       @import "scorestream-widget/scorestream-widget";
     </style>
+
+    <iron-media-query query="(min-width: 960px)" query-matches="{{desktop}}"></iron-media-query>
+    <iron-media-query query="(min-width: 720px) and (max-width:959px)" query-matches="{{tablet}}"></iron-media-query>
+    <iron-media-query query="(max-width:719px)" query-matches="{{mobile}}"></iron-media-query>
 
     <byutv-jsonp
       on-response="_handleResponse"
@@ -16,7 +21,17 @@
       id="request"></byutv-jsonp>
     
     <template is="dom-if" if="[[_computeShow(widgetUrl, isOff)]]" restamp>
-      <div class="scorestream-container" hidden$="[[isOff]]">
+      <div class="scorestream-container" hidden$="[[isOff]]" mobile-layout$="[[mobile]]">
+        <a class="scorestream-sponsor-link"
+           href="http://oglesbyattorneys.com/"
+           alt="Scorestream sponsored by Oglesby and Oglesby"
+           target="_blank"
+           ga-on="click"
+           ga-event-category="Scorestream Sponsor Clicked"
+           ga-event-action="uti_ss_sponsor"
+           >
+          <p class="scorestream-sponsor-text">Sponsored by Oglesby and Oglesby</p>
+        </a>
         <iframe src="[[widgetUrl]]" title="Realtime sports scoreboard widget"  scrolling="no" frameBorder="0"></iframe>
       </div>
     </template>
