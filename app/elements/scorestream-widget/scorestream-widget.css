@@ -11,7 +11,7 @@ div.scorestream-container[mobile-layout] {
   margin: 0 0;
 }
 
-div.scorestream-container p.scorestream-sponsor-link {
+div.scorestream-container a.scorestream-sponsor-link {
   text-decoration: none;
 }
 
