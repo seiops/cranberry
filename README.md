@@ -26,6 +26,16 @@ Run `npm install` in the terminal
 Run `bower install` in the terminal
 
 ### 3. Development workflow
+
 Build to localhost `gulp serve --site *SITENAME* --env *ENVIRONMENT NAME*`
 
+Build to localhost off distribution folder `gulp serve:dist --site *SITENAME* --env *ENVIRONMENT NAME*`
+
+### 4. Build application for Libercus envrionments
+
+Build to Sandusky Register's [development site](http://srdevcore.libercus.net) `gulp pre-deploy --site sandusky --env dev`
+
+Build to Sandusky Register's [stage site](http://srstgcore.libercus.net) `gulp pre-deploy --site sandusky --env stage`
+
+Build to Sandusky Register's [production site](http://www.sanduskyregister.com) `gulp pre-deploy --site sandusky --env prod`
 
