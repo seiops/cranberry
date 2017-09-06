@@ -20,7 +20,9 @@ Cranberry has the following major dependencies:
 Clone the [Github Repository](https://github.com/seiops/cranberry)
 
 ### 2. Install dependencies
+
 Run `npm install` in the terminal
+
 Run `bower install` in the terminal
 
 ### 3. Development workflow
