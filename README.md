@@ -28,11 +28,15 @@ Run `bower install` in the terminal
 ### 3. Development workflow
 
 Build to localhost `gulp serve --site *SITENAME* --env *ENVIRONMENT NAME*`
+
 *Example development build for Sandusky Register `gulp serve --site sandusky --env dev`
+
 *Example stage build for Sandusky Register `gulp serve --site sandusky --env stage`
 
 Build to localhost off distribution folder `gulp serve:dist --site *SITENAME* --env *ENVIRONMENT NAME*`
+
 *Example development dist build for Sandusky Register `gulp serve:dist --site sandusky --env dev`
+
 *Example stage dist build for Sandusky Register `gulp serve:dist --site sandusky --env stage`
 
 ### 4. Build application for Libercus envrionments
