@@ -1,6 +1,5 @@
 # SNG Cranberry Web Core
 
-
 ## Requirements
 
 Cranberry has the following major dependencies:
@@ -12,18 +11,13 @@ Cranberry has the following major dependencies:
 
 ## Setup
 
-### Quick Install
-
-## Getting Started
-
 ### 1. Get the code
-Clone the [Github Repository](https://github.com/seiops/cranberry)
+* Clone the [Github Repository](https://github.com/seiops/cranberry)
 
 ### 2. Install dependencies
-
-Run `npm install` in the terminal
-
-Run `bower install` in the terminal
+* Navigate to the cloned repository local folder
+* Run `npm install` in the terminal
+* Run `bower install` in the terminal
 
 ### 3. Development workflow
 
