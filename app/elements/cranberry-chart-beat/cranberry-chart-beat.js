@@ -1,3 +1,4 @@
+// Element for Chart Beat analytics tracking
 class cranberryChartBeat {
   beforeRegister() {
     this.is = 'cranberry-chart-beat';

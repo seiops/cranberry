@@ -1,3 +1,4 @@
+// Lives @ http://www.sanduskyregister.com/archive
 class cranberryArchivePage {
   beforeRegister() {
     this.is = 'cranberry-archive-page';

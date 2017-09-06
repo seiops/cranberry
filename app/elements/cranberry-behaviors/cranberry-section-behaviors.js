@@ -1,3 +1,4 @@
+// Globalized behaviors for animations, requestion of section information from Libercus, and handling errors.
 var CranberryBehaviors = CranberryBehaviors || {};
 
   CranberryBehaviors.SectionRequestBehavior = {

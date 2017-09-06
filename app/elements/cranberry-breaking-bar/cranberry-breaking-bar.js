@@ -1,3 +1,4 @@
+// Class for breaking news bar.
 class cranberryBreakingBar {
   beforeRegister() {
     this.is = 'cranberry-breaking-bar';

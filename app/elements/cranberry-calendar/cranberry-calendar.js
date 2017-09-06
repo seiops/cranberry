@@ -1,3 +1,4 @@
+// Lives at http://www.sanduskyregister.com/calendar
 class CranberryCalendar {
   // element registration
   beforeRegister() {

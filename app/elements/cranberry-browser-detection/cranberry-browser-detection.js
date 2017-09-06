@@ -1,3 +1,4 @@
+// Browser detection element for < IE 11
 class CranberryBrowserDetection {
   beforeRegister() {
     this.is = 'cranberry-browser-detection';

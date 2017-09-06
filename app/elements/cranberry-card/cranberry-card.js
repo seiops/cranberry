@@ -1,3 +1,4 @@
+// Element for story/gallery cards in the content stream
 class CranberryCard {
   beforeRegister() {
     this.is = 'cranberry-card';
