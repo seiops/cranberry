@@ -98,13 +98,14 @@
     <cranberry-script-loader></cranberry-script-loader>
 
     <!-- Google Analytics -->
-    <cranberry-google-analytics user="[[user]]" tracking-id='{$ config.google.analytics | dump $}' ga-ready="{{gaReady}}"></cranberry-google-analytics>
+    <!-- <cranberry-google-analytics user="[[user]]" tracking-id='{$ config.google.analytics | dump $}' ga-ready="{{gaReady}}"></cranberry-google-analytics> -->
+    <google-tag-manager cid="GTM-5TQ4R3T"></google-tag-manager>
 
     <!-- Mather -->
     <mather-analytics mather-id="{$ config.mather.id $}" mather-name="{$ config.mather.name $}" user="[[user]]"></mather-analytics>
     
-    <!-- Chartbeat -->
-    <cranberry-chart-beat author="{$ config.socialNaming.twitter $}" site-name="{$ config.chartbeat.domain $}" uid="{$ config.chartbeat.uid $}" route="[[route]]"></cranberry-chart-beat>
+    <!-- Chartbeat
+    <cranberry-chart-beat author="{$ config.socialNaming.twitter $}" site-name="{$ config.chartbeat.domain $}" uid="{$ config.chartbeat.uid $}" route="[[route]]"></cranberry-chart-beat> -->
 
     <!-- Cxense -->
     <cranberry-cxense site-id="{$ config.cxenseSiteId $}" domain="{$ config.baseDomain $}" route="[[route]]"></cranberry-cxense>
