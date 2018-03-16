@@ -32,6 +32,14 @@
     <iron-media-query query="(max-width: 719px)" query-matches="{{mobile}}"></iron-media-query>
 
     <page-title base-title="{$ config.title $}" divider=" | " page-title="[[gallery.title]]" direction="standard"></page-title>
+  
+    <!-- Cxense Tags -->
+    <meta name="cXenseParse:title" content="[[gallery.title]]"/>
+    <meta name="cXenseParse:author" content="[[gallery.byline.inputByline]]"/>
+    <meta name="cXenseParse:recs:publishtime" content="[[gallery.updated]]"/>
+    <meta name="cXenseParse:recs:articleid" content="[[gallery.itemId]]"/>
+    <meta name="cXenseParse:keywords" content="[[gallery.tags]]"/>
+    <meta property="article:modified_time" content="[[gallery.updated]]"/>    
 
     <!-- Main Div For Cranberry-Gallery -->
     <div class="cranberry-gallery" id="container" hidden$="[[loading]]">
@@ -63,10 +71,10 @@
             </div>
             <div class="share-buttons">
               <paper-button raised class="rounded-button comment-button" on-tap="_scrollToComments"><iron-icon icon="cranberry-icons:chat-bubble"></iron-icon></paper-button>
-              <paper-button id="buyButton" 
-                            class="rounded-button" 
-                            on-tap="_buyImage" 
-                            ga-on="click" 
+              <paper-button id="buyButton"
+                            class="rounded-button"
+                            on-tap="_buyImage"
+                            ga-on="click"
                             ga-event-category="Buy Imaged Clicked"
                             ga-event-action="uti_exlk_byim"
                             raised
@@ -99,7 +107,7 @@
       <div class="content-container">
         <div class="gallery-images-container">
           <template is="dom-repeat" items="{{gallery.mediaAssets.images}}" initial-count="5">
-            <iron-image class="gallery-image" 
+            <iron-image class="gallery-image"
                         src$="{$ config.baseDomain $}{{item.small}}"
                         sizing="cover"
                         data-index$="{{index}}"
@@ -115,7 +123,7 @@
         <div class="gallery-container-ad">
           <template is="dom-if" if="[[!loading]]" restamp>
             <google-dfp
-                class="right-rail-dfp" 
+                class="right-rail-dfp"
                 dfp-object="[[gallery.dfp]]"
                 tags="[[gallery.tags]]"
                 ad-pos="Bottom_of_Stream"

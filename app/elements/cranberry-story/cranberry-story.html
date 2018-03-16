@@ -32,6 +32,14 @@
     <app-route route="{{route}}" pattern="/:id" data="{{routeData}}"></app-route>
 
     <page-title base-title="{$ config.title $}" divider=" | " page-title="[[response.title]]" direction="standard"></page-title>
+  
+    <!-- Cxense Tags -->
+    <meta name="cXenseParse:title" content="[[response.title]]"/>
+    <meta name="cXenseParse:author" content="[[gallery.byline]]"/>
+    <meta name="cXenseParse:recs:publishtime" content="[[response.updated]]"/>
+    <meta name="cXenseParse:recs:articleid" content="{{storyId}}"/>
+    <meta name="cXenseParse:keywords" content="[[response.tags]]"/>
+    <meta property="article:modified_time" content="[[response.updated]]"/>
 
     <!-- Story Request Element -->
     <cranberry-story-request page-id="[[routeData.id]]"
@@ -60,7 +68,7 @@
               </google-dfp>
             </template>
           </div>
-        </template> 
+        </template>
 
         <!-- Error Display -->
         <template is="dom-if" if="[[error.errorCode]]">
