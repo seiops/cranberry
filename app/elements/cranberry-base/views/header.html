@@ -24,15 +24,14 @@
         </div>
         <div class="Main-siteButtons">
           <cranberry-header-links rest="{$ config.baseEndpointUrl $}"></cranberry-header-links>
-          <paper-icon-button class="Main-headerButton Main-searchButton"
-                             icon="search"
-                             on-tap="_focusSearch"
-                             ga-on="click"
-                             ga-event-category="Search Button Clicked"
-                             ga-event-action="uti_src">
-          </paper-icon-button>
+          <a href="/search" tabindex="-1">
+            <paper-icon-button class="Main-headerButton Main-searchButton"
+                               icon="search"
+                               src="/search">
+            </paper-icon-button>
+          </a>
           <div hidden$="[[!_computeDefaultHide(user.thumbnailURL)]]">
-            <a class="link" 
+            <a class="link"
                on-tap="openUserModal"
                ga-on="click"
                ga-event-category="User Logo Clicked"

@@ -47,16 +47,16 @@
           <div class="landing-display" hidden$="[[!noQuery]]">
             <p class="landing-text">Enter your search below to start:</p>
           </div>
-          <paper-material elevation=2>
+          <!-- <paper-material elevation=2>
             <cranberry-search-bar query="{{inputQuery}}"></cranberry-search-bar>
-          </paper-material>
+          </paper-material> -->
           <!-- Overlay spinner for user notification of loading -->
           <div id="loader" class="loading" hidden$="[[!isSearching]]">
             <p>Finding Stories Containing "[[inputQuery]]"...</p>
             <paper-spinner active="[[isSearching]]"></paper-spinner>
           </div>
           <!-- Main content area for search results. -->
-          <div id="searchContent" class="search-container" hidden$="[[_hideResultsArea(isSearching, noQuery, noResults)]]">
+          <!-- <div id="searchContent" class="search-container" hidden$="[[_hideResultsArea(isSearching, noQuery, noResults)]]">
             <div class="search-header-container">
               <div class="results">
                 <p class="total-results">About: [[totalResults]] results</p>
@@ -70,6 +70,7 @@
                 </paper-dropdown-menu>
               </div>
             </div>
+
             <template is="dom-repeat" items="{{items}}" restamp>
               <a href="[[_parseItemLink(item.link)]]"
                  ga-on="click"
@@ -91,8 +92,23 @@
           </div>
           <div class="no-results" hidden$="[[!noResults]]">
             <h3>Sorry, no matches found for [[inputQuery]].</h3>
-          </div>
+          </div> -->
+
+          <script>
+            (function() {
+              var cx = '018168273283818207484:nz8gk8efrl8';
+              var gcse = document.createElement('script');
+              gcse.type = 'text/javascript';
+              gcse.async = true;
+              gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+              var s = document.getElementsByTagName('script')[0];
+              s.parentNode.insertBefore(gcse, s);
+            })();
+          </script>
+          <gcse:search sort_by="date-sdate:d:s"></gcse:search>
+
         </div>
+
         <div class="right-rail">
           <div class="ad-container">
             <template is="dom-if" if="[[!hidden]]" restamp>
