@@ -91,9 +91,40 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     };
   </script>
 
-  <script>
+  <!-- DFP + AdBridg library -->
+  <script type='text/javascript'>
     var googletag = window.googletag || {};
     googletag.cmd = googletag.cmd || [];
+  
+    var AdBridg = AdBridg || {};
+    AdBridg.cmd = AdBridg.cmd || [];
+    (function() {
+        var adb = document.createElement("script");
+        adb.async = true;
+        adb.type = "text/javascript";
+        adb.src = '//prod.adspsp.com/adb.2283410.min.js';
+        var node = document.getElementsByTagName('script')[0];
+        node.parentNode.insertBefore(adb, node);
+  
+        // Return control to GPT if the AdBridg library fails to load.
+        adb.onerror = function() {
+          if (AdBridg.exists) { return; }
+          document.createElement('IMG').src = '//adspsp.com/pt/2283410/3/1/?e=0';
+          var dq = [], es;
+          dq.process = function() { while(dq.length) { googletag.display(dq.shift()); }}
+          AdBridg.defineSlot = function(p, s, d) { return googletag.defineSlot(p, s, d).addService(googletag.pubads()); }
+          AdBridg.defineOutOfPageSlot = function(p, d) { return googletag.defineOutOfPageSlot(p, d).addService(googletag.pubads()); }
+          AdBridg.destroySlots = function(s) { return googletag.destroySlots(s); }
+          AdBridg.display = function(d) { dq.push(d); if (es) { dq.process(); }}
+          AdBridg.refresh = function(s, o) { googletag.pubads().refresh(s, o); }
+          AdBridg.render = function() { }
+          AdBridg.serve = function() { googletag.enableServices(); es=1; dq.process(); }
+          AdBridg.sizeMapping = function() { return googletag.sizeMapping(); }
+          AdBridg.useSizeMapping = function() { }
+          while (AdBridg.cmd.length) { googletag.cmd.push(AdBridg.cmd.shift()); }
+          AdBridg.cmd.push = function(f) { return googletag.cmd.push(f); }
+        }
+    })();
   </script>
 
   <!-- Because this project uses vulcanize this should be your only html import

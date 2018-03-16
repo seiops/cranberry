@@ -75,6 +75,7 @@ class GoogleDFP {
     }
 
     _adPathChanged(dfpObject, hidden) {
+      //console.log("_adPathChanged",dfpObject);
       if (!hidden) {
         if (typeof dfpObject !== 'undefined' && Object.keys(dfpObject).length > 0) {
           let googleTagDefined = new Promise(
@@ -100,6 +101,7 @@ class GoogleDFP {
     }
 
     _setupAdvertisement(dfpObject) {
+      //console.log("_setupAdvertisement",dfpObject);
       this.async(() => {
         let adPos = this.get('adPos');
         let id = adPos + this._adCount();
@@ -120,12 +122,34 @@ class GoogleDFP {
     }
 
     _buildAdvertisement(dfpObject, id) {
-        googletag.cmd.push(() => {
+      //console.info('_buildAdvertisement',dfpObject);
+      
+        if(!window.AdBridgInit){
+          window.AdBridgInit = true;
+          
+          let splitAdPath = dfpObject.adSection.split('/');
+          let section = (splitAdPath.length > 0 && splitAdPath.length === 5 ? splitAdPath[4] : splitAdPath[3]);
+          let content = dfpObject.content;
+          let placement = dfpObject.placement;
+          
+          AdBridg.cmd.push(() => {
+            googletag.pubads().setTargeting('section', section);
+            googletag.pubads().setTargeting('placement', placement);
+
+            if (typeof content !== 'undefined' && content.length > 0) {
+              googletag.pubads().setTargeting('content', content);
+            }
+          });
+        }
+      
+        AdBridg.cmd.push(() => {
           let adSize = this.get('adSize');
           let adSizeMapping = this.get('adSizeMapping');
           let position = this.get('adPos');
           let content = dfpObject.content;
           let outOfPage = this.get('outOfPage');
+          
+          console.info('_buildAdvertisement::', position + ' - ' + adSize);
 
           this.logger(`Building ${id} using ${dfpObject.adSection}`, { type: 'build' });
 
@@ -137,7 +161,7 @@ class GoogleDFP {
             var mapping;
 
             if (adSizeMapping === 'leaderboard') {
-              mapping = googletag.sizeMapping().
+              mapping = AdBridg.sizeMapping().
                 addSize([0, 0], [320, 50]).
                 addSize([400, 400], [[320, 50]]).
                 addSize([850, 200], [[728, 90], [300, 50]]).
@@ -146,7 +170,7 @@ class GoogleDFP {
             }
 
             if (adSizeMapping === 'mobileLeader') {
-              mapping = googletag.sizeMapping().
+              mapping = AdBridg.sizeMapping().
                 addSize([0, 0], [300, 250]).
                 addSize([400, 400], [[300, 250]]).
                 addSize([850, 200], [[728, 90], [300, 50]]).
@@ -160,31 +184,23 @@ class GoogleDFP {
           let host = window.location.hostname;
           let placement = dfpObject.placement;
 
-          googletag.pubads().setTargeting('section', section);
-          googletag.pubads().setTargeting('placement', placement);
-
-          if (typeof content !== 'undefined' && content.length > 0) {
-            googletag.pubads().setTargeting('content', content);
-          }
-          
-          googletag.enableServices();
-
           let dfpURL = dfpObject.adSection + '/' + position;
 
           if (!outOfPage) {
-            window.slots[id] = googletag.defineSlot(dfpURL, adSize, id).addService(googletag.pubads()).setCollapseEmptyDiv(true);
+            window.slots[id] = AdBridg.defineSlot(dfpURL, adSize, id).setCollapseEmptyDiv(true);
           } else {
-            window.slots[id] = googletag.defineOutOfPageSlot(dfpURL, id).addService(googletag.pubads()).setCollapseEmptyDiv(true);
+            window.slots[id] = AdBridg.defineOutOfPageSlot(dfpURL, id).setCollapseEmptyDiv(true);
           }
-
 
           window.slots[id].setTargeting('position', position);
 
           if (typeof adSizeMapping !== 'undefined') {
             window.slots[id].defineSizeMapping(mapping);
+            AdBridg.useSizeMapping(window.slots[id], mapping);
           }
 
-          googletag.display(id);
+          AdBridg.display(id);
+          AdBridg.serve();
         });
     }
 
@@ -193,7 +209,7 @@ class GoogleDFP {
 
       if (typeof slot !== 'undefined' && slot !== '') {
         this.logger(`Destorying ${slot}`, { type: 'destroy' });
-        googletag.destroySlots([window.slots[slot]]);
+        AdBridg.destroySlots([window.slots[slot]]);
 
         delete window.slots[slot];
 
@@ -212,7 +228,7 @@ class GoogleDFP {
  
            if (advertisement !== null && typeof advertisement !== 'undefined' && typeof slot !== 'undefined' && slot !== null) {
              console.info('\<google-dfp\> refreshing: ' + slot);
-             googletag.pubads().refresh([window.slots[slot]]);
+             AdBridg.refresh([window.slots[slot]]);
            }
          }
        });
