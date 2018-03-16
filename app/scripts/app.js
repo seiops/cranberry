@@ -83,7 +83,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     let ua = navigator.userAgent,tem,M=ua.match(/(opera|chrome|safari|firefox|msie|edge|trident|crios(?=\/))\/?\s*(\d+)/i) || [];
 
     if (/trident/i.test(M[1])) {
-      tem=/\brv[ :]+(\d+)/g.exec(ua) || []; 
+      tem=/\brv[ :]+(\d+)/g.exec(ua) || [];
       return {name:'IE',version:(tem[1]||'')};
     }
 
@@ -200,7 +200,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     document.head.appendChild(gpt);
     document.head.appendChild(shareThrough);
     document.head.appendChild(nativo);
-    document.head.appendChild(sonobi);
+    //document.head.appendChild(sonobi);
   }
 
   // Listen for template bound event to know when bindings
