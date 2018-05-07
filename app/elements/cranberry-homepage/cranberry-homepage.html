@@ -22,7 +22,6 @@
 <link rel="import" href="../cranberry-search-bar/cranberry-search-bar.html">
 <link rel="import" href="../cranberry-pagination/cranberry-pagination.html">
 <link rel="import" href="../scorestream-widget/scorestream-widget.html">
-<link rel="import" href="../tout-element/tout-element.html">
 <link rel="import" href="../google-dfp/google-dfp.html">
 
 <dom-module id="cranberry-homepage">
@@ -132,9 +131,6 @@
       </google-dfp>
     </template>
 
-      <template is="dom-if" if="[[desktop]]">
-        <tout-element slot="live-player" player-name="live_channel" tout-uid="{$ config.tout.toutUid $}" hidden$="[[loading]]"></tout-element>
-      </template>
   </template>
 
   <script src="cranberry-homepage.js"></script>
